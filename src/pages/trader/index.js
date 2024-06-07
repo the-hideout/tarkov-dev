@@ -106,6 +106,15 @@ function Trader() {
         }
         return props;
     }, [trader, selectedTable, t]);
+
+    const buyBackTableEnabled = useMemo(() => {
+        return trader?.levels.some(l => l.requiredCommerce > 0);
+    }, [trader]);
+
+    const traderOffersTableEnabled = useMemo(() => {
+        return trader?.barters.length > 0;
+    }, [trader]);
+
     if (!trader && (status === 'idle' || status === 'loading')) {
         return <Loading/>;
     }
@@ -178,7 +187,7 @@ function Trader() {
                     </cite>
                 </h1>
                 <Filter center>
-                    {trader.normalizedName !== 'lightkeeper' ? (
+                    {buyBackTableEnabled ? (
                         <ButtonGroupFilter>
                             <ButtonGroupFilterButton
                                 tooltipContent={
@@ -193,7 +202,7 @@ function Trader() {
                             />
                         </ButtonGroupFilter>
                     ) : ''}
-                    {trader.normalizedName !== 'lightkeeper' ? (
+                    {traderOffersTableEnabled ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (
                                 <ButtonGroupFilterButton
@@ -239,7 +248,7 @@ function Trader() {
                     traderBuybackFilter={selectedTable === 'spending' ? true : false}
                     maxItems={selectedTable === 'spending' ? 50 : false}
                     fleaPrice={selectedTable === 'spending' ? false : 1}
-                    traderPrice={selectedTable === 'spending' ? false : 2}
+                    traderOffer={selectedTable === 'spending' ? false : 2}
                     cheapestPrice={selectedTable === 'spending' ? 1 : false}
                     traderValue={selectedTable === 'spending' ? 2 : false}
                     traderBuyback={selectedTable === 'spending' ? 3 : false}

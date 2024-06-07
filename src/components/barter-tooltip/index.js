@@ -111,7 +111,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             {requirements.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
                 let price = requiredItem.cheapestPrice.pricePerUnit;
-                let sourceName = requiredItem.cheapestPrice.vendor?.normalizedName || requiredItem.cheapestPrice.craft.station.normalizedName;
+                let sourceName = requiredItem.cheapestPrice.vendor?.normalizedName || requiredItem.cheapestPrice.craft?.station.normalizedName;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     itemName = dogtagCost.name;

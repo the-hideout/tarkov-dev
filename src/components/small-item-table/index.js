@@ -25,7 +25,7 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import formatPrice from '../../modules/format-price.js';
 import itemSearch from '../../modules/item-search.js';
-import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items.js';
+import { getCheapestBarter, getCheapestCraft, getBarterCost } from '../../modules/format-cost-items.js';
 import { formatCaliber } from '../../modules/format-ammo.mjs';
 import itemCanContain from '../../modules/item-can-contain.js';
 
@@ -208,6 +208,7 @@ function SmallItemTable(props) {
         // columns
         instaProfit,
         traderPrice,
+        traderOffer,
         traderFilter,
         loyaltyLevelFilter,
         traderValue,
@@ -654,6 +655,25 @@ function SmallItemTable(props) {
                 });
         }
 
+        if (traderOffer) {
+            for (const barter of barters) {
+                if (traderFilter && barter.trader.normalizedName !== traderFilter) {
+                    continue;
+                }
+                if (loyaltyLevelFilter && barter.level !== loyaltyLevelFilter) {
+                    continue;
+                }
+                const barterCost = getBarterCost(barter, {barters, crafts, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
+                const barterItem = items.find(i => i.id === barter.rewardItems[0].item.id);
+                returnData.push({
+                    ...formatItem(barterItem),
+                    barter,
+                    barterCost,
+                });
+            }
+            returnData = returnData.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
         if (defaultRandom && !nameFilter) {
             shuffleArray(returnData, randomSeeds);
         }
@@ -847,6 +867,7 @@ function SmallItemTable(props) {
         maxPenetration,
         traderValue,
         traderBuyback,
+        traderOffer
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -1099,6 +1120,84 @@ function SmallItemTable(props) {
                 accessor: (d) => Number(d.buyFor[0]?.priceRUB || 0),
                 Cell: TraderPriceCell,
                 position: traderPrice,
+            });
+        }
+
+        if (traderOffer) {
+            useColumns.push({
+                Header: t('Trader offer'),
+                id: 'traderOffer',
+                accessor: (d) => {
+                    if (d.barter) {
+                        return d.barterCost;
+                    }
+                    return Number(d.buyFor[0]?.priceRUB || 0)
+                },
+                Cell: (props) => {
+                    if (props.row.original.barter) {
+                        const priceSource = `${props.row.original.barter.trader.name} ${t('LL{{level}}', { level: props.row.original.barter.level })}`;
+                        const barterIcon = (
+                            <Icon
+                                key="barter-tooltip-icon"
+                                path={mdiCached}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                        );
+                        let barterTipTitle = '';
+                        let taskIcon = '';
+                        if (props.row.original.barter.taskUnlock) {
+                            taskIcon = (
+                                <Icon
+                                    key="barter-task-tooltip-icon"
+                                    path={mdiClipboardList}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            );
+                            barterTipTitle = (
+                                <Link to={`/task/${props.row.original.barter.taskUnlock.normalizedName}`}>
+                                    {t('Task: {{taskName}}', {taskName: props.row.original.barter.taskUnlock.name})}
+                                </Link>
+                            );
+                        }
+                        const tipContent = (
+                            <BarterTooltip
+                                barter={props.row.original.barter}
+                                showTitle={taskIcon !== ''}
+                                title={barterTipTitle}
+                                allowAllSources={showAllSources}
+                                barters={barters}
+                                crafts={crafts}
+                                useBarterIngredients={useBarterIngredients}
+                                useCraftIngredients={useCraftIngredients}
+                            />
+                        );
+                        const displayedPrice = [priceSource, barterIcon, taskIcon];
+                        const priceContent = [];
+                        priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
+                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>));
+                        return (
+                            <ConditionalWrapper
+                                condition={tipContent}
+                                wrapper={(children) => {
+                                    return (
+                                        <Tippy placement="right" content={tipContent} interactive={true}>
+                                            {children}
+                                        </Tippy>
+                                    );
+                                }}
+                            >
+                                <div className="center-content">
+                                    {priceContent}
+                                </div>
+                            </ConditionalWrapper>
+                        );
+                    } else {
+                        return TraderPriceCell(props);
+                    }
+                },
+                position: traderOffer,
             });
         }
 
@@ -1709,7 +1808,7 @@ function SmallItemTable(props) {
                         displayedPrice.push(barterIcon);
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
-                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
+                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>));
                     } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
@@ -1820,6 +1919,7 @@ function SmallItemTable(props) {
         t,
         instaProfit,
         traderPrice,
+        traderOffer,
         traderValue,
         traderBuyback,
         fleaPrice,
