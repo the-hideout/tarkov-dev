@@ -10,7 +10,6 @@ import TraderResetTime from '../../components/trader-reset-time/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 
 import useTradersData from '../../features/traders/index.js';
-import useItemsData from '../../features/items/index.js';
 
 import i18n from '../../i18n.js';
 
@@ -19,12 +18,13 @@ import './index.css';
 function Traders(props) {
     const { t } = useTranslation();
     const { data: allTraders } = useTradersData();
-    const { data: items } = useItemsData();
 
-    // filter traders to only those who sell items
+    // filter traders to only those who have barters
+    // we used to check for sell items, but requires all item data
+    // items.some(item => item.buyFor.some(offer => offer.vendor.trader?.id === trader.id))
     const traders = useMemo(() => {
-        return allTraders.filter(trader => items.some(item => item.buyFor.some(offer => offer.vendor.trader?.id === trader.id)));
-    }, [allTraders, items]);
+        return allTraders.filter(trader => trader.barters?.length > 0);
+    }, [allTraders]);
 
     return [
         <SEO 
