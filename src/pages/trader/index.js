@@ -125,10 +125,12 @@ function Trader() {
         return <ErrorPage />;
     
     let resetTime = (<LoadingSmall/>);
-    if (trader.resetTime) {
+    if (trader.resetTime && trader.barters.length) {
         resetTime = (
             <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />
         );
+    } else if (trader.resetTime) {
+        resetTime = '';
     }
     return [
         <SEO 
