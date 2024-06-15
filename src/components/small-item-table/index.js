@@ -138,26 +138,15 @@ function shuffleArray(array, randomSeeds) {
 const getArmorZoneString = (armorZones) => {
     return armorZones
         ?.map((zoneName) => {
-            if (zoneName === 'THORAX') {
-                return 'Thorax';
-            }
-
-            if (zoneName === 'STOMACH') {
-                return 'Stomach';
-            }
-
-            if (zoneName === 'Left Arm') {
-                return false;
-            }
-
-            if (zoneName === 'Right Arm') {
-                return 'Arms';
+            if (zoneName === zoneName.toUpperCase()) {
+                return zoneName.charAt(0).toUpperCase().concat(zoneName.substr(1).toLowerCase());
             }
 
             return zoneName;
         })
         .filter(Boolean)
-        .join(', ');
+        .sort()
+        .join(' · ');
 };
 
 const getGuns = (items, targetItem) => {
