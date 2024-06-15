@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { isValidElement } from 'react';
 
-import camelcaseToDashes from './camelcase-to-dashes.js';
 import { formatCaliber } from './format-ammo.mjs';
 
 import i18n from '../i18n.js';
