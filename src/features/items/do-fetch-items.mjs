@@ -84,7 +84,7 @@ class ItemsQuery extends APIQuery {
                                 id
                                 name
                             }
-                            headZones
+                            zones
                             durability
                             ergoPenalty
                             speedPenalty
