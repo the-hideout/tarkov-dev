@@ -20,6 +20,10 @@
     top: 0;
 }
 
+.data-table thead {
+    z-index: 1;
+}
+
 .data-table tbody tr {
     height: 69px;
 }
