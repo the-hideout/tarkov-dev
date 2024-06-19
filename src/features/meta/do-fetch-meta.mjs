@@ -14,6 +14,7 @@ class MetaQuery extends APIQuery {
                 minPlayerLevel
                 sellOfferFeeRate
                 sellRequirementFeeRate
+                foundInRaidRequired
             }
             armorMaterials(lang: ${language}) {
                 id
