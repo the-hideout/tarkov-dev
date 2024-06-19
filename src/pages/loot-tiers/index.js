@@ -1,7 +1,8 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Icon } from '@mdi/react';
 import {mdiFinance} from '@mdi/js';
@@ -19,6 +20,7 @@ import {
 
 import QueueBrowserTask from '../../modules/queue-browser-task.js';
 import capitalizeFirst from '../../modules/capitalize-first.js';
+import itemSearch from '../../modules/item-search.js';
 
 import useItemsData from '../../features/items/index.js';
 
@@ -26,7 +28,7 @@ import './index.css';
 
 const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
-const DEFAULT_MAX_ITEMS = 244;
+const DEFAULT_MAX_ITEMS = 256;
 
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
@@ -54,44 +56,48 @@ function LootTier(props) {
         'groupByType',
         false,
     );
+
     const { t } = useTranslation();
-    const filterOptions = [
-        {
-            value: 'barter',
-            label: t('Barters'),
-            default: true,
-        },
-        {
-            value: 'keys',
-            label: t('Keys'),
-            default: true,
-        },
-        // {
-        //     value: 'marked',
-        //     label: t('Marked'),
-        //     default: false,
-        // },
-        {
-            value: 'mods',
-            label: t('Mods'),
-            default: true,
-        },
-        {
-            value: 'provisions',
-            label: t('Provisions'),
-            default: true,
-        },
-        {
-            value: 'wearable',
-            label: t('Wearables'),
-            default: true,
-        },
-        {
-            value: 'gun',
-            label: t('Guns'),
-            default: true,
-        },
-    ];
+    const filterOptions = useMemo(() => {
+        return [
+            {
+                value: 'barter',
+                label: t('Barters'),
+                default: true,
+            },
+            {
+                value: 'keys',
+                label: t('Keys'),
+                default: true,
+            },
+            // {
+            //     value: 'marked',
+            //     label: t('Marked'),
+            //     default: false,
+            // },
+            {
+                value: 'mods',
+                label: t('Mods'),
+                default: true,
+            },
+            {
+                value: 'provisions',
+                label: t('Provisions'),
+                default: true,
+            },
+            {
+                value: 'wearable',
+                label: t('Wearables'),
+                default: true,
+            },
+            {
+                value: 'gun',
+                label: t('Guns'),
+                default: true,
+            }
+        ]
+    }, [t]);
+
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
         types: filterOptions
@@ -105,7 +111,18 @@ function LootTier(props) {
             .filter(Boolean),
     });
 
-    const { data: items } = useItemsData();
+    const inputFilterRef = useRef();
+
+    useHotkeys('ctrl+q', () => {
+        if (inputFilterRef?.current.scrollIntoView) {
+            inputFilterRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+
+        inputFilterRef?.current.focus();
+    });
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
@@ -127,6 +144,8 @@ function LootTier(props) {
             });
         });
     };
+
+    const { data: items } = useItemsData();
 
     const itemData = useMemo(() => {
         return items
@@ -222,28 +241,27 @@ function LootTier(props) {
     }, [filters.types, includeMarked, itemData, minPrice]);
 
     const filteredItems = useMemo(() => {
-        const items = typeFilteredItems.filter((item) => {
-            if (
-                filters.name.length > 0 &&
-                item.name.toLowerCase().indexOf(filters.name) === -1 &&
-                item.shortName?.toLowerCase().indexOf(filters.name) === -1
-            ) {
-                return false;
-            }
+        // const items = typeFilteredItems.filter((item) => {
+        //     if (
+        //         filters.name.length > 0 &&
+        //         item.name.toLowerCase().indexOf(filters.name) === -1 &&
+        //         item.shortName?.toLowerCase().indexOf(filters.name) === -1
+        //     ) {
+        //         return false;
+        //     }
 
-            return true;
-        });
+        //     return true;
+        // });
+        let items = typeFilteredItems;
+        if (filters.name.length > 0) {
+            items = itemSearch(typeFilteredItems, filters.name);
+        }
 
         items.sort((itemA, itemB) => {
-            if (itemA.pricePerSlot > itemB.pricePerSlot) {
-                return -1;
-            }
-
-            if (itemA.pricePerSlot < itemB.pricePerSlot) {
-                return 1;
-            }
-
-            return 0;
+            const aPPS = itemA.pricePerSlot || Number.MIN_SAFE_INTEGER;
+            const bPPS = itemB.pricePerSlot || Number.MIN_SAFE_INTEGER;
+            
+            return bPPS - aPPS;
         });
 
         return items;
@@ -274,18 +292,6 @@ function LootTier(props) {
 
         if (groupByType) {
             const activeFiltersSet = new Set();
-
-            for (const item of selectedItems) {
-                for (const activeFilter of filters.types) {
-                    if (!item.types.includes(activeFilter)) {
-                        continue;
-                    }
-
-                    activeFiltersSet.add(activeFilter);
-                }
-            }
-            innerGroupNames = Array.from(activeFiltersSet);
-
             const chunkMap = {};
 
             for (const item of selectedItems) {
@@ -293,6 +299,9 @@ function LootTier(props) {
                     if (!item.types.includes(activeFilter)) {
                         continue;
                     }
+
+                    const option = filterOptions.find(option => option.value === activeFilter);
+                    activeFiltersSet.add(option.label)
 
                     if (!chunkMap[activeFilter]) {
                         chunkMap[activeFilter] = [];
@@ -302,8 +311,10 @@ function LootTier(props) {
                 }
             }
 
+            innerGroupNames = Array.from(activeFiltersSet);
             innerItemChunks = Object.values(chunkMap);
-        } else {
+        }
+        else {
             innerGroupNames = defaultGroupNames;
 
             innerItemChunks = arrayChunk(
@@ -342,7 +353,7 @@ function LootTier(props) {
             groupNames: innerGroupNames,
             itemChunks: innerItemChunks,
         };
-    }, [filters.types, groupByType, selectedItems]);
+    }, [filterOptions, filters.types, groupByType, selectedItems]);
 
     const handleFilterNameChange = useCallback(
         (e) => {
@@ -413,6 +424,7 @@ function LootTier(props) {
                     placeholder={t('filter on item')}
                     type={'text'}
                     onChange={handleFilterNameChange}
+                    parentRef={inputFilterRef}
                 />
             </Filter>
             {itemChunks.map((items, index) => (

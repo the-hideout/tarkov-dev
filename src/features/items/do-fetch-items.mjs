@@ -36,6 +36,7 @@ class ItemsQuery extends APIQuery {
                     low24hPrice
                     high24hPrice
                     lastLowPrice
+                    lastOfferCount
                     gridImageLink
                     iconLink
                     baseImageLink
@@ -83,7 +84,7 @@ class ItemsQuery extends APIQuery {
                                 id
                                 name
                             }
-                            headZones
+                            zones
                             durability
                             ergoPenalty
                             speedPenalty

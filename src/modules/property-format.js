@@ -1,16 +1,23 @@
 import { Link } from 'react-router-dom';
 import { isValidElement } from 'react';
 
-import camelcaseToDashes from './camelcase-to-dashes.js';
 import { formatCaliber } from './format-ammo.mjs';
 
 import i18n from '../i18n.js';
 
-const defaultFormat = (inputString) => {
-    const baseFormat = camelcaseToDashes(inputString).replace(/-/g, ' ');
+const zonesFormat = (zones) => {
+    return zones
+            ?.map((zoneName) => {
+                if (zoneName === zoneName.toUpperCase()) {
+                    return zoneName.charAt(0).toUpperCase() + zoneName.substr(1).toLowerCase();
+                }
 
-    return baseFormat.charAt(0).toUpperCase() + baseFormat.slice(1);
-};
+                return zoneName;
+            })
+            .filter(Boolean)
+            .sort()
+            .join(' · ')
+}
 
 const ignoreCategories = [
     '54009119af1c881c07000029', // Item
@@ -62,8 +69,8 @@ const formatter = (key, value, id) => {
         value = `${value*100}%`;
     }
 
-    if (key === 'armorZone') {
-        value = value?.map(defaultFormat).join(', ');
+    if (key === 'zones' || key === 'headZones') {
+        value = zonesFormat(value);
     }
 
     if (key === 'armorDamage') {

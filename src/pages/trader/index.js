@@ -16,6 +16,7 @@ import SmallItemTable from '../../components/small-item-table/index.js';
 import QuestTable from '../../components/quest-table/index.js';
 import TraderResetTime from '../../components/trader-reset-time/index.js';
 import ErrorPage from '../error-page/index.js';
+import Loading from '../../components/loading/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import PropertyList from '../../components/property-list/index.js';
 import formatPrice from '../../modules/format-price.js';
@@ -81,12 +82,17 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const { data: traders } = useTradersData();
+    const { data: traders, status } = useTradersData();
     
-    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
+    const trader = useMemo(() => {
+        return traders.find(tr => tr.normalizedName === traderName.toLowerCase());;
+    }, [traders, traderName]);
 
     const levelProperties = useMemo(() => {
         const props = {};
+        if (!trader) {
+            return props;
+        }
         if (!Number.isInteger(selectedTable)) {
             return props;
         }
@@ -100,6 +106,18 @@ function Trader() {
         }
         return props;
     }, [trader, selectedTable, t]);
+
+    const buyBackTableEnabled = useMemo(() => {
+        return trader?.levels.some(l => l.requiredCommerce > 0);
+    }, [trader]);
+
+    const traderOffersTableEnabled = useMemo(() => {
+        return trader?.barters.length > 0;
+    }, [trader]);
+
+    if (!trader && (status === 'idle' || status === 'loading')) {
+        return <Loading/>;
+    }
     if (!trader)
         return <ErrorPage />;
     
@@ -107,10 +125,12 @@ function Trader() {
         return <ErrorPage />;
     
     let resetTime = (<LoadingSmall/>);
-    if (trader.resetTime) {
+    if (trader.resetTime && trader.barters.length) {
         resetTime = (
             <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />
         );
+    } else if (trader.resetTime) {
+        resetTime = '';
     }
     return [
         <SEO 
@@ -169,7 +189,7 @@ function Trader() {
                     </cite>
                 </h1>
                 <Filter center>
-                    {trader.normalizedName !== 'lightkeeper' ? (
+                    {buyBackTableEnabled ? (
                         <ButtonGroupFilter>
                             <ButtonGroupFilterButton
                                 tooltipContent={
@@ -184,7 +204,7 @@ function Trader() {
                             />
                         </ButtonGroupFilter>
                     ) : ''}
-                    {trader.normalizedName !== 'lightkeeper' ? (
+                    {traderOffersTableEnabled ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (
                                 <ButtonGroupFilterButton
@@ -230,7 +250,7 @@ function Trader() {
                     traderBuybackFilter={selectedTable === 'spending' ? true : false}
                     maxItems={selectedTable === 'spending' ? 50 : false}
                     fleaPrice={selectedTable === 'spending' ? false : 1}
-                    traderPrice={selectedTable === 'spending' ? false : 2}
+                    traderOffer={selectedTable === 'spending' ? false : 2}
                     cheapestPrice={selectedTable === 'spending' ? 1 : false}
                     traderValue={selectedTable === 'spending' ? 2 : false}
                     traderBuyback={selectedTable === 'spending' ? 3 : false}

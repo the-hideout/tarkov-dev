@@ -5,7 +5,7 @@ import equal from 'fast-deep-equal';
 
 import doFetchItems from './do-fetch-items.mjs';
 import { placeholderItems } from '../../modules/placeholder-data.js';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 
 const initialState = {
     data: placeholderItems(langCode()),
@@ -52,17 +52,24 @@ export const itemsReducer = itemsSlice.reducer;
 
 export const selectAllItems = (state) => state.items.data;
 
-let fetchedData = false;
+let fetchedLang = false;
 let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
 
 export default function useItemsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.items);
+    const lang = useLangCode();
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchItems());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -70,10 +77,9 @@ export default function useItemsData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

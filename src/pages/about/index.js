@@ -53,7 +53,7 @@ function About() {
             <h2>{t('Discussions & feedback')}</h2>
             <Trans i18nKey={'about-discord-p'}>
                 <p>
-                    If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                    If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/WwTvNe356u" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                 </p>
             </Trans>
             <Trans i18nKey={'about-x-p'}>

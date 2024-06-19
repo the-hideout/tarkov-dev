@@ -5,7 +5,7 @@ import equal from 'fast-deep-equal';
 
 import doFetchHideout from './do-fetch-hideout.mjs';
 
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderHideout } from '../../modules/placeholder-data.js';
 
 const initialState = {
@@ -46,17 +46,24 @@ export const hideoutReducer = hideoutSlice.reducer;
 
 export const selectAllHideoutModules = (state) => state.hideout.data;
 
-let fetchedData = false;
+let fetchedLang = false;
 let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
 
 export default function useHideoutData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.hideout);
+    const lang = useLangCode();
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchHideout());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -64,10 +71,9 @@ export default function useHideoutData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

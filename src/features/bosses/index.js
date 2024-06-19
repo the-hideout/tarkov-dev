@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import equal from 'fast-deep-equal';
 
 import doFetchBosses from './do-fetch-bosses.mjs';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderBosses } from '../../modules/placeholder-data.js';
 import rawBossData from '../../data/boss.json';
 import useMapsData from '../maps/index.js';
@@ -89,27 +89,36 @@ export const selectAllBosses = createSelector([selectBosses, selectMaps], (bosse
     return bosses;
 });
 
-let fetchedData = false;
+let fetchedLang = false;
 let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
 
 export default function useBossesData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.bosses);
     const data = useSelector(selectAllBosses);
     useMapsData();
+    const lang = useLangCode();
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchBosses());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
                 dispatch(fetchBosses());
             }, 600000);
         }
-        return () => clearInterval(refreshInterval);
-    }, [dispatch]);
+        return () => {
+            clearRefreshInterval();
+        };
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

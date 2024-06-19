@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import doFetchTraders from './do-fetch-traders.mjs';
 
 import { placeholderTraders } from '../../modules/placeholder-data.js';
@@ -44,17 +44,24 @@ export const tradersReducer = tradersSlice.reducer;
 
 export const selectAllTraders = (state) => state.traders.data;
 
-let fetchedData = false;
+let fetchedLang = false;
 let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
 
 export default function useTradersData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.traders);
+    const lang = useLangCode();
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchTraders());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -62,10 +69,9 @@ export default function useTradersData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, lang,]);
     
     return { data, status, error };
 };

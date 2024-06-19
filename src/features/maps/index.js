@@ -17,7 +17,7 @@ import {
 } from '@mdi/js';
 
 import doFetchMaps from './do-fetch-maps.mjs';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderMaps } from '../../modules/placeholder-data.js';
 import i18n from '../../i18n.js';
 
@@ -59,17 +59,24 @@ export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
 
-let fetchedData = false;
+let fetchedLang = false;
 let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
 
 export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
+    const lang = useLangCode();
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchMaps());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -77,10 +84,9 @@ export default function useMapsData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

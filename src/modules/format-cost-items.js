@@ -79,6 +79,35 @@ function getItemBarters(item, barters, settings, allowAllSources) {
     return matchedBarters;
 }
 
+function getBarterCost(barter, {barters = [], crafts = [], settings = false, allowAllSources = false, useBarterIngredients = false, useCraftIngredients = false, itemChain = []}) {
+    if (!settings) {
+        settings = {};
+        allowAllSources = true;
+    }
+    if (!itemChain || !Array.isArray(itemChain)) {
+        itemChain = [];
+    }
+    itemChain = [
+        ...itemChain,
+    ];
+    return barter.requiredItems.reduce(
+        (accumulatedPrice, requiredItem) => {
+            let price = !itemChain.includes(requiredItem.item.id) ? 
+                getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain}).pricePerUnit :
+                getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+            if (isAnyDogtag(requiredItem.item.id)) {
+                if (settings.hideDogtagBarters) {
+                    return 0;
+                }
+                const dogtagCost = getDogTagCost(requiredItem, settings);
+                price = dogtagCost.price;
+            }
+            return accumulatedPrice + (price * requiredItem.count);
+        },
+        0,
+    );
+}
+
 function getCheapestBarter(item, {barters = [], crafts = [], settings = false, allowAllSources = false, useBarterIngredients = false, useCraftIngredients = false, itemChain = []}) {
     if (!settings) {
         settings = {};
@@ -93,22 +122,7 @@ function getCheapestBarter(item, {barters = [], crafts = [], settings = false, a
     ];
     const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
     const bestPrice = itemBarters.reduce((bestBarter, barter) => {
-        const thisBarterCost = barter.requiredItems.reduce(
-            (accumulatedPrice, requiredItem) => {
-                let price = !itemChain.includes(requiredItem.item.id) ? 
-                    getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain}).pricePerUnit :
-                    getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
-                if (isAnyDogtag(requiredItem.item.id)) {
-                    if (settings.hideDogtagBarters) {
-                        return 0;
-                    }
-                    const dogtagCost = getDogTagCost(requiredItem, settings);
-                    price = dogtagCost.price;
-                }
-                return accumulatedPrice + (price * requiredItem.count);
-            },
-            0,
-        );
+        const thisBarterCost = getBarterCost(barter, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain});
         const thisPricePerUnit = Math.round(thisBarterCost / barter.rewardItems[0].count);
         if (thisPricePerUnit && thisPricePerUnit < bestBarter.price) {
             bestBarter.barter = barter;
@@ -318,6 +332,6 @@ const formatCostItems = (itemsList = [], {
     });
 };
 
-export { formatCostItems, getItemBarters, getCheapestCashPrice, getCheapestBarter, getItemCrafts, getCheapestCraft, getCheapestPrice };
+export { formatCostItems, getItemBarters, getCheapestCashPrice, getBarterCost, getCheapestBarter, getItemCrafts, getCheapestCraft, getCheapestPrice };
 
 export default formatCostItems;
