@@ -419,6 +419,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         barters,
         crafts,
         items,
+        meta,
         itemFilter,
         traders,
         completedQuests,
