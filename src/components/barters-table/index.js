@@ -5,15 +5,20 @@ import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table/index.js';
+
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
+import useItemsData from '../../features/items/index.js';
 import { selectAllTraders } from '../../features/settings/settingsSlice.js';
+
 import ValueCell from '../value-cell/index.js';
 import CostItemsCell from '../cost-items-cell/index.js';
-import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items.js';
 import RewardCell from '../reward-cell/index.js';
-import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags.js';
+
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
+
+import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items.js';
+import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags.js';
 
 import './index.css';
 
@@ -28,6 +33,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
+    const { data: items } = useItemsData();
 
     const columns = useMemo(
         () => [
@@ -43,6 +49,19 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 Header: t('Cost'),
                 id: 'costItems',
                 accessor: 'costItems',
+                sortType: (a, b, columnId, desc) => {
+                    if (a.values.costItems[0].id === '5d235b4d86f7742e017bc88a' && a.values.costItems[0].id === '5d235b4d86f7742e017bc88a') {
+                        const aGPCost = a.values.costItems[0].price || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        const bGPCost = b.values.costItems[0].price || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        
+                        return aGPCost - bGPCost;
+                    }
+
+                    const aCost = a.values.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bCost = b.values.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aCost - bCost;
+                },
                 Cell: ({ value }) => {
                     return <CostItemsCell costItems={value} allowAllSources={showAll} barters={useBarterIngredients ? barters : false} crafts={useCraftIngredients ? crafts : false} />;
                 },
@@ -67,10 +86,10 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 id: 'savings',
                 accessor: (d) => Number(d.savings),
                 sortType: (a, b, columnId, desc) => {
-                    const aSell = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bSell = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const aSave = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bSave = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     
-                    return aSell - bSell;
+                    return aSave - bSave;
                 },
                 Cell: (props) => {
                     if (props.row.original.cached) {
@@ -87,7 +106,18 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 Header: t('InstaProfit'),
                 id: 'instaProfit',
                 accessor: 'instaProfit',
-                sortType: 'basic',
+                sortType: (a, b, columnId, desc) => {
+                    const aProf = a.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bProf = b.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (aProf === bProf) {
+                        const aSave = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        const bSave = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        
+                        return aSave - bSave;
+                    }
+                    
+                    return aProf - bProf;
+                },
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -190,12 +220,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                             continue;
                         }
 
-                        if (
-                            requiredItem.item.name
-                                .toLowerCase()
-                                .replace(/\s/g, '')
-                                .includes('dogtag')
-                        ) {
+                        if (requiredItem.item.normalizedName.includes('dogtag')) {
                             setSkippedBySettings(true);
                             return false;
                         }
@@ -251,8 +276,15 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 costItems.forEach((costItem) => (cost += costItem.pricePerUnit * costItem.count));
 
                 const barterRewardItem = barterRow.rewardItems[0].item;
+                let barterRewardContainedItem;
 
-                const bestSellTo = barterRewardItem.sellFor.reduce(
+                if (barterRewardItem.bsgCategoryId === '543be5cb4bdc2deb348b4568') {    // "ammo-container"
+                    barterRewardContainedItem = items.find(i => i.id === barterRewardItem.containsItems[0]?.item.id);
+                }
+
+                const whatWeSell = barterRewardContainedItem ? barterRewardContainedItem : barterRewardItem;
+                const howManyWeSell = barterRewardContainedItem ? barterRewardItem.containsItems[0].count : barterRow.rewardItems[0].count;
+                const bestSellTo = whatWeSell.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
                         if (currentSellFor.vendor.normalizedName === 'flea-market') {
                             return previousSellFor;
@@ -274,15 +306,23 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     },
                 );
 
+                if (isNaN(cost) && costItems.length === 1 && costItems[0].id === '5d235b4d86f7742e017bc88a') {      // "gp-coin"
+                    cost = bestSellTo.priceRUB * howManyWeSell;
+                    const GPCoinPrice = cost / costItems[0].count;
+                    costItems[0].price = GPCoinPrice;
+                    costItems[0].priceRUB = GPCoinPrice;
+                    costItems[0].pricePerUnit = GPCoinPrice;
+                }
+
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: (bestSellTo.priceRUB * barterRow.rewardItems[0].count) - cost,
+                    instaProfit: (bestSellTo.priceRUB * howManyWeSell) - cost,
                     instaProfitSource: bestSellTo,
                     instaProfitDetails: [
                         {
                             name: bestSellTo.vendor.name,
-                            value: bestSellTo.priceRUB * barterRow.rewardItems[0].count,
+                            value: bestSellTo.priceRUB * howManyWeSell,
                         },
                         {
                             name: t('Barter cost'),
@@ -291,13 +331,13 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     ],
                     reward: {
                         item: barterRewardItem,
+                        count: barterRow.rewardItems[0].count,
                         source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
                         isFIR: false,
-                        count: barterRow.rewardItems[0].count,
                     },
                     cached: barterRow.cached || barterRewardItem.cached,
                 };
@@ -306,13 +346,15 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     tradeData.reward.sellValue = barterRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
-                
-                //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
+
+                if (barterRewardItem.bsgCategoryId === '543be5cb4bdc2deb348b4568') {    // "ammo-container"
+                    tradeData.reward.sellNote = t('Unpacked');
+                }
 
                 tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestCashPrice(barterRewardItem, settings, showAll);
                 const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources: showAll});
-                if (cheapestPrice.type === 'cash-sell'){
+                if (cheapestPrice.type === 'cash-sell') {
                     //this item cannot be purchased for cash
                     if (cheapestBarter) {
                         if (cheapestBarter.priceRUB !== cost) {
@@ -323,7 +365,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         }
                         tradeData.savings = cheapestBarter.priceRUB - cost;
                     }
-                } else {
+                } else if (cheapestPrice.type !== 'none') {
                     // savings based on cheapest cash price
                     let sellerName = cheapestPrice.vendor.name;
                     if (cheapestPrice.vendor.minTraderLevel) {
@@ -333,12 +375,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         name: sellerName,
                         value: cheapestPrice.priceRUB,
                     });
-                    tradeData.savings = cheapestPrice.priceRUB - Math.round(cost / barterRow.rewardItems[0].count);
+                    tradeData.savings = cheapestPrice.priceRUB - Math.round(cost / howManyWeSell);
                 }
                 if (tradeData.savingsParts.length > 0) {
                     tradeData.savingsParts.push({
                         name: t('Barter cost'),
-                        value: Math.round(cost / barterRow.rewardItems[0].count) * -1
+                        value: Math.round(cost / howManyWeSell) * -1
                     });
                 }
 
@@ -374,6 +416,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         selectedTrader,
         barters,
         crafts,
+        items,
         itemFilter,
         traders,
         completedQuests,
