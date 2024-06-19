@@ -9,6 +9,7 @@ import DataTable from '../../components/data-table/index.js';
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
 import useItemsData from '../../features/items/index.js';
+import useMetaData from '../../features/meta/index.js';
 import { selectAllTraders } from '../../features/settings/settingsSlice.js';
 
 import ValueCell from '../value-cell/index.js';
@@ -34,6 +35,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
     const { data: items } = useItemsData();
+    const { data: meta } = useMetaData();
 
     const columns = useMemo(
         () => [
@@ -51,14 +53,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 accessor: 'costItems',
                 sortType: (a, b, columnId, desc) => {
                     if (a.values.costItems[0].id === '5d235b4d86f7742e017bc88a' && a.values.costItems[0].id === '5d235b4d86f7742e017bc88a') {
-                        const aGPCost = a.values.costItems[0].price || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        const bGPCost = b.values.costItems[0].price || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        const aGPCost = a.values.costItems[0].price || 0;
+                        const bGPCost = b.values.costItems[0].price || 0;
                         
                         return aGPCost - bGPCost;
                     }
 
-                    const aCost = a.values.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bCost = b.values.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const aCost = a.values.cost || 0;
+                    const bCost = b.values.cost || 0;
                     
                     return aCost - bCost;
                 },
@@ -107,11 +109,11 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 id: 'instaProfit',
                 accessor: 'instaProfit',
                 sortType: (a, b, columnId, desc) => {
-                    const aProf = a.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bProf = b.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const aProf = a.values.instaProfit || 0;
+                    const bProf = b.values.instaProfit || 0;
                     if (aProf === bProf) {
-                        const aSave = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        const bSave = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        const aSave = a.values.savings || 0;
+                        const bSave = b.values.savings || 0;
                         
                         return aSave - bSave;
                     }
@@ -286,7 +288,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const howManyWeSell = barterRewardContainedItem ? barterRewardItem.containsItems[0].count : barterRow.rewardItems[0].count;
                 const bestSellTo = whatWeSell.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
-                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market' && meta.flea.foundInRaidRequired) {
                             return previousSellFor;
                         }
                         if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
