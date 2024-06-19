@@ -40,7 +40,7 @@ function Quest() {
         factionName: 'Any',
         trader: {
             name: t('Loading...'),
-            normalizedName: 'flea-market'
+            normalizedName: 'unknown'
         },
         objectives: [],
         startRewards: [],

@@ -177,7 +177,7 @@ try {
                 item.lastLowPrice = 0;
                 item.avg24hPrice = 0;
                 item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.sellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
                 item.cached = true;
             }
             fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
