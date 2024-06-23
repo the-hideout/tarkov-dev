@@ -1,7 +1,4 @@
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
-import { useCallback } from 'react';
-
-import useMetaData from '../features/meta/index.js';
 
 const localStorageReadJson = (key, defaultValue) => {
     try {
@@ -46,11 +43,3 @@ export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05
         V0 * Ti * Math.pow(4, P0) * Q + VR * Tr * Math.pow(4, PR) * Q,
     ) * IC;
 };
-
-export function useFleaMarketFee() {
-    const { data: meta } = useMetaData();
-    const feeFunction = useCallback((basePrice, sellPrice, count = 1) => {
-        return fleaMarketFee(basePrice, sellPrice, count, meta.FleaMarket.sellOfferFeeRate, meta.FleaMarket.sellRequirementFeeRate);
-    }, [meta]);
-    return feeFunction;
-}
