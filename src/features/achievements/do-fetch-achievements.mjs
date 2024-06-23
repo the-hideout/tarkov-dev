@@ -5,9 +5,10 @@ class AchievementsQuery extends APIQuery {
         super('achievements');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevAchievements {
-            achievements(lang: ${language}) {
+            achievements(lang: ${language}, gameMode: ${gameMode}) {
                 id
                 name
                 description
@@ -52,8 +53,8 @@ class AchievementsQuery extends APIQuery {
 
 const achievementsQuery = new AchievementsQuery();
 
-const doFetchAchievements = async (language, prebuild = false) => {
-    return achievementsQuery.run(language, prebuild);
+const doFetchAchievements = async (options) => {
+    return achievementsQuery.run(options);
 };
 
 export default doFetchAchievements;

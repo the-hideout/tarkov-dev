@@ -16,9 +16,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => 
-    doFetchCrafts(langCode()),
-);
+export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchCrafts({language: langCode(), gameMode});
+});
 
 const craftsSlice = createSlice({
     name: 'crafts',
@@ -158,7 +160,7 @@ export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selec
     }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
 });
 
-let fetchedData = false;
+let fetchedGamMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -170,12 +172,13 @@ export default function useCraftsData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.crafts);
     const data = useSelector(selectAllCrafts);
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useItemsData();
     useQuestsData();
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedGamMode !== gameMode) {
+            fetchedGamMode = gameMode;
             dispatch(fetchCrafts());
             clearRefreshInterval();
         }
@@ -187,7 +190,7 @@ export default function useCraftsData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, gameMode]);
     
     return { data, status, error };
 };

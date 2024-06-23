@@ -8,11 +8,12 @@ class ItemsQuery extends APIQuery {
         super('items');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const itemLimit = 2000;
         const QueryBody = offset => {
             return `query TarkovDevItems {
-                items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
+                items(lang: ${language}, gameMode: ${gameMode}, limit: ${itemLimit}, offset: ${offset}) {
                     id
                     bsgCategoryId
                     categories {
@@ -350,7 +351,7 @@ class ItemsQuery extends APIQuery {
         };
         //console.time('items query');
         const [itemData, miscData, itemGrids] = await Promise.all([
-            new Promise(async resolve => {
+            new Promise(async (resolve, reject) => {
                 let offset = 0;
                 const retrievedItems = {
                     data: {
@@ -359,7 +360,7 @@ class ItemsQuery extends APIQuery {
                     errors: [],
                 };
                 while (true) {
-                    const itemBatch = await this.graphqlRequest(QueryBody(offset));
+                    const itemBatch = await this.graphqlRequest(QueryBody(offset)).catch(reject);
                     if (itemBatch.errors) {
                         retrievedItems.errors.concat(itemBatch.errors);
                     }
@@ -661,8 +662,8 @@ class ItemsQuery extends APIQuery {
 
 const itemsQuery = new ItemsQuery();
 
-const doFetchItems = async (language, prebuild = false) => {
-    return itemsQuery.run(language, prebuild);
+const doFetchItems = async (options) => {
+    return itemsQuery.run(options);
 };
 
 export default doFetchItems;

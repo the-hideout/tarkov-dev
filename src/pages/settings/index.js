@@ -20,12 +20,14 @@ import {
     toggleTarkovTracker,
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
+    setGameMode,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useTradersData from '../../features/traders/index.js';
 
 import supportedLanguages from '../../data/supported-languages.json';
+import gameModes from '../../data/game-modes.json';
 
 import { getWipeData } from '../wipe-length/index.js';
 
@@ -70,6 +72,7 @@ function Settings() {
         (state) => state.settings.useTarkovTracker,
     );
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     const refs = {
         'bitcoin-farm': useRef(null),
@@ -175,6 +178,23 @@ function Settings() {
             </div>
             <div className={'settings-group-wrapper'}>
                 <h2>{t('General')}</h2>
+                <label className={'single-filter-wrapper'}>
+                    <span className={'single-filter-label'}>{t('Game mode')}</span>
+                    <Select
+                        label={t('Game mode')}
+                        placeholder={t(`game_mode_${gameMode}`)}
+                        value={gameMode}
+                        options={gameModes.map(m => {
+                            return {
+                                label: t(`game_mode_${m}`),
+                                value: m,
+                            }
+                        })}
+                        className="basic-multi-select game-mode"
+                        classNamePrefix="select"
+                        onChange={(event) => dispatch(setGameMode(event.value))}
+                    />
+                </label>
                 <ToggleFilter
                     label={t('Has flea')}
                     onChange={() => dispatch(toggleFlea(!hasFlea))}

@@ -14,10 +14,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchHideout = createAsyncThunk(
-    'hideout/fetchHideout',
-    async () => doFetchHideout(langCode())
-);
+export const fetchHideout = createAsyncThunk('hideout/fetchHideout', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchHideout({language: langCode(), gameMode});
+});
 
 const hideoutSlice = createSlice({
     name: 'hideout',
@@ -47,6 +48,7 @@ export const hideoutReducer = hideoutSlice.reducer;
 export const selectAllHideoutModules = (state) => state.hideout.data;
 
 let fetchedLang = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -58,10 +60,12 @@ export default function useHideoutData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.hideout);
     const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        if (fetchedLang !== lang) {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
             fetchedLang = lang;
+            fetchedGameMode = gameMode;
             dispatch(fetchHideout());
             clearRefreshInterval();
         }
@@ -73,7 +77,7 @@ export default function useHideoutData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, lang]);
+    }, [dispatch, lang, gameMode]);
     
     return { data, status, error };
 };

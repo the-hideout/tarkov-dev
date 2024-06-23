@@ -5,7 +5,8 @@ class MetaQuery extends APIQuery {
         super('meta');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, prebuild } = options;
         const query = `query TarkovDevMeta {
             fleaMarket(lang: ${language}) {
                 name

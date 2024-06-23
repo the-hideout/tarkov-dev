@@ -15,9 +15,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchBosses = createAsyncThunk('bosses/fetchBosses', () =>
-    doFetchBosses(langCode()),
-);
+export const fetchBosses = createAsyncThunk('bosses/fetchBosses', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchBosses({language: langCode(), gameMode});
+});
 const bossesSlice = createSlice({
     name: 'bosses',
     initialState,
@@ -90,6 +92,7 @@ export const selectAllBosses = createSelector([selectBosses, selectMaps], (bosse
 });
 
 let fetchedLang = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -103,10 +106,12 @@ export default function useBossesData() {
     const data = useSelector(selectAllBosses);
     useMapsData();
     const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        if (fetchedLang !== lang) {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
             fetchedLang = lang;
+            fetchedGameMode = gameMode;
             dispatch(fetchBosses());
             clearRefreshInterval();
         }
@@ -118,7 +123,7 @@ export default function useBossesData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, lang]);
+    }, [dispatch, lang, gameMode]);
     
     return { data, status, error };
 };

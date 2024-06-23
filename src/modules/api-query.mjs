@@ -1,5 +1,11 @@
 import graphqlRequest from './graphql-request.mjs';
 
+const defaultOptions = {
+    language: 'en',
+    gameMode: 'regular',
+    prebuild: false,
+};
+
 class APIQuery {
     constructor(queryName) {
         this.name = queryName;
@@ -14,23 +20,28 @@ class APIQuery {
         return Promise.reject('Not implemented');
     }
 
-    async run(language = 'en', prebuild = false) {
-        if (this.pendingQuery[language]) {
-            return this.pendingQuery[language];
+    async run(options = defaultOptions) {
+        options = {
+            ...defaultOptions,
+            ...options,
+        };
+        const pendingKey = options.language+options.gameMode;
+        if (this.pendingQuery[pendingKey]) {
+            return this.pendingQuery[pendingKey];
         }
         let resolvePending, rejectPending;
-        this.pendingQuery[language] = new Promise((resolve, reject) => {
+        this.pendingQuery[pendingKey] = new Promise((resolve, reject) => {
             resolvePending = resolve;
             rejectPending = reject;
         });
         try {
-            const result = await this.query(language, prebuild);
+            const result = await this.query(options);
             resolvePending(result);
-            this.pendingQuery[language] = false;
+            this.pendingQuery[pendingKey] = false;
             return result;
         } catch (error) {
             rejectPending(error);
-            this.pendingQuery[language] = false;
+            this.pendingQuery[pendingKey] = false;
             return Promise.reject(error);
         }
     }

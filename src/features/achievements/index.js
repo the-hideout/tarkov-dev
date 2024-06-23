@@ -12,9 +12,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchAchievements = createAsyncThunk('achievements/fetchAchievements', () =>
-    doFetchAchievements(langCode()),
-);
+export const fetchAchievements = createAsyncThunk('achievements/fetchAchievements', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchAchievements({language: langCode(), gameMode});
+});
 const achievementsSlice = createSlice({
     name: 'achievements',
     initialState,
@@ -41,6 +43,7 @@ const achievementsSlice = createSlice({
 export const achievementsReducer = achievementsSlice.reducer;
 
 let fetchedLang = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -52,10 +55,12 @@ export default function useAchievementsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.achievements);
     const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        if (fetchedLang !== lang) {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
             fetchedLang = lang;
+            fetchedGameMode = gameMode;
             dispatch(fetchAchievements());
             clearRefreshInterval();
         }
@@ -67,7 +72,7 @@ export default function useAchievementsData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, lang]);
+    }, [dispatch, lang, gameMode]);
     
     return { data, status, error };
 };

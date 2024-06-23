@@ -1,7 +1,7 @@
 import cachedBarters from '../data/barters.json';
 import cachedCrafts from '../data/crafts.json';
 
-import cachedHideout from '../data/hideout.json'
+import cachedHideout from '../data/hideout.json';
 
 import cachedItems from '../data/items.json';
 import cachedItemsLocale from '../data/items_locale.json';
@@ -17,7 +17,7 @@ import cachedBossesLocale from '../data/bosses_locale.json';
 import cachedTasks from '../data/quests.json';
 import cachedTasksLocale from '../data/quests_locale.json';
 
-import cachedTraders from '../data/traders.json'
+import cachedTraders from '../data/traders.json';
 import cachedTradersLocale from '../data/traders_locale.json';
 
 export function placeholderBarters(language = 'en') {

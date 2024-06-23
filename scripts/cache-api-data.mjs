@@ -105,14 +105,14 @@ try {
     const apiPromises = [];
 
     apiPromises.push(Promise.all([
-        doFetchBarters('en', true).then(barters => {
+        doFetchBarters({prebuild: true}).then(barters => {
             for (const barter of barters) {
                 barter.cached = true;
             }
             fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
             return barters;
         }),
-        doFetchCrafts('en', true).then(crafts => {
+        doFetchCrafts({prebuild: true}).then(crafts => {
             for (const craft of crafts) {
                 craft.cached = true;
             }
@@ -120,7 +120,7 @@ try {
             return crafts;
         })
     ]).then((bartersAndCrafts) => {
-        return doFetchItems('en', true).then(items => {
+        return doFetchItems({prebuild: true}).then(items => {
             const filteredItems = [];
             for (const bartersCrafts of bartersAndCrafts) {
                 bartersCrafts.forEach(bc => {
@@ -203,11 +203,11 @@ try {
         });
     }));
 
-    apiPromises.push(doFetchHideout('en', true).then(hideout => {
+    apiPromises.push(doFetchHideout({prebuild: true}).then(hideout => {
         fs.writeFileSync('./src/data/hideout.json', JSON.stringify(hideout));
     }));
 
-    apiPromises.push(doFetchTraders('en', true).then(traders => {
+    apiPromises.push(doFetchTraders({prebuild: true}).then(traders => {
         for (const trader of traders) {
             delete trader.resetTime;
         }
@@ -231,7 +231,7 @@ try {
         });
     }));
 
-    apiPromises.push(doFetchMaps('en', true).then(maps => {
+    apiPromises.push(doFetchMaps({prebuild: true}).then(maps => {
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
 
         return getMapNames(langs).then(mapResults => {
@@ -250,7 +250,7 @@ try {
         });
     }));
 
-    apiPromises.push(doFetchBosses('en', true).then(bosses => {
+    apiPromises.push(doFetchBosses({prebuild: true}).then(bosses => {
         fs.writeFileSync('./src/data/bosses.json', JSON.stringify(bosses));
 
         return getBossNames(langs).then(bossResults => {
@@ -268,11 +268,11 @@ try {
         });
     }));
 
-    apiPromises.push(doFetchMeta('en', true).then(meta => {
+    apiPromises.push(doFetchMeta({prebuild: true}).then(meta => {
         fs.writeFileSync('./src/data/meta.json', JSON.stringify(meta));
     }));
 
-    apiPromises.push(doFetchQuests('en', true).then(quests => {
+    apiPromises.push(doFetchQuests({prebuild: true}).then(quests => {
         const groupedQuestsDic = quests.reduce((acc, item) => {
             if (!acc[item.trader.normalizedName]) {
                 acc[item.trader.normalizedName] = [];

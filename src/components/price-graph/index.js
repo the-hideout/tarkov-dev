@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     VictoryChart,
     VictoryLine,
@@ -27,10 +28,11 @@ function PriceGraph({ item, itemId }) {
     const [filterRange, setFilterRange] = useState([0,0]);
     
     const { t } = useTranslation();
+    const gameMode = useSelector((state) => state.settings.gameMode);
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
         `{
-            historicalItemPrices(id:"${itemId}"){
+            historicalItemPrices(id:"${itemId}", gameMode: ${gameMode}){
                 price
                 priceMin
                 timestamp

@@ -25,13 +25,13 @@
     width: 122px;
 }
 
-.language-toggle-wrapper .select__control {
+.language-toggle-wrapper .select__control, .game-mode .select__control {
     color: #1b1919;
     background-color: #2d2c2e;
     border-color: #9a8866;
 }
 
-.language-toggle-wrapper .select__single-value {
+.language-toggle-wrapper .select__single-value, .game-mode .select__single-value {
     color: #fff;
 }
 
