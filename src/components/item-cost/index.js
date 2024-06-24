@@ -22,7 +22,7 @@ function ItemCost({
     itemId,
     count,
     price = 0,
-    vendor = {name: 'Flea Market', normalizedName: 'flea-market'},
+    vendor = {name: 'N/A', normalizedName: 'unknown'},
     priceType = 'cash',
     priceDetails,
     isTool,
@@ -51,14 +51,17 @@ function ItemCost({
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
         let tooltip = false;
-        let displayImage = (
-            <img
-                alt={vendor.name}
-                className="item-cost-barter-icon"
-                src={`${process.env.PUBLIC_URL}/images/traders/${vendor.normalizedName}-icon.jpg`}
-                loading="lazy"
-            />
-        );
+        let displayImage = '';
+        if (vendor.normalizedName !== 'unknown') {
+            displayImage = (
+                <img
+                    alt={vendor.name}
+                    className="item-cost-barter-icon"
+                    src={`${process.env.PUBLIC_URL}/images/traders/${vendor.normalizedName}-icon.jpg`}
+                    loading="lazy"
+                />
+            );
+        }
         if (priceType === 'cached') {
             displayPrice = count;
             displayImage =  (

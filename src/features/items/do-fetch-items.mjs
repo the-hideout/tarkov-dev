@@ -627,7 +627,7 @@ class ItemsQuery extends APIQuery {
                 priceRUB: 0,
                 currency: 'RUB',
                 vendor: {
-                    name: 'unknown',
+                    name: 'N/A',
                     normalizedName: 'unknown',
                 },
             }

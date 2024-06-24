@@ -122,7 +122,7 @@ function Item() {
 
     const { data: quests } = useQuestsData();
 
-    const {data: maps } = useMapsData();
+    const { data: maps } = useMapsData();
 
     const currentItemData = useMemo(() => {
         let item = items.find(i => i.normalizedName === itemName);
