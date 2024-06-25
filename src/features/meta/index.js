@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchMeta from './do-fetch-meta.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
+import doFetchMeta from './do-fetch-meta.mjs';
 import { placeholderMeta } from '../../modules/placeholder-data.js';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchMeta = createAsyncThunk('meta/fetchMeta', () => (arg, { getState }) => {
+export const fetchMeta = createAsyncThunk('meta/fetchMeta', (arg, { getState }) => {
     const state = getState();
     const gameMode = state.settings.gameMode;
     return doFetchMeta({language: langCode(), gameMode});
