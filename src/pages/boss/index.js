@@ -347,6 +347,20 @@ function BossPage(params) {
         }
     }
 
+    let report = '';
+    if (bossData.reports) {
+        const latestReport = bossData.reports[0];
+        const reportedMap = Object.values(allMaps).find(m => m.id === latestReport.map.id);
+        report = (
+            <div>
+                {t('Last reported on {{mapName}} {{dateTime}}', {
+                    mapName: reportedMap.name,
+                    dateTime: new Date(parseInt(latestReport.timestamp)).toLocaleString(),
+                })}
+            </div>
+        );
+    }
+
     // Return the main react component for the boss page
     return [
         <div className="display-wrapper" key={'boss-display-wrapper'}>
@@ -416,7 +430,7 @@ function BossPage(params) {
                     />
                 </h2>
                 <PropertyList properties={bossProperties} />
-
+                {report}
                 <h2 key={'boss-loot-header'}>
                     {t('Special Boss Loot')}
                     <Icon
