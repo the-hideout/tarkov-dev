@@ -5,9 +5,10 @@ class CraftsQuery extends APIQuery {
         super('crafts');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevCrafts {
-            crafts(lang: ${language}) {
+            crafts(lang: ${language}, gameMode: ${gameMode}) {
                 station {
                     id
                     normalizedName
@@ -78,6 +79,6 @@ class CraftsQuery extends APIQuery {
 
 const craftsQuery = new CraftsQuery();
 
-export default async function doFetchCrafts(language, prebuild = false) {
-    return craftsQuery.run(language, prebuild);
+export default async function doFetchCrafts(options) {
+    return craftsQuery.run(options);
 };

@@ -16,9 +16,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchBarters = createAsyncThunk('barters/fetchBarters', () =>
-    doFetchBarters(langCode())
-);
+export const fetchBarters = createAsyncThunk('barters/fetchBarters', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchBarters({language: langCode(), gameMode});
+});
 
 const bartersSlice = createSlice({
     name: 'barters',
@@ -146,7 +148,7 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
     }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0); 
 });
 
-let fetchedData = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -158,12 +160,13 @@ export default function useBartersData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.barters);
     const data = useSelector(selectAllBarters);
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useItemsData();
     useQuestsData();
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedGameMode !== gameMode) {
+            fetchedGameMode = true;
             dispatch(fetchBarters());
             clearRefreshInterval();
         }
@@ -175,7 +178,7 @@ export default function useBartersData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, gameMode]);
     
     return { data, status, error };
 };

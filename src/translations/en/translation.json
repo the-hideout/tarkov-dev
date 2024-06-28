@@ -605,5 +605,7 @@
     "Only show ammo available from traders on your settings": "Only show ammo available from traders on your settings",
     "Reset": "Reset",
     "Convert one currency to another": "Convert one currency to another",
-    "Currency Converter": "Currency Converter"
+    "Currency Converter": "Currency Converter",
+    "game_mode_regular": "Regular",
+    "game_mode_pve": "PVE"
 }

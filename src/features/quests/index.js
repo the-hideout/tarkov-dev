@@ -13,9 +13,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchQuests = createAsyncThunk('quests/fetchQuests', () =>
-    doFetchQuests(langCode()),
-);
+export const fetchQuests = createAsyncThunk('quests/fetchQuests', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchQuests({language: langCode(), gameMode});
+});
 const questsSlice = createSlice({
     name: 'quests',
     initialState,
@@ -109,6 +111,7 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
 });
 
 let fetchedLang = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -121,10 +124,12 @@ export default function useQuestsData() {
     const { status, error } = useSelector((state) => state.quests);
     const data = useSelector(selectQuestsWithActive);
     const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        if (fetchedLang !== lang) {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
             fetchedLang = lang;
+            fetchedGameMode = gameMode;
             dispatch(fetchQuests());
             clearRefreshInterval();
         }
@@ -136,7 +141,7 @@ export default function useQuestsData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, lang]);
+    }, [dispatch, lang, gameMode]);
     
     return { data, status, error };
 };

@@ -5,9 +5,10 @@ class QuestsQuery extends APIQuery {
         super('quests');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevTasks {
-            tasks(lang: ${language}) {
+            tasks(lang: ${language}, gameMode: ${gameMode}) {
                 id
                 tarkovDataId
                 name
@@ -429,8 +430,8 @@ class QuestsQuery extends APIQuery {
 
 const questsQuery = new QuestsQuery();
 
-const doFetchQuests = async (language, prebuild = false) => {
-    return questsQuery.run(language, prebuild);
+const doFetchQuests = async (options) => {
+    return questsQuery.run(options);
 };
 
 export default doFetchQuests;

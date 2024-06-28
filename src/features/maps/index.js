@@ -29,9 +29,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchMaps = createAsyncThunk('maps/fetchMaps', () =>
-    doFetchMaps(langCode()),
-);
+export const fetchMaps = createAsyncThunk('maps/fetchMaps', (arg, { getState }) => {
+    const state = getState();
+    const gameMode = state.settings.gameMode;
+    return doFetchMaps({language: langCode(), gameMode});
+});
 const mapsSlice = createSlice({
     name: 'maps',
     initialState,
@@ -60,6 +62,7 @@ export const mapsReducer = mapsSlice.reducer;
 export const selectMaps = (state) => state.maps.data;
 
 let fetchedLang = false;
+let fetchedGameMode = false;
 let refreshInterval = false;
 
 const clearRefreshInterval = () => {
@@ -71,10 +74,12 @@ export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
     const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        if (fetchedLang !== lang) {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
             fetchedLang = lang;
+            fetchedGameMode = gameMode;
             dispatch(fetchMaps());
             clearRefreshInterval();
         }
@@ -86,7 +91,7 @@ export default function useMapsData() {
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, lang]);
+    }, [dispatch, lang, gameMode]);
     
     return { data, status, error };
 };

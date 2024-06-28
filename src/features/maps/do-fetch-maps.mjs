@@ -5,9 +5,10 @@ class MapsQuery extends APIQuery {
         super('maps');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevMaps {
-            maps(lang: ${language}) {
+            maps(lang: ${language}, gameMode: ${gameMode}) {
                 id
                 tarkovDataId
                 name
@@ -195,8 +196,8 @@ class MapsQuery extends APIQuery {
 
 const mapsQuery = new MapsQuery();
 
-const doFetchMaps = async (language, prebuild = false) => {
-    return mapsQuery.run(language, prebuild);
+const doFetchMaps = async (options) => {
+    return mapsQuery.run(options);
 };
 
 export default doFetchMaps;

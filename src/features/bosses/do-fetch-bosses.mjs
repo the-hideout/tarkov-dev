@@ -5,9 +5,10 @@ class BossesQuery extends APIQuery {
         super('bosses');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevBosses {
-            bosses(lang: ${language}) {
+            bosses(lang: ${language}, gameMode: ${gameMode}) {
                 name
                 normalizedName
                 imagePortraitLink
@@ -69,8 +70,8 @@ class BossesQuery extends APIQuery {
 
 const bossesQuery = new BossesQuery();
 
-const doFetchBosses = async (language = 'en', prebuild = false) => {
-    return bossesQuery.run(language, prebuild);
+const doFetchBosses = async (options) => {
+    return bossesQuery.run(options);
 };
 
 export default doFetchBosses;

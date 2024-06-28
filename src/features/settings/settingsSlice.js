@@ -114,6 +114,7 @@ const settingsSlice = createSlice({
         mechanic: localStorageReadJson('mechanic', 4),
         ragman: localStorageReadJson('ragman', 4),
         jaeger: localStorageReadJson('jaeger', 4),
+        ref: localStorageReadJson('ref', 4),
         'bitcoin-farm': localStorageReadJson('bitcoin-farm', 3),
         'booze-generator': localStorageReadJson('booze-generator', 1),
         'christmas-tree': localStorageReadJson('christmas-tree', 1),
@@ -134,6 +135,7 @@ const settingsSlice = createSlice({
         minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
         hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
         playerPosition: localStorageReadJson('playerPosition', null),
+        gameMode: localStorageReadJson('gameMode', 'regular'),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -182,6 +184,13 @@ const settingsSlice = createSlice({
             localStorageWriteJson(
                 'playerPosition',
                 newPosition,
+            );
+        },
+        setGameMode: (state, action) => {
+            state.gameMode = action.payload;
+            localStorageWriteJson(
+                'gameMode',
+                action.payload,
             );
         },
     },
@@ -266,6 +275,7 @@ export const {
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
     setPlayerPosition,
+    setGameMode,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

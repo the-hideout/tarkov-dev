@@ -5,9 +5,10 @@ class BartersQuery extends APIQuery {
         super('barters');
     }
 
-    async query(language, prebuild = false) {
+    async query(options) {
+        const { language, gameMode, prebuild} = options;
         const query = `query TarkovDevBarters {
-            barters(lang: ${language}) {
+            barters(lang: ${language}, gameMode: ${gameMode}) {
                 rewardItems {
                     item {
                         id
@@ -80,8 +81,8 @@ class BartersQuery extends APIQuery {
 
 const bartersQuery = new BartersQuery();
 
-const doFetchBarters = async (language, prebuild = false) => {
-    return bartersQuery.run(language, prebuild);
+const doFetchBarters = async (options) => {
+    return bartersQuery.run(options);
 };
 
 export default doFetchBarters;
