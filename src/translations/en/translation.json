@@ -607,5 +607,6 @@
     "Convert one currency to another": "Convert one currency to another",
     "Currency Converter": "Currency Converter",
     "game_mode_regular": "Regular",
-    "game_mode_pve": "PVE"
+    "game_mode_pve": "PVE",
+    "Last reported on {{mapName}} {{dateTime}}": "Last reported on {{mapName}} {{dateTime}}"
 }
