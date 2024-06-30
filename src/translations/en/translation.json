@@ -608,5 +608,5 @@
     "Currency Converter": "Currency Converter",
     "game_mode_regular": "Regular",
     "game_mode_pve": "PVE",
-    "Last reported on {{mapName}} {{dateTime}}": "Last reported on {{mapName}} {{dateTime}}"
+    "Most recent reports:": "Most recent reports:"
 }

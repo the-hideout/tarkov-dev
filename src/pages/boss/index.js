@@ -14,6 +14,7 @@ import SmallItemTable from '../../components/small-item-table/index.js';
 import DataTable from '../../components/data-table/index.js';
 import PropertyList from '../../components/property-list/index.js';
 import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.js';
+import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import capitalize from '../../modules/capitalize-first.js';
 
@@ -348,15 +349,19 @@ function BossPage(params) {
     }
 
     let report = '';
-    if (bossData.reports) {
-        const latestReport = bossData.reports[0];
-        const reportedMap = Object.values(allMaps).find(m => m.id === latestReport.map.id);
+    if (bossData.reports?.length > 0) {
         report = (
             <div>
-                {t('Last reported on {{mapName}} {{dateTime}}', {
-                    mapName: reportedMap.name,
-                    dateTime: new Date(parseInt(latestReport.timestamp)).toLocaleString(),
-                })}
+                <div>{t('Most recent reports:')}</div>
+                <ul>
+                    {bossData.reports.map((report, index) => {
+                        const reportedMap = Object.values(allMaps).find(m => m.id === report.map.id);
+                        let relativeTime = getRelativeTimeAndUnit(new Date(parseInt(report.timestamp)).getTime());
+                        return (
+                            <li key={`report-${index}`}>{reportedMap.name}: {t('{{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })}</li>
+                        );
+                    })}
+                </ul>
             </div>
         );
     }
