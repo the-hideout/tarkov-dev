@@ -128,7 +128,7 @@ function App() {
     }
 
     const useTarkovTracker = useSelector(
-        (state) => state.settings.useTarkovTracker,
+        (state) => state.settings[state.settings.gameMode].useTarkovTracker,
     );
 
     const progressStatus = useSelector((state) => {
@@ -136,7 +136,7 @@ function App() {
     });
 
     const tarkovTrackerAPIKey = useSelector(
-        (state) => state.settings.tarkovTrackerAPIKey,
+        (state) => state.settings[state.settings.gameMode].tarkovTrackerAPIKey,
     );
 
     useEffect(() => {
