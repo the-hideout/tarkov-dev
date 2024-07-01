@@ -6,9 +6,9 @@ class AchievementsQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, prebuild} = options;
         const query = `query TarkovDevAchievements {
-            achievements(lang: ${language}, gameMode: ${gameMode}) {
+            achievements(lang: ${language}) {
                 id
                 name
                 description
