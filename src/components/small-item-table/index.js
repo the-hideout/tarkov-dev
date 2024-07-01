@@ -273,7 +273,7 @@ function SmallItemTable(props) {
         distance,
     } = props;
     const { t } = useTranslation();
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const { data: meta } = useMetaData();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(

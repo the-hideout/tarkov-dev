@@ -40,7 +40,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
 function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
     const { t } = useTranslation();
 
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { data: items } = useItemsData();
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();

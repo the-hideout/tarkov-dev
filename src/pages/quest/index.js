@@ -31,7 +31,7 @@ const intelCashMultiplier = {
 };
 
 function Quest() {
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { taskIdentifier } = useParams();
     const { t } = useTranslation();
 

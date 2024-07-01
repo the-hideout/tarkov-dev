@@ -162,7 +162,7 @@ function QuestTable({
     requiredForEndGame,
  }) {
     const { t } = useTranslation();
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const { data: items } = useItemsData();
 

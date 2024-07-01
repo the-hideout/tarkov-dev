@@ -269,7 +269,7 @@ function Map() {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const focusItem = useRef(searchParams.get('q') ? searchParams.get('q').split(',') : []);
 

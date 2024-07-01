@@ -25,7 +25,7 @@ import './index.css';
 
 function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBarterIngredients, useCraftIngredients }) {
     const { t } = useTranslation();
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { hasJaeger, removeDogtags, completedQuests } = useMemo(() => {
         return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters, completedQuests: settings.completedQuests};
     }, [settings]);

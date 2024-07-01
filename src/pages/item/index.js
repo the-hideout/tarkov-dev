@@ -75,7 +75,7 @@ function priceIsLocked(buyFor, settings) {
 }
 
 function Item() {
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const navigate = useNavigate();
     const { itemName } = useParams();
     const { t } = useTranslation();
