@@ -35,6 +35,12 @@ class BossesQuery extends APIQuery {
                     id
                 }
             }
+            goonReports(gameMode: ${gameMode}) {
+                map {
+                    id
+                }
+                timestamp
+            }
         }`;
     
         const bossesData = await this.graphqlRequest(query);
@@ -58,13 +64,18 @@ class BossesQuery extends APIQuery {
             // only throw error if this is for prebuild or data wasn't returned
             if (
                 prebuild || !bossesData.data || 
-                !bossesData.data.maps || !bossesData.data.maps.length
+                !bossesData.data.bosses || !bossesData.data.bosses.length
             ) {
                 return Promise.reject(new Error(bossesData.errors[0].message));
             }
         }
     
-        return bossesData.data.bosses;
+        return bossesData.data.bosses.map(boss => {
+            if (boss.normalizedName === 'death-knight') {
+                boss.reports = bossesData.data.goonReports;
+            }
+            return boss;
+        });
     }
 }
 
