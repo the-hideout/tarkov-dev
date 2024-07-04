@@ -10,7 +10,7 @@ import './index.css';
 function ItemsForHideout(props) {
     const { itemFilter, showAll } = props;
     const { t } = useTranslation();
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const { data: hideout } = useHideoutData();
 

@@ -28,7 +28,7 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
     const { t } = useTranslation();
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
         return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
     }, [settings]);
