@@ -50,10 +50,10 @@ const selectSettings = state => state.settings;
 export const selectQuestsWithActive = createSelector([selectQuests, selectTraders, selectSettings], (quests, traders, settings) => {
     const questStatus = {
         complete: (id) => {
-            return settings.completedQuests.includes(id);
+            return settings[settings.gameMode].completedQuests.includes(id);
         },
         failed: (id) => {
-            return settings.failedQuests.includes(id);
+            return settings[settings.gameMode].failedQuests.includes(id);
         },
         active: (id) => {
             if (questStatus.complete(id)) {
@@ -63,7 +63,7 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
                 return false;
             }
             const quest = quests.find(q => q.id === id);
-            if (settings.playerLevel < quest.minPlayerLevel) {
+            if (settings[settings.gameMode].playerLevel < quest.minPlayerLevel) {
                 //return false;
             }
             for (const req of quest.taskRequirements) {
@@ -84,7 +84,7 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
             }
             for (const req of quest.traderRequirements.filter(req => req.requirementType === 'level')) {
                 const trader = traders.find(t => t.id === req.trader.id);
-                if (settings[trader.normalizedName] < req.value) {
+                if (settings[settings.gameMode][trader.normalizedName] < req.value) {
                     //return false;
                 }
             }
@@ -97,11 +97,11 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
             objectives: quest.objectives.map(obj => {
                 return {
                     ...obj,
-                    complete: settings.objectivesCompleted?.includes(obj.id) || false,
+                    complete: settings[settings.gameMode].objectivesCompleted?.includes(obj.id) || false,
                 };
             }),
             active: (() => {
-                if (!settings.useTarkovTracker) {
+                if (!settings[settings.gameMode].useTarkovTracker) {
                     return true;
                 }
                 return questStatus.active(quest.id);
