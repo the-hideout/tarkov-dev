@@ -2191,7 +2191,7 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
-                "tilePath": "https://assets.tarkov.dev/maps/shoreline/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/shoreline/main_spring/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
