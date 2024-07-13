@@ -216,7 +216,7 @@ function Item() {
         }
     }, [currentItemData, itemName, navigate]);
 
-    if (!currentItemData && (itemsStatus === 'success' || itemsStatus === 'failed')) {
+    if (!currentItemData && (itemsStatus === 'succeeded' || itemsStatus === 'failed')) {
         return <ErrorPage />;
     }
 
