@@ -67,11 +67,11 @@ function Settings() {
     //const allTraders = useSelector(traderSettings);
     const allStations = useSelector(selectAllStations);
     const allSkills = useSelector(selectAllSkills);
-    const hasFlea = useSelector((state) => state.settings.hasFlea);
+    const hasFlea = useSelector((state) => state.settings[state.settings.gameMode].hasFlea);
     const useTarkovTracker = useSelector(
-        (state) => state.settings.useTarkovTracker,
+        (state) => state.settings[state.settings.gameMode].useTarkovTracker,
     );
-    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+    const hideDogtagBarters = useSelector((state) => state.settings[state.settings.gameMode].hideDogtagBarters);
     const gameMode = useSelector((state) => state.settings.gameMode);
 
     const refs = {
@@ -192,7 +192,10 @@ function Settings() {
                         })}
                         className="basic-multi-select game-mode"
                         classNamePrefix="select"
-                        onChange={(event) => dispatch(setGameMode(event.value))}
+                        onChange={(event) => {
+                            dispatch(setGameMode(event.value));
+                            window.location.reload();
+                        }}
                     />
                 </label>
                 <ToggleFilter
@@ -215,7 +218,7 @@ function Settings() {
                         </a>
                     }
                     defaultValue={useSelector(
-                        (state) => state.settings.tarkovTrackerAPIKey,
+                        (state) => state.settings[state.settings.gameMode].tarkovTrackerAPIKey,
                     )}
                     type="text"
                     placeholder={t('API Token')}
@@ -282,7 +285,7 @@ function Settings() {
                 <InputFilter
                     label={t('Minimum dogtag level')}
                     defaultValue={useSelector(
-                        (state) => state.settings.minDogtagLevel,
+                        (state) => state.settings[state.settings.gameMode].minDogtagLevel,
                     )}
                     type="text"
                     inputMode="numeric"

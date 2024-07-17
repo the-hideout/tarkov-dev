@@ -19,7 +19,7 @@ import useTraderData from '../../features/traders/index.js';
 import './index.css';
 
 function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters, useBarterIngredients, useCraftIngredients }) {
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { t } = useTranslation();
     const { data: hideout } = useHideoutData();
     const { data: traders } = useTraderData();

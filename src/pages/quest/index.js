@@ -31,7 +31,7 @@ const intelCashMultiplier = {
 };
 
 function Quest() {
-    const settings = useSelector((state) => state.settings);
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { taskIdentifier } = useParams();
     const { t } = useTranslation();
 
@@ -1159,7 +1159,7 @@ function Quest() {
                                                     })
                                                     .reduce((elements, current, index) => {
                                                         if (elements.length > 0) {
-                                                            elements.push(<li key={`or-${index}`}><span style={{verticalAlign: 'middle', minHeight: '64px', display: 'inline-block', padding: '0px 3px'}}> or </span></li>);
+                                                            elements.push(<li key={`or-${index}`}><span style={{verticalAlign: 'middle', minHeight: '64px', display: 'inline-block', padding: '0px 3px'}}> and </span></li>);
                                                         }
                                                         elements.push(current);
                                                         return elements;

@@ -7,16 +7,16 @@ import i18n from '../i18n.js';
 
 const zonesFormat = (zones) => {
     return zones
-            ?.map((zoneName) => {
-                if (zoneName === zoneName.toUpperCase()) {
-                    return zoneName.charAt(0).toUpperCase() + zoneName.substr(1).toLowerCase();
-                }
+        ?.map((zoneName) => {
+            if (zoneName === zoneName.toUpperCase()) {
+                return zoneName.charAt(0).toUpperCase() + zoneName.substr(1).toLowerCase();
+            }
 
-                return zoneName;
-            })
-            .filter(Boolean)
-            .sort()
-            .join(' · ')
+            return zoneName;
+        })
+        .filter(Boolean)
+        .sort()
+        .join(' · ');
 }
 
 const ignoreCategories = [
@@ -51,7 +51,7 @@ const formatter = (key, value, id) => {
         }
         value = value.value;
     } 
-    if (typeof value === 'object') {
+    if (typeof value === 'object' && value !== null) {
         if (Array.isArray(value)) {
             value = [...value];
         } else {
