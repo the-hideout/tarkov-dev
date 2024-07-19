@@ -10,7 +10,7 @@ class ItemsQuery extends APIQuery {
 
     async query(options) {
         const { language, gameMode, prebuild} = options;
-        const itemLimit = 2000;
+        const itemLimit = 20000;
         const QueryBody = offset => {
             return `query TarkovDevItems {
                 items(lang: ${language}, gameMode: ${gameMode}, limit: ${itemLimit}, offset: ${offset}) {
