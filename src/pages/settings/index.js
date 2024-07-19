@@ -178,7 +178,7 @@ function Settings() {
             </div>
             <div className={'settings-group-wrapper'}>
                 <h2>{t('General')}</h2>
-                <label className={'single-filter-wrapper hidden'}>
+                <label className={'single-filter-wrapper'}>
                     <span className={'single-filter-label'}>{t('Game mode')}</span>
                     <Select
                         label={t('Game mode')}
