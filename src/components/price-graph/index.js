@@ -45,7 +45,7 @@ function PriceGraph({ item, itemId }) {
             dayTicks: [],
             tickLabels: {},
         };
-        if (status !== 'success' || !data?.data?.historicalItemPrices) {
+        if (status !== 'succeeded' || !data?.data?.historicalItemPrices) {
             return returnValues;
         }
         returnValues.dayTicks = data.data.historicalItemPrices.reduce((all, current) => {
@@ -121,11 +121,11 @@ function PriceGraph({ item, itemId }) {
         height = 1280;
     }
 
-    if (status !== 'success' || !data?.data?.historicalItemPrices) {
+    if (status !== 'succeeded' || !data?.data?.historicalItemPrices) {
         return null;
     }
 
-    if (status === 'success' && data.data.historicalItemPrices.length < 2) {
+    if (status === 'succeeded' && data.data.historicalItemPrices.length < 2) {
         return t('No data');
     }
 

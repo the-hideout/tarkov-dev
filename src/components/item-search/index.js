@@ -134,7 +134,6 @@ function ItemSearch({
                         normalizedName: itemData.normalizedName,
                         avg24hPrice: itemData.avg24hPrice,
                         lastLowPrice: itemData.lastLowPrice,
-                        // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
                         iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         instaProfit: 0,
                         itemLink: `/item/${itemData.normalizedName}`,
