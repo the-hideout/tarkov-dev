@@ -38,7 +38,6 @@ class ItemsQuery extends APIQuery {
                     high24hPrice
                     lastLowPrice
                     lastOfferCount
-                    gridImageLink
                     iconLink
                     baseImageLink
                     image512pxLink
@@ -360,7 +359,11 @@ class ItemsQuery extends APIQuery {
                     errors: [],
                 };
                 while (true) {
-                    const itemBatch = await this.graphqlRequest(QueryBody(offset)).catch(reject);
+                    const query = QueryBody(offset).replace(/\s{2,}/g, ' ');
+                    const itemBatch = await this.graphqlRequest(query).catch(reject);
+                    if (!itemBatch) {
+                        break;
+                    }
                     if (itemBatch.errors) {
                         retrievedItems.errors.concat(itemBatch.errors);
                     }
@@ -389,16 +392,6 @@ class ItemsQuery extends APIQuery {
                 fleaMarket {
                     sellOfferFeeRate
                     sellRequirementFeeRate
-                }
-                traders {
-                    normalizedName
-                    levels {
-                        payRate
-                    }
-                }
-                currencies: items(categoryNames: [Money]) {
-                    shortName
-                    basePrice
                 }
             }`),
             new Promise(resolve => {
@@ -466,9 +459,7 @@ class ItemsQuery extends APIQuery {
             // only throw error if this is for prebuild or data wasn't returned
             if (
                 prebuild || !miscData.data || 
-                !miscData.data.fleaMarket || 
-                !miscData.data.traders || !miscData.data.traders.length || 
-                !miscData.data.currencies || !miscData.data.currencies.length
+                !miscData.data.fleaMarket
             ) {
                 return Promise.reject(new Error(miscData.errors[0].message));
             }
@@ -476,50 +467,24 @@ class ItemsQuery extends APIQuery {
 
         const flea = miscData.data.fleaMarket;
 
-        const currencies = {};
-        for (const currency of miscData.data.currencies) {
-            currencies[currency.shortName] = currency.basePrice;
-        }
-
         const allItems = itemData.data.items.map((rawItem) => {
-            let grid = false;
-
+            // calculate grid
+            let grid = null;
             if (rawItem.properties?.grids) {
-                let gridPockets = [];
-                if (rawItem.properties.grids.length === 1) {
-                    gridPockets.push({
-                        row: 0,
-                        col: 0,
-                        width: rawItem.properties.grids[0].width,
-                        height: rawItem.properties.grids[0].height,
-                    });
-                }
-                /*for (const grid of rawItem.properties.grids) {
-                    gridPockets.push({
-                        row: gridPockets.length,
-                        col: 0,
-                        width: grid.width,
-                        height: grid.height,
-                    });
-                }*/
-                /*let gridPockets = [
-                    {
-                        row: 0,
-                        col: 0,
-                        width: rawItem.properties.grids[0].width,
-                        height: rawItem.properties.grids[0].height,
-                    },
-                ];*/
+                grid = {};
 
+                let gridPockets = [];
                 if (itemGrids[rawItem.id]) {
                     gridPockets = itemGrids[rawItem.id];
+                } 
+                else if (rawItem.properties.grids.length === 1) {
+                    gridPockets = {
+                        row: 0,
+                        col: 0,
+                        width: rawItem.properties.grids[0].width,
+                        height: rawItem.properties.grids[0].height,
+                    };
                 }
-
-                grid = {
-                    height: rawItem.properties.grids[0].height,
-                    width: rawItem.properties.grids[0].width,
-                    pockets: gridPockets,
-                };
 
                 if (gridPockets.length > 1) {
                     grid.height = Math.max(
@@ -529,12 +494,25 @@ class ItemsQuery extends APIQuery {
                         ...gridPockets.map((pocket) => pocket.col + pocket.width),
                     );
                 }
-
-                // Rigs we haven't configured shouldn't break
-                /*if (!itemGrids[rawItem.id] && !rawItem.types.includes('backpack')) {
-                    grid = false;
-                }*/
+                else if (rawItem.properties.grids.length >= 1) {
+                    grid.height = rawItem.properties.grids[0].height;
+                    grid.width = rawItem.properties.grids[0].width;
+                }
+                else {
+                    grid.height = rawItem.height;
+                    grid.width = rawItem.width;
+                }
+                grid.pockets = gridPockets;
             }
+            rawItem.grid = grid;
+
+            rawItem.properties = {
+                ...rawItem.properties
+            };
+
+            // calculate flea market fee
+            const fee = fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate);
+            rawItem.fee = fee;
 
             const container = rawItem.properties?.slots || rawItem.properties?.grids;
             if (container) {
@@ -545,116 +523,9 @@ class ItemsQuery extends APIQuery {
                     slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
                 }
             }
-            rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
 
-            rawItem.containsItems = rawItem.containsItems.filter(contained => contained != null);
-
-            return {
-                ...rawItem,
-                fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
-                slots: rawItem.width * rawItem.height,
-                iconLink: rawItem.iconLink,
-                grid: grid,
-                properties: {
-                    weight: rawItem.weight,
-                    ...rawItem.properties
-                },
-                containsItems: rawItem.types.includes('gun') ? [] : rawItem.containsItems,
-            };
+            return rawItem;
         });
-
-        for (const item of allItems) {
-            /*if (item.types.includes('gun') && item.containsItems?.length > 0) {
-                item.sellFor = item.sellFor.map((sellFor) => {
-                    if (sellFor.vendor.normalizedName === 'flea-market') {
-                        return {
-                            ...sellFor,
-                            totalPriceRUB: sellFor.priceRUB,
-                            totalPrice: sellFor.price
-                        };
-                    }
-                    const trader = miscData.data.traders.find(t => t.normalizedName === sellFor.vendor.normalizedName);
-                    const totalPrices = item.containsItems.reduce(
-                        (previousValue, currentValue) => {
-                            const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
-                            const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
-
-                            if (!partFromSellFor) {
-                                const thisPartPriceRUB = Math.floor(part.basePrice * trader.levels[0].payRate);
-                                previousValue.priceRUB += thisPartPriceRUB;
-                                previousValue.price += Math.round(thisPartPriceRUB / currencies[sellFor.currency]);
-                                return previousValue;
-                            }
-
-                            previousValue.price += partFromSellFor.price;
-                            previousValue.priceRUB += partFromSellFor.priceRUB;
-
-                            return previousValue;
-                        },
-                        {price: sellFor.price, priceRUB: sellFor.priceRUB}
-                    );
-                    
-                    //sellFor.price = totalPrices.price;
-
-                    return {
-                        ...sellFor,
-                        totalPrice: totalPrices.price,
-                        totalPriceRUB: totalPrices.priceRUB
-                    };
-                });
-            } else {
-                item.sellFor = item.sellFor.map((sellFor) => {
-                    return {
-                        ...sellFor,
-                        totalPrice: sellFor.price,
-                        totalPriceRUB: sellFor.priceRUB
-                    };
-                });
-            }*/
-            /*if (item.types.includes('gun') && item.properties.defaultPreset) {
-                // use default preset images for item
-                item.receiverImages = {
-                    iconLink: item.iconLInk,
-                    gridImageLink: item.gridImageLink,
-                    image512pxLink: item.image512pxLink
-                };
-                item.iconLink = item.properties.defaultPreset.iconLink;
-                item.gridImageLink = item.properties.defaultPreset.gridImageLink;
-                item.image512pxLink = item.properties.defaultPreset.image512pxLink;
-            }*/
-
-            const noneTrader = {
-                price: 0,
-                priceRUB: 0,
-                currency: 'RUB',
-                vendor: {
-                    name: 'N/A',
-                    normalizedName: 'unknown',
-                },
-            }
-
-            // cheapest first
-            item.buyFor = item.buyFor.sort((a, b) => {
-                return a.priceRUB - b.priceRUB;
-            });
-
-            item.buyForBest = item.buyFor[0];
-
-            const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-
-            item.buyForTradersBest = buyForTraders[0] || noneTrader;
-
-            // most profitable first
-            item.sellFor = item.sellFor.sort((a, b) => {
-                return b.priceRUB - a.priceRUB;
-            });
-
-            item.sellForBest = item.sellFor[0];
-
-            const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
-
-            item.sellForTradersBest = sellForTraders[0] || noneTrader;
-        }
 
         return allItems;
     }

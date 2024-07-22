@@ -7,8 +7,63 @@ import doFetchItems from './do-fetch-items.mjs';
 import { placeholderItems } from '../../modules/placeholder-data.js';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 
+function processFetchedItems(allItems) {
+
+    for (const item of allItems) {
+
+        item.slots = item.width * item.height;
+
+        item.categoryIds = item.categories.map(cat => cat.id);
+
+        if (item.properties)
+            item.properties.weight = item.weight;
+
+        if (item.types.includes('gun')) {
+            item.containsItems = [];
+        }
+        else {
+            item.containsItems = item.containsItems.filter(contained => contained != null);
+        }
+
+        // dummy trader for items that can't be sold or bought
+        const noneTrader = {
+            price: 0,
+            priceRUB: 0,
+            currency: 'RUB',
+            vendor: {
+                name: 'N/A',
+                normalizedName: 'unknown',
+            },
+        }
+
+        // cheapest first
+        item.buyFor = item.buyFor.sort((a, b) => {
+            return a.priceRUB - b.priceRUB;
+        });
+
+        item.buyForBest = item.buyFor[0] || noneTrader;
+
+        const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+
+        item.buyForTradersBest = buyForTraders[0] || noneTrader;
+
+        // most profitable first
+        item.sellFor = item.sellFor.sort((a, b) => {
+            return b.priceRUB - a.priceRUB;
+        });
+
+        item.sellForBest = item.sellFor[0] || noneTrader;
+
+        const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+
+        item.sellForTradersBest = sellForTraders[0] || noneTrader;
+    }
+
+    return allItems;
+}
+
 const initialState = {
-    data: placeholderItems(langCode()),
+    data: processFetchedItems(placeholderItems(langCode())),
     status: 'idle',
     error: null,
 };
@@ -37,7 +92,7 @@ const itemsSlice = createSlice({
         builder.addCase(fetchItems.fulfilled, (state, action) => {
             state.status = 'succeeded';
             if (!equal(state.data, action.payload)) {
-                state.data = action.payload;
+                state.data = processFetchedItems(action.payload);
             }
         });
         builder.addCase(fetchItems.rejected, (state, action) => {
