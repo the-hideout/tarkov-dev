@@ -1,6 +1,6 @@
 const alertConfig = {
     // set this bool if the site alert should be enabled or not
-    alertEnabled: false,
+    alertEnabled: true,
 
     // valid alert colors
     alertColors: {
@@ -14,7 +14,8 @@ const alertConfig = {
     alertLevel: 'info',
 
     // The text to display in the alert banner
-    text: '🌟 Flea market scanners have been leveled, and flea market prices are being updated for patch {{patchVersion}}! 🌟 If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
+    //text: '🌟 Flea market scanners have been leveled, and flea market prices are being updated for patch {{patchVersion}}! 🌟 If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
+    text: '🌟 PvE flea market scanners have been leveled, and PvE flea market prices are being updated for patch {{patchVersion}}! Choose your game mode in settings. 🌟 If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. Thank you! ❤️',
     textVariables: {patchVersion: '0.14.0'},
     linkEnabled: true,
     linkText: 'Donate',
@@ -23,7 +24,7 @@ const alertConfig = {
     // when a banner with a specific key is hidden, it never shows for that user again
     // (unless they clear their browser cache)
     // use a different key to force new banners to display again
-    bannerKey: 'alertBanner-0.14.0-flea-ready'
+    bannerKey: 'alertBanner-0.14.0-pve-flea'
 }
 
 export default alertConfig
