@@ -349,24 +349,26 @@ $RECYCLE.BIN/
 
 build/
 public/maps/*_thumb.jpg
-src/data/ammo.json
-src/data/barters.json
-src/data/bosses.json
-src/data/bosses_locale.json
 src/data/contributors.json
-src/data/crafts.json
-src/data/hideout.json
-src/data/items.json
+src/data/version.json
+src/data/supported-languages.json
+# Cache
+src/data/barters_cached.json
+src/data/bosses_cached.json
+src/data/bosses_locale.json
+src/data/crafts_cached.json
+src/data/hideout_cached.json
+src/data/items_cached.json
 src/data/items_locale.json
 src/data/maps_cached.json
 src/data/maps_locale.json
-src/data/meta.json
-src/data/quests.json
+src/data/meta_cached.json
+src/data/quests_cached.json
 src/data/quests_locale.json
-src/data/supported-languages.json
-src/data/traders.json
+src/data/traders_cached.json
 src/data/traders_locale.json
-src/data/version.json
+# Sitemap
 public/sitemap*.xml
 public/sitemap*.xml.gz
+# Workers
 workers-site/index.js

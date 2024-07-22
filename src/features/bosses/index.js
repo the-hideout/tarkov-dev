@@ -6,7 +6,7 @@ import equal from 'fast-deep-equal';
 import doFetchBosses from './do-fetch-bosses.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderBosses } from '../../modules/placeholder-data.js';
-import rawBossData from '../../data/boss.json';
+import rawBossData from '../../data/bosses.json';
 import useMapsData from '../maps/index.js';
 
 const initialState = {
