@@ -35,7 +35,7 @@ class TradersQuery extends APIQuery {
                     id
                 }
             }
-        }`;
+        }`.replace(/\s{2,}/g, ' ');
     
         const tradersData = await this.graphqlRequest(query);
     

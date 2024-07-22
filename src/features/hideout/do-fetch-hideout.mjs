@@ -19,9 +19,7 @@ class HideoutQuery extends APIQuery {
                     itemRequirements {
                         quantity
                         item {
-                            name
                             id
-                            iconLink
                         }
                     } 
                     stationLevelRequirements {
@@ -43,7 +41,7 @@ class HideoutQuery extends APIQuery {
                     id
                 }
             }
-        }`;
+        }`.replace(/\s{2,}/g, ' ');
 
         const queryData = await this.graphqlRequest(query);
 
