@@ -10,7 +10,7 @@ import './index.css';
 function ServerStatus() {
     const { status, data } = useQuery(
         `server-status`,
-        `{
+        `query TarkovDevStatus {
             status {
                 generalStatus {
                     name
@@ -24,7 +24,7 @@ function ServerStatus() {
                     solveTime
                 }
             }
-        }`,
+        }`.replace(/\s{2,}/g, ' '),
     );
     const { t } = useTranslation();
 

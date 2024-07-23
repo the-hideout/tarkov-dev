@@ -31,13 +31,13 @@ function PriceGraph({ item, itemId }) {
     const gameMode = useSelector((state) => state.settings.gameMode);
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
-        `{
-            historicalItemPrices(id:"${itemId}", gameMode: ${gameMode}){
+        `query TarkovDevHistorical {
+            historicalItemPrices(id: "${itemId}", gameMode: ${gameMode}) {
                 price
                 priceMin
                 timestamp
             }
-        }`,
+        }`.replace(/\s{2,}/g, ' '),
     );
 
     const { dayTicks, tickLabels } = useMemo(() => {

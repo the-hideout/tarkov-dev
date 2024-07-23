@@ -393,7 +393,7 @@ class ItemsQuery extends APIQuery {
                     sellOfferFeeRate
                     sellRequirementFeeRate
                 }
-            }`),
+            }`.replace(/\s{2,}/g, ' ')),
             new Promise(resolve => {
                 if (prebuild) {
                     return resolve({});
