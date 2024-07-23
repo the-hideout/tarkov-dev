@@ -10,7 +10,7 @@ import './index.css';
 function ServerStatus() {
     const { status, data } = useQuery(
         `server-status`,
-        `{
+        `query TarkovDevStatus {
             status {
                 generalStatus {
                     name
@@ -24,15 +24,15 @@ function ServerStatus() {
                     solveTime
                 }
             }
-        }`,
+        }`.replace(/\s{2,}/g, ' '),
     );
     const { t } = useTranslation();
 
-    if (status !== 'succeeded' || !data.data.status) {
+    if (status !== 'success' || !data.data.status) {
         return null;
     }
 
-    if (status === 'succeeded' && data.data.status.length === 0) {
+    if (status === 'success' && data.data.status.length === 0) {
         return t('No data');
     }
 

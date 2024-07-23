@@ -36,7 +36,7 @@ class CraftsQuery extends APIQuery {
                     id
                 }
             }
-        }`;
+        }`.replace(/\s{2,}/g, ' ');
     
         const craftsData = await this.graphqlRequest(query);
         

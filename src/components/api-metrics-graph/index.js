@@ -30,11 +30,11 @@ function ApiMetricsGraph({ graph }) {
         return "⚠️ Error Fetching API Metrics";
     }
 
-    if (status !== 'succeeded') {
+    if (status !== 'success') {
         return null;
     }
 
-    if (status === 'succeeded' && data.heartbeatList["1"] === 0) {
+    if (status === 'success' && data.heartbeatList["1"] === 0) {
         return `⚠️ ${t('No data')}`;
     }
 

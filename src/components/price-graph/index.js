@@ -31,13 +31,13 @@ function PriceGraph({ item, itemId }) {
     const gameMode = useSelector((state) => state.settings.gameMode);
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
-        `{
-            historicalItemPrices(id:"${itemId}", gameMode: ${gameMode}){
+        `query TarkovDevHistorical {
+            historicalItemPrices(id: "${itemId}", gameMode: ${gameMode}) {
                 price
                 priceMin
                 timestamp
             }
-        }`,
+        }`.replace(/\s{2,}/g, ' '),
     );
 
     const { dayTicks, tickLabels } = useMemo(() => {
@@ -45,7 +45,7 @@ function PriceGraph({ item, itemId }) {
             dayTicks: [],
             tickLabels: {},
         };
-        if (status !== 'succeeded' || !data?.data?.historicalItemPrices) {
+        if (status !== 'success' || !data?.data?.historicalItemPrices) {
             return returnValues;
         }
         returnValues.dayTicks = data.data.historicalItemPrices.reduce((all, current) => {
@@ -121,11 +121,11 @@ function PriceGraph({ item, itemId }) {
         height = 1280;
     }
 
-    if (status !== 'succeeded' || !data?.data?.historicalItemPrices) {
+    if (status !== 'success' || !data?.data?.historicalItemPrices) {
         return null;
     }
 
-    if (status === 'succeeded' && data.data.historicalItemPrices.length < 2) {
+    if (status === 'success' && data.data.historicalItemPrices.length < 2) {
         return t('No data');
     }
 

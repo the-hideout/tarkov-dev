@@ -393,7 +393,7 @@ class ItemsQuery extends APIQuery {
                     sellOfferFeeRate
                     sellRequirementFeeRate
                 }
-            }`),
+            }`.replace(/\s{2,}/g, ' ')),
             new Promise(resolve => {
                 if (prebuild) {
                     return resolve({});
@@ -478,12 +478,12 @@ class ItemsQuery extends APIQuery {
                     gridPockets = itemGrids[rawItem.id];
                 } 
                 else if (rawItem.properties.grids.length === 1) {
-                    gridPockets = {
+                    gridPockets = [{
                         row: 0,
                         col: 0,
                         width: rawItem.properties.grids[0].width,
                         height: rawItem.properties.grids[0].height,
-                    };
+                    }];
                 }
 
                 if (gridPockets.length > 1) {
