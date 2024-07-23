@@ -1,23 +1,23 @@
-import cachedBarters from '../data/barters.json';
-import cachedCrafts from '../data/crafts.json';
+import cachedBarters from '../data/barters_cached.json';
+import cachedCrafts from '../data/crafts_cached.json';
 
-import cachedHideout from '../data/hideout.json';
+import cachedHideout from '../data/hideout_cached.json';
 
-import cachedItems from '../data/items.json';
+import cachedItems from '../data/items_cached.json';
 import cachedItemsLocale from '../data/items_locale.json';
 
-import cachedMeta from '../data/meta.json';
+import cachedMeta from '../data/meta_cached.json';
 
 import cachedMaps from '../data/maps_cached.json';
 import cachedMapsLocale from '../data/maps_locale.json';
 
-import cachedBosses from '../data/bosses.json';
+import cachedBosses from '../data/bosses_cached.json';
 import cachedBossesLocale from '../data/bosses_locale.json';
 
-import cachedTasks from '../data/quests.json';
+import cachedTasks from '../data/quests_cached.json';
 import cachedTasksLocale from '../data/quests_locale.json';
 
-import cachedTraders from '../data/traders.json';
+import cachedTraders from '../data/traders_cached.json';
 import cachedTradersLocale from '../data/traders_locale.json';
 
 export function placeholderBarters(language = 'en') {

@@ -28,11 +28,11 @@ function ServerStatus() {
     );
     const { t } = useTranslation();
 
-    if (status !== 'success' || !data.data.status) {
+    if (status !== 'succeeded' || !data.data.status) {
         return null;
     }
 
-    if (status === 'success' && data.data.status.length === 0) {
+    if (status === 'succeeded' && data.data.status.length === 0) {
         return t('No data');
     }
 

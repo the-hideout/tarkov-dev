@@ -41,7 +41,7 @@ class BossesQuery extends APIQuery {
                 }
                 timestamp
             }
-        }`;
+        }`.replace(/\s{2,}/g, ' ');
     
         const bossesData = await this.graphqlRequest(query);
     

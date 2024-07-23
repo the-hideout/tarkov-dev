@@ -101,7 +101,6 @@ function Item() {
             shortName: t('Loading...'),
             types: ['loading'],
             iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-            gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
             backgroundColor: 'default',
             sellFor: [],
@@ -216,7 +215,7 @@ function Item() {
         }
     }, [currentItemData, itemName, navigate]);
 
-    if (!currentItemData && (itemsStatus === 'success' || itemsStatus === 'failed')) {
+    if (!currentItemData && (itemsStatus === 'succeeded' || itemsStatus === 'failed')) {
         return <ErrorPage />;
     }
 

@@ -94,7 +94,7 @@ function Ammo() {
         const typeCache = [];
         const legend = [];
         const ammo = items.filter(item => {
-            return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
+            return item.categoryIds.includes('5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
         }).sort((a, b) => {
             const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
             const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);

@@ -39,7 +39,7 @@ function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
         } else {
             sourceType = 'none';
         }
-        return {...sellToTrader, type: sourceType, pricePerUnit: sellToTrader?.priceRUB};
+        return {...sellToTrader, type: sourceType, pricePerUnit: sellToTrader?.priceRUB | 0};
     } else {
         if (buySource.length > 1) {
             buySource = buySource.reduce((prev, current) => {

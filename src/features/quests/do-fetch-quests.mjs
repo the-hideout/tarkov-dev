@@ -197,7 +197,6 @@ class QuestsQuery extends APIQuery {
                     width
                     height
                     iconLink
-                    gridImageLink
                     image512pxLink
                     baseImageLink
                     image8xLink
@@ -395,7 +394,7 @@ class QuestsQuery extends APIQuery {
             traderUnlock {
                 id
             }
-        }`;
+        }`.replace(/\s{2,}/g, ' ');
     
         const questsData = await this.graphqlRequest(query);
     

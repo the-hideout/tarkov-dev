@@ -72,7 +72,7 @@ function TraderSellCell(datum, showSlotValue = false) {
     const count = datum.row.original.count;
     const priceRUB = sellForTradersBest.priceRUB;
     const price = sellForTradersBest.price;
-    const slots = datum.row.original.width * datum.row.original.height;
+    const slots = datum.row.original.slots;
     let slotValue = '';
     if (showSlotValue && slots > 1) {
         slotValue = (
@@ -333,7 +333,6 @@ function SmallItemTable(props) {
                 normalizedName: itemData.normalizedName,
                 avg24hPrice: itemData.avg24hPrice,
                 lastLowPrice: itemData.lastLowPrice,
-                // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
                 iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                 instaProfit: 0,
                 itemLink: `/item/${itemData.normalizedName}`,
@@ -444,7 +443,7 @@ function SmallItemTable(props) {
             }
             
             if (formattedItem.cheapestObtainPrice) {
-                formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestObtainPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestObtainPrice / (itemData.properties.capacity - itemData.slots))
                               : formattedItem.cheapestObtainPrice / itemData.properties.capacity
             }
 
@@ -526,7 +525,6 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                //console.log(item.properties[minPropertyFilter.property], minPropertyFilter.value);
                 if (item.properties[minPropertyFilter.property] < minPropertyFilter.value) {
                     return false;
                 }
@@ -548,12 +546,12 @@ function SmallItemTable(props) {
                 if (!bsgCategoryFilter) {
                     return true;
                 }
-                let categories = bsgCategoryFilter;
-                if (!Array.isArray(categories)) {
-                    categories = [categories];
+                let categoriesFilter = bsgCategoryFilter;
+                if (!Array.isArray(categoriesFilter)) {
+                    categoriesFilter = [categoriesFilter];
                 }
 
-                return item.categories.some(category => categories.includes(category.id));
+                return item.categories.some(category => categoriesFilter.includes(category.id));
             })
             .filter(item => {
                 if (!containedInFilter) {
@@ -992,7 +990,7 @@ function SmallItemTable(props) {
                             />
                         );
                     }
-                    const slots = allData.row.original.width * allData.row.original.height;
+                    const slots = allData.row.original.slots;
                     let noValueTip = t('Not scanned on the Flea Market');
                     let noValueIcon = mdiHelpRhombus;
                     if (allData.row.original.cached) {
@@ -1693,7 +1691,7 @@ function SmallItemTable(props) {
                     let tipContent = '';
                     const priceContent = [];
                     const cheapestObtainInfo = props.row.original.cheapestObtainInfo;
-                    if (cheapestObtainInfo) {
+                    if (cheapestObtainInfo && cheapestObtainInfo.type !== 'none') {
                         let priceSource = '';
                         const displayedPrice = [];
                         let taskIcon = '';

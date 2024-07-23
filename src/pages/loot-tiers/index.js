@@ -150,13 +150,12 @@ function LootTier(props) {
     const itemData = useMemo(() => {
         return items
             .map((item) => {
-                let gridImageLink = item.gridImageLink;
                 let baseImageLink = item.baseImageLink;
                 let width = item.width;
                 let height = item.height;
                 let slots = item.slots;
                 let itemTypes = item.types;
-                let priceRUB = item.sellForTradersBest.priceRUB;
+                let priceRUB = item.cached ? item.basePrice : item.sellForTradersBest.priceRUB;
                 let sellTo = item.sellForTradersBest.vendor.name;
                 let sellToNormalized = item.sellForTradersBest.vendor.normalizedName;
                 let normalizedName = item.normalizedName;
@@ -171,9 +170,8 @@ function LootTier(props) {
                             width = preset.width;
                             height = preset.height;
                             slots = width * height;
-                            gridImageLink = preset.gridImageLink;
                             baseImageLink = preset.baseImageLink;
-                            priceRUB = preset.sellForTradersBest.priceRUB;
+                            priceRUB = preset.cached ? preset.basePrice : preset.sellForTradersBest.priceRUB;
                             sellTo = preset.sellForTradersBest.vendor.name;
                             sellToNormalized = preset.sellForTradersBest.vendor.normalizedName;
                             normalizedName = preset.normalizedName;
@@ -201,7 +199,6 @@ function LootTier(props) {
                     width,
                     height,
                     slots,
-                    gridImageLink,
                     baseImageLink,
                     types: itemTypes,
                 }

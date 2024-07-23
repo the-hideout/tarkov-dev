@@ -203,7 +203,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                     let tipContent = '';
                     const priceContent = [];
                     const cheapestObtainInfo = props.row.original.cheapestObtainInfo;
-                    if (cheapestObtainInfo) {
+                    if (cheapestObtainInfo && cheapestObtainInfo.type !== 'none') {
                         let priceSource = '';
                         const displayedPrice = [];
                         let taskIcon = '';

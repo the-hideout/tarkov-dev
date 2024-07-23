@@ -109,14 +109,26 @@ try {
             for (const barter of barters) {
                 barter.cached = true;
             }
-            fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
+            const bartersCnt2 = barters.length / 2;
+            while( barters.length > bartersCnt2 ) {
+                var index = Math.floor( Math.random() * barters.length );
+                barters.splice( index, 1 );     // Remove the item from the array
+            }
+
+            fs.writeFileSync('./src/data/barters_cached.json', JSON.stringify(barters));
             return barters;
         }),
         doFetchCrafts({prebuild: true}).then(crafts => {
             for (const craft of crafts) {
                 craft.cached = true;
             }
-            fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
+            const craftsCnt2 = crafts.length / 2;
+            while( crafts.length > craftsCnt2 ) {
+                var index = Math.floor( Math.random() * crafts.length );
+                crafts.splice( index, 1 );     // Remove the item from the array
+            }
+
+            fs.writeFileSync('./src/data/crafts_cached.json', JSON.stringify(crafts));
             return crafts;
         })
     ]).then((bartersAndCrafts) => {
@@ -176,11 +188,12 @@ try {
             for (const item of filteredItems) {
                 item.lastLowPrice = 0;
                 item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+                item.buyFor = []; //item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.sellFor = []; //item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+                item.updated = '';
                 item.cached = true;
             }
-            fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
+            fs.writeFileSync('./src/data/items_cached.json', JSON.stringify(filteredItems));
             return new Promise(async (resolve) => {
                 const itemLangs = {};
                 await getItemNames(langs).then(itemResults => {
@@ -204,14 +217,14 @@ try {
     }));
 
     apiPromises.push(doFetchHideout({prebuild: true}).then(hideout => {
-        fs.writeFileSync('./src/data/hideout.json', JSON.stringify(hideout));
+        fs.writeFileSync('./src/data/hideout_cached.json', JSON.stringify(hideout));
     }));
 
     apiPromises.push(doFetchTraders({prebuild: true}).then(traders => {
         for (const trader of traders) {
             delete trader.resetTime;
         }
-        fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
+        fs.writeFileSync('./src/data/traders_cached.json', JSON.stringify(traders));
 
         return new Promise(async (resolve) => {
             const traderLangs = {};
@@ -251,7 +264,10 @@ try {
     }));
 
     apiPromises.push(doFetchBosses({prebuild: true}).then(bosses => {
-        fs.writeFileSync('./src/data/bosses.json', JSON.stringify(bosses));
+        for (const boss of bosses) {
+            boss.equipment = [];
+        }
+        fs.writeFileSync('./src/data/bosses_cached.json', JSON.stringify(bosses));
 
         return getBossNames(langs).then(bossResults => {
             const bossLangs = {};
@@ -269,7 +285,7 @@ try {
     }));
 
     apiPromises.push(doFetchMeta({prebuild: true}).then(meta => {
-        fs.writeFileSync('./src/data/meta.json', JSON.stringify(meta));
+        fs.writeFileSync('./src/data/meta_cached.json', JSON.stringify(meta));
     }));
 
     apiPromises.push(doFetchQuests({prebuild: true}).then(quests => {
@@ -285,7 +301,7 @@ try {
         const filteredQuests = [].concat(...filteredQuestsDic);
         // const filteredQuests = [].concat(...groupedQuestsDic);
 
-        fs.writeFileSync('./src/data/quests.json', JSON.stringify(filteredQuests));
+        fs.writeFileSync('./src/data/quests_cached.json', JSON.stringify(filteredQuests));
 
         return new Promise(async (resolve) => {
             const taskLangs = {};

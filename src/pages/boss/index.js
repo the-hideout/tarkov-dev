@@ -152,7 +152,7 @@ function BossPage(params) {
                 return current.priceRUB;
             }
             return best;
-        }, 0) / (item.width * item.height);
+        }, 0) / (item.slots);
     };
     gearLoop:
     for (const gear of bossData.equipment) {
