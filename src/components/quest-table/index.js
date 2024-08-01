@@ -470,6 +470,9 @@ function QuestTable({
                     return <CenterCell>
                         {props.row.original.finishRewards.traderStanding.map(reward => {
                             const trader = traders.find(t => t.id === reward.trader.id);
+                            if (!trader) {
+                                return '';
+                            }
                             return <TraderImage
                                 trader={trader}
                                 reputationChange={reward.standing}
