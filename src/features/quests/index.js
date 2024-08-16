@@ -66,6 +66,9 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
             if (settings[settings.gameMode].playerLevel < quest.minPlayerLevel) {
                 //return false;
             }
+            if (quest.factionName !== 'Any' && settings[settings.gameMode].pmcFaction !== 'NONE' && settings[settings.gameMode].pmcFaction !== quest.factionName) {
+                return false;
+            }
             for (const req of quest.taskRequirements) {
                 let reqSatisfied = false;
                 for (const status of req.status) {
