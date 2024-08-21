@@ -274,6 +274,7 @@ function SmallItemTable(props) {
         distance,
         softArmorFilter,
         plateArmorFilter,
+        customFilter,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
@@ -611,6 +612,12 @@ function SmallItemTable(props) {
                     return false;
                 }
                 return pen >= min && pen <= max;
+            })
+            .filter(item => {
+                if (typeof customFilter !== 'function') {
+                    return true;
+                }
+                return customFilter(item);
             });
 
         if (nameFilter) {
@@ -899,6 +906,7 @@ function SmallItemTable(props) {
         armorZones,
         softArmorFilter,
         plateArmorFilter,
+        customFilter,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
