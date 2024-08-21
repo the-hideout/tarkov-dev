@@ -30,7 +30,8 @@ const skipCalibers = [
     'Caliber40x46',
     'Caliber127x108',
     'Caliber26x75',
-    'Caliber40mmRU'
+    'Caliber40mmRU',
+    'Caliber20x1mm',
 ];
 
 const markerTypes = [
