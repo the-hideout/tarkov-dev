@@ -8,8 +8,9 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         }
 
         const returnData = {
-            flea: true,
-            level: 72,
+            hasFlea: true,
+            playerLevel: 72,
+            pmcFaction: 'NONE',
             hideout: {},
             quests: [],
             questsFailed: [],
@@ -46,9 +47,11 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
             return completedObjectives;
         }, []);
-        returnData.flea = progressData.playerLevel >= 15 ? true : false;
+        returnData.hasFlea = progressData.playerLevel >= 15 ? true : false;
 
-        returnData.level = progressData.playerLevel;
+        returnData.playerLevel = progressData.playerLevel;
+
+        returnData.pmcFaction = progressData.pmcFaction;
 
         const hideoutData = getState().hideout.data;
 
@@ -62,12 +65,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
 
             for (const station of hideoutData) {
-                for (const level of station.levels) {
-                    if (level.id !== module.id) {
+                for (const stationLevel of station.levels) {
+                    if (stationLevel.id !== module.id) {
                         continue;
                     }
-                    if (returnData.hideout[station.normalizedName] < level.level) {
-                        returnData.hideout[station.normalizedName] = level.level;
+                    if (returnData.hideout[station.normalizedName] < stationLevel.level) {
+                        returnData.hideout[station.normalizedName] = stationLevel.level;
                         continue;
                     }
                 }
@@ -101,7 +104,12 @@ const localStorageWriteJson = (key, value) => {
 
 const defaultSettings = {hasFlea: localStorageReadJson('useFlea', true),
     playerLevel: 72,
+    pmcFaction: localStorageReadJson('pmcFaction', 'NONE'),
+    useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
     tarkovTrackerAPIKey: localStorageReadJson('tarkovTrackerAPIKey', ''),
+    completedQuests: [],
+    failedQuests: [],
+    tarkovTrackerModules: [],
     prapor: localStorageReadJson('prapor', 4),
     therapist: localStorageReadJson('therapist', 4),
     fence: localStorageReadJson('fence', 0),
@@ -115,18 +123,14 @@ const defaultSettings = {hasFlea: localStorageReadJson('useFlea', true),
     'booze-generator': localStorageReadJson('booze-generator', 1),
     'christmas-tree': localStorageReadJson('christmas-tree', 1),
     'intelligence-center': localStorageReadJson('intelligence-center', 3),
-    lavatory: localStorageReadJson('lavatory', 3),
-    medstation: localStorageReadJson('medstation', 3),
+    'lavatory': localStorageReadJson('lavatory', 3),
+    'medstation': localStorageReadJson('medstation', 3),
     'nutrition-unit': localStorageReadJson('nutrition-unit', 3),
     'water-collector': localStorageReadJson('water-collector', 3),
-    workbench: localStorageReadJson('workbench', 3),
+    'workbench': localStorageReadJson('workbench', 3),
     'solar-power': localStorageReadJson('solar-power', 0),
-    crafting: localStorageReadJson('crafting', 0),
+    'crafting': localStorageReadJson('crafting', 0),
     'hideout-management': localStorageReadJson('hideout-management', 0),
-    completedQuests: [],
-    failedQuests: [],
-    useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
-    tarkovTrackerModules: [],
     minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
     hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
 };
@@ -213,8 +217,9 @@ const settingsSlice = createSlice({
                 state[state.gameMode].completedQuests = action.payload.quests;
                 state[state.gameMode].failedQuests = action.payload.questsFailed;
                 state[state.gameMode].objectivesCompleted = action.payload.objectivesCompleted;
-                state[state.gameMode].hasFlea = action.payload.flea;
-                state[state.gameMode].playerLevel = action.payload.level;
+                state[state.gameMode].hasFlea = action.payload.hasFlea;
+                state[state.gameMode].playerLevel = action.payload.playerLevel;
+                state[state.gameMode].pmcFaction = action.payload.pmcFaction;
 
                 for (const stationKey in action.payload.hideout) {
                     settingsSlice.caseReducers.setStationOrTraderLevel(state, {
