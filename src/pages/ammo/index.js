@@ -101,7 +101,6 @@ function Ammo() {
     const { ammoData, legendData } = useMemo(() => {
         const typeCache = {};
         const legend = [];
-        let markerTypeIndex = 0;
         const calibers = items.filter(item => {
             return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber)
         }).reduce((all, current) => {
@@ -148,7 +147,7 @@ function Ammo() {
             const caliberIndex = calibers.indexOf(returnData.type);
             let symbol = {
                 fill: `hsl(${Math.round((caliberIndex / calibers.length) * 340)}, 50%, 50%)`,
-                type: markerTypes[markerTypeIndex],
+                type: markerTypes[caliberIndex % markerTypes.length],
             };
     
             if (typeCache[returnData.type]) {
@@ -162,10 +161,6 @@ function Ammo() {
                     caliber: returnData.properties.caliber,
                     symbol: symbol,
                 });
-                markerTypeIndex++;
-                if (markerTypeIndex >= markerTypes.length) {
-                    markerTypeIndex = 0;
-                }
             }
             returnData.symbol = symbol;
     
