@@ -126,10 +126,10 @@ function Ammo() {
                 returnData.name = `${item.name} (${returnData.penetrationPower})`;
                 returnData.displayPenetration = MAX_PENETRATION;
             }
-            let symbol = symbols[typeCache.length];
+            let symbol = symbols[typeCache.length] ?? symbols[0];
     
             if (typeCache.includes(returnData.type)) {
-                symbol = symbols[typeCache.indexOf(returnData.type)];
+                symbol = symbols[typeCache.indexOf(returnData.type)] ?? symbols[0];
             } 
             else {
                 typeCache.push(returnData.type);
@@ -141,11 +141,6 @@ function Ammo() {
                 });
             }
             returnData.symbol = symbol;
-    
-            if (!symbol) {
-                console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
-                process.exit(1);
-            }
     
             return returnData;
         });

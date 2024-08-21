@@ -192,6 +192,7 @@ function SmallItemTable(props) {
         defaultRandom,
         typeFilter,
         containedInFilter,
+        armorSlotFilter,
         sortBy,
         sortByDesc,
         // columns
@@ -271,6 +272,8 @@ function SmallItemTable(props) {
         minPenetration,
         maxPenetration,
         distance,
+        softArmorFilter,
+        plateArmorFilter,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
@@ -449,6 +452,15 @@ function SmallItemTable(props) {
 
             formattedItem.count = containedItems[itemData.id] || 1;
 
+            if (armorSlotFilter && armorZones) {
+                formattedItem.armorZone = getArmorZoneString(armorSlotFilter.reduce((zones, slot) => {
+                    if (slot.allowedPlates.some(plate => plate.id === formattedItem.id)) {
+                        zones.push(...slot.zones);
+                    }
+                    return zones;
+                }, []));
+            }
+
             return formattedItem;
         };
         let returnData = items
@@ -558,6 +570,12 @@ function SmallItemTable(props) {
                     return true;
                 }
                 return containedItems[item.id];
+            })
+            .filter(item => {
+                if (!armorSlotFilter) {
+                    return true;
+                }
+                return armorSlotFilter.some(slot => slot.allowedPlates.some(plate => plate.id === item.id));
             })
             .filter(item => {
                 if (includeBlockingHeadset) {
@@ -688,6 +706,28 @@ function SmallItemTable(props) {
 
         if (has4Slot) {
             returnData = returnData.filter(item => item.properties?.grids?.some(grid => grid.width * grid.height >= 4));
+        }
+
+        if (softArmorFilter) {
+            returnData = returnData.filter(item => item.properties?.armorSlots?.some(slot => slot.durability && slot.class >= softArmorFilter[0] && slot.class <= softArmorFilter[1]));
+        }
+        if (plateArmorFilter && (plateArmorFilter[0] !== 0 || plateArmorFilter[1] !== 6)) {
+            returnData = returnData.filter(item => item.properties?.armorSlots?.some(slot => {
+                if (!slot.allowedPlates && plateArmorFilter[1] === 0) {
+                    return true;
+                }
+                if (!slot.allowedPlates) {
+                    return false;
+                }
+                const plateArmorClass = slot.allowedPlates?.reduce((highestClass, current) => {
+                    const plate = items.find(i => i.id === current.id);
+                    if (plate?.properties.class > highestClass) {
+                        return plate.properties.class;
+                    }
+                    return highestClass;
+                }, 0);
+                return plateArmorClass >= plateArmorFilter[0] && plateArmorClass <= plateArmorFilter[1];
+            }));
         }
 
         if (caliberFilter) {
@@ -854,7 +894,11 @@ function SmallItemTable(props) {
         maxPenetration,
         traderValue,
         traderBuyback,
-        traderOffer
+        traderOffer,
+        armorSlotFilter,
+        armorZones,
+        softArmorFilter,
+        plateArmorFilter,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {

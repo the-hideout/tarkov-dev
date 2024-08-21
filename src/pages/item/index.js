@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
@@ -20,11 +20,13 @@ import PropertyList from '../../components/property-list/index.js';
 import ItemsForHideout from '../../components/items-for-hideout/index.js';
 import PriceGraph from '../../components/price-graph/index.js';
 import ItemSearch from '../../components/item-search/index.js';
-import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter/index.js';
+import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, RangeFilter } from '../../components/filter/index.js';
 import ContainedItemsList from '../../components/contained-items-list/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import ItemImage from '../../components/item-image/index.js';
 import { PresetSelector } from '../../components/preset-selector/index.js';
+import DataTable from '../../components/data-table/index.js';
+import CenterCell from '../../components/center-cell/index.js';
 
 import warningIcon from '../../images/icon-warning.png';
 
@@ -93,6 +95,14 @@ function Item() {
         'includeCraftIngredients',
         false,
     );
+    const [showAllCompatiblePlateSources, setShowAllCompatiblePlateSources] = useState(false);
+    const [minArmorClass, setMinArmorClass] = useState(1);
+    const [maxArmorClass, setMaxArmorClass] = useState(6);
+
+    const handleArmorClassChange = useCallback(([min, max]) => {
+        setMinArmorClass(min);
+        setMaxArmorClass(max);
+    }, [setMinArmorClass, setMaxArmorClass]);
 
     const loadingData = useMemo(() => {
         return {
@@ -206,6 +216,39 @@ function Item() {
             />
         );
     }, [currentItemData, dispatch, settings, t]);
+
+    const softArmorSlots = useMemo(() => {
+        const columns = [
+            {
+                Header: t('Zone'),
+                id: 'zones',
+                accessor: (s) => s.zones.join(', '),
+            },
+            {
+                Header: t('Class'),
+                id: 'class',
+                accessor: 'class',
+                Cell: CenterCell,
+            },
+            {
+                Header: t('Durability'),
+                id: 'durability',
+                accessor: 'durability',
+                Cell: CenterCell,
+            },
+        ];
+        if (!currentItemData.properties?.armorSlots) {
+            return {data: [], columns};
+        }
+        const softArmorSlots = currentItemData.properties.armorSlots.filter(slot => slot.durability);
+        return {columns, data: softArmorSlots}
+    }, [currentItemData, t]);
+    const plateArmorSlots = useMemo(() => {
+        if (!currentItemData.properties?.armorSlots) {
+            return [];
+        }
+        return currentItemData.properties.armorSlots.filter(slot => slot.allowedPlates);
+    }, [currentItemData]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -635,6 +678,69 @@ The max profitable price is impacted by the intel center and hideout management 
                         : (<LoadingSmall />)
                     }
                 </div>
+                {softArmorSlots.data.length > 0 && (
+                    <div>
+                        <div className="soft-armor-slots-headline-wrapper">
+                            <h2>
+                                {t('Soft Armor Slots')}
+                            </h2>
+                        </div>
+                        <DataTable
+                            className={`small-data-table`}
+                            key="soft-armor-table"
+                            columns={softArmorSlots.columns}
+                            data={softArmorSlots.data}
+                        />
+                    </div>
+
+                )}
+                {plateArmorSlots.length > 0 && (
+                    <div>
+                        <div className="item-headline-wrapper-with-controls">
+                            <h2>
+                                {t('Compatible Armor Plates')}
+                            </h2>
+                            <span>
+                                <ToggleFilter
+                                    checked={showAllCompatiblePlateSources}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllCompatiblePlateSources(!showAllCompatiblePlateSources)
+                                    }
+                                    tooltipContent={
+                                        <>
+                                            {t('Shows all sources of items regardless of your settings')}
+                                        </>
+                                    }
+                                />
+                                <RangeFilter
+                                    defaultValue={[1, 6]}
+                                    label={t('Armor class')}
+                                    min={1}
+                                    max={6}
+                                    marks={{1:1, 2:2, 3:3, 4:4, 5:5, 6:6}}
+                                    onChange={handleArmorClassChange}
+                                />
+                            </span>
+                        </div>
+                        <SmallItemTable
+                            armorSlotFilter={plateArmorSlots}
+                            minPropertyFilter={{
+                                property: 'class',
+                                value: minArmorClass,
+                            }}
+                            maxPropertyFilter={{
+                                property: 'class',
+                                value: maxArmorClass,
+                            }}
+                            armorZones={1}
+                            armorClass={2}
+                            effectiveDurability={3}
+                            cheapestPrice
+                            showAllSources={showAllCompatiblePlateSources}
+                        />
+                    </div>
+                )}
                 {containsItems && (
                     <div>
                         <div className="item-contents-headline-wrapper">

@@ -19,7 +19,8 @@ const caliberMap = {
     Caliber9x39: '9x39 mm',
     Caliber20g: '20 Gauge',
     Caliber12g: '12 Gauge',
-    Caliber9x33R: '.357 Magnum'
+    Caliber9x33R: '.357 Magnum',
+    Caliber127x33: '.50 AE',
 };
 
 export function caliberArrayWithSplit() {

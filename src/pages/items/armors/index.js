@@ -34,12 +34,20 @@ function Armors(props) {
         'includeRigs',
         true,
     );
-    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage(
-        'minArmorClass',
-        1,
+    const [minArmorClassSoft, setMinArmorClassSoft] = useStateWithLocalStorage(
+        'minArmorClassSoft',
+        0,
     );
-    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage(
-        'maxArmorClass',
+    const [maxArmorClassSoft, setMaxArmorClassSoft] = useStateWithLocalStorage(
+        'maxArmorClassSoft',
+        6,
+    );
+    const [minArmorClassPlate, setMinArmorClassPlate] = useStateWithLocalStorage(
+        'minArmorClassPlate',
+        0,
+    );
+    const [maxArmorClassPlate, setMaxArmorClassPlate] = useStateWithLocalStorage(
+        'maxArmorClassPlate',
         6,
     );
     const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
@@ -48,9 +56,13 @@ function Armors(props) {
     );
     const { t } = useTranslation();
 
-    const handleArmorClassChange = ([min, max]) => {
-        setMinArmorClass(min);
-        setMaxArmorClass(max);
+    const handleSoftArmorClassChange = ([min, max]) => {
+        setMinArmorClassSoft(min);
+        setMaxArmorClassSoft(max);
+    };
+    const handlePlateArmorClassChange = ([min, max]) => {
+        setMinArmorClassPlate(min);
+        setMaxArmorClassPlate(max);
     };
 
     const typeFilter = ['armor'];
@@ -94,14 +106,6 @@ function Armors(props) {
                         onChange={(e) => setIncludeRigs(!includeRigs)}
                         checked={includeRigs}
                     />
-                    <RangeFilter
-                        defaultValue={[minArmorClass, maxArmorClass]}
-                        label={t('Armor class')}
-                        min={1}
-                        max={6}
-                        marks={marks}
-                        onChange={handleArmorClassChange}
-                    />
                     <InputFilter
                         defaultValue={maxPrice || ''}
                         label={t('Max price')}
@@ -109,20 +113,30 @@ function Armors(props) {
                         placeholder={t('max price')}
                         type="number"
                     />
+                    <RangeFilter
+                        defaultValue={[minArmorClassSoft, maxArmorClassSoft]}
+                        label={t('Soft armor class')}
+                        min={0}
+                        max={6}
+                        marks={marks}
+                        onChange={handleSoftArmorClassChange}
+                    />
+                    <RangeFilter
+                        defaultValue={[minArmorClassPlate, maxArmorClassPlate]}
+                        label={t('Plate armor class')}
+                        min={0}
+                        max={6}
+                        marks={marks}
+                        onChange={handlePlateArmorClassChange}
+                    />
                 </Filter>
             </div>
 
             <SmallItemTable
                 typeFilter={'armor'}
                 excludeTypeFilter={includeRigs ? false : 'rig'}
-                minPropertyFilter={{
-                    property: 'class',
-                    value: minArmorClass,
-                }}
-                maxPropertyFilter={{
-                    property: 'class',
-                    value: maxArmorClass,
-                }}
+                softArmorFilter={[minArmorClassSoft, maxArmorClassSoft]}
+                plateArmorFilter={[minArmorClassPlate, maxArmorClassPlate]}
                 maxPrice={maxPrice}
                 useClassEffectiveDurability={useClassEffectiveDurability}
                 armorClass
