@@ -147,7 +147,7 @@ function Ammo() {
 
             const caliberIndex = calibers.indexOf(returnData.type);
             let symbol = {
-                fill: `hsl(${Math.round((caliberIndex / calibers.length) * 360)}, 50%, 50%)`,
+                fill: `hsl(${Math.round((caliberIndex / calibers.length) * 340)}, 50%, 50%)`,
                 type: markerTypes[markerTypeIndex],
             };
     
