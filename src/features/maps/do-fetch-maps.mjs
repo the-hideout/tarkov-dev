@@ -73,6 +73,23 @@ class MapsQuery extends APIQuery {
                         name
                     }
                 }
+                transits {
+                    id
+                    description
+                    conditions
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
                 locks {
                     lockType
                     key {

@@ -441,7 +441,7 @@ function Quest() {
                 </>
             );
         }
-        if (objective.type === 'giveItem' || objective.type === 'findItem') {
+        if (objective.type === 'giveItem' || objective.type === 'findItem' || objective.type === 'sellItem') {
             let itemElements = [];
             let countElement = '';
             for (const objItem of objective.items) {

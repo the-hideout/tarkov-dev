@@ -31,6 +31,7 @@ const images = {
     'extract_pmc': 'extract_pmc',
     'extract_scav': 'extract_scav',
     'extract_shared': 'extract_shared',
+    'extract_transit': 'extract_pmc',
     'hazard': 'hazard',
     'key': 'key',
     'lock': 'lock',
