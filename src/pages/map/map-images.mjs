@@ -8,6 +8,7 @@ const images = {
     'container_dead-civilian': 'container_dead-scav',
     'container_dead-scav': 'container_dead-scav',
     'container_pmc-body': 'container_dead-scav',
+    'container_civilian-body': 'container_dead-scav',
     'container_drawer': 'container_drawer',
     'container_duffle-bag': 'container_duffle-bag',
     'container_grenade-box': 'container_grenade-box',
