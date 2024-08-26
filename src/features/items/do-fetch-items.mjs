@@ -366,6 +366,7 @@ class ItemsQuery extends APIQuery {
                             id
                             tarkovDataId
                             name
+                            normalizedName
                         }
                     }
                 }
