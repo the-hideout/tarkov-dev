@@ -1,6 +1,6 @@
 const alertConfig = {
     // set this bool if the site alert should be enabled or not
-    alertEnabled: true,
+    alertEnabled: false,
 
     // valid alert colors
     alertColors: {
