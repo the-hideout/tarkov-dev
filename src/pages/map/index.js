@@ -410,6 +410,7 @@ function Map() {
             'extract_pmc': tMaps('PMC'),
             'extract_shared': tMaps('Shared'),
             'extract_scav': tMaps('Scav'),
+            'extract_transit': tMaps('Transit'),
             'spawn_sniper_scav': tMaps('Sniper Scav'),
             'spawn_pmc': tMaps('PMC'),
             'spawn_scav': tMaps('Scav'),
@@ -983,6 +984,43 @@ function Map() {
                 L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
 
                 checkMarkerBounds(extract.position, markerBounds);
+            }
+            if (mapData.transits.length > 0) {
+                extractLayers.transit = L.layerGroup();
+
+                for (const transit of mapData.transits) {
+                    if (!positionIsInBounds(transit.position)) {
+                        //continue;
+                    }
+                    const rect = L.polygon(outlineToPoly(transit.outline), {color: '#e53500', weight: 1, className: 'not-shown'});
+                    const transitIcon = L.divIcon({
+                        className: 'extract-icon',
+                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_pmc.png"/><span class="extract-name transit">${transit.description}</span>`,
+                        iconAnchor: [12, 12]
+                    });
+                    const transitMarker = L.marker(pos(transit.position), {
+                        icon: transitIcon,
+                        title: transit.description,
+                        zIndexOffset: zIndexOffsets.pmc,
+                        position: transit.position,
+                        top: transit.top,
+                        bottom: transit.bottom,
+                        outline: rect,
+                        id: transit.id,
+                    });
+                    transitMarker.on('mouseover', mouseHoverOutline);
+                    transitMarker.on('mouseout', mouseHoverOutline);
+                    transitMarker.on('click', toggleForceOutline);
+                    if (showElevation) {
+                        const popup = L.DomUtil.create('div');
+                        addElevation(transit, popup);
+                        transitMarker.bindPopup(L.popup().setContent(popup));
+                    }
+                    transitMarker.on('add', checkMarkerForActiveLayers);
+                    L.layerGroup([rect, transitMarker]).addTo(extractLayers.transit);
+    
+                    checkMarkerBounds(transit.position, markerBounds);
+                }
             }
             for (const key in extractLayers) {
                 if (Object.keys(extractLayers[key]._layers).length > 0) {

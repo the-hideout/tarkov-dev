@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useCallback, Suspense } from 'react';
+import React, { useEffect, useCallback, useRef, Suspense } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,7 +87,6 @@ const socketServer = 'wss://socket.tarkov.dev';
 //const socketServer = 'ws://localhost:8080';
 
 let socket = false;
-let tarkovTrackerProgressInterval = false;
 
 loadPolyfills();
 
@@ -122,6 +121,8 @@ function App() {
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const retrievedTarkovTrackerToken = useRef(false);
+    const tarkovTrackerProgressInterval = useRef(false);
 
     if (connectToId) {
         dispatch(enableConnection());
@@ -140,26 +141,28 @@ function App() {
     );
 
     useEffect(() => {
-        if (useTarkovTracker && progressStatus !== 'loading' && !tarkovTrackerProgressInterval) {
-            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-        }
-
-        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
-            tarkovTrackerProgressInterval = setInterval(() => {
+        if (!tarkovTrackerProgressInterval.current && useTarkovTracker) {
+            tarkovTrackerProgressInterval.current = setInterval(() => {
+                retrievedTarkovTrackerToken.current = tarkovTrackerAPIKey;
                 dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
             }, 1000 * 60 * 5);
         }
 
-        if (tarkovTrackerProgressInterval && !useTarkovTracker) {
-            clearInterval(tarkovTrackerProgressInterval);
-            tarkovTrackerProgressInterval = false;
+        if (useTarkovTracker && progressStatus !== 'loading' && retrievedTarkovTrackerToken.current !== tarkovTrackerAPIKey) {
+            retrievedTarkovTrackerToken.current = tarkovTrackerAPIKey;
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+
+        if (tarkovTrackerProgressInterval.current && !useTarkovTracker) {
+            clearInterval(tarkovTrackerProgressInterval.current);
+            tarkovTrackerProgressInterval.current = false;
         }
 
         return () => {
-            clearInterval(tarkovTrackerProgressInterval);
-            tarkovTrackerProgressInterval = false;
+            clearInterval(tarkovTrackerProgressInterval.current);
+            tarkovTrackerProgressInterval.current = false;
         };
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker, tarkovTrackerProgressInterval, retrievedTarkovTrackerToken]);
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {

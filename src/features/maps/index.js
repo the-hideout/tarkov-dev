@@ -123,6 +123,7 @@ export const useMapImages = () => {
                 }),
                 spawns: apiData?.spawns || [],
                 extracts: apiData?.extracts || [],
+                transits: apiData?.transits || [],
                 locks: apiData?.locks || [],
                 hazards: apiData?.hazards || [],
                 lootContainers: apiData?.lootContainers || [],

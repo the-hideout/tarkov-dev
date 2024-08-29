@@ -163,7 +163,8 @@
 .item-barters-headline-wrapper,
 .item-contents-headline-wrapper,
 .item-hideout-headline-wrapper,
-.item-quest-headline-wrapper {
+.item-quest-headline-wrapper,
+.item-headline-wrapper-with-controls {
     margin-top: 20px;
     margin-bottom: 20px;
     align-items: center;
@@ -173,7 +174,8 @@
 .item-barters-headline-wrapper h2,
 .item-contents-headline-wrapper h2,
 .item-hideout-headline-wrapper h2,
-.item-quest-headline-wrapper h2 {
+.item-quest-headline-wrapper h2,
+.item-headline-wrapper-with-controls h2 {
     flex-grow: 1;
     margin: 0;
 }
@@ -187,7 +189,8 @@
     .item-barters-headline-wrapper,
     .item-contents-headline-wrapper,
     .item-hideout-headline-wrapper,
-    .item-quest-headline-wrapper {
+    .item-quest-headline-wrapper,
+    .item-headline-wrapper-with-controls {
         display: flex;
     }
 

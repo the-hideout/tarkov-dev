@@ -63,6 +63,9 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
                 return false;
             }
             const quest = quests.find(q => q.id === id);
+            if (!quest) {
+                return false;
+            }
             if (settings[settings.gameMode].playerLevel < quest.minPlayerLevel) {
                 //return false;
             }

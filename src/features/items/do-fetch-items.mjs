@@ -77,6 +77,9 @@ class ItemsQuery extends APIQuery {
                             ergoPenalty
                             speedPenalty
                             turnPenalty
+                            armorSlots {
+                                ...ArmorSlotFragment
+                            }
                         }
                         ...on ItemPropertiesArmorAttachment {
                             class
@@ -120,6 +123,9 @@ class ItemsQuery extends APIQuery {
                             turnPenalty
                             grids {
                                 ...GridFragment
+                            }
+                            armorSlots {
+                                ...ArmorSlotFragment
                             }
                         }
                         ...on ItemPropertiesContainer {
@@ -313,6 +319,39 @@ class ItemsQuery extends APIQuery {
                     }
                 }
             }
+            fragment SoftArmorSlotFragment on ItemArmorSlotLocked {
+                nameId
+                name
+                class
+                durability
+                speedPenalty
+                turnPenalty
+                ergoPenalty
+                material {
+                    id
+                    name
+                }
+                zones
+                armorType
+            }
+            fragment PlateArmorSlotFragment on ItemArmorSlotOpen {
+                nameId
+                name
+                zones
+                allowedPlates {
+                    id
+                }
+            }
+            fragment ArmorSlotFragment on ItemArmorSlot {
+                nameId
+                zones
+                ...on ItemArmorSlotLocked {
+                    ...SoftArmorSlotFragment
+                }
+                ...on ItemArmorSlotOpen {
+                    ...PlateArmorSlotFragment
+                }
+            }
             fragment ItemPriceFragment on ItemPrice {
                 vendor {
                     name
@@ -327,6 +366,7 @@ class ItemsQuery extends APIQuery {
                             id
                             tarkovDataId
                             name
+                            normalizedName
                         }
                     }
                 }

@@ -18,8 +18,6 @@ import useItemsData from '../../features/items/index.js';
 
 import { formatCaliber } from '../../modules/format-ammo.mjs';
 
-import symbols from '../../symbols.json';
-
 import './index.css';
 import { useSelector } from 'react-redux';
 import { selectAllTraders } from '../../features/settings/settingsSlice.js';
@@ -27,13 +25,24 @@ import { selectAllTraders } from '../../features/settings/settingsSlice.js';
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
 
-const skipTypes = [
+const skipCalibers = [
     'Caliber30x29',
     'Caliber40x46',
     'Caliber127x108',
     'Caliber26x75',
-    'Caliber40mmRU'
+    'Caliber40mmRU',
+    'Caliber20x1mm',
 ];
+
+const markerTypes = [
+    'Plus',
+    'Circle',
+    'TriangleUp',
+    'TriangleDown',
+    'Diamond',
+];
+
+const ammoCategoryId = '5485a8684bdc2da71d8b4567';
 
 function Ammo() {
     const allTraders = useSelector(selectAllTraders);
@@ -91,10 +100,19 @@ function Ammo() {
     }, [currentAmmo]);
 
     const { ammoData, legendData } = useMemo(() => {
-        const typeCache = [];
+        const typeCache = {};
         const legend = [];
+        const calibers = items.filter(item => {
+            return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber)
+        }).reduce((all, current) => {
+            const caliber = formatCaliber(current.properties.caliber, current.properties.ammoType);
+            if (!all.includes(caliber)) {
+                all.push(caliber);
+            }
+            return all;
+        }, []).sort((a, b) => a.localeCompare(b));
         const ammo = items.filter(item => {
-            return item.categoryIds.includes('5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
+            return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber)
         }).sort((a, b) => {
             const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
             const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
@@ -126,13 +144,18 @@ function Ammo() {
                 returnData.name = `${item.name} (${returnData.penetrationPower})`;
                 returnData.displayPenetration = MAX_PENETRATION;
             }
-            let symbol = symbols[typeCache.length];
+
+            const caliberIndex = calibers.indexOf(returnData.type);
+            let symbol = {
+                fill: `hsl(${Math.round((caliberIndex / calibers.length) * 340)}, 50%, 50%)`,
+                type: markerTypes[caliberIndex % markerTypes.length],
+            };
     
-            if (typeCache.includes(returnData.type)) {
-                symbol = symbols[typeCache.indexOf(returnData.type)];
+            if (typeCache[returnData.type]) {
+                symbol = typeCache[returnData.type];
             } 
             else {
-                typeCache.push(returnData.type);
+                typeCache[returnData.type] = symbol;
                 legend.push({
                     ...returnData,
                     name: returnData.type,
@@ -141,11 +164,6 @@ function Ammo() {
                 });
             }
             returnData.symbol = symbol;
-    
-            if (!symbol) {
-                console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
-                process.exit(1);
-            }
     
             return returnData;
         });
@@ -352,7 +370,10 @@ function Ammo() {
                 {t('Ammo Statistics Table')}
             </h2>
             <SmallItemTable
-                bsgCategoryFilter={'5485a8684bdc2da71d8b4567'}
+                customFilter={(item) => {
+                    const isAmmo = item.categories.some(category => category.id === ammoCategoryId);
+                    return isAmmo && !skipCalibers.includes(item.properties.caliber);
+                }}
                 showAllSources={showAllTraderPrices}
                 caliberFilter={selectedLegendName}
                 useAllProjectileDamage={useAllProjectileDamage}

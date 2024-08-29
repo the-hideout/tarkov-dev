@@ -5,7 +5,7 @@ import Tippy from '@tippyjs/react';
 
 import './index.css';
 
-const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots', 'presets'];
+const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots', 'presets', 'armorSlots'];
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;

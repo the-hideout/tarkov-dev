@@ -167,6 +167,10 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     color: #00e4e5;
 }
 
+.extract-name.transit {
+    color: #e53500;
+}
+
 .poi-image, img.popup-item {
     max-width: 24px;
     max-height: 24px;

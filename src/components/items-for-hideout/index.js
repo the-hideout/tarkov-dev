@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import useHideoutData from '../../features/hideout/index.js';
+import useItemsData from '../../features/items/index.js';
 
 import './index.css';
 
@@ -13,6 +14,7 @@ function ItemsForHideout(props) {
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const { data: hideout } = useHideoutData();
+    const { data: items } = useItemsData();
 
     // Data manipulation section
     const data = useMemo(() => {
@@ -89,21 +91,25 @@ function ItemsForHideout(props) {
                             </td>
                         </tr>
                     )}
-                    {displayList.map((item, k) => {
+                    {displayList.map((hideoutModule, k) => {
+                        const item = items.find(i => i.id === hideoutModule.item.id);
+                        if (!item) {
+                            return false;
+                        }
                         return (
                             <tr key={k} className="hideout-item-list-row">
                                 <td className="hideout-item-list-column">
                                     <div className="hideout-name-wrapper">
                                         <img
-                                            alt={item.moduleName}
+                                            alt={hideoutModule.moduleName}
                                             className="quest-giver-image"
                                             loading="lazy"
-                                            src={item.imageLink}
+                                            src={hideoutModule.imageLink}
                                         />
                                         <div>
-                                            {item.moduleName}
+                                            {hideoutModule.moduleName}
                                             <div>
-                                                {t('Level')} {item.level}
+                                                {t('Level')} {hideoutModule.level}
                                             </div>
                                         </div>
                                     </div>
@@ -112,22 +118,22 @@ function ItemsForHideout(props) {
                                     <div className="hideout-item-wrapper">
                                         <div className="hideout-item-image-wrapper">
                                             <img
-                                                alt={item.item.name}
+                                                alt={item.name}
                                                 loading="lazy"
-                                                src={item.item.iconLink}
+                                                src={item.iconLink}
                                             />
                                         </div>
                                         <div className="hideout-item-text-wrapper">
-                                            {item.item.name}
+                                            {item.name}
                                             <div className="amount-wrapper">
-                                                {t('Amount')}: {item.quantity}
+                                                {t('Amount')}: {hideoutModule.quantity}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         );
-                    })}
+                    }).filter(Boolean)}
                 </tbody>
             </table>
         </div>
