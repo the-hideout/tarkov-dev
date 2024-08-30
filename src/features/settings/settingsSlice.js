@@ -250,6 +250,7 @@ export const selectAllTraders = createSelector([selectSettings], (settings) => {
         mechanic: settings[settings.gameMode].mechanic,
         ragman: settings[settings.gameMode].ragman,
         jaeger: settings[settings.gameMode].jaeger,
+        ref: settings[settings.gameMode].ref,
     };
 });
 

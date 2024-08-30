@@ -74,7 +74,7 @@ function Settings() {
     const hideDogtagBarters = useSelector((state) => state.settings[state.settings.gameMode].hideDogtagBarters);
     const gameMode = useSelector((state) => state.settings.gameMode);
 
-    const refs = {
+    const stationRefs = {
         'bitcoin-farm': useRef(null),
         'booze-generator': useRef(null),
         'christmas-tree': useRef(null),
@@ -104,11 +104,11 @@ function Settings() {
     useEffect(() => {
         if (useTarkovTracker) {
             for (const stationKey in allStations) {
-                if (!refs[stationKey]) {
+                if (!stationRefs[stationKey]) {
                     continue;
                 }
 
-                refs[stationKey].current?.setValue({
+                stationRefs[stationKey].current?.setValue({
                     value: allStations[stationKey],
                     label: allStations[stationKey]
                         ? allStations[stationKey].toString()
@@ -230,13 +230,13 @@ function Settings() {
             <div className="settings-group-wrapper">
                 <h2>{t('Traders')}</h2>
                 {traders.map((trader) => {
+
                     return (
                         <StationSkillTraderSetting
                             key={trader.normalizedName}
                             label={trader.name}
                             type="trader"
                             stateKey={trader.normalizedName}
-                            ref={refs[trader.normalizedName]}
                         />
                     );
                 })}
@@ -250,7 +250,7 @@ function Settings() {
                             label={station.name}
                             type="station"
                             stateKey={station.normalizedName}
-                            ref={refs[station.normalizedName]}
+                            ref={stationRefs[station.normalizedName]}
                             isDisabled={useTarkovTracker}
                             image={station.imageLink}
                         />
@@ -265,7 +265,6 @@ function Settings() {
                             key={skillKey}
                             type="skill"
                             stateKey={skillKey}
-                            ref={refs[skillKey]}
                         />
                     );
                 })}
