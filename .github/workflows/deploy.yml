@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v9.4.0
+        uses: github/branch-deploy@v9.7.0
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
@@ -29,7 +29,7 @@ jobs:
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: GrantBirki/json-yaml-validate@v3.0.0
+        uses: GrantBirki/json-yaml-validate@v3.2.1
 
       - uses: actions/setup-node@v4.0.3
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
