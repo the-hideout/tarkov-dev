@@ -123,6 +123,8 @@ function App() {
     const dispatch = useDispatch();
     const retrievedTarkovTrackerToken = useRef(false);
     const tarkovTrackerProgressInterval = useRef(false);
+    const tarkovTrackerUpdatePending = useRef(false);
+    const tabHasFocus = useRef(true);
 
     if (connectToId) {
         dispatch(enableConnection());
@@ -140,17 +142,56 @@ function App() {
         (state) => state.settings[state.settings.gameMode].tarkovTrackerAPIKey,
     );
 
+    const updateTarkovTrackerData = useCallback(() => {
+        tarkovTrackerUpdatePending.current = false;
+        retrievedTarkovTrackerToken.current = tarkovTrackerAPIKey;
+        dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+    }, [dispatch, tarkovTrackerAPIKey]);
+
+    const scheduleTarkovTrackerUpdate = useCallback(() => {
+        clearInterval(tarkovTrackerProgressInterval.current);
+        tarkovTrackerProgressInterval.current = setInterval(() => {
+            if (!tabHasFocus.current) {
+                // window doesn't have focus, so postpone the update until it does
+                tarkovTrackerUpdatePending.current = true;
+                return;
+            }
+            updateTarkovTrackerData();
+        }, 1000 * 60 * 5);
+    }, [updateTarkovTrackerData]);
+
+    // monitor window focus for Tarkov Tracker updates
+    useEffect(() => {
+        const handleFocus = () => {
+            tabHasFocus.current = true;
+            if (!tarkovTrackerUpdatePending.current) {
+                return;
+            }
+            scheduleTarkovTrackerUpdate();
+            updateTarkovTrackerData();
+        };
+    
+        const handleBlur = () => {
+            tabHasFocus.current = false;
+        };
+    
+        window.addEventListener('focus', handleFocus);
+        window.addEventListener('blur', handleBlur);
+    
+        // Clean up
+        return () => {
+          window.removeEventListener('focus', handleFocus);
+          window.removeEventListener('blur', handleBlur);
+        };
+      }, [scheduleTarkovTrackerUpdate, updateTarkovTrackerData]);
+
     useEffect(() => {
         if (!tarkovTrackerProgressInterval.current && useTarkovTracker) {
-            tarkovTrackerProgressInterval.current = setInterval(() => {
-                retrievedTarkovTrackerToken.current = tarkovTrackerAPIKey;
-                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-            }, 1000 * 60 * 5);
+            scheduleTarkovTrackerUpdate();
         }
 
         if (useTarkovTracker && progressStatus !== 'loading' && retrievedTarkovTrackerToken.current !== tarkovTrackerAPIKey) {
-            retrievedTarkovTrackerToken.current = tarkovTrackerAPIKey;
-            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            updateTarkovTrackerData();
         }
 
         if (tarkovTrackerProgressInterval.current && !useTarkovTracker) {
@@ -162,7 +203,7 @@ function App() {
             clearInterval(tarkovTrackerProgressInterval.current);
             tarkovTrackerProgressInterval.current = false;
         };
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker, tarkovTrackerProgressInterval, retrievedTarkovTrackerToken]);
+    }, [progressStatus, scheduleTarkovTrackerUpdate, updateTarkovTrackerData, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {
