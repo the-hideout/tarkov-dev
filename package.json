@@ -24,7 +24,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "sharp": "^0.33.5"
   },
   "dependencies": {
     "@emotion/styled": "^11.13.0",
@@ -76,7 +77,6 @@
     "react-table": "^7.8.0",
     "react-zoom-pan-pinch": "^3.6.1",
     "resize-observer-polyfill": "^1.5.1",
-    "sharp": "^0.33.5",
     "source-map-explorer": "^2.5.3",
     "victory": "^37.1.0"
   },
