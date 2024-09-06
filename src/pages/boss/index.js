@@ -396,14 +396,15 @@ function BossPage(params) {
                                 </a>
                             </span>
                         }
-                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) &&
-                            <p className='boss-details'>
-                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
-                            </p>
-                        }
                         {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
                             <p className='boss-details'>
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
+                            </p>
+                        }
+                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) && t(`${bossData.normalizedName}-description`, { ns: 'bosses' }).length > 0 &&
+                            <p className='boss-details'>
+                                <h3>{t('Behavior')}</h3>
+                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
                             </p>
                         }
                     </div>
