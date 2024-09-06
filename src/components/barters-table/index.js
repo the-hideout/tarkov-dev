@@ -308,7 +308,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     },
                 );
 
-                if (isNaN(cost) && costItems.length === 1 && costItems[0].id === '5d235b4d86f7742e017bc88a') {      // "gp-coin"
+                if (cost === 0 && costItems.length === 1 && costItems[0].id === '5d235b4d86f7742e017bc88a') {      // "gp-coin"
                     cost = bestSellTo.priceRUB * howManyWeSell;
                     const GPCoinPrice = cost / costItems[0].count;
                     costItems[0].price = GPCoinPrice;
