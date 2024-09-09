@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Trans, useTranslation } from 'react-i18next';
 import { Avatar, ThemeProvider, createTheme } from "@mui/material";
 
-import { ReactComponent as GithubIcon } from '../../components/supporter/Github.svg';
-import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
-import { ReactComponent as XIcon } from '../../components/supporter/X.svg';
+import { ReactComponent as GithubIcon } from '../../images/Github.svg';
+import { ReactComponent as DiscordIcon } from '../../images/Discord.svg';
+import { ReactComponent as XIcon } from '../../images/X.svg';
 
 import SEO from '../../components/SEO.jsx';
 import UkraineButton from '../../components/ukraine-button/index.js';

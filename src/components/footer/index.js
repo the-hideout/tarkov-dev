@@ -1,9 +1,9 @@
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
-import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
-import { ReactComponent as XIcon } from '../supporter/X.svg';
+import { ReactComponent as GithubIcon } from '../../images/Github.svg';
+import { ReactComponent as DiscordIcon } from '../../images/Discord.svg';
+import { ReactComponent as XIcon } from '../../images/X.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button/index.js';

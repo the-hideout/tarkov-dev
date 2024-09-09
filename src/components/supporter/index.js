@@ -1,5 +1,5 @@
-import { ReactComponent as PatreonIcon } from './Patreon.svg';
-import { ReactComponent as GithubIcon } from './Github.svg';
+import { ReactComponent as PatreonIcon } from '../../images/Patreon.svg';
+import { ReactComponent as GithubIcon } from '../../images/Github.svg';
 
 import './index.css';
 
