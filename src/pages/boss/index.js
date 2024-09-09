@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
+import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper, mdiInvoiceTextClockOutline } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 import CenterCell from '../../components/center-cell/index.js';
@@ -352,7 +352,14 @@ function BossPage(params) {
     if (bossData.reports?.length > 0) {
         report = (
             <div>
-                <div>{t('Most recent reports:')}</div>
+                <h2>
+                    {t('Most recent reports')}
+                    <Icon
+                        path={mdiInvoiceTextClockOutline}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
+                </h2>
                 <ul>
                     {bossData.reports.map((report, index) => {
                         const reportedMap = Object.values(allMaps).find(m => m.id === report.map.id);
