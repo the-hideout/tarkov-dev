@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as DiscordIcon } from '../../images/Discord-icon.svg';
 
 import QueueBrowserTask from '../../modules/queue-browser-task.js';
 
@@ -25,7 +26,6 @@ import {
     mdiProgressWrench,
     mdiMap,
     mdiViewGrid,
-    mdiDiscord,
     mdiHome,
     mdiCalendarClock,
     mdiEmoticonDevil,
@@ -215,10 +215,9 @@ function Start() {
                         <a
                             href={DISCORD_STASH_INVITE_LINK}
                         >
-                            <Icon
-                                path={mdiDiscord}
-                                size={1}
+                            <DiscordIcon
                                 className="icon-with-text"
+                                style={{ width: '1.5rem', height: '1.5rem', fill: 'currentcolor' }}
                             />
                             {t('Invite Discord bot')}
                         </a>
