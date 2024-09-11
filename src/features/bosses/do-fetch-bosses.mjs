@@ -71,7 +71,7 @@ class BossesQuery extends APIQuery {
         }
     
         return bossesData.data.bosses.map(boss => {
-            if (boss.normalizedName === 'death-knight') {
+            if (boss.normalizedName === 'knight') {
                 boss.reports = bossesData.data.goonReports;
             }
             return boss;
