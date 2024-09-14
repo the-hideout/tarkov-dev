@@ -67,7 +67,7 @@ const getOptionsForSkill = (t, skillKey) => {
 const getOptionsForTrader = (t, traderKey) => {
     let options = getNumericSelect(1, 4);
 
-    if (traderKey === 'jaeger') {
+    if (traderKey === 'jaeger' || traderKey === 'ref') {
         options.unshift({
             value: 0,
             label: t('Locked'),
