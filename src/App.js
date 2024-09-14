@@ -78,6 +78,7 @@ const WipeLength = React.lazy(() => import('./pages/wipe-length/index.js'));
 const Achievements = React.lazy(() => import('./pages/achievements/index.js'));
 const Players = React.lazy(() => import('./pages/players/index.js'));
 const Player = React.lazy(() => import('./pages/player/index.js'));
+const PlayerForward = React.lazy(() => import('./pages/player/player-forward.js'));
 const Converter = React.lazy(() => import('./pages/converter/index.js'));
 const About = React.lazy(() => import('./pages/about/index.js'));
 
@@ -924,11 +925,21 @@ function App() {
                         ]}
                     />
                     <Route
-                        path="/player/:accountId"
+                        path="/players/:gameMode/:accountId"
                         key="player-route"
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-player-wrapper">
                                 <Player />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path="/player/:accountId"
+                        key="player-regular-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-player-forward-wrapper">
+                                <PlayerForward />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}

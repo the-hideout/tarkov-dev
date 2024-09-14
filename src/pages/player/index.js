@@ -78,6 +78,8 @@ function Player() {
     const params = useParams();
     const navigate = useNavigate();
 
+    const gameMode = params.gameMode;
+
     const [accountId, setAccountId] = useState(params.accountId);
 
     useEffect(() => {
@@ -125,7 +127,7 @@ function Player() {
                 }
                 for (const result of searchResponse) {
                     if (result.name.toLowerCase() === accountId.toLowerCase()) {
-                        navigate('/player/'+result.aid);
+                        navigate(`/players/${gameMode}/${result.aid}`);
                         return;
                     }
                 }
@@ -143,7 +145,7 @@ function Player() {
         } catch (error) {
             setProfileError(error.message);
         }
-    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef]);
+    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef, gameMode]);
 
     const downloadProfile = useCallback(() => {
         if (!playerData.aid) {
@@ -166,13 +168,13 @@ function Player() {
                 const data = JSON.parse(text);
                 data.saved = true;
                 setPlayerData(data);
-                window.history.replaceState(null, null, `/player/${data.aid}`);
+                window.history.replaceState(null, null, `/players/${gameMode}/${data.aid}`);
             } catch(error) {
                 setProfileError('Error reading profile');
             }
         };
         reader.readAsText(e.target.files[0]);
-    }, [setPlayerData, setProfileError]);
+    }, [setPlayerData, setProfileError, gameMode]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -708,11 +710,11 @@ function Player() {
             countLabel = tag.Level;
             let killerInfo = <span>{tag.KillerName}</span>;
             if (tag.KillerAccountId) {
-                killerInfo = <Link to={`/player/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
+                killerInfo = <Link to={`/players/${gameMode}/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
             }
             label = (
                 <span>
-                    <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
+                    <Link to={`/players/${gameMode}/${tag.AccountId}`}>{tag.Nickname}</Link>
                     <span>{` ${t(tag.Status)} `}</span>
                     {killerInfo}
                     {weapon !== undefined && [
@@ -753,7 +755,7 @@ function Player() {
             />
         );
         return { image: itemImage, label };
-    }, [items, t]);
+    }, [items, t, gameMode]);
 
     const getLoadoutContents = useCallback((parentItem, itemType = 'loadout') => {
         const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;

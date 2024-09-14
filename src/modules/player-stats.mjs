@@ -5,12 +5,15 @@ const requestMethod = 'GET';
 
 const playerStats = {
     useTurnstile: false,
-    request: async (path, body) => {
+    request: async (path, gameMode, body) => {
         try {
             const method = body ? 'POST' : 'GET';
             const response = await fetch(apiUrl + path, {
                 method,
                 body,
+                headers: {
+                    'game-mode': gameMode,
+                }
             });
 
             if (response.status !== 200) {
@@ -33,13 +36,14 @@ const playerStats = {
             }
             return json;
         } catch (error) {
+            console.log(error);
             if (error.message.includes('NetworkError')) {
                 return Promise.reject(new Error('Rate limited exceeded. Wait one minute to send another request.'));
             }
             return Promise.reject(error);
         }
     },
-    searchPlayers: async (searchString, turnstileToken) => {
+    searchPlayers: async (searchString, gameMode = 'regular', turnstileToken) => {
         // Create a form request to send the Turnstile token
         // This avoids sending an extra pre-flight request
         let body;
@@ -52,14 +56,14 @@ const playerStats = {
                 searchParams = `?token=${turnstileToken}`;
             }
         }
-        return playerStats.request(`/name/${searchString}${searchParams}`, body).catch(error => {
+        return playerStats.request(`/name/${searchString}${searchParams}`, gameMode, body).catch(error => {
             if (error.message.includes('Malformed')) {
                 return Promise.reject(new Error('Error searching player profile; try removing one character from the end until the search works.'));
             }
             return Promise.reject(error);
         });
     },
-    getProfile: async (accountId, turnstileToken) => {
+    getProfile: async (accountId, gameMode = 'regular', turnstileToken) => {
         let body;
         let searchParams = '';
         if (turnstileToken) {
@@ -70,7 +74,7 @@ const playerStats = {
                 searchParams = `?token=${turnstileToken}`;
             }
         }
-        return playerStats.request(`/account/${accountId}${searchParams}`, body);
+        return playerStats.request(`/account/${accountId}${searchParams}`, gameMode, body);
     },
 };
 
