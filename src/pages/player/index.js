@@ -121,7 +121,7 @@ function Player() {
         }
         if (isNaN(accountId)) {
             try {
-                const searchResponse = await playerStats.searchPlayers(accountId, turnstileToken);
+                const searchResponse = await playerStats.searchPlayers(accountId, gameMode, turnstileToken);
                 if (turnstileRef.current?.reset) {
                     turnstileRef.current.reset();
                 }
@@ -138,7 +138,7 @@ function Player() {
             return;
         }
         try {
-            setPlayerData(await playerStats.getProfile(accountId, turnstileToken));
+            setPlayerData(await playerStats.getProfile(accountId, gameMode, turnstileToken));
             if (turnstileRef.current?.reset) {
                 turnstileRef.current.reset();
             }

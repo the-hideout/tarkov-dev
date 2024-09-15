@@ -91,7 +91,7 @@ function Players() {
                 <ul className="name-results-list">
                     {nameResults.map(result => {
                         return <li key={`account-${result.aid}`}>
-                            <Link to={`/player/${result.aid}`}>
+                            <Link to={`/players/${gameMode}/${result.aid}`}>
                                 {result.name}
                             </Link>
                         </li>
@@ -99,7 +99,7 @@ function Players() {
                 </ul>
             </div>
         );
-    }, [searched, nameResults, t]);
+    }, [searched, nameResults, t, gameMode]);
 
     useEffect(() => {
         if (enterPress) {

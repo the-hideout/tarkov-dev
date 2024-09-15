@@ -36,7 +36,6 @@ const playerStats = {
             }
             return json;
         } catch (error) {
-            console.log(error);
             if (error.message.includes('NetworkError')) {
                 return Promise.reject(new Error('Rate limited exceeded. Wait one minute to send another request.'));
             }
