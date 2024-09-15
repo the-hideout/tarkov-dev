@@ -142,6 +142,9 @@ function Players() {
                     className="basic-multi-select game-mode"
                     classNamePrefix="select"
                     onChange={(event) => {
+                        if (searchTextValid && gameMode !== event.value) {
+                            setButtonDisabled(false);
+                        }
                         setGameMode(event.value);
                     }}
                 />
