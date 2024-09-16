@@ -5,15 +5,12 @@ const requestMethod = 'GET';
 
 const playerStats = {
     useTurnstile: false,
-    request: async (path, gameMode, body) => {
+    request: async (path, body) => {
         try {
             const method = body ? 'POST' : 'GET';
             const response = await fetch(apiUrl + path, {
                 method,
                 body,
-                headers: {
-                    'game-mode': gameMode,
-                }
             });
 
             if (response.status !== 200) {
@@ -46,16 +43,16 @@ const playerStats = {
         // Create a form request to send the Turnstile token
         // This avoids sending an extra pre-flight request
         let body;
-        let searchParams = '';
+        let searchParams = `?gameMode=${gameMode}`;
         if (turnstileToken) {
             if (requestMethod === 'POST') {
                 body = new FormData();
                 body.append('Turnstile-Token', turnstileToken);
             } else {
-                searchParams = `?token=${turnstileToken}`;
+                searchParams += `&token=${turnstileToken}`;
             }
         }
-        return playerStats.request(`/name/${searchString}${searchParams}`, gameMode, body).catch(error => {
+        return playerStats.request(`/name/${searchString}${searchParams}`, body).catch(error => {
             if (error.message.includes('Malformed')) {
                 return Promise.reject(new Error('Error searching player profile; try removing one character from the end until the search works.'));
             }
@@ -64,16 +61,16 @@ const playerStats = {
     },
     getProfile: async (accountId, gameMode = 'regular', turnstileToken) => {
         let body;
-        let searchParams = '';
+        let searchParams = `?gameMode=${gameMode}`;
         if (turnstileToken) {
             if (requestMethod === 'POST') {
                 body = new FormData();
                 body.append('Turnstile-Token', turnstileToken);
             } else {
-                searchParams = `?token=${turnstileToken}`;
+                searchParams += `&token=${turnstileToken}`;
             }
         }
-        return playerStats.request(`/account/${accountId}${searchParams}`, gameMode, body);
+        return playerStats.request(`/account/${accountId}${searchParams}`, body);
     },
 };
 
