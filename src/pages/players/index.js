@@ -1,8 +1,9 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
-
+import Select from 'react-select';
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
 
@@ -12,6 +13,7 @@ import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
 
 import playerStats from '../../modules/player-stats.mjs';
+import gameModes from '../../data/game-modes.json';
 
 import './index.css';
 
@@ -22,6 +24,9 @@ function Players() {
     const { t } = useTranslation();
 
     const enterPress = useKeyPress('Enter');
+
+    const gameModeSetting = useSelector((state) => state.settings.gameMode);
+    const [ gameMode, setGameMode ] = useState(gameModeSetting);
 
     const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
@@ -56,7 +61,7 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            setNameResults((await playerStats.searchPlayers(nameFilter, turnstileToken.current)).sort((a, b) => a.name.localeCompare(b.name)));
+            setNameResults((await playerStats.searchPlayers(nameFilter, gameMode, turnstileToken.current)).sort((a, b) => a.name.localeCompare(b.name)));
             setSearched(true);
         } catch (error) {
             setSearched(false);
@@ -67,7 +72,7 @@ function Players() {
         if (turnstileRef.current?.reset) {
             turnstileRef.current.reset();
         }
-    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileToken, turnstileRef]);
+    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileToken, turnstileRef, gameMode]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
@@ -86,7 +91,7 @@ function Players() {
                 <ul className="name-results-list">
                     {nameResults.map(result => {
                         return <li key={`account-${result.aid}`}>
-                            <Link to={`/player/${result.aid}`}>
+                            <Link to={`/players/${gameMode}/${result.aid}`}>
                                 {result.name}
                             </Link>
                         </li>
@@ -94,7 +99,7 @@ function Players() {
                 </ul>
             </div>
         );
-    }, [searched, nameResults, t]);
+    }, [searched, nameResults, t, gameMode]);
 
     useEffect(() => {
         if (enterPress) {
@@ -122,6 +127,28 @@ function Players() {
                     </p>
                 </Trans>
             </div>
+            <label className={'single-filter-wrapper'} style={{marginBottom: '1em'}}>
+                <span className={'single-filter-label'}>{t('Game mode')}</span>
+                <Select
+                    label={t('Game mode')}
+                    placeholder={t(`game_mode_${gameModeSetting}`)}
+                    defaultValue={gameModeSetting}
+                    options={gameModes.map(m => {
+                        return {
+                            label: t(`game_mode_${m}`),
+                            value: m,
+                        }
+                    })}
+                    className="basic-multi-select game-mode"
+                    classNamePrefix="select"
+                    onChange={(event) => {
+                        if (searchTextValid && gameMode !== event.value) {
+                            setButtonDisabled(false);
+                        }
+                        setGameMode(event.value);
+                    }}
+                />
+            </label>
             <div className='search-controls'>
                 <InputFilter
                     label={t('Player Name')}

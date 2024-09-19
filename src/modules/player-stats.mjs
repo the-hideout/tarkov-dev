@@ -39,17 +39,17 @@ const playerStats = {
             return Promise.reject(error);
         }
     },
-    searchPlayers: async (searchString, turnstileToken) => {
+    searchPlayers: async (searchString, gameMode = 'regular', turnstileToken) => {
         // Create a form request to send the Turnstile token
         // This avoids sending an extra pre-flight request
         let body;
-        let searchParams = '';
+        let searchParams = `?gameMode=${gameMode}`;
         if (turnstileToken) {
             if (requestMethod === 'POST') {
                 body = new FormData();
                 body.append('Turnstile-Token', turnstileToken);
             } else {
-                searchParams = `?token=${turnstileToken}`;
+                searchParams += `&token=${turnstileToken}`;
             }
         }
         return playerStats.request(`/name/${searchString}${searchParams}`, body).catch(error => {
@@ -59,15 +59,15 @@ const playerStats = {
             return Promise.reject(error);
         });
     },
-    getProfile: async (accountId, turnstileToken) => {
+    getProfile: async (accountId, gameMode = 'regular', turnstileToken) => {
         let body;
-        let searchParams = '';
+        let searchParams = `?gameMode=${gameMode}`;
         if (turnstileToken) {
             if (requestMethod === 'POST') {
                 body = new FormData();
                 body.append('Turnstile-Token', turnstileToken);
             } else {
-                searchParams = `?token=${turnstileToken}`;
+                searchParams += `&token=${turnstileToken}`;
             }
         }
         return playerStats.request(`/account/${accountId}${searchParams}`, body);
