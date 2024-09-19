@@ -51,8 +51,16 @@ ul.favorite-item-list li {
     color: #ffe084;
 }
 
+.banned, .not-banned {
+    margin-left: 1em;
+}
+
 .banned {
     color: #cd1e2f;
+}
+
+.not-banned {
+    color: #41cd1e;
 }
 
 .turnstile-widget {
