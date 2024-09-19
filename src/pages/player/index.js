@@ -921,7 +921,7 @@ function Player() {
                     {playerData.aid !== 0 && !playerData.saved && (
                         <span>
                             {typeof playerBanned === 'undefined' && (
-                                <Tippy content={t('Check if user appears to be banned')}>
+                                <Tippy content={t('Check if player appears to be banned')}>
                                     <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
                                         bannedButtonRef.current.disabled = true;
                                         checkBanned();
