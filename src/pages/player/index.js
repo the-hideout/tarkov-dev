@@ -929,10 +929,10 @@ function Player() {
                                 </Tippy>
                             )}
                             {playerBanned === false && (
-                                <span className="not-banned">{t('Player does not appear to be banned')}</span>
+                                <span className="not-banned">{t('Not banned')}</span>
                             )}
                             {playerBanned === true && (
-                                <span className="banned">{t('Player appears to be banned')}</span>
+                                <span className="banned">{t('Possibly banned')}</span>
                             )}
                         </span>
                     )}
