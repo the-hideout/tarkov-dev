@@ -14,6 +14,7 @@ import {
     mdiAccountSearch,
     mdiDownloadBox,
     mdiFolderOpen,
+    mdiGavel,
 } from '@mdi/js';
 import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import Tippy from '@tippyjs/react';
@@ -109,7 +110,9 @@ function Player() {
     const { data: items } = useItemsData();
     const { data: metaData } = useMetaData();
     const { data: achievements } = useAchievementsData();
-    const [turnstileToken, setTurnstileToken] = useState()
+    const [turnstileToken, setTurnstileToken] = useState();
+    const [ playerBanned, setPlayerBanned ] = useState();
+    const bannedButtonRef = useRef();
 
     const fetchProfile = useCallback(async () => {
         const token = turnstileRef?.current?.getResponse();
@@ -146,6 +149,32 @@ function Player() {
             setProfileError(error.message);
         }
     }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef, gameMode]);
+
+    const checkBanned = useCallback(async () => {
+        const token = turnstileRef?.current?.getResponse();
+        if (!token) {
+            return;
+        }
+        if (!playerData?.info?.nickname) {
+            return;
+        }
+        try {
+            const searchResponse = await playerStats.searchPlayers(playerData.info.nickname, gameMode, turnstileToken);
+            if (turnstileRef.current?.reset) {
+                turnstileRef.current.reset();
+            }
+            for (const result of searchResponse) {
+                if (result.name === playerData.info.nickname) {
+                    setPlayerBanned(false);
+                    return;
+                }
+            }
+            setPlayerBanned(true);
+        } catch (error) {
+            console.log(`Error checking banned status for ${playerData.info.nickname}: ${error.message}`);
+        }
+        return false;
+    }, [playerData, setPlayerBanned, turnstileToken, turnstileRef, gameMode]);
 
     const downloadProfile = useCallback(() => {
         if (!playerData.aid) {
@@ -205,16 +234,6 @@ function Player() {
             playerSide: playerData.info.side,
         });
     }, [playerData, playerLevel, t]);
-
-    const bannedMessage = useMemo(() => {
-        if (!playerData?.info?.bannedState) {
-            return false;
-        }
-        if (playerData.info.bannedUntil < 0) {
-            return t('Banned');
-        }
-        return t('Banned until {{banLiftDate}}', { banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString() });
-    }, [playerData, t]);
 
     const accountCategories = useMemo(() => {
         if (!playerData?.info?.memberCategory) {
@@ -898,7 +917,24 @@ function Player() {
                             <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
                             </Tippy>
                         </span>
-                        
+                    )}
+                    {playerData.aid !== 0 && !playerData.saved && (
+                        <span>
+                            {typeof playerBanned === 'undefined' && (
+                                <Tippy content={t('Check if player appears to be banned')}>
+                                    <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
+                                        bannedButtonRef.current.disabled = true;
+                                        checkBanned();
+                                    }}><Icon path={mdiGavel} size={1} className="icon-with-text" /></button>
+                                </Tippy>
+                            )}
+                            {playerBanned === false && (
+                                <span className="not-banned">{t('Not banned')}</span>
+                            )}
+                            {playerBanned === true && (
+                                <span className="banned">{t('Possibly banned')}</span>
+                            )}
+                        </span>
                     )}
                 </h1>
                 <Turnstile
@@ -921,9 +957,6 @@ function Player() {
                 {accountCategories}
                 {!!playerData.saved && (
                     <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
-                )}
-                {!!bannedMessage && (
-                    <p className="banned">{bannedMessage}</p>
                 )}
                 {totalTimeInGame}
                 {lastActiveDate}
