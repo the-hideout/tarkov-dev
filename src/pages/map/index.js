@@ -1396,7 +1396,6 @@ function Map() {
                     checkMarkerBounds(hazard.position, markerBounds);
                 }
             }
-            console.log(Object.keys(hazardNames));
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
                     addLayer(hazardLayers[key], `hazard_${key}`, 'Hazards', hazardNames[key]);
