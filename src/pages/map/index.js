@@ -1312,7 +1312,7 @@ function Map() {
         }
 
         //add hazards
-        if (mapData.hazards.length > 0) {
+        if (mapData.hazards.length > 0 || mapData.artillery?.zones?.length) {
             const hazardLayers = {};
             const hazardNames = {};
             for (const hazard of mapData.hazards) {
