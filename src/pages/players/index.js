@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
 import Select from 'react-select';
@@ -18,6 +18,7 @@ import gameModes from '../../data/game-modes.json';
 import './index.css';
 
 function Players() {
+    const [ searchParams, setSearchParams ] = useSearchParams();
     const turnstileRef = useRef();
     const turnstileToken = useRef(false);
 
@@ -26,7 +27,10 @@ function Players() {
     const enterPress = useKeyPress('Enter');
 
     const gameModeSetting = useSelector((state) => state.settings.gameMode);
-    const [ gameMode, setGameMode ] = useState(gameModeSetting);
+    const defaultGameMode = useMemo(() => {
+        return searchParams.get('gameMode') ?? gameModeSetting;
+    }, [searchParams, gameModeSetting]);
+    const [ gameMode, setGameMode ] = useState(defaultGameMode);
 
     const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
@@ -131,8 +135,8 @@ function Players() {
                 <span className={'single-filter-label'}>{t('Game mode')}</span>
                 <Select
                     label={t('Game mode')}
-                    placeholder={t(`game_mode_${gameModeSetting}`)}
-                    defaultValue={gameModeSetting}
+                    placeholder={t(`game_mode_${defaultGameMode}`)}
+                    defaultValue={defaultGameMode}
                     options={gameModes.map(m => {
                         return {
                             label: t(`game_mode_${m}`),
@@ -142,6 +146,7 @@ function Players() {
                     className="basic-multi-select game-mode"
                     classNamePrefix="select"
                     onChange={(event) => {
+                        setSearchParams({gameMode: event.value});
                         if (searchTextValid && gameMode !== event.value) {
                             setButtonDisabled(false);
                         }

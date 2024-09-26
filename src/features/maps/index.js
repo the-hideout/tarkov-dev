@@ -129,6 +129,7 @@ export const useMapImages = () => {
                 lootContainers: apiData?.lootContainers || [],
                 switches: apiData?.switches || [],
                 stationaryWeapons: apiData?.stationaryWeapons || [],
+                artillery: apiData?.artillery,
             };
             if (imageData.projection) {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
