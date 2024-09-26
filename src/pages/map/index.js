@@ -1359,7 +1359,7 @@ function Map() {
                     if (!positionIsInBounds(hazard.position)) {
                         continue;
                     }
-                    const circle = L.circle(pos(hazard.position), {radius: hazard.radius, color: '#ff0000', weight: 1, className: 'not-shown'});
+                    const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
                     const hazardIcon = L.icon({
                         iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard_artillery.png`,
                         iconSize: [24, 24],
@@ -1373,9 +1373,9 @@ function Map() {
                         title: artyName, 
                         //zIndexOffset: -100,
                         position: hazard.position,
-                        //top: hazard.top,
-                        //bottom: hazard.bottom,
-                        outline: circle,
+                        top: hazard.top,
+                        bottom: hazard.bottom,
+                        outline: rect,
                     });
                     const popup = L.DomUtil.create('div');
                     const hazardText = L.DomUtil.create('div', undefined, popup);
@@ -1391,7 +1391,7 @@ function Map() {
                         hazardLayers.artillery = L.layerGroup();
                         hazardNames.artillery = artyName;
                     }
-                    L.layerGroup([circle, hazardMarker]).addTo(hazardLayers.artillery);
+                    L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.artillery);
     
                     checkMarkerBounds(hazard.position, markerBounds);
                 }

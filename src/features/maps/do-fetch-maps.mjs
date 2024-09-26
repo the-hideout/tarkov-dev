@@ -184,7 +184,13 @@ class MapsQuery extends APIQuery {
                             y
                             z
                         }
-                        radius
+                        outline {
+                            x
+                            y
+                            z
+                        }
+                        top
+                        bottom
                     }
                 }
             }
