@@ -995,7 +995,7 @@ function Map() {
                     const rect = L.polygon(outlineToPoly(transit.outline), {color: '#e53500', weight: 1, className: 'not-shown'});
                     const transitIcon = L.divIcon({
                         className: 'extract-icon',
-                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_pmc.png"/><span class="extract-name transit">${transit.description}</span>`,
+                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_transit.png"/><span class="extract-name transit">${transit.description}</span>`,
                         iconAnchor: [12, 12]
                     });
                     const transitMarker = L.marker(pos(transit.position), {

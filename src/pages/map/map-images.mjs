@@ -32,7 +32,7 @@ const images = {
     'extract_pmc': 'extract_pmc',
     'extract_scav': 'extract_scav',
     'extract_shared': 'extract_shared',
-    'extract_transit': 'extract_pmc',
+    'extract_transit': 'extract_transit',
     'hazard': 'hazard',
     'hazard_mortar': 'hazard_mortar',
     'hazard_minefield': 'hazard',
