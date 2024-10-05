@@ -1361,12 +1361,12 @@ function Map() {
                     }
                     const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
                     const hazardIcon = L.icon({
-                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard_artillery.png`,
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard_mortar.png`,
                         iconSize: [24, 24],
                         popupAnchor: [0, -12],
                     });
 
-                    const artyName = t('Artillery');
+                    const artyName = t('Mortar');
                     
                     const hazardMarker = L.marker(pos(hazard.position), {
                         icon: hazardIcon, 
@@ -1379,7 +1379,7 @@ function Map() {
                     });
                     const popup = L.DomUtil.create('div');
                     const hazardText = L.DomUtil.create('div', undefined, popup);
-                    hazardText.textContent = t('Artillery');
+                    hazardText.textContent = t('Mortar');
                     addElevation(hazard, popup);
                     hazardMarker.bindPopup(L.popup().setContent(popup));
     
@@ -1387,11 +1387,11 @@ function Map() {
                     hazardMarker.on('mouseout', mouseHoverOutline);
                     hazardMarker.on('click', toggleForceOutline);
                     hazardMarker.on('add', checkMarkerForActiveLayers);
-                    if (!hazardLayers.artillery) {
-                        hazardLayers.artillery = L.layerGroup();
-                        hazardNames.artillery = artyName;
+                    if (!hazardLayers.mortar) {
+                        hazardLayers.mortar = L.layerGroup();
+                        hazardNames.mortar = artyName;
                     }
-                    L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.artillery);
+                    L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.mortar);
     
                     checkMarkerBounds(hazard.position, markerBounds);
                 }

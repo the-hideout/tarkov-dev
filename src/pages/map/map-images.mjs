@@ -34,7 +34,7 @@ const images = {
     'extract_shared': 'extract_shared',
     'extract_transit': 'extract_pmc',
     'hazard': 'hazard',
-    'hazard_artillery': 'hazard_artillery',
+    'hazard_mortar': 'hazard_mortar',
     'hazard_minefield': 'hazard',
     'hazard_sniper': 'hazard',
     'key': 'key',
