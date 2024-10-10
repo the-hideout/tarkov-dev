@@ -177,6 +177,22 @@ class MapsQuery extends APIQuery {
                         z
                     }
                 }
+                artillery {
+                    zones {
+                        position {
+                            x
+                            y
+                            z
+                        }
+                        outline {
+                            x
+                            y
+                            z
+                        }
+                        top
+                        bottom
+                    }
+                }
             }
         }`.replace(/\s{2,}/g, ' ');
     

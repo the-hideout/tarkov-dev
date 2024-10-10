@@ -31,6 +31,7 @@ import useMetaData from '../../features/meta/index.js';
 import useAchievementsData from '../../features/achievements/index.js';
 
 import playerStats from '../../modules/player-stats.mjs';
+import { wipeDetails } from '../../modules/wipe-length.js';
 
 import './index.css';
 
@@ -205,6 +206,8 @@ function Player() {
         reader.readAsText(e.target.files[0]);
     }, [setPlayerData, setProfileError, gameMode]);
 
+    const currentWipe = wipeDetails()[0];
+
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
             return 0;
@@ -306,7 +309,7 @@ function Player() {
                 accessor: 'completionDate',
                 Cell: (props) => {
                     return (
-                        <div className="center-content">
+                        <div className={`center-content${new Date(props.value * 1000) > currentWipe.start ? ' current-wipe-achievement' : ''}`}>
                             {new Date(props.value * 1000).toLocaleString()}
                         </div>
                     );
@@ -333,7 +336,7 @@ function Player() {
                 },
             },
         ],
-        [t],
+        [t, currentWipe],
     );
 
     const achievementsData = useMemo(() => {
@@ -731,9 +734,17 @@ function Player() {
             if (tag.KillerAccountId) {
                 killerInfo = <Link to={`/players/${gameMode}/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
             }
+            let victimInfo = (
+                <span>{tag.Nickname}</span>
+            );
+            if (tag.AccountId !== '0') {
+                victimInfo = (
+                    <Link to={`/players/${gameMode}/${tag.AccountId}`}>{tag.Nickname}</Link>
+                );
+            }
             label = (
                 <span>
-                    <Link to={`/players/${gameMode}/${tag.AccountId}`}>{tag.Nickname}</Link>
+                    {victimInfo}
                     <span>{` ${t(tag.Status)} `}</span>
                     {killerInfo}
                     {weapon !== undefined && [
@@ -845,6 +856,7 @@ function Player() {
                     let itemDisplay = getItemDisplay(itemData);
                     if (itemDisplay) {
                         itemImage = itemDisplay.image;
+                        itemLabel = itemDisplay.label;
                     }
                     return (
                         <li key={itemData._id}>
@@ -876,7 +888,7 @@ function Player() {
     const playerSearchDiv = (
         <div>
             <p>
-                <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
+                <Link to={`/players?gameMode=${gameMode}`}><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
                 <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile} accept="application/json,.json"/>
                 <Tippy
                     content={t('Load profile from file')}

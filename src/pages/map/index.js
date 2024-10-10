@@ -995,7 +995,7 @@ function Map() {
                     const rect = L.polygon(outlineToPoly(transit.outline), {color: '#e53500', weight: 1, className: 'not-shown'});
                     const transitIcon = L.divIcon({
                         className: 'extract-icon',
-                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_pmc.png"/><span class="extract-name transit">${transit.description}</span>`,
+                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_transit.png"/><span class="extract-name transit">${transit.description}</span>`,
                         iconAnchor: [12, 12]
                     });
                     const transitMarker = L.marker(pos(transit.position), {
@@ -1312,8 +1312,9 @@ function Map() {
         }
 
         //add hazards
-        if (mapData.hazards.length > 0) {
+        if (mapData.hazards.length > 0 || mapData.artillery?.zones?.length) {
             const hazardLayers = {};
+            const hazardNames = {};
             for (const hazard of mapData.hazards) {
                 if (!positionIsInBounds(hazard.position)) {
                     continue;
@@ -1344,16 +1345,60 @@ function Map() {
                 hazardMarker.on('mouseout', mouseHoverOutline);
                 hazardMarker.on('click', toggleForceOutline);
                 hazardMarker.on('add', checkMarkerForActiveLayers);
-                if (!hazardLayers[hazard.name]) {
-                    hazardLayers[hazard.name] = L.layerGroup()
+                if (!hazardLayers[hazard.hazardType]) {
+                    hazardLayers[hazard.hazardType] = L.layerGroup();
+                    hazardNames[hazard.hazardType] = hazard.name;
                 }
-                L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.name]);
+                L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.hazardType]);
 
                 checkMarkerBounds(hazard.position, markerBounds);
             }
+            
+            if (mapData.artillery?.zones?.length > 0) {
+                for (const hazard of mapData.artillery.zones) {
+                    if (!positionIsInBounds(hazard.position)) {
+                        continue;
+                    }
+                    const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
+                    const hazardIcon = L.icon({
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard_mortar.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                    });
+
+                    const artyName = t('Mortar');
+                    
+                    const hazardMarker = L.marker(pos(hazard.position), {
+                        icon: hazardIcon, 
+                        title: artyName, 
+                        //zIndexOffset: -100,
+                        position: hazard.position,
+                        top: hazard.top,
+                        bottom: hazard.bottom,
+                        outline: rect,
+                    });
+                    const popup = L.DomUtil.create('div');
+                    const hazardText = L.DomUtil.create('div', undefined, popup);
+                    hazardText.textContent = t('Mortar');
+                    addElevation(hazard, popup);
+                    hazardMarker.bindPopup(L.popup().setContent(popup));
+    
+                    hazardMarker.on('mouseover', mouseHoverOutline);
+                    hazardMarker.on('mouseout', mouseHoverOutline);
+                    hazardMarker.on('click', toggleForceOutline);
+                    hazardMarker.on('add', checkMarkerForActiveLayers);
+                    if (!hazardLayers.mortar) {
+                        hazardLayers.mortar = L.layerGroup();
+                        hazardNames.mortar = artyName;
+                    }
+                    L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.mortar);
+    
+                    checkMarkerBounds(hazard.position, markerBounds);
+                }
+            }
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
-                    addLayer(hazardLayers[key], key, 'Hazards');
+                    addLayer(hazardLayers[key], `hazard_${key}`, 'Hazards', hazardNames[key]);
                 }
             }
         }
@@ -1387,6 +1432,9 @@ function Map() {
             }
             addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
+
+        // add artillery zones
+        
 
         // Add static items 
         if (showStaticMarkers) {
