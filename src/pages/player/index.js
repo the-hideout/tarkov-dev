@@ -165,7 +165,7 @@ function Player() {
                 turnstileRef.current.reset();
             }
             for (const result of searchResponse) {
-                if (result.name === playerData.info.nickname) {
+                if (result.name === playerData.info.nickname || result.aid === playerData.aid) {
                     setPlayerBanned(false);
                     return;
                 }
