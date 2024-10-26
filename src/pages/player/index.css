@@ -1,36 +1,51 @@
+.css-53rj3a-MuiTreeItem-content {
+    justify-content: center;
+}
+
 .MuiTreeItem-iconContainer {
     width: auto !important;
     justify-content: normal !important;
     margin-right: 0px !important;
+    align-self: center;
+}
+
+.MuiTreeItem-label {
+    width: auto !important;
 }
 
 .inventory {
-    display: flow-root;
+    display: flex;
+    gap: 10px;
+    overflow-y: hidden;
+    overflow-x: scroll;
 }
 
 .grid-container {
     display: grid;
-    float: left;
     gap: 10px;
 }
 
 .grid-container.main {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, minmax(280px, auto));
+    grid-template-rows: repeat(4, minmax(183px, auto));
 }
 
 .grid-container.side {
-    margin-left: 10px;
-    grid-template-columns: auto;
+    grid-template-columns: minmax(280px, auto);
+    grid-template-rows: minmax(183px, auto) 32px repeat(2, minmax(183px, auto));
+    align-self: flex-start;
 }
 
-.grid-container>div {
-    background-color: rgba(0, 0, 0, 0.4);
+.grid-container > div {
+    background-color: rgba(0, 0, 0);
     text-align: center;
     font-size: 20px;
 }
 
 .weapon {
     grid-column: 1 / span 2;
+    justify-items: center;
+    align-items: center;
 }
 
 ul.favorite-item-list {
@@ -51,7 +66,8 @@ ul.favorite-item-list li {
     color: #ffe084;
 }
 
-.banned, .not-banned {
+.banned,
+.not-banned {
     margin-left: 1em;
 }
 
@@ -68,7 +84,7 @@ ul.favorite-item-list li {
 }
 
 .profile-button {
-    padding: .2rem;
+    padding: 0.2rem;
     border-radius: 4px;
     vertical-align: middle;
     margin-left: 20px;
@@ -76,4 +92,32 @@ ul.favorite-item-list li {
 
 .current-wipe-achievement {
     font-weight: bold;
+}
+
+@media screen and (max-width: 1000px) {
+    .grid-container.main {
+        grid-template-columns: repeat(3, minmax(187.7px, auto));
+        grid-template-rows: repeat(4, minmax(122px, auto));
+    }
+
+    .grid-container.side {
+        grid-template-columns: minmax(187.7px, auto);
+        grid-template-rows: minmax(122px, auto) 32px repeat(2, minmax(122px, auto));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .grid-container.main {
+        grid-template-columns: repeat(3, minmax(140px, auto));
+        grid-template-rows: repeat(4, minmax(91.5px, auto));
+    }
+
+    .grid-container.side {
+        grid-template-columns: minmax(140px, auto);
+        grid-template-rows: minmax(91.5px, auto) 32px repeat(2, minmax(91.5px, auto));
+    }
+
+    .inventory {
+        padding-bottom: 12px;
+    }
 }

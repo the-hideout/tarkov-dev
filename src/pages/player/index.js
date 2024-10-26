@@ -707,7 +707,7 @@ function Player() {
                     ...item,
                     width: preset.width,
                     height: preset.height,
-                    baseImageLink: preset.baseImageLink,
+                    inspectImageLink: preset.inspectImageLink, // issue #1000 orginal = baseImageLink
                 };
             }
             let countLabel;
@@ -775,7 +775,7 @@ function Player() {
             const itemImage = (
                 <ItemImage
                     item={item}
-                    imageField={imageOptions?.imageField || 'baseImageLink'}
+                    imageField={imageOptions?.imageField || 'inspectImageLink'} // issue #1000 original imageOptions?.imageField || baseImageLink
                     linkToItem={imageOptions?.linkToItem}
                     count={countLabel}
                 />
@@ -837,7 +837,7 @@ function Player() {
             let itemImage = undefined;
             let itemLabel = '';
             let contents = [];
-            let itemDisplay = getItemDisplay(loadoutItem);
+            let itemDisplay = getItemDisplay(loadoutItem); // <--------------------- This is where item img is retrieved, dimensions set
             if (itemDisplay) {
                 itemImage = itemDisplay.image;
             } else {
