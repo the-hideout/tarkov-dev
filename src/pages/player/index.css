@@ -18,6 +18,7 @@
     gap: 10px;
     overflow-y: hidden;
     overflow-x: scroll;
+    justify-content: center;
 }
 
 .grid-container {
@@ -103,6 +104,10 @@ ul.favorite-item-list li {
     .grid-container.side {
         grid-template-columns: minmax(187.7px, auto);
         grid-template-rows: minmax(122px, auto) 32px repeat(2, minmax(122px, auto));
+    }
+
+    .inventory {
+        justify-content: flex-start;
     }
 }
 

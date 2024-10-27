@@ -133,7 +133,6 @@ function ItemImage({
             imageStyle.cursor = 'zoom-in';
         }
         //console.log(dimensions);
-        // issue #1000 conditionlly set dimensions on img el when imageField is inspectImageLink
         if (imageField === 'inspectImageLink') {
             imageStyle.maxWidth = `100%`;
             imageStyle.maxHeight = `100%`;
@@ -249,10 +248,9 @@ function ItemImage({
         }
         //--------- add another if statement for inspectImageLink ------------
         if (imageField === 'inspectImageLink') {
-            console.log({ scaler });
             const loadOutImgStyle = {
-                maxHeight: `${imageDimensions.height || 175 / scaler}px`,
-                maxWidth: `${imageDimensions.width || 256 / scaler}px`,
+                maxHeight: `${175 / scaler}px`,
+                maxWidth: `${256 / scaler}px`,
             };
             return loadOutImgStyle;
         }
