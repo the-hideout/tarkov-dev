@@ -251,6 +251,7 @@ function ItemImage({
             const loadOutImgStyle = {
                 maxHeight: `${175 / scaler}px`,
                 maxWidth: `${256 / scaler}px`,
+                position: 'relative',
             };
             return loadOutImgStyle;
         }
