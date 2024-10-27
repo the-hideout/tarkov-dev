@@ -707,7 +707,7 @@ function Player() {
                     ...item,
                     width: preset.width,
                     height: preset.height,
-                    inspectImageLink: preset.inspectImageLink, // issue #1000 orginal = baseImageLink
+                    inspectImageLink: preset.inspectImageLink,
                 };
             }
             let countLabel;
@@ -837,7 +837,7 @@ function Player() {
             let itemImage = undefined;
             let itemLabel = '';
             let contents = [];
-            let itemDisplay = getItemDisplay(loadoutItem); // <--------------------- This is where item img is retrieved, dimensions set
+            let itemDisplay = getItemDisplay(loadoutItem);
             if (itemDisplay) {
                 itemImage = itemDisplay.image;
             } else {

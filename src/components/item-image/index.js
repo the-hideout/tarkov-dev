@@ -246,7 +246,6 @@ function ItemImage({
         if (imageField === 'image8xLink') {
             sizeFactor = 8;
         }
-        //--------- add another if statement for inspectImageLink ------------
         if (imageField === 'inspectImageLink') {
             const loadOutImgStyle = {
                 maxHeight: `${175 / scaler}px`,
