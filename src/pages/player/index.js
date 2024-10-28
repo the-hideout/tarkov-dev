@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-//import { Turnstile } from '@marsidev/react-turnstile';   --------------------COMMENTED OUT CLOUDFLARE IS ANNOYING DURING DEV ISSUE #1000---------------------
+import { Turnstile } from '@marsidev/react-turnstile';
 import { Icon } from '@mdi/react';
 import {
     mdiAccountDetails,
@@ -920,10 +920,7 @@ function Player() {
         if (playerData.saved) {
             return;
         }
-        /*
-         *-----Commented out to prevent any unneccesary fetches to CloudFlare workers and/or Tarkov scanners, using the load profile feature to populate page ISSUE #1000 ------
-         *fetchProfile();
-         */
+        fetchProfile();
     }, [playerData, accountId, turnstileToken, fetchProfile]);
 
     const playerSearchDiv = (
@@ -1017,8 +1014,7 @@ function Player() {
                         </span>
                     )}
                 </h1>
-                {/* ------------------------------------------COMMENTED OUT CLOUDFLARE IS ANNOYING DURING DEV ISSUE #1000---------------------------*/}
-                {/* <Turnstile
+                {<Turnstile
                     ref={turnstileRef}
                     className="turnstile-widget"
                     siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
@@ -1034,7 +1030,7 @@ function Player() {
                         }
                     }}
                     options={{ appearance: 'interaction-only' }}
-                /> */}
+                />}
             </div>
             <div>
                 {accountCategories}
