@@ -689,9 +689,8 @@ function Player() {
             return '';
         }
         const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
-        const formattedTime = t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
-            days,
-            hours,
+        const formattedTime = t('{{hours}} h, {{minutes}} m, {{seconds}} s', {
+            hours: (days * 24) + hours,
             minutes,
             seconds,
         });
