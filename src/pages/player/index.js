@@ -297,8 +297,8 @@ function Player() {
         );
     }, [playerData, t]);
 
-    const achievementColumns = useMemo(
-        () => [
+    const achievementColumns = useMemo(() => {
+        const cols = [
             {
                 Header: () => (
                     <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Name')}</div>
@@ -358,9 +358,12 @@ function Player() {
                     return rowAr - rowBr;
                 },
             },
-        ],
-        [t, currentWipe],
-    );
+        ];
+        if (gameMode !== 'regular') {
+            //cols.splice(2, 1);
+        }
+        return cols;
+    }, [t, currentWipe, gameMode]);
 
     const achievementsData = useMemo(() => {
         return (
@@ -707,7 +710,11 @@ function Player() {
                     ...item,
                     width: preset.width,
                     height: preset.height,
-                    inspectImageLink: preset.inspectImageLink,
+                    iconLink: preset.iconLink,
+                    baseImageLink: preset.baseImageLink,
+                    image512pxLink: preset.image512pxLink,
+                    image8xLink: preset.image8xLink,
+                    inspectImageLink: preset.inspectImageLink,  
                 };
             }
             let countLabel;
@@ -778,6 +785,10 @@ function Player() {
                     imageField={imageOptions?.imageField || 'inspectImageLink'} // issue #1000 original imageOptions?.imageField || baseImageLink
                     linkToItem={imageOptions?.linkToItem}
                     count={countLabel}
+                    imageStyle={{maxWidth: '100%', maxHeight: '100%'}}
+                    maxImageWidth={256}
+                    maxImageHeight={175}
+                    responsive={true}
                 />
             );
             return { image: itemImage, label };

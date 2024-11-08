@@ -40,6 +40,10 @@ function ItemImage({
     station,
     className,
     style,
+    imageStyle,
+    maxImageWidth,
+    maxImageHeight,
+    responsive = false,
 }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -125,18 +129,14 @@ function ItemImage({
     };
 
     const imageElement = useMemo(() => {
-        const imageStyle = {};
+        const iStyle = {};
         if (item.types?.includes('loading')) {
-            imageStyle.display = 'none';
+            iStyle.display = 'none';
         }
         if (imageViewer) {
-            imageStyle.cursor = 'zoom-in';
+            iStyle.cursor = 'zoom-in';
         }
         //console.log(dimensions);
-        if (imageField === 'inspectImageLink') {
-            imageStyle.maxWidth = `100%`;
-            imageStyle.maxHeight = `100%`;
-        }
 
         const img = (
             <img
@@ -145,14 +145,14 @@ function ItemImage({
                 src={item[imageField]}
                 alt={item.name}
                 loading="lazy"
-                style={imageStyle}
+                style={{...iStyle, ...imageStyle}}
             />
         );
         if (linkToItem && !item.types.includes('quest')) {
             return <Link to={`/item/${item.normalizedName}`}>{img}</Link>;
         }
         return img;
-    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem]);
+    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem, imageStyle]);
 
     const imageScale = useMemo(() => {
         const w = imageDimensions.width || item.width * 63 + 1;
@@ -248,8 +248,8 @@ function ItemImage({
         }
         if (imageField === 'inspectImageLink') {
             const loadOutImgStyle = {
-                maxHeight: `${175 / scaler}px`,
-                maxWidth: `${256 / scaler}px`,
+                maxHeight: `${(maxImageHeight || imageDimensions.height) / scaler}px`,
+                maxWidth: `${(maxImageWidth || imageDimensions.width) / scaler}px`,
                 position: 'relative',
             };
             return loadOutImgStyle;
@@ -347,6 +347,8 @@ function ItemImage({
         toolOverride,
         nonFunctional,
         scaler,
+        maxImageWidth,
+        maxImageHeight,
     ]);
 
     const imageTextStyle = useMemo(() => {
@@ -367,11 +369,11 @@ function ItemImage({
         if (linkToItem) {
             style.cursor = 'pointer';
         }
-        if (imageField === 'inspectImageLink') {
+        if (responsive) {
             style.fontSize = `${Math.min(26 / scaler, 20)}px`;
         }
         return style;
-    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem, scaler]);
+    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem, responsive, scaler]);
 
     const imageTextClick = useMemo(() => {
         if (!linkToItem) {
