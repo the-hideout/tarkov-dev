@@ -137,6 +137,16 @@ function ItemImage({
             iStyle.cursor = 'zoom-in';
         }
         //console.log(dimensions);
+        if (responsive) {
+
+        }
+        if (responsive && maxImageWidth) {
+            iStyle.maxWidth = maxImageWidth * scaler;
+            //iStyle.height = maxImageHeight * scaler;
+        }
+        if (responsive && maxImageHeight) {
+            iStyle.maxHeight = maxImageHeight * scaler;
+        }
 
         const img = (
             <img
@@ -152,7 +162,7 @@ function ItemImage({
             return <Link to={`/item/${item.normalizedName}`}>{img}</Link>;
         }
         return img;
-    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem, imageStyle]);
+    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem, imageStyle, responsive, scaler, maxImageWidth, maxImageHeight]);
 
     const imageScale = useMemo(() => {
         const w = imageDimensions.width || item.width * 63 + 1;
@@ -246,16 +256,20 @@ function ItemImage({
         if (imageField === 'image8xLink') {
             sizeFactor = 8;
         }
-        if (imageField === 'inspectImageLink') {
+        if (imageField === 'inspectImageLink' && responsive) {
             const loadOutImgStyle = {
-                maxHeight: `${(maxImageHeight || imageDimensions.height) / scaler}px`,
-                maxWidth: `${(maxImageWidth || imageDimensions.width) / scaler}px`,
+                maxHeight: `${(maxImageHeight || imageDimensions.height) * scaler}px`,
+                maxWidth: `${(maxImageWidth || imageDimensions.width) * scaler}px`,
                 position: 'relative',
             };
             return loadOutImgStyle;
         }
         let width = imageDimensions.width || (item.width * 63 + 1) * sizeFactor;
         let height = imageDimensions.height || (item.height * 63 + 1) * sizeFactor;
+        /*if (responsive) {
+            width = width * scaler;
+            height = height * scaler;
+        }*/
         const gridSvg = () => (
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <defs>
@@ -349,6 +363,7 @@ function ItemImage({
         scaler,
         maxImageWidth,
         maxImageHeight,
+        responsive,
     ]);
 
     const imageTextStyle = useMemo(() => {
@@ -370,7 +385,7 @@ function ItemImage({
             style.cursor = 'pointer';
         }
         if (responsive) {
-            style.fontSize = `${Math.min(26 / scaler, 20)}px`;
+            style.fontSize = `${Math.min(26 * scaler, 12)}px`;
         }
         return style;
     }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem, responsive, scaler]);

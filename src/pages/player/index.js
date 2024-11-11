@@ -781,12 +781,11 @@ function Player() {
             const itemImage = (
                 <ItemImage
                     item={item}
-                    imageField={imageOptions?.imageField || 'inspectImageLink'} // issue #1000 original imageOptions?.imageField || baseImageLink
+                    imageField={imageOptions?.imageField || 'image512pxLink'} // issue #1000 original imageOptions?.imageField || baseImageLink
                     linkToItem={imageOptions?.linkToItem}
                     count={countLabel}
-                    imageStyle={{maxWidth: '100%', maxHeight: '100%'}}
                     maxImageWidth={256}
-                    maxImageHeight={175}
+                    maxImageHeight={256}
                     responsive={true}
                 />
             );
