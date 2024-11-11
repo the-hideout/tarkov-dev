@@ -385,10 +385,10 @@ function ItemImage({
             style.cursor = 'pointer';
         }
         if (responsive) {
-            style.fontSize = `${Math.min(26 * scaler, 12)}px`;
+            //style.fontSize = `${Math.min(26 * scaler, 12)}px`;
         }
         return style;
-    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem, responsive, scaler]);
+    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem, responsive]);
 
     const imageTextClick = useMemo(() => {
         if (!linkToItem) {
