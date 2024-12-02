@@ -43,21 +43,21 @@
 
 /* Indiviaul "map block" */
 .map-block {
-  margin-bottom: 50px;
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0 20px 0 20px;
-  overflow: hidden;
+    margin-bottom: 50px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 20px 0 20px;
+    overflow: hidden;
 }
 
 .map-block h2 {
-  margin: 0;
-  padding: 10px 20px;
-  color: #c7c5b3;
-  background: rgba(0,0,0,0.3);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  margin-bottom: 10px;
-  transition: all .2s;
+    margin: 0;
+    padding: 10px 20px;
+    color: #c7c5b3;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+    transition: all .2s;
 }
 .map-block h2 .icon {
     margin-right: 4px;
