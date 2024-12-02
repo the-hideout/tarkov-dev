@@ -122,3 +122,23 @@
 .map-block .map-wrapper img {
     max-height: 200px;
 }
+
+
+@media screen and (max-width: 1280px){
+    /* Ensure menu is spaced evenly on smaller displays */
+    .nav-maps .item {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .map-block .map-wrapper {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 724px){
+    .map-block .map-wrapper {
+        width: 100%;
+    }
+}
