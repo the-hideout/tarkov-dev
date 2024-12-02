@@ -57,13 +57,24 @@
 .map-block .maps-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     padding: 10px 20px;
 }
 
 .map-block .map-wrapper {
     text-align: center;
-    width: 30%;
+    width: 33.3%;
+    padding: 10px;
+    position: relative;
+}
+
+.map-block .map-wrapper h3 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(0,0,0, .8);   
+    margin: 0;
 }
 
 .map-block .map-wrapper a {

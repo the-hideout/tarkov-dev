@@ -101,7 +101,7 @@ function Maps() {
                             }
                             return (
                                 <div className="map-wrapper" key={`map-wrapper-${key}`}>
-                                    <h3>{displayText}</h3>
+                                    <h3>{map.projection}</h3>
                                     <Link to={`/map/${key}`}>
                                         <img
                                             alt={t('Map of {{mapName}}', {mapName: displayText})}
