@@ -44,9 +44,9 @@ function Maps() {
                     </p>
                 </Trans>
 
-                <nav>
+                <nav class="nav-maps">
                   {uniqueMaps.map((map) => (
-                      <div key={`map-link-${map.normalizedName}`}>
+                      <div class="item" key={`map-link-${map.normalizedName}`}>
                             <HashLink to={`/maps#${map.normalizedName}`}>
                                 <Icon 
                                     path={mapIcons[map.normalizedName]} 
@@ -58,11 +58,11 @@ function Maps() {
                       </div>
                     ))}
                 </nav>
-
             </div>
+
             {uniqueMaps.map((mapsGroup) => {
                 return (
-                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName}>
+                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="map-block">
                         <h2>
                             {
                                 // t('Streets of Tarkov')

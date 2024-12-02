@@ -4,8 +4,31 @@
     justify-content: space-between;
 }
 
+.nav-maps {
+    display: flex;
+    flex-wrap: wrap;
+}
+.nav-maps .item {
+  border: 1px solid #9a8866;
+}
+.nav-maps .item a {
+  display: flex;
+  position: relative;
+  padding-left: 40px;
+}
+.nav-maps .item a svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
 .map-page-wrapper {
     min-height: 0;
+}
+
+.map-block {
+  margin-bottom: 200px;
 }
 
 .map-wrapper {
