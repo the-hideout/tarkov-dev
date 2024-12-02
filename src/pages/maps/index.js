@@ -64,11 +64,13 @@ function Maps() {
                 return (
                     <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="map-block">
                         <h2>
-                            <Icon 
-                              path={mapIcons[mapsGroup.normalizedName]} 
-                              size={1}
-                              className="icon-with-text"
-                            />
+                            <span class="icon">
+                              <Icon 
+                                path={mapIcons[mapsGroup.normalizedName]} 
+                                size={1}
+                                className="icon-with-text"
+                              />
+                            </span>
                             {
                                 // t('Streets of Tarkov')
                                 // t('Ground Zero')

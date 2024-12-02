@@ -1,34 +1,61 @@
-.maps-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
+/* Navigaiton */
 .nav-maps {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 .nav-maps .item {
-  border: 1px solid #9a8866;
+    border: 1px solid #9a8866;
 }
 .nav-maps .item a {
-  display: flex;
-  position: relative;
-  padding-left: 40px;
+    display: flex;
+    position: relative;
+    padding-left: 40px;
 }
 .nav-maps .item a svg {
-  position: absolute;
-  left: 0;
-  top: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
-
 
 .map-page-wrapper {
     min-height: 0;
 }
 
+/* Indiviaul "map block" */
 .map-block {
-  margin-bottom: 200px;
+  margin-bottom: 100px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 20px 0 20px;
+  overflow: hidden;
+}
+
+.map-block .page-wrapper {
+  padding: 10px 20px;
+}
+
+.map-block h2 {
+  margin: 0;
+  padding: 10px 20px;
+  color: #c7c5b3;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.map-block h2 .icon {
+    margin-right: 4px;
+}
+.map-block h2 .icon svg.icon-with-text {
+    margin-left: 0;
+    width: 1.2rem !important; 
+    height: 1.2rem !important;
+}
+
+.map-block .maps-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 20px;
 }
 
 .map-wrapper {
