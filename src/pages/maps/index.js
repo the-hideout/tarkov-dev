@@ -39,12 +39,14 @@ function Maps() {
             <div className="page-wrapper map-page-wrapper">
                 <Trans i18nKey={'maps-page-p'}>
                     <p>
-                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another.
+                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far.
+                        Although eventually all maps will be connected, they are currently all apart from one another.
                     </p>
                 </Trans>
-                <ul key="maps-list">
-                    {uniqueMaps.map((map) => (
-                        <li key={`map-link-${map.normalizedName}`}>
+
+                <nav>
+                  {uniqueMaps.map((map) => (
+                      <div key={`map-link-${map.normalizedName}`}>
                             <HashLink to={`/maps#${map.normalizedName}`}>
                                 <Icon 
                                     path={mapIcons[map.normalizedName]} 
@@ -53,9 +55,10 @@ function Maps() {
                                 />
                                 {map.name}
                             </HashLink>
-                        </li>
+                      </div>
                     ))}
-                </ul>
+                </nav>
+
             </div>
             {uniqueMaps.map((mapsGroup) => {
                 return (
