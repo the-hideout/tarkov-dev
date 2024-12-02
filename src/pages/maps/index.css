@@ -9,28 +9,33 @@
     display: flex;
     flex-basis: max-content;
     min-width: 200px;
-    min-height: 40px;
+    min-height: 45px;
 }
 .nav-maps .item a {
     display: flex;
     flex: 1 auto;
     align-items: center;
     position: relative;
-    padding-left: 50px;
+    padding-left: 55px;
+    transition: all .2s;
+    transition-delay: .2s;
+}
+.nav-maps .item a:hover {
+    color: #b3a180;
+    text-shadow: 0 0 1px rgba(255,255,255,.1);
 }
 .nav-maps .item .icon {
     display: flex;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.2);
     position: absolute;
     left: 0;
     top: 0;
+    width: 45px;
     height: 100%;
     justify-content: center;
     align-items: center;
 }
-.nav-maps .item a svg {
 
-}
 
 .map-page-wrapper {
     min-height: 0;
