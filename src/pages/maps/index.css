@@ -31,9 +31,6 @@
   overflow: hidden;
 }
 
-.map-block .page-wrapper {
-  padding: 10px 20px;
-}
 
 .map-block h2 {
   margin: 0;
@@ -51,6 +48,12 @@
     height: 1.2rem !important;
 }
 
+/* Map block text content */
+.map-block .page-wrapper {
+    padding: 10px 20px;
+}
+
+/* Map block map images */
 .map-block .maps-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -58,16 +61,15 @@
     padding: 10px 20px;
 }
 
-.map-wrapper {
+.map-block .map-wrapper {
     text-align: center;
     width: 30%;
 }
 
-.map-wrapper a {
+.map-block .map-wrapper a {
     display: block;
     text-align: center;
 }
-
-.map-wrapper img {
+.map-block .map-wrapper img {
     max-height: 200px;
 }
