@@ -24,13 +24,12 @@
 
 /* Indiviaul "map block" */
 .map-block {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0 20px 0 20px;
   overflow: hidden;
 }
-
 
 .map-block h2 {
   margin: 0;
@@ -38,6 +37,8 @@
   color: #c7c5b3;
   background: rgba(0,0,0,0.3);
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 10px;
+  transition: all .2s;
 }
 .map-block h2 .icon {
     margin-right: 4px;
@@ -48,9 +49,12 @@
     height: 1.2rem !important;
 }
 
+
 /* Map block text content */
 .map-block .page-wrapper {
     padding: 10px 20px;
+    cursor: default;
+    line-height: 28px;
 }
 
 /* Map block map images */
@@ -58,28 +62,43 @@
     display: flex;
     flex-wrap: wrap;
     padding: 10px 20px;
+    margin-bottom: 15px;
 }
 
 .map-block .map-wrapper {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 33.3%;
     padding: 10px;
     position: relative;
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 25px 0 50px 0;
+    background: rgb(56 57 69 / 38%);
 }
 
 .map-block .map-wrapper h3 {
     position: absolute;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #f1f1f1;
     left: 0;
     bottom: 0;
     width: 100%;
     padding: 10px 20px;
-    background: rgba(0,0,0, .8);   
+    background: rgba(0,0,0, .5);   
     margin: 0;
+    transition: all .2s;
+}
+.map-block .map-wrapper:hover h3 {
+    color: #9a8866;
 }
 
 .map-block .map-wrapper a {
-    display: block;
-    text-align: center;
+    display: flex;
+    flex: 1 auto;
+    align-items: center;
+    justify-content: center;
 }
 .map-block .map-wrapper img {
     max-height: 200px;
