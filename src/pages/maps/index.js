@@ -64,6 +64,11 @@ function Maps() {
                 return (
                     <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="map-block">
                         <h2>
+                            <Icon 
+                              path={mapIcons[mapsGroup.normalizedName]} 
+                              size={1}
+                              className="icon-with-text"
+                            />
                             {
                                 // t('Streets of Tarkov')
                                 // t('Ground Zero')
@@ -78,11 +83,6 @@ function Maps() {
                                 // t('Openworld')
                                 mapsGroup.name
                             }
-                            <Icon 
-                                path={mapIcons[mapsGroup.normalizedName]} 
-                                size={1}
-                                className="icon-with-text"
-                            />
                         </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
