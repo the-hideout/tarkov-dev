@@ -48,11 +48,13 @@ function Maps() {
                   {uniqueMaps.map((map) => (
                       <div class="item" key={`map-link-${map.normalizedName}`}>
                             <HashLink to={`/maps#${map.normalizedName}`}>
-                                <Icon 
-                                    path={mapIcons[map.normalizedName]} 
-                                    size={1}
-                                    className="icon-with-text"
-                                />
+                                <span class="icon">
+                                  <Icon 
+                                      path={mapIcons[map.normalizedName]} 
+                                      size={1}
+                                      className="icon-with-text"
+                                  />
+                                </span>
                                 {map.name}
                             </HashLink>
                       </div>
