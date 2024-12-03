@@ -510,26 +510,6 @@ function BossPage(params) {
                     :
                     <p>{t('This boss does not have any escorts')}</p>
                 }
-
-                {/* cheeki breeki */}
-                {bossData.normalizedName === 'killa' &&
-                    <div className='killa-party-time'>
-                        <h3 key={'killa-party-time'}>
-                            {'Killa Party Time?'}
-                            <Icon
-                                path={mdiPartyPopper}
-                                size={1.5}
-                                className="icon-with-text"
-                            />
-                            <p className='killa-party-time-text'>Warning: LOUD</p>
-                        </h3>
-                        <button className="cheeki-breeki-button" onClick={handleClick}>cheeki breeki</button>
-                        {isShown && (
-                            <CheekiBreekiEffect />
-                        )}
-                    </div>
-                }
-                {/* end cheeki breeki */}
             </div>
         </div>
     ]
