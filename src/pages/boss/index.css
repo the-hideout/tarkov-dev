@@ -36,11 +36,13 @@
 }
 
 .boss-icon-and-link-wrapper {
-    align-items: flex-start;
-    display: none;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    cursor: zoom-in;
+    display: inline-block;
+    width: 100px;
+    height: 100%;
+    flex: 1 auto;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
 }
 
 @media screen and (min-width: 800px) {
@@ -67,13 +69,5 @@
     .boss-information-grid h1,
     .boss-icon-and-link-wrapper {
         margin: 0;
-    }
-
-    .boss-icon-and-link-wrapper {
-        display: flex;
-    }
-
-    .boss-icon-and-link-wrapper img {
-        max-height: 200px;
     }
 }
