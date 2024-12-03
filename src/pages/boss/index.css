@@ -2,7 +2,7 @@
 .boss-page-wrapper {
   margin: 0 auto 100px auto;
   max-width: 1200px;
-  padding-top: 10px;
+  padding-top: 20px;
   position: relative;
 }
 
@@ -25,6 +25,11 @@
     padding: 10px 20px;
     background: #0000004d;
     color: #c7c5b3;
+}
+.information-section h2 svg {
+    width: 1.6rem !important;
+    height: auto !important;
+    margin: 0 10px 0 0;
 }
 
 
@@ -57,37 +62,26 @@
 }
 .boss-top-content .title-bar {
     background: #0000004d;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-
 .boss-top-content .title-bar h1 {
     display: inline-block;
     color: #c7c5b3;
-    padding: 10px 20px;
     align-items: center;
-    display: flex;
     justify-content: space-between;
-    margin: 0 0 10px 0;
+    cursor: default;
+    margin: 0;
 }
 
 @media screen and (min-width: 800px) {
-    .boss-page-wrapper {
-        padding-top: 20px;
-    }
-
-    .boss-information-wrapper {
-        flex-grow: 1;
-    }
-
+    
     .boss-information-grid {
         display: flex;
     }
 
     .boss-information-grid h1 img {
         display: none;
-    }
-
-    .boss-details {
-        margin-right: 1em;
     }
 
     .boss-information-grid h1,
