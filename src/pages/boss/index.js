@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper, mdiInvoiceTextClockOutline } from '@mdi/js';
+import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiInvoiceTextClockOutline } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 import CenterCell from '../../components/center-cell/index.js';
