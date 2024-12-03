@@ -371,19 +371,14 @@ function BossPage(params) {
                     <div class="title-bar">
                       <h1>
                           {bossData.name}
-                          <Icon
-                              path={mdiEmoticonDevil}
-                              size={1.4}
-                              className="icon-with-text"
-                          />
-                        </h1>
-                        {bossData.wikiLink &&
-                          <span className="wiki-link-wrapper">
-                              <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                  {t('Wiki')}
-                              </a>
-                          </span>
-                        }
+                      </h1>
+                      {bossData.wikiLink &&
+                        <span className="wiki-link-wrapper">
+                            <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                {t('Wiki')}
+                            </a>
+                        </span>
+                      }
                     </div>
                     <div class="main-content">
                         {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
