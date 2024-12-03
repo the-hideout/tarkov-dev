@@ -13,7 +13,6 @@ import Loading from '../../components/loading/index.js';
 import SmallItemTable from '../../components/small-item-table/index.js';
 import DataTable from '../../components/data-table/index.js';
 import PropertyList from '../../components/property-list/index.js';
-import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.js';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import capitalize from '../../modules/capitalize-first.js';
