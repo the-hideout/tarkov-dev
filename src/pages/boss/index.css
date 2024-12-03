@@ -9,19 +9,22 @@
 
 
 .information-section {
-  background: #0000001a;
-  border: 1px solid #ffffff1a;
-  border-radius: 0 20px 0 20px;
-  margin-bottom: 50px;
-  overflow: hidden;
+    background: #0000001a;
+    border: 1px solid #ffffff1a;
+    border-radius: 0 20px 0 20px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.information-section.has-table {
+  border-radius: 0 20px 0 0;
 }
 
 .information-section h2 {
-  font-size: 24px;
-  margin: 0;
-  padding: 10px 20px;
-  background: #0000004d;
-  color: #c7c5b3;
+    font-size: 24px;
+    margin: 0;
+    padding: 10px 20px;
+    background: #0000004d;
+    color: #c7c5b3;
 }
 
 

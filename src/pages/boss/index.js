@@ -402,6 +402,7 @@ function BossPage(params) {
                       </div>
                     </div>
                 </div>
+
                 {isViewerOpen && (
                     <ImageViewer
                         src={[bossData.imagePosterLink]}
@@ -412,82 +413,93 @@ function BossPage(params) {
                         onClose={closeImageViewer}
                     />
                 )}
-                <h2 key={'boss-stats-header'}>
-                    {t('Boss Stats')}
-                    <Icon
-                        path={mdiPoll}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
-                </h2>
-                <PropertyList properties={bossProperties} />
-                {report}
-                <h2 key={'boss-loot-header'}>
-                    {t('Special Boss Loot')}
-                    <Icon
-                        path={mdiDiamondStone}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
-                </h2>
-                <SmallItemTable
-                    idFilter={loot.reduce((prev, current) => {
-                        prev.push(current.id);
-                        return prev;
-                    }, [])}
-                    attachmentMap={attachmentMap}
-                    showGunDefaultPresetImages={true}
-                    fleaValue
-                    traderValue
-                />
 
-                {spawnStatsMsg.length > 0 && 
-                <>
-                    <h2 key={'boss-spawn-table-header'}>
-                        {t('Spawn Locations')}
-                        <Icon
-                            path={mdiMapLegend}
-                            size={1.5}
-                            className="icon-with-text"
-                        />
-                    </h2>
-                    <ul>
-                        <Trans i18nKey="boss-spawn-table-description">
-                            <li>Map: The name of the map which the boss can spawn on</li>
-                            <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                            <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                        </Trans>
-                    </ul>
-                    <DataTable
-                        key="boss-spawn-table"
-                        columns={columnsLocations}
-                        data={spawnLocations}
-                        disableSortBy={false}
-                        sortBy={'map'}
-                        autoResetSortBy={false}
-                    />
-                </>}
+                <div class="information-section">
+                  <h2 key={'boss-stats-header'}>
+                      {t('Boss Stats')}
+                      <Icon
+                          path={mdiPoll}
+                          size={1.5}
+                          className="icon-with-text"
+                      />
+                  </h2>
+                  <PropertyList properties={bossProperties} />
+                  {report}
+                </div>
 
-                <h2 key={'boss-escort-table-header'}>
-                    {t('Boss Escorts')}
-                    <Icon
-                        path={mdiAccountGroup}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
-                </h2>
-                {escorts.length > 0 ?
-                    <DataTable
-                        key="boss-escort-table"
-                        columns={columnsEscorts}
-                        data={escorts}
-                        disableSortBy={false}
-                        sortBy={'map'}
-                        autoResetSortBy={false}
-                    />
-                    :
-                    <p>{t('This boss does not have any escorts')}</p>
-                }
+
+                <div className="information-section boss-loot has-table">
+                  <h2 key={'boss-loot-header'}>
+                      {t('Special Boss Loot')}
+                      <Icon
+                          path={mdiDiamondStone}
+                          size={1.5}
+                          className="icon-with-text"
+                      />
+                  </h2>
+                  <SmallItemTable
+                      idFilter={loot.reduce((prev, current) => {
+                          prev.push(current.id);
+                          return prev;
+                      }, [])}
+                      attachmentMap={attachmentMap}
+                      showGunDefaultPresetImages={true}
+                      fleaValue
+                      traderValue
+                  />
+                </div>
+
+                <div className="information-section spawn-locations has-table">
+                  {spawnStatsMsg.length > 0 && 
+                  <>
+                      <h2 key={'boss-spawn-table-header'}>
+                          {t('Spawn Locations')}
+                          <Icon
+                              path={mdiMapLegend}
+                              size={1.5}
+                              className="icon-with-text"
+                          />
+                      </h2>
+                      <ul>
+                          <Trans i18nKey="boss-spawn-table-description">
+                              <li>Map: The name of the map which the boss can spawn on</li>
+                              <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                              <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                          </Trans>
+                      </ul>
+                      <DataTable
+                          key="boss-spawn-table"
+                          columns={columnsLocations}
+                          data={spawnLocations}
+                          disableSortBy={false}
+                          sortBy={'map'}
+                          autoResetSortBy={false}
+                      />
+                  </>}
+                </div>
+
+                <div className="information-section">
+                  <h2 key={'boss-escort-table-header'}>
+                      {t('Boss Escorts')}
+                      <Icon
+                          path={mdiAccountGroup}
+                          size={1.5}
+                          className="icon-with-text"
+                      />
+                  </h2>
+                  {escorts.length > 0 ?
+                      <DataTable
+                          key="boss-escort-table"
+                          columns={columnsEscorts}
+                          data={escorts}
+                          disableSortBy={false}
+                          sortBy={'map'}
+                          autoResetSortBy={false}
+                      />
+                      :
+                      <p>{t('This boss does not have any escorts')}</p>
+                  }
+                </div>
             </div>
         </div>
     ]
