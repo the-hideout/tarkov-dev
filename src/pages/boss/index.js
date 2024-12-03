@@ -35,21 +35,6 @@ function BossPage(params) {
 
     const allMaps = useMapImages();
 
-    // cheeki breeki
-    const [isShown, setIsShown] = useState(false);
-
-    let audio = new Audio("/audio/killa.mp3")
-    const handleClick = event => {
-        if (!isShown) {
-            audio.play();
-            setIsShown(current => !current);
-        }
-    };
-    audio.addEventListener("ended", (event) => {
-        setIsShown(current => !current);
-    });
-    // end cheeki breeki
-
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
         setIsViewerOpen(true);
