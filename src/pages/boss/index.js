@@ -380,15 +380,16 @@ function BossPage(params) {
                                 className="icon-with-text"
                             />
                           </h1>
-                      </div>
-                        
-                        {bossData.wikiLink &&
+                          {bossData.wikiLink &&
                             <span className="wiki-link-wrapper">
                                 <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
                                     {t('Wiki')}
                                 </a>
                             </span>
-                        }
+                          }
+                      </div>
+                        
+
                         {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
                             <p className='boss-details'>
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
