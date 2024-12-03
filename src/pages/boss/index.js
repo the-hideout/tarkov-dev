@@ -416,12 +416,12 @@ function BossPage(params) {
 
                 <div class="information-section">
                   <h2 key={'boss-stats-header'}>
-                      {t('Boss Stats')}
-                      <Icon
-                          path={mdiPoll}
-                          size={1.5}
-                          className="icon-with-text"
-                      />
+                    <Icon
+                      path={mdiPoll}
+                      size={1.5}
+                      className="icon-with-text"
+                    />
+                    {t('Boss Stats')}
                   </h2>
                   <PropertyList properties={bossProperties} />
                   {report}
@@ -430,12 +430,12 @@ function BossPage(params) {
 
                 <div className="information-section boss-loot has-table">
                   <h2 key={'boss-loot-header'}>
-                      {t('Special Boss Loot')}
                       <Icon
-                          path={mdiDiamondStone}
-                          size={1.5}
-                          className="icon-with-text"
+                        path={mdiDiamondStone}
+                        size={1.5}
+                        className="icon-with-text"
                       />
+                      {t('Special Boss Loot')}
                   </h2>
                   <SmallItemTable
                       idFilter={loot.reduce((prev, current) => {
@@ -453,12 +453,12 @@ function BossPage(params) {
                   {spawnStatsMsg.length > 0 && 
                   <>
                       <h2 key={'boss-spawn-table-header'}>
-                          {t('Spawn Locations')}
                           <Icon
                               path={mdiMapLegend}
                               size={1.5}
                               className="icon-with-text"
                           />
+                          {t('Spawn Locations')}
                       </h2>
                       <ul>
                           <Trans i18nKey="boss-spawn-table-description">
@@ -480,12 +480,12 @@ function BossPage(params) {
 
                 <div className="information-section">
                   <h2 key={'boss-escort-table-header'}>
-                      {t('Boss Escorts')}
                       <Icon
-                          path={mdiAccountGroup}
-                          size={1.5}
-                          className="icon-with-text"
+                        path={mdiAccountGroup}
+                        size={1.5}
+                        className="icon-with-text"
                       />
+                      {t('Boss Escorts')}
                   </h2>
                   {escorts.length > 0 ?
                       <DataTable
