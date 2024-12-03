@@ -37,7 +37,7 @@
 .boss-information-wrapper {
     display: flex;
     background: #0000001a;
-    border: 1px solid #00000021;
+    border: 1px solid #7a6f5494;
     margin-bottom: 50px;
     box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
     overflow: hidden;
@@ -67,6 +67,8 @@
     flex: 1 auto;
 }
 .boss-top-content .title-bar {
+    display: flex;
+    align-items: center;
     background: #0000004d;
     padding: 10px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -79,6 +81,17 @@
     cursor: default;
     margin: 0;
 }
+.boss-top-content .title-bar .wiki-link-wrapper {
+    margin: auto 0 auto auto;
+    opacity: 0.9;
+    transition-delay: .3s;
+}
+.boss-top-content .title-bar .wiki-link-wrapper:hover {
+    opacity: 1;
+    transition: all .1s;
+}
+
+
 .boss-top-content .main-content {
   padding: 20px 20px 0 20px;
 }

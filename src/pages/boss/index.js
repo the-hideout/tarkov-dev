@@ -381,7 +381,7 @@ function BossPage(params) {
                       }
                     </div>
                     <div class="main-content">
-                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
+                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }).length > 0 &&
                             <p className='boss-details'>
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
                             </p>
