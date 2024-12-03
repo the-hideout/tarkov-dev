@@ -7,7 +7,6 @@
 }
 
 
-
 .information-section {
     background: #0000001a;
     border: 1px solid #ffffff1a;
@@ -38,27 +37,32 @@
 .boss-information-wrapper {
     display: flex;
     background: #0000001a;
-    border: 1px solid #ffffff1a;
+    border: 1px solid #00000021;
     margin-bottom: 50px;
+    box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
     overflow: hidden;
 }
 
 .boss-icon-and-link-wrapper {
     display: flex;
     min-width: 300px;
+    max-width: 300px;
+    height: 250px;
+    min-height: 250px;
     width: 300px;
     height: 100%;
     flex: 1 auto;
+    margin: 0;
     background-size: cover;
     background-position: center center;
     display: flex;
-    border-right: 1px solid #9a8866;
-    margin-right: 20px;
+    border-right: 1px solid #9a8866ad;
 }
 
 .boss-top-content {
     display: flex;
     flex-direction: column;
+    flex: 1 auto;
 }
 .boss-top-content .title-bar {
     background: #0000004d;
@@ -73,19 +77,6 @@
     cursor: default;
     margin: 0;
 }
-
-@media screen and (min-width: 800px) {
-    
-    .boss-information-grid {
-        display: flex;
-    }
-
-    .boss-information-grid h1 img {
-        display: none;
-    }
-
-    .boss-information-grid h1,
-    .boss-icon-and-link-wrapper {
-        margin: 0;
-    }
+.boss-top-content .main-content {
+  padding: 20px;
 }
