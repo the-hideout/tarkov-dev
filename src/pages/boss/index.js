@@ -363,13 +363,10 @@ function BossPage(params) {
             <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="boss-information-grid">
                     <div className="boss-information-wrapper">
-                      <div className="boss-icon-and-link-wrapper">
-                          <img
-                              alt={bossData.name}
-                              loading="lazy"
-                              src={bossData.imagePosterLink}
-                              onClick={() => openImageViewer(0)}
-                          />
+                      <div className="boss-icon-and-link-wrapper"
+                        onClick={() => openImageViewer(0)}
+                        style={{ backgroundImage: `url(${bossData.imagePosterLink})` }}
+                      >
                       </div>
                       <div className="boss-top-content">
                         <div class="title-bar">

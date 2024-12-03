@@ -1,9 +1,9 @@
-.killa-party-time {
-    margin-top: 5rem;
-}
-
-.killa-party-time-text {
-    font-size: 1rem;
+.boss-information-wrapper {
+    display: flex;
+    background: #0000001a;
+    border: 1px solid #ffffff1a;
+    margin-bottom: 50px;
+    overflow: hidden;
 }
 
 .boss-page-wrapper {
