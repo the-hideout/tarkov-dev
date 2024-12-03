@@ -368,7 +368,7 @@ function BossPage(params) {
                   >
                   </div>
                   <div className="boss-top-content">
-                    <div class="title-bar">
+                    <div className="title-bar">
                       <h1>
                           {bossData.name}
                       </h1>
@@ -380,7 +380,7 @@ function BossPage(params) {
                         </span>
                       }
                     </div>
-                    <div class="main-content">
+                    <div className="main-content">
                         {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }).length > 0 &&
                             <p className='boss-details'>
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
@@ -392,6 +392,10 @@ function BossPage(params) {
                                 <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
                             </p>
                         }
+                    </div>
+                    <div className="boss-properties">
+                      <PropertyList properties={bossProperties} />
+                      {report}
                     </div>
                   </div>
                 </div>
@@ -406,20 +410,6 @@ function BossPage(params) {
                         onClose={closeImageViewer}
                     />
                 )}
-
-                <div class="information-section">
-                  <h2 key={'boss-stats-header'}>
-                    <Icon
-                      path={mdiPoll}
-                      size={1.5}
-                      className="icon-with-text"
-                    />
-                    {t('Boss Stats')}
-                  </h2>
-                  <PropertyList properties={bossProperties} />
-                  {report}
-                </div>
-
 
                 <div className="information-section boss-loot has-table">
                   <h2 key={'boss-loot-header'}>

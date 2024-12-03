@@ -40,8 +40,7 @@ function PropertyList({ properties, id }) {
                 return (
                     <div className="property-wrapper" key={property}>
                         <div>
-                            {value.value}
-                            <div className="property-key-wrapper">
+                            <div className="property-key-wrapper title">
                                 <ConditionalWrapper
                                     condition={value.tooltip}
                                     wrapper={(children) => 
@@ -55,6 +54,9 @@ function PropertyList({ properties, id }) {
                                 >
                                     {value.label ? value.label : t(property)}
                                 </ConditionalWrapper>
+                            </div>
+                            <div className="item">
+                              {value.value}
                             </div>
                         </div>
                     </div>
