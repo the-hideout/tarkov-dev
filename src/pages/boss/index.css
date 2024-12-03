@@ -119,3 +119,13 @@
 .boss-top-content .main-content p.boss-details h3 {
     margin-top: 0;
 }
+
+
+@media screen and (max-width: 960px){
+  .boss-information-wrapper {
+    min-height: none;
+  }
+  .boss-icon-cont {
+     display: none;
+  }
+}
