@@ -470,18 +470,20 @@ function BossPage(params) {
                       />
                       {t('Boss Escorts')}
                   </h2>
-                  {escorts.length > 0 ?
-                      <DataTable
-                          key="boss-escort-table"
-                          columns={columnsEscorts}
-                          data={escorts}
-                          disableSortBy={false}
-                          sortBy={'map'}
-                          autoResetSortBy={false}
-                      />
-                      :
-                      <p>{t('This boss does not have any escorts')}</p>
-                  }
+                  <div className="content">
+                    {escorts.length > 0 ?
+                        <DataTable
+                            key="boss-escort-table"
+                            columns={columnsEscorts}
+                            data={escorts}
+                            disableSortBy={false}
+                            sortBy={'map'}
+                            autoResetSortBy={false}
+                        />
+                        :
+                        <p>{t('This boss does not have any escorts')}</p>
+                    }
+                  </div>
                 </div>
             </div>
         </div>

@@ -19,16 +19,24 @@
 }
 
 .information-section h2 {
+    display: flex;
+    align-items: center;
     font-size: 24px;
     margin: 0;
-    padding: 10px 20px;
+    padding: 15px 20px;
     background: #0000004d;
     color: #c7c5b3;
 }
 .information-section h2 svg {
     width: 1.6rem !important;
     height: auto !important;
-    margin: 0 10px 0 0;
+    margin: 0 12px 0 0;
+}
+.information-section .content {
+  padding: 20px;
+}
+.information-section .content p {
+  margin: 0;
 }
 
 
