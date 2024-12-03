@@ -372,35 +372,37 @@ function BossPage(params) {
                           />
                       </div>
                       <div className="boss-top-content">
-                        <h1>
-                            {bossData.name}
-                            <Icon
-                                path={mdiEmoticonDevil}
-                                size={1.4}
-                                className="icon-with-text"
-                            />
-                          </h1>
-                          {bossData.wikiLink &&
-                            <span className="wiki-link-wrapper">
-                                <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                    {t('Wiki')}
-                                </a>
-                            </span>
-                          }
+                        <div class="title-bar">
+                          <h1>
+                              {bossData.name}
+                              <Icon
+                                  path={mdiEmoticonDevil}
+                                  size={1.4}
+                                  className="icon-with-text"
+                              />
+                            </h1>
+                            {bossData.wikiLink &&
+                              <span className="wiki-link-wrapper">
+                                  <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                      {t('Wiki')}
+                                  </a>
+                              </span>
+                            }
+                        </div>
+                        <div class="main-content">
+                            {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
+                                <p className='boss-details'>
+                                    <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
+                                </p>
+                            }
+                            {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) && t(`${bossData.normalizedName}-description`, { ns: 'bosses' }).length > 0 &&
+                                <p className='boss-details'>
+                                    <h3>{t('Behavior')}</h3>
+                                    <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                                </p>
+                            }
+                        </div>
                       </div>
-                        
-
-                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
-                            <p className='boss-details'>
-                                <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
-                            </p>
-                        }
-                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) && t(`${bossData.normalizedName}-description`, { ns: 'bosses' }).length > 0 &&
-                            <p className='boss-details'>
-                                <h3>{t('Behavior')}</h3>
-                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
-                            </p>
-                        }
                     </div>
                 </div>
                 {isViewerOpen && (
