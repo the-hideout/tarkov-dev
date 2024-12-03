@@ -471,8 +471,8 @@
             {
                 "key": "ground-zero-2d",
                 "projection": "2D",
-                "author": "TheBigLebr0ski",
-                "authorLink": "https://www.reddit.com/user/TheBigLebr0ski/"
+                "author": "xTycho",
+                "authorLink": "https://www.reddit.com/user/Tychodelouw/"
             },
             {
                 "key": "ground-zero-3d",
@@ -945,10 +945,10 @@
                 ]
             },
             {
-                "key": "factory-3d",
-                "projection": "3D",
-                "author": "JohnnyTushonka",
-                "authorLink": "https://www.reddit.com/user/JohnnyTushonka/"
+                "key": "factory-2d",
+                "projection": "2D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
