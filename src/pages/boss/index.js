@@ -476,7 +476,7 @@ function BossPage(params) {
                   </>}
                 </div>
 
-                <div className="information-section">
+                <div className="information-section boss-escorts has-table">
                   <h2 key={'boss-escort-table-header'}>
                       <Icon
                         path={mdiAccountGroup}
