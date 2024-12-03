@@ -363,23 +363,25 @@ function BossPage(params) {
             <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="boss-information-grid">
                     <div className="boss-information-wrapper">
+                      <div className="boss-icon-and-link-wrapper">
+                          <img
+                              alt={bossData.name}
+                              loading="lazy"
+                              src={bossData.imagePosterLink}
+                              onClick={() => openImageViewer(0)}
+                          />
+                      </div>
+                      <div className="boss-top-content">
                         <h1>
-                            <div>
-                                {bossData.name}
-                                <Icon
-                                    path={mdiEmoticonDevil}
-                                    size={1.4}
-                                    className="icon-with-text"
-                                />
-                            </div>
-                            <img
-                                alt={bossData.name}
-                                className={'boss-information-icon'}
-                                loading="lazy"
-                                src={bossData.imagePortraitLink}
-                                onClick={() => openImageViewer(0)}
+                            {bossData.name}
+                            <Icon
+                                path={mdiEmoticonDevil}
+                                size={1.4}
+                                className="icon-with-text"
                             />
-                        </h1>
+                          </h1>
+                      </div>
+                        
                         {bossData.wikiLink &&
                             <span className="wiki-link-wrapper">
                                 <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
@@ -398,14 +400,6 @@ function BossPage(params) {
                                 <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
                             </p>
                         }
-                    </div>
-                    <div className="boss-icon-and-link-wrapper">
-                        <img
-                            alt={bossData.name}
-                            loading="lazy"
-                            src={bossData.imagePosterLink}
-                            onClick={() => openImageViewer(0)}
-                        />
                     </div>
                 </div>
                 {isViewerOpen && (
