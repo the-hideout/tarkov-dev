@@ -95,6 +95,9 @@
 .boss-top-content .main-content {
   padding: 20px 20px 0 20px;
 }
+.boss-top-content .boss-properties {
+  padding: 0 20px;
+}
 .boss-top-content .main-content p.boss-details {
   margin: 0 0 20px 0;
 }
