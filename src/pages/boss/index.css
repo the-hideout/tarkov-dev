@@ -1,3 +1,19 @@
+/* Main page wrapper */
+.boss-page-wrapper {
+  margin: 0 auto 100px auto;
+  max-width: 1200px;
+  padding-top: 10px;
+  position: relative;
+}
+
+.boss-page-wrapper h2 {
+  margin-top: 40px;
+  font-size: 24px;
+}
+
+
+
+/* Top Section */
 .boss-information-wrapper {
     display: flex;
     background: #0000001a;
@@ -6,33 +22,11 @@
     overflow: hidden;
 }
 
-.boss-page-wrapper {
-    margin: 0 auto 100px auto;
-    max-width: 1200px;
-    padding-top: 10px;
-    position: relative;
-}
-
-.boss-page-wrapper h2 {
-    margin-top: 40px;
-    font-size: 24px;
-}
-
 .boss-information-grid h1 {
     align-items: center;
     display: flex;
     justify-content: space-between;
-}
-
-.boss-information-grid h1,
-.boss-icon-and-link-wrapper {
     margin: 0 0 10px 0;
-}
-
-.boss-information-icon {
-    width: 64px;
-    height: 64px;
-    cursor: zoom-in;
 }
 
 .boss-icon-and-link-wrapper {
