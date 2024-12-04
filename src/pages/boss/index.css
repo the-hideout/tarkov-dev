@@ -86,6 +86,13 @@
     padding: 10px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
 }
+.boss-top-content .boss-information-icon {
+  display: none;
+  width: 124px;
+  margin: 20px auto;
+  height: 124px;
+  border: 1px solid rgba(255,255,255,.5);
+}
 .boss-top-content .title-bar h1 {
     display: inline-block;
     color: #c7c5b3;
@@ -127,5 +134,9 @@
   }
   .boss-icon-cont {
      display: none;
+  }
+
+  .boss-top-content .boss-information-icon {
+    display: inline-block;
   }
 }

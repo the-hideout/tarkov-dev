@@ -363,10 +363,20 @@ function BossPage(params) {
             <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="boss-information-wrapper">
                   <div className="boss-top-content">
+
+                    <img
+                        alt={bossData.name}
+                        className={'boss-information-icon'}
+                        loading="lazy"
+                        src={bossData.imagePortraitLink}
+                        onClick={() => openImageViewer(0)}
+                    />
+
                     <div className="title-bar">
                       <h1>
                           {bossData.name}
                       </h1>
+
                       {bossData.wikiLink &&
                         <span className="wiki-link-wrapper">
                             <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
