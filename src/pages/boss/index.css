@@ -49,11 +49,11 @@
     margin-bottom: 50px;
     box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
     overflow: hidden;
-    min-height: 400px;
+    min-height: 425px;
 }
 
 .boss-icon-cont {
-    border-right: 1px solid #9a8866ad;
+    border-left: 1px solid #9a8866ad;
     background: #3b31203d;
     display: flex;
     min-width: 350px;

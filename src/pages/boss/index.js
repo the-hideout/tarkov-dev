@@ -362,12 +362,6 @@ function BossPage(params) {
         <div className="display-wrapper" key={'boss-display-wrapper'}>
             <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="boss-information-wrapper">
-                  <div className="boss-icon-cont">
-                    <div className="boss-icon-and-link-wrapper"
-                      onClick={() => openImageViewer(0)}
-                      style={{ backgroundImage: `url(${bossData.imagePosterLink})` }}
-                    />
-                  </div>
                   <div className="boss-top-content">
                     <div className="title-bar">
                       <h1>
@@ -400,6 +394,12 @@ function BossPage(params) {
                       <PropertyList properties={bossProperties} />
                       {report}
                     </div>
+                  </div>
+                  <div className="boss-icon-cont">
+                    <div className="boss-icon-and-link-wrapper"
+                      onClick={() => openImageViewer(0)}
+                      style={{ backgroundImage: `url(${bossData.imagePosterLink})` }}
+                    />
                   </div>
                 </div>
 
