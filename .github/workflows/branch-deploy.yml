@@ -10,6 +10,7 @@ permissions:
   deployments: write
   contents: write
   checks: read
+  statuses: read
 
 jobs:
   deploy:
@@ -19,7 +20,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v9.9.1
+      - uses: github/branch-deploy@v9.10.0
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
@@ -34,7 +35,7 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         uses: actions/checkout@v4.1.1
         with:
-          ref: ${{ steps.branch-deploy.outputs.ref }}
+          ref: ${{ steps.branch-deploy.outputs.sha }}
 
       - uses: actions/setup-node@v4.1.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
