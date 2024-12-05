@@ -131,18 +131,22 @@ export const useMapImages = () => {
                 stationaryWeapons: apiData?.stationaryWeapons || [],
                 artillery: apiData?.artillery,
             };
-            if (imageData.projection) {
-                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
-            }
+            mapImages[imageData.key].displayVariant = i18n.t(imageData.projection, { ns: 'maps' });
             if (imageData.orientation) {
-                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.orientation, { ns: 'maps' })}`;
+                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.orientation, { ns: 'maps' })}`;
             }
             if (imageData.specific) {
-                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.specific, { ns: 'maps' })}`;
+                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.specific, { ns: 'maps' })}`;
             }
             if (imageData.extra) {
-                mapImages[imageData.key].displayText += ` - ${imageData.extra}`;
+                mapImages[imageData.key].displayVariant += ` - ${imageData.extra}`;
             }
+            mapImages[imageData.key].displayText += ` - ${mapImages[imageData.key].displayVariant}`;
+
+            if (imageData.suppress) {
+                mapImages[imageData.key].displayVariant += ` - ${mapImages[imageData.key].name}`;
+            }
+
             if (imageData.altMaps) {
                 for (const altKey of imageData.altMaps) {
                     const altApiMap = maps.find(map => map.normalizedName === altKey);
