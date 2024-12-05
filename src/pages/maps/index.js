@@ -39,28 +39,40 @@ function Maps() {
             <div className="page-wrapper map-page-wrapper">
                 <Trans i18nKey={'maps-page-p'}>
                     <p>
-                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another.
+                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far.
+                        Although eventually all maps will be connected, they are currently all apart from one another.
                     </p>
                 </Trans>
-                <ul key="maps-list">
-                    {uniqueMaps.map((map) => (
-                        <li key={`map-link-${map.normalizedName}`}>
+
+                <nav class="nav-maps">
+                  {uniqueMaps.map((map) => (
+                      <div class="item" key={`map-link-${map.normalizedName}`}>
                             <HashLink to={`/maps#${map.normalizedName}`}>
-                                <Icon 
-                                    path={mapIcons[map.normalizedName]} 
-                                    size={1}
-                                    className="icon-with-text"
-                                />
+                                <span class="icon">
+                                  <Icon 
+                                      path={mapIcons[map.normalizedName]} 
+                                      size={1}
+                                      className="icon-with-text"
+                                  />
+                                </span>
                                 {map.name}
                             </HashLink>
-                        </li>
+                      </div>
                     ))}
-                </ul>
+                </nav>
             </div>
+
             {uniqueMaps.map((mapsGroup) => {
                 return (
-                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName}>
+                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="map-block">
                         <h2>
+                            <span class="icon">
+                              <Icon 
+                                path={mapIcons[mapsGroup.normalizedName]} 
+                                size={1}
+                                className="icon-with-text"
+                              />
+                            </span>
                             {
                                 // t('Streets of Tarkov')
                                 // t('Ground Zero')
@@ -75,11 +87,6 @@ function Maps() {
                                 // t('Openworld')
                                 mapsGroup.name
                             }
-                            <Icon 
-                                path={mapIcons[mapsGroup.normalizedName]} 
-                                size={1}
-                                className="icon-with-text"
-                            />
                         </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
@@ -96,7 +103,6 @@ function Maps() {
                             }
                             return (
                                 <div className="map-wrapper" key={`map-wrapper-${key}`}>
-                                    <h3>{displayText}</h3>
                                     <Link to={`/map/${key}`}>
                                         <img
                                             alt={t('Map of {{mapName}}', {mapName: displayText})}
@@ -105,6 +111,7 @@ function Maps() {
                                             title={t('Map of {{mapName}}', {mapName: displayText})}
                                             src={mapImageLink}
                                         />
+                                        <h3>{displayText}</h3>
                                     </Link>
                                 </div>
                             );
