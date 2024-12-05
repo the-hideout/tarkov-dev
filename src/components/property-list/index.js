@@ -38,28 +38,26 @@ function PropertyList({ properties, id }) {
         <div className="property-list">
             {data.map(([property, value]) => {
                 return (
-                    <div className="property-wrapper" key={property}>
-                        <div>
-                            <div className="property-key-wrapper title">
-                                <ConditionalWrapper
-                                    condition={value.tooltip}
-                                    wrapper={(children) => 
-                                        <Tippy
-                                            content={value.tooltip}
-                                            placement="bottom"
-                                        >
-                                            <div>{children}</div>
-                                        </Tippy>
-                                    }
-                                >
-                                    {value.label ? value.label : t(property)}
-                                </ConditionalWrapper>
-                            </div>
-                            <div className="item">
-                              {value.value}
-                            </div>
-                        </div>
-                    </div>
+                    <div className={`property-wrapper ${value.value.length >= 40 ? 'large' : ''} ${property}`}  key={property}>
+                      <div className="property-key-wrapper title">
+                          <ConditionalWrapper
+                              condition={value.tooltip}
+                              wrapper={(children) => 
+                                  <Tippy
+                                      content={value.tooltip}
+                                      placement="bottom"
+                                  >
+                                      <div>{children}</div>
+                                  </Tippy>
+                              }
+                          >
+                              {value.label ? value.label : t(property)}
+                          </ConditionalWrapper>
+                      </div>
+                      <div className="item">
+                        <p>{value.value}</p>
+                      </div>
+                  </div>
                 );
             })}
         </div>
