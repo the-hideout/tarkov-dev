@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper, mdiInvoiceTextClockOutline } from '@mdi/js';
+import { mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiInvoiceTextClockOutline } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 import CenterCell from '../../components/center-cell/index.js';
@@ -13,7 +13,6 @@ import Loading from '../../components/loading/index.js';
 import SmallItemTable from '../../components/small-item-table/index.js';
 import DataTable from '../../components/data-table/index.js';
 import PropertyList from '../../components/property-list/index.js';
-import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.js';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import capitalize from '../../modules/capitalize-first.js';
@@ -34,21 +33,6 @@ function BossPage(params) {
     const { data: items } = useItemsData();
 
     const allMaps = useMapImages();
-
-    // cheeki breeki
-    const [isShown, setIsShown] = useState(false);
-
-    let audio = new Audio("/audio/killa.mp3")
-    const handleClick = event => {
-        if (!isShown) {
-            audio.play();
-            setIsShown(current => !current);
-        }
-    };
-    audio.addEventListener("ended", (event) => {
-        setIsShown(current => !current);
-    });
-    // end cheeki breeki
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
@@ -377,53 +361,58 @@ function BossPage(params) {
     return [
         <div className="display-wrapper" key={'boss-display-wrapper'}>
             <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
-                <div className="boss-information-grid">
-                    <div className="boss-information-wrapper">
-                        <h1>
-                            <div>
-                                {bossData.name}
-                                <Icon
-                                    path={mdiEmoticonDevil}
-                                    size={1.4}
-                                    className="icon-with-text"
-                                />
-                            </div>
-                            <img
-                                alt={bossData.name}
-                                className={'boss-information-icon'}
-                                loading="lazy"
-                                src={bossData.imagePortraitLink}
-                                onClick={() => openImageViewer(0)}
-                            />
-                        </h1>
-                        {bossData.wikiLink &&
-                            <span className="wiki-link-wrapper">
-                                <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                    {t('Wiki')}
-                                </a>
-                            </span>
-                        }
+                <div className="boss-information-wrapper">
+                  <div className="boss-top-content">
+
+                    <img
+                        alt={bossData.name}
+                        className={'boss-information-icon'}
+                        loading="lazy"
+                        src={bossData.imagePortraitLink}
+                        onClick={() => openImageViewer(0)}
+                    />
+
+                    <div className="title-bar">
+                      <h1>
+                          {bossData.name}
+                      </h1>
+
+                      {bossData.wikiLink &&
+                        <span className="wiki-link-wrapper">
+                            <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                {t('Wiki')}
+                            </a>
+                        </span>
+                      }
+                    </div>
+                    <div className="main-content">
                         {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
                             <p className='boss-details'>
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
                             </p>
                         }
                         {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) && t(`${bossData.normalizedName}-description`, { ns: 'bosses' }).length > 0 &&
-                            <p className='boss-details'>
-                                <h3>{t('Behavior')}</h3>
-                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
-                            </p>
+                            <div>
+                              <h3>{t('Behavior')}</h3>
+                              <p className='boss-details'>
+                                  <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                              </p>
+                            </div>
                         }
                     </div>
-                    <div className="boss-icon-and-link-wrapper">
-                        <img
-                            alt={bossData.name}
-                            loading="lazy"
-                            src={bossData.imagePosterLink}
-                            onClick={() => openImageViewer(0)}
-                        />
+                    <div className="boss-properties">
+                      <PropertyList properties={bossProperties} />
+                      {report}
                     </div>
+                  </div>
+                  <div className="boss-icon-cont">
+                    <div className="boss-icon-and-link-wrapper"
+                      onClick={() => openImageViewer(0)}
+                      style={{ backgroundImage: `url(${bossData.imagePosterLink})` }}
+                    />
+                  </div>
                 </div>
+
                 {isViewerOpen && (
                     <ImageViewer
                         src={[bossData.imagePosterLink]}
@@ -434,102 +423,81 @@ function BossPage(params) {
                         onClose={closeImageViewer}
                     />
                 )}
-                <h2 key={'boss-stats-header'}>
-                    {t('Boss Stats')}
-                    <Icon
-                        path={mdiPoll}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
-                </h2>
-                <PropertyList properties={bossProperties} />
-                {report}
-                <h2 key={'boss-loot-header'}>
-                    {t('Special Boss Loot')}
-                    <Icon
+
+                <div className="information-section boss-loot has-table">
+                  <h2 key={'boss-loot-header'}>
+                      <Icon
                         path={mdiDiamondStone}
                         size={1.5}
                         className="icon-with-text"
-                    />
-                </h2>
-                <SmallItemTable
-                    idFilter={loot.reduce((prev, current) => {
-                        prev.push(current.id);
-                        return prev;
-                    }, [])}
-                    attachmentMap={attachmentMap}
-                    showGunDefaultPresetImages={true}
-                    fleaValue
-                    traderValue
-                />
+                      />
+                      {t('Special Boss Loot')}
+                  </h2>
+                  <SmallItemTable
+                      idFilter={loot.reduce((prev, current) => {
+                          prev.push(current.id);
+                          return prev;
+                      }, [])}
+                      attachmentMap={attachmentMap}
+                      showGunDefaultPresetImages={true}
+                      fleaValue
+                      traderValue
+                  />
+                </div>
 
-                {spawnStatsMsg.length > 0 && 
-                <>
-                    <h2 key={'boss-spawn-table-header'}>
-                        {t('Spawn Locations')}
-                        <Icon
-                            path={mdiMapLegend}
-                            size={1.5}
-                            className="icon-with-text"
-                        />
-                    </h2>
-                    <ul>
-                        <Trans i18nKey="boss-spawn-table-description">
-                            <li>Map: The name of the map which the boss can spawn on</li>
-                            <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                            <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                        </Trans>
-                    </ul>
-                    <DataTable
-                        key="boss-spawn-table"
-                        columns={columnsLocations}
-                        data={spawnLocations}
-                        disableSortBy={false}
-                        sortBy={'map'}
-                        autoResetSortBy={false}
-                    />
-                </>}
+                <div className="information-section spawn-locations has-table">
+                  {spawnStatsMsg.length > 0 && 
+                  <>
+                      <h2 key={'boss-spawn-table-header'}>
+                          <Icon
+                              path={mdiMapLegend}
+                              size={1.5}
+                              className="icon-with-text"
+                          />
+                          {t('Spawn Locations')}
+                      </h2>
+                      <ul>
+                          <Trans i18nKey="boss-spawn-table-description">
+                              <li>Map: The name of the map which the boss can spawn on</li>
+                              <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                              <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                          </Trans>
+                      </ul>
+                      <DataTable
+                          key="boss-spawn-table"
+                          columns={columnsLocations}
+                          data={spawnLocations}
+                          disableSortBy={false}
+                          sortBy={'map'}
+                          autoResetSortBy={false}
+                      />
+                  </>}
+                </div>
 
-                <h2 key={'boss-escort-table-header'}>
-                    {t('Boss Escorts')}
-                    <Icon
+                <div className="information-section boss-escorts has-table">
+                  <h2 key={'boss-escort-table-header'}>
+                      <Icon
                         path={mdiAccountGroup}
                         size={1.5}
                         className="icon-with-text"
-                    />
-                </h2>
-                {escorts.length > 0 ?
-                    <DataTable
-                        key="boss-escort-table"
-                        columns={columnsEscorts}
-                        data={escorts}
-                        disableSortBy={false}
-                        sortBy={'map'}
-                        autoResetSortBy={false}
-                    />
-                    :
-                    <p>{t('This boss does not have any escorts')}</p>
-                }
-
-                {/* cheeki breeki */}
-                {bossData.normalizedName === 'killa' &&
-                    <div className='killa-party-time'>
-                        <h3 key={'killa-party-time'}>
-                            {'Killa Party Time?'}
-                            <Icon
-                                path={mdiPartyPopper}
-                                size={1.5}
-                                className="icon-with-text"
-                            />
-                            <p className='killa-party-time-text'>Warning: LOUD</p>
-                        </h3>
-                        <button className="cheeki-breeki-button" onClick={handleClick}>cheeki breeki</button>
-                        {isShown && (
-                            <CheekiBreekiEffect />
-                        )}
-                    </div>
-                }
-                {/* end cheeki breeki */}
+                      />
+                      {t('Boss Escorts')}
+                  </h2>
+                  <div className="content">
+                    {escorts.length > 0 ?
+                        <DataTable
+                            key="boss-escort-table"
+                            columns={columnsEscorts}
+                            data={escorts}
+                            disableSortBy={false}
+                            sortBy={'map'}
+                            autoResetSortBy={false}
+                        />
+                        :
+                        <p>{t('This boss does not have any escorts')}</p>
+                    }
+                  </div>
+                </div>
             </div>
         </div>
     ]
