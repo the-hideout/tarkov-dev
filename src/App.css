@@ -283,12 +283,60 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 }
 
 .rc-slider-mark-text {
-    color: #757257 !important;
+    color: rgba(var(--highlight-gold-one-rgba), 0.8) !important;
 }
 
 .rc-slider-mark-text-active {
-    color: var(--highlight-gold-one) !important;
+    color: rgba(var(--highlight-gold-one-rgba), 1) !important;
 }
+
+/* Global reuseable styles, specific to the Tarkov.Dev style */
+.information-section {
+    background: rgba(var(--color-primary-black-rgb), 0.1);
+    border: 1px solid rgba(var(--color-primary-white-rgb), 0.1);
+    border-radius: 0 20px 0 20px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.information-section.has-table {
+    border-radius: 0 20px 0 0;
+}
+
+.information-section h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin: 0;
+    padding: 15px 20px;
+    background: rgba(var(--primary-color-black-rgb), 0.4);
+    color: var(--highlight-gold-one);
+}
+.information-section h2 svg {
+    width: 1.6rem !important;
+    height: auto !important;
+    margin: 0 12px 0 0;
+}
+.information-section .content {
+  padding: 20px;
+}
+.information-section .content p {
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (min-width: 800px) {
     .control-wrapper {
