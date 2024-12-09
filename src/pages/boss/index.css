@@ -8,8 +8,8 @@
 
 
 .information-section {
-    background: #0000001a;
-    border: 1px solid #ffffff1a;
+    background: rgba(var(--color-primary-black-rgb), 0.1);
+    border: 1px solid rgba(var(--color-primary-white-rgb), 0.1);
     border-radius: 0 20px 0 20px;
     margin-bottom: 50px;
     overflow: hidden;
@@ -24,7 +24,7 @@
     font-size: 24px;
     margin: 0;
     padding: 15px 20px;
-    background: #0000004d;
+    background: rgba(var(--primary-color-black-rgb), 0.4);
     color: var(--highlight-gold-one);
 }
 .information-section h2 svg {
@@ -40,20 +40,19 @@
 }
 
 
-
 /* Top Section */
 .boss-information-wrapper {
     display: flex;
-    background: #0000001a;
-    border: 1px solid #7a6f5494;
+    background-color: rgba(var(--color-primary-black-rgb), 0.1);
+    border: 1px solid rgba(var(--highlight-gold-two-rgb), 0.7);
     margin-bottom: 50px;
-    box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
+    box-shadow: 0 0 5px 3px rgba(var(--primary-color-white-rgb), 0.034);
     overflow: hidden;
     min-height: 425px;
 }
 
 .boss-icon-cont {
-    border-left: 1px solid var(--highlight-gold-two)ad;
+    border-left: 1px solid var(--highlight-gold-two);
     background: #3b31203d;
     display: flex;
     min-width: 350px;
@@ -73,7 +72,6 @@
     background-size: cover;
     background-position: center center;
 }
-
 .boss-top-content {
     display: flex;
     flex-direction: column;
@@ -83,16 +81,16 @@
 .boss-top-content .title-bar {
     display: flex;
     align-items: center;
-    background: #0000004d;
+    background: rgba(var(--primary-color-black-rgb), 0.4);
     padding: 10px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(var(--color-primary-white-rgb), 0.2);
 }
 .boss-top-content .boss-information-icon {
   display: none;
   width: 124px;
   margin: 20px auto;
   height: 124px;
-  border: 1px solid rgba(255,255,255,.5);
+  border: 1px solid rgba(var(--color-primary-white-rgb), 0.5);
 }
 .boss-top-content .title-bar h1 {
     display: inline-block;

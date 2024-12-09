@@ -1,11 +1,20 @@
 /* Variables start */
 :root {
-  --text-color-white: #fff;
+  --color-primary-black: #000;
+    --color-primary-black-rgb: 0,0,0;
+  --color-primary-white: #fff;
+    --color-primary-white-rgb: 255,255,255;
+
 
   --highlight-gold-one: #c7c5b3;
+    --highlight-gold-one-rgba: 199,197,179;
+
+
   --highlight-gold-two: #9a8866;
+    --highlight-gold-two-rgb: 154,136,102;
 
   --background-primary: #2d2d2f;
+    --background-primary-rgb: 45,45,47;
 
 
 
@@ -20,6 +29,7 @@
   /* This is to ensure maps do not clip. Please do not remove */
     --display-height: auto;
 }
+
 
 .desc-line-break {
     margin-top: 2rem;

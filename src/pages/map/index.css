@@ -24,7 +24,7 @@
 
 /* leaflet-control-coordinates */
 .leaflet-control-coordinates {
-    color: #000000;
+    color: var(--color-primary-black);
     font-weight: bold;
 }
 
