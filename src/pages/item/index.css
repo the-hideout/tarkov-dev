@@ -121,7 +121,7 @@
 }
 
 .best-profit img {
-    outline: #9a8866 solid 1px;
+    outline: var(--highlight-gold-two) solid 1px;
     outline-offset: -1px;
 }
 

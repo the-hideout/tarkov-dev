@@ -53,7 +53,7 @@
 }
 
 .boss-icon-cont {
-    border-left: 1px solid #9a8866ad;
+    border-left: 1px solid var(--highlight-gold-two)ad;
     background: #3b31203d;
     display: flex;
     min-width: 350px;

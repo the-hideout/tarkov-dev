@@ -4,7 +4,7 @@
 }
 
 .search-button:disabled {
-    background-color: #9a886655;
+    background-color: var(--highlight-gold-two)55;
     color: #333;
 }
 
@@ -34,7 +34,7 @@
 .game-mode .select__control {
     color: #1b1919;
     background-color: #2d2c2e;
-    border-color: #9a8866;
+    border-color: var(--highlight-gold-two);
 }
 
 .game-mode .select__single-value {

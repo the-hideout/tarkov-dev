@@ -1,5 +1,5 @@
 .item-image-mask {
-    background: linear-gradient(to left, #9a8866 20%, var(--highlight-gold-one) 40%, var(--highlight-gold-one) 60%, #9a8866 80%);
+    background: linear-gradient(to left, var(--highlight-gold-two) 20%, var(--highlight-gold-one) 40%, var(--highlight-gold-one) 60%, var(--highlight-gold-two) 80%);
     background-size: 200% auto;
     width: 200px;
     height: 200px;

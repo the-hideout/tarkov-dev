@@ -17,7 +17,7 @@ ul.quest-item-list li {
 }
 
 .hover-item-name {
-    color: #9a8866
+    color: var(--highlight-gold-two)
 }
 
 

@@ -42,7 +42,7 @@
 
 @media screen and (min-width: 800px) {
     .search-tip-wrapper {
-        border: 2px solid #9a8866;
+        border: 2px solid var(--highlight-gold-two);
         display: inline-flex;
     }
 }

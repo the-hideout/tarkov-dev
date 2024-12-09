@@ -7,7 +7,7 @@
 .navigation {
     align-items: center;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-    color: #9a8866;
+    color: var(--highlight-gold-two);
     display: flex;
     font-size: 40px;
     gap: 10px;
@@ -18,7 +18,7 @@
 .overflow-menu a {
     border-radius: 0;
     border: 0;
-    color: #9a8866;
+    color: var(--highlight-gold-two);
     text-align: left;
     /* text-decoration: none; */
     white-space: nowrap;
@@ -72,7 +72,7 @@
 }
 
 .mobile-icon svg {
-    fill: #9a8866;
+    fill: var(--highlight-gold-two);
     height: 54px;
 }
 
@@ -240,7 +240,7 @@ li.mobile-only-link {
 }
 
 .submenu-items {
-    border-left: 1px solid #9a8866;
+    border-left: 1px solid var(--highlight-gold-two);
     border-right: 1px solid rgba(0, 0, 0, 0);
 }
 
@@ -313,7 +313,7 @@ nav.navigation ul.menu li:nth-last-child(1 of li.visible-menu-item):not(:nth-las
 }
 
 .MuiPopover-root svg.icon-with-text {
-    color: #9a8866;
+    color: var(--highlight-gold-two);
 }
 
 .MuiPopover-root .overflow-hidden {

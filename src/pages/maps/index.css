@@ -5,7 +5,7 @@
     margin-bottom: 50px;
 }
 .nav-maps .item {
-    border: 1px solid #9a8866;
+    border: 1px solid var(--highlight-gold-two);
     display: flex;
     flex-basis: max-content;
     min-width: 200px;
@@ -110,7 +110,7 @@
     transition: all .2s;
 }
 .map-block .map-wrapper:hover h3 {
-    color: #9a8866;
+    color: var(--highlight-gold-two);
 }
 
 .map-block .map-wrapper a {

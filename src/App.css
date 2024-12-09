@@ -3,8 +3,10 @@
   --text-color-white: #fff;
 
   --highlight-gold-one: #c7c5b3;
+  --highlight-gold-two: #9a8866;
 
   --background-primary: #2d2d2f;
+
 
 
 
@@ -66,7 +68,7 @@ button {
 
 button,
 input[type='submit'] {
-    background-color: #9a8866;
+    background-color: var(--highlight-gold-two);
     border: 0;
     color: #000;
     height: 40px;
@@ -78,7 +80,7 @@ input[type='number'] {
     padding: 12px;
     max-height: 40px;
 
-    border: 2px solid #9a8866;
+    border: 2px solid var(--highlight-gold-two);
     background-color: var(--background-primary);
     color: var(--highlight-gold-one);
 }
@@ -103,7 +105,7 @@ select {
 }
 
 a {
-    color: #9a8866;
+    color: var(--highlight-gold-two);
     text-decoration: none;
 }
 
@@ -258,14 +260,14 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 
 .hr-muted {
     margin-top: 2rem;
-    border-bottom: 1px solid #9a8866;
+    border-bottom: 1px solid var(--highlight-gold-two);
     width: 80%;
     opacity: 0.4;
 }
 
 .hr-muted-full {
     margin-top: 2rem;
-    border-bottom: 1px solid #9a8866;
+    border-bottom: 1px solid var(--highlight-gold-two);
     width: 100%;
     opacity: 0.4;
 }
