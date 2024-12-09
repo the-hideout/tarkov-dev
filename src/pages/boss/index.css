@@ -25,7 +25,7 @@
     margin: 0;
     padding: 15px 20px;
     background: #0000004d;
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
 }
 .information-section h2 svg {
     width: 1.6rem !important;
@@ -96,7 +96,7 @@
 }
 .boss-top-content .title-bar h1 {
     display: inline-block;
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
     align-items: center;
     justify-content: space-between;
     cursor: default;

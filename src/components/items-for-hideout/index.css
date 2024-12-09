@@ -19,7 +19,7 @@
 }
 
 .hideout-item-list-column {
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
     border-top: 4px solid #1b1919;
     border-bottom: 4px solid #1b1919;
     padding: 5px 15px;

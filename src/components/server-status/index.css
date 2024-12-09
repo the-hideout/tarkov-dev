@@ -3,7 +3,7 @@
 }
 
 .server-status-wrapper a {
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
 }
 
 .status-indicator {

@@ -9,7 +9,7 @@
 
 .api-user-wrapper {
     align-items: center;
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
     border: 1px solid #1b1919;
     display: flex;
     flex-wrap: wrap;

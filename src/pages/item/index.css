@@ -117,7 +117,7 @@
 
 .text-and-image-information-wrapper.best-profit .price-wrapper,
 .best-profit {
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
 }
 
 .best-profit img {
@@ -126,7 +126,7 @@
 }
 
 .price-wrapper-bright {
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
 }
 
 .price-wrapper.locked,

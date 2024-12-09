@@ -20,7 +20,7 @@
 }
 
 .cost-item-count-wrapper {
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
 }
 
 .cost-image-wrapper {

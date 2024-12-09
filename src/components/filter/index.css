@@ -100,7 +100,7 @@
 
 .basic-multi-select {
     min-width: 110px;
-    color: #2d2d2f;
+    color: var(--background-primary);
 }
 
 .rc-slider {
@@ -117,8 +117,8 @@
 
 .button-group-button {
     border-radius: 0;
-    background-color: #2d2d2f;
-    color: #c7c5b3;
+    background-color: var(--background-primary);
+    color: var(--highlight-gold-one);
     height: 40px;
     width: 40px;
     outline: none;

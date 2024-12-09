@@ -1,6 +1,6 @@
 .item-group-wrapper {
     border: 1px solid #1b1919;
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -75,7 +75,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
     bottom: 1px;
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
     font-size: 14px;
     height: 24px;
     line-height: 24px;

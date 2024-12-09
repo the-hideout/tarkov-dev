@@ -1,7 +1,7 @@
 .menu,
 .navigation,
 .overflow-menu .MuiPaper-root ul {
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
 }
 
 .navigation {
@@ -103,7 +103,7 @@
 }
 
 .menu .submenu-wrapper ul {
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     display: none;
@@ -245,7 +245,7 @@ li.mobile-only-link {
 }
 
 .overflow-menu .MuiPaper-root {
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
 }
 
 .overflow-menu ul.MuiList-root {

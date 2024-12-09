@@ -1,4 +1,21 @@
+/* Variables start */
 :root {
+  --text-color-white: #fff;
+
+  --highlight-gold-one: #c7c5b3;
+
+  --background-primary: #2d2d2f;
+
+
+
+
+
+
+
+
+
+
+  /* This is to ensure maps do not clip. Please do not remove */
     --display-height: auto;
 }
 
@@ -9,9 +26,9 @@
 }
 
 body {
-    background-color: #2d2d2f;
+    background-color: var(--background-primary);
     background-image: url('images/background-1.png');
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
     margin: 0;
     padding: 0;
     height: 100%;
@@ -62,14 +79,14 @@ input[type='number'] {
     max-height: 40px;
 
     border: 2px solid #9a8866;
-    background-color: #2d2d2f;
-    color: #c7c5b3;
+    background-color: var(--background-primary);
+    color: var(--highlight-gold-one);
 }
 
 input[type='text']:focus,
 input[type='number']:focus {
     outline: none;
-    border: 2px solid #c7c5b3;
+    border: 2px solid var(--highlight-gold-one);
 }
 
 input[type='text'].number {
@@ -211,7 +228,7 @@ cite {
 
 div.tippy-box {
     background-color: #2d2c2e;
-    color: #c7c5b3;
+    color: var(--highlight-gold-one);
     border-color: #4f4f4f;
     border-radius: 4px;
     border-style: solid;
@@ -258,7 +275,7 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 }
 
 .rc-slider-mark-text-active {
-    color: #c7c5b3 !important;
+    color: var(--highlight-gold-one) !important;
 }
 
 @media screen and (min-width: 800px) {
