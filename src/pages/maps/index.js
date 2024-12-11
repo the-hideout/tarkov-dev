@@ -95,7 +95,7 @@ function Maps() {
                         {mapImagesSortedArray
                         .filter(map => map.normalizedName === mapsGroup.normalizedName)
                         .map((map) => {
-                            const { displayText, key, imageThumb } = map;
+                            const { displayText, displayVariant, key, imageThumb } = map;
                             let mapImageLink = `${process.env.PUBLIC_URL}${imageThumb}`;
                             if (map.projection === 'interactive') {
                                 let path = map.svgPath || map.tilePath || `https://assets.tarkov.dev/maps/${map.normalizedName}/{z}/{x}/{y}.png`;
@@ -111,7 +111,7 @@ function Maps() {
                                             title={t('Map of {{mapName}}', {mapName: displayText})}
                                             src={mapImageLink}
                                         />
-                                        <h3>{displayText}</h3>
+                                        <h3>{displayVariant}</h3>
                                     </Link>
                                 </div>
                             );
