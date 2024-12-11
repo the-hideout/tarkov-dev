@@ -102,6 +102,7 @@ const Menu = () => {
                             <Link
                                 to={alertConfig.link}
                                 style={{ color: 'inherit', textDecoration: 'underline' }}
+                                target="_blank"
                             >
                                 {t(alertConfig.linkText)}
                             </Link>
