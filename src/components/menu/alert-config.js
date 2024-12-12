@@ -2,6 +2,9 @@ const alertConfig = {
     // set this bool if the site alert should be enabled or not
     alertEnabled: true,
 
+    // if alert should show on page load even if the user has closed it
+    alwaysShow: true,
+
     // valid alert colors
     alertColors: {
         error: '#D3302F',

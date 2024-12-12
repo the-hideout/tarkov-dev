@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -52,7 +52,8 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
-    const [open, setOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
+    const [alertOpen, setAlertOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
+    const [alertStateOpen, setAlertStateOpen] = useState(alertOpen || alertConfig.alwaysShow);
 
     const uniqueMaps = useMapImagesSortedArray();
     for (const map of uniqueMaps) {
@@ -74,9 +75,9 @@ const Menu = () => {
     return (
         <>
             {/* ALERT BANNER SECTION */}
-            {alertConfig?.alertEnabled && alertConfig.alertEnabled === true && (
+            {alertConfig?.alertEnabled === true && (
                 <Box>
-                <Collapse in={open}>
+                <Collapse in={alertStateOpen}>
                     <Alert
                         severity={alertConfig.alertLevel}
                         variant='filled'
@@ -87,7 +88,8 @@ const Menu = () => {
                                 color="inherit"
                                 size="small"
                                 onClick={() => {
-                                    setOpen(false);
+                                    setAlertOpen(false);
+                                    setAlertStateOpen(false);
                                 }}
                             >
                                 <Icon path={mdiClose} size={0.8} className="icon-with-text" />
