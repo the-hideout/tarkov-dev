@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v9.8.1
+        uses: github/branch-deploy@v10.0.0-rc.1
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
@@ -31,7 +31,7 @@ jobs:
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: GrantBirki/json-yaml-validate@v3.2.1
 
-      - uses: actions/setup-node@v4.0.4
+      - uses: actions/setup-node@v4.1.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
@@ -53,7 +53,7 @@ jobs:
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@f84a562284fc78278ff9052435d9526f9c718361 # pin@v3.7.0
+        uses: cloudflare/wrangler-action@6d58852c35a27e6034745c5d0bc373d739014f7f # pin@v3.13.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}

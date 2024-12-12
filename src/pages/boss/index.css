@@ -1,79 +1,143 @@
-.killa-party-time {
-    margin-top: 5rem;
-}
-
-.killa-party-time-text {
-    font-size: 1rem;
-}
-
+/* Main page wrapper */
 .boss-page-wrapper {
-    margin: 0 auto 100px auto;
-    max-width: 1200px;
-    padding-top: 10px;
+  margin: 0 auto 100px auto;
+  max-width: 1200px;
+  padding-top: 20px;
+  position: relative;
+}
+
+
+.information-section {
+    background: #0000001a;
+    border: 1px solid #ffffff1a;
+    border-radius: 0 20px 0 20px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.information-section.has-table {
+    border-radius: 0 20px 0 0;
+}
+
+.information-section h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin: 0;
+    padding: 15px 20px;
+    background: #0000004d;
+    color: #c7c5b3;
+}
+.information-section h2 svg {
+    width: 1.6rem !important;
+    height: auto !important;
+    margin: 0 12px 0 0;
+}
+.information-section .content {
+  padding: 20px;
+}
+.information-section .content p {
+  margin: 0;
+}
+
+
+
+/* Top Section */
+.boss-information-wrapper {
+    display: flex;
+    background: #0000001a;
+    border: 1px solid #7a6f5494;
+    margin-bottom: 50px;
+    box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
+    overflow: hidden;
+    min-height: 425px;
+}
+
+.boss-icon-cont {
+    border-left: 1px solid #9a8866ad;
+    background: #3b31203d;
+    display: flex;
+    min-width: 350px;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 
-.boss-page-wrapper h2 {
-    margin-top: 40px;
-    font-size: 24px;
+.boss-icon-and-link-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center center;
 }
 
-.boss-information-grid h1 {
-    align-items: center;
+.boss-top-content {
     display: flex;
+    flex-direction: column;
+    flex: 1 auto;
+    max-width: 850px;
+}
+.boss-top-content .title-bar {
+    display: flex;
+    align-items: center;
+    background: #0000004d;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.boss-top-content .boss-information-icon {
+  display: none;
+  width: 124px;
+  margin: 20px auto;
+  height: 124px;
+  border: 1px solid rgba(255,255,255,.5);
+}
+.boss-top-content .title-bar h1 {
+    display: inline-block;
+    color: #c7c5b3;
+    align-items: center;
     justify-content: space-between;
+    cursor: default;
+    margin: 0;
+}
+.boss-top-content .title-bar .wiki-link-wrapper {
+    margin: auto 0 auto auto;
+    opacity: 0.9;
+    transition-delay: .3s;
+}
+.boss-top-content .title-bar .wiki-link-wrapper:hover {
+    opacity: 1;
+    transition: all .1s;
 }
 
-.boss-information-grid h1,
-.boss-icon-and-link-wrapper {
-    margin: 0 0 10px 0;
+
+.boss-top-content .main-content {
+    padding: 20px 20px 0 20px;
+}
+.boss-top-content .boss-properties {
+    padding: 0 20px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+.boss-top-content .main-content p.boss-details {
+    margin: 0 0 20px 0;
+}
+.boss-top-content .main-content p.boss-details h3 {
+    margin-top: 0;
 }
 
-.boss-information-icon {
-    width: 64px;
-    height: 64px;
-    cursor: zoom-in;
-}
 
-.boss-icon-and-link-wrapper {
-    align-items: flex-start;
-    display: none;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    cursor: zoom-in;
-}
+@media screen and (max-width: 960px){
+  .boss-information-wrapper {
+    min-height: none;
+  }
+  .boss-icon-cont {
+     display: none;
+  }
 
-@media screen and (min-width: 800px) {
-    .boss-page-wrapper {
-        padding-top: 20px;
-    }
-
-    .boss-information-wrapper {
-        flex-grow: 1;
-    }
-
-    .boss-information-grid {
-        display: flex;
-    }
-
-    .boss-information-grid h1 img {
-        display: none;
-    }
-
-    .boss-details {
-        margin-right: 1em;
-    }
-
-    .boss-information-grid h1,
-    .boss-icon-and-link-wrapper {
-        margin: 0;
-    }
-
-    .boss-icon-and-link-wrapper {
-        display: flex;
-    }
-
-    .boss-icon-and-link-wrapper img {
-        max-height: 200px;
-    }
+  .boss-top-content .boss-information-icon {
+    display: inline-block;
+  }
 }
