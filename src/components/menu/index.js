@@ -193,7 +193,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul className="overflow-hidden">
-                            {categoryPages.map((categoryPage) => (
+                            {categoryPages.sort((a, b) => t(a.displayText).localeCompare(t(b.displayText))).map((categoryPage) => (
                                 <MenuItem
                                     displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
