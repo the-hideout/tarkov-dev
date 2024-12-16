@@ -20,20 +20,18 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v10.0.0-rc.1
+      - uses: github/branch-deploy@v10
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
           admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
-          skip_ci: development
-          skip_reviews: development
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
           sticky_locks: "true"
 
       - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.branch-deploy.outputs.sha }}
 

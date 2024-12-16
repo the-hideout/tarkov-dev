@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v10.0.0-rc.1
+        uses: github/branch-deploy@v10
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
@@ -24,7 +24,9 @@ jobs:
 
       - name: checkout
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.deployment-check.outputs.sha }}
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
