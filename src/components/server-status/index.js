@@ -24,7 +24,7 @@ function ServerStatus() {
                     solveTime
                 }
             }
-        }`.replace(/\s{2,}/g, ' '),
+        }`,
     );
     const { t } = useTranslation();
 

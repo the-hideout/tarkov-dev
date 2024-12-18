@@ -12,8 +12,8 @@ class APIQuery {
         this.pendingQuery = {};
     }
 
-    graphqlRequest(queryString) {
-        return graphqlRequest(queryString);
+    graphqlRequest(queryString, variables) {
+        return graphqlRequest(queryString, variables);
     }
 
     async query() {
@@ -29,21 +29,10 @@ class APIQuery {
         if (this.pendingQuery[pendingKey]) {
             return this.pendingQuery[pendingKey];
         }
-        let resolvePending, rejectPending;
-        this.pendingQuery[pendingKey] = new Promise((resolve, reject) => {
-            resolvePending = resolve;
-            rejectPending = reject;
+        this.pendingQuery[pendingKey] = this.query(options).finally(() => {
+            this.pendingQuery[pendingKey] = undefined;
         });
-        try {
-            const result = await this.query(options);
-            resolvePending(result);
-            this.pendingQuery[pendingKey] = false;
-            return result;
-        } catch (error) {
-            rejectPending(error);
-            this.pendingQuery[pendingKey] = false;
-            return Promise.reject(error);
-        }
+        return this.pendingQuery[pendingKey];
     }
 }
 
