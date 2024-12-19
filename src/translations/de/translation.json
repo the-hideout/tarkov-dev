@@ -360,7 +360,7 @@
     "item-page-description": "Diese Seite beinhaltet Informationen über Charakteristiken, Anwendungsfälle und Strategien für {{itemName}}.",
     "Sell for": "Verkaufspreise",
     "Buy for": "Einkaufspreise",
-    "Flea price last 7 days": "Flohmarkt Preis in den letzten 7 Tagen",
+    "Flea price history": "Flohmarktpreisentwicklung",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "Veränderungen im Verhältnis zum Vortag: {{changeLast48h}} ₽ / {{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Niedrigster Preis der letzen 24 Stunden: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Höchster Preis der letzen 24 Stunden: {{high24hPrice}}",

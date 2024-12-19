@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderWithProviders } from '../test-utils';
 import App from '../App';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { useInView } from 'react-intersection-observer';
 jest.mock('react-intersection-observer');

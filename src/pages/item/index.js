@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 
 import { Icon } from '@mdi/react';
 import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from '@mdi/js';
@@ -103,6 +104,11 @@ function Item() {
         setMinArmorClass(min);
         setMaxArmorClass(max);
     }, [setMinArmorClass, setMaxArmorClass]);
+
+    const [priceDays, setPriceDays] = useStateWithLocalStorage(
+        'historicalPriceDays',
+        7,
+    );
 
     const loadingData = useMemo(() => {
         return {
@@ -237,17 +243,17 @@ function Item() {
                 Cell: CenterCell,
             },
         ];
-        if (!currentItemData.properties?.armorSlots) {
+        if (!currentItemData?.properties?.armorSlots) {
             return {data: [], columns};
         }
-        const softArmorSlots = currentItemData.properties.armorSlots.filter(slot => slot.durability);
+        const softArmorSlots = currentItemData?.properties?.armorSlots.filter(slot => slot.durability);
         return {columns, data: softArmorSlots}
     }, [currentItemData, t]);
     const plateArmorSlots = useMemo(() => {
-        if (!currentItemData.properties?.armorSlots) {
+        if (!currentItemData?.properties?.armorSlots) {
             return [];
         }
-        return currentItemData.properties.armorSlots.filter(slot => slot.allowedPlates);
+        return currentItemData?.properties?.armorSlots.filter(slot => slot.allowedPlates);
     }, [currentItemData]);
 
     // if the name we got from the params are the id of the item, redirect
@@ -646,9 +652,34 @@ The max profitable price is impacted by the intel center and hideout management 
                 </div>
                 {currentItemData.id && currentItemData.id !== 'loading' && !currentItemData.types.includes('noFlea') && (
                     <div>
-                        <h2>{t('Flea price last 7 days')}</h2>
+                        <h2>{t('Flea price history')} <Select
+                            placeholder={t('{{count}} days_other', {count: priceDays})}
+                            defaultValue={priceDays}
+                            options={[
+                                {
+                                    label: t('{{count}} days_other', {count: 7}),
+                                    value: 7,
+                                },
+                                {
+                                    label: t('{{count}} days_other', {count: 14}),
+                                    value: 14,
+                                },
+                                {
+                                    label: t('{{count}} days_other', {count: 30}),
+                                    value: 30,
+                                },
+                            ]}
+                            className="basic-multi-select historical-price-days"
+                            classNamePrefix="select"
+                            onChange={(event) => {
+                                setPriceDays(event.value);
+                            }}
+                            styles={{display: 'inline'}}
+                            ></Select>
+                        </h2>
                         <PriceGraph
                             item={currentItemData}
+                            days={priceDays}
                         />
                         <br />
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
