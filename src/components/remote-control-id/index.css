@@ -68,7 +68,7 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
-    color: #ccc;
+    color: var(--color-white);
 }
 
 .session-switch-side:hover,
@@ -94,7 +94,7 @@
 .update-label {
     font-size: 10px;
     text-align: center;
-    color: #ccc;
+    color: var(--color-white);
 }
 
 @media screen and (min-width: 800px) {

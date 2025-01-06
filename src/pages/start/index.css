@@ -101,8 +101,8 @@
 }
 
 .load-more-button:hover {
-    background-color: #6e5f43;
-    color: white;
+    background-color: var(--highlight-gold-two);
+    color: var(--color-white);
     cursor: pointer;
   }
 

@@ -44,7 +44,7 @@ ul.favorite-item-list li {
 }
 
 .rare {
-    color: #8c6edf;
+    color: var(--rarity-rare);
 }
 
 .legendary {

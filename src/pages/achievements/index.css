@@ -1,7 +1,7 @@
 .rare {
-    color: #8c6edf;
+    color: var(--rarity-rare);
 }
 
 .legendary {
-    color: #ffe084;
+    color: var(--rarity-legendary);
 }

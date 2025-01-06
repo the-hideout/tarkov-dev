@@ -7,7 +7,7 @@
 }
 
 .loyalty-level-wrapper {
-    background-color: #bac1c4;
+    background-color: var(--color-white);
     clip-path: polygon(100% 0, 100% 70%, 70% 100%, 0 100%, 0 0);
     color: var(--color-black);
     font-weight: 700;

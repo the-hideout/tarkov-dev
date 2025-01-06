@@ -19,7 +19,7 @@
 }
 
 .item-cost-muted-red {
-    color: #9a6666;
+    color: var(--muted-red);
 }
 
 .item-cost-barter-icon {

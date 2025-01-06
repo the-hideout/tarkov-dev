@@ -131,7 +131,7 @@
 
 .price-wrapper.locked,
 .best-profit .price-wrapper.locked {
-    color: #626151;
+    color: var(--highlight-gold-two);
 }
 
 .text-and-image-information-wrapper.price-info-wrapper {
