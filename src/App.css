@@ -7,6 +7,7 @@
 
   --color-blue-light: #0292c0;
   --color-gray: #424242;
+  --color-gray-light : #636363;
 
   --color-gunmetal: #383945;
     --color-gunmetal-rgb: 56,57,69;
@@ -31,6 +32,9 @@
 
   --border-primary: #1b1919;
 
+
+  --muted-green: #6a9a66;
+  --muted-red: #9a6666;
 
 
 

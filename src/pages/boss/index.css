@@ -20,7 +20,7 @@
 
 .boss-icon-cont {
     border-left: 1px solid var(--highlight-gold-two);
-    background: #3b31203d;
+    background: var(--background-primary);
     display: flex;
     min-width: 350px;
     height: inherit;

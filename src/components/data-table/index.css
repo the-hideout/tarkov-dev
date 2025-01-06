@@ -74,7 +74,7 @@ td.data-cell:last-child {
 }
 
 .data-table tbody tr.expanded td {
-    background-color: #242324;
+    background-color: var(--background-primary);
 }
 
 .arrow-icon,

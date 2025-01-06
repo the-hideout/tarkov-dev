@@ -15,7 +15,7 @@
 }
 
 .item-cost-muted-green {
-    color: #6a9a66;
+    color: var(--muted-green);
 }
 
 .item-cost-muted-red {

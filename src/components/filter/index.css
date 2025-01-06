@@ -19,7 +19,7 @@
 }
 
 .filter-content-wrapper {
-    background-color: #292727;
+    background-color: var(--background-primary);
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
