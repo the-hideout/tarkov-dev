@@ -26,7 +26,7 @@
 }
 
 .language-toggle-wrapper .select__control, .game-mode .select__control {
-    color: #1b1919;
+    color: var(--border-primary);
     background-color: var(--background-primary);
     border-color: var(--highlight-gold-two);
 }

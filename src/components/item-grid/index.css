@@ -1,5 +1,5 @@
 .item-group-wrapper {
-    border: 1px solid #1b1919;
+    border: 1px solid var(--border-primary);
     background-color: var(--background-primary);
     display: flex;
     flex-wrap: wrap;

@@ -10,7 +10,7 @@
 .api-user-wrapper {
     align-items: center;
     background-color: var(--background-primary);
-    border: 1px solid #1b1919;
+    border: 1px solid var(--border-primary);
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;

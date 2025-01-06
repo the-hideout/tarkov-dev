@@ -12,7 +12,7 @@
     align-items: flex-start;
     flex-direction: column;
     background-color: var(--background-primary);
-    border: 1px solid #1b1919;
+    border: 1px solid var(--border-primary);
     flex-basis: calc(50% - 2.5px);
     padding: 10px 20px;
     flex: 1 auto;
