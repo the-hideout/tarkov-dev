@@ -15,17 +15,17 @@
 }
 
 .status-0 {
-    background-color: #70b035;
+    background-color: var(--action-positive);
 }
 
 .status-1 {
-    background-color: #90c1eb;
+    background-color: var(--color-blue);
 }
 
 .status-2 {
-    background-color: #ca8a00;
+    background-color: var(--action-warning);
 }
 
 .status-3 {
-    background-color: #d42929;
+    background-color: var(--action-negative);
 }

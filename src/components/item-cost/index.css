@@ -2,16 +2,16 @@
     display: none;
 }
 
-.item-cost-cash-sell {
-    color: #c89898;
-}
-
 .item-cost-custom-price {
-    background-color: #292727;
+    background-color: var(--background-primary);
     border: var(--highlight-gold-two) 2px solid;
     color: var(--highlight-gold-one);
     padding: 4px;
     width: 5em;
+}
+
+.item-cost-cash-sell {
+  color: #c89898;
 }
 
 .item-cost-muted-green {
