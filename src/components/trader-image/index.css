@@ -10,9 +10,9 @@
 }
 
 .positive-rep {
-    color: #00a700;
+    color: var(--action-positive);
 }
 
 .negative-rep {
-    color: #a70000;
+    color: var(--action-negative);
 }
