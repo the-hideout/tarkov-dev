@@ -96,7 +96,6 @@
 }
 
 .menu .submenu-wrapper {
-    /* background-color: #000; */
     border-radius: 0;
     font-size: 20px;
     position: relative;
@@ -136,7 +135,7 @@
 }
 
 .menu .submenu-wrapper:hover > a {
-    color: #000;
+    color: var(--color-black);
     color: #bdbbaa;
     text-decoration: underline;
     text-underline-offset: 5px;
@@ -169,9 +168,9 @@
 }
 
 .supporters-wrapper {
-    background-color: #000;
+    background-color: var(--color-black);
     border-radius: 0;
-    color: #fff;
+    color: var(--color-white);
     cursor: default;
     display: none;
     position: absolute;

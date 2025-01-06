@@ -48,7 +48,7 @@ ul.favorite-item-list li {
 }
 
 .legendary {
-    color: #ffe084;
+    color: var(--rarity-legendary);
 }
 
 .banned, .not-banned {

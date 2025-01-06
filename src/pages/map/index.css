@@ -24,12 +24,12 @@
 
 /* leaflet-control-coordinates */
 .leaflet-control-coordinates {
-    color: var(--color-primary-black);
+    color: var(--color-black);
     font-weight: bold;
 }
 
 .leaflet-control-coordinates {
-	background-color: var(--color-primary-white);
+	background-color: var(--color-white);
 	background-color:rgba(255, 255, 255, 0.8);
 	cursor:pointer;
 }

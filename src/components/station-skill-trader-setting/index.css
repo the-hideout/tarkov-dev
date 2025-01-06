@@ -14,7 +14,7 @@
 
 .station-skill-trader-setting-wrapper .select__control {
     color: #1b1919;
-    background-color: #2d2c2e;
+    background-color: var(--background-primary);
     border-color: var(--highlight-gold-two);
 }
 

@@ -27,12 +27,12 @@
 
 .language-toggle-wrapper .select__control, .game-mode .select__control {
     color: #1b1919;
-    background-color: #2d2c2e;
+    background-color: var(--background-primary);
     border-color: var(--highlight-gold-two);
 }
 
 .language-toggle-wrapper .select__single-value, .game-mode .select__single-value {
-    color: #fff;
+    color: var(--color-white);
 }
 
 .hidden {

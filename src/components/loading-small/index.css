@@ -2,7 +2,7 @@
     background: linear-gradient(to left, var(--highlight-gold-one) 20%, var(--highlight-gold-two) 40%, var(--highlight-gold-two) 60%, var(--highlight-gold-one) 80%);
     background-size: 200% auto;
 
-    color: #000;
+    color: var(--color-black);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

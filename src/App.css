@@ -1,13 +1,11 @@
 /* Variables start */
 :root {
-  --color-primary-black: #000;
-    --color-primary-black-rgb: 0,0,0;
-  --color-primary-white: #fff;
-    --color-primary-white-rgb: 255,255,255;
+  --color-black: #000;
+    --color-black-rgb: 0,0,0;
+  --color-white: #fff;
+    --color-white-rgb: 255,255,255;
 
   --color-blue-light: #0292c0;
-  
-
   --color-gray: #424242;
 
   --color-gunmetal: #383945;
@@ -27,6 +25,9 @@
   --action-positive: #00a700;
   --action-warning : #ca8a00;
   --action-negative: #cd1e2f;
+
+  --rarity-rare: #8c6edf;
+  --rarity-legendary: #ffe084;
 
 
 
@@ -91,7 +92,7 @@ button,
 input[type='submit'] {
     background-color: var(--highlight-gold-two);
     border: 0;
-    color: #000;
+    color: var(--color-black);
     height: 40px;
     padding: 0;
 }
@@ -250,7 +251,7 @@ cite {
 }
 
 div.tippy-box {
-    background-color: #2d2c2e;
+    background-color: var(--background-primary);
     color: var(--highlight-gold-one);
     border-color: var(--color-gray);
     border-radius: 4px;
@@ -303,8 +304,8 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 
 /* Global reuseable styles, specific to the Tarkov.Dev style */
 .information-section {
-    background: rgba(var(--color-primary-black-rgb), 0.1);
-    border: 1px solid rgba(var(--color-primary-white-rgb), 0.1);
+    background: rgba(var(--color-rgb), 0.1);
+    border: 1px solid rgba(var(--color-white-rgb), 0.1);
     border-radius: 0 20px 0 20px;
     margin-bottom: 50px;
     overflow: hidden;
