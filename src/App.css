@@ -5,6 +5,11 @@
   --color-primary-white: #fff;
     --color-primary-white-rgb: 255,255,255;
 
+  --color-blue-light: #0292c0;
+  
+
+  --color-gray: #4f4f4f;
+
   --color-gunmetal: #383945;
     --color-gunmetal-rgb: 56,57,69;
 
@@ -149,7 +154,7 @@ cite {
 }
 
 .updated-label {
-    color: #ccc;
+    color: var(--highlight-gold-one);
     font-size: 10px;
     left: 4px;
     position: absolute;
@@ -216,12 +221,12 @@ cite {
 }
 
 .price-wrapper {
-    color: #b0b0b0;
+    color: var(--highlight-gold-one);
     font-size: 14px;
 }
 
 .price-wrapper-tool {
-    color: #0292c0;
+    color: var(--color-blue-light);
     font-size: 14px;
 }
 
@@ -247,7 +252,7 @@ cite {
 div.tippy-box {
     background-color: #2d2c2e;
     color: var(--highlight-gold-one);
-    border-color: #4f4f4f;
+    border-color: var(--color-gray);
     border-radius: 4px;
     border-style: solid;
     border-width: 3px;
@@ -255,22 +260,22 @@ div.tippy-box {
 }
 
 div.tippy-box[data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: #4f4f4f;
+    border-top-color: var(--color-gray);
     bottom: -10px;
 }
 
 div.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
-    border-bottom-color: #4f4f4f;
+    border-bottom-color: var(--color-gray);
     top: -10px;
 }
 
 div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
-    border-left-color: #4f4f4f;
+    border-left-color: var(--color-gray);
     right: -10px;
 }
 
 div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
-    border-right-color: #4f4f4f;
+    border-right-color: var(--color-gray);
     left: -10px;
 }
 
