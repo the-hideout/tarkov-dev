@@ -156,19 +156,19 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .extract-name.pmc {
-    color: #00e599;
+    color: var(--action-positive);
 }
 
 .extract-name.scav {
-    color: #ff7800;
+    color: var(--action-warning);
 }
 
 .extract-name.shared {
-    color: #00e4e5;
+    color: var(--color-blue);
 }
 
 .extract-name.transit {
-    color: #e53500;
+    color: var(--action-negative);
 }
 
 .poi-image, img.popup-item {
