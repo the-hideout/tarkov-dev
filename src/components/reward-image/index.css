@@ -35,12 +35,12 @@
 }
 
 .reward-image-img-tool {
-    outline: 1px solid #0292c0;
+    outline: 1px solid var(--color-blue-light);
     outline-offset: -1px;
 }
 
 .reward-image-img-nonfunctional {
-    outline: 1px solid #c00802;
+    outline: 1px solid var(--action-negative);
     outline-offset: -1px;
 }
 

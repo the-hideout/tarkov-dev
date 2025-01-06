@@ -4,8 +4,8 @@
 }
 
 .search-button:disabled {
-    background-color: var(--highlight-gold-two)55;
-    color: #333;
+    background-color: var(--highlight-gold-two);
+    color: var(--color-gray);
 }
 
 .search-controls {
@@ -22,7 +22,7 @@
 }
 
 .error {
-    color: #cd1e2f;
+    color: var(--action-negative);
 }
 
 .name-results-list {
@@ -32,11 +32,11 @@
 }
 
 .game-mode .select__control {
-    color: #1b1919;
-    background-color: #2d2c2e;
+    color: var(--color-gray);
+    background-color: var(--background-primary);
     border-color: var(--highlight-gold-two);
 }
 
 .game-mode .select__single-value {
-    color: #fff;
+    color: var(--primary-color-white);
 }
