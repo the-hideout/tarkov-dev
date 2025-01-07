@@ -4,13 +4,15 @@ import ReactDOM from 'react-dom/client';
 // import { BrowserTracing } from '@sentry/tracing';
 import App from './App.js';
 import store from './store.js';
+import colors from './colors.js';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
 import ScrollToTop from './components/scroll-to-top/index.js';
 
+
 const queryClient = new QueryClient();
+
 
 // Uncomment to enable Sentry
 // if (
