@@ -2,37 +2,31 @@
 :root {
   --color-black: #000;
     --color-black-rgb: rgb(var(--color-black));
+  --color-black-light: #1b1919;
   --color-white: #fff;
     --color-white-rgb: rgb(var(--color-white-rgb));
 
-  --color-yellow-light: #E0DFD6;
-  --color-blue-light: #0292c0;
-  --color-gray: #424242;
-  --color-gray-light : #636363;
-
   --color-gunmetal: #383945;
-  --color-gunmetal-rgb: rgb(var(--color-gunmetal));
-
+    --color-gunmetal-rgb: rgb(var(--color-gunmetal));
+  --color-gunmetal-dark: #2d2d2f;
+    --color-gunmetal-dark-rgb: rgb(var(--color-gunmetal-dark));
 
   --color-gold-one: #c7c5b3;
   --color-gold-one-rgb: rgb(var(--color-gold-one));
   --color-gold-two: #9a8866;
   --color-gold-two-rgb: rgb(var(--color-gold-two));
 
-  --background-primary: #2d2d2f;
-    --background-primary-rgb: 45,45,47;
-  --border-primary: #1b1919;
-
-  --color-action-positive: #00a700;
-  --color-action-warning : #ca8a00;
-  --color-action-negative: #cd1e2f;
-
-  --color-rarity-rare: #8c6edf;
-  --color-rarity-legendary: #ffe084;
-
-  --color-muted-green: #6a9a66;
-  --color-muted-red: #9a6666;
-
+  --color-yellow-light: #E0DFD6;
+  --color-blue-light: #0292c0;
+  --color-gray: #424242;
+  --color-gray-light : #636363;
+  --color-green: #00a700;
+  --color-green-light: #6a9a66;
+  --color-orange : #ca8a00;
+  --color-red: #cd1e2f;
+  --color-red-light: #9a6666;
+  --color-purple: #8c6edf;
+  --color-yellow: #ffe084;
 
 
   /* This is to ensure maps do not clip. Please do not remove */
@@ -47,7 +41,7 @@
 }
 
 body {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     background-image: url('images/background-1.png');
     color: var(--color-gold-one);
     margin: 0;
@@ -99,7 +93,7 @@ input[type='number'] {
     padding: 12px;
     max-height: 40px;
     border: 2px solid var(--color-gold-two);
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     color: var(--color-gold-one);
 }
 
@@ -247,7 +241,7 @@ cite {
 }
 
 div.tippy-box {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     color: var(--color-gold-one);
     border-color: var(--color-gray);
     border-radius: 4px;

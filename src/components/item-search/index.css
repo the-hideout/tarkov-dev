@@ -11,7 +11,7 @@
 }
 
 .item-list-wrapper {
-    background-color: var(--border-primary);
+    background-color: var(--color-black-light);
     position: absolute;
     top: 56px;
     width: 100%;

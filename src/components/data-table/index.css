@@ -29,7 +29,7 @@
 }
 
 .data-table thead tr:first-child {
-    border-top: 4px solid var(--border-primary);
+    border-top: 4px solid var(--color-black-light);
 }
 
 .data-table tbody tr.last-row {
@@ -42,18 +42,18 @@
 
 .data-cell, .data-table tfoot th {
     padding: 5px 15px;
-    border-top: 4px solid var(--border-primary);
-    border-bottom: 4px solid var(--border-primary);
+    border-top: 4px solid var(--color-black-light);
+    border-bottom: 4px solid var(--color-black-light);
 }
 
 th:first-child,
 td.data-cell:first-child {
-    border-left: 4px solid var(--border-primary);
+    border-left: 4px solid var(--color-black-light);
 }
 
 th:last-child,
 td.data-cell:last-child {
-    border-right: 4px solid var(--border-primary);
+    border-right: 4px solid var(--color-black-light);
 }
 
 .data-table .center-content {
@@ -70,11 +70,11 @@ td.data-cell:last-child {
 }
 
 .data-table tr td {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
 }
 
 .data-table tbody tr.expanded td {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
 }
 
 .arrow-icon,

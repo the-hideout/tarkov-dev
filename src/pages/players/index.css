@@ -22,7 +22,7 @@
 }
 
 .error {
-    color: var(--color-action-negative);
+    color: var(--color-red);
 }
 
 .name-results-list {
@@ -33,7 +33,7 @@
 
 .game-mode .select__control {
     color: var(--color-gray);
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     border-color: var(--color-gold-two);
 }
 

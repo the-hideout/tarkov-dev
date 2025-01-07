@@ -9,8 +9,8 @@
 
 .api-user-wrapper {
     align-items: center;
-    background-color: var(--background-primary);
-    border: 1px solid var(--border-primary);
+    background-color: var(--color-gunmetal-dark);
+    border: 1px solid var(--color-black-light);
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;

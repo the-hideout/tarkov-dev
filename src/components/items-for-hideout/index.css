@@ -14,14 +14,14 @@
 }
 
 .hideout-item-list-row {
-    border-left: 4px solid var(--border-primary);
-    border-right: 4px solid var(--border-primary);
+    border-left: 4px solid var(--color-black-light);
+    border-right: 4px solid var(--color-black-light);
 }
 
 .hideout-item-list-column {
-    background-color: var(--background-primary);
-    border-top: 4px solid var(--border-primary);
-    border-bottom: 4px solid var(--border-primary);
+    background-color: var(--color-gunmetal-dark);
+    border-top: 4px solid var(--color-black-light);
+    border-bottom: 4px solid var(--color-black-light);
     padding: 5px 15px;
 }
 
@@ -61,5 +61,5 @@
 }
 
 .hideout-item-list thead tr:first-child {
-    border-top: 4px solid var(--border-primary);
+    border-top: 4px solid var(--color-black-light);
 }

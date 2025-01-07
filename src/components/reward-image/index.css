@@ -40,7 +40,7 @@
 }
 
 .reward-image-img-nonfunctional {
-    outline: 1px solid var(--color-action-negative);
+    outline: 1px solid var(--color-red);
     outline-offset: -1px;
 }
 

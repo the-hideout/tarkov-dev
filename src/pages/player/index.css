@@ -44,11 +44,11 @@ ul.favorite-item-list li {
 }
 
 .rare {
-    color: var(--color-rarity-rare);
+    color: var(--color-purple);
 }
 
 .legendary {
-    color: var(--color-rarity-legendary);
+    color: var(--color-yellow);
 }
 
 .banned, .not-banned {
@@ -56,11 +56,11 @@ ul.favorite-item-list li {
 }
 
 .banned {
-    color: var(--color-action-positive);
+    color: var(--color-green);
 }
 
 .not-banned {
-    color: var(--color-action-negative);
+    color: var(--color-red);
 }
 
 .turnstile-widget {

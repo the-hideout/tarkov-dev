@@ -13,8 +13,8 @@
 }
 
 .station-skill-trader-setting-wrapper .select__control {
-    color: var(--border-primary);
-    background-color: var(--background-primary);
+    color: var(--color-black-light);
+    background-color: var(--color-gunmetal-dark);
     border-color: var(--color-gold-two);
 }
 

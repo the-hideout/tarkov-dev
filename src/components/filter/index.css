@@ -19,7 +19,7 @@
 }
 
 .filter-content-wrapper {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
@@ -100,7 +100,7 @@
 
 .basic-multi-select {
     min-width: 110px;
-    color: var(--background-primary);
+    color: var(--color-gunmetal-dark);
 }
 
 .rc-slider {
@@ -108,7 +108,7 @@
 }
 
 .button-group-wrapper {
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--color-black-light);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -117,7 +117,7 @@
 
 .button-group-button {
     border-radius: 0;
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     color: var(--color-gold-one);
     height: 40px;
     width: 40px;
@@ -136,7 +136,7 @@
 
 .button-group-button:hover,
 .button-group-button.selected {
-    background-color: var(--border-primary);
+    background-color: var(--color-black-light);
     cursor: pointer;
 }
 

@@ -26,7 +26,7 @@
 }
 
 .reward-custom-price {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     border: var(--color-gold-two) 2px solid;
     color: var(--color-gold-two);
     padding: 4px;
@@ -34,11 +34,11 @@
 }
 
 .reward-muted-green {
-    color: var(--color-muted-green);
+    color: var(--color-green-light);
 }
 
 .reward-muted-red {
-    color: var(--color-muted-red);
+    color: var(--color-red-light);
 }
 
 @media screen and (min-width: 800px) {

@@ -3,7 +3,7 @@
 }
 
 .item-cost-custom-price {
-    background-color: var(--background-primary);
+    background-color: var(--color-gunmetal-dark);
     border: var(--color-gold-two) 2px solid;
     color: var(--color-gold-one);
     padding: 4px;
@@ -15,11 +15,11 @@
 }
 
 .item-cost-muted-green {
-    color: var(--color-muted-green);
+    color: var(--color-green-light);
 }
 
 .item-cost-muted-red {
-    color: var(--color-muted-red);
+    color: var(--color-red-light);
 }
 
 .item-cost-barter-icon {
