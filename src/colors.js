@@ -21,20 +21,18 @@ const globalColors = {
   colorGoldTwoRgba: '154,136,102',
 
   colorBackgroundPrimary: '#2d2d2f',
-  colorbackgroundPrimaryRgb: '45,45,47',
-  /*
-  --border-primary: #1b1919;
+  colorBackgroundPrimaryRgb: '45,45,47',
+  colorBorderPrimary: '#1b1919',
+  
+  colorActionPositive: '#00a700',
+  colorActionWarning: '#ca8a00',
+  colorActionNegative: '#cd1e2f',
 
-  --color-action-positive: #00a700;
-  --color-action-warning : #ca8a00;
-  --color-action-negative: #cd1e2f;
+  colorRarityRare: '#8c6edf',
+  colorRarityLegendary: '#ffe084',
 
-  --color-rarity-rare: #8c6edf;
-  --color-rarity-legendary: #ffe084;
-
-  --color-muted-green: #6a9a66;
-  --color-muted-red: #9a6666;
-  */
+  colorMutedGreen:'#6a9a66',
+  colorMutedRed: '#9a6666'
 };
 
 export default globalColors;
