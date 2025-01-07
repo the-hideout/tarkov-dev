@@ -4,7 +4,7 @@
 
 .item-cost-custom-price {
     background-color: var(--background-primary);
-    border: var(--color-gold-one) 2px solid;
+    border: var(--color-gold-two) 2px solid;
     color: var(--color-gold-one);
     padding: 4px;
     width: 5em;

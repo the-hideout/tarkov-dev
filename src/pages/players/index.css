@@ -1,11 +1,11 @@
 .search-button {
-    padding: .2rem;
-    border-radius: 4px;
+  padding: .2rem;
+  border-radius: 4px;
 }
 
 .search-button:disabled {
-    background-color: var(--color-gold-one);
-    color: var(--color-gray);
+  background-color: var(--color-gold-two);
+  color: var(--color-gray);
 }
 
 .search-controls {
@@ -34,7 +34,7 @@
 .game-mode .select__control {
     color: var(--color-gray);
     background-color: var(--background-primary);
-    border-color: var(--color-gold-one);
+    border-color: var(--color-gold-two);
 }
 
 .game-mode .select__single-value {

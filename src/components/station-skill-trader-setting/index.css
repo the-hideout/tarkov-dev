@@ -15,7 +15,7 @@
 .station-skill-trader-setting-wrapper .select__control {
     color: var(--border-primary);
     background-color: var(--background-primary);
-    border-color: var(--color-gold-one);
+    border-color: var(--color-gold-two);
 }
 
 .station-skill-trader-setting-wrapper .select__single-value {

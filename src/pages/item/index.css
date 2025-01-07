@@ -121,7 +121,7 @@
 }
 
 .best-profit img {
-    outline: var(--color-gold-one) solid 1px;
+    outline: var(--color-gold-two) solid 1px;
     outline-offset: -1px;
 }
 
@@ -131,7 +131,7 @@
 
 .price-wrapper.locked,
 .best-profit .price-wrapper.locked {
-    color: var(--color-gold-one);
+    color: var(--color-gold-two);
 }
 
 .text-and-image-information-wrapper.price-info-wrapper {

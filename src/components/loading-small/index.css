@@ -1,5 +1,5 @@
 .loading-wipe {
-    background: linear-gradient(to left, var(--color-gold-one) 20%, var(--color-gold-one) 40%, var(--color-gold-one) 60%, var(--color-gold-one) 80%);
+    background: linear-gradient(to left, var(--color-gold-one) 20%, var(--color-gold-two) 40%, var(--color-gold-two) 60%, var(--color-gold-one) 80%);
     background-size: 200% auto;
 
     color: var(--color-black);
