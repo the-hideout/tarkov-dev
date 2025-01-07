@@ -5,6 +5,7 @@
   --color-white: #fff;
     --color-white-rgb: 255,255,255;
 
+  --color-yellow-light: #E0DFD6;
   --color-blue-light: #0292c0;
   --color-gray: #424242;
   --color-gray-light : #636363;
@@ -32,8 +33,12 @@
   --color-muted-green: #6a9a66;
   --color-muted-red: #9a6666;
 
+
+
   /* This is to ensure maps do not clip. Please do not remove */
     --display-height: auto;
+
+  
 }
 
 

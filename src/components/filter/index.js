@@ -170,7 +170,7 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
 const selectFilterStyle = {
     multiValueLabel: (provided) => ({
         ...provided,
-        color: '#E0DFD6',
+        color: window.globalColors.colorYellowLight,
         padding: '0.1rem'
     }),
     menu: (provided) => ({
@@ -187,12 +187,12 @@ const selectFilterStyle = {
     }),
     menuList: (provided) => ({
         ...provided,
-        color: '#E5E5E5',
+        color: window.globalColors.colorYellowLight,
         borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
-        color: '#E5E5E5',
+        color: window.globalColors.colorWhite,
         backgroundColor: window.globalColors.backgroundPrimary,
 
         borderRadius: 0,
@@ -204,12 +204,12 @@ const selectFilterStyle = {
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: '#c7c5b3',
+        color: window.globalColors.colorGoldOne,
     }),
     multiValue: (provided) => ({
         ...provided,
         backgroundColor: '#5F553B',
-        color: '#E5E5E5',
+        color: window.globalColors.colorWhite,
     }),
 };
 

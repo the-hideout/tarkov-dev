@@ -31,12 +31,12 @@ const selectFilterStyle = {
     }),
     menuList: (provided) => ({
         ...provided,
-        color: '#E5E5E5',
+        color: window.globalColors.colorYellowLight,
         borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
-        color: '#E5E5E5',
+        color: window.globalColors.colorYellowLight,
         backgroundColor: window.globalColors.backgroundPrimary,
 
         borderRadius: 0,
@@ -48,12 +48,12 @@ const selectFilterStyle = {
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: '#c7c5b3',
+        color: window.globalColors.colorGoldOne,
     }),
     multiValue: (provided) => ({
         ...provided,
-        backgroundColor: '#E5E5E5',
-        color: '#E5E5E5',
+        backgroundColor: window.globalColors.colorWhite,
+        color: window.globalColors.colorWhite,
     }),
 };
 

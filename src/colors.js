@@ -8,6 +8,7 @@ const globalColors = {
   colorWhite: '#fff',
   colorWhiteRgb: '255,255,255',
 
+  colorYellowLight: '#E0DFD6',
   colorBlueLight: '#0292c0',
   colorGray: '#424242',
   colorGrayLight: '#636363',
