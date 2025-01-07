@@ -1,9 +1,9 @@
 /* Variables start */
 :root {
   --color-black: #000;
-    --color-black-rgb: 0,0,0;
+    --color-black-rgb: rgb(var(--color-black));
   --color-white: #fff;
-    --color-white-rgb: 255,255,255;
+    --color-white-rgb: rgb(var(--color-white-rgb));
 
   --color-yellow-light: #E0DFD6;
   --color-blue-light: #0292c0;
@@ -11,13 +11,13 @@
   --color-gray-light : #636363;
 
   --color-gunmetal: #383945;
-  --color-gunmetal-rgb: 56,57,69;
+  --color-gunmetal-rgb: rgb(var(--color-gunmetal));
 
 
   --color-gold-one: #c7c5b3;
-  --color-gold-one-rgba: 199,197,179;
+  --color-gold-one-rgb: rgb(var(--color-gold-one));
   --color-gold-two: #9a8866;
-  --color-gold-two-rgb: 154,136,102;
+  --color-gold-two-rgb: rgb(var(--color-gold-two));
 
   --background-primary: #2d2d2f;
     --background-primary-rgb: 45,45,47;
@@ -36,9 +36,7 @@
 
 
   /* This is to ensure maps do not clip. Please do not remove */
-    --display-height: auto;
-
-  
+    --display-height: auto;  
 }
 
 
@@ -293,11 +291,11 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 }
 
 .rc-slider-mark-text {
-    color: rgba(var(--color-gold-one-rgba), 0.8) !important;
+    color: rgba(var(--color-gold-one-rgb), 0.8) !important;
 }
 
 .rc-slider-mark-text-active {
-    color: rgba(var(--color-gold-one-rgba), 1) !important;
+    color: rgba(var(--color-gold-one-rgb), 1) !important;
 }
 
 /* Global reuseable styles, specific to the Tarkov.Dev style */
