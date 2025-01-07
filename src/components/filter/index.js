@@ -176,13 +176,13 @@ const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
         backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid #9a8866',
+        border: '2px solid ' + window.globalColors.colorGoldTwo,
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
         backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid #9a8866',
+        border: '2px solid ' + window.globalColors.colorGoldTwo,
         borderRadius: 0,
     }),
     menuList: (provided) => ({
@@ -197,7 +197,7 @@ const selectFilterStyle = {
 
         borderRadius: 0,
         '&:hover': {
-            backgroundColor: '#9a8866',
+            backgroundColor: window.globalColors.colorGoldTwo,
             color: window.globalColors.backgroundPrimary,
             fontweight: 700,
         },
@@ -436,7 +436,7 @@ function Filter({ center, children, fullWidth }) {
             ref={toggleButton}
         >
             <Fab
-                style={{ backgroundColor: '#9a8866' }}
+                style={{ backgroundColor: window.globalColors.colorGoldTwo }}
                 aria-label="add"
                 key="filter-toggle-icon"
                 onClick={(e) => setShowFilter(!showFilter)}

@@ -20,13 +20,13 @@ const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
         backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid #9a8866',
+        border: '2px solid ' + window.globalColors.colorGoldTwo,
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
         backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid #9a8866',
+        border: '2px solid ' + window.globalColors.colorGoldTwo,
         borderRadius: 0,
     }),
     menuList: (provided) => ({
@@ -41,7 +41,7 @@ const selectFilterStyle = {
 
         borderRadius: 0,
         '&:hover': {
-            backgroundColor: '#9a8866',
+            backgroundColor: window.globalColors.colorGoldTwo,
             color: window.globalColors.backgroundPrimary,
             fontweight: 700,
         },
