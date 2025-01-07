@@ -267,7 +267,7 @@ function ItemImage({
             cursor: 'default',
             color: '#a4aeb4',
             fontWeight: 'bold',
-            textShadow: '1px 1px 0 '+ colors.black + ', -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+            textShadow: '1px 1px 0 '+ window.globalColors.black + ', -1px -1px 0 '+ window.globalColors.black + ', 1px -1px 0 '+ window.globalColors.black + ', -1px 1px 0 '+ window.globalColors.black,
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };

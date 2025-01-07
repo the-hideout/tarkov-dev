@@ -1,10 +1,7 @@
-// src/colors.js
-
-
 // These colors should  always be the same as /app.css :root color vars.
 // They are static, since color changes/additions are not likely to happen, 
 // and dynamicly "getting" them on the client feels like a waste of resources.
-const colors = {
+const globalColors = {
   black: '#000',
   blackRgb: '0,0,0',
 
@@ -40,6 +37,4 @@ const colors = {
   */
 };
 
-window.colors = colors; // Add colors to the global `window` object
-
-export default colors;
+export default globalColors;

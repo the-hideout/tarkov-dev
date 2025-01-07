@@ -1,4 +1,3 @@
-import { colors } from '@mui/material';
 import { useRef, useEffect } from 'react';
 
 function CanvasGrid(props) {
@@ -49,7 +48,7 @@ function CanvasGrid(props) {
         const width = 20;
 
         ctx.beginPath();
-        ctx.fillStyle = colors.black; // outer border color
+        ctx.fillStyle = window.globalColors.black; // outer border color
         ctx.fillRect(startX, startY, horizontal * 20 + 2, vertical * 20 + 2);
 
         startX = startX + 1;
