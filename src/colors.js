@@ -20,9 +20,9 @@ const globalColors = {
   colorGoldTwo: '#9a8866',
   colorGoldTwoRgba: '154,136,102',
 
+  colorBackgroundPrimary: '#2d2d2f',
+  colorbackgroundPrimaryRgb: '45,45,47',
   /*
-  --background-primary: #2d2d2f;
-    --background-primary-rgb: 45,45,47;
   --border-primary: #1b1919;
 
   --color-action-positive: #00a700;

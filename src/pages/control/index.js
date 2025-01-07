@@ -19,13 +19,13 @@ const ammoTypes = caliberArrayWithSplit();
 const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
-        backgroundColor: '#2d2d2f',
+        backgroundColor: window.globalColors.backgroundPrimary,
         border: '2px solid #9a8866',
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
-        backgroundColor: '#2d2d2f',
+        backgroundColor: window.globalColors.backgroundPrimary,
         border: '2px solid #9a8866',
         borderRadius: 0,
     }),
@@ -37,12 +37,12 @@ const selectFilterStyle = {
     option: (provided) => ({
         ...provided,
         color: '#E5E5E5',
-        backgroundColor: '#2d2d2f',
+        backgroundColor: window.globalColors.backgroundPrimary,
 
         borderRadius: 0,
         '&:hover': {
             backgroundColor: '#9a8866',
-            color: '#2d2d2f',
+            color: window.globalColors.backgroundPrimary,
             fontweight: 700,
         },
     }),
