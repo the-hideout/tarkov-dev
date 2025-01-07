@@ -15,7 +15,7 @@
 }
 
 .status-0 {
-    background-color: var(--action-positive);
+    background-color: var(--color-action-positive);
 }
 
 .status-1 {
@@ -23,9 +23,9 @@
 }
 
 .status-2 {
-    background-color: var(--action-warning);
+    background-color: var(--color-action-warning);
 }
 
 .status-3 {
-    background-color: var(--action-negative);
+    background-color: var(--color-action-negative);
 }

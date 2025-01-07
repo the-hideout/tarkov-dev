@@ -1,7 +1,7 @@
 .craft-profit {
-    color: var(--action-negative);
+    color: var(--color-action-negative);
 }
 
 .craft-loss {
-    color: var(--action-positive);
+    color: var(--color-action-positive);
 }

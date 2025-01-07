@@ -156,11 +156,11 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .extract-name.pmc {
-    color: var(--action-positive);
+    color: var(--color-action-positive);
 }
 
 .extract-name.scav {
-    color: var(--action-warning);
+    color: var(--color-action-warning);
 }
 
 .extract-name.shared {
@@ -168,7 +168,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .extract-name.transit {
-    color: var(--action-negative);
+    color: var(--color-action-negative);
 }
 
 .poi-image, img.popup-item {

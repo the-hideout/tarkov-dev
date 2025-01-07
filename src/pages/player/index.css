@@ -44,11 +44,11 @@ ul.favorite-item-list li {
 }
 
 .rare {
-    color: var(--rarity-rare);
+    color: var(--color-rarity-rare);
 }
 
 .legendary {
-    color: var(--rarity-legendary);
+    color: var(--color-rarity-legendary);
 }
 
 .banned, .not-banned {

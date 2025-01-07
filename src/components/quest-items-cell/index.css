@@ -21,5 +21,5 @@
 }
 
 .found-in-raid-wrapper.find-in-raid {
-    color: var(--action-negative);
+    color: var(--color-action-negative);
 }

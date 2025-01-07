@@ -20,26 +20,17 @@
 
   --background-primary: #2d2d2f;
     --background-primary-rgb: 45,45,47;
-
-  --action-positive: #00a700;
-  --action-warning : #ca8a00;
-  --action-negative: #cd1e2f;
-
-  --rarity-rare: #8c6edf;
-  --rarity-legendary: #ffe084;
-
   --border-primary: #1b1919;
 
+  --color-action-positive: #00a700;
+  --color-action-warning : #ca8a00;
+  --color-action-negative: #cd1e2f;
 
-  --muted-green: #6a9a66;
-  --muted-red: #9a6666;
+  --color-rarity-rare: #8c6edf;
+  --color-rarity-legendary: #ffe084;
 
-
-
-
-
-
-
+  --color-muted-green: #6a9a66;
+  --color-muted-red: #9a6666;
 
   /* This is to ensure maps do not clip. Please do not remove */
     --display-height: auto;

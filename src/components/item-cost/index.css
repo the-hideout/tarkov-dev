@@ -15,11 +15,11 @@
 }
 
 .item-cost-muted-green {
-    color: var(--muted-green);
+    color: var(--color-muted-green);
 }
 
 .item-cost-muted-red {
-    color: var(--muted-red);
+    color: var(--color-muted-red);
 }
 
 .item-cost-barter-icon {

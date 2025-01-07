@@ -34,11 +34,11 @@
 }
 
 .reward-muted-green {
-    color: var(--muted-green);
+    color: var(--color-muted-green);
 }
 
 .reward-muted-red {
-    color: var(--muted-red);
+    color: var(--color-muted-red);
 }
 
 @media screen and (min-width: 800px) {

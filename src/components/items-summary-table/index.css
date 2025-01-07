@@ -3,5 +3,5 @@
 }
 
 .trader-station-level-unmet {
-    color: var(--action-negative);
+    color: var(--color-action-negative);
 }

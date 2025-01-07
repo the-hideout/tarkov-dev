@@ -22,7 +22,7 @@
 }
 
 .error {
-    color: var(--action-negative);
+    color: var(--color-action-negative);
 }
 
 .name-results-list {
