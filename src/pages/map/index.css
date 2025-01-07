@@ -19,7 +19,7 @@
 }
 
 .leaflet-popup-content-wrapper a {
-    color: var(--highlight-gold-two);
+    color: var(--color-gold-one);
 }
 
 /* leaflet-control-coordinates */

@@ -78,7 +78,7 @@
 }
 
 .id-wrapper svg {
-    fill: var(--highlight-gold-one);
+    fill: var(--color-gold-one);
     height: 35px;
     margin-right: 1vh;
     width: 35px;

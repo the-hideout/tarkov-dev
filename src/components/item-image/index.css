@@ -1,5 +1,5 @@
 .item-image-mask {
-    background: linear-gradient(to left, var(--highlight-gold-two) 20%, var(--highlight-gold-one) 40%, var(--highlight-gold-one) 60%, var(--highlight-gold-two) 80%);
+    background: linear-gradient(to left, var(--color-gold-one) 20%, var(--color-gold-one) 40%, var(--color-gold-one) 60%, var(--color-gold-one) 80%);
     background-size: 200% auto;
     width: 200px;
     height: 200px;
@@ -32,7 +32,7 @@
 .item-image-count {
     background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     font-size: 14px;
     height: 18px;
     line-height: 20px;

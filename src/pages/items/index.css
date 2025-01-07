@@ -18,5 +18,5 @@
 }
 
 .items-list-wrapper img:hover {
-    outline: 2px solid var(--highlight-gold-two);
+    outline: 2px solid var(--color-gold-one);
 }

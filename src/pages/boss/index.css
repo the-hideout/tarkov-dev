@@ -11,7 +11,7 @@
 .boss-information-wrapper {
     display: flex;
     background-color: rgba(var(--color-black-rgb), 0.1);
-    border: 1px solid rgba(var(--highlight-gold-two-rgb), 0.7);
+    border: 1px solid rgba(var(--color-gold-one-rgb), 0.7);
     margin-bottom: 50px;
     box-shadow: 0 0 5px 3px rgba(var(--color-white-rgb), 0.034);
     overflow: hidden;
@@ -19,7 +19,7 @@
 }
 
 .boss-icon-cont {
-    border-left: 1px solid var(--highlight-gold-two);
+    border-left: 1px solid var(--color-gold-one);
     background: var(--background-primary);
     display: flex;
     min-width: 350px;
@@ -61,7 +61,7 @@
 }
 .boss-top-content .title-bar h1 {
     display: inline-block;
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     align-items: center;
     justify-content: space-between;
     cursor: default;

@@ -28,7 +28,7 @@
 .language-toggle-wrapper .select__control, .game-mode .select__control {
     color: var(--border-primary);
     background-color: var(--background-primary);
-    border-color: var(--highlight-gold-two);
+    border-color: var(--color-gold-one);
 }
 
 .language-toggle-wrapper .select__single-value, .game-mode .select__single-value {

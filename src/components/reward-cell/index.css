@@ -27,8 +27,8 @@
 
 .reward-custom-price {
     background-color: var(--background-primary);
-    border: var(--highlight-gold-two) 2px solid;
-    color: var(--highlight-gold-one);
+    border: var(--color-gold-one) 2px solid;
+    color: var(--color-gold-one);
     padding: 4px;
     width: 5em;
 }

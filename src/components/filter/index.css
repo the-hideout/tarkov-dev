@@ -118,7 +118,7 @@
 .button-group-button {
     border-radius: 0;
     background-color: var(--background-primary);
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     height: 40px;
     width: 40px;
     outline: none;

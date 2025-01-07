@@ -10,15 +10,13 @@
   --color-gray-light : #636363;
 
   --color-gunmetal: #383945;
-    --color-gunmetal-rgb: 56,57,69;
+  --color-gunmetal-rgb: 56,57,69;
 
 
-  --highlight-gold-one: #c7c5b3;
-    --highlight-gold-one-rgba: 199,197,179;
-
-
-  --highlight-gold-two: #9a8866;
-    --highlight-gold-two-rgb: 154,136,102;
+  --color-gold-one: #c7c5b3;
+  --color-gold-one-rgba: 199,197,179;
+  --color-gold-one: #9a8866;
+  --color-gold-one-rgb: 154,136,102;
 
   --background-primary: #2d2d2f;
     --background-primary-rgb: 45,45,47;
@@ -57,7 +55,7 @@
 body {
     background-color: var(--background-primary);
     background-image: url('images/background-1.png');
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     margin: 0;
     padding: 0;
     height: 100%;
@@ -95,7 +93,7 @@ button {
 
 button,
 input[type='submit'] {
-    background-color: var(--highlight-gold-two);
+    background-color: var(--color-gold-one);
     border: 0;
     color: var(--color-black);
     height: 40px;
@@ -107,15 +105,15 @@ input[type='number'] {
     padding: 12px;
     max-height: 40px;
 
-    border: 2px solid var(--highlight-gold-two);
+    border: 2px solid var(--color-gold-one);
     background-color: var(--background-primary);
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
 }
 
 input[type='text']:focus,
 input[type='number']:focus {
     outline: none;
-    border: 2px solid var(--highlight-gold-one);
+    border: 2px solid var(--color-gold-one);
 }
 
 input[type='text'].number {
@@ -132,7 +130,7 @@ select {
 }
 
 a {
-    color: var(--highlight-gold-two);
+    color: var(--color-gold-one);
     text-decoration: none;
 }
 
@@ -160,7 +158,7 @@ cite {
 }
 
 .updated-label {
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     font-size: 10px;
     left: 4px;
     position: absolute;
@@ -227,7 +225,7 @@ cite {
 }
 
 .price-wrapper {
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     font-size: 14px;
 }
 
@@ -257,7 +255,7 @@ cite {
 
 div.tippy-box {
     background-color: var(--background-primary);
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     border-color: var(--color-gray);
     border-radius: 4px;
     border-style: solid;
@@ -287,24 +285,24 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 
 .hr-muted {
     margin-top: 2rem;
-    border-bottom: 1px solid var(--highlight-gold-two);
+    border-bottom: 1px solid var(--color-gold-one);
     width: 80%;
     opacity: 0.4;
 }
 
 .hr-muted-full {
     margin-top: 2rem;
-    border-bottom: 1px solid var(--highlight-gold-two);
+    border-bottom: 1px solid var(--color-gold-one);
     width: 100%;
     opacity: 0.4;
 }
 
 .rc-slider-mark-text {
-    color: rgba(var(--highlight-gold-one-rgba), 0.8) !important;
+    color: rgba(var(--color-gold-one-rgba), 0.8) !important;
 }
 
 .rc-slider-mark-text-active {
-    color: rgba(var(--highlight-gold-one-rgba), 1) !important;
+    color: rgba(var(--color-gold-one-rgba), 1) !important;
 }
 
 /* Global reuseable styles, specific to the Tarkov.Dev style */
@@ -326,9 +324,9 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     margin: 0;
     padding: 15px 20px;
     background: rgba(var(--primary-color-black-rgb), 0.4);
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
 
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     background: rgba(0,0,0,0.3);
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }

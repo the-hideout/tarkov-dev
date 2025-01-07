@@ -21,7 +21,7 @@
 .reward-image-count {
     background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
-    color: var(--highlight-gold-one);
+    color: var(--color-gold-one);
     font-size: 14px;
     height: 18px;
     line-height: 20px;

@@ -7,7 +7,7 @@
 .navigation {
     align-items: center;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-    color: var(--highlight-gold-two);
+    color: var(--color-gold-one);
     display: flex;
     font-size: 40px;
     gap: 10px;
@@ -18,7 +18,7 @@
 .overflow-menu a {
     border-radius: 0;
     border: 0;
-    color: var(--highlight-gold-two);
+    color: var(--color-gold-one);
     text-align: left;
     /* text-decoration: none; */
     white-space: nowrap;
@@ -72,7 +72,7 @@
 }
 
 .mobile-icon svg {
-    fill: var(--highlight-gold-two);
+    fill: var(--color-gold-one);
     height: 54px;
 }
 
@@ -136,7 +136,7 @@
 
 .menu .submenu-wrapper:hover > a {
     color: var(--color-black);
-    color: #bdbbaa;
+    color: var(--color-gold-one);
     text-decoration: underline;
     text-underline-offset: 5px;
     text-decoration-thickness: 1px;
@@ -239,7 +239,7 @@ li.mobile-only-link {
 }
 
 .submenu-items {
-    border-left: 1px solid var(--highlight-gold-two);
+    border-left: 1px solid var(--color-gold-one);
     border-right: 1px solid rgba(0, 0, 0, 0);
 }
 
@@ -312,7 +312,7 @@ nav.navigation ul.menu li:nth-last-child(1 of li.visible-menu-item):not(:nth-las
 }
 
 .MuiPopover-root svg.icon-with-text {
-    color: var(--highlight-gold-two);
+    color: var(--color-gold-one);
 }
 
 .MuiPopover-root .overflow-hidden {

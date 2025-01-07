@@ -8,7 +8,7 @@
     /* display: inline-block; */
     height: 10px;
     width: 200px;
-    background-color: var(--highlight-gold-one);
+    background-color: var(--color-gold-one);
     border-radius: 10px;
     overflow: hidden;
     margin-right: 10px;
@@ -17,5 +17,5 @@
 .wipe-length-bar {
     height: 10px;
     border-radius: 10px;
-    background-color: var(--highlight-gold-two);
+    background-color: var(--color-gold-one);
 }
