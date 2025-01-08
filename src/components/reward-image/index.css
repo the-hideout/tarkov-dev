@@ -19,7 +19,7 @@
 }
 
 .reward-image-count {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b  / 0.8);
     border-top-left-radius: 3px;
     color: var(--color-gold-one);
     font-size: 14px;

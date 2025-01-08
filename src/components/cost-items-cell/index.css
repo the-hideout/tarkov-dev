@@ -10,7 +10,7 @@
 }
 
 .cost-item-wrapper.disabled::after {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgb( from var(--color-black) r g b / 0.3);
     bottom: 0;
     content: ' ';
     left: 0;

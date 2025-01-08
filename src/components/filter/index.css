@@ -35,7 +35,7 @@
 }
 
 .filter-wrapper.open {
-    box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.69);
+    box-shadow: 0px 5px 15px 5px rgb( from var(--color-black) r g b / 0.70);
     overflow: visible;
     transform: scaleY(1);
 }

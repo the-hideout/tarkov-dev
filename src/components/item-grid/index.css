@@ -72,7 +72,7 @@
 }
 
 .sell-to-icon {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b / 0.8);
     border-top-left-radius: 3px;
     bottom: 1px;
     color: var(--color-gold-one);
@@ -91,7 +91,7 @@
 }
 
 .grid-item-tooltip {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b / 0.8);
     color: #fff;
     font-size: 12px;
     opacity: 0;

@@ -1,20 +1,14 @@
 /* Variables start */
 :root {
   --color-black: #000;
-    --color-black-rgb: rgb(var(--color-black));
   --color-black-light: #1b1919;
   --color-white: #fff;
-    --color-white-rgb: rgb(var(--color-white-rgb));
 
   --color-gunmetal: #383945;
-    --color-gunmetal-rgb: rgb(var(--color-gunmetal));
   --color-gunmetal-dark: #2d2d2f;
-    --color-gunmetal-dark-rgb: rgb(var(--color-gunmetal-dark));
 
   --color-gold-one: #c7c5b3;
-  --color-gold-one-rgb: rgb(var(--color-gold-one));
   --color-gold-two: #9a8866;
-  --color-gold-two-rgb: rgb(var(--color-gold-two));
 
 
   --color-blue-light: #0292c0;
@@ -153,7 +147,7 @@ cite {
 }
 
 .time-wrapper {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb( from var(--color-black) r g b / 0.5);
     padding: 10px 20px;
     position: absolute;
     right: -10px;
@@ -247,7 +241,7 @@ div.tippy-box {
     border-radius: 4px;
     border-style: solid;
     border-width: 3px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 1px rgb( from var(--color-black) r g b / 0.1);
 }
 
 div.tippy-box[data-placement^='top'] > .tippy-arrow::before {
@@ -285,17 +279,17 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 }
 
 .rc-slider-mark-text {
-    color: rgba(var(--color-gold-one-rgb), 0.8) !important;
+    color: rgb(from var(--color-gold-one) r g b / 0.8) !important;
 }
 
 .rc-slider-mark-text-active {
-    color: rgba(var(--color-gold-one-rgb), 1) !important;
+    color: rgb(from var(--color-gold-one) r g b/ 1) !important;
 }
 
 /* Global reuseable styles, specific to the Tarkov.Dev style */
 .information-section {
-    background: rgba(var(--color-rgb), 0.1);
-    border: 1px solid rgba(var(--color-white-rgb), 0.1);
+    background: rgb(from var(--color-black) r g b / 0.1);
+    border: 1px solid rgb( from var(--color-white) r g b/ 0.1);
     border-radius: 0 20px 0 20px;
     margin-bottom: 50px;
     overflow: hidden;
@@ -310,12 +304,10 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     font-size: 24px;
     margin: 0;
     padding: 15px 20px;
-    background: rgba(var(--primary-color-black-rgb), 0.4);
+    background: rgb( from var(--primary-color-black) r g b / 0.4);
     color: var(--color-gold-one);
-
-    color: var(--color-gold-one);
-    background: rgba(0,0,0,0.3);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgb( from var(--color-black) r g b / 0.3);
+    border-bottom: 1px solid rgb( from var(--color-white) r g b / 0.1);
 }
 .information-section h2 svg {
     width: 1.6rem !important;

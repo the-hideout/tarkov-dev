@@ -30,7 +30,7 @@
 
 .leaflet-control-coordinates {
 	background-color: var(--color-white);
-	background-color:rgba(255, 255, 255, 0.8);
+	background-color:rgb(from var(--color-white) r g b / 0.8);
 	cursor:pointer;
 }
 
@@ -183,7 +183,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 /* general control styles */
 .leaflet-control {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgb(from var(--color-black) r g b / 0.75);
     color: rgb(199, 197, 179);
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
@@ -197,7 +197,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .leaflet-control-map-settings {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgb(from var(--color-black) r g b / 0.75);
 }
 
 .leaflet-container.only-active-quest-markers .inactive-quest-marker {
@@ -206,7 +206,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 /* fullscreen control */
 .leaflet-control-fullscreen a {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgb(from var(--color-black) r g b / 0.75);
 }
 
 .leaflet-control-fullscreen a:hover {
@@ -244,7 +244,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 /* Raid Info control */
 .leaflet-control-raid-info {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(from var(--color-black) r g b / 0.5);
     line-height: normal;
 }
 

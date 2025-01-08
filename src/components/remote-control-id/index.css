@@ -1,5 +1,5 @@
 .id-wrapper {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(from var(--color-black) r g b / 0.5);
     bottom: 0;
     color: #fff;
     display: none;
@@ -41,7 +41,7 @@
     position: absolute;
     bottom: 0;
     width: 30vw;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb(from var(--color-black) r g b / 0.8);
     padding: 15px;
     font-size: 16px;
 }

@@ -15,7 +15,7 @@
 }
 
 .data-table thead, .data-table tfoot {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgb( from var(--color-black) r g b / 0.4);
     position: sticky;
     top: 0;
 }
