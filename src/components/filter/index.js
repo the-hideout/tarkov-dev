@@ -170,46 +170,46 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
 const selectFilterStyle = {
     multiValueLabel: (provided) => ({
         ...provided,
-        color: window.globalColors.colorYellowLight,
+        color: 'var(--color-yellow-light)',
         padding: '0.1rem'
     }),
     menu: (provided) => ({
         ...provided,
-        backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid ' + window.globalColors.colorGoldTwo,
+        backgroundColor: 'var(--color-gunmetal-dark)',
+        border: '2px solid var(--color-gold-two)',
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
-        backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid ' + window.globalColors.colorGoldTwo,
+        backgroundColor: 'var(--color-gunmetal-dark)',
+        border: '2px solid var(--color-gold-two)',
         borderRadius: 0,
     }),
     menuList: (provided) => ({
         ...provided,
-        color: window.globalColors.colorYellowLight,
+        color: 'var(--color-yellow-light)',
         borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
-        color: window.globalColors.colorWhite,
-        backgroundColor: window.globalColors.backgroundPrimary,
+        color: 'var(--color-white)',
+        backgroundColor: 'var(--color-gunmetal-dark)',
 
         borderRadius: 0,
         '&:hover': {
-            backgroundColor: window.globalColors.colorGoldTwo,
-            color: window.globalColors.backgroundPrimary,
+            backgroundColor: 'var(--color-gold-two)',
+            color: 'var(--color-gunmetal-dark)',
             fontweight: 700,
         },
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: window.globalColors.colorGoldOne,
+        color: 'var(--color-gold-one)',
     }),
     multiValue: (provided) => ({
         ...provided,
         backgroundColor: '#5F553B',
-        color: window.globalColors.colorWhite,
+        color: 'var(--color-white)',
     }),
 };
 
@@ -436,7 +436,7 @@ function Filter({ center, children, fullWidth }) {
             ref={toggleButton}
         >
             <Fab
-                style={{ backgroundColor: window.globalColors.colorGoldTwo }}
+                style={{ backgroundColor: 'var(--color-gold-two)' }}
                 aria-label="add"
                 key="filter-toggle-icon"
                 onClick={(e) => setShowFilter(!showFilter)}

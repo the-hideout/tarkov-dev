@@ -162,7 +162,7 @@ function PriceGraph({ item, itemId }) {
                     }}
                     style={{
                         data: {
-                            stroke: filteredAvgDown ? window.globalColors.colorActionNegative : window.globalColors.colorActionPositive,
+                            stroke: filteredAvgDown ? 'var(--color-green)' : 'var(--color-green)',
                         },
                         parent: { border: '1px solid #ccc' },
                     }}
@@ -181,7 +181,7 @@ function PriceGraph({ item, itemId }) {
                     }}
                     style={{
                         data: {
-                            stroke: filteredMinDown ? window.globalColors.colorActionNegative : window.globalColors.colorActionPositive,
+                            stroke: filteredMinDown ? 'var(--color-red)' : 'var(--color-green)',
                             strokeDasharray: 5
                         },
                         parent: { border: '1px solid #ccc' },

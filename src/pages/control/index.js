@@ -19,41 +19,41 @@ const ammoTypes = caliberArrayWithSplit();
 const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
-        backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid ' + window.globalColors.colorGoldTwo,
+        backgroundColor: 'var(--color-gunmetal-dark)',
+        border: '2px solid var(--color-gold-two)',
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
-        backgroundColor: window.globalColors.backgroundPrimary,
-        border: '2px solid ' + window.globalColors.colorGoldTwo,
+        backgroundColor: 'var(--color-gunmetal-dark)',
+        border: '2px solid var(--color-gold-two)',
         borderRadius: 0,
     }),
     menuList: (provided) => ({
         ...provided,
-        color: window.globalColors.colorYellowLight,
+        color: 'var(--color-yellow-light)',
         borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
-        color: window.globalColors.colorYellowLight,
-        backgroundColor: window.globalColors.backgroundPrimary,
+        color: 'var(--color-yellow-light)',
+        backgroundColor: 'var(--color-gunmetal-dark)',
 
         borderRadius: 0,
         '&:hover': {
-            backgroundColor: window.globalColors.colorGoldTwo,
-            color: window.globalColors.backgroundPrimary,
+            backgroundColor: 'var(--color-gold-two)',
+            color: 'var(--color-gunmetal-dark)',
             fontweight: 700,
         },
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: window.globalColors.colorGoldOne,
+        color: 'var(--color-gold-one)',
     }),
     multiValue: (provided) => ({
         ...provided,
-        backgroundColor: window.globalColors.colorWhite,
-        color: window.globalColors.colorWhite,
+        backgroundColor: 'var(--color-white)',
+        color: 'var(--color-white)',
     }),
 };
 

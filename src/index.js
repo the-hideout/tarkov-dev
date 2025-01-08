@@ -9,11 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ScrollToTop from './components/scroll-to-top/index.js';
 
-import globalColors from './colors.js';
 const queryClient = new QueryClient();
-
-
-window.globalColors = globalColors
 
 // Uncomment to enable Sentry
 // if (

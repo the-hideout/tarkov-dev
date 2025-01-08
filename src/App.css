@@ -16,18 +16,18 @@
   --color-gold-two: #9a8866;
   --color-gold-two-rgb: rgb(var(--color-gold-two));
 
-  --color-yellow-light: #E0DFD6;
+
   --color-blue-light: #0292c0;
   --color-gray: #424242;
-  --color-gray-light : #636363;
+    --color-gray-light : #636363;
   --color-green: #00a700;
-  --color-green-light: #6a9a66;
+   --color-green-light: #6a9a66;
   --color-orange : #ca8a00;
   --color-red: #cd1e2f;
-  --color-red-light: #9a6666;
+    --color-red-light: #9a6666;
   --color-purple: #8c6edf;
   --color-yellow: #ffe084;
-
+    --color-yellow-light: #E0DFD6;
 
   /* This is to ensure maps do not clip. Please do not remove */
     --display-height: auto;  

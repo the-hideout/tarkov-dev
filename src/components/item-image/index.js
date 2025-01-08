@@ -241,7 +241,7 @@ function ItemImage({
                         <rect x="0" y="0" width="100%" height="100%" style={{fill:`rgba(${colorString})`}} />
                     </pattern>
                 </defs>
-                <rect width="100%" height="100%" style={{fill:window.colors.black}}/>
+                <rect width="100%" height="100%" fill="var(--color-black)"/>
                 <rect width="100%" height="100%" fill="url(#gridCell)"/>
             </svg>;
         const backgroundStyle = {
@@ -267,7 +267,7 @@ function ItemImage({
             cursor: 'default',
             color: '#a4aeb4',
             fontWeight: 'bold',
-            textShadow: '1px 1px 0 '+ window.globalColors.black + ', -1px -1px 0 '+ window.globalColors.black + ', 1px -1px 0 '+ window.globalColors.black + ', -1px 1px 0 '+ window.globalColors.black,
+            textShadow: '1px 1px 0 var(--color-black), -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black)',
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };
