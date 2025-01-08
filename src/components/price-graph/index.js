@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
     VictoryChart,
@@ -12,43 +12,73 @@ import { useTranslation } from 'react-i18next';
 import Slider from 'rc-slider';
 
 import formatPrice from '../../modules/format-price.js';
-import { useQuery } from '../../modules/graphql-request.mjs';
+import graphqlRequest from '../../modules/graphql-request.mjs';
 // import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import './index.css';
 
-function PriceGraph({ item, itemId }) {
+function PriceGraph({ item, itemId, days }) {
     if (item && !itemId) {
         itemId = item.id;
+        // if this is a default preset, use the base item's price data
         if (item.properties?.baseItem?.properties?.defaultPreset?.id === item.id) {
             itemId = item.properties.baseItem.id;
         }
     }
+    if (!days) {
+        days = 7;
+    }
 
     const [filterRange, setFilterRange] = useState([0,0]);
+    const [data, setPriceData] = useState();
     
     const { t } = useTranslation();
     const gameMode = useSelector((state) => state.settings.gameMode);
-    const { status, data } = useQuery(
-        `historical-price-${itemId}`,
-        `query TarkovDevHistorical {
-            historicalItemPrices(id: "${itemId}", gameMode: ${gameMode}) {
-                price
-                priceMin
-                timestamp
+    const loadedItemId = useRef();
+
+    useEffect(() => {
+        if (loadedItemId.current !== itemId) {
+            setPriceData({data: {historicalItemPrices: []}});
+        }
+        graphqlRequest(
+            `query TarkovDevHistorical($itemId: ID!, $gameMode: GameMode) {
+                historicalItemPrices(id: $itemId, gameMode: $gameMode, days: 30) {
+                    price
+                    priceMin
+                    timestamp
+                }
+            }`,
+            {itemId, gameMode},
+        ).then(priceData => {
+            if (!priceData?.data?.historicalItemPrices) {
+                if (priceData?.errors?.length) {
+                    console.log(`Error retrieving historical prices`, priceData.errors);
+                }
+            } else {
+                loadedItemId.current = itemId;
             }
-        }`.replace(/\s{2,}/g, ' '),
-    );
+            setPriceData(priceData);
+            return priceData;
+        }).catch(error => {
+            console.log(`Error retrieving historical prices`, error);
+            setPriceData({data: {historicalItemPrices: []}});
+        });
+    }, [itemId, gameMode]);
+
+    const daysData = useMemo(() => {
+        if (!data?.data?.historicalItemPrices) {
+            return [];
+        }
+        const cutoffTimestamp = new Date().setDate(new Date().getDate() - days);
+        return data.data.historicalItemPrices.filter(scan => days === 30 || scan.timestamp >= cutoffTimestamp);
+    }, [data, days]);
 
     const { dayTicks, tickLabels } = useMemo(() => {
         const returnValues = {
             dayTicks: [],
             tickLabels: {},
         };
-        if (status !== 'success' || !data?.data?.historicalItemPrices) {
-            return returnValues;
-        }
-        returnValues.dayTicks = data.data.historicalItemPrices.reduce((all, current) => {
+        returnValues.dayTicks = daysData.reduce((all, current) => {
             const newTimestamp = new Date(Number(current.timestamp)).setHours(0, 0, 0, 0);
             if (!all.some(currentTs => currentTs === newTimestamp)) {
                 all.push(newTimestamp);
@@ -57,19 +87,19 @@ function PriceGraph({ item, itemId }) {
             }
             return all;
         }, []);
-        if (data.data.historicalItemPrices.length > 0) {
+        if (daysData.length > 0) {
             const firstTick = returnValues.dayTicks[0];
             returnValues.tickLabels[firstTick] = undefined;
-            returnValues.dayTicks[0] = Number(data.data.historicalItemPrices[0].timestamp);
+            returnValues.dayTicks[0] = Number(daysData[0].timestamp);
             returnValues.tickLabels[returnValues.dayTicks[0]] = '';
         }
-        if (data.data.historicalItemPrices.length > 1) {
-            const lastTick = Number(data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].timestamp);
+        if (daysData.length > 1) {
+            const lastTick = Number(daysData[daysData.length-1].timestamp);
             returnValues.dayTicks.push(lastTick);
             returnValues.tickLabels[lastTick] = '';
         }
         return returnValues;
-    }, [status, data]);
+    }, [daysData]);
 
     const { filteredData, filteredMax, filteredMin, filteredAvgDown, filteredMinDown } = useMemo(() => {
         const returnValues = {
@@ -79,17 +109,14 @@ function PriceGraph({ item, itemId }) {
             filteredAvgDown: false,
             filteredMinDown: false,
         };
-        if (!data?.data?.historicalItemPrices) {
-            return returnValues;
-        }
 
-        if (data.data.historicalItemPrices.length > 0) {
-            const min = filterRange[0] ? filterRange[0] : Number(data.data.historicalItemPrices[0].timestamp);
-            const max = filterRange[1] ? filterRange[1] : Number(data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].timestamp);
+        if (daysData.length > 0) {
+            const min = filterRange[0] ? filterRange[0] : Number(daysData[0].timestamp);
+            const max = filterRange[1] ? filterRange[1] : Number(daysData[daysData.length-1].timestamp);
 
-            returnValues.filteredData = data.data.historicalItemPrices.filter(p => Number(p.timestamp) >= min && Number(p.timestamp) <= max);
+            returnValues.filteredData = daysData.filter(p => Number(p.timestamp) >= min && Number(p.timestamp) <= max);
         } else {
-            returnValues.filteredData = data.data.historicalItemPrices;
+            returnValues.filteredData = daysData;
         }
         
         returnValues.filteredMax = returnValues.filteredData.reduce((currMax, price) => {
@@ -113,7 +140,7 @@ function PriceGraph({ item, itemId }) {
         }
 
         return returnValues;
-    }, [data, filterRange]);
+    }, [daysData, filterRange]);
 
     let height = VictoryTheme.material.height;
 
@@ -121,11 +148,11 @@ function PriceGraph({ item, itemId }) {
         height = 1280;
     }
 
-    if (status !== 'success' || !data?.data?.historicalItemPrices) {
+    if (!data?.data?.historicalItemPrices) {
         return null;
     }
 
-    if (status === 'success' && data.data.historicalItemPrices.length < 2) {
+    if (daysData.length < 2) {
         return t('No data');
     }
 
@@ -152,6 +179,7 @@ function PriceGraph({ item, itemId }) {
                         return tickLabels[timestamp];
                     }}
                     tickValues={dayTicks}
+                    fixLabelOverlap={true}
                 />
                 <VictoryAxis dependentAxis/>
                 <VictoryLine
@@ -211,12 +239,14 @@ function PriceGraph({ item, itemId }) {
                         return allMarks;
                     }, {})}
                     onChange={setFilterRange}
-                    trackStyle={{
-                        backgroundColor: '#048802',
-                    }}
-                    handleStyle={{
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
+                    styles={{
+                        track: {
+                            backgroundColor: '#048802',
+                        },
+                        handle: {
+                            backgroundColor: '#048802',
+                            borderColor: '#048802',
+                        },
                     }}
                     activeDotStyle={{
                         backgroundColor: '#048802',

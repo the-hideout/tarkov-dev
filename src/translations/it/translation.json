@@ -362,7 +362,7 @@
     "item-page-description": "Questa pagina contiene informazioni sulle caratteristiche, gli Usa e le strategie di {{itemName}}.",
     "Sell for": "Vendi per",
     "Buy for": "Compra per",
-    "Flea price last 7 days": "Prezzo sul Mercato negli ultimi 7 giorni",
+    "Flea price history": "Cronologia dei prezzi del mercato delle pulci",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "Cambiamento rispetto a ieri: {{changeLast48h}} ₽ / {{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Prezzo più basso scansionato nelle ultime 24 ore: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Prezzo più alto scansionato nelle ultime 24 ore: {{high24hPrice}}",

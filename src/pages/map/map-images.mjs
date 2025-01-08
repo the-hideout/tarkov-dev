@@ -7,6 +7,7 @@ const images = {
     'container_cash-register-tar2-2': 'container_cash-register',
     'container_dead-civilian': 'container_dead-scav',
     'container_dead-scav': 'container_dead-scav',
+    'container_festive-airdrop-supply-crate': 'container_festive-airdrop-supply-crate',
     'container_pmc-body': 'container_dead-scav',
     'container_civilian-body': 'container_dead-scav',
     'container_drawer': 'container_drawer',

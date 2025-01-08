@@ -921,6 +921,7 @@ function Map() {
             }
         }
 
+        console.log('extracts');
         //add extracts
         if (mapData.extracts.length > 0) {
             const extractLayers = {
@@ -934,6 +935,7 @@ function Map() {
                 scav: 100,
             };
             for (const extract of mapData.extracts) {
+                const faction = extract.faction ?? 'shared';
                 if (!positionIsInBounds(extract.position)) {
                     //continue;
                 }
@@ -942,16 +944,16 @@ function Map() {
                     pmc: '#00e599',
                     shared: '#00e4e5',
                 }
-                const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
+                const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[faction], weight: 1, className: 'not-shown'});
                 const extractIcon = L.divIcon({
                     className: 'extract-icon',
-                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png"/><span class="extract-name ${extract.faction}">${extract.name}</span>`,
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${faction}.png"/><span class="extract-name ${faction}">${extract.name}</span>`,
                     iconAnchor: [12, 12]
                 });
                 const extractMarker = L.marker(pos(extract.position), {
                     icon: extractIcon,
                     title: extract.name,
-                    zIndexOffset: zIndexOffsets[extract.faction],
+                    zIndexOffset: zIndexOffsets[faction],
                     position: extract.position,
                     top: extract.top,
                     bottom: extract.bottom,
@@ -981,7 +983,7 @@ function Map() {
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }
                 extractMarker.on('add', checkMarkerForActiveLayers);
-                L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
+                L.layerGroup([rect, extractMarker]).addTo(extractLayers[faction]);
 
                 checkMarkerBounds(extract.position, markerBounds);
             }
@@ -1278,6 +1280,7 @@ function Map() {
                 if (!positionIsInBounds(containerPosition.position)) {
                     continue;
                 }
+                console.log(containerPosition.lootContainer.normalizedName);
                 const containerIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
@@ -1432,8 +1435,6 @@ function Map() {
             }
             addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
-
-        // add artillery zones
         
 
         // Add static items 

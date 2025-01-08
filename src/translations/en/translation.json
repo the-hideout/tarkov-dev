@@ -360,7 +360,7 @@
     "item-page-description": "This page includes information on the characteristics, uses, and strategies for {{itemName}}.",
     "Sell for": "Sell for",
     "Buy for": "Buy for",
-    "Flea price last 7 days": "Flea price last 7 days",
+    "Flea price history": "Flea price history",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Lowest scanned price last 24h: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Highest scanned price last 24h: {{high24hPrice}}",

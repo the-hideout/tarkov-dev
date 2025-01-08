@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
     VictoryChart,
     VictoryLine,
@@ -18,7 +18,7 @@ const fetchApiData = async () => {
 
 function ApiMetricsGraph({ graph }) {
     const { t } = useTranslation();
-    const { status, data } = useQuery(`api-metrics`, fetchApiData, { refetchOnMount: false, refetchOnWindowFocus: false });
+    const { status, data } = useQuery({queryKey: `api-metrics`, queryFn: fetchApiData, refetchOnMount: false, refetchOnWindowFocus: false });
 
     let height = VictoryTheme.material.height;
 

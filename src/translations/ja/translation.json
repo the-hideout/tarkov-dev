@@ -358,7 +358,7 @@
     "item-page-description": "このページでは、{{itemName}} の特徴、使い方、攻略法などを紹介しています。",
     "Sell for": "の販売品です",
     "Buy for": "のために購入する",
-    "Flea price last 7 days": "蚤の市価格直近7日分",
+    "Flea price history": "フリーマーケットの価格履歴",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "昨日との比較で変化: {{changeLast48h}} ₽ /{{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "直近24時間の最安値スキャン価格：{{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "直近24時間のスキャン価格の最高値：{{high24hPrice}}",

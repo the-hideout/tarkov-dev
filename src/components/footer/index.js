@@ -68,7 +68,7 @@ function Footer() {
                 <p>
                     {t('Additional data courtesy of')}{' '}
                     <a href="https://www.sp-tarkov.com/" target="_blank" rel="noopener noreferrer">
-                        <span>SPT-AKI</span>
+                        <span>SPT</span>
                     </a>
                 </p>
                 <h3>{t('Map Icons')}</h3>
