@@ -10,10 +10,10 @@
 /* Top Section */
 .boss-information-wrapper {
     display: flex;
-    background-color: rgba(var(--color-black-rgb), 0.1);
-    border: 1px solid rgba(var(--color-gold-two-rgb), 0.7);
+    background-color: rgb(from var(--color-black) r g b /  0.1);
+    border: 1px solid rgb(from var(--color-gold-two) r g b /  0.7);
     margin-bottom: 50px;
-    box-shadow: 0 0 5px 3px rgba(var(--color-white-rgb), 0.034);
+    box-shadow: 0 0 5px 3px rgb(from var(--color-white r g b / 0.034));
     overflow: hidden;
     min-height: 425px;
 }
@@ -48,9 +48,9 @@
 .boss-top-content .title-bar {
     display: flex;
     align-items: center;
-    background: rgba(var(--color-black-rgb), 0.4);
+    background: rgba(var(--color-black-rgba), 0.4);
     padding: 10px 20px;
-    border-bottom: 1px solid rgba(var(--color-white-rgb), 0.2);
+    border-bottom: 1px solid rgba(var(--color-white-rgba), 0.2);
 }
 .boss-top-content .boss-information-icon {
     display: none;
