@@ -364,7 +364,7 @@
     "item-page-description": "Ta strona zawiera informacje na temat cech, zastosowań i strategii dla {{itemName}}.",
     "Sell for": "Sprzedaj za",
     "Buy for": "Kup za",
-    "Flea price last 7 days": "Cena na pchlim targu w ciągu ostatnich 7 dni",
+    "Flea price history": "Historia cen na pchlim targu",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "Zmiana w stosunku do wczoraj: {{changeLast48h}} ₽ / {{changeLast48Percent}}%",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Najniższa zeskanowana cena w ostatnich 24h: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Najwyższa zeskanowana cena w ostatnich 24h: {{high24hPrice}}",

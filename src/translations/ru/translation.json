@@ -364,7 +364,7 @@
     "item-page-description": "Эта страница содержит информацию о характеристиках, использовании и стратегиях для {{itemName}}.",
     "Sell for": "Продается за",
     "Buy for": "Покупается за",
-    "Flea price last 7 days": "Цена на барахолке за последние 7 дней",
+    "Flea price history": "История цен на блошином рынке",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "По сравнению со вчерашним днем: {{changeLast48h}} ₽ / {{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Наименьшая цена сканированная за последние 24 часа: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Максимальная цена сканированная за последние 24 часа: {{high24hPrice}}",

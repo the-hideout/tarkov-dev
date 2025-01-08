@@ -46,11 +46,13 @@ function processFetchedItems(allItems) {
         const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
 
         item.buyForTradersBest = buyForTraders[0] || noneTrader;
-
+if (!item.sellFor) {
+    console.log(item);
+}
         // most profitable first
-        item.sellFor = item.sellFor.sort((a, b) => {
+        item.sellFor = item.sellFor?.sort((a, b) => {
             return b.priceRUB - a.priceRUB;
-        });
+        }) ?? [];
 
         item.sellForBest = item.sellFor[0] || noneTrader;
 

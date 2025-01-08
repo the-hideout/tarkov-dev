@@ -362,7 +362,7 @@
     "item-page-description": "This page includes information on the characteristics, uses, and strategies for {{itemName}}.",
     "Sell for": "Vendre pour",
     "Buy for": "Acheter pour",
-    "Flea price last 7 days": "Prix du marchés aux puces des 7 derniers jours",
+    "Flea price history": "Historique des prix des marchés aux puces",
     "Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %": "Changer vs hier: {{changeLast48h}} ₽ / {{changeLast48Percent}} %",
     "Lowest scanned price last 24h: {{low24hPrice}}": "Prix \u200b\u200ble plus bas scanné dernier 24h: {{low24hPrice}}",
     "Highest scanned price last 24h: {{high24hPrice}}": "Prix \u200b\u200ble plus numérique du dernier 24h: {{high24hPrice}}",
