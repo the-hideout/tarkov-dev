@@ -56,11 +56,11 @@ ul.favorite-item-list li {
 }
 
 .banned {
-    color: var(--color-green);
+    color: var(--color-red);
 }
 
 .not-banned {
-    color: var(--color-red);
+    color: var(--color-green);
 }
 
 .turnstile-widget {
