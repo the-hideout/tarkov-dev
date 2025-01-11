@@ -3,14 +3,10 @@
   --color-black: #000;
   --color-black-light: #1b1919;
   --color-white: #fff;
-
   --color-gunmetal: #383945;
   --color-gunmetal-dark: #2d2d2f;
-
   --color-gold-one: #c7c5b3;
   --color-gold-two: #9a8866;
-
-
   --color-blue-light: #0292c0;
   --color-gray: #424242;
     --color-gray-light : #636363;
@@ -22,9 +18,6 @@
   --color-purple: #8c6edf;
   --color-yellow: #ffe084;
     --color-yellow-light: #E0DFD6;
-
-  /* This is to ensure maps do not clip. Please do not remove */
-    --display-height: auto;  
 }
 
 

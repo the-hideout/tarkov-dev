@@ -1,3 +1,8 @@
+:root {
+    /* This is to ensure maps do not clip. Please do not remove */
+    --display-height: auto;  
+}
+
 #leaflet-map {
     background-color: transparent;
 }
@@ -12,7 +17,7 @@
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-content-wrapper a {
-    color: rgb(199, 197, 179);
+    color: var(--color-gold-one);
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
     /*font-weight: 400;*/
@@ -30,31 +35,31 @@
 
 .leaflet-control-coordinates {
 	background-color: var(--color-white);
-	background-color:rgb( from var(--color-white) r g b / 0.8);
-	cursor:pointer;
+	background-color: rgb( from var(--color-white) r g b / 0.8);
+	cursor: pointer;
 }
 
 .leaflet-control-coordinates,
 .leaflet-control-coordinates .uiElement input {
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .leaflet-control-coordinates .uiElement {
-	margin:4px;
+	margin: 4px;
 }
 
 .leaflet-control-coordinates .uiElement .labelFirst {
-	margin-right:4px;
+	margin-right: 4px;
 }
 
 .leaflet-control-coordinates .uiHidden{
-	display:none;
+	display: none;
 }
 
 .leaflet-control-coordinates .uiElement.label {
-	color:inherit;
+	color: inherit;
 	font-weight: inherit;
 	font-size: inherit;
 	padding: 0;
@@ -147,12 +152,12 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-weight: 800;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    color: var(--color-white);
     white-space: nowrap;
     /* text-transform: uppercase; */
     vertical-align: top;
-    text-shadow: 0 0 3px black;
-    -webkit-text-stroke: 0.5px black;
+    text-shadow: 0 0 3px var(--color-black);
+    -webkit-text-stroke: 0.5px var(--color-black);
 }
 
 .extract-name.pmc {
@@ -184,7 +189,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 /* general control styles */
 .leaflet-control {
     background-color: rgb( from var(--color-black) r g b / 0.75);
-    color: rgb(199, 197, 179);
+    color: var(--color-gold-one);
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -216,17 +221,17 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 /* zoom control */
 .leaflet-bar a {
     background-color: transparent;
-    color: rgb(199, 197, 179);
+    color: var(--color-gold-one);
     border-bottom-color: rgb(50, 50, 50);
 }
 
 .leaflet-bar a:hover, .leaflet-bar a:active {
     background-color: rgba(25, 25, 25, 0.75);
-    color: rgb(199, 197, 179);
+    color: var(--color-gold-one);
 }
 
 .leaflet-bar a.leaflet-disabled {
-    color: rgb(109, 107, 89);
+    color: var(--color-gold-two);
     background-color: rgba(50, 50, 50, 0.75);
 }
 
@@ -249,7 +254,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .leaflet-control-raid-info a {
-    color: rgb(199, 197, 179);
+    color: var(--color-gold-one);
 }
 
 /* Area labels */
@@ -257,9 +262,9 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 800;
     font-size: 20px;
-    color: rgb(199, 197, 179);
-    text-shadow: 0 0 3px black;
-    -webkit-text-stroke: 0.5px black;
+    color: var(--color-gold-one);
+    text-shadow: 0 0 3px var(--color-black);
+    -webkit-text-stroke: 0.5px var(--color-black);
     text-align: center;
 }
 
