@@ -26,7 +26,7 @@
 }
 .nav-maps .item .icon {
     display: flex;
-    background: rgb(from var(--color-black) r g b / 0.2);
+    background: rgb( from var(--color-black) r g b / 0.2);
     position: absolute;
     left: 0;
     top: 0;

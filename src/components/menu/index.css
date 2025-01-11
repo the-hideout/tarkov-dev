@@ -45,7 +45,7 @@
 }
 
 .menu.open {
-    box-shadow: 0px 5px 10px 0px rgb(from var(--color-black) r g b / 0.2);
+    box-shadow: 0px 5px 10px 0px rgb( from var(--color-black) r g b / 0.2);
     display: block;
     padding: 20px 20px 20px 20px;
     position: absolute;
