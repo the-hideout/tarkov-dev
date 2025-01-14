@@ -1,6 +1,6 @@
 .item-group-wrapper {
-    border: 1px solid #1b1919;
-    background-color: #2d2d2f;
+    border: 1px solid var(--color-black-light);
+    background-color: var(--color-gunmetal-dark);
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -45,7 +45,7 @@
 }
 
 .item-group-subtitle-wrapper .note {
-    color: #636363;
+    color: var(--color-gray-light);
 }
 
 .item-group-items {
@@ -72,10 +72,10 @@
 }
 
 .sell-to-icon {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b / 0.8);
     border-top-left-radius: 3px;
     bottom: 1px;
-    color: #c7c5b3;
+    color: var(--color-gold-one);
     font-size: 14px;
     height: 24px;
     line-height: 24px;
@@ -91,7 +91,7 @@
 }
 
 .grid-item-tooltip {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b / 0.8);
     color: #fff;
     font-size: 12px;
     opacity: 0;

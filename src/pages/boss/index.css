@@ -7,54 +7,20 @@
 }
 
 
-.information-section {
-    background: #0000001a;
-    border: 1px solid #ffffff1a;
-    border-radius: 0 20px 0 20px;
-    margin-bottom: 50px;
-    overflow: hidden;
-}
-.information-section.has-table {
-    border-radius: 0 20px 0 0;
-}
-
-.information-section h2 {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    margin: 0;
-    padding: 15px 20px;
-    background: #0000004d;
-    color: #c7c5b3;
-}
-.information-section h2 svg {
-    width: 1.6rem !important;
-    height: auto !important;
-    margin: 0 12px 0 0;
-}
-.information-section .content {
-  padding: 20px;
-}
-.information-section .content p {
-  margin: 0;
-}
-
-
-
 /* Top Section */
 .boss-information-wrapper {
     display: flex;
-    background: #0000001a;
-    border: 1px solid #7a6f5494;
+    background-color: rgb( from var(--color-black) r g b /  0.1);
+    border: 1px solid rgb( from var(--color-gold-two) r g b /  0.7);
     margin-bottom: 50px;
-    box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.034);
+    box-shadow: 0 0 5px 3px rgb( from var(--color-white r g b / 0.034));
     overflow: hidden;
     min-height: 425px;
 }
 
 .boss-icon-cont {
-    border-left: 1px solid #9a8866ad;
-    background: #3b31203d;
+    border-left: 1px solid var(--color-gold-two);
+    background: var(--color-gunmetal-dark);
     display: flex;
     min-width: 350px;
     height: inherit;
@@ -73,7 +39,6 @@
     background-size: cover;
     background-position: center center;
 }
-
 .boss-top-content {
     display: flex;
     flex-direction: column;
@@ -83,20 +48,20 @@
 .boss-top-content .title-bar {
     display: flex;
     align-items: center;
-    background: #0000004d;
+    background: rgb( from var(--color-black) r g b / 0.4);
     padding: 10px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgb( from var(--color-white) r g b / 0.2);
 }
 .boss-top-content .boss-information-icon {
-  display: none;
-  width: 124px;
-  margin: 20px auto;
-  height: 124px;
-  border: 1px solid rgba(255,255,255,.5);
+    display: none;
+    width: 124px;
+    margin: 20px auto;
+    height: 124px;
+    border: 1px solid rgb( from var(--color-white) r g b / 0.5);
 }
 .boss-top-content .title-bar h1 {
     display: inline-block;
-    color: #c7c5b3;
+    color: var(--color-gold-two);
     align-items: center;
     justify-content: space-between;
     cursor: default;

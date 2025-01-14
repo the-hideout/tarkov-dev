@@ -5,7 +5,7 @@
     margin-bottom: 50px;
 }
 .nav-maps .item {
-    border: 1px solid #9a8866;
+    border: 1px solid var(--color-gold-two);
     display: flex;
     flex-basis: max-content;
     min-width: 200px;
@@ -18,15 +18,15 @@
     position: relative;
     padding-left: 55px;
     transition: all .2s;
-    transition-delay: .2s;
+    transition-delay: .1s;
 }
 .nav-maps .item a:hover {
-    color: #b3a180;
-    text-shadow: 0 0 1px rgba(255,255,255,.1);
+    color: var(--color-gold-one);
+    text-shadow: 0 0 1px rgb( from var(--color-white) r g b / 0.1);
 }
 .nav-maps .item .icon {
     display: flex;
-    background: rgba(0,0,0,0.2);
+    background: rgb( from var(--color-black) r g b / 0.2);
     position: absolute;
     left: 0;
     top: 0;
@@ -36,38 +36,9 @@
     align-items: center;
 }
 
-
 .map-page-wrapper {
     min-height: 0;
 }
-
-/* Indiviaul "map block" */
-.map-block {
-    margin-bottom: 50px;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 20px 0 20px;
-    overflow: hidden;
-}
-
-.map-block h2 {
-    margin: 0;
-    padding: 10px 20px;
-    color: #c7c5b3;
-    background: rgba(0,0,0,0.3);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 10px;
-    transition: all .2s;
-}
-.map-block h2 .icon {
-    margin-right: 4px;
-}
-.map-block h2 .icon svg.icon-with-text {
-    margin-left: 0;
-    width: 1.2rem !important; 
-    height: 1.2rem !important;
-}
-
 
 /* Map block text content */
 .map-block .page-wrapper {
@@ -91,26 +62,27 @@
     width: 33.3%;
     padding: 10px;
     position: relative;
-    border: 1px solid rgba(255,255,255,.2);
+    border: 1px solid rgb( from var(--color-white) r g b / 0.2);
     padding: 25px 0 50px 0;
-    background: rgb(56 57 69 / 38%);
+    background: rgb( from var(--color-gunmetal) r g b / 0.38);
+
 }
 
 .map-block .map-wrapper h3 {
     position: absolute;
     text-align: center;
     letter-spacing: 1px;
-    color: #f1f1f1;
+    color: var(--color-white);
     left: 0;
     bottom: 0;
     width: 100%;
     padding: 10px 20px;
-    background: rgba(0,0,0, .5);   
+    background: rgb( from var(--color-black) r g b / 0.5);
     margin: 0;
     transition: all .2s;
 }
 .map-block .map-wrapper:hover h3 {
-    color: #9a8866;
+    color: var(--color-gold-two);
 }
 
 .map-block .map-wrapper a {

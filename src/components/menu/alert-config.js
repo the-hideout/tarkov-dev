@@ -7,10 +7,10 @@ const alertConfig = {
 
     // valid alert colors
     alertColors: {
-        error: '#D3302F',
-        info: '#0088D1',
-        success: '#378E3C',
-        warning: '#F57D01',
+      error: '#cd1e2f',
+      info: '#0292c0',
+      success: '#00a700',
+      warning: '#ca8a00',
     },
 
     // set this variable to the severity of the alert banner

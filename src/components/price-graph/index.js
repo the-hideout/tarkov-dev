@@ -190,7 +190,7 @@ function PriceGraph({ item, itemId, days }) {
                     }}
                     style={{
                         data: {
-                            stroke: filteredAvgDown ? '#c43a31' : '#3b9c3a',
+                            stroke: filteredAvgDown ? 'var(--color-green)' : 'var(--color-green)',
                         },
                         parent: { border: '1px solid #ccc' },
                     }}
@@ -209,7 +209,7 @@ function PriceGraph({ item, itemId, days }) {
                     }}
                     style={{
                         data: {
-                            stroke: filteredMinDown ? '#c43a31' : '#3b9c3a',
+                            stroke: filteredMinDown ? 'var(--color-red)' : 'var(--color-green)',
                             strokeDasharray: 5
                         },
                         parent: { border: '1px solid #ccc' },

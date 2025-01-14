@@ -87,7 +87,7 @@ function ApiMetricsGraph({ graph }) {
                         }}
                         style={{
                             data: {
-                                stroke: '#3b9c3a',
+                                stroke: 'var(--color-green)',
                                 strokeWidth: 4,
                             },
                             parent: { border: '1px solid #ccc' },

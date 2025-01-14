@@ -1,5 +1,5 @@
 .duration-wrapper, .finish-wrapper {
-    color: #636363;
+    color: var(--color-gray-light);
     font-size: 14px;
 }
 

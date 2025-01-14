@@ -1,5 +1,5 @@
 .hideout-item-list thead {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgb( from var(--color-black) r g b / 0.4);
     position: sticky;
     top: 0;
 }
@@ -14,14 +14,14 @@
 }
 
 .hideout-item-list-row {
-    border-left: 4px solid #1b1919;
-    border-right: 4px solid #1b1919;
+    border-left: 4px solid var(--color-black-light);
+    border-right: 4px solid var(--color-black-light);
 }
 
 .hideout-item-list-column {
-    background-color: #2d2d2f;
-    border-top: 4px solid #1b1919;
-    border-bottom: 4px solid #1b1919;
+    background-color: var(--color-gunmetal-dark);
+    border-top: 4px solid var(--color-black-light);
+    border-bottom: 4px solid var(--color-black-light);
     padding: 5px 15px;
 }
 
@@ -56,10 +56,10 @@
 }
 
 .amount-wrapper {
-    color: #636363;
+    color: var(--color-gray-light);
     font-size: 14px;
 }
 
 .hideout-item-list thead tr:first-child {
-    border-top: 4px solid #1b1919;
+    border-top: 4px solid var(--color-black-light);
 }

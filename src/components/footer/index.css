@@ -1,5 +1,5 @@
 .footer-wrapper {
-    background-color: #000;
+    background-color: var(--color-black);
     display: flex;
     flex-flow: wrap;
     gap: 30px;

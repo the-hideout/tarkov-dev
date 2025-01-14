@@ -1,6 +1,25 @@
+/* Variables start */
 :root {
-    --display-height: auto;
+  --color-black: #000;
+    --color-black-light: #1b1919;
+  --color-white: #fff;
+  --color-gunmetal: #383945;
+    --color-gunmetal-dark: #2d2d2f;
+  --color-gold-one: #c7c5b3;
+  --color-gold-two: #9a8866;
+  --color-blue-light: #0292c0;
+  --color-gray: #424242;
+    --color-gray-light : #636363;
+  --color-green: #00a700;
+    --color-green-light: #6a9a66;
+  --color-orange : #ca8a00;
+  --color-red: #cd1e2f;
+    --color-red-light: #9a6666;
+  --color-purple: #8c6edf;
+  --color-yellow: #ffe084;
+    --color-yellow-light: #E0DFD6;
 }
+
 
 .desc-line-break {
     margin-top: 2rem;
@@ -9,9 +28,9 @@
 }
 
 body {
-    background-color: #2d2d2f;
+    background-color: var(--color-gunmetal-dark);
     background-image: url('images/background-1.png');
-    color: #c7c5b3;
+    color: var(--color-gold-one);
     margin: 0;
     padding: 0;
     height: 100%;
@@ -49,9 +68,9 @@ button {
 
 button,
 input[type='submit'] {
-    background-color: #9a8866;
+    background-color: var(--color-gold-two);
     border: 0;
-    color: #000;
+    color: var(--color-black);
     height: 40px;
     padding: 0;
 }
@@ -60,16 +79,15 @@ input[type='text'],
 input[type='number'] {
     padding: 12px;
     max-height: 40px;
-
-    border: 2px solid #9a8866;
-    background-color: #2d2d2f;
-    color: #c7c5b3;
+    border: 2px solid var(--color-gold-two);
+    background-color: var(--color-gunmetal-dark);
+    color: var(--color-gold-one);
 }
 
 input[type='text']:focus,
 input[type='number']:focus {
     outline: none;
-    border: 2px solid #c7c5b3;
+    border: 2px solid var(--color-gold-one);
 }
 
 input[type='text'].number {
@@ -86,7 +104,7 @@ select {
 }
 
 a {
-    color: #9a8866;
+    color: var(--color-gold-two);
     text-decoration: none;
 }
 
@@ -114,7 +132,7 @@ cite {
 }
 
 .updated-label {
-    color: #ccc;
+    color: var(--color-gold-one);
     font-size: 10px;
     left: 4px;
     position: absolute;
@@ -122,7 +140,7 @@ cite {
 }
 
 .time-wrapper {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb( from var(--color-black) r g b / 0.5);
     padding: 10px 20px;
     position: absolute;
     right: -10px;
@@ -181,12 +199,12 @@ cite {
 }
 
 .price-wrapper {
-    color: #b0b0b0;
+    color: var(--color-gold-one);
     font-size: 14px;
 }
 
 .price-wrapper-tool {
-    color: #0292c0;
+    color: var(--color-blue-light);
     font-size: 14px;
 }
 
@@ -210,56 +228,106 @@ cite {
 }
 
 div.tippy-box {
-    background-color: #2d2c2e;
-    color: #c7c5b3;
-    border-color: #4f4f4f;
+    background-color: var(--color-gunmetal-dark);
+    color: var(--color-gold-one);
+    border-color: var(--color-gray);
     border-radius: 4px;
     border-style: solid;
     border-width: 3px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 1px rgb( from var(--color-black) r g b / 0.1);
 }
 
 div.tippy-box[data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: #4f4f4f;
+    border-top-color: var(--color-gray);
     bottom: -10px;
 }
 
 div.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
-    border-bottom-color: #4f4f4f;
+    border-bottom-color: var(--color-gray);
     top: -10px;
 }
 
 div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
-    border-left-color: #4f4f4f;
+    border-left-color: var(--color-gray);
     right: -10px;
 }
 
 div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
-    border-right-color: #4f4f4f;
+    border-right-color: var(--color-gray);
     left: -10px;
 }
 
 .hr-muted {
     margin-top: 2rem;
-    border-bottom: 1px solid #9a8866;
+    border-bottom: 1px solid var(--color-gold-two);
     width: 80%;
     opacity: 0.4;
 }
 
 .hr-muted-full {
     margin-top: 2rem;
-    border-bottom: 1px solid #9a8866;
+    border-bottom: 1px solid var(--color-gold-two);
     width: 100%;
     opacity: 0.4;
 }
 
 .rc-slider-mark-text {
-    color: #757257 !important;
+    color: rgb( from var(--color-gold-one) r g b / 0.8) !important;
 }
 
 .rc-slider-mark-text-active {
-    color: #c7c5b3 !important;
+    color: rgb( from var(--color-gold-one) r g b/ 1) !important;
 }
+
+/* Global reuseable styles, specific to the Tarkov.Dev style */
+.information-section {
+    background: rgb( from var(--color-black) r g b / 0.1);
+    border: 1px solid rgb( from var(--color-white) r g b/ 0.1);
+    border-radius: 0 20px 0 20px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.information-section.has-table {
+    border-radius: 0 20px 0 0;
+}
+
+.information-section h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin: 0;
+    padding: 15px 20px;
+    background: rgb( from var(--primary-color-black) r g b / 0.4);
+    color: var(--color-gold-one);
+    background: rgb( from var(--color-black) r g b / 0.3);
+    border-bottom: 1px solid rgb( from var(--color-white) r g b / 0.1);
+}
+.information-section h2 svg {
+    width: 1.6rem !important;
+    height: auto !important;
+    margin: 0 12px 0 0;
+}
+.information-section .content {
+  padding: 20px;
+}
+.information-section .content p {
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (min-width: 800px) {
     .control-wrapper {
