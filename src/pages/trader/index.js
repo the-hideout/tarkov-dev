@@ -140,38 +140,51 @@ function Trader() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className="page-wrapper" key={'page-wrapper'}>
-            <div className="trader-information-grid">
-                <div className="trader-information-wrapper">
+        <div class="display-wrapper">
+          <div className={'entity-page-wrapper'} key={'trader-page-display-wrapper'}> 
+            <div className="entity-information-wrapper">
+              <div className="entity-top-content">
+                <img
+                  alt={trader.name}
+                  className={'entity-information-icon'}
+                  loading="lazy"
+                  src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
+                  onClick={() => openImageViewer(0)}
+                />
+                <div className="title-bar">
+                  <div class="top">
+                    <span class="type">
+                      Trader
+                    </span>
+                  </div>
+                  <div class="bottom">
                     <h1>
-                        {trader.name}
-                        <img
-                            alt={trader.name}
-                            className={'trader-information-icon'}
-                            loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
-                            onClick={() => openImageViewer(0)}
-                        />
+                      {trader.name}
                     </h1>
                     <span className="wiki-link-wrapper">
-                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
-                            {t('Wiki')}
-                        </a>
+                      <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                        {t('Wiki')}
+                      </a>
                     </span>
-                    <p className='trader-details'>
-                        {trader.description}
-                    </p>
+                  </div>
                 </div>
-                <PropertyList properties={levelProperties} />
-                <div className="trader-icon-and-link-wrapper">
-                    <img
-                        alt={trader.name}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
-                        onClick={() => openImageViewer(0)}
-                    />
+                <div className="main-content">
+                  {trader.description}
                 </div>
+                <div className="entity-properties">
+                  <PropertyList properties={levelProperties} />
+                </div>
+              </div>
+              <div className="entity-icon-cont">
+                <div className="entity-icon-and-link-wrapper"
+                  onClick={() => openImageViewer(0)}
+                  style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg)` }}
+                />
+              </div>
             </div>
+          </div>
+
+
             {isViewerOpen && (
                 <ImageViewer
                     src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
@@ -182,6 +195,7 @@ function Trader() {
                     onClose={closeImageViewer}
                 />
             )}
+
             <div className="page-headline-wrapper">
                 <h1>
                     <cite>
