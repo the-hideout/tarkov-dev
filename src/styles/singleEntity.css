@@ -14,7 +14,7 @@
   margin-bottom: 30px;
   box-shadow: 0 0 5px 3px rgb( from var(--color-white) r g b / 0.034);
   overflow: hidden;
-  min-height: 425px;
+  min-height: 260px;
 }
 
 .entity-icon-cont {
