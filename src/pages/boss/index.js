@@ -372,7 +372,7 @@ function BossPage(params) {
                         onClick={() => openImageViewer(0)}
                     />
                     <div className="title-bar">
-                      <span class="type">Boss</span>
+                      <span class="type">{t('Boss')}</span>
                       <h1>{bossData.name}</h1>
 
                       {bossData.wikiLink &&
