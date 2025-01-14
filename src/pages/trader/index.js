@@ -154,7 +154,7 @@ function Trader() {
                 />
                 <div className="title-bar">
                   <span class="type">
-                    Trader
+                    {t('Trader')}
                   </span>
                   <h1>
                     {trader.name}
