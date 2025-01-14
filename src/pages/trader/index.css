@@ -14,7 +14,7 @@
   background-color: rgb( from var(--color-black) r g b /  0.1);
   border: 1px solid rgb( from var(--color-gold-two) r g b /  0.7);
   margin-bottom: 50px;
-  box-shadow: 0 0 5px 3px rgb( from var(--color-white r g b / 0.034));
+  box-shadow: 0 0 5px 3px rgb( from var(--color-white) r g b / 0.034);
   overflow: hidden;
   min-height: 425px;
 }
