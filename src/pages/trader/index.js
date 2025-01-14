@@ -166,7 +166,9 @@ function Trader() {
                   </span>
                 </div>
                 <div className="main-content">
-                  {trader.description}
+                  <p class="entity-details">
+                    {trader.description}
+                  </p>
                 </div>
                 <div className="entity-properties">
                   <PropertyList properties={levelProperties} />
