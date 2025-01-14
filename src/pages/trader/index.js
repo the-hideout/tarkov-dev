@@ -152,21 +152,17 @@ function Trader() {
                   onClick={() => openImageViewer(0)}
                 />
                 <div className="title-bar">
-                  <div class="top">
-                    <span class="type">
-                      Trader
-                    </span>
-                  </div>
-                  <div class="bottom">
-                    <h1>
-                      {trader.name}
-                    </h1>
-                    <span className="wiki-link-wrapper">
-                      <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
-                        {t('Wiki')}
-                      </a>
-                    </span>
-                  </div>
+                  <span class="type">
+                    Trader
+                  </span>
+                  <h1>
+                    {trader.name}
+                  </h1>
+                  <span className="wiki-link-wrapper">
+                    <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                      {t('Wiki')}
+                    </a>
+                  </span>
                 </div>
                 <div className="main-content">
                   {trader.description}
@@ -182,7 +178,7 @@ function Trader() {
                 />
               </div>
             </div>
-          </div>
+          </div>,
 
 
             {isViewerOpen && (

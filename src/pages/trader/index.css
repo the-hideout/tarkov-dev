@@ -70,8 +70,15 @@
 }
 
 .entity-top-content .title-bar .type {
-  display: flex;
-  flex: 1 auto;
+  opacity: .8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: auto 12px auto 0;
+  border: 1px solid var(--color-white);
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 10px;
+  color: #fff;
 }
 
 .entity-top-content .title-bar .wiki-link-wrapper {
