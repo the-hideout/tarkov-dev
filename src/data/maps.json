@@ -502,12 +502,12 @@
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
-                "tilePath": "https://assets.tarkov.dev/maps/customs_v4/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/underground/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/underground/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
@@ -517,7 +517,8 @@
                                     [[473, -122], [458, -110], "zb-1012"],
                                     [[314, -173], [308, -184], "old gas"],
                                     [[349, -88], [323, -32], "switch basement"],
-                                    [[219, -158], [193, -137], "zb-013"]
+                                    [[219, -158], [193, -137], "zb-013"],
+                                    [[122, -61], [102, -40], "boiler room"]
                                 ]
                             }
                         ]
@@ -525,7 +526,7 @@
                     {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/2nd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
@@ -556,18 +557,67 @@
                                 "bounds": [
                                     [[497, -44], [450, -90], "chemical warehouse sniper scav"]
                                 ]
+                            },
+                            {
+                                "height": [3.9, 7.6],
+                                "bounds": [
+                                    [[73, 57], [22, -38], "warehouse 17"]
+                                ]
+                            },
+                            {
+                                "height": [4.4, 6.5],
+                                "bounds": [
+                                    [[119, -57], [100, -42], "boiler"]
+                                ]
+                            },
+                            {
+                                "height": [4.6, 7.9],
+                                "bounds": [
+                                    [[279, -79], [246, -1.4], "oilrig & panda"]
+                                ]
                             }
                         ]
                     },
                     {
                         "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/3rd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
                                 "height": [5.7, 1000],
                                 "bounds": [[[243, 190], [165, 125], "dorms"]]
+                            },
+                            {
+                                "height": [7.7, 11.3],
+                                "bounds": [
+                                    [[73, -73], [22, -38], "warehouse 17"]
+                                ]
+                            },
+                            {
+                                "height": [6.7, 11.6],
+                                "bounds": [
+                                    [[126, -64], [88, -35], "boiler"]
+                                ]
+                            },
+                            {
+                                "height": [8.0, 11.1],
+                                "bounds": [
+                                    [[279, -79], [246, -1.4], "oilrig & panda"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "4th Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/4th/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [11.2, 54.7],
+                                "bounds": [
+                                    [[279, -79], [246, -1.4], "oilrig & panda"]
+                                ]
                             }
                         ]
                     }
