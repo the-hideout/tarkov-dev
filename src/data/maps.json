@@ -361,7 +361,7 @@
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Ground_Level.svg",
-                "tilePath": "https://assets.tarkov.dev/maps/groundzero/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Garage",
