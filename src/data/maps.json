@@ -2427,9 +2427,13 @@
                 "maxZoom": 6,
                 "transform": [0.1855, 113.1, 0.1855, 167.8],
                 "coordinateRotation": 180,
-                "bounds": [
+                "svgBounds": [
                     [650, -945],
                     [-695, 470]
+                ],
+                "bounds": [
+                    [650, -945],
+                    [-762, 470]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
