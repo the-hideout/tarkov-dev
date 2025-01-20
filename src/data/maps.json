@@ -2434,7 +2434,7 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
-                "tilePath": "https://assets.tarkov.dev/maps/woods/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",
                 "labels": [
                     {
                         "position": [10, -3],
