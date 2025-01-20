@@ -1606,20 +1606,20 @@
                 "tileSize": 175,
                 "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.575, 281.2, 0.575, 196.7],
+                "transform": [0.575, 281.2, 0.575, 193.7],
                 "coordinateRotation": 270,
                 "bounds": [
-                    [-91, -477],
+                    [-80, -477],
                     [-287, -193]
                 ],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "tilePath": "https://assets.tarkov.dev/maps/labs_v3/1st/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/labs_v4/1st/{z}/{x}/{y}.png",
                 "heightRange": [-0.9, 3],
                 "layers": [
                     {
                         "name": "Second Level",
-                        "tilePath": "https://assets.tarkov.dev/maps/labs_v3/2nd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v4/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
@@ -1635,7 +1635,7 @@
                     },
                     {
                         "name": "Technical",
-                        "tilePath": "https://assets.tarkov.dev/maps/labs_v3/technical/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v4/technical/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
