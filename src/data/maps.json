@@ -2533,7 +2533,7 @@
     {
         "name": "Openworld",
         "normalizedName": "openworld",
-        "description": "This is an immagination of what the full map of Tarkov would like. This openworld map would likely include all of the key locations from the existing maps combined in a huge single map.",
+        "description": "This is an imagination of what the full map of Tarkov would like. This open world map would likely include all of the key locations from the existing maps combined in a huge single map.",
         "primaryPath": "/map/openworld-2d",
         "maps": [
             {
