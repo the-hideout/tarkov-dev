@@ -6,7 +6,7 @@
 - Please read the collapsible sections if you need help
 - All comments in fenced brackets like this one are comments and will not be displayed
 
-Please delete any sections below which you do not need to fill out. You may keep the collapsibe "help" section
+Please delete any sections below which you do not need to fill out. You may keep the collapsible "help" section
 
 -->
 
