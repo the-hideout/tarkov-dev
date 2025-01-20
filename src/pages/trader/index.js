@@ -27,8 +27,6 @@ import useTradersData from '../../features/traders/index.js';
 
 import i18n from '../../i18n.js';
 
-import './index.css';
-import '../../styles/singleEntity.css'
 
 const romanLevels = {
     0: '0',
@@ -141,7 +139,7 @@ function Trader() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div class="display-wrapper">
+        <div className="display-wrapper">
           <div className={'entity-page-wrapper'} key={'trader-page-display-wrapper'}> 
             <div className="entity-information-wrapper">
               <div className="entity-top-content">
@@ -153,7 +151,7 @@ function Trader() {
                   onClick={() => openImageViewer(0)}
                 />
                 <div className="title-bar">
-                  <span class="type">
+                  <span className="type">
                     {t('Trader')}
                   </span>
                   <h1>
@@ -166,7 +164,7 @@ function Trader() {
                   </span>
                 </div>
                 <div className="main-content">
-                  <p class="entity-details">
+                  <p className="entity-details">
                     {trader.description}
                   </p>
                 </div>

@@ -23,8 +23,6 @@ import { useMapImages } from '../../features/maps/index.js';
 
 import i18n from '../../i18n.js';
 
-import './index.css';
-import '../../styles/singleEntity.css'
 
 function BossPage(params) {
     const { t } = useTranslation();
@@ -372,7 +370,7 @@ function BossPage(params) {
                         onClick={() => openImageViewer(0)}
                     />
                     <div className="title-bar">
-                      <span class="type">{t('Boss')}</span>
+                      <span className="type">{t('Boss')}</span>
                       <h1>{bossData.name}</h1>
 
                       {bossData.wikiLink &&
