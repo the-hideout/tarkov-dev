@@ -169,7 +169,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .extract-name.shared {
-    color: var(--color-blue);
+    color: var(--color-blue-light);
 }
 
 .extract-name.transit {
