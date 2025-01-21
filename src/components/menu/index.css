@@ -76,7 +76,8 @@
   height: inherit;
   padding: 6px 0;
 }
-.menu li a {
+.menu li a,
+.menu li span {
   padding: 0 10px;
 }
 .menu li.submenu-wrapper:hover {

@@ -187,7 +187,7 @@ const Menu = () => {
                 </li>
 
                 <li className="submenu-wrapper submenu-items overflow-member" key="menu-items" data-targetid="items">
-                    <Link to="/tools/">{t('Tools')}</Link>
+                    <li><span>{t('Tools')}</span></li>
                     <ul className="overflow-hidden">
                       <li>
                         <Link to="/barters/" >
