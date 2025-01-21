@@ -2,24 +2,24 @@
     display: none;
 }
 
-.item-cost-cash-sell {
-    color: #c89898;
-}
-
 .item-cost-custom-price {
-    background-color: #292727;
-    border: #9a8866 2px solid;
-    color: #c7c5b3;
+    background-color: var(--color-gunmetal-dark);
+    border: var(--color-gold-two) 2px solid;
+    color: var(--color-gold-one);
     padding: 4px;
     width: 5em;
 }
 
+.item-cost-cash-sell {
+  color: #c89898;
+}
+
 .item-cost-muted-green {
-    color: #6a9a66;
+    color: var(--color-green-light);
 }
 
 .item-cost-muted-red {
-    color: #9a6666;
+    color: var(--color-red-light);
 }
 
 .item-cost-barter-icon {

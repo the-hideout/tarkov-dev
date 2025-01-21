@@ -41,8 +41,8 @@
     align-self: flex-start;
 }
 
-.grid-container > div {
-    background-color: rgba(0, 0, 0);
+.grid-container>div {
+    background-color: rgb( from var(--color-black) r g b / 0.4);
     text-align: center;
     font-size: 20px;
     clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 24px, 96% 0);
@@ -85,11 +85,11 @@ ul.favorite-item-list li {
 }
 
 .rare {
-    color: #8c6edf;
+    color: var(--color-purple);
 }
 
 .legendary {
-    color: #ffe084;
+    color: var(--color-yellow);
 }
 
 .banned,
@@ -98,11 +98,11 @@ ul.favorite-item-list li {
 }
 
 .banned {
-    color: #cd1e2f;
+    color: var(--color-red);
 }
 
 .not-banned {
-    color: #41cd1e;
+    color: var(--color-green);
 }
 
 .turnstile-widget {

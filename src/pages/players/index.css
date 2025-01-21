@@ -1,11 +1,11 @@
 .search-button {
-    padding: .2rem;
-    border-radius: 4px;
+  padding: .2rem;
+  border-radius: 4px;
 }
 
 .search-button:disabled {
-    background-color: #9a886655;
-    color: #333;
+  background-color: var(--color-gold-two);
+  color: var(--color-gray);
 }
 
 .search-controls {
@@ -22,7 +22,7 @@
 }
 
 .error {
-    color: #cd1e2f;
+    color: var(--color-red);
 }
 
 .name-results-list {
@@ -32,11 +32,11 @@
 }
 
 .game-mode .select__control {
-    color: #1b1919;
-    background-color: #2d2c2e;
-    border-color: #9a8866;
+    color: var(--color-gray);
+    background-color: var(--color-gunmetal-dark);
+    border-color: var(--color-gold-two);
 }
 
 .game-mode .select__single-value {
-    color: #fff;
+    color: var(--primary-color-white);
 }

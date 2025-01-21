@@ -1,8 +1,8 @@
 .loading-wipe {
-    background: linear-gradient(to left, #c7c5b3 20%, #9a8866 40%, #9a8866 60%, #c7c5b3 80%);
+    background: linear-gradient(to left, var(--color-gold-one) 20%, var(--color-gold-two) 40%, var(--color-gold-two) 60%, var(--color-gold-one) 80%);
     background-size: 200% auto;
 
-    color: #000;
+    color: var(--color-black);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

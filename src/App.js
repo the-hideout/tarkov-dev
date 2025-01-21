@@ -7,6 +7,7 @@ import CookieConsent from "react-cookie-consent";
 import { ErrorBoundary } from "react-error-boundary";
 
 import './App.css';
+
 import i18n from './i18n.js';
 import loadPolyfills from './modules/polyfills.js';
 

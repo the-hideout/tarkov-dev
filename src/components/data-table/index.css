@@ -15,7 +15,7 @@
 }
 
 .data-table thead, .data-table tfoot {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgb( from var(--color-black) r g b / 0.4);
     position: sticky;
     top: 0;
 }
@@ -29,7 +29,7 @@
 }
 
 .data-table thead tr:first-child {
-    border-top: 4px solid #1b1919;
+    border-top: 4px solid var(--color-black-light);
 }
 
 .data-table tbody tr.last-row {
@@ -42,18 +42,18 @@
 
 .data-cell, .data-table tfoot th {
     padding: 5px 15px;
-    border-top: 4px solid #1b1919;
-    border-bottom: 4px solid #1b1919;
+    border-top: 4px solid var(--color-black-light);
+    border-bottom: 4px solid var(--color-black-light);
 }
 
 th:first-child,
 td.data-cell:first-child {
-    border-left: 4px solid #1b1919;
+    border-left: 4px solid var(--color-black-light);
 }
 
 th:last-child,
 td.data-cell:last-child {
-    border-right: 4px solid #1b1919;
+    border-right: 4px solid var(--color-black-light);
 }
 
 .data-table .center-content {
@@ -70,16 +70,16 @@ td.data-cell:last-child {
 }
 
 .data-table tr td {
-    background-color: #2d2d2f;
+    background-color: var(--color-gunmetal-dark);
 }
 
 .data-table tbody tr.expanded td {
-    background-color: #242324;
+    background-color: var(--color-gunmetal-dark);
 }
 
 .arrow-icon,
 .arrow-placeholder {
-    fill: #c7c5b3;
+    fill: var(--color-gold-one);
     height: 10px;
     width: 10px;
 }

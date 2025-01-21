@@ -335,10 +335,9 @@ function ItemImage({
                         />
                     </pattern>
                 </defs>
-                <rect width="100%" height="100%" fill="#000" />
-                <rect width="100%" height="100%" fill="url(#gridCell)" />
-            </svg>
-        );
+                <rect width="100%" height="100%" fill="var(--color-black)"/>
+                <rect width="100%" height="100%" fill="url(#gridCell)"/>
+            </svg>;
         const backgroundStyle = {
             backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
             backgroundSize: `${gridPercentX}% ${gridPercentY}%`,
@@ -377,7 +376,7 @@ function ItemImage({
             cursor: 'default',
             color: '#a4aeb4',
             fontWeight: 'bold',
-            textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+            textShadow: '1px 1px 0 var(--color-black), -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black)',
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };
