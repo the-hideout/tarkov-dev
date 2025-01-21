@@ -1,4 +1,4 @@
 .item-tracker-wrapper {
-    background-color: #000;
+    background-color: var(--color-black);
     height: auto;
 }

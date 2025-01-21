@@ -19,9 +19,9 @@
 }
 
 .reward-image-count {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb( from var(--color-black) r g b  / 0.8);
     border-top-left-radius: 3px;
-    color: #c7c5b3;
+    color: var(--color-gold-one);
     font-size: 14px;
     height: 18px;
     line-height: 20px;
@@ -35,12 +35,12 @@
 }
 
 .reward-image-img-tool {
-    outline: 1px solid #0292c0;
+    outline: 1px solid var(--color-blue-light);
     outline-offset: -1px;
 }
 
 .reward-image-img-nonfunctional {
-    outline: 1px solid #c00802;
+    outline: 1px solid var(--color-red);
     outline-offset: -1px;
 }
 

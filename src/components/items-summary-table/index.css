@@ -1,7 +1,7 @@
 .trader-unlock-wrapper {
-    color: #636363;
+    color: var(--color-gray);
 }
 
 .trader-station-level-unmet {
-    color: #cd1e2f;
+    color: var(--color-red);
 }

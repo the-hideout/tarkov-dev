@@ -10,7 +10,7 @@
 }
 
 .cost-item-wrapper.disabled::after {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgb( from var(--color-black) r g b / 0.3);
     bottom: 0;
     content: ' ';
     left: 0;
@@ -20,7 +20,7 @@
 }
 
 .cost-item-count-wrapper {
-    color: #c7c5b3;
+    color: var(--color-gold-one);
 }
 
 .cost-image-wrapper {
