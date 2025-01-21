@@ -6,7 +6,9 @@
 
 .navigation {
     align-items: center;
-    box-shadow: 0px 5px 10px 0px rgb( from var(--color-black) r g b / 0.2);
+    border-bottom: 1px solid rgb( from var(--color-white) r g b / .2);
+    margin-bottom: 20px;
+    background-color: rgb( from var(--color-black) r g b / .2);
     color: var(--color-gold-two);
     display: flex;
     font-size: 40px;
@@ -41,6 +43,7 @@
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
+    background: transparent;
     width: 100%;
 }
 
