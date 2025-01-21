@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@mdi/react';
 import {
+    mdiDotsVertical,
     mdiCogOutline,
     mdiRemote,
     mdiClose,
@@ -129,13 +130,13 @@ const Menu = () => {
               <ul className={`menu`}>
                 <li className="submenu-wrapper overflow-member" key="menu-ammo" data-targetid="ammo">
                     <Link to="/ammo/">{t('Ammo')}</Link>
-                    <ul style={{left: -20}} className="overflow-hidden">
+                    <ul className="overflow-hidden">
                         {getAmmoMenu()}
                     </ul>
                 </li>
                 <li className="submenu-wrapper submenu-items overflow-member" key="menu-maps" data-targetid="maps">
                     <Link to="/maps/">{t('Maps')}</Link>
-                    <ul style={{left: -40}}>
+                    <ul>
                         {Object.values(uniqueMaps.reduce((unique, map) => {
                             const sameMap = Object.values(unique).find(m => m.id === map.id);
                             if (!sameMap) {
@@ -225,7 +226,7 @@ const Menu = () => {
                     </ul>
                 </li>
 
-                <li className="submenu-wrapper submenu-items overflow-member" key="menu-bosses" data-targetid="bosses">
+                <li className="submenu-wrapper overflow-member" key="menu-bosses" data-targetid="bosses">
                     <Link to="/bosses/">{t('Bosses')}</Link>
                     <ul>
                         {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map(boss => {
@@ -272,24 +273,26 @@ const Menu = () => {
                     </Link>
                 </li>
 
-                <li className="submenu-wrapper submenu-items overflow-member" key="menu-players" data-targetid="players">
-                    <Link
-                        to="/players"
-                        //onClick={setIsOpen.bind(this, false)}
-                    >
-                        {t('Players')}
-                    </Link>
-                </li>
 
-                <li className="submenu-wrapper submenu-items overflow-member" key="menu-api" data-targetid="api">
-                    <Link
-                        to="/api/"
-                        //onClick={setIsOpen.bind(this, false)}
-                    >
-                        {t('API')}
-                    </Link>
+
+
+
+                <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="extra">
+                  <li>
+                    <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
+                  </li>
+                  <ul className="overflow-hidden">
+                    <li key="menu-players" data-targetid="players">
+                        <Link to="/players">{t('Players')}</Link>
+                    </li>
+                    <li key="menu-api" data-targetid="api">
+                        <Link to="/api/" >{t('API')}</Link>
+                    </li>
+
+                  </ul>
                 </li>
               </ul>
+
                 <div className="right-items">
                   <Link
                     aria-label="Settings"

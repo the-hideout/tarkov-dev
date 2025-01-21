@@ -13,7 +13,6 @@
   color: var(--color-gold-two);
   display: flex;
   font-size: 40px;
-  gap: 10px;
 }
 
 .navigation a,
@@ -37,9 +36,8 @@
     align-items: center;
     display: flex;
     font-size: 34px;
-    gap: 10px;
     line-height: 1;
-    margin: 10px 0;
+    margin: auto 20px auto auto;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -68,27 +66,50 @@
     margin: auto 0;
 }
 
+.menu li {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  transition: all .3s;
+}
+.menu li.submenu-wrapper ul li {
+  height: inherit;
+  padding: 6px 0;
+}
+.menu li a {
+  padding: 0 10px;
+}
+.menu li.submenu-wrapper:hover {
+  background: var(--color-gunmetal-dark);
+}
+
+.menu .overflow-hidden a,
+.menu .overflow-hidden li,
+.menu .overflow-hidden span {
+  height: inherit;
+}
+
 .mobile-icon {
-    font-size: 0;
-    margin-right: 0;
-    margin-left: 20;
+  font-size: 0;
+  margin-right: 0;
+  margin-left: 20;
 }
 
 .mobile-icon svg {
-    fill: var(--color-gold-two);
-    height: 54px;
+  fill: var(--color-gold-two);
+  height: 54px;
 }
 
 .App.connected .menu {
-    display: none;
+  display: none;
 }
 
 a.branding {
-    border-radius: 0;
-    font-size: 0;
-    padding: 10px 18px 10px 5px;
-    margin: 0 20px 0 0;
-    border-right: 1px solid rgb( from var(--color-gold-one) r g b / .1);
+  border-radius: 0;
+  font-size: 0;
+  padding: 10px 18px 10px 5px;
+  margin: 0;
+  border-right: 1px solid rgb( from var(--color-gold-one) r g b / .1);
 }
 
 .menu button {
@@ -102,31 +123,41 @@ a.branding {
 }
 
 .menu .submenu-wrapper ul {
-    background-color: var(--color-gunmetal-dark);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    display: none;
-    left: 0;
-    list-style: none;
-    padding: 10px;
-    position: absolute;
-    z-index: 2000;
-    box-shadow: 0px 5px 10px 0px rgb( from var(--color-black) r g b / 0.2);
-    top: 24px;
+  background-color: var(--color-gunmetal-dark);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: none;
+  left: 0;
+  list-style: none;
+  position: absolute;
+  padding: 0;
+  z-index: 2000;
+  box-shadow: 0px 5px 10px 0px rgb( from var(--color-black) r g b / 0.2);
+  border-left: 1px solid rgb( from var(--color-gold-one) r g b / .2);
+  border-right: 1px solid rgb( from var(--color-gold-one) r g b / .2);
+  border-bottom: 1px solid rgb( from var(--color-gold-one) r g b / .2);
+  min-width: 160px;
+  top: 60px;
 }
+  .submenu-wrapper ul li {
+      align-items: center;
+      display: flex;
+      border-bottom: 1px solid rgb( from var(--color-gold-one) r g b / .1);
+  }
+  .submenu-wrapper ul li a {
+    padding: 0 10px;
+    margin: 0;
+  }
 
-.submenu-wrapper li {
-    align-items: center;
-    display: flex;
-}
-
-.submenu-wrapper input {
+  .submenu-wrapper ul li input {
     cursor: pointer;
-}
+    margin-left: 10px;
+  }
 
-.menu .submenu-wrapper ul a {
+  .menu .submenu-wrapper ul a {
     border-radius: 0;
-}
+  }
+
 
 .menu a:hover,
 .menu button:hover,
