@@ -11,7 +11,7 @@
 }
 
 .item-list-wrapper {
-    background-color: #1b1919;
+    background-color: var(--color-black-light);
     position: absolute;
     top: 56px;
     width: 100%;
@@ -42,7 +42,7 @@
 
 @media screen and (min-width: 800px) {
     .search-tip-wrapper {
-        border: 2px solid #9a8866;
+        border: 2px solid var(--color-gold-two);
         display: inline-flex;
     }
 }

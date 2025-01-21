@@ -6,6 +6,7 @@ import App from './App.js';
 import store from './store.js';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import ScrollToTop from './components/scroll-to-top/index.js';

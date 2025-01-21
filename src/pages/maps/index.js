@@ -64,7 +64,7 @@ function Maps() {
 
             {uniqueMaps.map((mapsGroup) => {
                 return (
-                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="map-block">
+                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="information-section map-block">
                         <h2>
                             <span class="icon">
                               <Icon 

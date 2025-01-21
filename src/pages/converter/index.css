@@ -18,5 +18,5 @@
 }
 
 .error {
-    color: #cd1e2f;
+    color: var(--color-red);
 }

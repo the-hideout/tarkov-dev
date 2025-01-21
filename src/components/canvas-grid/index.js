@@ -48,7 +48,7 @@ function CanvasGrid(props) {
         const width = 20;
 
         ctx.beginPath();
-        ctx.fillStyle = '#000'; // outer border color
+        ctx.fillStyle = 'var(--color-black)'; // outer border color
         ctx.fillRect(startX, startY, horizontal * 20 + 2, vertical * 20 + 2);
 
         startX = startX + 1;

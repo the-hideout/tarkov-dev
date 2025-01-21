@@ -117,21 +117,21 @@
 
 .text-and-image-information-wrapper.best-profit .price-wrapper,
 .best-profit {
-    color: #c7c5b3;
+    color: var(--color-gold-one);
 }
 
 .best-profit img {
-    outline: #9a8866 solid 1px;
+    outline: var(--color-gold-two) solid 1px;
     outline-offset: -1px;
 }
 
 .price-wrapper-bright {
-    color: #c7c5b3;
+    color: var(--color-gold-one);
 }
 
 .price-wrapper.locked,
 .best-profit .price-wrapper.locked {
-    color: #626151;
+    color: var(--color-gold-two);
 }
 
 .text-and-image-information-wrapper.price-info-wrapper {

@@ -11,8 +11,8 @@
     align-items: center;
     align-items: flex-start;
     flex-direction: column;
-    background-color: #2d2d2f;
-    border: 1px solid #1b1919;
+    background-color: var(--color-gunmetal-dark);
+    border: 1px solid var(--color-black-light);
     flex-basis: calc(50% - 2.5px);
     padding: 10px 20px;
     flex: 1 auto;
@@ -30,7 +30,7 @@
 .property-key-wrapper {
     cursor: default;
     display: inline-block;
-    color: #636363;
+    color: var(--color-gray-light);
     font-size: 18px;
     margin-bottom: 5px;
     font-weight: 600;
