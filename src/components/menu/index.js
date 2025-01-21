@@ -54,6 +54,8 @@ const Menu = () => {
     const { t } = useTranslation();
     const [alertOpen, setAlertOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
     const [alertStateOpen, setAlertStateOpen] = useState(alertOpen || alertConfig.alwaysShow);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // State for mobile menu
+
 
     const uniqueMaps = useMapImagesSortedArray();
     for (const map of uniqueMaps) {
@@ -71,6 +73,11 @@ const Menu = () => {
     const traders = useMemo(() => {
         return allTraders.filter(t => t.barters?.length > 0)
     }, [allTraders]);
+
+    // Toggle handler for mobile menu
+    const mobileMenuToggle = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
+    };
 
     return (
         <>
@@ -127,7 +134,7 @@ const Menu = () => {
                 />
               </Link>              
 
-              <ul className={`menu`}>
+              <ul className={`menu ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
                 <li className="submenu-wrapper overflow-member" key="menu-ammo" data-targetid="ammo">
                     <Link to="/ammo/">{t('Ammo')}</Link>
                     <ul className="overflow-hidden">
@@ -255,14 +262,6 @@ const Menu = () => {
                     </Link>
                 </li>
 
-                <li className="submenu-wrapper submenu-items overflow-member" key="menu-wipe-length" data-targetid="wipe-length">
-                    <Link
-                        to="/wipe-length"
-                        //onClick={setIsOpen.bind(this, false)}
-                    >
-                        {t('Wipe length')}
-                    </Link>
-                </li>
 
                 <li className="submenu-wrapper submenu-items overflow-member" key="menu-achievements" data-targetid="achievements">
                     <Link
@@ -273,47 +272,50 @@ const Menu = () => {
                     </Link>
                 </li>
 
-
-
-
-
                 <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="extra">
                   <li>
                     <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
                   </li>
                   <ul className="overflow-hidden">
                     <li key="menu-players" data-targetid="players">
-                        <Link to="/players">{t('Players')}</Link>
+                      <Link to="/players">{t('Players')}</Link>
                     </li>
+                    <li key="menu-wipe-length" data-targetid="wipe-length">
+                      <Link to="/wipe-length">{t('Wipe length')}</Link>
+                    </li>                
                     <li key="menu-api" data-targetid="api">
-                        <Link to="/api/" >{t('API')}</Link>
+                      <Link to="/api/" >{t('API')}</Link>
                     </li>
-
                   </ul>
                 </li>
               </ul>
 
-                <div className="right-items">
-                  <Link
-                    aria-label="Settings"
-                    to="/settings/"
-                    data-targetid="settings"
-                  >
-                    <Icon
-                      path={mdiCogOutline}
-                      size={1}
-                      className="icon-with-text"
-                    />
-                  </Link>
-                  <Link
-                    aria-label="Remote control"
-                    to="/control/"
-                    data-targetid="remote"
-                  >
-                    <Icon path={mdiRemote} size={1} className="icon-with-text" />
-                  </Link>
+              {/* Mobile menu toggle */}
+              <div className="mobileMenu-toggle" onClick={mobileMenuToggle}>
+                {mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
               </div>
-            </nav>
+
+              <div className="right-items">
+                <Link
+                  aria-label="Settings"
+                  to="/settings/"
+                  data-targetid="settings"
+                >
+                  <Icon
+                    path={mdiCogOutline}
+                    size={1}
+                    className="icon-with-text"
+                  />
+                </Link>
+                <Link
+                  aria-label="Remote control"
+                  to="/control/"
+                  data-targetid="remote"
+                >
+                  <Icon path={mdiRemote} size={1} className="icon-with-text" />
+                </Link>
+            </div>
+          </nav>
         </>
     );
 };
