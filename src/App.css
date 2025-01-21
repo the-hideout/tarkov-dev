@@ -352,3 +352,5 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
         max-width: 1600px;
     }
 }
+
+@import './styles/singleEntity.css'
