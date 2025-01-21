@@ -3,7 +3,7 @@ const alertConfig = {
     alertEnabled: true,
 
     // if alert should show on page load even if the user has closed it
-    alwaysShow: true,
+    alwaysShow: false,
 
     // valid alert colors
     alertColors: {
