@@ -272,8 +272,8 @@ const Menu = () => {
                     </Link>
                 </li>
 
-                <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="extra">
-                  <li>
+                <li className="submenu-wrapper submenu-items additional" key="menu-items" data-targetid="extra">
+                  <li className="icon">
                     <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
                   </li>
                   <ul className="overflow-hidden">
@@ -291,7 +291,7 @@ const Menu = () => {
               </ul>
 
               {/* Mobile menu toggle */}
-              <div className="mobileMenu-toggle" onClick={mobileMenuToggle}>
+              <div className={`mobileMenu-toggle ${mobileMenuOpen ? 'active' : ''}`} onClick={mobileMenuToggle}>
                 {mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
               </div>
 
