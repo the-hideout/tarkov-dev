@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ import './index.css';
 
 const BitcoinFarmCalculator = () => {
     const { t } = useTranslation();
+    const gameMode = useSelector((state) => state.settings.gameMode);
 
     const { data: hideout } = useHideoutData();
     const solar = hideout.find(station => station.normalizedName === 'solar-power');
@@ -142,6 +144,7 @@ const BitcoinFarmCalculator = () => {
                 useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
                 wipeDaysRemaining={wipeDaysRemaining}
+                gameMode={gameMode}
                 key="btc-profit-table"
             />
             <div className="included-items-wrapper" key="btc-item-prices">
@@ -165,7 +168,7 @@ const BitcoinFarmCalculator = () => {
                     />
                 )}
             </div>
-            <div className="included-items-wrapper">
+            {gameMode !== 'pve' && <div className="included-items-wrapper">
                 <label className={'single-filter-wrapper'}>
                     <Link to="/wipe-length">
                         <span className={'single-filter-label'}>{t('Remaining days in wipe:', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</span>
@@ -183,7 +186,7 @@ const BitcoinFarmCalculator = () => {
                         min={0}
                     />
                 </label>
-            </div>
+            </div>}
             {/* <BtcGraph /> */}
         </div>,
     ];
