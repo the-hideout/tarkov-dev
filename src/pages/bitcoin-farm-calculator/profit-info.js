@@ -19,7 +19,7 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining, gameMode }) => {
     const stations = useSelector(selectAllStations);
 
     const { data: hideout } = useHideoutData();
@@ -228,12 +228,14 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             Cell: CenterCell,
         });
     }
-    columns.push({
-        Header: t('Remaining profit'),
-        accessor: ({ remainingProfit }) =>
-            formatPrice(remainingProfit),
-        Cell: CenterCell,
-    })
+    if (gameMode !== 'pve') {
+        columns.push({
+            Header: t('Remaining profit'),
+            accessor: ({ remainingProfit }) =>
+                formatPrice(remainingProfit),
+            Cell: CenterCell,
+        });
+    }
 
     return (
         <>
