@@ -120,9 +120,6 @@ function Trader() {
     if (!trader)
         return <ErrorPage />;
     
-    if (trader.normalizedName === 'btr-driver')
-        return <ErrorPage />;
-    
     let resetTime = (<LoadingSmall/>);
     if (trader.resetTime && trader.barters.length) {
         resetTime = (
