@@ -444,35 +444,39 @@ function Quest() {
         if (objective.type === 'giveItem' || objective.type === 'findItem' || objective.type === 'sellItem') {
             let itemElements = [];
             let countElement = '';
-            for (const objItem of objective.items) {
-                let item = items.find((i) => i.id === objItem.id);
-                if (!item)
-                    continue;
-                if (item.properties?.defaultPreset) {
-                    const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                    item = {
-                        ...item,
-                        baseImageLink: preset.baseImageLink,
-                        width: preset.width,
-                        height: preset.height,
-                    };
+            if (objective.items.length < 1000) {
+                for (const objItem of objective.items) {
+                    let item = items.find((i) => i.id === objItem.id);
+                    if (!item)
+                        continue;
+                    if (item.properties?.defaultPreset) {
+                        const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                        item = {
+                            ...item,
+                            baseImageLink: preset.baseImageLink,
+                            width: preset.width,
+                            height: preset.height,
+                        };
+                    }
+                    itemElements.push(
+                        <ItemImage
+                            key={item.id}
+                            item={item}
+                            imageField="baseImageLink"
+                            linkToItem={true}
+                            count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
+                            isFIR={objective.foundInRaid}
+                        />
+                    );
                 }
-                itemElements.push(
-                    <ItemImage
-                        key={item.id}
-                        item={item}
-                        imageField="baseImageLink"
-                        linkToItem={true}
-                        count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
-                        isFIR={objective.foundInRaid}
-                    />
-                );
-            }
-            if (itemElements.length < 1) {
-                return null;
-            }
-            if (itemElements.length > 1 && objective.count > 1) {
-                countElement = <div>{t('{{itemCount}}x any of', {itemCount: objective.count})}:</div>;
+                if (itemElements.length < 1) {
+                    return null;
+                }
+                if (itemElements.length > 1 && objective.count > 1) {
+                    countElement = <div>{t('{{itemCount}}x any of', {itemCount: objective.count})}:</div>;
+                }
+            } else {
+                countElement = <div>{`x ${objective.count}`}</div>;
             }
             const attributes = [];
             if (objective.dogTagLevel) {
