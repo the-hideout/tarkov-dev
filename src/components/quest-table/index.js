@@ -36,7 +36,7 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
         req.count += count;
     };
     quest.objectives.forEach((objectiveData) => {
-        if (objectiveData.items && objectiveData.type !== 'findItem') {
+        if (objectiveData.items && objectiveData.type !== 'findItem' && objectiveData.items.length < 1000) {
             const alternates = objectiveData.items.length > 1;
             for (const objItem of objectiveData.items) {
                 addItem(objItem, objectiveData.count || 1, objectiveData.foundInRaid, alternates);
