@@ -314,6 +314,10 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
   margin: 0;
 }
 
+.filter-wrapper.open {
+    z-index: 2;
+}
+
 
 
 
