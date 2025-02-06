@@ -321,7 +321,10 @@ function Map() {
     const [mapHeight, setMapHeight] = useState(500);
     useLayoutEffect(() => {
         function updateSize() {
-            let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+            const menuHeight = document.querySelector('.navigation')?.offsetHeight || 0;
+            const bannerHeight = document.querySelector('.MuiBox-root')?.offsetHeight || 0;
+            const cookieConsentHeight = document.querySelector('.CookieConsent')?.offsetHeight || 0;
+            let viewableHeight = window.innerHeight - menuHeight - bannerHeight - cookieConsentHeight;
             if (viewableHeight < 100) {
                 viewableHeight = window.innerHeight;
             }
