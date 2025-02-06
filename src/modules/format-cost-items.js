@@ -74,7 +74,7 @@ function getItemBarters(item, barters, settings, allowAllSources) {
             continue;
         }
 
-        if (!allowAllSources && barter.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
+        if (!allowAllSources && barter.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes(barter.taskUnlock.id)) {
             continue;
         }
 
@@ -168,7 +168,7 @@ function getItemCrafts(item, crafts, settings, allowAllSources) {
             return matchedCrafts;
         }
 
-        if (!allowAllSources && craft.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[craft.taskUnlock.id]) {
+        if (!allowAllSources && craft.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes(craft.taskUnlock.id)) {
             return matchedCrafts;
         }
 

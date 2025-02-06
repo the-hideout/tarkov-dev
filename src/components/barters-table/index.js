@@ -147,11 +147,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
         return barters
             .filter((barter) => {
-                if (!barter.rewardItems[0]) {
-                    return false;
-                }
-
-                return true;
+                return !!barter.rewardItems[0];
             })
             .filter((barter) => {
                 if (!itemFilter) {
@@ -355,7 +351,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
                 tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestCashPrice(barterRewardItem, settings, showAll);
-                const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources: showAll});
+                const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, useBarterIngredients, useCraftIngredients, allowAllSources: showAll});
                 if (cheapestPrice.type === 'cash-sell') {
                     //this item cannot be purchased for cash
                     if (cheapestBarter) {
