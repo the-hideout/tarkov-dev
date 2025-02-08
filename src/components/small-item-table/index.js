@@ -256,7 +256,7 @@ function SmallItemTable(props) {
         soundSuppression,
         blocksHeadset,
         showAttachments,
-        includeBlockingHeadset,
+        includeBlockingHeadset = true,
         ergonomics,
         ergoCost,
         recoilModifier,

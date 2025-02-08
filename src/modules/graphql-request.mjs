@@ -32,7 +32,7 @@ export default async function graphqlRequest(queryString, variables) {
 
 export function useQuery(queryName, queryString, settings) {
     return reactUseQuery({
-        queryKey: queryName,
+        queryKey: [queryName],
         queryFn: () => graphqlRequest(queryString, settings?.gqlVariables),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
