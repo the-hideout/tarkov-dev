@@ -556,15 +556,41 @@ function Quest() {
                     height: preset.height,
                 };
             }
-            taskDetails = (
-                <>
-                    <ItemImage
-                        item={item}
-                        imageField="baseImageLink"
-                        linkToItem={true}
-                    />
-                </>
-            );
+            if (objective.items.length > 1) {
+                taskDetails = (
+                    <div>
+                        {t('Use any of:')}{' '}
+                        <ul className="quest-item-list">
+                            {objective.items.map((useItem, index) => {
+                                const item = items.find((i) => i.id === useItem.id);
+                                if (!item)
+                                    return null;
+                                return (
+                                    <li
+                                        key={`item-${index}-${item.id}`}
+                                    >
+                                        <ItemImage
+                                            item={item}
+                                            imageField="baseImageLink"
+                                            linkToItem={true}
+                                        />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                );
+            } else {
+                taskDetails = (
+                    <>
+                        <ItemImage
+                            item={item}
+                            imageField="baseImageLink"
+                            linkToItem={true}
+                        />
+                    </>
+                );
+            }
         }
         if (objective.type === 'shoot') {
             let verb = t('Kill');
