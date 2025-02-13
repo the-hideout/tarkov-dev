@@ -8,7 +8,6 @@ import DataTable from '../../components/data-table/index.js';
 
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
-import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
 import { selectAllTraders } from '../../features/settings/settingsSlice.js';
 
@@ -34,7 +33,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
-    const { data: items } = useItemsData();
     const { data: meta } = useMetaData();
 
     const columns = useMemo(
@@ -276,10 +274,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const barterRewardItem = barterRow.rewardItems[0].item;
                 let barterRewardContainedItem;
 
-                if (barterRewardItem.bsgCategoryId === '543be5cb4bdc2deb348b4568') {    // "ammo-container"
-                    barterRewardContainedItem = items.find(i => i.id === barterRewardItem.containsItems[0]?.item.id);
-                }
-
                 const whatWeSell = barterRewardContainedItem ? barterRewardContainedItem : barterRewardItem;
                 const howManyWeSell = barterRewardContainedItem ? barterRewardItem.containsItems[0].count : barterRow.rewardItems[0].count;
                 const bestSellTo = whatWeSell.sellFor.reduce(
@@ -333,7 +327,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
-                        sellValue: bestSellTo.priceRUB,
+                        sellValue: bestSellTo.priceRUB * howManyWeSell,
                         taskUnlock: barterRow.taskUnlock,
                         isFIR: false,
                     },
@@ -343,10 +337,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 if (barterRewardItem.priceCustom) {
                     tradeData.reward.sellValue = barterRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
-                }
-
-                if (barterRewardItem.bsgCategoryId === '543be5cb4bdc2deb348b4568') {    // "ammo-container"
-                    tradeData.reward.sellNote = t('Unpacked');
                 }
 
                 tradeData.savingsParts = [];
@@ -414,7 +404,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         selectedTrader,
         barters,
         crafts,
-        items,
         meta,
         itemFilter,
         traders,
