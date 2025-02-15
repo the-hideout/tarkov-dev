@@ -278,7 +278,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
                 if (barterRewardItem.bsgCategoryId === '543be5cb4bdc2deb348b4568') {    // "ammo-container"
                     barterRewardContainedItem = items.find(i => i.id === barterRewardItem.containsItems[0]?.item.id);
-                    if (barterRewardContainedItem.types.includes('noFlea')) {
+                    if (barterRewardContainedItem?.types.includes('noFlea')) {
                         barterRewardContainedItem = null;
                     }
                 }
