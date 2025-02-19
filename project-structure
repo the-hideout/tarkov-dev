@@ -1,0 +1,83 @@
+marksoftbot/
+├── apps/
+│   ├── api/                    # REST API
+│   │   ├── src/
+│   │   │   ├── middleware/
+│   │   │   │   ├── auth.ts
+│   │   │   │   └── admin.ts
+│   │   │   └── routes/
+│   │   │       ├── analytics.ts
+│   │   │       ├── logging.ts
+│   │   │       ├── loyalty.ts
+│   │   │       └── users.ts
+│   ├── bot/                    # Discord & Twitch bot
+│   │   └── src/
+│   │       ├── discord/
+│   │       │   ├── commands/   # Discord bot commands
+│   │       │   │   ├── moderation/
+│   │       │   │   │   ├── ban.ts
+│   │       │   │   │   ├── kick.ts
+│   │       │   │   │   ├── mute.ts
+│   │       │   │   │   └── settings.ts
+│   │       │   │   ├── logging/
+│   │       │   │   │   ├── setup.ts
+│   │       │   │   │   └── view.ts
+│   │       │   │   └── general/
+│   │       │   │       ├── help.ts
+│   │       │   │       └── ping.ts
+│   │       │   ├── CommandHandler.ts
+│   │       │   ├── DiscordBot.ts
+│   │       │   └── EventHandler.ts
+│   │       └── twitch/
+│   │           ├── Command.ts
+│   │           ├── CommandHandler.ts
+│   │           ├── TwitchBot.ts
+│   │           └── commands/
+│   │               ├── command.ts
+│   │               ├── giveaway.ts
+│   │               ├── heist.ts
+│   │               ├── poll.ts
+│   │               ├── song.ts
+│   │               ├── timer.ts
+│   │               └── tournament.ts
+│   │           └── services/
+│   │               └── SongService.ts
+│   │       └── utils/
+│   │           ├── formatters.ts
+│   │           └── validators.ts
+│   └── web/                    # Next.js dashboard
+│       └── src/
+│           └── components/
+│               ├── analytics/
+│               │   └── AnalyticsDashboard.tsx
+│               ├── discord/
+│               │   ├── LoggingSettings.tsx
+│               │   └── ModerationSettings.tsx
+│               ├── layouts/
+│               │   ├── DashboardLayout.tsx
+│               │   └── Header.tsx
+│               ├── twitch/
+│               │   ├── LoyaltySystem.tsx
+│               │   ├── CommandList.tsx
+│               │   └── TimerList.tsx
+│               └── users/
+│                   └── UserManagement.tsx
+├── packages/
+│   ├── core/                   # Shared business logic
+│   │   └── src/
+│   │       └── services/
+│   │           ├── AnalyticsService.ts
+│   │           ├── EventLogService.ts
+│   │           ├── LoyaltyService.ts
+│   │           ├── TimerService.ts
+│   │           └── ModerationService.ts
+│   └── database/              # Database models & utils
+│       └── src/
+│           └── models/
+│               ├── Analytics.ts
+│               ├── EventLog.ts
+│               ├── Loyalty.ts
+│               ├── Timer.ts
+│               ├── ModerationSettings.ts
+│               └── User.ts
+└── docker/                # Docker configuration files 

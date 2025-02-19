@@ -1,0 +1,28 @@
+{
+  "name": "@marksoftbot/bot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "tmi.js": "^1.8.5",
+    "ioredis": "^5.3.2",
+    "@marksoftbot/core": "workspace:*",
+    "youtube-sr": "^4.3.9",
+    "@discordjs/collection": "^1.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/tmi.js": "^1.8.6",
+    "@types/ioredis": "^5.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "eslint": "^8.0.0"
+  }
+} 

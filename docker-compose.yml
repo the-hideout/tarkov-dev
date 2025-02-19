@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: skatim
+      MONGO_INITDB_ROOT_PASSWORD: www123qwe
+    volumes:
+      - mongodb_data:/data/db
+
+  bot:
+    build:
+      context: .
+      dockerfile: apps/bot/Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - MONGODB_URI=mongodb+srv://skatim:www123qwe@cluster0.hdtgkwq.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0
+      - TWITCH_BOT_USERNAME=${TWITCH_BOT_USERNAME}
+      - TWITCH_BOT_OAUTH=${TWITCH_BOT_OAUTH}
+      - TWITCH_CLIENT_ID=${TWITCH_CLIENT_ID}
+      - TWITCH_CLIENT_SECRET=${TWITCH_CLIENT_SECRET}
+    depends_on:
+      - redis
+      - mongodb
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - MONGODB_URI=mongodb://root:example@mongodb:27017
+    depends_on:
+      - redis
+      - mongodb
+
+volumes:
+  redis_data:
+  mongodb_data: 
