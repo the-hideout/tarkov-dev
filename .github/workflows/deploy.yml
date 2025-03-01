@@ -55,7 +55,7 @@ jobs:
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@7a5f8bbdfeedcde38e6777a50fe685f89259d4ca # pin@v3.13.1
+        uses: cloudflare/wrangler-action@392082e81ffbcb9ebdde27400634aa004b35ea37 # pin@v3.14.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
