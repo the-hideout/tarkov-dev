@@ -924,7 +924,6 @@ function Map() {
             }
         }
 
-        console.log('extracts');
         //add extracts
         if (mapData.extracts.length > 0) {
             const extractLayers = {
@@ -1283,7 +1282,6 @@ function Map() {
                 if (!positionIsInBounds(containerPosition.position)) {
                     continue;
                 }
-                console.log(containerPosition.lootContainer.normalizedName);
                 const containerIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
@@ -1315,6 +1313,73 @@ function Map() {
                     addLayer(containerLayers[key], `container_${key}`, 'Lootable Items', containerNames[key]);
                 }
             }
+        }
+
+        //add loose loot
+        if (mapData.lootLoose.length > 0) {
+            const looseLootLayer = L.layerGroup();
+            for (const looseLoot of mapData.lootLoose) {
+                if (!positionIsInBounds(looseLoot.position)) {
+                    continue;
+                }
+                const lootItems = items.filter(item => looseLoot.items.some(lootItem => item.id === lootItem.id));
+                if (lootItems.length === 0) {
+                    continue;
+                }
+                let iconSize = [24, 24];
+                let iconUrl = `${process.env.PUBLIC_URL}/maps/interactive/${images.loose_loot}.png`;
+                let markerTitle = t('Loose Loot');
+                let className = '';
+                if (lootItems.length === 1) {
+                    const item = lootItems[0];
+                    iconUrl = item.baseImageLink;
+                    markerTitle = item.name;
+                    className = 'loot-outline';
+                    const pixelWidth = (item.width * 63) + 1;
+                    const pixelHeight = (item.height * 63) + 1;
+                    if (item.width > item.height) {
+                        const scale = 24 / pixelWidth;
+                        iconSize = [24, pixelHeight * scale];
+                    } else {
+                        const scale = 24 / pixelHeight;
+                        iconSize = [pixelWidth * scale, 24];
+                    }
+                }
+                const lootIcon = new L.Icon({
+                    iconUrl,
+                    iconSize,
+                    popupAnchor: [0, -12],
+                    className,
+                });
+                
+                const lootMarker = L.marker(pos(looseLoot.position), {
+                    icon: lootIcon, 
+                    title: markerTitle,
+                    position: looseLoot.position,
+                });
+
+                const popup = L.DomUtil.create('div');
+                const popupContent = L.DomUtil.create('div', undefined, popup);
+                //L.DomUtil.create('div', undefined, popupContent).textContent = JSON.stringify(looseLoot.position);
+                for (const lootItem of lootItems) {
+                    //const lootContent = L.DomUtil.create('div', undefined, popupContent);
+                    const lootImage = L.DomUtil.create('img', 'popup-item');
+                    lootImage.setAttribute('src', `${lootItem.baseImageLink}`);
+                    const lootLink = getReactLink(`/item/${lootItem.normalizedName}`, lootImage);
+                    lootLink.setAttribute('title', lootItem.name);
+                    if (className) {
+                        lootLink.append(`${lootItem.name}`);
+                    }
+                    popupContent.append(lootLink);
+                }
+                addElevation(looseLoot, popup);
+                lootMarker.bindPopup(L.popup().setContent(popup));
+                
+                lootMarker.on('add', checkMarkerForActiveLayers);
+                lootMarker.on('click', activateMarkerLayer);
+                lootMarker.addTo(looseLootLayer);
+            }
+            addLayer(looseLootLayer, 'loose_loot', 'Loose Loot', t('Loose Loot'));
         }
 
         //add hazards
