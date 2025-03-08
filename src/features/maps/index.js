@@ -127,6 +127,7 @@ export const useMapImages = () => {
                 locks: apiData?.locks || [],
                 hazards: apiData?.hazards || [],
                 lootContainers: apiData?.lootContainers || [],
+                lootLoose: apiData?.lootLoose ?? [],
                 switches: apiData?.switches || [],
                 stationaryWeapons: apiData?.stationaryWeapons || [],
                 artillery: apiData?.artillery,
