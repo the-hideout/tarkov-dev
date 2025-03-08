@@ -137,6 +137,16 @@ class MapsQuery extends APIQuery {
                         z
                     }
                 }
+                lootLoose {
+                    items {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
                 switches {
                     id
                     name

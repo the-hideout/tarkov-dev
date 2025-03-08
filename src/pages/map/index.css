@@ -180,6 +180,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     max-width: 24px;
     max-height: 24px;
     vertical-align: middle;
+    filter: drop-shadow(0.01em 0.01em white) drop-shadow(-0.01em -0.01em white) drop-shadow(-0.01em 0.01em white) drop-shadow(0.01em -0.01em white);
 }
 
 .poi-link {
@@ -278,4 +279,8 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 .leaflet-marker-icon.map-area-label.off-level {
     display: none;
+}
+
+.leaflet-container .leaflet-marker-pane img.loot-outline {
+    filter: drop-shadow(0.01em 0.01em white) drop-shadow(-0.01em -0.01em white) drop-shadow(-0.01em 0.01em white) drop-shadow(0.01em -0.01em white);
 }
