@@ -67,7 +67,7 @@
     "react-intersection-observer": "^9.15.1",
     "react-loader-spinner": "^6.1.6",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.2.0",
+    "react-router-dom": "^6.28.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-select": "^5.10.0",
