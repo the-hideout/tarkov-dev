@@ -40,6 +40,7 @@ const images = {
     'hazard_sniper': 'hazard',
     'key': 'key',
     'lock': 'lock',
+    'loose_loot': 'loose_loot',
     'quest_item': 'quest_item',
     'quest_objective': 'quest_objective',
     'spawn_sniper_scav': 'spawn_sniper_scav',
