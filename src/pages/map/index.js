@@ -10,8 +10,6 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
@@ -1551,10 +1549,16 @@ function Map() {
         }
         if (showTestMarkers) {
             const positionLayer = L.layerGroup();
-            const playerIcon = L.AwesomeMarkers.icon({
-                icon: 'person-running',
-                prefix: 'fa',
-                markerColor: 'green',
+            const rotation = 45;
+            const image = 'player-position.png';
+            const playerIcon = L.divIcon({
+                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
+                className: 'marker',
+                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12],
+                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
 
             const positionMarker = L.marker([0,0], {icon: playerIcon, position: {x: 0, y: 0, z: 0}}).addTo(positionLayer);
@@ -1571,10 +1575,16 @@ function Map() {
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
             const positionLayer = L.layerGroup();
-            const playerIcon = L.AwesomeMarkers.icon({
-                icon: 'person-running',
-                prefix: 'fa',
-                markerColor: 'green',
+            const rotation = playerPosition.rotation ?? 0;
+            const image = playerPosition.rotation !== undefined ? 'player-position.png' : 'player-position-no-rotation.png';
+            const playerIcon = L.divIcon({
+                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
+                className: 'marker',
+                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12],
+                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
                   
             const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, position: playerPosition.position}).addTo(positionLayer);

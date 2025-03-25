@@ -185,7 +185,7 @@ const settingsSlice = createSlice({
             );
         },
         setPlayerPosition: (state, action) => {
-            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position} : null;
+            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position, rotation : action.payload.rotation} : null;
             state.playerPosition = newPosition;
             localStorageWriteJson(
                 'playerPosition',
