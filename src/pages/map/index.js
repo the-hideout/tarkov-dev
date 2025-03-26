@@ -1575,7 +1575,7 @@ function Map() {
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
             const positionLayer = L.layerGroup();
-            const rotation = playerPosition.rotation ?? 0;
+            const rotation = (playerPosition.rotation ?? 0) + mapData.coordinateRotation;
             const image = playerPosition.rotation !== undefined ? 'player-position.png' : 'player-position-no-rotation.png';
             const playerIcon = L.divIcon({
                 //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
