@@ -1873,6 +1873,28 @@
         ]
     },
     {
+        "normalizedName": "the-labyrinth",
+        "primaryPath": "/map/labyrinth",
+        "maps": [
+            {
+                "key": "the-labyrinth",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [2.115, 85.5, 2.115, 128.0],
+                "coordinateRotation": 270,
+                "bounds": [
+                    [-60, -60],
+                    [60, 80]
+                ],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "tilePath": "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png",
+                "labels": []
+            }
+        ]
+    },
+    {
         "normalizedName": "lighthouse",
         "primaryPath": "/map/lighthouse-2d-landscape",
         "maps": [

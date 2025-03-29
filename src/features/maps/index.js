@@ -14,6 +14,7 @@ import {
     mdiBeach,
     mdiPineTree,
     mdiEarthBox,
+    mdiEmoticonDevil,
 } from '@mdi/js';
 
 import doFetchMaps from './do-fetch-maps.mjs';
@@ -196,6 +197,7 @@ export const mapIcons = {
     'factory': mdiFactory,
     'interchange': mdiStore24Hour,
     'the-lab': mdiNeedle,
+    'the-labyrinth': mdiEmoticonDevil,
     'lighthouse': mdiLighthouse,
     'reserve': mdiTank,
     'shoreline': mdiBeach,
