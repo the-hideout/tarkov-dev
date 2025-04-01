@@ -33,7 +33,7 @@ jobs:
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: GrantBirki/json-yaml-validate@v3.2.1
 
-      - uses: actions/setup-node@v4.2.0
+      - uses: actions/setup-node@v4.3.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
@@ -55,7 +55,7 @@ jobs:
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@392082e81ffbcb9ebdde27400634aa004b35ea37 # pin@v3.14.0
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # pin@v3.14.1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
