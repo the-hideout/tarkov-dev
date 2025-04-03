@@ -44,7 +44,7 @@ L.Control.QuestSearch = L.Control.extend({
 
             const { objectiveMarkers, nonObjectiveMarkers } = Object.values(map._targets).reduce(
                 (acc, marker) => {
-                    if (foundQuest.some((quest) => quest.id === marker.options.questId))) {
+                    if (foundQuest.some((quest) => quest.id === marker.options.questId)) {
                         acc.objectiveMarkers.push(marker);
                     } else {
                         acc.nonObjectiveMarkers.push(marker);
