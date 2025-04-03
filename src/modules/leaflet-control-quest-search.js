@@ -3,7 +3,8 @@ import L from 'leaflet';
 // POC: This is just a proof of concept
 L.Control.QuestSearch = L.Control.extend({
     options: {
-        quests: null
+        quests: null,
+        placeholderText: null,
     },
     onAdd: function (map) {
         const wrapper = L.DomUtil.create('div');
@@ -11,7 +12,7 @@ L.Control.QuestSearch = L.Control.extend({
         const searchBar = document.createElement('input');
         wrapper.style.margin = '10px 0px'
         searchBar.setAttribute('type', 'text');
-        searchBar.setAttribute('placeholder', 'Search a quest');
+        searchBar.setAttribute('placeholder', this.options.placeholderText ?? 'Search task...');
 
         const markers = {
             objectiveMarkers: [],
