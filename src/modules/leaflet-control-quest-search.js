@@ -41,15 +41,10 @@ L.Control.QuestSearch = L.Control.extend({
             const foundQuest = this.options.quests.filter((quest) => {
                 return quest.name.toLowerCase().includes(e.target.value.toLowerCase());
             });
-            const allObjectivesForQuest = foundQuest.map((quest) => {
-                return quest.objectives.map((objective) => {
-                    return objective.description;
-                });
-            });
 
             const { objectiveMarkers, nonObjectiveMarkers } = Object.values(map._targets).reduce(
                 (acc, marker) => {
-                    if (allObjectivesForQuest.some((objective) => objective.includes(marker.options.title))) {
+                    if (foundQuest.some((quest) => quest.id === marker.options.questId))) {
                         acc.objectiveMarkers.push(marker);
                     } else {
                         acc.nonObjectiveMarkers.push(marker);
