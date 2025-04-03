@@ -15,6 +15,7 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
+import '../../modules/leaflet-control-quest-search.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -575,6 +576,10 @@ function Map() {
             durationLabel: t('Duration'),
             playersLabel: t('Players'),
             bylabel: t('By'),
+        }).addTo(map);
+
+        L.control.questSearch({
+            quests,
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);

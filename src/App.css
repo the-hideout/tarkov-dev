@@ -318,21 +318,6 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     z-index: 2;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (min-width: 800px) {
     .control-wrapper {
         display: none;
@@ -357,4 +342,5 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     }
 }
 
-@import './styles/singleEntity.css'
+@import './styles/singleEntity.css';
+@import './styles/questSearch.css';
