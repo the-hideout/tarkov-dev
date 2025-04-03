@@ -580,6 +580,7 @@ function Map() {
 
         L.control.questSearch({
             quests,
+            placeholderText: t('Search task...'),
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
