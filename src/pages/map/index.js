@@ -1132,6 +1132,7 @@ function Map() {
                                 position: position,
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
+                                questId: quest.id,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1174,6 +1175,7 @@ function Map() {
                             bottom: zone.bottom,
                             outline: rect,
                             id: zone.id,
+                            questId: quest.id,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
