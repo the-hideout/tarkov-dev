@@ -131,6 +131,7 @@ const defaultSettings = {hasFlea: localStorageReadJson('useFlea', true),
     'solar-power': localStorageReadJson('solar-power', 0),
     'crafting': localStorageReadJson('crafting', 0),
     'hideout-management': localStorageReadJson('hideout-management', 0),
+    'metabolism': localStorageReadJson('metabolism', 0),
     minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
     hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
 };
@@ -273,6 +274,7 @@ export const selectAllSkills = createSelector([selectSettings], (settings) => {
     return {
         crafting: settings[settings.gameMode].crafting,
         'hideout-management': settings[settings.gameMode]['hideout-management'],
+        metabolism: settings[settings.gameMode].metabolism,
     };
 });
 
