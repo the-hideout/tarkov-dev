@@ -7,6 +7,10 @@ input#map-search-bar {
   width: 250px;
 }
 
+.maps-search-wrapper {
+  background-color: transparent !important;
+}
+
 @keyframes pulse {
   from { opacity: .75; } 
 }

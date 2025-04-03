@@ -8,8 +8,22 @@ L.Control.QuestSearch = L.Control.extend({
     },
     onAdd: function (map) {
         const wrapper = L.DomUtil.create('div');
-        wrapper.classList.add('search-wrapper', 'leaflet-control-icon-search');
-        wrapper.style.margin = '10px 0px';
+        wrapper.classList.add('search-wrapper', 'leaflet-control-icon-search', 'maps-search-wrapper');
+        Object.assign(wrapper.style, {
+            margin: '10px 0px',
+            display: 'flex',
+            flexDirection: 'column',
+        });
+
+        const info = L.DomUtil.create('div');
+        info.classList.add('info');
+        info.innerHTML = '<b>Supports multisearch (e.g. "labs, ledx, bitcoin")</b>';
+        Object.assign(info.style, {
+            margin: '5px 0px',
+            fontSize: '12px'
+        })
+
+        info.style.fontSize = '12px';
 
         const searchBar = L.DomUtil.create('input');
         searchBar.id = 'map-search-bar';
@@ -31,30 +45,36 @@ L.Control.QuestSearch = L.Control.extend({
             e.stopPropagation();
         });
 
-        // Reset all markers
         searchBar.addEventListener(
             'input',
             debounce((e) => {
-                if (e.target.value.length < 2) {
-                    if (e.target.value.length === 0) {
-                        markers.allMarkers.forEach((marker) => {
-                            if ('getElement' in marker && !('_bounds' in marker)) {
-                                marker.getElement().classList.remove('not-shown');
-                                marker.getElement().classList.remove('pulse');
-                            }
-                        });
-                    }
+                const inputValue = e.target.value.trim();
+        
+                // Split the input into multiple search terms and filter out empty strings
+                const searchTerms = inputValue
+                    .split(',')
+                    .map((term) => term.trim().toLowerCase())
+                    .filter((term) => term.length > 0);
+        
+                if (searchTerms.length === 0) {
+                    // Reset markers if no valid search terms are provided
+                    markers.allMarkers.forEach((marker) => {
+                        if ('getElement' in marker && !('_bounds' in marker)) {
+                            marker.getElement().classList.remove('not-shown');
+                            marker.getElement().classList.remove('pulse');
+                        }
+                    });
                     return;
                 }
-
+        
                 // Reassign all markers to prevent layer toggles leading to bugs while toggling layers after a search
                 markers.allMarkers = Object.values(map._targets);
-
-                // #region Quest searching
-                const foundQuest = this.options.quests.filter((quest) => {
-                    return quest.name.toLowerCase().includes(e.target.value.toLowerCase());
-                });
-
+        
+                // #region Quest Searching
+                const foundQuest = this.options.quests.filter((quest) =>
+                    searchTerms.some((term) => quest.name.toLowerCase().includes(term))
+                );
+        
                 const { objectiveMarkers, nonObjectiveMarkers } = markers.allMarkers.reduce(
                     (acc, marker) => {
                         if (foundQuest.some((quest) => quest.id === marker.options.questId)) {
@@ -62,21 +82,22 @@ L.Control.QuestSearch = L.Control.extend({
                         } else {
                             acc.nonObjectiveMarkers.push(marker);
                         }
-
+        
                         return acc;
                     },
-                    { objectiveMarkers: [], nonObjectiveMarkers: [] },
+                    { objectiveMarkers: [], nonObjectiveMarkers: [] }
                 );
-
+        
                 markers.objectiveMarkers = objectiveMarkers;
                 markers.nonObjectiveMarkers = nonObjectiveMarkers;
+        
                 markers.objectiveMarkers.forEach((marker) => {
                     if ('getElement' in marker) {
                         marker.getElement().classList.add('pulse');
                         marker.getElement().classList.remove('not-shown');
                     }
                 });
-
+        
                 markers.nonObjectiveMarkers.forEach((marker) => {
                     if ('getElement' in marker) {
                         marker.getElement().classList.add('not-shown');
@@ -84,30 +105,36 @@ L.Control.QuestSearch = L.Control.extend({
                     }
                 });
                 // #endregion
-
-                // #region Item, Containers and general searching (Should also show e.g. Suitcases, Corpses etc.)
+        
+                // #region Item, Containers, and General Searching
                 markers.itemAndContainerMarkers = [
                     ...markers.allMarkers.filter((marker) =>
-                        marker.options.title?.toLowerCase().includes(e.target.value.toLowerCase()),
+                        searchTerms.some((term) =>
+                            marker.options.title?.toLowerCase().includes(term)
+                        )
                     ),
                     ...markers.allMarkers.filter((marker) =>
-                        marker.options?.items?.some((item) =>
-                            item.toLowerCase().includes(e.target.value.toLowerCase()),
-                        ),
+                        searchTerms.some((term) =>
+                            marker.options?.items?.some((item) =>
+                                item.toLowerCase().includes(term)
+                            )
+                        )
                     ),
                 ];
-
+        
                 markers.itemAndContainerMarkers.forEach((marker) => {
                     if ('getElement' in marker) {
                         marker.getElement().classList.add('pulse');
                         marker.getElement().classList.remove('not-shown');
                     }
                 });
+                // #endregion
             }, 300)
         );
-        // #endregion
+          
 
         wrapper.append(searchBar);
+        wrapper.append(info);
         return wrapper;
     },
 });
