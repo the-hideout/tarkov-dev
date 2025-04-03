@@ -23,8 +23,6 @@ L.Control.QuestSearch = L.Control.extend({
             fontSize: '12px'
         })
 
-        info.style.fontSize = '12px';
-
         const searchBar = L.DomUtil.create('input');
         searchBar.id = 'map-search-bar';
         searchBar.setAttribute('type', 'text');
