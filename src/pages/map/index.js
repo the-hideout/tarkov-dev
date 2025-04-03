@@ -580,7 +580,7 @@ function Map() {
 
         L.control.questSearch({
             quests,
-            placeholderText: t('Search task...'),
+            placeholderText: t('Task, item or container...'),
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
@@ -1362,6 +1362,7 @@ function Map() {
                     icon: lootIcon, 
                     title: markerTitle,
                     position: looseLoot.position,
+                    items: lootItems.map((item) => item.name),
                 });
 
                 const popup = L.DomUtil.create('div');

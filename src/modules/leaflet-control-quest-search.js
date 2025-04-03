@@ -9,17 +9,29 @@ L.Control.QuestSearch = L.Control.extend({
     onAdd: function (map) {
         const wrapper = L.DomUtil.create('div');
         wrapper.classList.add('search-wrapper', 'leaflet-control-icon-search');
-        const searchBar = document.createElement('input');
-        wrapper.style.margin = '10px 0px'
+        wrapper.style.margin = '10px 0px';
+
+        const searchBar = L.DomUtil.create('input');
+        searchBar.id = "map-search-bar";
         searchBar.setAttribute('type', 'text');
-        searchBar.setAttribute('placeholder', this.options.placeholderText ?? 'Search task...');
+        searchBar.setAttribute(
+            'placeholder',
+            this.options.placeholderText ?? 'Task, item or container...',
+        );
 
         const markers = {
             objectiveMarkers: [],
             nonObjectiveMarkers: [],
+            itemAndContainerMarkers: [],
             allMarkers: [],
         };
 
+        // Prevent zooming of the map by double clicking the search field
+        searchBar.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+        })
+
+        // Reset all markers
         searchBar.addEventListener('input', (e) => {
             if (e.target.value.length < 2) {
                 if (e.target.value.length === 0) {
@@ -33,30 +45,29 @@ L.Control.QuestSearch = L.Control.extend({
                 return;
             }
 
-            // Just set all markers once
-            if (markers.allMarkers.length < 10) {
-                markers.allMarkers = Object.values(map._targets);   
-            }
+            // Reassign all markers to prevent layer toggles leading to bugs while toggling layers after a search
+            markers.allMarkers = Object.values(map._targets);
 
+            // #region Quest searching            
             const foundQuest = this.options.quests.filter((quest) => {
                 return quest.name.toLowerCase().includes(e.target.value.toLowerCase());
             });
 
-            const { objectiveMarkers, nonObjectiveMarkers } = Object.values(map._targets).reduce(
+            const { objectiveMarkers, nonObjectiveMarkers } = markers.allMarkers.reduce(
                 (acc, marker) => {
                     if (foundQuest.some((quest) => quest.id === marker.options.questId)) {
                         acc.objectiveMarkers.push(marker);
                     } else {
                         acc.nonObjectiveMarkers.push(marker);
                     }
+
                     return acc;
                 },
-                { objectiveMarkers: [], nonObjectiveMarkers: [] }
+                { objectiveMarkers: [], nonObjectiveMarkers: [] },
             );
-            
+
             markers.objectiveMarkers = objectiveMarkers;
             markers.nonObjectiveMarkers = nonObjectiveMarkers;
-
             markers.objectiveMarkers.forEach((marker) => {
                 if ('getElement' in marker) {
                     marker.getElement().classList.add('pulse');
@@ -70,10 +81,32 @@ L.Control.QuestSearch = L.Control.extend({
                     marker.getElement().classList.remove('pulse');
                 }
             });
+            // #endregion
+
+            // #region Item, Containers and general searching (Should also show e.g. Suitcases, Corpses etc.)
+            markers.itemAndContainerMarkers = [
+                ...markers.allMarkers.filter((marker) =>
+                    marker.options.title?.toLowerCase().includes(e.target.value.toLowerCase()),
+                ),
+                ...markers.allMarkers.filter((marker) =>
+                    marker.options?.items?.some((item) =>
+                        item.toLowerCase().includes(e.target.value.toLowerCase()),
+                    ),
+                ),
+            ];
+
+            markers.itemAndContainerMarkers.forEach((marker) => {
+                if ('getElement' in marker) {
+                    marker.getElement().classList.add('pulse');
+                    marker.getElement().classList.remove('not-shown');
+                }
+            });
         });
+        // #endregion
+
         wrapper.append(searchBar);
         return wrapper;
-    }
+    },
 });
 
 L.control.questSearch = function (opts) {

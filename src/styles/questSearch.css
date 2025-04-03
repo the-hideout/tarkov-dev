@@ -1,11 +1,10 @@
 /*** Pulse Animation for Markers searched by Quest Search ***/
 .pulse {
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
-  translate: -8px -8px;
-  width: 40px !important;
-  height: 40px !important;
-  transform: scale(1);
   animation: pulse .75s infinite alternate;
+}
+
+input#map-search-bar {
+  width: 250px;
 }
 
 @keyframes pulse {
