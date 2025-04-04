@@ -15,6 +15,7 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
+import '../../modules/leaflet-control-map-search.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -577,6 +578,12 @@ function Map() {
             bylabel: t('By'),
         }).addTo(map);
 
+        L.control.mapSearch({
+            quests,
+            placeholderText: t('Task, item or container...'),
+            descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
+        }).addTo(map);
+
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
         const bounds = getBounds(mapData.bounds);
@@ -1126,6 +1133,7 @@ function Map() {
                                 position: position,
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
+                                questId: quest.id,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1168,6 +1176,7 @@ function Map() {
                             bottom: zone.bottom,
                             outline: rect,
                             id: zone.id,
+                            questId: quest.id,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
@@ -1354,6 +1363,7 @@ function Map() {
                     icon: lootIcon, 
                     title: markerTitle,
                     position: looseLoot.position,
+                    items: lootItems.map((item) => item.name),
                 });
 
                 const popup = L.DomUtil.create('div');
