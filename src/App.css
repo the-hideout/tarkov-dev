@@ -343,4 +343,4 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
 }
 
 @import './styles/singleEntity.css';
-@import './styles/questSearch.css';
+@import './styles/mapSearch.css';

@@ -1,30 +1,22 @@
 import L from 'leaflet';
 
 // POC: This is just a proof of concept
-L.Control.QuestSearch = L.Control.extend({
+L.Control.MapSearch = L.Control.extend({
     options: {
         quests: null,
         placeholderText: null,
+        descriptionText: null
     },
     onAdd: function (map) {
         const wrapper = L.DomUtil.create('div');
         wrapper.classList.add('search-wrapper', 'leaflet-control-icon-search', 'maps-search-wrapper');
-        Object.assign(wrapper.style, {
-            margin: '10px 0px',
-            display: 'flex',
-            flexDirection: 'column',
-        });
 
         const info = L.DomUtil.create('div');
-        info.classList.add('info');
-        info.innerHTML = '<b>Supports multisearch (e.g. "labs, ledx, bitcoin")</b>';
-        Object.assign(info.style, {
-            margin: '5px 0px',
-            fontSize: '12px'
-        })
+        info.classList.add('maps-search-wrapper-info');
+        info.innerHTML = `<b>${this.options.descriptionText ?? "Supports multisearch (e.g. 'labs, ledx, bitcoin')"}</b>`;
 
         const searchBar = L.DomUtil.create('input');
-        searchBar.id = 'map-search-bar';
+        searchBar.classList.add = 'maps-search-wrapper-search-bar';
         searchBar.setAttribute('type', 'text');
         searchBar.setAttribute(
             'placeholder',
@@ -137,8 +129,8 @@ L.Control.QuestSearch = L.Control.extend({
     },
 });
 
-L.control.questSearch = function (opts) {
-    return new L.Control.QuestSearch(opts);
+L.control.mapSearch = function (opts) {
+    return new L.Control.MapSearch(opts);
 };
 
 // #region Helper functions
