@@ -232,8 +232,10 @@ function ItemImage({
         if (imageViewer) {
             imageStyle.cursor = 'zoom-in';
         }
-        imageStyle.maxWidth = maxImageSize.width;
-        imageStyle.maxHeight = maxImageSize.height;
+        if (imageLink) {
+            imageStyle.maxWidth = maxImageSize.width;
+            imageStyle.maxHeight = maxImageSize.height;
+        }
         //console.log(dimensions);
         const img = <img ref={refImage} onClick={openImageViewer} src={imageUrl} alt={item.name} loading="lazy" style={imageStyle}/>;
         if (linkToItem && !item.types.includes('quest')) {
@@ -242,7 +244,7 @@ function ItemImage({
             </Link>;
         }
         return img;
-    }, [item, refImage, imageUrl, openImageViewer, imageViewer, linkToItem, maxImageSize]);
+    }, [item, refImage, imageUrl, openImageViewer, imageViewer, linkToItem, maxImageSize, imageLink]);
     
     const textSize = useMemo(() => {
         return Math.min(12 * imageScale, 16);
