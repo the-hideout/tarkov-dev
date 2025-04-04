@@ -706,7 +706,37 @@ function Player() {
         return (<p>{`${t('Total account time in game')}: ${formattedTime}`}</p>);
     }, [playerData, t]);
 
-    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}) => {
+    const getItemParts = useCallback((baseItem, itemPool) => {
+        const customSlots = [
+            'FirstPrimaryWeapon',
+            'SecondPrimaryWeapon',
+            'Holster',
+            'Headwear', // helmets pick up on armor plates, but the display isn't different
+        ];
+        let itemJson;
+        if (baseItem.slotId && !customSlots.includes(baseItem.slotId)) {
+            return itemJson;
+        }
+        itemPool = itemPool.filter(i => items.some(item => item.id === i._tpl)); // filter out soft armor inserts
+        itemJson = {
+            id: baseItem._id,
+            items: [],
+        };
+        for (const i of itemPool) {
+            if (i._id === itemJson.id || itemJson.items.some(ji => ji._id === i.parentId)) {
+                itemJson.items.push({...i});
+            }
+        }
+        if (itemJson.items.length < 2) {
+            itemJson = undefined;
+        } else {
+            delete itemJson.items[0].parentId;
+            delete itemJson.items[0].slotId;
+        }
+        return itemJson;
+    }, [items]);
+
+    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}, itemSource) => {
         let item = items.find(i => i.id === loadoutItem._tpl);
         if (!item) {
             return undefined;
@@ -719,6 +749,12 @@ function Player() {
                 height: preset.height,
                 baseImageLink: preset.baseImageLink,
             };
+        }
+        const itemPartsData = getItemParts(loadoutItem, itemSource);
+        if (itemPartsData) {
+            const params = new URLSearchParams();
+            params.append('data', JSON.stringify(itemPartsData));
+            imageOptions.imageLink = `https://imagemagic.tarkov.dev/${itemPartsData.id}.webp?${params}`;
         }
         let countLabel;
 
@@ -779,13 +815,14 @@ function Player() {
         const itemImage = (
             <ItemImage
                 item={item}
+                imageLink={imageOptions?.imageLink}
                 imageField={imageOptions?.imageField || 'baseImageLink'}
                 linkToItem={imageOptions?.linkToItem}
                 count={countLabel}
             />
         );
         return { image: itemImage, label };
-    }, [items, t, gameMode]);
+    }, [items, t, gameMode, getItemParts]);
 
     const getLoadoutContents = useCallback((parentItem, itemType = 'loadout') => {
         const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;
@@ -793,7 +830,7 @@ function Player() {
             if (loadoutItem.parentId !== parentItem._id) {
                 return contents;
             }
-            const itemDisplay = getItemDisplay(loadoutItem);
+            const itemDisplay = getItemDisplay(loadoutItem, {}, itemSource);
             if (!itemDisplay) {
                 return contents;
             }
@@ -821,7 +858,7 @@ function Player() {
         let itemImage = undefined;
         let itemLabel = '';
         let contents = [];
-        let itemDisplay = getItemDisplay(loadoutItem);
+        let itemDisplay = getItemDisplay(loadoutItem, {}, playerData.equipment.Items);
         if (itemDisplay) {
             itemImage = itemDisplay.image;
         }
@@ -853,7 +890,7 @@ function Player() {
 
                     let itemImage = undefined;
                     let itemLabel = '';
-                    let itemDisplay = getItemDisplay(itemData);
+                    let itemDisplay = getItemDisplay(itemData, {}, playerData.favoriteItems);
                     if (itemDisplay) {
                         itemImage = itemDisplay.image;
                         itemLabel = itemDisplay.label;
