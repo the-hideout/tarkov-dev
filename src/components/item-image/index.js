@@ -126,7 +126,7 @@ function ItemImage({
             width: (w - 1) / 63,
             height: (h - 1) / 63,
         });
-    }, [item, imageLink, imageNaturalDimensons]);
+    }, [item, imageLink, customImageLoadFailed, imageNaturalDimensons]);
 
     const imageUrl = useMemo(() => {
         if (!imageLink || customImageLoadFailed) {
