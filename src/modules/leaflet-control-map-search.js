@@ -19,7 +19,7 @@ L.Control.MapSearch = L.Control.extend({
         info.innerHTML = `<b>${this.options.descriptionText ?? "Supports multisearch (e.g. 'labs, ledx, bitcoin')"}</b>`;
 
         const searchBar = L.DomUtil.create('input');
-        searchBar.classList.add = 'maps-search-wrapper-search-bar';
+        searchBar.classList.add('maps-search-wrapper-search-bar');
         searchBar.setAttribute('type', 'text');
         searchBar.setAttribute(
             'placeholder',

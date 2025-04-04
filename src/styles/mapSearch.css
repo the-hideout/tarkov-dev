@@ -4,7 +4,7 @@
 }
 
 .maps-search-wrapper {
-  margin: 10px 0px;
+  margin: 10px 0px !important;
   display: flex;
   flex-direction: column;
   background-color: transparent !important;
