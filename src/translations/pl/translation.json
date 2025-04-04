@@ -90,6 +90,8 @@
     "Search item...": "Wyszukaj przedmiot...",
     "Search task...": "Szukaj zadania...",
     "Tasks": "Zadania",
+    "Task, item or container...": "Task, item or container...",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",
     "Items": "Przedmioty",
     "No hideout modules requires this item": "Żaden z modułów kryjówki nie wymaga tego przedmiotu",
     "No unbuilt hideout modules for selected filters but some were hidden by ": "Brak niewybudowanych modułów kryjówki dla wybranych filtrów, ale niektóre ukryto przez ",
