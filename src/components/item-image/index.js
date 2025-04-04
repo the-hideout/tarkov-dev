@@ -179,7 +179,7 @@ function ItemImage({
         maxHeight: '100%',
     };
 
-    const placehoolderImage = useMemo(() => {
+    const placeholderImage = useMemo(() => {
         if (!imageLink || mainImageLoaded) {
             return '';
         }
@@ -438,7 +438,7 @@ function ItemImage({
     return (
         <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
-            {placehoolderImage}
+            {placeholderImage}
             {imageElement}
             {nonFunctionalElement}
             {imageText}
