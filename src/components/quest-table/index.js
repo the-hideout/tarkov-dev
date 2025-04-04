@@ -138,6 +138,9 @@ export function getRewardQuestItems(quest, itemFilter = false) {
     };
     rewardTypes.forEach(rewardType => {
         quest[rewardType].items.forEach(contained => {
+            if (!contained) {
+                return;
+            }
             addItem(contained.item, contained.count, rewardType);
         });
     });

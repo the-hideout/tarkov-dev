@@ -88,6 +88,8 @@
     "Search item...": "Rechercher un article...",
     "Search task...": "Search task...",
     "Tasks": "Tâches",
+    "Task, item or container...": "Task, item or container...",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",
     "Items": "Articles",
     "No hideout modules requires this item": "Aucun module de cachette ne nécessite cet article",
     "No unbuilt hideout modules for selected filters but some were hidden by ": "Pas de modules de mashage non construits pour les filtres sélectionnés mais certains ont été cachés par ",
