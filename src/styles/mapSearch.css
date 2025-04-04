@@ -14,6 +14,24 @@
   min-width: 250px;
 }
 
+.maps-search-wrapper-reset-search {
+  background-color: transparent;
+  color: var(--color-gold-two);
+  border: 0;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-gold-one);
+  }
+}
+
 .maps-search-wrapper-info {
   margin: 5px 0px;
   font-size: 12px;

@@ -26,12 +26,21 @@ L.Control.MapSearch = L.Control.extend({
             this.options.placeholderText ?? 'Task, item or container...',
         );
 
+        const resetSearch = L.DomUtil.create('button');
+        resetSearch.classList.add('maps-search-wrapper-reset-search');
+        resetSearch.innerHTML = "X";
+
         const markers = {
             objectiveMarkers: [],
             nonObjectiveMarkers: [],
             itemAndContainerMarkers: [],
             allMarkers: [],
         };
+
+        resetSearch.addEventListener('click', () => {
+            searchBar.value = '';
+            searchBar.dispatchEvent(new Event('input'));
+        })
 
         // Prevent zooming of the map by double clicking the search field
         searchBar.addEventListener('dblclick', (e) => {
@@ -127,6 +136,7 @@ L.Control.MapSearch = L.Control.extend({
 
         wrapper.append(searchBar);
         wrapper.append(info);
+        wrapper.append(resetSearch);
         return wrapper;
     },
 });
