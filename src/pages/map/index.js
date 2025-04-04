@@ -15,7 +15,7 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
-import '../../modules/leaflet-control-quest-search.js';
+import '../../modules/leaflet-control-map-search.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -578,9 +578,10 @@ function Map() {
             bylabel: t('By'),
         }).addTo(map);
 
-        L.control.questSearch({
+        L.control.mapSearch({
             quests,
-            placeholderText: t('Search task...'),
+            placeholderText: t('Task, item or container...'),
+            descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
@@ -1362,6 +1363,7 @@ function Map() {
                     icon: lootIcon, 
                     title: markerTitle,
                     position: looseLoot.position,
+                    items: lootItems.map((item) => item.name),
                 });
 
                 const popup = L.DomUtil.create('div');

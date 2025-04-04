@@ -1,0 +1,42 @@
+/*** Quest-Search Leaflet Module ***/
+.pulse {
+  animation: pulse .75s infinite alternate;
+}
+
+.maps-search-wrapper {
+  margin: 10px 0px !important;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent !important;
+}
+
+.maps-search-wrapper-search-bar {
+  min-width: 250px;
+}
+
+.maps-search-wrapper-reset-search {
+  background-color: transparent;
+  color: var(--color-gold-two);
+  border: 0;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-gold-one);
+  }
+}
+
+.maps-search-wrapper-info {
+  margin: 5px 0px;
+  font-size: 12px;
+}
+
+@keyframes pulse {
+  from { opacity: .75; } 
+}
