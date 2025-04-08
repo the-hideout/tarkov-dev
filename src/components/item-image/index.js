@@ -59,11 +59,10 @@ function ItemImage({
 
     const refImage = useRef();
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
-    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 0, height: 0});
-    const [itemSize, setItemSize] = useState({width: item.width, height: item.height});
+    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 1, height: 1});
+    const [itemSize, setItemSize] = useState({width: 1, height: 1});
     const [mainImageLoaded, setMainImageLoaded] = useState(false);
     const [customImageLoadFailed, setCustomImageLoadFailed] = useState(false);
-
     useEffect(() => {
         if (!refImage.current) {
             return;
@@ -104,6 +103,16 @@ function ItemImage({
             resizeObserver.disconnect();
         };
     }, [imageDimensions]);
+
+    useEffect(() => {
+        if (!item.width) {
+            return;
+        }
+        setItemSize({
+            width: item.width,
+            height: item.height,
+        });
+    }, [item]);
 
     useEffect(() => {
         if (!imageLink) {
