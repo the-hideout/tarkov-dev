@@ -70,17 +70,18 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
-            if (refImage.current.naturalWidth === 0) {
-                setCustomImageLoadFailed(true);
-            } else {
-                setMainImageLoaded(true);
-            }
             setNaturalImageDimensions({
                 width: refImage.current.naturalWidth,
                 height: refImage.current.naturalHeight,
             });
             if (refImage.current.width === imageDimensions.width && refImage.current.height === imageDimensions.height) {
                 return;
+            }
+            if (refImage.current.naturalWidth === 0) {
+                console.log('load failed')
+                setCustomImageLoadFailed(true);
+            } else {
+                setMainImageLoaded(true);
             }
             setImageDimensions({
                 width: refImage.current.width,
