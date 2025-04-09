@@ -59,6 +59,7 @@ function ItemImage({
 
     const refImage = useRef();
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
+    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 1, height: 1});
     const [mainImageLoaded, setMainImageLoaded] = useState(false);
     const [customImageLoadFailed, setCustomImageLoadFailed] = useState(false);
     useEffect(() => {
@@ -69,6 +70,15 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
+            if (refImage.current.naturalWidth === 0) {
+                setCustomImageLoadFailed(true);
+            } else {
+                setMainImageLoaded(true);
+            }
+            setNaturalImageDimensions({
+                width: refImage.current.naturalWidth,
+                height: refImage.current.naturalHeight,
+            });
             if (refImage.current.width === imageDimensions.width && refImage.current.height === imageDimensions.height) {
                 return;
             }
@@ -91,24 +101,6 @@ function ItemImage({
             intersectionObserver.disconnect();
             resizeObserver.disconnect();
         };
-    }, [imageDimensions]);
-
-    const imageNaturalDimensons = useMemo(() => {
-        const dimensions = {
-            width: 64,
-            height: 64,
-        };
-        if (!refImage.current) {
-            return dimensions;
-        }
-        if (refImage.current.naturalWidth === 0) {
-            setCustomImageLoadFailed(true);
-        } else {
-            setMainImageLoaded(true);
-        }
-        dimensions.width = refImage.current.naturalWidth;
-        dimensions.height = refImage.current.naturalHeight;
-        return dimensions;
     }, [imageDimensions]);
 
     const itemSize = useMemo(() => {
