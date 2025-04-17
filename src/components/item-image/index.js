@@ -78,7 +78,6 @@ function ItemImage({
                 return;
             }
             if (refImage.current.naturalWidth === 0) {
-                console.log('load failed')
                 setCustomImageLoadFailed(true);
             } else {
                 setMainImageLoaded(true);
