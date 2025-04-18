@@ -59,11 +59,9 @@ function ItemImage({
 
     const refImage = useRef();
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
-    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 0, height: 0});
-    const [itemSize, setItemSize] = useState({width: item.width, height: item.height});
+    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 1, height: 1});
     const [mainImageLoaded, setMainImageLoaded] = useState(false);
     const [customImageLoadFailed, setCustomImageLoadFailed] = useState(false);
-
     useEffect(() => {
         if (!refImage.current) {
             return;
@@ -72,6 +70,10 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
+            setNaturalImageDimensions({
+                width: refImage.current.naturalWidth,
+                height: refImage.current.naturalHeight,
+            });
             if (refImage.current.width === imageDimensions.width && refImage.current.height === imageDimensions.height) {
                 return;
             }
@@ -80,10 +82,6 @@ function ItemImage({
             } else {
                 setMainImageLoaded(true);
             }
-            setNaturalImageDimensions({
-                width: refImage.current.naturalWidth,
-                height: refImage.current.naturalHeight,
-            });
             setImageDimensions({
                 width: refImage.current.width,
                 height: refImage.current.height,
@@ -105,27 +103,30 @@ function ItemImage({
         };
     }, [imageDimensions]);
 
-    useEffect(() => {
+    const itemSize = useMemo(() => {
+        const size = {
+            width: 1,
+            height: 1,
+        };
+        if (item?.width) {
+            size.width = item.width;
+            size.height = item.height;
+        }
         if (!imageLink) {
-            return;
+            return size;
         }
         if (imageNaturalDimensons.width === 0) {
-            return;
+            return size;
         }
         if (customImageLoadFailed) {
-            setItemSize({
-                width: item.width,
-                height: item.height,
-            });
-            return;
+            return size;
         }
 
         const w = imageNaturalDimensons.width / 8;
         const h = imageNaturalDimensons.height / 8;
-        setItemSize({
-            width: (w - 1) / 63,
-            height: (h - 1) / 63,
-        });
+        size.width = (w - 1) / 63;
+        size.height = (h - 1) / 63;
+        return size;
     }, [item, imageLink, customImageLoadFailed, imageNaturalDimensons]);
 
     const imageUrl = useMemo(() => {
