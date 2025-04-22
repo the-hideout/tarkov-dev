@@ -314,20 +314,9 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
   margin: 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.filter-wrapper.open {
+    z-index: 2;
+}
 
 @media screen and (min-width: 800px) {
     .control-wrapper {
@@ -353,4 +342,5 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     }
 }
 
-@import './styles/singleEntity.css'
+@import './styles/singleEntity.css';
+@import './styles/mapSearch.css';

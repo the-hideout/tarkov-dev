@@ -14,6 +14,7 @@ import {
     mdiBeach,
     mdiPineTree,
     mdiEarthBox,
+    mdiEmoticonDevil,
 } from '@mdi/js';
 
 import doFetchMaps from './do-fetch-maps.mjs';
@@ -127,6 +128,7 @@ export const useMapImages = () => {
                 locks: apiData?.locks || [],
                 hazards: apiData?.hazards || [],
                 lootContainers: apiData?.lootContainers || [],
+                lootLoose: apiData?.lootLoose ?? [],
                 switches: apiData?.switches || [],
                 stationaryWeapons: apiData?.stationaryWeapons || [],
                 artillery: apiData?.artillery,
@@ -195,6 +197,7 @@ export const mapIcons = {
     'factory': mdiFactory,
     'interchange': mdiStore24Hour,
     'the-lab': mdiNeedle,
+    'the-labyrinth': mdiEmoticonDevil,
     'lighthouse': mdiLighthouse,
     'reserve': mdiTank,
     'shoreline': mdiBeach,

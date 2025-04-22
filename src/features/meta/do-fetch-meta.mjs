@@ -37,6 +37,7 @@ class MetaQuery extends APIQuery {
             playerLevels {
                 level
                 exp
+                levelBadgeImageLink
             }
             skills(lang: ${language}) {
                 id

@@ -39,6 +39,7 @@ function ItemImage({
     station,
     className,
     style,
+    imageLink,
 }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -58,6 +59,9 @@ function ItemImage({
 
     const refImage = useRef();
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
+    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({width: 1, height: 1});
+    const [mainImageLoaded, setMainImageLoaded] = useState(false);
+    const [customImageLoadFailed, setCustomImageLoadFailed] = useState(false);
     useEffect(() => {
         if (!refImage.current) {
             return;
@@ -66,8 +70,17 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
+            setNaturalImageDimensions({
+                width: refImage.current.naturalWidth,
+                height: refImage.current.naturalHeight,
+            });
             if (refImage.current.width === imageDimensions.width && refImage.current.height === imageDimensions.height) {
                 return;
+            }
+            if (refImage.current.naturalWidth === 0) {
+                setCustomImageLoadFailed(true);
+            } else {
+                setMainImageLoaded(true);
             }
             setImageDimensions({
                 width: refImage.current.width,
@@ -90,19 +103,77 @@ function ItemImage({
         };
     }, [imageDimensions]);
 
+    const itemSize = useMemo(() => {
+        const size = {
+            width: 1,
+            height: 1,
+        };
+        if (item?.width) {
+            size.width = item.width;
+            size.height = item.height;
+        }
+        if (!imageLink) {
+            return size;
+        }
+        if (imageNaturalDimensons.width === 0) {
+            return size;
+        }
+        if (customImageLoadFailed) {
+            return size;
+        }
+
+        const w = imageNaturalDimensons.width / 8;
+        const h = imageNaturalDimensons.height / 8;
+        size.width = (w - 1) / 63;
+        size.height = (h - 1) / 63;
+        return size;
+    }, [item, imageLink, customImageLoadFailed, imageNaturalDimensons]);
+
+    const imageUrl = useMemo(() => {
+        if (!imageLink || customImageLoadFailed) {
+            return item[imageField];
+        }
+        return imageLink;
+    }, [item, imageField, imageLink, customImageLoadFailed]);
+
+    const maxImageSize = useMemo(() => {
+        const max = {
+            width: (itemSize.width * 63) + 1,
+            height: (itemSize.height * 63) + 1,
+        };
+        if (imageField === 'iconLink') {
+            max.width = 64;
+            max.height = 64;
+        }
+        if (imageField === 'image8xLink') {
+            max.width *= 8;
+            max.height *= 8;
+        }
+        if (imageField === 'image512pxLink') {
+            max.width = 512;
+            max.height = 512;
+        }
+        return max;
+    }, [itemSize, imageField]);
+
+    const imageScale = useMemo(() => {
+        const w = imageDimensions.width || (itemSize.width * 63) + 1;
+        return w / ((itemSize.width * 63) + 1);
+    }, [imageDimensions, itemSize]);
+
     const loadingImage = useMemo(() => {
         if (!item.types?.includes('loading')) {
             return <></>;
         }
         const loadingStyle = {
-            WebkitMask:`url(${item[imageField]}) center/cover`,
-                  mask:`url(${item[imageField]}) center/cover`,
+            WebkitMask:`url(${imageUrl}) center/cover`,
+                  mask:`url(${imageUrl}) center/cover`,
         };
         
         return (
             <div className="item-image-mask" style={loadingStyle}></div>
         );
-    }, [item, imageField]);
+    }, [item, imageUrl]);
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
@@ -121,6 +192,51 @@ function ItemImage({
         maxHeight: '100%',
     };
 
+    const placeholderImage = useMemo(() => {
+        if (!imageLink || mainImageLoaded) {
+            return '';
+        }
+        const imageStyle = {};
+        if (item.types?.includes('loading')) {
+            imageStyle.display = 'none';
+        }
+        if (imageViewer) {
+            imageStyle.cursor = 'zoom-in';
+        }
+        imageStyle.maxWidth = maxImageSize.width;
+        imageStyle.maxHeight = maxImageSize.height;
+        const img = <img onClick={openImageViewer} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
+        if (linkToItem && !item.types.includes('quest')) {
+            return <Link to={`/item/${item.normalizedName}`}>
+                {img}
+            </Link>;
+        }
+        return img;
+    }, [imageLink, mainImageLoaded, item, imageField, maxImageSize, linkToItem, imageViewer, openImageViewer]);
+
+    const loadingIcon = useMemo(() => {
+        if (!imageLink || mainImageLoaded) {
+            return '';
+        }
+        const elementStyle = {
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            maxWidth: `${32}px`,
+            maxHeight: `${32}px`,
+        };
+        const imageStyle = {
+            maxWidth: `${32}px`,
+            maxHeight: `${32}px`,
+        };
+        return <div style={elementStyle}>
+            <img src={'/images/loading.gif'} alt={t('Loading...')} loading="lazy" style={imageStyle}/>
+        </div>
+    }, [imageLink, mainImageLoaded, t]);
+
     const imageElement = useMemo(() => {
         const imageStyle = {};
         if (item.types?.includes('loading')) {
@@ -129,20 +245,19 @@ function ItemImage({
         if (imageViewer) {
             imageStyle.cursor = 'zoom-in';
         }
+        if (imageLink) {
+            imageStyle.maxWidth = maxImageSize.width;
+            imageStyle.maxHeight = maxImageSize.height;
+        }
         //console.log(dimensions);
-        const img = <img ref={refImage} onClick={openImageViewer} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
+        const img = <img ref={refImage} onClick={openImageViewer} src={imageUrl} alt={item.name} loading="lazy" style={imageStyle}/>;
         if (linkToItem && !item.types.includes('quest')) {
             return <Link to={`/item/${item.normalizedName}`}>
                 {img}
             </Link>;
         }
         return img;
-    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem]);
-
-    const imageScale = useMemo(() => {
-        const w = imageDimensions.width || (item.width * 63) + 1
-        return w / ((item.width * 63) + 1);
-    }, [imageDimensions, item]);
+    }, [item, refImage, imageUrl, openImageViewer, imageViewer, linkToItem, maxImageSize, imageLink]);
     
     const textSize = useMemo(() => {
         return Math.min(12 * imageScale, 16);
@@ -152,10 +267,10 @@ function ItemImage({
         const color = colors[item.backgroundColor];
         return {
             colorString: `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`,
-            gridPercentX: (1 / item.width) * 100,
-            gridPercentY: (1 / item.height) * 100,
+            gridPercentX: (1 / itemSize.width) * 100,
+            gridPercentY: (1 / itemSize.height) * 100,
         };
-    }, [item]);
+    }, [item, itemSize]);
 
     const nonFunctionalElement = useMemo(() => {
         if (!nonFunctionalOverlay || !item.types.includes('gun') || !item.properties?.defaultPreset) {
@@ -215,16 +330,16 @@ function ItemImage({
         }
         let sizeFactor = 1;
         if (imageField === 'image512pxLink') {
-            sizeFactor = 512 / ((item.width * 63) + 1);
-            if (item.height > item.width) {
-                sizeFactor = 512 / ((item.height * 63) + 1);
+            sizeFactor = 512 / ((itemSize.width * 63) + 1);
+            if (itemSize.height > itemSize.width) {
+                sizeFactor = 512 / ((itemSize.height * 63) + 1);
             }
         }
         if (imageField === 'image8xLink') {
             sizeFactor = 8;
         }
-        let width = imageDimensions.width || (((item.width * 63) + 1) * sizeFactor);
-        let height = imageDimensions.height || (((item.height * 63) + 1) * sizeFactor);
+        let width = imageDimensions.width || (((itemSize.width * 63) + 1) * sizeFactor);
+        let height = imageDimensions.height || (((itemSize.height * 63) + 1) * sizeFactor);
         const gridSvg = () => 
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <defs>
@@ -254,7 +369,7 @@ function ItemImage({
             maxWidth:  `${width}px`,
         };
         return backgroundStyle;
-    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions, toolOverride, nonFunctional]);
+    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, itemSize, imageDimensions, toolOverride, nonFunctional]);
 
     const imageTextStyle = useMemo(() => {
         if (imageField === 'iconLink' || item.types.includes('loading')) {
@@ -336,6 +451,7 @@ function ItemImage({
     return (
         <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
+            {placeholderImage}
             {imageElement}
             {nonFunctionalElement}
             {imageText}
@@ -368,6 +484,7 @@ function ItemImage({
                     </Link>
                 </Tippy>
             </div>}
+            {loadingIcon}
             {children}
             {isViewerOpen && (
                 <ImageViewer

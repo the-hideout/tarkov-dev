@@ -131,6 +131,7 @@ const defaultSettings = {hasFlea: localStorageReadJson('useFlea', true),
     'solar-power': localStorageReadJson('solar-power', 0),
     'crafting': localStorageReadJson('crafting', 0),
     'hideout-management': localStorageReadJson('hideout-management', 0),
+    'metabolism': localStorageReadJson('metabolism', 0),
     minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
     hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
 };
@@ -185,7 +186,7 @@ const settingsSlice = createSlice({
             );
         },
         setPlayerPosition: (state, action) => {
-            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position} : null;
+            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position, rotation : action.payload.rotation} : null;
             state.playerPosition = newPosition;
             localStorageWriteJson(
                 'playerPosition',
@@ -273,6 +274,7 @@ export const selectAllSkills = createSelector([selectSettings], (settings) => {
     return {
         crafting: settings[settings.gameMode].crafting,
         'hideout-management': settings[settings.gameMode]['hideout-management'],
+        metabolism: settings[settings.gameMode].metabolism,
     };
 });
 

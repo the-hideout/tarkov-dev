@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
-    mdiAccountDetails,
     mdiTrophy,
     mdiChartLine,
     mdiBagPersonal,
@@ -35,23 +34,17 @@ import { wipeDetails } from '../../modules/wipe-length.js';
 
 import './index.css';
 
-function getDHMS(seconds) {
-    // calculate (and subtract) whole days
-    const secondsPerDay = 24 * 60 * 60;
-    const days = Math.floor(seconds / secondsPerDay);
-    seconds -= (days * secondsPerDay);
-
+function getHMS(seconds) {
     // calculate (and subtract) whole hours
-    const secondsPerHour = secondsPerDay / 24;
-    const hours = Math.floor(seconds / secondsPerHour) % 24;
+    const secondsPerHour = 60 * 60;
+    const hours = Math.trunc(seconds / secondsPerHour);
     seconds -= (hours * secondsPerHour);
 
     // calculate (and subtract) whole minutes
-    const minutes = Math.floor(seconds / 60) % 60;
+    const minutes = Math.trunc(seconds / 60) % 60;
     seconds -= (minutes * 60);
 
     return {
-        days,
         hours,
         minutes,
         seconds,
@@ -73,6 +66,8 @@ const memberFlags = {
     Unheard: 1024,
 }
 
+const defaultProfileImageLink = 'https://assets.tarkov.dev/profile-loading.webp';
+
 function Player() {
     const turnstileRef = useRef();
     const inputFile = useRef() 
@@ -84,28 +79,36 @@ function Player() {
 
     const [accountId, setAccountId] = useState(params.accountId);
 
+    const loadingProfile = useMemo(() => {
+        return {
+            aid: 0,
+            info: {
+                nickname: t('Loading'),
+                side: t('Loading'),
+                experience: 0,
+                memberCategory: 0,
+                bannedState: false,
+                bannedUntil: 0,
+                prestigeLevel: 0,
+            },
+            customization: {},
+            skills: {},
+            equipment: {},
+            achievements: {},
+            favoriteItems: [],
+            pmcStats: {},
+            scavStats: {},
+        };
+    }, [t]);
+
+    const loadingProfileRef = useRef(loadingProfile);
+
     useEffect(() => {
         setAccountId(params.accountId);
+        setPlayerData(loadingProfileRef.current);
     }, [params, setAccountId]);
 
-    const [playerData, setPlayerData] = useState({
-        aid: 0,
-        info: {
-            nickname: t('Loading'),
-            side: t('Loading'),
-            experience: 0,
-            memberCategory: 0,
-            bannedState: false,
-            bannedUntil: 0,
-        },
-        customization: {},
-        skills: {},
-        equipment: {},
-        achievements: {},
-        favoriteItems: [],
-        pmcStats: {},
-        scavStats: {},
-    });
+    const [playerData, setPlayerData] = useState(loadingProfile);
     const [profileError, setProfileError] = useState(false);
     //console.log(playerData);
     const { data: items } = useItemsData();
@@ -114,6 +117,9 @@ function Player() {
     const [turnstileToken, setTurnstileToken] = useState();
     const [ playerBanned, setPlayerBanned ] = useState();
     const bannedButtonRef = useRef();
+    const profileImageRef = useRef();
+    const [profileImageLoaded, setProfileImageLoaded] = useState(false);
+    const [profileImageLoading, setProfileImageLoading] = useState(false);
 
     const fetchProfile = useCallback(async () => {
         const token = turnstileRef?.current?.getResponse();
@@ -208,35 +214,48 @@ function Player() {
 
     const currentWipe = wipeDetails()[0];
 
+    useEffect(() => {
+        if (playerData.aid === 0) {
+            setProfileImageLoaded(false);
+            setProfileImageLoading(false);
+        }
+    }, [playerData]);
+
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
-            return 0;
+            return '';
         }
         let expTotal = 0;
+        let level = 0;
+        let levelImageLink;
         for (let i = 0; i < metaData.playerLevels.length; i++) {
             const levelData = metaData.playerLevels[i];
             expTotal += levelData.exp;
             if (expTotal === playerData.info.experience) {
-                return levelData.level;
+                level = levelData.level;
+                levelImageLink = levelData.levelBadgeImageLink;
+                break;
             }
             if (expTotal > playerData.info.experience) {
-                return metaData.playerLevels[i - 1].level;
+                level = metaData.playerLevels[i - 1].level;
+                levelImageLink = metaData.playerLevels[i - 1].levelBadgeImageLink;
+                break;
             }
-
         }
-        return metaData.playerLevels[metaData.playerLevels.length - 1].level;
-    }, [playerData, metaData]);
+        return (<div style={{float: 'left'}}>
+            <span style={{verticalAlign: 'top', display: 'inline-block', textAlign: 'center'}}>
+                <img src={levelImageLink} alt={t('Level {{playerLevel}}', {playerLevel: level})}/>
+                <span style={{display: 'block'}}>{t('Level {{playerLevel}}', {playerLevel: level})}</span>
+            </span>
+        </div>);
+    }, [playerData, metaData, t]);
 
-    const pageTitle = useMemo(() => {
-        if (!playerData.aid) {
-            return t('Loading...');
+    const prestigeImage = useMemo(() => {
+        if (!playerData.info.prestigeLevel) {
+            return '';
         }
-        return t('{{playerName}} - level {{playerLevel}} {{playerSide}}', {
-            playerName: playerData.info.nickname,
-            playerLevel,
-            playerSide: playerData.info.side,
-        });
-    }, [playerData, playerLevel, t]);
+        return <div style={{float: 'left'}}><img src={`https://assets.tarkov.dev/prestige-${playerData.info.prestigeLevel}-icon.png`} alt={t('Prestige {{prestigeLevel}}', {prestigeLevel: playerData.info.prestigeLevel})}/></div>
+    }, [playerData, t]);
 
     const accountCategories = useMemo(() => {
         if (!playerData?.info?.memberCategory) {
@@ -249,7 +268,7 @@ function Player() {
                 flags.push(t(flagName));
             }
         }
-        return <div>{flags.join(', ')}</div>;
+        return flags.join(', ');
     }, [playerData, t]);
 
     const lastActiveDate = useMemo(() => {
@@ -270,7 +289,7 @@ function Player() {
         if (latest === 0) {
             return '';
         }
-        return <div>{t('Last active: {{date}}', {date: new Date(latest * 1000).toLocaleString()})}</div>;
+        return (<p>{t('Last active: {{date}}', {date: new Date(latest * 1000).toLocaleString()})}</p>);
     }, [playerData, t]);
 
     const achievementColumns = useMemo(
@@ -696,17 +715,58 @@ function Player() {
         if (!totalSecondsInGame) {
             return '';
         }
-        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
-        const formattedTime = t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
-            days,
+        const { hours, minutes, seconds } = getHMS(totalSecondsInGame);
+        const formattedTime = t('{{hours}} h, {{minutes}} m, {{seconds}} s', {
             hours,
             minutes,
             seconds
         });
-        return (<p>{`${t('Total account time in game')}: ${formattedTime}`}</p>);
+        return (<p>{`${t('Account Time')}: ${formattedTime}`}</p>);
     }, [playerData, t]);
 
-    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}) => {
+    const accountDetails = useMemo(() => {
+        let accountType = '';
+        if (accountCategories) {
+            accountType = <p>{t('Account Type: {{accountTypes}}', {accountTypes: accountCategories})}</p>
+        }
+        return (<div style={{float: 'left'}}>
+            {accountType}            
+            {totalTimeInGame}
+            {lastActiveDate}
+        </div>);       
+    }, [accountCategories, totalTimeInGame, lastActiveDate, t]);
+
+    const getItemParts = useCallback((baseItem, itemPool) => {
+        const customSlots = [
+            'FirstPrimaryWeapon',
+            'SecondPrimaryWeapon',
+            'Holster',
+            'Headwear', // helmets pick up on armor plates, but the display isn't different
+        ];
+        let itemJson;
+        if (baseItem.slotId && !customSlots.includes(baseItem.slotId)) {
+            return itemJson;
+        }
+        itemPool = itemPool.filter(i => items.some(item => item.id === i._tpl)); // filter out soft armor inserts
+        itemJson = {
+            id: baseItem._id,
+            items: [],
+        };
+        for (const i of itemPool) {
+            if (i._id === itemJson.id || itemJson.items.some(ji => ji._id === i.parentId)) {
+                itemJson.items.push({...i});
+            }
+        }
+        if (itemJson.items.length < 2) {
+            itemJson = undefined;
+        } else {
+            delete itemJson.items[0].parentId;
+            delete itemJson.items[0].slotId;
+        }
+        return itemJson;
+    }, [items]);
+
+    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}, itemSource) => {
         let item = items.find(i => i.id === loadoutItem._tpl);
         if (!item) {
             return undefined;
@@ -719,6 +779,12 @@ function Player() {
                 height: preset.height,
                 baseImageLink: preset.baseImageLink,
             };
+        }
+        const itemPartsData = getItemParts(loadoutItem, itemSource);
+        if (itemPartsData) {
+            const params = new URLSearchParams();
+            params.append('data', JSON.stringify(itemPartsData));
+            imageOptions.imageLink = `https://imagemagic.tarkov.dev/${itemPartsData.id}.webp?${params}`;
         }
         let countLabel;
 
@@ -779,13 +845,14 @@ function Player() {
         const itemImage = (
             <ItemImage
                 item={item}
+                imageLink={imageOptions?.imageLink}
                 imageField={imageOptions?.imageField || 'baseImageLink'}
                 linkToItem={imageOptions?.linkToItem}
                 count={countLabel}
             />
         );
         return { image: itemImage, label };
-    }, [items, t, gameMode]);
+    }, [items, t, gameMode, getItemParts]);
 
     const getLoadoutContents = useCallback((parentItem, itemType = 'loadout') => {
         const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;
@@ -793,7 +860,7 @@ function Player() {
             if (loadoutItem.parentId !== parentItem._id) {
                 return contents;
             }
-            const itemDisplay = getItemDisplay(loadoutItem);
+            const itemDisplay = getItemDisplay(loadoutItem, {}, itemSource);
             if (!itemDisplay) {
                 return contents;
             }
@@ -821,7 +888,7 @@ function Player() {
         let itemImage = undefined;
         let itemLabel = '';
         let contents = [];
-        let itemDisplay = getItemDisplay(loadoutItem);
+        let itemDisplay = getItemDisplay(loadoutItem, {}, playerData.equipment.Items);
         if (itemDisplay) {
             itemImage = itemDisplay.image;
         }
@@ -853,7 +920,7 @@ function Player() {
 
                     let itemImage = undefined;
                     let itemLabel = '';
-                    let itemDisplay = getItemDisplay(itemData);
+                    let itemDisplay = getItemDisplay(itemData, {}, playerData.favoriteItems);
                     if (itemDisplay) {
                         itemImage = itemDisplay.image;
                         itemLabel = itemDisplay.label;
@@ -883,7 +950,42 @@ function Player() {
             return;
         }
         fetchProfile();
-    }, [playerData, accountId, turnstileToken, fetchProfile])
+    }, [playerData, accountId, turnstileToken, fetchProfile]);
+
+    const customProfileImageLink = useMemo(() => {
+        if (playerData.aid === 0) {
+            return;
+        }
+
+        const url = new URL(`https://imagemagic.tarkov.dev/player/${playerData.aid}.webp`);
+        url.searchParams.set('data', JSON.stringify({aid: playerData.aid, customization: playerData.customization, equipment: playerData.equipment}));
+        setProfileImageLoading(true);
+        return url.toString();
+    }, [playerData]);
+
+    useEffect(() => {
+        if (!customProfileImageLink) {
+            return;
+        }
+        if (!profileImageRef.current) {
+            return;
+        }
+        profileImageRef.current.src = customProfileImageLink;
+    }, [customProfileImageLink]);
+
+    useEffect(() => {
+        if (playerData.aid === 0) {
+            return;
+        }
+
+    }, [playerData]);
+
+    const profileImageLink = useMemo(() => {
+        if (!profileImageLoaded || !customProfileImageLink) {
+            return defaultProfileImageLink;
+        }
+        return customProfileImageLink;
+    }, [profileImageLoaded, customProfileImageLink]);
 
     const playerSearchDiv = (
         <div>
@@ -896,6 +998,21 @@ function Player() {
                 >
                     <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>    
                 </Tippy>
+                <Turnstile
+                    ref={turnstileRef}
+                    className="turnstile-widget"
+                    siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
+                    onSuccess={setTurnstileToken}
+                    onError={(errorCode) => {
+                        // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
+                        if (errorCode === '110200') {
+                            setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                        } else {
+                            setProfileError(`Turnstile error code ${errorCode}`);
+                        }
+                    }}
+                    options={{appearance: 'interaction-only'}}
+                />
             </p>
         </div>
     );
@@ -917,61 +1034,76 @@ function Player() {
         />,
         <div className={'page-wrapper'} key="player-page-wrapper">
             {playerSearchDiv}
-            <div className="player-headline-wrapper" key="player-headline">
-                <h1 className="player-page-title">
-                    <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text" />
-                    {pageTitle}
-                    {playerData.aid !== 0 && (
-                        <span>
-                            <Tippy
-                                content={t('Save profile')}
-                            >
-                            <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
-                            </Tippy>
+            <div className="entity-information-wrapper">
+                <div className="entity-top-content">
+                    <img
+                        alt={playerData.info.nickname}
+                        className={'entity-information-icon'}
+                        loading="lazy"
+                        src={profileImageLink}
+                    />
+                    <img 
+                        width={1} height={1} ref={profileImageRef} alt=""
+                        onLoad={(e) => {
+                            setProfileImageLoaded(true);
+                            setProfileImageLoading(false);
+                        }}
+                        onError={() => {
+                            setProfileImageLoading(false);
+                        }}
+                    />
+                    <div className="title-bar">
+                        {playerData.aid !== 0 && (
+                            <span className="type">{playerData.info.side.toUpperCase()}</span>
+                        )}
+                        <h1>{playerData.info.nickname}</h1>
+                        <span className="wiki-link-wrapper">
+                            {playerData.aid !== 0 && !playerData.saved && (
+                                <span>
+                                    {typeof playerBanned === 'undefined' && (
+                                        <Tippy content={t('Check if player appears to be banned')}>
+                                            <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
+                                                bannedButtonRef.current.disabled = true;
+                                                checkBanned();
+                                            }}><Icon path={mdiGavel} size={1} className="icon-with-text" /></button>
+                                        </Tippy>
+                                    )}
+                                    {playerBanned === false && (
+                                        <span className="not-banned">{t('Not banned')}</span>
+                                    )}
+                                    {playerBanned === true && (
+                                        <span className="banned">{t('Possibly banned')}</span>
+                                    )}
+                                </span>
+                            )}
+                            {playerData.aid !== 0 && (
+                                <span>
+                                    <Tippy
+                                        content={t('Save profile')}
+                                    >
+                                    <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
+                                    </Tippy>
+                                </span>
+                            )}
                         </span>
-                    )}
-                    {playerData.aid !== 0 && !playerData.saved && (
-                        <span>
-                            {typeof playerBanned === 'undefined' && (
-                                <Tippy content={t('Check if player appears to be banned')}>
-                                    <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
-                                        bannedButtonRef.current.disabled = true;
-                                        checkBanned();
-                                    }}><Icon path={mdiGavel} size={1} className="icon-with-text" /></button>
-                                </Tippy>
-                            )}
-                            {playerBanned === false && (
-                                <span className="not-banned">{t('Not banned')}</span>
-                            )}
-                            {playerBanned === true && (
-                                <span className="banned">{t('Possibly banned')}</span>
-                            )}
-                        </span>
-                    )}
-                </h1>
-                <Turnstile
-                    ref={turnstileRef}
-                    className="turnstile-widget"
-                    siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
-                    onSuccess={setTurnstileToken}
-                    onError={(errorCode) => {
-                        // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
-                        if (errorCode === '110200') {
-                            setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
-                        } else {
-                            setProfileError(`Turnstile error code ${errorCode}`);
-                        }
-                    }}
-                    options={{appearance: 'interaction-only'}}
-                />
+                    </div>
+                    <div className="main-content">
+                        {playerLevel}
+                        {prestigeImage}
+                        {accountDetails}
+                    </div>
+                </div>
+                  <div className="entity-icon-cont">
+                    <div className="entity-icon-and-link-wrapper"
+                      style={{ backgroundImage: `url(${profileImageLink})`, cursor: 'inherit' }}
+                    >
+                        {profileImageLoading && (
+                            <img src={'/images/loading.gif'} alt={t('Loading...')} loading="lazy" style={{maxWidth: `${32}px`,maxHeight: `${32}px`,}}/>
+                        )}
+                    </div>
+                  </div>
             </div>
             <div>
-                {accountCategories}
-                {!!playerData.saved && (
-                    <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
-                )}
-                {totalTimeInGame}
-                {lastActiveDate}
                 {raidsData?.length > 0  && (
                     <>
                         <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>

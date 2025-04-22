@@ -10,13 +10,12 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
+import '../../modules/leaflet-control-map-search.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -321,7 +320,10 @@ function Map() {
     const [mapHeight, setMapHeight] = useState(500);
     useLayoutEffect(() => {
         function updateSize() {
-            let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+            const menuHeight = document.querySelector('.navigation')?.offsetHeight || 0;
+            const bannerHeight = document.querySelector('.MuiBox-root')?.offsetHeight || 0;
+            const cookieConsentHeight = document.querySelector('.CookieConsent')?.offsetHeight || 0;
+            let viewableHeight = window.innerHeight - menuHeight - bannerHeight - cookieConsentHeight;
             if (viewableHeight < 100) {
                 viewableHeight = window.innerHeight;
             }
@@ -574,6 +576,12 @@ function Map() {
             durationLabel: t('Duration'),
             playersLabel: t('Players'),
             bylabel: t('By'),
+        }).addTo(map);
+
+        L.control.mapSearch({
+            quests,
+            placeholderText: t('Task, item or container...'),
+            descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
@@ -921,7 +929,6 @@ function Map() {
             }
         }
 
-        console.log('extracts');
         //add extracts
         if (mapData.extracts.length > 0) {
             const extractLayers = {
@@ -1126,6 +1133,7 @@ function Map() {
                                 position: position,
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
+                                questId: quest.id,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1168,6 +1176,7 @@ function Map() {
                             bottom: zone.bottom,
                             outline: rect,
                             id: zone.id,
+                            questId: quest.id,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
@@ -1280,7 +1289,6 @@ function Map() {
                 if (!positionIsInBounds(containerPosition.position)) {
                     continue;
                 }
-                console.log(containerPosition.lootContainer.normalizedName);
                 const containerIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
@@ -1312,6 +1320,74 @@ function Map() {
                     addLayer(containerLayers[key], `container_${key}`, 'Lootable Items', containerNames[key]);
                 }
             }
+        }
+
+        //add loose loot
+        if (mapData.lootLoose.length > 0) {
+            const looseLootLayer = L.layerGroup();
+            for (const looseLoot of mapData.lootLoose) {
+                if (!positionIsInBounds(looseLoot.position)) {
+                    continue;
+                }
+                const lootItems = items.filter(item => looseLoot.items.some(lootItem => item.id === lootItem.id));
+                if (lootItems.length === 0) {
+                    continue;
+                }
+                let iconSize = [24, 24];
+                let iconUrl = `${process.env.PUBLIC_URL}/maps/interactive/${images.loose_loot}.png`;
+                let markerTitle = t('Loose Loot');
+                let className = '';
+                if (lootItems.length === 1) {
+                    const item = lootItems[0];
+                    iconUrl = item.baseImageLink;
+                    markerTitle = item.name;
+                    className = 'loot-outline';
+                    const pixelWidth = (item.width * 63) + 1;
+                    const pixelHeight = (item.height * 63) + 1;
+                    if (item.width > item.height) {
+                        const scale = 24 / pixelWidth;
+                        iconSize = [24, pixelHeight * scale];
+                    } else {
+                        const scale = 24 / pixelHeight;
+                        iconSize = [pixelWidth * scale, 24];
+                    }
+                }
+                const lootIcon = new L.Icon({
+                    iconUrl,
+                    iconSize,
+                    popupAnchor: [0, -12],
+                    className,
+                });
+                
+                const lootMarker = L.marker(pos(looseLoot.position), {
+                    icon: lootIcon, 
+                    title: markerTitle,
+                    position: looseLoot.position,
+                    items: lootItems.map((item) => item.name),
+                });
+
+                const popup = L.DomUtil.create('div');
+                const popupContent = L.DomUtil.create('div', undefined, popup);
+                //L.DomUtil.create('div', undefined, popupContent).textContent = JSON.stringify(looseLoot.position);
+                for (const lootItem of lootItems) {
+                    //const lootContent = L.DomUtil.create('div', undefined, popupContent);
+                    const lootImage = L.DomUtil.create('img', 'popup-item');
+                    lootImage.setAttribute('src', `${lootItem.baseImageLink}`);
+                    const lootLink = getReactLink(`/item/${lootItem.normalizedName}`, lootImage);
+                    lootLink.setAttribute('title', lootItem.name);
+                    if (className) {
+                        lootLink.append(`${lootItem.name}`);
+                    }
+                    popupContent.append(lootLink);
+                }
+                addElevation(looseLoot, popup);
+                lootMarker.bindPopup(L.popup().setContent(popup));
+                
+                lootMarker.on('add', checkMarkerForActiveLayers);
+                lootMarker.on('click', activateMarkerLayer);
+                lootMarker.addTo(looseLootLayer);
+            }
+            addLayer(looseLootLayer, 'loose_loot', 'Loose Loot', t('Loose Loot'));
         }
 
         //add hazards
@@ -1483,10 +1559,16 @@ function Map() {
         }
         if (showTestMarkers) {
             const positionLayer = L.layerGroup();
-            const playerIcon = L.AwesomeMarkers.icon({
-                icon: 'person-running',
-                prefix: 'fa',
-                markerColor: 'green',
+            const rotation = 45;
+            const image = 'player-position.png';
+            const playerIcon = L.divIcon({
+                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
+                className: 'marker',
+                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12],
+                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
 
             const positionMarker = L.marker([0,0], {icon: playerIcon, position: {x: 0, y: 0, z: 0}}).addTo(positionLayer);
@@ -1503,10 +1585,20 @@ function Map() {
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
             const positionLayer = L.layerGroup();
-            const playerIcon = L.AwesomeMarkers.icon({
-                icon: 'person-running',
-                prefix: 'fa',
-                markerColor: 'green',
+            let addRotation = mapData.coordinateRotation;
+            if (addRotation === 90 || addRotation === 270) {
+                addRotation += 180;
+            }
+            const rotation = (playerPosition.rotation ?? 0) + addRotation;
+            const image = playerPosition.rotation !== undefined ? 'player-position.png' : 'player-position-no-rotation.png';
+            const playerIcon = L.divIcon({
+                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
+                className: 'marker',
+                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12],
+                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
                   
             const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, position: playerPosition.position}).addTo(positionLayer);

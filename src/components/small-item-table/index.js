@@ -34,6 +34,8 @@ import useCraftsData from '../../features/crafts/index.js';
 import useItemsData from '../../features/items/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useMetaData from '../../features/meta/index.js';
+import { selectAllSkills } from '../../features/settings/settingsSlice.js';
+
 import CanvasGrid from '../../components/canvas-grid/index.js';
 
 import './index.css';
@@ -256,7 +258,7 @@ function SmallItemTable(props) {
         soundSuppression,
         blocksHeadset,
         showAttachments,
-        includeBlockingHeadset,
+        includeBlockingHeadset = true,
         ergonomics,
         ergoCost,
         recoilModifier,
@@ -278,6 +280,7 @@ function SmallItemTable(props) {
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
+    const skills = useSelector(selectAllSkills);
 
     const { data: meta } = useMetaData();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
@@ -854,7 +857,28 @@ function SmallItemTable(props) {
                     return false;
                 }).map(parentItem => formatItem(parentItem));
             });
-        } 
+        }
+
+        if (energy || hydration || hydrationCost || energyCost || provisionValue) {
+            returnData.forEach(item => {
+                const hyd = item.properties.hydration;
+                if (hyd) {
+                    let change = item.properties.hydration * Math.min(skills.metabolism * 0.01, 0.5);
+                    if (change < 0) {
+                        change *= -1;
+                    }
+                    item.metabolismHydration = Math.round(item.properties.hydration + change);
+                }
+                const eng = item.properties.energy;
+                if (eng) {
+                    let change = item.properties.energy * Math.min(skills.metabolism * 0.01, 0.5);
+                    if (change < 0) {
+                        change *= -1;
+                    }
+                    item.metabolismEnergy = Math.round(item.properties.energy + change);
+                }
+            });
+        }
 
         return returnData;
     }, [
@@ -907,6 +931,12 @@ function SmallItemTable(props) {
         softArmorFilter,
         plateArmorFilter,
         customFilter,
+        hydration,
+        energy,
+        hydrationCost,
+        energyCost,
+        provisionValue,
+        skills,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -916,7 +946,7 @@ function SmallItemTable(props) {
         data.forEach(item => {
             if (item.properties.hydration > 0) {
                 if (item.cheapestObtainPrice) {
-                    const hydrationCost = item.cheapestObtainPrice / item.properties.hydration;
+                    const hydrationCost = item.cheapestObtainPrice / item.metabolismHydration;
                     if (hydrationCost < lowHyd) {
                         lowHyd = hydrationCost;
                     }
@@ -940,9 +970,11 @@ function SmallItemTable(props) {
         data.forEach(item => {
             if (item.properties.energy > 0) {
                 if (item.cheapestObtainPrice) {
-                    let energyCost = item.cheapestObtainPrice / item.properties.energy;
-                    if (item.properties.hydration < 0 && totalEnergyCost) {
-                        energyCost = energyCost + ((item.properties.hydration * -1) * lowHydrationCost);
+                    let energyCost = item.cheapestObtainPrice / item.metabolismEnergy;
+                    if (item.metabolismHydration < 0 && totalEnergyCost) {
+                        const totalHydrationCost = ((item.metabolismHydration * -1) * lowHydrationCost);
+                        const hydrationCostPerEnergy = totalHydrationCost / item.metabolismEnergy;
+                        energyCost = energyCost + hydrationCostPerEnergy;
                     }
                     if (energyCost > 0 && energyCost < lowEng) {
                         lowEng = energyCost;
@@ -1512,7 +1544,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Hydration'),
                 id: 'hydration',
-                accessor: (item) => item.properties.hydration,
+                accessor: (item) => item.metabolismHydration ?? 0,
                 sortType: (a, b) => {
                     return a.values.hydration - b.values.hydration;
                 },
@@ -1525,7 +1557,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Energy'),
                 id: 'energy',
-                accessor: (item) => item.properties.energy,
+                accessor: (item) => item.metabolismEnergy ?? 0,
                 Cell: CenterCell,
                 position: energy,
             });
@@ -1539,10 +1571,10 @@ function SmallItemTable(props) {
                     if (!item.cheapestObtainPrice) {
                         return 0;
                     }
-                    if (!item.properties.hydration || item.properties.hydration < 0) {
+                    if (!item.metabolismHydration || item.metabolismHydration < 0) {
                         return Number.MAX_SAFE_INTEGER;
                     }
-                    return item.cheapestObtainPrice / item.properties.hydration;
+                    return item.cheapestObtainPrice / item.metabolismHydration;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1566,14 +1598,16 @@ function SmallItemTable(props) {
                     if (!item.cheapestObtainPrice) {
                         return 0;
                     }
-                    if (!item.properties.energy || item.properties.energy < 0) {
+                    if (!item.metabolismEnergy || item.metabolismEnergy < 0) {
                         return Number.MAX_SAFE_INTEGER;
                     }
                     
-                    if (item.properties.hydration && item.properties.hydration < 0 && totalEnergyCost) {
-                        return (item.cheapestObtainPrice / item.properties.energy) + (item.properties.hydration * -1) * lowHydrationCost;
+                    let hydrationCostPerEnergyUnit = 0;
+                    if (item.metabolismHydration && item.metabolismHydration < 0 && totalEnergyCost) {
+                        const totalHydrationCost = (item.metabolismHydration * -1) * lowHydrationCost;
+                        hydrationCostPerEnergyUnit = Math.round(totalHydrationCost / item.metabolismEnergy);
                     }
-                    return item.cheapestObtainPrice / item.properties.energy;
+                    return (item.cheapestObtainPrice / item.metabolismEnergy) + hydrationCostPerEnergyUnit;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1596,11 +1630,11 @@ function SmallItemTable(props) {
                 accessor: (item) => {
                     let hydValue = 0;
                     let engValue = 0;
-                    if (item.properties.hydration > 0) {
-                        hydValue = item.properties.hydration * lowHydrationCost;
+                    if (item.metabolismHydration > 0) {
+                        hydValue = item.metabolismHydration * lowHydrationCost;
                     }
-                    if (item.properties.energy > 0) {
-                        engValue = item.properties.energy * lowEnergyCost;
+                    if (item.metabolismEnergy > 0) {
+                        engValue = item.metabolismEnergy * lowEnergyCost;
                     }
                     return hydValue + engValue;
                 },
