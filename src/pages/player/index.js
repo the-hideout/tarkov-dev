@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
+    mdiAccountQuestion,
+    mdiCheck,
+    mdiCloseCircle,
     mdiTrophy,
     mdiChartLine,
     mdiBagPersonal,
@@ -13,7 +16,6 @@ import {
     mdiAccountSearch,
     mdiDownloadBox,
     mdiFolderOpen,
-    mdiGavel,
 } from '@mdi/js';
 import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import Tippy from '@tippyjs/react';
@@ -1065,14 +1067,14 @@ function Player() {
                                             <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
                                                 bannedButtonRef.current.disabled = true;
                                                 checkBanned();
-                                            }}><Icon path={mdiGavel} size={1} className="icon-with-text" /></button>
+                                            }}><Icon path={mdiAccountQuestion} size={1} className="icon-with-text" /></button>
                                         </Tippy>
                                     )}
                                     {playerBanned === false && (
-                                        <span className="not-banned">{t('Not banned')}</span>
+                                        <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
                                     )}
                                     {playerBanned === true && (
-                                        <span className="banned">{t('Possibly banned')}</span>
+                                        <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
                                     )}
                                 </span>
                             )}
