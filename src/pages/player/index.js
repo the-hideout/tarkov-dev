@@ -220,6 +220,7 @@ function Player() {
         if (playerData.aid === 0) {
             setProfileImageLoaded(false);
             setProfileImageLoading(false);
+            setPlayerBanned(undefined);
         }
     }, [playerData]);
 
