@@ -462,6 +462,9 @@ function Player() {
                 id: 'kdr',
                 accessor: 'kills',
                 Cell: (props) => {
+                    if (props.value === 0) {
+                        return '0';
+                    }
                     return (props.value / props.row.original.kia).toFixed(2);
                 },
             },
@@ -1107,27 +1110,6 @@ function Player() {
                   </div>
             </div>
             <div>
-                {raidsData?.length > 0  && (
-                    <>
-                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
-                        <DataTable
-                            key="raids-table"
-                            columns={raidsColumns}
-                            data={raidsData}
-                        />
-                    </>
-                )}
-                {achievementsData?.length > 0  && (
-                    <>
-                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
-                        <DataTable
-                            key="achievements-table"
-                            columns={achievementColumns}
-                            data={achievementsData}
-                            sortBy={'completionDate'}
-                        />
-                    </>
-                )}
                 {playerData.equipment?.Items?.length > 0 && (
                     <>
                         <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
@@ -1154,6 +1136,27 @@ function Player() {
                     </>
                 )}
                 {favoriteItemsContent}
+                {raidsData?.length > 0  && (
+                    <>
+                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                        />
+                    </>
+                )}
+                {achievementsData?.length > 0  && (
+                    <>
+                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
+                        <DataTable
+                            key="achievements-table"
+                            columns={achievementColumns}
+                            data={achievementsData}
+                            sortBy={'completionDate'}
+                        />
+                    </>
+                )}
                 {skillsData?.length > 0 && (
                     <>
                         <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>
