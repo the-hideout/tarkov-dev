@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: marksoftbot-api
+  namespace: marksoftbot
+  labels:
+    app: marksoftbot
+    component: api
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3002
+      targetPort: 3002
+  selector:
+    app: marksoftbot
+    component: api
+  sessionAffinity: None 

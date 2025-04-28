@@ -1,0 +1,7 @@
+.countdown-wrapper.center {
+    text-align: center;
+}
+
+.countdown-wrapper.center .countdown-text-wrapper {
+    display: block;
+}

@@ -1,0 +1,28 @@
+.become-supporter-wrapper {
+    text-align: center;
+}
+
+.become-supporter-wrapper.only-large {
+    display: none;
+}
+
+.become-supporter-wrapper a {
+    color: #fff;
+    font-size: 0.875rem;
+    font-family: 'America', 'GT America', 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    background-color: rgb(255, 66, 77);
+    border-radius: 20px;
+    padding: 10px 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.become-supporter-wrapper a.alternate-style {
+    padding: 5px 20px;
+    margin-right: 20px;
+    border-radius: 0;
+}
+
+.become-supporter-wrapper svg {
+    margin-right: 0;
+}

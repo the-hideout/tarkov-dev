@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ultimate-twitch-bot
+  namespace: ultimate-twitch-bot
+  labels:
+    app: ultimate-twitch-bot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ultimate-twitch-bot
+  template:
+    metadata:
+      labels:
+        app: ultimate-twitch-bot
+    spec:
+      containers:
+      - name: ultimate-twitch-bot
+        image: yourusername/ultimate-twitch-bot:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: ultimate-twitch-bot-config
+        - secretRef:
+            name: ultimate-twitch-bot-secrets
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: ultimate-twitch-bot-config
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - ultimate-twitch-bot
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        node-role.kubernetes.io/worker: "true" 

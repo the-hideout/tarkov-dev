@@ -1,0 +1,42 @@
+.search-button {
+  padding: .2rem;
+  border-radius: 4px;
+}
+
+.search-button:disabled {
+  background-color: var(--color-gold-two);
+  color: var(--color-gray);
+}
+
+.search-controls {
+    display: flex;
+}
+
+.search-controls input {
+    margin-right: 10px;
+    width: 264px;
+}
+
+.turnstile-widget {
+    margin-top: 20px;
+}
+
+.error {
+    color: var(--color-red);
+}
+
+.name-results-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.game-mode .select__control {
+    color: var(--color-gray);
+    background-color: var(--color-gunmetal-dark);
+    border-color: var(--color-gold-two);
+}
+
+.game-mode .select__single-value {
+    color: var(--primary-color-white);
+}

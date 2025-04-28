@@ -1,0 +1,84 @@
+[
+    {
+        "normalizedName": "rogue",
+        "spawnChanceOverride": [
+            {
+                "chance": 1,
+                "map": "lighthouse"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rogues",
+        "behavior": "Patrol"
+    },
+    {
+        "normalizedName": "raider",
+        "spawnChanceOverride": [
+            {
+                "chance": 1,
+                "map": "the-lab"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders",
+        "behavior": "Rush"
+    },
+    {
+        "normalizedName": "kaban",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/kaban",
+        "behavior": "Tank"
+    },
+    {
+        "normalizedName": "cultist-priest",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
+        "behavior": "Stalker"
+    },
+    {
+        "normalizedName": "knight",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
+        "behavior": "Rush"
+    },
+    {
+        "normalizedName": "glukhar",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
+        "behavior": "Hostile and accurate"
+    },
+    {
+        "normalizedName": "killa",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
+        "behavior": "Patrol and highly armored"
+    },
+    {
+        "normalizedName": "reshala",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
+        "behavior": "Group patrol"
+    },
+    {
+        "normalizedName": "sanitar",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
+        "behavior": "Frequent healing and stim injections"
+    },
+    {
+        "normalizedName": "shturman",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
+        "behavior": "Sniper"
+    },
+    {
+        "normalizedName": "tagilla",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
+        "behavior": "Batshit insane"
+    },
+    {
+        "normalizedName": "zryachiy",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Zryachiy",
+        "behavior": "Sniper"
+    },
+    {
+        "normalizedName": "kollontay",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Kollontay",
+        "behavior": ""
+    },
+    {
+        "normalizedName": "partisan",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Partisan",
+        "behavior": ""
+    }
+]

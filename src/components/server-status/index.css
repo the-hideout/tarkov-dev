@@ -1,0 +1,31 @@
+.server-status-wrapper {
+    text-align: center;
+}
+
+.server-status-wrapper a {
+    color: var(--color-gold-one);
+}
+
+.status-indicator {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-left: 10px;
+    width: 10px;
+}
+
+.status-0 {
+    background-color: var(--color-green);
+}
+
+.status-1 {
+    background-color: var(--color-blue);
+}
+
+.status-2 {
+    background-color: var(--color-orange);
+}
+
+.status-3 {
+    background-color: var(--color-red);
+}

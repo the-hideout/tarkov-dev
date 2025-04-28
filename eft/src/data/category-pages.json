@@ -1,0 +1,92 @@
+[
+    {
+        "key": "headsets",
+        "displayText": "Headsets",
+        "icon": "mdiHeadset",
+        "type": "headphones"
+    },
+    {
+        "key": "helmets",
+        "displayText": "Helmets",
+        "icon": "mdiRacingHelmet",
+        "type": "helmet"
+    },
+    {
+        "key": "glasses",
+        "displayText": "Glasses",
+        "icon": "mdiSunglasses",
+        "type": "glasses"
+    },
+    {
+        "key": "armors",
+        "displayText": "Armors",
+        "icon": "mdiTshirtCrew",
+        "type": "armor"
+    },
+    {
+        "key": "rigs",
+        "displayText": "Rigs",
+        "icon": "mdiTshirtCrewOutline",
+        "type": "rig"
+    },
+    {
+        "key": "backpacks",
+        "displayText": "Backpacks",
+        "icon": "mdiBagPersonal",
+        "type": "backpack"
+    },
+    {
+        "key": "guns",
+        "displayText": "Guns",
+        "icon": "mdiPistol",
+        "type": "preset"
+    },
+    {
+        "key": "mods",
+        "displayText": "Mods",
+        "icon": "mdiMagazineRifle",
+        "type": "mods"
+    },
+    {
+        "key": "pistol-grips",
+        "displayText": "Pistol Grips",
+        "icon": "mdiHandPointingLeft",
+        "type": "pistolGrip"
+    },
+    {
+        "key": "suppressors",
+        "displayText": "Suppressors",
+        "icon": "mdiBottleWine",
+        "type": "suppressor"
+    },
+    {
+        "key": "grenades",
+        "displayText": "Grenades",
+        "icon": "mdiGasCylinder",
+        "type": "grenade"
+    },
+    {
+        "key": "containers",
+        "displayText": "Containers",
+        "icon": "mdiArchive",
+        "type": "container"
+    },
+    {
+        "key": "barter-items",
+        "displayText": "Barter Items",
+        "icon": "mdiPliers",
+        "type": "barter"
+    },
+    {
+        "key": "keys",
+        "displayText": "Keys",
+        "icon": "mdiKeyVariant",
+        "type": "keys"
+    },
+    {
+        "key": "provisions",
+        "displayText": "Provisions",
+        "icon": "mdiFoodForkDrink",
+        "type": "provisions"
+    }
+]

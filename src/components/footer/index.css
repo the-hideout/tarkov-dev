@@ -1,0 +1,44 @@
+.footer-wrapper {
+    background-color: var(--color-black);
+    display: flex;
+    flex-flow: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 40px 10px 50px 10px;
+}
+
+.footer-wrapper svg {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 5px;
+}
+
+.footer-section-wrapper {
+    width: 100%;
+}
+
+.copyright-wrapper {
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 800px) {
+    .footer-section-wrapper {
+        width: 20%;
+    }
+}
+
+.discord {
+    display: block;
+    width: 320px;
+    height: 70px;
+    transition: all 0.5s ease-in-out;
+}
+
+.discord:hover {
+    width: 320px;
+    height: 250px;
+}

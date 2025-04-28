@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String?
+  password  String?
+  twitchId  String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Command {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  response    String
+  description String?
+  category    String?
+  cooldown    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Timer {
+  id        String   @id @default(uuid())
+  name      String
+  message   String
+  interval  Int
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Giveaway {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  winnerCount Int      @default(1)
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+}
+
+model Poll {
+  id          String   @id @default(uuid())
+  question    String
+  options     String[]
+  endTime     DateTime
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  poll      Poll     @relation(fields: [pollId], references: [id])
+  pollId    String
+  option    Int
+  username  String
+  createdAt DateTime @default(now())
+}
+
+model EFTItem {
+  id          String   @id @default(uuid())
+  name        String
+  price       Float
+  trader      String?
+  traderPrice Float?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+}
+
+model EFTPriceHistory {
+  id        String   @id @default(uuid())
+  item      EFTItem  @relation(fields: [itemId], references: [id])
+  itemId    String
+  price     Float
+  createdAt DateTime @default(now())
+} 

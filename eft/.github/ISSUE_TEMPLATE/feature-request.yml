@@ -1,0 +1,19 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Feature Request 🏆
+
+        Thanks for taking the time to fill out this feature request!
+
+        Please answer each question below to your best ability. It is okay to leave questions blank if you have to!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Feature Request
+      description: Please describe the feature request in detail
+      placeholder: I would like feature XYZ because ABC

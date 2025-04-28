@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ultimate-twitch-bot-ingress
+  namespace: ultimate-twitch-bot
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - bot.ultimatetwitchbot.com
+    - dashboard.ultimatetwitchbot.com
+    - api.ultimatetwitchbot.com
+    secretName: ultimate-twitch-bot-tls
+  rules:
+  - host: bot.ultimatetwitchbot.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ultimate-twitch-bot-service
+            port:
+              number: 80
+  - host: dashboard.ultimatetwitchbot.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ultimate-twitch-bot-dashboard
+            port:
+              number: 80
+  - host: api.ultimatetwitchbot.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ultimate-twitch-bot-api
+            port:
+              number: 80 

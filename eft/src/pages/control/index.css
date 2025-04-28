@@ -1,0 +1,65 @@
+.control-wrapper {
+    display: flex;
+    flex-flow: column;
+    padding: 15px;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.control-wrapper span {
+    width: 100%;
+}
+
+.control-wrapper input,
+.control-wrapper select {
+    height: 40px;
+    width: 100%;
+}
+
+.control-section {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.control-section select {
+    width: 70%;
+}
+
+.control-section .full-width {
+    width: 100%;
+}
+
+.control-section button {
+    margin-left: auto;
+    width: 28%;
+}
+
+.info-wrapper {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.connection-wrapper {
+    bottom: 2vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+}
+
+.connection-wrapper input,
+.connection-wrapper select {
+    height: 40px;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    width: calc(50% - 2px);
+}
+
+.connection-wrapper input[type='submit']:active {
+    position: relative;
+    top: 1px;
+}

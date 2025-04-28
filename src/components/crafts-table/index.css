@@ -1,0 +1,8 @@
+.duration-wrapper, .finish-wrapper {
+    color: var(--color-gray-light);
+    font-size: 14px;
+}
+
+.finish-wrapper {
+    cursor: pointer;
+}

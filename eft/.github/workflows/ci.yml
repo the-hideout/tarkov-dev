@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      # check to ensure all JSON files are valid in the repository
+      - name: json-yaml-validate
+        uses: GrantBirki/json-yaml-validate@v3.2.1
+        with:
+          comment: "true"
+
+      - uses: actions/setup-node@v4.3.0
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: Get files needed
+        run: npm run prebuild
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
+
+      - name: test
+        run: npm run test

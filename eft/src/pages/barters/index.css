@@ -1,0 +1,27 @@
+.barters-headline-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.barters-page-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.barters-page-wrapper {
+    min-height: 0;
+}
+
+.trader-wrapper {
+    font-size: 14px;
+}
+
+@media screen and (min-width: 800px) {
+    .barters-page-title {
+        margin: 0;
+        text-align: left;
+    }
+}

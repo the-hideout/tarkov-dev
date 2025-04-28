@@ -1,0 +1,58 @@
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const winston = require('winston');
+const { sequelize } = require('./database/models');
+const authRoutes = require('./routes/auth');
+
+// Initialize express app
+const app = express();
+const port = process.env.PORT || 4001;
+
+// Configure logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
+
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+app.use(morgan('combined'));
+
+// Routes
+app.use('/auth', authRoutes);
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  logger.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
+
+// Database connection and server start
+sequelize.authenticate()
+  .then(() => {
+    logger.info('Database connection established successfully');
+    return sequelize.sync();
+  })
+  .then(() => {
+    app.listen(port, () => {
+      logger.info(`Auth service running on port ${port}`);
+    });
+  })
+  .catch(err => {
+    logger.error('Unable to connect to the database:', err);
+    process.exit(1);
+  }); 

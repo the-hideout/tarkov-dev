@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ultimate-twitch-bot
+    restart: unless-stopped
+    environment:
+      - TWITCH_BOT_USERNAME=${TWITCH_BOT_USERNAME}
+      - TWITCH_OAUTH_TOKEN=${TWITCH_OAUTH_TOKEN}
+      - TWITCH_CHANNEL=${TWITCH_CHANNEL}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - TARKOV_API_URL=${TARKOV_API_URL}
+      - WEB_PORT=3000
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - bot-network
+
+  redis:
+    image: redis:6-alpine
+    container_name: bot-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
+    networks:
+      - bot-network
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: bot-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data: 

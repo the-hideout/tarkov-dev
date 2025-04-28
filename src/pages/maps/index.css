@@ -1,0 +1,116 @@
+/* Navigaiton */
+.nav-maps {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+.nav-maps .item {
+    border: 1px solid var(--color-gold-two);
+    display: flex;
+    flex-basis: max-content;
+    min-width: 200px;
+    min-height: 45px;
+}
+.nav-maps .item a {
+    display: flex;
+    flex: 1 auto;
+    align-items: center;
+    position: relative;
+    padding-left: 55px;
+    transition: all .2s;
+    transition-delay: .1s;
+}
+.nav-maps .item a:hover {
+    color: var(--color-gold-one);
+    text-shadow: 0 0 1px rgb( from var(--color-white) r g b / 0.1);
+}
+.nav-maps .item .icon {
+    display: flex;
+    background: rgb( from var(--color-black) r g b / 0.2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-page-wrapper {
+    min-height: 0;
+}
+
+/* Map block text content */
+.map-block .page-wrapper {
+    padding: 10px 20px;
+    cursor: default;
+    line-height: 28px;
+}
+
+/* Map block map images */
+.map-block .maps-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+}
+
+.map-block .map-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33.3%;
+    padding: 10px;
+    position: relative;
+    border: 1px solid rgb( from var(--color-white) r g b / 0.2);
+    padding: 25px 0 50px 0;
+    background: rgb( from var(--color-gunmetal) r g b / 0.38);
+
+}
+
+.map-block .map-wrapper h3 {
+    position: absolute;
+    text-align: center;
+    letter-spacing: 1px;
+    color: var(--color-white);
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgb( from var(--color-black) r g b / 0.5);
+    margin: 0;
+    transition: all .2s;
+}
+.map-block .map-wrapper:hover h3 {
+    color: var(--color-gold-two);
+}
+
+.map-block .map-wrapper a {
+    display: flex;
+    flex: 1 auto;
+    align-items: center;
+    justify-content: center;
+}
+.map-block .map-wrapper img {
+    max-height: 200px;
+}
+
+
+@media screen and (max-width: 1280px){
+    /* Ensure menu is spaced evenly on smaller displays */
+    .nav-maps .item {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .map-block .map-wrapper {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 724px){
+    .map-block .map-wrapper {
+        width: 100%;
+    }
+}

@@ -1,0 +1,22 @@
+.items-list-wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
+    justify-content: space-between;
+}
+
+.items-page-wrapper {
+    min-height: 0;
+}
+
+.items-list-wrapper a {
+    white-space: nowrap;
+}
+
+.items-list-wrapper img {
+    max-width: 100%;
+}
+
+.items-list-wrapper img:hover {
+    outline: 2px solid var(--color-gold-two);
+}

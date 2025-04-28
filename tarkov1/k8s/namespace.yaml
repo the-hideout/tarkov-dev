@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: marksoftbot
+  labels:
+    name: marksoftbot
+    environment: production
+    app: marksoftbot
+    version: v1
+    managed-by: kubernetes
+    app.kubernetes.io/name: ultimate-twitch-bot
+    app.kubernetes.io/instance: ultimate-twitch-bot
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: bot
+    app.kubernetes.io/part-of: ultimate-twitch-bot
+    app.kubernetes.io/managed-by: helm
+    helm.sh/chart: ultimate-twitch-bot-1.0.0 

@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: marksoftbot-dashboard-pdb
+  namespace: marksoftbot
+  labels:
+    app: marksoftbot
+    component: dashboard
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: marksoftbot
+      component: dashboard 

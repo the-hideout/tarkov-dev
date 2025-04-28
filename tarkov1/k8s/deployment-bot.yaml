@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marksoftbot-bot
+  namespace: marksoftbot
+  labels:
+    app: marksoftbot
+    component: bot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: marksoftbot
+      component: bot
+  template:
+    metadata:
+      labels:
+        app: marksoftbot
+        component: bot
+    spec:
+      containers:
+      - name: bot
+        image: marksoftbot/bot:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: ultimate-twitch-bot-config
+        - secretRef:
+            name: ultimate-twitch-bot-secrets
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: ultimate-twitch-bot-config
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - marksoftbot
+                - key: component
+                  operator: In
+                  values:
+                  - bot
+              topologyKey: kubernetes.io/hostname
+      priorityClassName: marksoftbot-high 

@@ -1,0 +1,21 @@
+.small-data-table.no-borders td.data-cell:first-child {
+    border-left: 0;
+}
+
+.small-data-table.no-borders td.data-cell:last-child {
+    border-right: 0;
+}
+
+.small-data-table td.data-cell {
+    padding: 10px;
+}
+
+.small-data-table .trader-icon {
+    max-width: 40px;
+}
+
+.small-data-table .trader-price-content {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+}

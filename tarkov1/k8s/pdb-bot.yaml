@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: marksoftbot-bot-pdb
+  namespace: marksoftbot
+  labels:
+    app: marksoftbot
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: marksoftbot
+      component: bot 

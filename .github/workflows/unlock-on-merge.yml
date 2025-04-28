@@ -1,0 +1,21 @@
+name: Unlock On Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  unlock-on-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: unlock on merge
+        uses: github/branch-deploy@v10
+        id: unlock-on-merge
+        with:
+          unlock_on_merge_mode: "true" # <-- indicates that this is the "Unlock on Merge Mode" workflow
+          environment_targets: production,development

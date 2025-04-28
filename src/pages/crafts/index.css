@@ -1,0 +1,23 @@
+.crafts-headline-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.crafts-page-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.crafts-page-wrapper {
+    min-height: 0;
+}
+
+@media screen and (min-width: 800px) {
+    .crafts-page-title {
+        margin: 0;
+        text-align: left;
+    }
+}
