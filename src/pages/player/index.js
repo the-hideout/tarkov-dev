@@ -5,6 +5,7 @@ import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
     mdiAccountQuestion,
+    mdiAccountSwitch,
     mdiCheck,
     mdiCloseCircle,
     mdiTrophy,
@@ -80,6 +81,17 @@ function Player() {
     const gameMode = params.gameMode;
 
     const [accountId, setAccountId] = useState(params.accountId);
+
+    const otherGameMode = useMemo(() => {
+        if (gameMode === 'regular') {
+            return 'pve';
+        }
+        return 'regular';
+    }, [gameMode]);
+
+    const otherGameModeTranslated = useMemo(() => {
+        return t(`game_mode_${otherGameMode}`);
+    }, [otherGameMode, t]);
 
     const loadingProfile = useMemo(() => {
         return {
@@ -956,7 +968,7 @@ function Player() {
             return;
         }
         fetchProfile();
-    }, [playerData, accountId, turnstileToken, fetchProfile]);
+    }, [playerData, accountId, gameMode, turnstileToken, fetchProfile]);
 
     const customProfileImageLink = useMemo(() => {
         if (playerData.aid === 0) {
@@ -1002,7 +1014,13 @@ function Player() {
                     content={t('Load profile from file')}
                     placement="bottom"
                 >
-                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>    
+                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>
+                </Tippy>
+                <Tippy
+                    content={t('Switch to {{gameMode}} profile', {gameMode: otherGameModeTranslated})}
+                    placement="bottom"
+                >
+                    <button className="profile-button switch" onClick={() => {navigate(`/players/${otherGameMode}/${accountId}`);}}><Icon path={mdiAccountSwitch} size={1} className="icon-with-text" /></button>
                 </Tippy>
                 <Turnstile
                     ref={turnstileRef}
