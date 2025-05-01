@@ -104,7 +104,7 @@ function Ammo() {
         const typeCache = {};
         const legend = [];
         const calibers = items.filter(item => {
-            return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber);
+            return item.categoryIds.includes(ammoCategoryId) && !!item.properties.caliber && !skipCalibers.includes(item.properties.caliber);
         }).reduce((all, current) => {
             const caliber = formatCaliber(current.properties.caliber, current.properties.ammoType);
             if (caliber && !all.includes(caliber)) {
