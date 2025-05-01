@@ -31,6 +31,7 @@ function Players() {
         return searchParams.get('gameMode') ?? gameModeSetting;
     }, [searchParams, gameModeSetting]);
     const [ gameMode, setGameMode ] = useState(defaultGameMode);
+    const lastSearch = useRef({name: '', gameMode});
 
     const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
@@ -38,18 +39,25 @@ function Players() {
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
-    //const [turnstileToken, setTurnstileToken] = useState();
+    const [tokenState, setTokenState] = useState(false);
 
     const searchTextValid = useMemo(() => {
         const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
         const lengthValid = !!nameFilter.match(/^[a-zA-Z0-9-_]{3,15}$|^TarkovCitizen\d{1,10}$/i);
-        setButtonDisabled(!charactersValid || !lengthValid);
         setNameResultsError(false);
         if (!charactersValid) {
             setNameResultsError(`Names can only contain letters, numbers, dashes (-), and underscores (_)`);
         }
         return charactersValid && lengthValid;
-    }, [nameFilter, setButtonDisabled, setNameResultsError]);
+    }, [nameFilter, setNameResultsError]);
+
+    useEffect(() => {
+        turnstileToken.current = tokenState;
+    }, [tokenState]);
+
+    useEffect(() => {
+        setButtonDisabled(!tokenState || !searchTextValid);
+    }, [tokenState, searchTextValid, setButtonDisabled]);
 
     const searchForName = useCallback(async () => {
         if (!searchTextValid) {
@@ -62,17 +70,23 @@ function Players() {
             }
             return;
         }
+        if (lastSearch.current.name === nameFilter && lastSearch.current.gameMode === gameMode) {
+            // already searched this game mode for this name
+            return;
+        }
         try {
             setNameResultsError(false);
-            setButtonDisabled(true);
             setNameResults((await playerStats.searchPlayers(nameFilter, gameMode, turnstileToken.current)).sort((a, b) => a.name.localeCompare(b.name)));
             setSearched(true);
+            lastSearch.current.name = nameFilter;
+            lastSearch.current.gameMode = gameMode;
         } catch (error) {
             setSearched(false);
+            lastSearch.current.name = '';
             setNameResults([]);
             setNameResultsError(error.message);
         }
-        turnstileToken.current = false;
+        setTokenState(false);
         if (turnstileRef.current?.reset) {
             turnstileRef.current.reset();
         }
@@ -147,7 +161,7 @@ function Players() {
                     classNamePrefix="select"
                     onChange={(event) => {
                         setSearchParams({gameMode: event.value});
-                        if (searchTextValid && gameMode !== event.value) {
+                        if (searchTextValid && gameMode !== event.value && !!turnstileToken.current) {
                             setButtonDisabled(false);
                         }
                         setGameMode(event.value);
@@ -165,7 +179,7 @@ function Players() {
                         setNameFilter(newNameFilter);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || !turnstileToken?.current}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
@@ -177,7 +191,7 @@ function Players() {
                 className="turnstile-widget"
                 siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
                 onSuccess={(token) => {
-                    turnstileToken.current = token;
+                    setTokenState(token);
                 }}
                 onError={(errorCode) => {
                     // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
