@@ -21,11 +21,11 @@ jobs:
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
-        uses: GrantBirki/json-yaml-validate@v3.2.1
+        uses: GrantBirki/json-yaml-validate@v3.3.0
         with:
           comment: "true"
 
-      - uses: actions/setup-node@v4.3.0
+      - uses: actions/setup-node@v4.4.0
         with:
           node-version-file: .node-version
           cache: 'npm'
