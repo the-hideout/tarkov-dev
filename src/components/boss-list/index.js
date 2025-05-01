@@ -98,6 +98,13 @@ function BossList() {
                                 loading='lazy'
                                 className="boss-icon"
                                 src={`${process.env.PUBLIC_URL}/images/bosses/${key}-icon.jpg`}
+                                onError={(e) => {
+                                    if (!e.target.src.includes('icon.jpg')) {
+                                        return
+                                    }
+                                    // if we don't have an icon, use the portrait image
+                                    e.target.src = boss.imagePortraitLink;
+                                }}
                             />
                             {boss.name}
                         </Link>

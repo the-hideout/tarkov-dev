@@ -608,7 +608,8 @@
     "Reset": "Reset",
     "Convert one currency to another": "Convert one currency to another",
     "Currency Converter": "Currency Converter",
-    "game_mode_regular": "Regular",
+    "game_mode_regular": "PVP",
     "game_mode_pve": "PVE",
-    "Most recent reports:": "Most recent reports:"
+    "Most recent reports:": "Most recent reports:",
+    "Switch to {{gameMode}} profile": "Switch to {{gameMode}} profile"
 }

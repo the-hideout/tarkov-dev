@@ -4,6 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
+    mdiAccountQuestion,
+    mdiAccountSwitch,
+    mdiCheck,
+    mdiCloseCircle,
     mdiTrophy,
     mdiChartLine,
     mdiBagPersonal,
@@ -13,7 +17,6 @@ import {
     mdiAccountSearch,
     mdiDownloadBox,
     mdiFolderOpen,
-    mdiGavel,
 } from '@mdi/js';
 import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import Tippy from '@tippyjs/react';
@@ -78,6 +81,17 @@ function Player() {
     const gameMode = params.gameMode;
 
     const [accountId, setAccountId] = useState(params.accountId);
+
+    const otherGameMode = useMemo(() => {
+        if (gameMode === 'regular') {
+            return 'pve';
+        }
+        return 'regular';
+    }, [gameMode]);
+
+    const otherGameModeTranslated = useMemo(() => {
+        return t(`game_mode_${otherGameMode}`);
+    }, [otherGameMode, t]);
 
     const loadingProfile = useMemo(() => {
         return {
@@ -218,6 +232,7 @@ function Player() {
         if (playerData.aid === 0) {
             setProfileImageLoaded(false);
             setProfileImageLoading(false);
+            setPlayerBanned(undefined);
         }
     }, [playerData]);
 
@@ -459,6 +474,9 @@ function Player() {
                 id: 'kdr',
                 accessor: 'kills',
                 Cell: (props) => {
+                    if (props.value === 0) {
+                        return '0';
+                    }
                     return (props.value / props.row.original.kia).toFixed(2);
                 },
             },
@@ -950,7 +968,7 @@ function Player() {
             return;
         }
         fetchProfile();
-    }, [playerData, accountId, turnstileToken, fetchProfile]);
+    }, [playerData, accountId, gameMode, turnstileToken, fetchProfile]);
 
     const customProfileImageLink = useMemo(() => {
         if (playerData.aid === 0) {
@@ -996,7 +1014,13 @@ function Player() {
                     content={t('Load profile from file')}
                     placement="bottom"
                 >
-                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>    
+                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>
+                </Tippy>
+                <Tippy
+                    content={t('Switch to {{gameMode}} profile', {gameMode: otherGameModeTranslated})}
+                    placement="bottom"
+                >
+                    <button className="profile-button switch" onClick={() => {navigate(`/players/${otherGameMode}/${accountId}`);}}><Icon path={mdiAccountSwitch} size={1} className="icon-with-text" /></button>
                 </Tippy>
                 <Turnstile
                     ref={turnstileRef}
@@ -1065,14 +1089,14 @@ function Player() {
                                             <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
                                                 bannedButtonRef.current.disabled = true;
                                                 checkBanned();
-                                            }}><Icon path={mdiGavel} size={1} className="icon-with-text" /></button>
+                                            }}><Icon path={mdiAccountQuestion} size={1} className="icon-with-text" /></button>
                                         </Tippy>
                                     )}
                                     {playerBanned === false && (
-                                        <span className="not-banned">{t('Not banned')}</span>
+                                        <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
                                     )}
                                     {playerBanned === true && (
-                                        <span className="banned">{t('Possibly banned')}</span>
+                                        <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
                                     )}
                                 </span>
                             )}
@@ -1104,27 +1128,6 @@ function Player() {
                   </div>
             </div>
             <div>
-                {raidsData?.length > 0  && (
-                    <>
-                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
-                        <DataTable
-                            key="raids-table"
-                            columns={raidsColumns}
-                            data={raidsData}
-                        />
-                    </>
-                )}
-                {achievementsData?.length > 0  && (
-                    <>
-                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
-                        <DataTable
-                            key="achievements-table"
-                            columns={achievementColumns}
-                            data={achievementsData}
-                            sortBy={'completionDate'}
-                        />
-                    </>
-                )}
                 {playerData.equipment?.Items?.length > 0 && (
                     <>
                         <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
@@ -1151,6 +1154,27 @@ function Player() {
                     </>
                 )}
                 {favoriteItemsContent}
+                {raidsData?.length > 0  && (
+                    <>
+                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                        />
+                    </>
+                )}
+                {achievementsData?.length > 0  && (
+                    <>
+                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
+                        <DataTable
+                            key="achievements-table"
+                            columns={achievementColumns}
+                            data={achievementsData}
+                            sortBy={'completionDate'}
+                        />
+                    </>
+                )}
                 {skillsData?.length > 0 && (
                     <>
                         <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>
