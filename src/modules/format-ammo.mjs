@@ -42,10 +42,10 @@ export function caliberArrayWithSplit() {
 }
 
 export const formatCaliber = (caliber, type) => {
-    let formattedCaliber = caliberMap[caliber] || caliber.replace('Caliber', '');
+    let formattedCaliber = caliberMap[caliber] ?? caliber?.replace('Caliber', '') ?? undefined;
 
     if (formattedCaliber === '12 Gauge' || formattedCaliber === '20 Gauge') {
-        if (type)
+        if (formattedCaliber && type)
             formattedCaliber += (type === 'bullet' ? ' Slug' : ' Shot');
     }
 
