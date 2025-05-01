@@ -32,6 +32,7 @@ const skipCalibers = [
     'Caliber26x75',
     'Caliber40mmRU',
     'Caliber20x1mm',
+    'Caliber725',
 ];
 
 const markerTypes = [
@@ -103,16 +104,16 @@ function Ammo() {
         const typeCache = {};
         const legend = [];
         const calibers = items.filter(item => {
-            return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber)
+            return item.categoryIds.includes(ammoCategoryId) && !!item.properties.caliber && !skipCalibers.includes(item.properties.caliber);
         }).reduce((all, current) => {
             const caliber = formatCaliber(current.properties.caliber, current.properties.ammoType);
-            if (!all.includes(caliber)) {
+            if (caliber && !all.includes(caliber)) {
                 all.push(caliber);
             }
             return all;
         }, []).sort((a, b) => a.localeCompare(b));
         const ammo = items.filter(item => {
-            return item.categoryIds.includes(ammoCategoryId) && !skipCalibers.includes(item.properties.caliber)
+            return item.categoryIds.includes(ammoCategoryId) && !!item.properties.caliber && !skipCalibers.includes(item.properties.caliber);
         }).sort((a, b) => {
             const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
             const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
