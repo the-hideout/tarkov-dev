@@ -794,7 +794,6 @@ function Map() {
                 } else if (typeof label.top !== 'undefined' && typeof label.bottom !== 'undefined') {
                     // calculate position as midpoint between top and bottom
                     positionY = ((label.top - label.bottom) / 2) + label.bottom;
-                    console.log(label.text, positionY);
                 }
                 const fontSize = label.size ? label.size : 100;
                 const rotation = label.rotation ? label.rotation : 0;
