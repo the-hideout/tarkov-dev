@@ -621,35 +621,6 @@ function Map() {
             baseLayers.push(svgLayer);
         }
 
-        // Add labels
-
-        if (mapData.labels?.length > 0) {
-            const labelsGroup = L.layerGroup();
-            const defaultHeight = ((layerOptions.extents[0].height[1] - layerOptions.extents[0].height[0]) / 2) + layerOptions.extents[0].height[0];
-            for (const label of mapData.labels) {
-                const fontSize = label.size ? label.size : 100;
-                const height = label.position.length < 3 ? defaultHeight : label.position[2];
-                const rotation = label.rotation ? label.rotation : 0;
-                L.marker(pos({x: label.position[0], z: label.position[1]}), {
-                    icon: L.divIcon({
-                        html: `<div class="label" style="font-size: ${fontSize}%; transform: translate3d(-50%, -50%, 0) rotate(${rotation}deg)">${tMaps(label.text)}</div>`,
-                        className: 'map-area-label',
-                        layers: baseLayers,
-                    }),
-                    interactive: false,
-                    zIndexOffset: -100000,
-                    position: {
-                        x: label.position[0],
-                        y: height,
-                        z: label.position[1],
-                    },
-                    top: typeof label.top !== 'undefined' ? label.top : 1000,
-                    bottom: typeof label.bottom !== 'undefined' ? label.bottom : -1000,
-                }).addTo(labelsGroup);
-            }
-            addLayer(labelsGroup, 'place-names', 'Landmarks');
-        }
-
         // only add selector if there are multiple
         if (tileLayer && svgLayer) {
             layerControl.addBaseLayer(tileLayer, tMaps('Satellite'));
@@ -809,6 +780,45 @@ function Map() {
         let markerBounds = {
             'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
             'BR': {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER}
+        }
+
+        // Add labels
+        if (mapData.labels?.length > 0) {
+            const labelsGroup = L.layerGroup();
+            const mainLayerVerticalMidpoint = ((layerOptions.extents[0].height[1] - layerOptions.extents[0].height[0]) / 2) + layerOptions.extents[0].height[0];
+            for (const label of mapData.labels) {
+                let positionY = mainLayerVerticalMidpoint;
+                if (label.position.length > 2) {
+                    // if a position is expressly provided, use it
+                    positionY = label.position[2];
+                } else if (typeof label.top !== 'undefined' && typeof label.bottom !== 'undefined') {
+                    // calculate position as midpoint between top and bottom
+                    positionY = ((label.top - label.bottom) / 2) + label.bottom;
+                }
+                const fontSize = label.size ? label.size : 100;
+                const rotation = label.rotation ? label.rotation : 0;
+                const labelMarker = L.marker(pos({x: label.position[0], z: label.position[1]}), {
+                    icon: L.divIcon({
+                        html: `<div class="label" style="font-size: ${fontSize}%; transform: translate3d(-50%, -50%, 0) rotate(${rotation}deg)">${tMaps(label.text)}</div>`,
+                        className: 'map-area-label',
+                        layers: baseLayers,
+                    }),
+                    interactive: false,
+                    zIndexOffset: -100000,
+                    position: {
+                        x: label.position[0],
+                        y: positionY,
+                        z: label.position[1],
+                    },
+                    top: label.top ?? 1000,
+                    bottom: label.bottom ?? -1000,
+                });
+                labelMarker.position = labelMarker.options.position;
+                labelMarker.on('add', checkMarkerForActiveLayers);
+                labelMarker.addTo(labelsGroup);
+                checkMarkerBounds(label.position, markerBounds);
+            }
+            addLayer(labelsGroup, 'place-names', 'Landmarks');
         }
 
         // Add spawns

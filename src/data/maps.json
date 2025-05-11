@@ -437,12 +437,16 @@
                     {
                         "position": [115, 104],
                         "text": "Oasis",
-                        "size": 70
+                        "size": 70,
+                        "top": 30,
+                        "bottom": 22
                     },
                     {
                         "position": [115, 30],
                         "text": "ASAP Winery",
-                        "size": 70
+                        "size": 70,
+                        "top": 27,
+                        "bottom": 22
                     },
                     {
                         "position": [43, 150],
@@ -1724,7 +1728,7 @@
                     },
                     {
                         "position": [-207, -305],
-                        "text": "Lectuer Hall",
+                        "text": "Lecture Hall",
                         "top": 2,
                         "bottom": -0.8,
                         "size": 90
@@ -2407,20 +2411,20 @@
                     {
                         "position": [-171, -83],
                         "text": "West Wing",
-                        "bottom": 0,
-                        "top": 3
+                        "bottom": -100,
+                        "top": 100
                     },
                     {
                         "position": [-329, -83],
                         "text": "East Wing",
-                        "bottom": 0,
-                        "top": 3
+                        "bottom": -100,
+                        "top": 100
                     },
                     {
                         "position": [-252, -146],
                         "text": "Admin",
-                        "bottom": 0,
-                        "top": 3
+                        "bottom": -100,
+                        "top": 100
                     }
                 ]
             },
