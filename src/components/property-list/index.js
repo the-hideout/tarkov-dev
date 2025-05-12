@@ -55,7 +55,7 @@ function PropertyList({ properties, id }) {
                           </ConditionalWrapper>
                       </div>
                       <div className="item">
-                        <p>{value.value}</p>
+                        <div>{value.value}</div>
                       </div>
                   </div>
                 );

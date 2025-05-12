@@ -14,7 +14,30 @@ const localStorageReadJson = (key, defaultValue) => {
     return defaultValue;
 };
 
-export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) {
+const localStorageReadGameModeJson = (key, defaultValue) => {
+    try {
+        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const settingsString = localStorage.getItem(`${gameMode}Settings`);
+
+        if (typeof settingsString === 'string') {
+            const settings = JSON.parse(settingsString);
+            if (typeof settings[key] !== 'undefined') {
+                return settings[key];
+            }
+        }
+    } catch (error) {
+        /* noop */
+    }
+
+    return defaultValue;
+};
+
+export default function fleaMarketFee(basePrice, sellPrice, options = {}) {
+    const count = options.count ?? 1;
+    const intelligenceCenter = options.intelligenceCenter ?? localStorageReadGameModeJson('intelligence-center', 3);
+    const hideoutManagement = options.hideoutManagement ?? localStorageReadGameModeJson('hideout-management', 0);
+    const Ti = options.Ti ?? localStorageReadJson('Ti', 0.03);
+    const Tr = options.Tr ?? localStorageReadJson('Tr', 0.03);
     let V0 = basePrice;
     let VR = sellPrice;
     //let Ti = 0.05;
@@ -23,8 +46,6 @@ export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05
     let PR = Math.log10(VR / V0);
     let Q = count;
     let IC = 1;
-    const intelligenceCenter = localStorageReadJson('intelligence-center', 3);
-    const hideoutManagement = localStorageReadJson('hideout-management', 0);
 
 
     if (VR < V0) {
