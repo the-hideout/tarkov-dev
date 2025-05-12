@@ -138,7 +138,7 @@ function RangeFilter({
     );
 }
 
-function ToggleFilter({ label, onChange, checked = false, tooltipContent, disabled }) {
+function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
     return (
         <ConditionalWrapper
             condition={tooltipContent}

@@ -42,7 +42,7 @@ function Barters() {
         'includeCraftIngredients',
         false,
     );
-    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+    const hideDogtagBarters = useSelector((state) => state.settings[state.settings.gameMode].hideDogtagBarters);
 
     const dispatch = useDispatch();
     const { data: allTraders } = useTradersData();
