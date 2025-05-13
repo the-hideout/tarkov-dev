@@ -1,7 +1,6 @@
 import fetch  from 'cross-fetch';
 
 import APIQuery from '../../modules/api-query.mjs';
-import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
 class ItemsQuery extends APIQuery {
@@ -552,10 +551,6 @@ class ItemsQuery extends APIQuery {
             rawItem.properties = {
                 ...rawItem.properties
             };
-
-            // calculate flea market fee
-            const fee = fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice);
-            rawItem.fee = fee;
 
             const container = rawItem.properties?.slots || rawItem.properties?.grids;
             if (container) {

@@ -44,6 +44,7 @@ import formatPrice from '../../modules/format-price.js';
 import bestPrice from '../../modules/best-price.js';
 import { isAnyDogtag } from '../../modules/dogtags.js';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
@@ -291,6 +292,7 @@ function Item() {
     
     const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
+    currentItemData.fee = fleaMarketFee(currentItemData.basePrice, currentItemData.lastLowPrice);
     const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - currentItemData.fee : false;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
