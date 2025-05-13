@@ -12,7 +12,7 @@ import {
     selectAllSkills,
     selectAllTraders,
     setStationOrTraderLevel,
-} from '../../features/settings/settingsSlice.js';
+} from '../../features/settings/settingsSlice.mjs';
 import capitalizeFirst from '../../modules/capitalize-first.js';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 

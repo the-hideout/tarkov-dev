@@ -34,7 +34,7 @@ import useCraftsData from '../../features/crafts/index.js';
 import useItemsData from '../../features/items/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useMetaData from '../../features/meta/index.js';
-import { selectAllSkills } from '../../features/settings/settingsSlice.js';
+import { selectAllSkills } from '../../features/settings/settingsSlice.mjs';
 
 import CanvasGrid from '../../components/canvas-grid/index.js';
 

@@ -22,7 +22,7 @@ import {
     toggleHideDogtagBarters,
     setGameMode,
     // selectCompletedQuests,
-} from '../../features/settings/settingsSlice.js';
+} from '../../features/settings/settingsSlice.mjs';
 import useHideoutData from '../../features/hideout/index.js';
 import useTradersData from '../../features/traders/index.js';
 

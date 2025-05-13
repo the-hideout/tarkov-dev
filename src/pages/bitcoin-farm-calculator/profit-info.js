@@ -9,7 +9,7 @@ import formatPrice from '../../modules/format-price.js';
 import CenterCell from '../../components/center-cell/index.js';
 import { getDurationDisplay } from '../../modules/format-duration.js';
 import useHideoutData from '../../features/hideout/index.js';
-import { selectAllStations } from '../../features/settings/settingsSlice.js';
+import { selectAllStations } from '../../features/settings/settingsSlice.mjs';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
 // import ProfitableGraph from './profitable-graph';
 

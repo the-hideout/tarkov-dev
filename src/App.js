@@ -12,7 +12,7 @@ import i18n from './i18n.js';
 import loadPolyfills from './modules/polyfills.js';
 
 import RemoteControlId from './components/remote-control-id/index.jsx';
-import { fetchTarkovTrackerProgress, setPlayerPosition } from './features/settings/settingsSlice.js';
+import { fetchTarkovTrackerProgress, setPlayerPosition } from './features/settings/settingsSlice.mjs';
 
 import {
     setConnectionStatus,

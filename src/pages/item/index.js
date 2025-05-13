@@ -38,7 +38,7 @@ import useCraftsData from '../../features/crafts/index.js';
 import useQuestsData from '../../features/quests/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMapsData from '../../features/maps/index.js';
-import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.js';
+import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.mjs';
 
 import formatPrice from '../../modules/format-price.js';
 import bestPrice from '../../modules/best-price.js';

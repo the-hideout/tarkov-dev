@@ -2,14 +2,7 @@ import fetch  from 'cross-fetch';
 
 import APIQuery from '../../modules/api-query.mjs';
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
-
-const localStorageWriteJson = (key, value) => {
-    try {
-        localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-        /* noop */
-    }
-};
+import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
 class ItemsQuery extends APIQuery {
     constructor() {
