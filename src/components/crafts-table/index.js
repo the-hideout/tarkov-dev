@@ -230,20 +230,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
-                        fleaFeeSingle = fleaMarketFee(
-                            craftRewardItem.basePrice,
-                            fleaPriceToUse,
-                            1,
-                            meta?.flea?.sellOfferFeeRate,
-                            meta?.flea?.sellRequirementFeeRate,
-                        );
+                        fleaFeeSingle = fleaMarketFee(craftRewardItem.basePrice, fleaPriceToUse);
                     }
-                    fleaFeeTotal = fleaMarketFee(
-                        craftRewardItem.basePrice,
-                        fleaPriceToUse,
-                        craftRow.rewardItems[0].count,
-                        meta?.flea?.sellOfferFeeRate,
-                        meta?.flea?.sellRequirementFeeRate,
+                    fleaFeeTotal = fleaMarketFee(craftRewardItem.basePrice, fleaPriceToUse,
+                        {
+                            count: craftRow.rewardItems[0].count,
+                        },
                     );
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;

@@ -20,6 +20,7 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
 import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items.js';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags.js';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
 import './index.css';
 
@@ -315,20 +316,21 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     costItems[0].pricePerUnit = GPCoinPrice;
                 }
 
+                let fleaFee = 0;
+                if (bestSellTo.vendor.normalizedName === 'flea-market') {
+                    fleaFee = fleaMarketFee(barterRewardItem.basePrice, bestSellTo.priceRUB, {count: howManyWeSell});
+                }
+
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: (bestSellTo.priceRUB * howManyWeSell) - cost,
+                    instaProfit: (bestSellTo.priceRUB * howManyWeSell) - cost - fleaFee,
                     instaProfitSource: bestSellTo,
                     instaProfitDetails: [
                         {
                             name: bestSellTo.vendor.name,
                             value: bestSellTo.priceRUB * howManyWeSell,
                         },
-                        {
-                            name: t('Barter cost'),
-                            value: cost * -1,
-                        }
                     ],
                     reward: {
                         item: barterRewardItem,
@@ -342,6 +344,16 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     },
                     cached: barterRow.cached || barterRewardItem.cached,
                 };
+                if (fleaFee) {
+                    tradeData.instaProfitDetails.push({
+                        name: t('Flea Fee'),
+                        value: fleaFee * -1,
+                    });
+                }
+                tradeData.instaProfitDetails.push({
+                    name: t('Barter cost'),
+                    value: cost * -1,
+                });
 
                 if (barterRewardItem.priceCustom) {
                     tradeData.reward.sellValue = barterRewardItem.priceCustom;

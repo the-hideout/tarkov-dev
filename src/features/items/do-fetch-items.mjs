@@ -3,6 +3,14 @@ import fetch  from 'cross-fetch';
 import APIQuery from '../../modules/api-query.mjs';
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
+const localStorageWriteJson = (key, value) => {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        /* noop */
+    }
+};
+
 class ItemsQuery extends APIQuery {
     constructor() {
         super('items');
@@ -506,6 +514,8 @@ class ItemsQuery extends APIQuery {
         }
 
         const flea = miscData.data.fleaMarket;
+        localStorageWriteJson('Ti', flea.sellOfferFeeRate);
+        localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
 
         const allItems = itemData.data.items.map((rawItem) => {
             // calculate grid
@@ -551,7 +561,7 @@ class ItemsQuery extends APIQuery {
             };
 
             // calculate flea market fee
-            const fee = fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate);
+            const fee = fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice);
             rawItem.fee = fee;
 
             const container = rawItem.properties?.slots || rawItem.properties?.grids;

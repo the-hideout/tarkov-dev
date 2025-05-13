@@ -102,7 +102,8 @@ const localStorageWriteJson = (key, value) => {
     }
 };
 
-const defaultSettings = {hasFlea: localStorageReadJson('useFlea', true),
+const defaultSettings = {
+    hasFlea: localStorageReadJson('useFlea', true),
     playerLevel: 72,
     pmcFaction: localStorageReadJson('pmcFaction', 'NONE'),
     useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
@@ -149,6 +150,8 @@ const settingsSlice = createSlice({
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
         playerPosition: localStorageReadJson('playerPosition', null),
         gameMode: localStorageReadJson('gameMode', 'regular'),
+        Ti: localStorageReadJson('Ti', 0.03),
+        Tr: localStorageReadJson('Tr', 0.03),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
