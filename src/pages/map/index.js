@@ -17,7 +17,7 @@ import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
 import '../../modules/leaflet-control-map-search.js';
 
-import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
+import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
 import { useMapImages } from '../../features/maps/index.js';
 import useItemsData from '../../features/items/index.js';

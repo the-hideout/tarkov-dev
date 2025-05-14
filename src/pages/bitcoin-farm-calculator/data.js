@@ -4,7 +4,7 @@ import useItemsData from '../../features/items/index.js';
 import {
     selectAllSkills,
     selectAllStations,
-} from '../../features/settings/settingsSlice.js';
+} from '../../features/settings/settingsSlice.mjs';
 
 // https://escapefromtarkov.fandom.com/wiki/Hideout
 const calculateMSToProduceBTC = (numCards) => {

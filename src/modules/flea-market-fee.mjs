@@ -1,41 +1,11 @@
+import { localStorageReadJson, localStorageReadJsonGameMode } from '../features/settings/settingsSlice.mjs';
+
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
-
-const localStorageReadJson = (key, defaultValue) => {
-    try {
-        const value = localStorage.getItem(key);
-
-        if (typeof value === 'string') {
-            return JSON.parse(value);
-        }
-    } catch (error) {
-        /* noop */
-    }
-
-    return defaultValue;
-};
-
-const localStorageReadGameModeJson = (key, defaultValue) => {
-    try {
-        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
-        const settingsString = localStorage.getItem(`${gameMode}Settings`);
-
-        if (typeof settingsString === 'string') {
-            const settings = JSON.parse(settingsString);
-            if (typeof settings[key] !== 'undefined') {
-                return settings[key];
-            }
-        }
-    } catch (error) {
-        /* noop */
-    }
-
-    return defaultValue;
-};
 
 export default function fleaMarketFee(basePrice, sellPrice, options = {}) {
     const count = options.count ?? 1;
-    const intelligenceCenter = options.intelligenceCenter ?? localStorageReadGameModeJson('intelligence-center', 3);
-    const hideoutManagement = options.hideoutManagement ?? localStorageReadGameModeJson('hideout-management', 0);
+    const intelligenceCenter = options.intelligenceCenter ?? localStorageReadJsonGameMode('intelligence-center', 3);
+    const hideoutManagement = options.hideoutManagement ?? localStorageReadJsonGameMode('hideout-management', 0);
     const Ti = options.Ti ?? localStorageReadJson('Ti', 0.03);
     const Tr = options.Tr ?? localStorageReadJson('Tr', 0.03);
     let V0 = basePrice;

@@ -81,7 +81,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
     },
 );
 
-const localStorageReadJson = (key, defaultValue) => {
+export const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);
 
@@ -94,9 +94,36 @@ const localStorageReadJson = (key, defaultValue) => {
 
     return defaultValue;
 };
-const localStorageWriteJson = (key, value) => {
+export const localStorageWriteJson = (key, value) => {
     try {
         localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        /* noop */
+    }
+};
+export const localStorageReadJsonGameMode = (key, defaultValue) => {
+    try {
+        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const settingsString = localStorage.getItem(`${gameMode}Settings`);
+
+        if (typeof settingsString === 'string') {
+            const settings = JSON.parse(settingsString);
+            if (typeof settings[key] !== 'undefined') {
+                return settings[key];
+            }
+        }
+    } catch (error) {
+        /* noop */
+    }
+
+    return defaultValue;
+};
+export const localStorageWriteJsonGameMode = (key, value) => {
+    try {
+        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const gameModeSettings = JSON.parse(localStorage.getItem(`${gameMode}Settings`));
+        gameModeSettings[key] = value;
+        localStorage.setItem(`${gameMode}Settings`, JSON.stringify(gameModeSettings));
     } catch (error) {
         /* noop */
     }
@@ -209,6 +236,12 @@ const settingsSlice = createSlice({
                 ...state[state.gameMode],
             };
         },
+        setFleaMarketFactors: (state, action) => {
+            state.Ti = action.payload.Ti;
+            state.Tr = action.payload.Tr;
+            localStorageWriteJson('Ti', action.payload.Ti);
+            localStorageWriteJson('Tr', action.payload.Tr);
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
@@ -295,6 +328,7 @@ export const {
     toggleHideDogtagBarters,
     setPlayerPosition,
     setGameMode,
+    setFleaMarketFactors,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

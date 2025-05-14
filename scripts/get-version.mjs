@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import fetch from "cross-fetch";
 import url from "url";
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';

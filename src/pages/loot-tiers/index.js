@@ -21,6 +21,7 @@ import {
 import QueueBrowserTask from '../../modules/queue-browser-task.js';
 import capitalizeFirst from '../../modules/capitalize-first.js';
 import itemSearch from '../../modules/item-search.js';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
 import useItemsData from '../../features/items/index.js';
 
@@ -182,7 +183,8 @@ function LootTier(props) {
 
 
                 if (hasFlea && !item.types.includes('noFlea')) {
-                    const fleaPrice = item.avg24hPrice - item.fee;
+                    const fleaFee = fleaMarketFee(item.basePrice, item.lastLowPrice);
+                    const fleaPrice = item.lastLowPrice - fleaFee;
                     if (fleaPrice >= priceRUB) {
                         sellTo = 'Flea Market';
                         sellToNormalized = 'flea-market';

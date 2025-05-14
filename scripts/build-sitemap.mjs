@@ -1,6 +1,5 @@
 import { writeFileSync } from "fs";
 import path from "path";
-import fetch from "cross-fetch";
 import { fileURLToPath } from "url";
 
 import { createGzip } from 'zlib';

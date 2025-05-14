@@ -15,7 +15,7 @@ import formatCostItems from '../../modules/format-cost-items.js';
 import {
     selectAllStations,
     selectAllSkills,
-} from '../../features/settings/settingsSlice.js';
+} from '../../features/settings/settingsSlice.mjs';
 import CenterCell from '../center-cell/index.js';
 
 import './index.css';

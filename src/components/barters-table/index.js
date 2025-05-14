@@ -10,7 +10,7 @@ import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
-import { selectAllTraders } from '../../features/settings/settingsSlice.js';
+import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
 import ValueCell from '../value-cell/index.js';
 import CostItemsCell from '../cost-items-cell/index.js';

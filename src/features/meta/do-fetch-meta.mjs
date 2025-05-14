@@ -1,4 +1,5 @@
 import APIQuery from '../../modules/api-query.mjs';
+import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
 class MetaQuery extends APIQuery {
     constructor() {
@@ -86,7 +87,9 @@ class MetaQuery extends APIQuery {
                 return Promise.reject(new Error(metaData.errors[0].message));
             }
         }
-    
+
+        localStorageWriteJson('Ti', metaData.data.fleaMarket.sellOfferFeeRate);
+        localStorageWriteJson('Tr', metaData.data.fleaMarket.sellRequirementFeeRate);
         return {
             flea: metaData.data.fleaMarket,
             armor: metaData.data.armorMaterials,
