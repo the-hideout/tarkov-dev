@@ -2,8 +2,6 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 
-import fetch from "cross-fetch";
-
 import redirects from "../workers-site/redirects.json";
 
 (async () => {

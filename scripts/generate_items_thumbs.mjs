@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
-import fetch from "cross-fetch";
 import { exit } from "process";
 
 import categoryPages from "../src/data/category-pages.json" with { type: "json" };

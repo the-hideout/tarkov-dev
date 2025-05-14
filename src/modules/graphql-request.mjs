@@ -1,5 +1,4 @@
 import { useQuery as reactUseQuery } from '@tanstack/react-query';
-import fetch  from 'cross-fetch';
 
 const apiUrlProd = 'https://api.tarkov.dev/graphql';
 const apiUrlDev = 'https://dev-api.tarkov.dev/graphql';

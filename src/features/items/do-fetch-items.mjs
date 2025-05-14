@@ -1,5 +1,3 @@
-import fetch  from 'cross-fetch';
-
 import APIQuery from '../../modules/api-query.mjs';
 import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
