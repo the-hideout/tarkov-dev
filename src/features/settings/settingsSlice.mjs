@@ -257,10 +257,10 @@ const settingsSlice = createSlice({
                 'tarkovTrackerDomain',
                 action.payload,
             );
-            state.regularSettings.tarkovTrackerAPIKey = '';
-            localStorageWriteJson('regularSettings', state[state.regularSettings]);
-            state.pveSettings.tarkovTrackerAPIKey = '';
-            localStorageWriteJson('pveSettings', state[state.pveSettings]);
+            state.regular.tarkovTrackerAPIKey = '';
+            localStorageWriteJson('regularSettings', state[state.regular]);
+            state.pve.tarkovTrackerAPIKey = '';
+            localStorageWriteJson('pveSettings', state[state.pve]);
         },
     },
     extraReducers: (builder) => {

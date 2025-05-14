@@ -80,6 +80,7 @@ function Settings() {
     const hideDogtagBarters = useSelector((state) => state.settings[state.settings.gameMode].hideDogtagBarters);
     const gameMode = useSelector((state) => state.settings.gameMode);
     const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain);
+    const [selectedTrackerDomain, setSelectedTrackerDomain] = useState(trackerDomain);
 
     const stationRefs = {
         'bitcoin-farm': useRef(null),
@@ -237,8 +238,9 @@ function Settings() {
                     <span className={'single-filter-label'}>{t('Tracker Service')}</span>
                     <Select
                         label={t('Tracker Service')}
-                        placeholder={trackerDomain}
-                        value={trackerDomain}
+                        value={selectedTrackerDomain}
+                        defaultValue={trackerDomain}
+                        placeholder={selectedTrackerDomain}
                         options={trackerDomains.map(d => {
                             return {
                                 label: d,
@@ -248,6 +250,7 @@ function Settings() {
                         className="basic-multi-select tracker-domain"
                         classNamePrefix="select"
                         onChange={(event) => {
+                            setSelectedTrackerDomain(event.value);
                             dispatch(setTarkovTrackerDomain(event.value));
                         }}
                     />
