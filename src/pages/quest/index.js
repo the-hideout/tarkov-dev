@@ -32,6 +32,7 @@ const intelCashMultiplier = {
 
 function Quest() {
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
+    const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain);
     const { taskIdentifier } = useParams();
     const { t } = useTranslation();
 
@@ -1078,7 +1079,7 @@ function Quest() {
                         )}
                         {false && typeof currentQuest.tarkovDataId !== 'undefined' && (
                             <div className="wiki-link-wrapper">
-                                <a href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
+                                <a href={`https://${trackerDomain}/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
                             </div>
                         )}
                         {endgameGoals.length > 0 && (

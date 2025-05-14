@@ -220,7 +220,7 @@ function Settings() {
                 />
                 <InputFilter
                     label={
-                        <a href="https://tarkovtracker.io/settings/" target="_blank" rel="noopener noreferrer">
+                        <a href={`https://${trackerDomain}/settings`} target="_blank" rel="noopener noreferrer">
                             {t('TarkovTracker API Token')}
                         </a>
                     }
