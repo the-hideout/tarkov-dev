@@ -6,6 +6,7 @@
 
 .inventory {
     display: flow-root;
+    overflow-x: scroll;
 }
 
 .grid-container {
