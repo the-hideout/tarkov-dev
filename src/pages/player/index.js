@@ -1133,22 +1133,62 @@ function Player() {
                         <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
                         <div className="inventory">
                             <div className="grid-container main">
-                                <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
-                                <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
-                                <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
-                                <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
-                                <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
-                                <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
-                                <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
-                                <div className="holster">{getLoadoutInSlot('Holster')}</div>
-                                <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
-                                <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
+                                <div className="earpiece">
+                                    <div>Earpiece</div>
+                                    {getLoadoutInSlot('Earpiece')}
+                                </div>
+                                <div className="headwear">
+                                    <div>Headwear
+                                    </div>
+                                    {getLoadoutInSlot('Headwear')}
+                                </div>
+                                <div className="face_cover">
+                                    <div>Face Cover</div>
+                                    {getLoadoutInSlot('FaceCover')}
+                                </div>
+                                <div className="armband">
+                                    <div>Armband</div>
+                                    {getLoadoutInSlot('ArmBand')}
+                                </div>
+                                <div className="body_armor">
+                                    <div>Body Armor</div>
+                                    {getLoadoutInSlot('ArmorVest')}
+                                </div>
+                                <div className="eyewear">
+                                    <div>Eyewear</div>
+                                    {getLoadoutInSlot('Eyewear')}
+                                </div>
+                                <div className="weapon on_sling">
+                                    <div>On Sling</div>
+                                    {getLoadoutInSlot('FirstPrimaryWeapon')}
+                                </div>
+                                <div className="holster">
+                                    <div>Hoslter</div>
+                                    {getLoadoutInSlot('Holster')}
+                                </div>
+                                <div className="weapon on_back">
+                                    <div>On Back</div>
+                                    {getLoadoutInSlot('SecondPrimaryWeapon')}
+                                </div>
+                                <div className="sheath">
+                                    <div>Sheath</div>
+                                    {getLoadoutInSlot('Scabbard')}
+                                </div>
                             </div>
                             <div className="grid-container side">
-                                <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
+                                <div className="tactical_rig">
+                                    <div>Tactical Rig</div>
+                                    {getLoadoutInSlot('TacticalVest')}
+                                </div>
                                 <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
-                                <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
-                                <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
+                                <div className="backpack">
+                                    <div>Backpack</div>
+                                    {getLoadoutInSlot('Backpack')}
+                                </div>
+                                <div className="pouch">
+                                    <div>Pouch</div>
+                                    {getLoadoutInSlot('SecuredContainer')}
+                                </div>
                             </div>
                         </div>
                     </>
