@@ -182,7 +182,7 @@ function Trader() {
                   onClick={() => openImageViewer(0)}
                   style={{ backgroundImage: `url(${traderImagePath})` }}
                 />
-                <img src={`${traderImagePath}`} style={{display: 'none'}} onError={() => {
+                <img src={`${traderImagePath}`} style={{display: 'none'}} alt="" onError={() => {
                   if (traderImageExtension !== 'jpg') {
                     return;
                   }
