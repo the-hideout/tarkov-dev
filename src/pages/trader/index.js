@@ -62,6 +62,7 @@ function Trader() {
     const closeImageViewer = () => {
         setIsViewerOpen(false);
     };
+    const [traderImageExtension, setTraderImageExtension] = useState('jpg');
     const backgroundStyle = {
         backgroundColor: 'rgba(0,0,0,.9)',
         zIndex: 20,
@@ -86,6 +87,13 @@ function Trader() {
     const trader = useMemo(() => {
         return traders.find(tr => tr.normalizedName === traderName.toLowerCase());;
     }, [traders, traderName]);
+
+    const traderImagePath = useMemo(() => {
+      if (!trader) {
+        return '';
+      }
+      return `${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.${traderImageExtension}`;
+    }, [trader, traderImageExtension]);
 
     const levelProperties = useMemo(() => {
         const props = {};
@@ -172,14 +180,20 @@ function Trader() {
               <div className="entity-icon-cont">
                 <div className="entity-icon-and-link-wrapper"
                   onClick={() => openImageViewer(0)}
-                  style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg)` }}
+                  style={{ backgroundImage: `url(${traderImagePath})` }}
                 />
+                <img src={`${traderImagePath}`} style={{display: 'none'}} onError={() => {
+                  if (traderImageExtension !== 'jpg') {
+                    return;
+                  }
+                  setTraderImageExtension('webp');
+                }}/>
               </div>
             </div>
 
             {isViewerOpen && (
                 <ImageViewer
-                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
+                    src={[`${traderImagePath}`]}
                     currentIndex={0}
                     backgroundStyle={backgroundStyle}
                     disableScroll={true}
