@@ -44,7 +44,7 @@ class APIQuery {
             return this.pendingQuery[storageKey];
         }
         // remove previous local storage versions (probably other languages, gamemodes)
-        for (let i = 0; i < localStorage.length; i++){
+        for (let i = 0; i < localStorage?.length ?? -1; i++){
             const localStorageKey = localStorage.key(i);
             if (!localStorageKey.startsWith(keyprefix)) {
                 continue;
@@ -66,7 +66,7 @@ class APIQuery {
 
     checkCachedQuery = (storageKey) => {
         try {
-            const value = localStorage.getItem(storageKey);
+            const value = localStorage?.getItem(storageKey);
 
             if (typeof value === 'string') {
                 const cached = JSON.parse(LZString.decompress(value));
