@@ -166,7 +166,7 @@ export default function useBartersData() {
     useQuestsData();
     useEffect(() => {
         if (fetchedGameMode !== gameMode) {
-            fetchedGameMode = true;
+            fetchedGameMode = gameMode;
             dispatch(fetchBarters());
             clearRefreshInterval();
         }
