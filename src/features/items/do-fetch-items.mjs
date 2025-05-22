@@ -8,10 +8,9 @@ class ItemsQuery extends APIQuery {
 
     async query(options) {
         const { language, gameMode, prebuild} = options;
-        const itemLimit = 20000;
-        const QueryBody = offset => {
-            return `query TarkovDevItems {
-                items(lang: ${language}, gameMode: ${gameMode}, limit: ${itemLimit}, offset: ${offset}) {
+        const query = `
+            query TarkovDevItems {
+                items(lang: ${language}, gameMode: ${gameMode}) {
                     id
                     bsgCategoryId
                     categories {
@@ -282,6 +281,10 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                 }
+                fleaMarket {
+                    sellOfferFeeRate
+                    sellRequirementFeeRate
+                }
             }
             fragment GridFragment on ItemStorageGrid {
                 width
@@ -384,54 +387,11 @@ class ItemsQuery extends APIQuery {
                 value
                 percent
                 skillName
-            }`;
-        };
+            }
+        `;
         //console.time('items query');
-        const [itemData, miscData, itemGrids] = await Promise.all([
-            new Promise(async (resolve, reject) => {
-                let offset = 0;
-                const retrievedItems = {
-                    data: {
-                        items: [],
-                    },
-                    errors: [],
-                };
-                while (true) {
-                    const query = QueryBody(offset).replace(/\s{2,}/g, ' ');
-                    const itemBatch = await this.graphqlRequest(query).catch(reject);
-                    if (!itemBatch) {
-                        break;
-                    }
-                    if (itemBatch.errors) {
-                        retrievedItems.errors.concat(itemBatch.errors);
-                    }
-                    if (itemBatch.data && itemBatch.data.items) {
-                        if (itemBatch.data.items.length === 0) {
-                            break;
-                        }
-                        retrievedItems.data.items = retrievedItems.data.items.concat(itemBatch.data.items);
-                        if (itemBatch.data.items.length < itemLimit) {
-                            break;
-                        }
-                    }
-                    if (!itemBatch.errors) {
-                        if (!itemBatch.data || !itemBatch.data.items || !itemBatch.data.items.length) {
-                            break;
-                        }
-                    }
-                    offset += itemLimit;
-                }
-                if (retrievedItems.errors.length < 1) {
-                    retrievedItems.errors = undefined;
-                }
-                resolve(retrievedItems);
-            }),
-            this.graphqlRequest(`{
-                fleaMarket {
-                    sellOfferFeeRate
-                    sellRequirementFeeRate
-                }
-            }`.replace(/\s{2,}/g, ' ')),
+        const [itemData, itemGrids] = await Promise.all([
+            this.graphqlRequest(query),
             new Promise(resolve => {
                 if (prebuild) {
                     return resolve({});
@@ -467,43 +427,13 @@ class ItemsQuery extends APIQuery {
             }
             // only throw error if this is for prebuild or data wasn't returned
             if (
-                prebuild || !itemData.data || 
-                !itemData.data.items || !itemData.data.items.length
+                prebuild || !itemData.data?.items?.length || !itemData.data?.fleaMarket
             ) {
                 return Promise.reject(new Error(itemData.errors[0].message));
             }
         }
 
-        if (miscData.errors) {
-            if (miscData.data) {
-                for (const error of miscData.errors) {
-                    let badItem = false;
-                    if (error.path) {
-                        let traverseLimit = 2;
-                        if (error.path[0] === 'fleaMarket') {
-                            traverseLimit = 1;
-                        }
-                        badItem = miscData.data;
-                        for (let i = 0; i < traverseLimit; i++) {
-                            badItem = badItem[error.path[i]];
-                        }
-                    }
-                    console.log(`Error in items API query: ${error.message}`, error.path);
-                    if (badItem) {
-                        console.log(badItem)
-                    }
-                }
-            }
-            // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !miscData.data || 
-                !miscData.data.fleaMarket
-            ) {
-                return Promise.reject(new Error(miscData.errors[0].message));
-            }
-        }
-
-        const flea = miscData.data.fleaMarket;
+        const flea = itemData.data.fleaMarket;
         localStorageWriteJson('Ti', flea.sellOfferFeeRate);
         localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
 

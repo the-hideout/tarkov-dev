@@ -12,7 +12,6 @@ export default async function graphqlRequest(queryString, variables) {
     }
     return fetch(apiUrl, {
         method: 'POST',
-        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',

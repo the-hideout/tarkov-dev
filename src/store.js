@@ -10,6 +10,7 @@ import { tradersReducer } from './features/traders/index.js';
 import { bossesReducer } from './features/bosses/index.js';
 import { mapsReducer } from './features/maps/index.js';
 import { achievementsReducer } from './features/achievements/index.js';
+import { statusReducer } from './features/status/index.mjs';
 import socketsReducer from './features/sockets/socketsSlice.js';
 import settingsReducer from './features/settings/settingsSlice.mjs';
 
@@ -27,6 +28,7 @@ export default configureStore({
         achievements: achievementsReducer,
         sockets: socketsReducer,
         settings: settingsReducer,
+        status: statusReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
