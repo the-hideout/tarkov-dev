@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchStatus from './do-fetch-status.mjs';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: null,
@@ -12,7 +13,6 @@ const initialState = {
 };
 
 export const fetchStatus = createAsyncThunk('status/fetchStatus', () => {
-    console.log('createAsyncThunk')
     return doFetchStatus();
 });
 const statusSlice = createSlice({
@@ -57,6 +57,9 @@ export default function useStatusData() {
                 dispatch(fetchStatus());
             }
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchStatus());
             }, 600000);
         }
