@@ -44,13 +44,8 @@ class APIQuery {
             return this.pendingQuery[storageKey];
         }
         // remove previous local storage versions (probably other languages, gamemodes)
-        for (let i = 0; i < localStorage?.length ?? -1; i++){
-            const localStorageKey = localStorage.key(i);
-            if (!localStorageKey.startsWith(keyprefix)) {
-                continue;
-            }
-            localStorage.removeItem(localStorageKey);
-        }
+        this.removedCachedQueries(keyprefix);
+        
         this.pendingQuery[storageKey] = this.query(options).then(results => {
             try {
                 localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
@@ -64,9 +59,16 @@ class APIQuery {
         return this.pendingQuery[storageKey];
     }
 
+    checkLocalStorage = () => {
+        return typeof window !== 'undefined';
+    }
+
     checkCachedQuery = (storageKey) => {
+        if (!this.checkLocalStorage()) {
+            return;
+        }
         try {
-            const value = localStorage?.getItem(storageKey);
+            const value = localStorage.getItem(storageKey);
 
             if (typeof value === 'string') {
                 const cached = JSON.parse(LZString.decompress(value));
@@ -79,6 +81,19 @@ class APIQuery {
         }
 
         return;
+    }
+
+    removedCachedQueries = (cacheKeyPrefix) => {
+        if (!this.checkLocalStorage()) {
+            return;
+        }
+        for (let i = 0; i < localStorage.length ?? -1; i++){
+            const localStorageKey = localStorage.key(i);
+            if (!localStorageKey.startsWith(cacheKeyPrefix)) {
+                continue;
+            }
+            localStorage.removeItem(localStorageKey);
+        }
     }
 }
 
