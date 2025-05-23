@@ -21,6 +21,7 @@ import doFetchMaps from './do-fetch-maps.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderMaps } from '../../modules/placeholder-data.js';
 import i18n from '../../i18n.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 import rawMapData from '../../data/maps.json';
 
@@ -86,6 +87,9 @@ export default function useMapsData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchMaps());
             }, 600000);
         }

@@ -204,7 +204,7 @@ class MapsQuery extends APIQuery {
                     }
                 }
             }
-        }`.replace(/\s{2,}/g, ' ');
+        }`;
     
         const mapsData = await this.graphqlRequest(query);
     

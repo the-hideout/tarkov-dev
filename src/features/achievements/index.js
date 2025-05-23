@@ -5,6 +5,7 @@ import equal from 'fast-deep-equal';
 
 import doFetchAchievements from './do-fetch-achievements.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: [],
@@ -66,6 +67,9 @@ export default function useAchievementsData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchAchievements());
             }, 600000);
         }

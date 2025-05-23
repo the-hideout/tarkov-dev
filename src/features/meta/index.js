@@ -6,6 +6,7 @@ import equal from 'fast-deep-equal';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import doFetchMeta from './do-fetch-meta.mjs';
 import { placeholderMeta } from '../../modules/placeholder-data.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: placeholderMeta(langCode()),
@@ -70,6 +71,9 @@ export default function useMetaData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchMeta());
             }, 600000);
         }

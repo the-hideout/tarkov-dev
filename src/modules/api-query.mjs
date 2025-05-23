@@ -1,14 +1,17 @@
+import LZString from 'lz-string';
+
 import graphqlRequest from './graphql-request.mjs';
 
 const defaultOptions = {
     language: 'en',
     gameMode: 'regular',
-    prebuild: false,
+    //prebuild: false,
 };
 
 class APIQuery {
-    constructor(queryName) {
+    constructor(queryName, cacheMinutes = 5) {
         this.name = queryName;
+        this.cacheTtl = cacheMinutes * 60 * 1000;
         this.pendingQuery = {};
     }
 
@@ -25,14 +28,72 @@ class APIQuery {
             ...defaultOptions,
             ...options,
         };
-        const pendingKey = options.language+options.gameMode;
-        if (this.pendingQuery[pendingKey]) {
-            return this.pendingQuery[pendingKey];
+        const keyparts = ['api-cached-data', this.name];
+        const keyprefix = keyparts.join('-');
+        for (const variable in options) {
+            keyparts.push(options[variable]);
         }
-        this.pendingQuery[pendingKey] = this.query(options).finally(() => {
-            this.pendingQuery[pendingKey] = undefined;
+        const storageKey = keyparts.join('-');
+        const cached = this.checkCachedQuery(storageKey);
+        if (cached) {
+            //console.log('returning cached value', this.name);
+            return cached;
+        }
+        //console.log('querying new value', this.name);
+        if (this.pendingQuery[storageKey]) {
+            return this.pendingQuery[storageKey];
+        }
+        // remove previous local storage versions (probably other languages, gamemodes)
+        this.removedCachedQueries(keyprefix);
+        
+        this.pendingQuery[storageKey] = this.query(options).then(results => {
+            try {
+                localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
+            } catch (error) {
+                /* noop */
+            }
+            return results;
+        }).finally(() => {
+            this.pendingQuery[storageKey] = undefined;
         });
-        return this.pendingQuery[pendingKey];
+        return this.pendingQuery[storageKey];
+    }
+
+    checkLocalStorage = () => {
+        return typeof window !== 'undefined';
+    }
+
+    checkCachedQuery = (storageKey) => {
+        if (!this.checkLocalStorage()) {
+            return;
+        }
+        try {
+            const value = localStorage.getItem(storageKey);
+
+            if (typeof value === 'string') {
+                const cached = JSON.parse(LZString.decompress(value));
+                if (new Date() - cached.updated < this.cacheTtl) {
+                    return cached.data;
+                }
+            }
+        } catch (error) {
+            /* noop */
+        }
+
+        return;
+    }
+
+    removedCachedQueries = (cacheKeyPrefix) => {
+        if (!this.checkLocalStorage()) {
+            return;
+        }
+        for (let i = 0; i < localStorage.length ?? -1; i++){
+            const localStorageKey = localStorage.key(i);
+            if (!localStorageKey.startsWith(cacheKeyPrefix)) {
+                continue;
+            }
+            localStorage.removeItem(localStorageKey);
+        }
     }
 }
 

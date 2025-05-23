@@ -18,7 +18,7 @@ class AchievementsQuery extends APIQuery {
                 normalizedRarity
                 rarity
             }
-        }`.replace(/\s{2,}/g, ' ');
+        }`;
     
         const achievementsData = await this.graphqlRequest(query);
         

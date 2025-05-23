@@ -7,6 +7,7 @@ import doFetchHideout from './do-fetch-hideout.mjs';
 
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderHideout } from '../../modules/placeholder-data.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: placeholderHideout(langCode()),
@@ -71,6 +72,9 @@ export default function useHideoutData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchHideout());
             }, 600000);
         }

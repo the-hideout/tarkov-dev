@@ -7,6 +7,7 @@ import doFetchCrafts from './do-fetch-crafts.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 import { placeholderCrafts } from '../../modules/placeholder-data.js';
 
@@ -184,6 +185,9 @@ export default function useCraftsData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchCrafts());
             }, 600000);
         }
