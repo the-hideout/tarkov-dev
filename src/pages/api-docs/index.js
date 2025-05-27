@@ -131,7 +131,6 @@ function APIDocs() {
                     {`fetch('https://api.tarkov.dev/graphql', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
   body: JSON.stringify({query: \`{

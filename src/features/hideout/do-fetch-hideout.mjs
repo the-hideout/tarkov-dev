@@ -41,7 +41,7 @@ class HideoutQuery extends APIQuery {
                     id
                 }
             }
-        }`.replace(/\s{2,}/g, ' ');
+        }`;
 
         const queryData = await this.graphqlRequest(query);
 

@@ -8,6 +8,7 @@ import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderBosses } from '../../modules/placeholder-data.js';
 import rawBossData from '../../data/bosses.json';
 import useMapsData from '../maps/index.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: placeholderBosses(langCode()),
@@ -117,6 +118,9 @@ export default function useBossesData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchBosses());
             }, 600000);
         }

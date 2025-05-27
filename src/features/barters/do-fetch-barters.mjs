@@ -38,7 +38,7 @@ class BartersQuery extends APIQuery {
                     normalizedName
                 }
             }
-        }`.replace(/\s{2,}/g, ' ');
+        }`;
     
         const bartersData = await this.graphqlRequest(query);
     

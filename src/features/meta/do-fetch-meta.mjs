@@ -52,7 +52,7 @@ class MetaQuery extends APIQuery {
                 level2
                 level3
             }
-        }`.replace(/\s{2,}/g, ' ');
+        }`;
     
         const metaData = await this.graphqlRequest(query);
     

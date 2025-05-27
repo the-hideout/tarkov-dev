@@ -7,6 +7,7 @@ import doFetchBarters from './do-fetch-barters.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 import { placeholderBarters } from '../../modules/placeholder-data.js';
 
@@ -166,12 +167,15 @@ export default function useBartersData() {
     useQuestsData();
     useEffect(() => {
         if (fetchedGameMode !== gameMode) {
-            fetchedGameMode = true;
+            fetchedGameMode = gameMode;
             dispatch(fetchBarters());
             clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchBarters());
             }, 600000);
         }
