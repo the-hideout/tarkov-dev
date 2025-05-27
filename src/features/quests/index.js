@@ -6,6 +6,7 @@ import equal from 'fast-deep-equal';
 import doFetchQuests from './do-fetch-quests.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderTasks } from '../../modules/placeholder-data.js';
+import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 
 const initialState = {
     data: placeholderTasks(langCode()),
@@ -144,6 +145,9 @@ export default function useQuestsData() {
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
                 dispatch(fetchQuests());
             }, 600000);
         }

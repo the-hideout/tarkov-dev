@@ -20,6 +20,7 @@ import {
 } from './features/sockets/socketsSlice.js';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage.jsx';
 import makeID from './modules/make-id.js';
+import WindowFocusHandler from './modules/window-focus-handler.mjs';
 
 import Loading from './components/loading/index.js';
 
@@ -342,6 +343,7 @@ function App() {
             <CookieConsent>
                 tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.
             </CookieConsent>
+            <WindowFocusHandler />
             <ErrorBoundary FallbackComponent={Fallback}>
                 <Routes>
                     <Route
