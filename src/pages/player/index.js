@@ -1096,7 +1096,11 @@ function Player() {
                                         <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
                                     )}
                                     {playerBanned === true && (
-                                        <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
+                                        <Tippy
+                                            content={t('Ban detection may not always be accurate, especially if the account was recently renamed.')}
+                                        >
+                                            <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
+                                        </Tippy>
                                     )}
                                 </span>
                             )}
