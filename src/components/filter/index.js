@@ -51,7 +51,21 @@ function SliderFilter({
     onChange,
     reverse = false,
     style = {},
+    trackStyles = {},
+    handleStyles = {},
+    railStyles = {},
+    dotStyles = {},
+    activeDotStyles = {},
+    swapActiveColor = false,
 }) {
+    const defaultSelectedColor = '#048802';
+    const defaultUnselectedColor = '#E9E9E9';
+    let selectedColor = defaultSelectedColor;
+    let unselectedColor = defaultUnselectedColor;
+    if (swapActiveColor) {
+        selectedColor = defaultUnselectedColor;
+        unselectedColor = defaultSelectedColor;
+    }
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
@@ -61,16 +75,30 @@ function SliderFilter({
                 max={max}
                 marks={marks}
                 onChange={onChange}
-                trackStyle={{
-                    backgroundColor: '#048802',
+                styles={{
+                    track: {
+                        backgroundColor: selectedColor,
+                        ...trackStyles,
+                    },
+                    handle: {
+                        backgroundColor: defaultSelectedColor,
+                        borderColor: defaultSelectedColor,
+                        ...handleStyles,
+                    },
+                    rail: {
+                        backgroundColor: unselectedColor,
+                        ...railStyles,
+                    }
                 }}
-                handleStyle={{
-                    backgroundColor: '#048802',
-                    borderColor: '#048802',
+                dotStyle={{
+                    backgroundColor: unselectedColor,
+                    borderColor: unselectedColor,
+                    ...dotStyles,
                 }}
                 activeDotStyle={{
-                    backgroundColor: '#048802',
-                    borderColor: '#048802',
+                    backgroundColor: selectedColor,
+                    borderColor: selectedColor,
+                    ...activeDotStyles,
                 }}
                 reverse={reverse}
                 style={{

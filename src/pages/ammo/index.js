@@ -377,6 +377,7 @@ function Ammo() {
                     style={{
                         marginRight: '10px',
                     }}
+                    swapActiveColor={true}
                 />
                 <SliderFilter
                     defaultValue={minDam}
@@ -399,6 +400,7 @@ function Ammo() {
                             mind: min
                         });
                     }}
+                    swapActiveColor={true}
                 />
             </Filter>
             <h2 className="center-title">
