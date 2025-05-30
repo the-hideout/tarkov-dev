@@ -50,6 +50,7 @@ function SliderFilter({
     marks,
     onChange,
     reverse = false,
+    style = {},
 }) {
     return (
         <div className={'filter-slider-wrapper'}>
@@ -75,6 +76,7 @@ function SliderFilter({
                 style={{
                     top: '-7px',
                     width: '170px',
+                    ...style,
                 }}
             />
         </div>
@@ -89,6 +91,7 @@ function RangeFilter({
     marks,
     onChange,
     reverse = false,
+    style = {},
 }) {
     return (
         <div className={'filter-slider-wrapper'}>
@@ -132,6 +135,7 @@ function RangeFilter({
                 style={{
                     top: '-7px',
                     width: '170px',
+                    ...style,
                 }}
             />
         </div>

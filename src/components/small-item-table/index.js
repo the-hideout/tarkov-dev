@@ -273,6 +273,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        minDamage,
         distance,
         softArmorFilter,
         plateArmorFilter,
@@ -617,6 +618,12 @@ function SmallItemTable(props) {
                 return pen >= min && pen <= max;
             })
             .filter(item => {
+                if (typeof minDamage === 'undefined' || typeof item.properties?.damage === 'undefined') {
+                    return true;
+                }
+                return item.properties.damage >= minDamage;
+            })
+            .filter(item => {
                 if (typeof customFilter !== 'function') {
                     return true;
                 }
@@ -923,6 +930,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        minDamage,
         traderValue,
         traderBuyback,
         traderOffer,
