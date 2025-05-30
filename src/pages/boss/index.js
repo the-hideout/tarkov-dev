@@ -246,12 +246,15 @@ function BossPage(params) {
 
     // Display health stats
     if (bossData.health) {
+        const totalHealth = bossData.health.reduce((totalHealth, current) => {
+            totalHealth += current.max;
+            return totalHealth;
+        }, 0);
         bossProperties['health'] = {
-            value: bossData.health.reduce((totalHealth, current) => {
-                totalHealth += current.max;
-                return totalHealth;
-            }, 0),
-            label: `${t('Health')} 🖤`,
+            value: bossData.health.map((current) => {
+                return `${current.bodyPart}: ${current.max}`;
+            }).join(', '),
+            label: `${t('Health')} (${totalHealth}) 🖤`,
             tooltip: t('Total boss health'),
         };
     }

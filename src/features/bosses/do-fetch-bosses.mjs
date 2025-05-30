@@ -15,6 +15,7 @@ class BossesQuery extends APIQuery {
                 imagePosterLink
                 health {
                     id
+                    bodyPart
                     max
                 }
                 equipment {
