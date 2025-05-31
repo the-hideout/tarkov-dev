@@ -154,6 +154,12 @@ const formatter = (key, value, id) => {
         }).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
     }
 
+    if (key === 'bodyPartsHealth' && value.length > 0) {
+        value = value?.map(b => {
+            return <span key={`bodypart=${b.id}`}><span>{`${b.bodyPart}: `}</span><Link to={`/ammo/?mind=${b.max}`}>{b.max}</Link></span>;
+        }).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
+    }
+
     if (Array.isArray(value)) {
         let allString = true;
         for (const val of value) {

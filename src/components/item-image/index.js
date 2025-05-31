@@ -462,14 +462,14 @@ function ItemImage({
                 >
                     <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />
                 </Tippy>}
-                {count && <span className="item-image-count">{count}</span>}
+                {count && <span className="item-image-count">{trader ? t('LL{{level}}', { level: count }) : count}</span>}
             </div>
             {trader && <div style={traderElementStyle}>
                 <Tippy
                     placement="top"
                     content={trader.name}
                 >
-                    <Link to={`/trader/${trader.normalizedName}`}>
+                    <Link to={`/trader/${trader.normalizedName}/?tab=${count}&search=${item.name}`}>
                         <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-icon.jpg`} style={traderImageStyle}/>
                     </Link>
                 </Tippy>

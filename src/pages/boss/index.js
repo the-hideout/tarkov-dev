@@ -250,10 +250,8 @@ function BossPage(params) {
             totalHealth += current.max;
             return totalHealth;
         }, 0);
-        bossProperties['health'] = {
-            value: bossData.health.map((current) => {
-                return `${current.bodyPart}: ${current.max}`;
-            }).join(', '),
+        bossProperties['bodyPartsHealth'] = {
+            value: bossData.health,
             label: `${t('Health')} (${totalHealth}) 🖤`,
             tooltip: t('Total boss health'),
         };

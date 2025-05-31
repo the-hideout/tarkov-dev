@@ -273,6 +273,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        minDamage,
         distance,
         softArmorFilter,
         plateArmorFilter,
@@ -617,15 +618,17 @@ function SmallItemTable(props) {
                 return pen >= min && pen <= max;
             })
             .filter(item => {
+                if (typeof minDamage === 'undefined' || typeof item.properties?.damage === 'undefined') {
+                    return true;
+                }
+                return item.properties.damage >= minDamage;
+            })
+            .filter(item => {
                 if (typeof customFilter !== 'function') {
                     return true;
                 }
                 return customFilter(item);
             });
-
-        if (nameFilter) {
-            returnData = itemSearch(returnData, nameFilter);
-        }
 
         if (traderFilter) {
             returnData = returnData.filter((item) => {
@@ -646,17 +649,15 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (!loyaltyLevelFilter) {
-                    return item.buyFor[0];
-                }
-
-                if (!item.buyFor[0]) {
+                if (item.buyFor.length === 0) {
                     return false;
                 }
 
-                return (
-                    item.buyFor[0].requirements[0].value === loyaltyLevelFilter
-                );
+                if (!loyaltyLevelFilter) {
+                    return true;
+                }
+
+                return item.buyFor.some(buy => buy.requirements.some(req => req.type === 'loyaltyLevel' && req.value === loyaltyLevelFilter));
             });
         }
 
@@ -687,6 +688,10 @@ function SmallItemTable(props) {
                 });
             }
             returnData = returnData.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        if (nameFilter) {
+            returnData = itemSearch(returnData, nameFilter);
         }
 
         if (defaultRandom && !nameFilter) {
@@ -923,6 +928,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        minDamage,
         traderValue,
         traderBuyback,
         traderOffer,

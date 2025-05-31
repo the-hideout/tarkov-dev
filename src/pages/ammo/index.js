@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
@@ -8,7 +8,7 @@ import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, RangeFilter } from '../../components/filter/index.js';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter } from '../../components/filter/index.js';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
@@ -47,6 +47,7 @@ const ammoCategoryId = '5485a8684bdc2da71d8b4567';
 
 function Ammo() {
     const allTraders = useSelector(selectAllTraders);
+    const [searchParams, setSearchParams] = useSearchParams();
     const { currentAmmo } = useParams();
     let currentAmmoList = useMemo(() => [], []);
     let redirect = false;
@@ -80,11 +81,28 @@ function Ammo() {
         'includeCraftIngredients',
         false,
     );
-    const [minPen, setMinPen] = useState(0);
-    const [maxPen, setMaxPen] = useState(60);
+    const [minPen, setMinPen] = useState(searchParams.get('minp') ?? 0);
+    const [minDam, setMinDam] = useState(searchParams.get('mind') ?? 0);
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
+
+    const setPathFilters = useCallback((filtervalues) => {
+        const params = {
+            minp: minPen,
+            mind: minDam,
+        };
+        for (const paramName in filtervalues) {
+            params[paramName] = filtervalues[paramName];
+        }
+        if (params.minp === 0) {
+            delete params.minp;
+        }
+        if (params.mind === 0) {
+            delete params.mind;
+        }
+        setSearchParams(params, { replace: true });
+    }, [setSearchParams, minPen, minDam]);
 
     useEffect(() => {
         if (!currentAmmo || !currentAmmo.length) {
@@ -192,12 +210,15 @@ function Ammo() {
                 return true;
             }
             ).filter(ammo => {
-                if (minPen === 0 && maxPen === 60) {
+                if (minPen === 0 || typeof ammo.properties?.penetrationPower === 'undefined') {
                     return true;
                 }
-                const max = maxPen === 60 ? Number.MAX_SAFE_INTEGER : maxPen;
-                const pen = ammo.properties.penetrationPower;
-                return pen >= minPen && pen <= max;
+                return ammo.properties.penetrationPower >= minPen;
+            }).filter(ammo => {
+                if (minDam === 0) {
+                    return true;
+                }
+                return ammo.properties.damage >= minDam;
             })
             .map((ammo) => {
                 ammo.chartName = ammo.name
@@ -228,7 +249,7 @@ function Ammo() {
                 };
             });
         return returnData;
-    }, [selectedLegendName, shiftPress, ammoData, minPen, maxPen, showOnlyTraderAmmo, allTraders]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, showOnlyTraderAmmo, allTraders]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -273,7 +294,9 @@ function Ammo() {
                     legendData={legendData}
                     selectedLegendName={selectedLegendName}
                     handleLegendClick={handleLegendClick}
+                    xMin={minDam}
                     xMax={MAX_DAMAGE}
+                    yMin={minPen}
                     yMax={MAX_PENETRATION}
                 />
             </div>
@@ -347,9 +370,9 @@ function Ammo() {
                         onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
                     />
                 </ButtonGroupFilter>
-                <RangeFilter
-                    defaultValue={[0, 60]}
-                    label={t('Penetration')}
+                <SliderFilter
+                    defaultValue={minPen}
+                    label={t('Min Pen')}
                     min={0}
                     max={60}
                     marks={{
@@ -361,10 +384,38 @@ function Ammo() {
                         50: 50,
                         60: '60+',
                     }}
-                    onChange={([min, max]) => {
+                    onChange={(min) => {
                         setMinPen(min);
-                        setMaxPen(max);
+                        setPathFilters({
+                            minp: min,
+                        });
                     }}
+                    style={{
+                        marginRight: '10px',
+                    }}
+                    swapActiveColor={true}
+                />
+                <SliderFilter
+                    defaultValue={minDam}
+                    label={t('Min Dmg')}
+                    min={0}
+                    max={105}
+                    marks={{
+                        0: 0,
+                        20: 20,
+                        35: 35,
+                        50: 50,
+                        65: 65,
+                        85: 85,
+                        105: '105+',
+                    }}
+                    onChange={(min) => {
+                        setMinDam(min);
+                        setPathFilters({
+                            mind: min
+                        });
+                    }}
+                    swapActiveColor={true}
                 />
             </Filter>
             <h2 className="center-title">
@@ -387,7 +438,7 @@ function Ammo() {
                 useBarterIngredients={includeBarterIngredients}
                 useCraftIngredients={includeCraftIngredients}
                 minPenetration={minPen}
-                maxPenetration={maxPen}
+                minDamage={minDam}
             />
         </div>,
     ];
