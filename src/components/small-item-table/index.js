@@ -630,10 +630,6 @@ function SmallItemTable(props) {
                 return customFilter(item);
             });
 
-        if (nameFilter) {
-            returnData = itemSearch(returnData, nameFilter);
-        }
-
         if (traderFilter) {
             returnData = returnData.filter((item) => {
                 item.buyFor = item.buyFor.filter(
@@ -653,17 +649,15 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (!loyaltyLevelFilter) {
-                    return item.buyFor[0];
-                }
-
-                if (!item.buyFor[0]) {
+                if (item.buyFor.length === 0) {
                     return false;
                 }
 
-                return (
-                    item.buyFor[0].requirements[0].value === loyaltyLevelFilter
-                );
+                if (!loyaltyLevelFilter) {
+                    return true;
+                }
+
+                return item.buyFor.some(buy => buy.requirements.some(req => req.type === 'loyaltyLevel' && req.value === loyaltyLevelFilter));
             });
         }
 
@@ -694,6 +688,10 @@ function SmallItemTable(props) {
                 });
             }
             returnData = returnData.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        if (nameFilter) {
+            returnData = itemSearch(returnData, nameFilter);
         }
 
         if (defaultRandom && !nameFilter) {

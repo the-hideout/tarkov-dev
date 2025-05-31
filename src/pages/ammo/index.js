@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -86,6 +86,23 @@ function Ammo() {
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
+
+    const setPathFilters = useCallback((filtervalues) => {
+        const params = {
+            minp: minPen,
+            mind: minDam,
+        };
+        for (const paramName in filtervalues) {
+            params[paramName] = filtervalues[paramName];
+        }
+        if (params.minp === 0) {
+            delete params.minp;
+        }
+        if (params.mind === 0) {
+            delete params.mind;
+        }
+        setSearchParams(params, { replace: true });
+    }, [setSearchParams, minPen, minDam]);
 
     useEffect(() => {
         if (!currentAmmo || !currentAmmo.length) {
@@ -369,9 +386,8 @@ function Ammo() {
                     }}
                     onChange={(min) => {
                         setMinPen(min);
-                        setSearchParams({
+                        setPathFilters({
                             minp: min,
-                            mind: minDam,
                         });
                     }}
                     style={{
@@ -395,8 +411,7 @@ function Ammo() {
                     }}
                     onChange={(min) => {
                         setMinDam(min);
-                        setSearchParams({
-                            minp: minPen,
+                        setPathFilters({
                             mind: min
                         });
                     }}

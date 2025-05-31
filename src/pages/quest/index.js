@@ -991,7 +991,7 @@ function Quest() {
                                     imageField="baseImageLink"
                                     linkToItem={true}
                                     trader={trader}
-                                    count={t('LL{{level}}', { level: unlock.level })}
+                                    count={unlock.level}
                                 />
                             </li>
                         );
