@@ -52,7 +52,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
             .filter((item) => includeItems.some(it => it.id === item.id))
             .map((item) => {
                 const includeItem = includeItems.find((includeItem) => includeItem.id === item.id);
-                const foundInRaid = includeItem.attributes.some(att => att.name === 'foundInRaid' && att.value === 'true');
+                const foundInRaid = includeItem.attributes?.some(att => att.name === 'foundInRaid' && att.value === 'true');
                 const formattedItem = {
                     ...item,
                     quantity: includeItem.quantity,
