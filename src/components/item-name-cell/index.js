@@ -16,11 +16,6 @@ function ItemNameCell(props) {
             className="item-image-fir" 
             loading="lazy" 
             src={`${process.env.PUBLIC_URL}/images/icon-fir.png`}
-            style={{
-                position: 'absolute',
-                top: -2,
-                left: 64-18,
-            }}
         />
     }
     return (
