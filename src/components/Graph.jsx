@@ -162,7 +162,6 @@ const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
 const chartAnimate = { duration: 500 };
 const chartPadding = { top: 10, bottom: 20, right: 50, left: 10 };
-const chartMinDomain = { y: 0, x: 0 };
 const chartMaxDomain = { y: MAX_PENETRATION, x: MAX_DAMAGE };
 
 const Graph = (props) => {
@@ -178,6 +177,7 @@ const Graph = (props) => {
     );
 
     const { t } = useTranslation();
+    const chartMinDomain = { y: props.yMin ?? 0, x: props.xMin ?? 0 };
 
     const markerLines = useMemo(() => {
         return [

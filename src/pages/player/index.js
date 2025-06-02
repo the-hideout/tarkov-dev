@@ -130,14 +130,13 @@ function Player() {
     const { data: achievements } = useAchievementsData();
     const [turnstileToken, setTurnstileToken] = useState();
     const [ playerBanned, setPlayerBanned ] = useState();
-    const bannedButtonRef = useRef();
     const profileImageRef = useRef();
     const [profileImageLoaded, setProfileImageLoaded] = useState(false);
     const [profileImageLoading, setProfileImageLoading] = useState(false);
 
     const fetchProfile = useCallback(async () => {
-        const token = turnstileRef?.current?.getResponse();
-        if (!token) {
+        //const token = turnstileRef?.current?.getResponse();
+        if (!turnstileToken) {
             return;
         }
         if (!accountId) {
@@ -1084,10 +1083,9 @@ function Player() {
                         <span className="wiki-link-wrapper">
                             {playerData.aid !== 0 && !playerData.saved && (
                                 <span>
-                                    {typeof playerBanned === 'undefined' && (
+                                    {typeof playerBanned === 'undefined' && turnstileToken && (
                                         <Tippy content={t('Check if player appears to be banned')}>
-                                            <button ref={bannedButtonRef} className="profile-button banned-btn" onClick={() => {
-                                                bannedButtonRef.current.disabled = true;
+                                            <button className="profile-button banned-btn" onClick={() => {
                                                 checkBanned();
                                             }}><Icon path={mdiAccountQuestion} size={1} className="icon-with-text" /></button>
                                         </Tippy>
@@ -1096,7 +1094,11 @@ function Player() {
                                         <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
                                     )}
                                     {playerBanned === true && (
-                                        <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
+                                        <Tippy
+                                            content={t('Ban detection may not always be accurate, especially if the account was recently renamed.')}
+                                        >
+                                            <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
+                                        </Tippy>
                                     )}
                                 </span>
                             )}

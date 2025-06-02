@@ -21,6 +21,10 @@ class HideoutQuery extends APIQuery {
                         item {
                             id
                         }
+                        attributes {
+                            name
+                            value
+                        }
                     } 
                     stationLevelRequirements {
                         station {

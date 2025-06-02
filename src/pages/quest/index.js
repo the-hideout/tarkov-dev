@@ -546,8 +546,9 @@ function Quest() {
         }
         if (objective.type === 'plantItem') {
             let item = items.find((i) => i.id === objective.items[0].id);
-            if (!item)
+            if (!item) {
                 return null;
+            }
             if (item.properties?.defaultPreset) {
                 const preset = items.find(i => i.id === item.properties.defaultPreset.id);
                 item = {
@@ -556,6 +557,10 @@ function Quest() {
                     width: preset.width,
                     height: preset.height,
                 };
+            }
+            let plantCount;
+            if (objective.count > 1) {
+                plantCount = objective.count;
             }
             if (objective.items.length > 1) {
                 taskDetails = (
@@ -588,6 +593,7 @@ function Quest() {
                             item={item}
                             imageField="baseImageLink"
                             linkToItem={true}
+                            count={plantCount}
                         />
                     </>
                 );
@@ -992,7 +998,7 @@ function Quest() {
                                     imageField="baseImageLink"
                                     linkToItem={true}
                                     trader={trader}
-                                    count={t('LL{{level}}', { level: unlock.level })}
+                                    count={unlock.level}
                                 />
                             </li>
                         );
