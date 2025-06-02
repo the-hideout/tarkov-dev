@@ -6,6 +6,9 @@ const fuelIds = [
 ];
 
 function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
+        if (item.foundInRaid) {
+            return {type: 'none', pricePerUnit: 0};
+        }
     let buySource = item.buyFor?.filter(buyFor => {
         if (buyFor.priceRUB === 0) {
             return false;
@@ -65,6 +68,9 @@ function getItemBarters(item, barters, settings, allowAllSources) {
         // if(barter.requiredItems.length > 1){
         //     continue;
         // }
+        if (item.foundInRaid) {
+            continue;
+        }
 
         if (barter.rewardItems[0].item.id !== item.id) {
             continue;
@@ -244,11 +250,12 @@ function getCheapestPrice(item, {barters = [], crafts = [], settings = false, al
     if (useCraftIngredients || itemChain.length === 0) {
         bestCraft = getCheapestCraft(item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain});
     }
-    if (!bestPrice || (bestPrice.type === 'cash-sell' && bestBarter) || bestPrice.pricePerUnit > bestBarter?.pricePerUnit) {
+    const noCashOffers = ['cash-sell', 'none'];
+    if (!bestPrice || (noCashOffers.includes(bestPrice.type) && bestBarter) || bestPrice.pricePerUnit > bestBarter?.pricePerUnit) {
         bestPrice = bestBarter;
     }
 
-    if (!bestPrice || (bestPrice.type === 'cash-sell' && bestCraft) || bestPrice.pricePerUnit > bestCraft?.pricePerUnit) {
+    if (!bestPrice || (noCashOffers.includes(bestPrice.type) && bestCraft) || bestPrice.pricePerUnit > bestCraft?.pricePerUnit) {
         bestPrice = bestCraft;
     }
 

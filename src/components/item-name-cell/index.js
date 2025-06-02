@@ -9,18 +9,30 @@ function ItemNameCell(props) {
     if (!item) {
         item = props.row.original;
     }
+    let firImage = '';
+    if (item.foundInRaid) {
+        firImage = <img 
+            alt="" 
+            className="item-image-fir" 
+            loading="lazy" 
+            src={`${process.env.PUBLIC_URL}/images/icon-fir.png`}
+        />
+    }
     return (
         <div className="small-item-table-description-wrapper">
             <div className="small-item-table-image-wrapper">
                 <Link
                     to={item.itemLink}
                 >
-                    <img
-                        alt={item.name}
-                        className="table-image"
-                        loading="lazy"
-                        src={item.iconLink}
-                    />
+                    <span style={{position: 'relative'}}>
+                        <img
+                            alt={item.name}
+                            className="table-image"
+                            loading="lazy"
+                            src={item.iconLink}
+                        />
+                        {firImage}
+                    </span>
                 </Link>
             </div>
             <div className="small-item-table-name-wrapper">
