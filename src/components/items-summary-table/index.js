@@ -51,17 +51,16 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
         const requiredItems = items
             .filter((item) => includeItems.some(it => it.id === item.id))
             .map((item) => {
+                const includeItem = includeItems.find((includeItem) => includeItem.id === item.id);
+                const foundInRaid = includeItem.attributes?.some(att => att.name === 'foundInRaid' && att.value === 'true');
                 const formattedItem = {
                     ...item,
-                    quantity: includeItems.find(
-                        (includeItem) => includeItem.id === item.id,
-                    ).quantity,
+                    quantity: includeItem.quantity,
+                    foundInRaid,
+                    attribtues: includeItem.attributes,
                     itemLink: `/item/${item.normalizedName}`,
                     barters: barters.filter(
                         (barter) => barter.rewardItems[0].item.id === item.id,
-                    ),
-                    buyOnFleaPrice: item.buyFor.find(
-                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
                 };
 
@@ -215,7 +214,13 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                                 priceSource = cheapestObtainInfo.vendor.name;
                             }
                             else {
-                                priceSource = `${cheapestObtainInfo.vendor.name} ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;
+                                let sellTo = '';
+                                let loyalty = ` ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;
+                                if (cheapestObtainInfo.type === 'cash-sell') {
+                                    sellTo = `${t('Sell to')} `;
+                                    loyalty = '';
+                                }
+                                priceSource = `${sellTo}${cheapestObtainInfo.vendor.name}${loyalty}`;
                             }
                             if (cheapestObtainInfo.vendor?.taskUnlock) {
                                 taskIcon = (
@@ -314,6 +319,8 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                         priceContent.push('-');
                     } else if (props.row.original.requiredStationLevel) {
                         priceContent.push('-');
+                    } else if (props.row.original.foundInRaid) {
+                        priceContent.push(t('Found In Raid'));
                     } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {

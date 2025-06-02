@@ -180,6 +180,7 @@ function Hideout() {
                                         return {
                                             ...itemRequirement.item,
                                             quantity: itemRequirement.quantity,
+                                            attributes: itemRequirement.attributes,
                                         };
                                     },
                                 )}

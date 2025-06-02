@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -23,7 +23,7 @@ import './index.css';
 
 function Crafts() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') ?? '');
 
     const [freeFuel, setFreeFuel] = useState(false);
     const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
@@ -32,8 +32,15 @@ function Crafts() {
     );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
-        'top',
+        searchParams.get('station') ?? 'top',
     );
+    useEffect(() => {
+        // set local storage value on initial page load
+        if (!searchParams.get('station')) {
+            return;
+        }
+        setSelectedStation(searchParams.get('station'));
+    }, [searchParams, setSelectedStation]);
     const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
         'includeBarterIngredients',
         true,
@@ -42,20 +49,29 @@ function Crafts() {
         'includeCraftIngredients',
         false,
     );
-    const [showAll, setShowAll] = useState(false);
+    const [showAll, setShowAll] = useState(searchParams.get('all') === 'true');
     const { t } = useTranslation();
 
-    useEffect(() => {
-        setNameFilter(searchParams.get('search') || '');
-        const station = searchParams.get('station');
-        if (station) {
-            setSelectedStation(station);
+    const setPathFilters = useCallback((filtervalues) => {
+        const params = {
+            all: showAll,
+            station: selectedStation,
+            search: nameFilter,
+        };
+        for (const paramName in filtervalues) {
+            params[paramName] = filtervalues[paramName];
         }
-        const all = searchParams.get('all');
-        if (all) {
-            setShowAll(all === 'true');
+        if (params.all !== 'true') {
+            delete params.all;
         }
-    }, [searchParams, setSelectedStation, setShowAll]);
+        if (params.station === 'top') {
+            delete params.station;
+        }
+        if (params.search === '') {
+            delete params.search;
+        }
+        setSearchParams(params, { replace: true });
+    }, [setSearchParams, showAll, selectedStation, nameFilter]);
 
     const { data: hideout } = useHideoutData();
     
@@ -81,7 +97,10 @@ function Crafts() {
                     <ToggleFilter
                         checked={showAll}
                         label={t('Ignore settings')}
-                        onChange={(e) => setSearchParams({'all': `${!showAll}`})}
+                        onChange={(e) => {
+                            setShowAll(e);
+                            setPathFilters({'all': `${e}`});
+                        }}
                         tooltipContent={
                             <>
                                 {t('Shows all crafts regardless of your settings')}
@@ -116,7 +135,10 @@ function Crafts() {
                                             src={station.imageLink}
                                         />
                                     }
-                                    onClick={() => {setSearchParams({'station': station.normalizedName})}}
+                                    onClick={() => {
+                                        setSelectedStation(station.normalizedName);
+                                        setPathFilters({'station': station.normalizedName});
+                                    }}
                                 />
                             );
                         })}
@@ -128,7 +150,10 @@ function Crafts() {
                             }
                             selected={selectedStation === 'top'}
                             content={t('Best')}
-                            onClick={() => {setSearchParams({'station': 'top'})}}
+                            onClick={() => {
+                                setSelectedStation('top');
+                                setPathFilters({'station': 'top'});
+                            }}
                         />
                         <ButtonGroupFilterButton
                             tooltipContent={
@@ -138,7 +163,10 @@ function Crafts() {
                             }
                             selected={selectedStation === 'banned'}
                             content={<Icon path={mdiCancel} size={1} className="icon-with-text"/>}
-                            onClick={() => {setSearchParams({'station': 'banned'})}}
+                            onClick={() => {
+                                setSelectedStation('banned');
+                                setPathFilters({'station': 'banned'});
+                            }}
                         />
                     </ButtonGroupFilter>
                     <ButtonGroupFilter>
@@ -179,7 +207,8 @@ function Crafts() {
                         type={'text'}
                         placeholder={t('filter on item')}
                         onChange={(e) => {
-                            setSearchParams({'search': e.target.value});
+                            setNameFilter(e.target.value);
+                            setPathFilters({'search': e.target.value});
                         }}
                     />
                 </Filter>
