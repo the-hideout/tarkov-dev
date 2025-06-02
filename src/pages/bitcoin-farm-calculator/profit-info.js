@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useItemsData from '../../features/items/index.js'
+import useBartersData from '../../features/barters/index.js';
+import useCraftsData from '../../features/crafts/index.js';
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data.js';
 import DataTable from '../../components/data-table/index.js';
 import formatPrice from '../../modules/format-price.js';
@@ -11,6 +13,7 @@ import { getDurationDisplay } from '../../modules/format-duration.js';
 import useHideoutData from '../../features/hideout/index.js';
 import { selectAllStations } from '../../features/settings/settingsSlice.mjs';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
+import { getCheapestPrice } from '../../modules/format-cost-items.js';
 // import ProfitableGraph from './profitable-graph';
 
 const cardSlots = {
@@ -27,6 +30,10 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     const { t } = useTranslation();
 
     const { data: items } = useItemsData();
+    const { data: barters} = useBartersData();
+    const { data: crafts } = useCraftsData();
+
+    const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const bitcoinItem = useMemo(() => {
         return items.find(i => i.id === BitcoinItemId);
@@ -41,17 +48,20 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         let buildCost = 0;
         for (const req of solar.levels[0].itemRequirements) {
             const item = items.find(i => i.id === req.item.id);
-            if (!item) continue;
-            const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
-                if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
-                    return buyFor.priceRUB;
-                }
-                return lowPrice;
-            }, 0);
-            buildCost += itemCost * req.quantity;
+            if (!item) {
+                continue;
+            }
+            const foundInRaid = req.attributes?.some(att => att.name === 'foundInRaid' && att.value === 'true');
+            const cheapestObtainInfo = getCheapestPrice({...item, foundInRaid}, {barters, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
+            if (item.id === '5449016a4bdc2d6f028b456f') {
+                cheapestObtainInfo.pricePerUnit = 1;
+            } else if (cheapestObtainInfo.type === 'none') {
+                continue;
+            }
+            buildCost += cheapestObtainInfo.pricePerUnit * req.quantity;
         }
         return buildCost;
-    }, [hideout, items]);
+    }, [hideout, items, barters, crafts, settings]);
     
     const farmCosts = useMemo(() => {
         const farmData = hideout.find(station => station.normalizedName === 'bitcoin-farm');
@@ -60,17 +70,21 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             farmCosts[level.level] = 0;
             for (const req of level.itemRequirements) {
                 const item = items.find(i => i.id === req.item.id);
-                const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
-                    if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
-                        return buyFor.priceRUB;
-                    }
-                    return lowPrice;
-                }, 0);
-                farmCosts[level.level] += itemCost * req.quantity;
+                if (!item) {
+                    continue;
+                }
+                const foundInRaid = req.attributes?.some(att => att.name === 'foundInRaid' && att.value === 'true');
+                const cheapestObtainInfo = getCheapestPrice({...item, foundInRaid}, {barters, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
+                if (item.id === '5449016a4bdc2d6f028b456f') {
+                    cheapestObtainInfo.pricePerUnit = 1;
+                } else if (cheapestObtainInfo.type === 'none') {
+                    continue;
+                }
+                farmCosts[level.level] += cheapestObtainInfo.pricePerUnit * req.quantity;
             }
         }
         return farmCosts;
-    }, [hideout, items]);
+    }, [hideout, items, barters, crafts, settings]);
 
     const daysLeft = useMemo(() => {
         if (wipeDaysRemaining) {

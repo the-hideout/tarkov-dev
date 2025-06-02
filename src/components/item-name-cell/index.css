@@ -16,6 +16,13 @@
     display: none;
 }
 
+.item-image-fir {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 4px;
+}
+
 @media screen and (min-width: 800px) {
     .small-item-table-image-wrapper img {
         width: 64px;

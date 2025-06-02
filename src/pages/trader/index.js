@@ -1,5 +1,5 @@
-import { useCallback, useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
 
@@ -44,16 +44,34 @@ const romanLevels = {
 
 function Trader() {
     const { traderName } = useParams();
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') ?? '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
         `${traderName.toLowerCase()}SelectedTable`,
-        'spending',
+        searchParams.get('tab') ?? 'spending',
     );
-    //const [showAllTraders, setShowAllTraders] = useState(false);
+    useEffect(() => {
+        // set local storage value on initial page load
+        if (!searchParams.get('tab')) {
+          return;
+        }
+        setSelectedTable(searchParams.get('tab'));
+    }, [searchParams, setSelectedTable]);
     const { t } = useTranslation();
+
+    const setPathFilters = useCallback((filtervalues) => {
+        const params = {
+            search: nameFilter,
+            tab: selectedTable,
+        };
+        for (const paramName in filtervalues) {
+            params[paramName] = filtervalues[paramName];
+        }
+        if (params.search === '') {
+            delete params.search;
+        }
+        setSearchParams(params, { replace: true });
+    }, [setSearchParams, nameFilter, selectedTable]);
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
@@ -77,11 +95,18 @@ function Trader() {
                 // has time to update but we do the filtering as soon as possible
                 QueueBrowserTask.task(() => {
                     setNameFilter(name);
+                    setPathFilters({search: name});
                 });
             }
         },
-        [setNameFilter],
+        [setNameFilter, setPathFilters],
     );
+
+    const handleTableChange = useCallback((tableName) => {
+        setSelectedTable(String(tableName));
+        setPathFilters({tab: tableName});
+    }, [setSelectedTable, setPathFilters]);
+
     const { data: traders, status } = useTradersData();
     
     const trader = useMemo(() => {
@@ -100,10 +125,10 @@ function Trader() {
         if (!trader) {
             return props;
         }
-        if (!Number.isInteger(selectedTable)) {
+        if (isNaN(selectedTable)) {
             return props;
         }
-        const levelInfo = trader.levels.find(l => l.level === selectedTable);
+        const levelInfo = trader.levels.find(l => l.level === parseInt(selectedTable));
         if (levelInfo.requiredPlayerLevel > 1) {
             props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
         }
@@ -220,7 +245,7 @@ function Trader() {
                       selected={selectedTable === 'spending'}
                       content={t('Spending')}
                       type="text"
-                      onClick={setSelectedTable.bind(undefined, 'spending')}
+                      onClick={handleTableChange.bind(undefined, 'spending')}
                     />
                     </ButtonGroupFilter>
                   ) : ''}
@@ -234,9 +259,9 @@ function Trader() {
                               {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
                             </>
                           }
-                          selected={selectedTable === level.level}
+                          selected={selectedTable === String(level.level)}
                           content={romanLevels[level.level]}
-                          onClick={setSelectedTable.bind(undefined, level.level)}
+                          onClick={handleTableChange.bind(undefined, String(level.level))}
                         />
                       ))}
                     </ButtonGroupFilter>
@@ -251,7 +276,7 @@ function Trader() {
                     selected={selectedTable === 'tasks'}
                     content={t('Tasks')}
                     type="text"
-                    onClick={setSelectedTable.bind(undefined, 'tasks')}
+                    onClick={handleTableChange.bind(undefined, 'tasks')}
                   />
                   </ButtonGroupFilter>
                   <InputFilter
@@ -266,7 +291,7 @@ function Trader() {
             <SmallItemTable
               nameFilter={nameFilter}
               traderFilter={trader.normalizedName}
-              loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
+              loyaltyLevelFilter={isNaN(selectedTable) ? false : parseInt(selectedTable)}
               traderBuybackFilter={selectedTable === 'spending' ? true : false}
               maxItems={selectedTable === 'spending' ? 50 : false}
               fleaPrice={selectedTable === 'spending' ? false : 1}
