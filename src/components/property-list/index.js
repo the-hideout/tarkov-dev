@@ -25,7 +25,11 @@ function PropertyList({ properties, id }) {
                 })
                 .filter(([property, value]) => value.value !== undefined && value.value !== null)
                 .filter(([property, value]) => value.value?.length !== 0)
-                .sort((a, b) => a[0].localeCompare(b[0])),
+                .sort((a, b) => {
+                    const aVal = a[1].label ?? a[0];
+                    const bVal = b[1].label ?? b[0];
+                    return aVal.localeCompare(bVal);
+                }),
 
         [properties, id],
     );
