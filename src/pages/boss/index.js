@@ -212,27 +212,24 @@ function BossPage(params) {
     var spawnStatsMsg = [];
 
     for (const map of bossData.maps) {
+        let displayPercent;
         // If a specific boss override exists, use that instead of the default from the API
         const spawnChanceOverride = bossData.spawnChanceOverride?.find(override => override.map === map.normalizedName);
         if (spawnChanceOverride) {
-            spawnStatsMsg.push(`${spawnChanceOverride.chance * 100}% (${map.name})`);
-            continue;
-        }
-        /*if (map.spawns.length === 1) {
-            spawnStatsMsg.push(`${map.spawns[0].spawnChance * 100}% (${map.name})`);
-            continue;
-        }*/
-        let lowerBound = 1;
-        let upperBound = 0;
-        for (const spawn of map.spawns) {
-            lowerBound = lowerBound > spawn.spawnChance ? spawn.spawnChance : lowerBound;
-            upperBound = upperBound < spawn.spawnChance ? spawn.spawnChance : upperBound;
-        }
-        upperBound = Math.round(upperBound * 100);
-        lowerBound = Math.round(lowerBound * 100);
-        let displayPercent = `${lowerBound}-${upperBound}`;
-        if (lowerBound === upperBound || upperBound === 100) {
-            displayPercent = upperBound;
+            displayPercent = spawnChanceOverride.chance * 100;
+        } else {
+            let lowerBound = 1;
+            let upperBound = 0;
+            for (const spawn of map.spawns) {
+                lowerBound = lowerBound > spawn.spawnChance ? spawn.spawnChance : lowerBound;
+                upperBound = upperBound < spawn.spawnChance ? spawn.spawnChance : upperBound;
+            }
+            upperBound = Math.round(upperBound * 100);
+            lowerBound = Math.round(lowerBound * 100);
+            displayPercent = `${lowerBound}-${upperBound}`;
+            if (lowerBound === upperBound || upperBound === 100) {
+                displayPercent = upperBound;
+            }
         }
         const ele = <span>
             <span key={`spawn-map-${map.id}`}>{`${displayPercent}% `}</span>
