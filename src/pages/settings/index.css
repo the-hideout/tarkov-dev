@@ -25,7 +25,7 @@
     width: 122px;
 }
 
-.language-toggle-wrapper .select__control, .game-mode .select__control {
+.language-toggle-wrapper .select__control, .game-mode .select__control, .tracker-domain .select__control {
     color: var(--color-black-light);
     background-color: var(--color-gunmetal-dark);
     border-color: var(--color-gold-two);
