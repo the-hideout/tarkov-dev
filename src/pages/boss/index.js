@@ -204,6 +204,7 @@ function BossPage(params) {
                 return bossMaps;
             }, []),
             label: t('Map') + ' 🗺️',
+            order: 2,
         },
     };
 
@@ -245,6 +246,7 @@ function BossPage(params) {
             value: spawnStatsMsg.reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]),
             label: `${t('Spawn chance')} 🎲`,
             tooltip: t('Chance that the boss spawns on a given map'),
+            order: 3,
         };
     }
 
@@ -258,6 +260,7 @@ function BossPage(params) {
             value: bossData.health,
             label: `${t('Health')} (${totalHealth}) 🖤`,
             tooltip: t('Total boss health'),
+            order: 4,
         };
     }
 
@@ -276,6 +279,7 @@ function BossPage(params) {
             value: t(bossData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
+            order: 1,
         };
     }
 

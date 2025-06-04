@@ -42,12 +42,16 @@ const itemCategoryLinkFormat = inputCategory => {
 const formatter = (key, value, id) => {
     let label = null;
     let tooltip = false;
+    let order;
     if (typeof value === 'object' && value !== null && value.value) {
         if (value.label) {
             label = value.label;
         }
         if (value.tooltip) {
             tooltip = value.tooltip;
+        }
+        if (typeof value.order !== 'undefined') {
+            order = value.order;
         }
         value = value.value;
     } 
@@ -185,6 +189,7 @@ const formatter = (key, value, id) => {
         value: value,
         label: label ? label : displayKey,
         tooltip: tooltip,
+        order,
     }
 
     return [key, value];
