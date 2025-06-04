@@ -13,7 +13,7 @@ function ItemNameCell(props) {
     if (item.foundInRaid) {
         firImage = <img 
             alt="" 
-            className="item-image-fir" 
+            className="item-fir" 
             loading="lazy" 
             src={`${process.env.PUBLIC_URL}/images/icon-fir.png`}
         />

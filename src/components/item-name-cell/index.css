@@ -16,11 +16,13 @@
     display: none;
 }
 
-.item-image-fir {
+.item-fir {
     position: absolute;
     bottom: 0;
     right: 0;
     margin-bottom: 4px;
+    max-width: 10px;
+    max-height: 10px;
 }
 
 @media screen and (min-width: 800px) {
@@ -31,5 +33,10 @@
 
     .small-item-table-name-wrapper cite {
         display: block;
+    }
+
+    .item-fir {
+        max-width: 16px;
+        max-height: 16px;
     }
 }

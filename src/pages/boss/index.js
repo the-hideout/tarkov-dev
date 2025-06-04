@@ -194,18 +194,18 @@ function BossPage(params) {
     // Get static boss data from json file
     //var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
 
-    // Collect a list of all maps without duplicates
-    var bossMaps = [];
-    for (const map of bossData.maps) {
-        if (bossMaps.includes(map.name)) {
-            continue;
-        }
-        bossMaps.push(map.name);
-    }
-
     // Format the bossProperties data for the 'stats' section
-    var bossProperties = {}
-    bossProperties[t('Map') + ' 🗺️'] = bossMaps;
+    const bossProperties = {
+        usedOnMaps: {
+            value: bossData.maps.reduce((bossMaps, current) => { // Collect a list of all maps without duplicates
+                if (!bossMaps.some(m => m.normalizedName === current.normalizedName)) {
+                    bossMaps.push(current);
+                }
+                return bossMaps;
+            }, []),
+            label: t('Map') + ' 🗺️',
+        },
+    };
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
@@ -232,13 +232,17 @@ function BossPage(params) {
         let displayPercent = `${lowerBound}-${upperBound}`;
         if (lowerBound === upperBound || upperBound === 100) {
             displayPercent = upperBound;
-        } 
-        spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
+        }
+        const ele = <span>
+            <span key={`spawn-map-${map.id}`}>{`${displayPercent}% `}</span>
+            <Link to={`/map/${map.normalizedName}`}>{`(${map.name})`}</Link>
+        </span>
+        spawnStatsMsg.push(ele);
     }
 
     if (spawnStatsMsg.length > 0) {
         bossProperties['spawnChance'] = {
-            value: spawnStatsMsg.join(', '),
+            value: spawnStatsMsg.reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]),
             label: `${t('Spawn chance')} 🎲`,
             tooltip: t('Chance that the boss spawns on a given map'),
         };
