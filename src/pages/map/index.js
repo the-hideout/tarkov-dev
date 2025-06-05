@@ -1747,9 +1747,12 @@ function Map() {
                 dispatch(setPlayerPosition(null));
             });
             positionMarker.bindPopup(L.popup().setContent(closeButton));
+            positionMarker.on('add', checkMarkerForActiveLayers);
+            positionMarker.on('click', activateMarkerLayer);
             positionLayer.addTo(mapRef.current);
             //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
             addLayer(positionLayer, 'player_position', 'Misc');
+            activateMarkerLayer({target: positionMarker});
         }
     }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
     
