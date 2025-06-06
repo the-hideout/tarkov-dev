@@ -1432,7 +1432,7 @@ function Map() {
         if (!map.options.baseData) {
             return;
         }
-        //console.log('loading quest markers');
+        console.log('loading quest markers');
         // remove old markers
         const groupIds = [
             'Tasks',
@@ -1445,9 +1445,6 @@ function Map() {
         const questObjectives = L.layerGroup();
         for (const quest of quests) {
             for (const obj of quest.objectives) {
-                if (settings.useTarkovTracker && mapSettingsRef.current.showOnlyActiveTasks && obj.complete) {
-                    continue;
-                }
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
                         if (!loc.map?.id) {
