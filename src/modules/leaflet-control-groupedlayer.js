@@ -113,6 +113,35 @@ L.Control.GroupedLayers = L.Control.extend({
         this._update();
         return this;
     },
+
+    removeGroupFromMap: function (groupKey) {
+        for (const layer of [...this._layers]) {
+            if (layer.group.key !== groupKey) {
+                continue;
+            }
+            if (this._map.hasLayer(layer.layer)) {
+                this._map.removeLayer(layer.layer);
+            }
+            this.removeLayer(layer.layer);
+        }
+        this._update();
+        return this;
+    },
+
+    removeLayerFromMap: function (layerKey) {
+        for (const layer of [...this._layers]) {
+            if (layer.key !== layerKey) {
+                continue;
+            }
+
+            if (this._map.hasLayer(layer.layer)) {
+                this._map.removeLayer(layer.layer);
+            }
+            this.removeLayer(layer.layer);
+        }
+        this._update();
+        return this;
+    },
   
     _getLayer: function (id) {
         for (var layer of this._layers) {
