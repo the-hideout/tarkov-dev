@@ -349,6 +349,9 @@ function Map() {
         if (node) {
             node.style.height = `${mapHeight}px`;
         }
+        if (mapRef.current) {
+            mapRef.current.invalidateSize({animate: false});
+        }
     }, [mapHeight]);
 
     useEffect(() => {
@@ -896,8 +899,9 @@ function Map() {
             layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
         }
 
-        map.fitWorld({maxZoom: 0, animate: false});
-        map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
+        //map.fitWorld({maxZoom: 0, animate: false});
+        //map.setView(L.latLngBounds(bounds).getCenter(), 2, {animate: false});
+        map.fitBounds(L.latLngBounds(bounds));
     }, [currentMap, tMaps, updateSavedMapSettings, addLayer]);
 
     // load markers from API maps data
