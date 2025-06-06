@@ -1545,7 +1545,7 @@ function Map() {
                 break;
             }
         }
-    }, [mapData, quests, settings, addLayer]);
+    }, [mapData, quests, addLayer]);
 
     // for markers requiring game items
     useEffect(() => {
