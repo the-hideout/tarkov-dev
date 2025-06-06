@@ -1432,7 +1432,7 @@ function Map() {
         if (!map.options.baseData) {
             return;
         }
-        console.log('loading quest markers');
+        //console.log('loading quest markers');
         // remove old markers
         const groupIds = [
             'Tasks',
