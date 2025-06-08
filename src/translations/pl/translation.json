@@ -614,6 +614,8 @@
     "{{count}} days_few": "{{count}} dni",
     "{{count}} days_many": "{{count}} dni",
     "{{count}} days_other": "{{count}} dnia",
+    "{{count}} months_other": "{{count}} months",
+    "{{count}} years_one": "{{count}} year",
     "Wipe Length": "Długość wipe'a",
     "wipe-length-description": "Uzyskaj najnowsze informacje na temat średniej długości wipe'ów w Escape from Tarkov. Dowiedz się, jak długo zazwyczaj trwają wipe'y i przygotuj się na następny wipe.",
     "Average Wipe Length among last 6 wipes:": "Średnia długość wipe'a wśród ostatnich 6 wipe'ów:"

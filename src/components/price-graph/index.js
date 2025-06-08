@@ -38,11 +38,11 @@ function PriceGraph({ item, itemId, days }) {
 
     useEffect(() => {
         if (loadedItemId.current !== itemId) {
-            setPriceData({data: {historicalItemPrices: []}});
+            setPriceData({data: {itemPrices: []}});
         }
         graphqlRequest(
-            `query TarkovDevHistorical($itemId: ID!, $gameMode: GameMode) {
-                historicalItemPrices(id: $itemId, gameMode: $gameMode, days: 30) {
+            `query TarkovDevPrices($itemId: ID!, $gameMode: GameMode) {
+                itemPrices(id: $itemId, gameMode: $gameMode) {
                     price
                     priceMin
                     timestamp
@@ -50,7 +50,7 @@ function PriceGraph({ item, itemId, days }) {
             }`,
             {itemId, gameMode},
         ).then(priceData => {
-            if (!priceData?.data?.historicalItemPrices) {
+            if (!priceData?.data?.itemPrices) {
                 if (priceData?.errors?.length) {
                     console.log(`Error retrieving historical prices`, priceData.errors);
                 }
@@ -61,16 +61,16 @@ function PriceGraph({ item, itemId, days }) {
             return priceData;
         }).catch(error => {
             console.log(`Error retrieving historical prices`, error);
-            setPriceData({data: {historicalItemPrices: []}});
+            setPriceData({data: {itemPrices: []}});
         });
     }, [itemId, gameMode]);
 
     const daysData = useMemo(() => {
-        if (!data?.data?.historicalItemPrices) {
+        if (!data?.data?.itemPrices) {
             return [];
         }
         const cutoffTimestamp = new Date().setDate(new Date().getDate() - days);
-        return data.data.historicalItemPrices.filter(scan => days === 30 || scan.timestamp >= cutoffTimestamp);
+        return data.data.itemPrices.filter(scan => scan.timestamp >= cutoffTimestamp);
     }, [data, days]);
 
     const { dayTicks, tickLabels } = useMemo(() => {
@@ -148,7 +148,7 @@ function PriceGraph({ item, itemId, days }) {
         height = 1280;
     }
 
-    if (!data?.data?.historicalItemPrices) {
+    if (!data?.data?.itemPrices) {
         return null;
     }
 
@@ -167,7 +167,15 @@ function PriceGraph({ item, itemId, days }) {
                 theme={VictoryTheme.material}
                 containerComponent={
                     <VictoryVoronoiContainer
-                        labels={({ datum }) => `${formatPrice(datum.y)}\n${new Date(datum.x).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit', hour12: false})}`}
+                        labels={({ datum }) => {
+                            let timeLabel = '';
+                            const thirtyDaysAgo = new Date();
+                            thirtyDaysAgo.setDate(new Date().getDate() - 30);
+                            if (new Date(datum.x) >= thirtyDaysAgo) {
+                                timeLabel = `\n${new Date(datum.x).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit', hour12: false})}`;
+                            }
+                            return `${formatPrice(datum.y)}${timeLabel}\n${new Date(datum.x).toLocaleDateString(navigator.language, {dateStyle: 'short'})}`;
+                        }}
                     />
                 }
             >
@@ -231,9 +239,9 @@ function PriceGraph({ item, itemId, days }) {
                 }}
             >
                 <Slider
-                    defaultValue={[dayTicks[0], data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].timestamp]}
+                    defaultValue={[dayTicks[0], data.data.itemPrices[data.data.itemPrices.length-1].timestamp]}
                     min={dayTicks[0]}
-                    max={data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].timestamp}
+                    max={data.data.itemPrices[data.data.itemPrices.length-1].timestamp}
                     marks={dayTicks.reduce((allMarks, current) => {
                         allMarks[current] = true;//{label: new Date(current).toLocaleString(navigator.language, {weekday: 'long'})};
                         return allMarks;
