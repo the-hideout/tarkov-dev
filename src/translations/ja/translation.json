@@ -593,6 +593,8 @@
     "Wipe end": "ワイプエンド",
     "Ongoing wipe": "オンゴーイングワイプ",
     "{{count}} days_other": "{{count}} 日",
+    "{{count}} months_other": "{{count}} months",
+    "{{count}} years_one": "{{count}} year",
     "Wipe Length": "ワイプの長さ",
     "wipe-length-description": "Escape from Tarkovの平均ワイプ時間に関する最新情報を入手できます。一般的なワイプの長さを知り、次のワイプに備えましょう。",
     "Average Wipe Length among last 6 wipes:": "直近6回のワイプの平均的な長さ：",

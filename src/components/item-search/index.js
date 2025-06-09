@@ -3,10 +3,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useHotkeys } from 'react-hotkeys-hook';
 import debounce from 'lodash.debounce';
+import Tippy from '@tippyjs/react';
 
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import itemSearch from '../../modules/item-search.js';
 import { SelectFilter } from '../filter/index.js';
+import formatPrice from '../../modules/format-price.js';
 
 import './index.css';
 import useItemsData from '../../features/items/index.js';
@@ -122,6 +124,7 @@ function ItemSearch({
                 return {
                     ...task, 
                     itemLink: `/task/${task.normalizedName}`,
+                    displayName: task.name,
                 };
             });
         } else {
@@ -139,6 +142,9 @@ function ItemSearch({
                         itemLink: `/item/${itemData.normalizedName}`,
                         types: itemData.types,
                         buyFor: itemData.buyFor,
+                        sellFor: itemData.sellFor,
+                        width: itemData.width,
+                        height: itemData.height,
                     };
     
                     const buyOnFleaPrice = itemData.buyFor.find(
@@ -158,10 +164,91 @@ function ItemSearch({
             if (nameFilter.length > 0) {
                 returnData = itemSearch(returnData, nameFilter);
             }
+            returnData.forEach(formattedItem => {
+                formattedItem.displayName = [
+                    <img
+                        key={'item-search-image'}
+                        alt={`${formattedItem.name}`}
+                        loading="lazy"
+                        src={formattedItem.iconLink}
+                        className="item-search-item-image"
+                    />,
+                    <span key={'item-search-name'}>{formattedItem.name}</span>
+                ];
+
+                const sellOnFleaPrice = formattedItem.sellFor.find(
+                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
+                );
+
+                if (sellOnFleaPrice) {
+                    let toolTip = [
+                        <div key="item-search-sell-to-tooltip">{t('Sell to Flea')}</div>
+                    ];
+                    if (formattedItem.width > 1 || formattedItem.height > 1) {
+                        toolTip.push(
+                            <div key="item-search-sell-to-per-slot">
+                                {`\n ${t('Per slot')}: ${formatPrice(Math.round(sellOnFleaPrice.priceRUB / (formattedItem.width * formattedItem.height)))}`}
+                            </div>
+                        );
+                    }
+                    formattedItem.displayName.push(
+                        <Tippy
+                            key="item-search-flea-price"
+                            content={toolTip}
+                        >
+                            <span>
+                                <span className="item-search-separator">|</span>
+                                <img alt={sellOnFleaPrice.vendor.name} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellOnFleaPrice.vendor.normalizedName}-icon.jpg`}/>
+                                <span>{formatPrice(sellOnFleaPrice.priceRUB)}</span>
+                            </span>
+                        </Tippy>
+                    );
+                }
+
+                const sellToTrader = formattedItem.sellFor.reduce((best, buyPrice) => {
+                    if (buyPrice.vendor.normalizedName === 'flea-market') {
+                        return best;
+                    }
+                    if (!best) {
+                        return buyPrice;
+                    }
+                    if (buyPrice.priceRUB > best.priceRUB) {
+                        return buyPrice;
+                    }
+                    return best;
+                }, undefined);
+
+                if (sellToTrader) {
+                    let toolTip = [
+                        <div key="item-search-sell-to-tooltip">{sellToTrader.vendor.name}</div>
+                    ];
+                    if (formattedItem.width > 1 || formattedItem.height > 1) {
+                        toolTip.push(
+                            <div key="item-search-sell-to-per-slot">
+                                {`\n ${t('Per slot')}: ${formatPrice(Math.round(sellToTrader.priceRUB / (formattedItem.width * formattedItem.height)))}`}
+                            </div>
+                        );
+                    }
+                    formattedItem.displayName.push(
+                        <Tippy
+                            key="item-search-trader-price"
+                            content={toolTip}
+                        >
+                            <span>
+                                <span className="item-search-separator">|</span>
+                                <img alt={sellToTrader.vendor} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellToTrader.vendor.normalizedName}-icon.jpg`}/>
+                                <span>{formatPrice(sellToTrader.priceRUB)}</span>
+                            </span>
+                        </Tippy>
+                    );
+                }
+
+                formattedItem.displayName = <span className="item-search-result-parts-wrapper">{formattedItem.displayName}</span>
+            });
         }
 
         return returnData;
-    }, [searchFor, nameFilter, showDropdown, items, tasks]);
+    }, [searchFor, nameFilter, showDropdown, items, tasks, t]);
 
     useEffect(() => {
         if (enterPress && data[cursor]) {
@@ -231,12 +318,7 @@ function ItemSearch({
                                 key={`search-result-wrapper-${item.id}`}
                                 to={`${item.itemLink}`}
                             >
-                                {searchFor !== 'task' && (<img
-                                    alt={`${item.name}`}
-                                    loading="lazy"
-                                    src={item.iconLink}
-                                />)}
-                                {item.name}
+                                {item.displayName}
                             </Link>
                         );
                     })}

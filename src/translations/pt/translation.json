@@ -607,6 +607,8 @@
     "{{count}} days_one": "{{count}} dias",
     "{{count}} days_many": "{{count}} dias",
     "{{count}} days_other": "{{count}} dias",
+    "{{count}} months_other": "{{count}} months",
+    "{{count}} years_one": "{{count}} year",
     "Wipe Length": "Duração da Wipe",
     "wipe-length-description": "Veja informações atualizadas sobre a duração média das wipes em Escape from Tarkov. Saiba quanto tempo wipes normalmente duram, e prepare-se para a próxima.",
     "Average Wipe Length among last 6 wipes:": "Duração média das wipes considerando as últimas 6:"
