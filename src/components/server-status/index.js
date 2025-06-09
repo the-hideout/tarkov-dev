@@ -16,7 +16,7 @@ function ServerStatus() {
     }
 
     if (status === 'succeeded' && data.messages.length === 0) {
-        return t('No data');
+        //return t('No data');
     }
 
     if (

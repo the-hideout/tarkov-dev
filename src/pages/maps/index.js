@@ -44,11 +44,11 @@ function Maps() {
                     </p>
                 </Trans>
 
-                <nav class="nav-maps">
+                <nav className="nav-maps">
                   {uniqueMaps.map((map) => (
-                      <div class="item" key={`map-link-${map.normalizedName}`}>
+                      <div className="item" key={`map-link-${map.normalizedName}`}>
                             <HashLink to={`/maps#${map.normalizedName}`}>
-                                <span class="icon">
+                                <span className="icon">
                                   <Icon 
                                       path={mapIcons[map.normalizedName]} 
                                       size={1}
@@ -64,9 +64,9 @@ function Maps() {
 
             {uniqueMaps.map((mapsGroup) => {
                 return (
-                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} class="information-section map-block">
+                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName} className="information-section map-block">
                         <h2>
-                            <span class="icon">
+                            <span className="icon">
                               <Icon 
                                 path={mapIcons[mapsGroup.normalizedName]} 
                                 size={1}

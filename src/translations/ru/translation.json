@@ -614,6 +614,8 @@
     "{{count}} days_few": "{{count}} дня",
     "{{count}} days_many": "{{count}} дней",
     "{{count}} days_other": "{{count}} дней",
+    "{{count}} months_other": "{{count}} months",
+    "{{count}} years_one": "{{count}} year",
     "Wipe Length": "Длинна вайпа",
     "wipe-length-description": "Получите последнюю информацию о средней продолжительности вайпа в Escape from Tarkov. Узнайте, сколько времени обычно длится вайп, и подготовьтесь к следующему вайпу.",
     "Average Wipe Length among last 6 wipes:": "Средняя продолжительность вайпа за последние 6 вайпов:"

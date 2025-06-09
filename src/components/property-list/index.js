@@ -26,8 +26,15 @@ function PropertyList({ properties, id }) {
                 .filter(([property, value]) => value.value !== undefined && value.value !== null)
                 .filter(([property, value]) => value.value?.length !== 0)
                 .sort((a, b) => {
-                    const aVal = a[1].label ?? a[0];
-                    const bVal = b[1].label ?? b[0];
+                    let aVal = a[0];
+                    let bVal = b[0];
+                    if (typeof a[1].order !== 'undefined' && typeof b[1].order !== 'undefined') {
+                        aVal = String(a[1].order);
+                        bVal = String(b[1].order);
+                    } else if (a[1].label && b[1].label) {
+                        aVal = a[1].label;
+                        bVal = b[1].label;
+                    }
                     return aVal.localeCompare(bVal);
                 }),
 

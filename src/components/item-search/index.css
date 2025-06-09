@@ -49,7 +49,6 @@
 
 .search-type-selector {
     display: inline-flex;
-    z-index: 20;
     margin: 5px;
 }
 
@@ -58,4 +57,24 @@
     position: absolute;
     right: 0px;
     top: 0px;
+    z-index: 20;
+}
+
+.item-search-item-image {
+    vertical-align: middle;
+}
+
+.item-search-separator {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+img.item-search-price {
+    max-width: 16px;
+    max-height: 16px;
+    vertical-align: middle;
+}
+
+.item-search-result-parts-wrapper {
+    z-index: 1;
 }

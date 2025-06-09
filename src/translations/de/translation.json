@@ -600,6 +600,8 @@
     "Ongoing wipe": "Wipe im Gange",
     "{{count}} days_one": "{{count}} Tag",
     "{{count}} days_other": "{{count}} Tage",
+    "{{count}} months_other": "{{count}} months",
+    "{{count}} years_one": "{{count}} year",
     "Wipe Length": "Wipe Länge",
     "wipe-length-description": "Erhalte aktuelle Informationen über die durchschnittliche Wipe-Länge in Escape from Tarkov. Finde heraus wie lange diese durchschnittlich dauern und bereite dich auf den nächsten vor",
     "Average Wipe Length among last 6 wipes:": "Durchschnittliche Wipe-Länge der letzten 6 Monate:"

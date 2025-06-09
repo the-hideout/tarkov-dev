@@ -47,6 +47,7 @@ import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
+import { wipeDetails } from '../../modules/wipe-length.js';
 
 import i18n from '../../i18n.js';
 
@@ -80,6 +81,7 @@ function priceIsLocked(buyFor, settings) {
 
 function Item() {
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
+    const gameMode = useSelector((state) => state.settings.gameMode);
     const navigate = useNavigate();
     const { itemName } = useParams();
     const { t } = useTranslation();
@@ -125,6 +127,47 @@ function Item() {
             sellForTradersBest: null,
         };
     }, [t]);
+
+    const priceDaysLabels = useMemo(() => {
+        const labels = [
+            {
+                label: t('{{count}} days_other', {count: 7}),
+                value: 7,
+            },
+            {
+                label: t('{{count}} days_other', {count: 14}),
+                value: 14,
+            },
+            {
+                label: t('{{count}} days_other', {count: 30}),
+                value: 30,
+            },
+            {
+                label: t('{{count}} months_other', {count: 6}),
+                value: 183,
+            },
+            {
+                label: t('{{count}} years_one', {count: 1}),
+                value: 365,
+            },
+            {
+                label: t('All'),
+                value: 7300,
+            },
+        ];
+        if (gameMode !== 'pve') {
+            const wipes = wipeDetails();
+            const currentWipe = wipes.find(w => w.ongoing === true);
+            const insertIndex = labels.findIndex(l => l.value > currentWipe.lengthDays);
+            if (insertIndex > 0) {
+                labels.splice(insertIndex, 0, {
+                    label: t('Wipe start'),
+                    value: currentWipe.lengthDays, 
+                });
+            }
+        }
+        return labels;
+    }, [t, gameMode]);
 
     const { data: items, status: itemsStatus } = useItemsData();
 
@@ -655,22 +698,9 @@ The max profitable price is impacted by the intel center and hideout management 
                 {currentItemData.id && currentItemData.id !== 'loading' && !currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price history')} <Select
-                            placeholder={t('{{count}} days_other', {count: priceDays})}
+                            placeholder={priceDaysLabels.find(l => l.value === priceDays)?.label ?? t('{{count}} days_other', {count: priceDays})}
                             defaultValue={priceDays}
-                            options={[
-                                {
-                                    label: t('{{count}} days_other', {count: 7}),
-                                    value: 7,
-                                },
-                                {
-                                    label: t('{{count}} days_other', {count: 14}),
-                                    value: 14,
-                                },
-                                {
-                                    label: t('{{count}} days_other', {count: 30}),
-                                    value: 30,
-                                },
-                            ]}
+                            options={priceDaysLabels}
                             className="basic-multi-select historical-price-days"
                             classNamePrefix="select"
                             onChange={(event) => {

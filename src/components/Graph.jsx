@@ -113,7 +113,7 @@ const LegendLabel = (props) => {
     return <VictoryLabel {...props} style={style} />;
 };
 
-const getMarkerLine = (xMax, xTarget, label) => {
+export const getMarkerLine = (xMax, xTarget, label) => {
     if (xMax < xTarget + 1) {
         return null;
     }
