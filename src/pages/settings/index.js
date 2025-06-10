@@ -81,6 +81,7 @@ function Settings() {
     const gameMode = useSelector((state) => state.settings.gameMode);
     const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain);
     const [selectedTrackerDomain, setSelectedTrackerDomain] = useState(trackerDomain);
+    const trackerTokenRef = useRef();
 
     const stationRefs = {
         'bitcoin-farm': useRef(null),
@@ -132,6 +133,12 @@ function Settings() {
     );
     const handleHideRemoteValueToggle = useCallback(() => {
         dispatch(toggleHideRemoteControl());
+    }, [dispatch]);
+
+    const handleTrackerDomainChange = useCallback((event) => {
+        setSelectedTrackerDomain(event.value);
+        dispatch(setTarkovTrackerDomain(event.value));
+        trackerTokenRef.current.value = '';
     }, [dispatch]);
 
     // Setup language selector
@@ -220,6 +227,7 @@ function Settings() {
                     checked={useTarkovTracker}
                 />
                 <InputFilter
+                    parentRef={trackerTokenRef}
                     label={
                         <a href={`https://${selectedTrackerDomain}/settings`} target="_blank" rel="noopener noreferrer">
                             {t('TarkovTracker API Token')}
@@ -249,10 +257,7 @@ function Settings() {
                         })}
                         className="basic-multi-select tracker-domain"
                         classNamePrefix="select"
-                        onChange={(event) => {
-                            setSelectedTrackerDomain(event.value);
-                            dispatch(setTarkovTrackerDomain(event.value));
-                        }}
+                        onChange={handleTrackerDomainChange}
                     />
                 </label>
             </div>

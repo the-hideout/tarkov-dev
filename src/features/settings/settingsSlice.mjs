@@ -181,7 +181,7 @@ const settingsSlice = createSlice({
         gameMode: localStorageReadJson('gameMode', 'regular'),
         Ti: localStorageReadJson('Ti', 0.03),
         Tr: localStorageReadJson('Tr', 0.03),
-        tarkovTrackerDomain: 'tarkovtracker.io',
+        tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
