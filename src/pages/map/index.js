@@ -297,11 +297,19 @@ function Map() {
 
     const markerBoundsRef = useRef({});
 
-    useEffect(() => {
-        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+    const getViewableHeight = () => {
+        const menuHeight = document.querySelector('.navigation')?.offsetHeight || 0;
+        const bannerHeight = document.querySelector('.MuiBox-root')?.offsetHeight || 0;
+        const cookieConsentHeight = document.querySelector('.CookieConsent')?.offsetHeight || 0;
+        let viewableHeight = window.innerHeight - menuHeight - bannerHeight - cookieConsentHeight;
         if (viewableHeight < 100) {
             viewableHeight = window.innerHeight;
         }
+        return viewableHeight;
+    };
+
+    useEffect(() => {
+        const viewableHeight = getViewableHeight();
 
         document.documentElement.style.setProperty(
             '--display-height',
@@ -321,16 +329,12 @@ function Map() {
     const ref = useRef();
     const mapRef = useRef(null);
 
-    const [mapHeight, setMapHeight] = useState(500);
+    const [mapHeight, setMapHeight] = useState(500); // stores the maximum size of the map canvas
+
+    // when the window resizes, update the size of the maximum map canvas
     useLayoutEffect(() => {
         function updateSize() {
-            const menuHeight = document.querySelector('.navigation')?.offsetHeight || 0;
-            const bannerHeight = document.querySelector('.MuiBox-root')?.offsetHeight || 0;
-            const cookieConsentHeight = document.querySelector('.CookieConsent')?.offsetHeight || 0;
-            let viewableHeight = window.innerHeight - menuHeight - bannerHeight - cookieConsentHeight;
-            if (viewableHeight < 100) {
-                viewableHeight = window.innerHeight;
-            }
+            const viewableHeight = getViewableHeight();
             setMapHeight(viewableHeight);
         }
         window.addEventListener('resize', updateSize);
@@ -338,6 +342,7 @@ function Map() {
         return () => window.removeEventListener('resize', updateSize);
     }, []);
 
+    // when the maximum map canvas size changes, update the map container height
     useEffect(() => {
         const mapContainer = document.getElementById('leaflet-map');
         if (mapContainer) {

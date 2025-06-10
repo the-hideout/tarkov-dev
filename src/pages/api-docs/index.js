@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { HashLink } from 'react-router-hash-link';
 
 import SEO from '../../components/SEO.jsx';
-import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
+//import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 
 import './index.css';
 
@@ -36,13 +36,6 @@ function APIDocs() {
                 <div className="section-text-wrapper">
                     Once you're ready to send API queries from outside the playground, the endpoint is: <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">https://api.tarkov.dev/graphql</a>.
                 </div>
-            </Trans>
-            <h2>{t('Current API Performance')}</h2>
-            <ApiMetricsGraph graph={true} />
-            <Trans i18nKey={'api-performance-p'}>
-                <p>
-                    For full API metrics and performance, check out our <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">status page</a>.
-                </p>
             </Trans>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
