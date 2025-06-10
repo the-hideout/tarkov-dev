@@ -21,6 +21,7 @@ import {
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
     setGameMode,
+    setTarkovTrackerDomain,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice.mjs';
 import useHideoutData from '../../features/hideout/index.js';
@@ -32,6 +33,11 @@ import gameModes from '../../data/game-modes.json';
 import { getWipeData } from '../wipe-length/index.js';
 
 import './index.css';
+
+const trackerDomains = [
+    'tarkovtracker.io',
+    'tarkovtracker.org',
+];
 
 // Defined Languages
 /*const langOptions = [
@@ -73,6 +79,9 @@ function Settings() {
     );
     const hideDogtagBarters = useSelector((state) => state.settings[state.settings.gameMode].hideDogtagBarters);
     const gameMode = useSelector((state) => state.settings.gameMode);
+    const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain);
+    const [selectedTrackerDomain, setSelectedTrackerDomain] = useState(trackerDomain);
+    const trackerTokenRef = useRef();
 
     const stationRefs = {
         'bitcoin-farm': useRef(null),
@@ -124,6 +133,12 @@ function Settings() {
     );
     const handleHideRemoteValueToggle = useCallback(() => {
         dispatch(toggleHideRemoteControl());
+    }, [dispatch]);
+
+    const handleTrackerDomainChange = useCallback((event) => {
+        setSelectedTrackerDomain(event.value);
+        dispatch(setTarkovTrackerDomain(event.value));
+        trackerTokenRef.current.value = '';
     }, [dispatch]);
 
     // Setup language selector
@@ -212,8 +227,9 @@ function Settings() {
                     checked={useTarkovTracker}
                 />
                 <InputFilter
+                    parentRef={trackerTokenRef}
                     label={
-                        <a href="https://tarkovtracker.io/settings/" target="_blank" rel="noopener noreferrer">
+                        <a href={`https://${selectedTrackerDomain}/settings`} target="_blank" rel="noopener noreferrer">
                             {t('TarkovTracker API Token')}
                         </a>
                     }
@@ -226,6 +242,24 @@ function Settings() {
                         dispatch(setTarkovTrackerAPIKey(event.target.value));
                     }}
                 />
+                <label className={'single-filter-wrapper'}>
+                    <span className={'single-filter-label'}>{t('Tracker Service')}</span>
+                    <Select
+                        label={t('Tracker Service')}
+                        value={selectedTrackerDomain}
+                        defaultValue={trackerDomain}
+                        placeholder={selectedTrackerDomain}
+                        options={trackerDomains.map(d => {
+                            return {
+                                label: d,
+                                value: d,
+                            }
+                        })}
+                        className="basic-multi-select tracker-domain"
+                        classNamePrefix="select"
+                        onChange={handleTrackerDomainChange}
+                    />
+                </label>
             </div>
             <div className="settings-group-wrapper">
                 <h2>{t('Traders')}</h2>

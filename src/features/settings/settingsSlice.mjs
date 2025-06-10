@@ -17,8 +17,10 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             objectives: [],
         };
 
+        const domain = localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io');
+
         const response = await fetch(
-            'https://tarkovtracker.io/api/v2/progress',
+            `https://${domain}/api/v2/progress`,
             {
                 method: 'GET',
                 headers: {
@@ -179,6 +181,7 @@ const settingsSlice = createSlice({
         gameMode: localStorageReadJson('gameMode', 'regular'),
         Ti: localStorageReadJson('Ti', 0.03),
         Tr: localStorageReadJson('Tr', 0.03),
+        tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -241,6 +244,23 @@ const settingsSlice = createSlice({
             state.Tr = action.payload.Tr;
             localStorageWriteJson('Ti', action.payload.Ti);
             localStorageWriteJson('Tr', action.payload.Tr);
+        },
+        getTarkovTrackerDomain: (state, action) => {
+            return state.tarkovTrackerDomain || 'tarkovtracker.io';
+        },
+        setTarkovTrackerDomain: (state, action) => {
+            if (state.tarkovTrackerDomain === action.payload) {
+                return;
+            }
+            state.tarkovTrackerDomain = action.payload;
+            localStorageWriteJson(
+                'tarkovTrackerDomain',
+                action.payload,
+            );
+            state.regular.tarkovTrackerAPIKey = '';
+            localStorageWriteJson('regularSettings', state[state.regular]);
+            state.pve.tarkovTrackerAPIKey = '';
+            localStorageWriteJson('pveSettings', state[state.pve]);
         },
     },
     extraReducers: (builder) => {
@@ -329,6 +349,8 @@ export const {
     setPlayerPosition,
     setGameMode,
     setFleaMarketFactors,
+    setTarkovTrackerDomain,
+    getTarkovTrackerDomain,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
