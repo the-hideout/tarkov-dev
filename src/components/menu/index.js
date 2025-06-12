@@ -145,7 +145,9 @@ const Menu = () => {
                         <Badge badgeContent={gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
                             dispatch(setGameMode(otherGameMode));
                         }}>
-                            <Link className="branding" to="/">
+                            <Link className="branding" to="/" onClick={(e) => {
+                                e.stopPropagation();
+                            }}>
                             {/* Tarkov.dev */}
                             <img
                                 alt="Tarkov.dev"
