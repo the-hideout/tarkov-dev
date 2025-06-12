@@ -8,6 +8,7 @@ import doFetchHideout from './do-fetch-hideout.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderHideout } from '../../modules/placeholder-data.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 const initialState = {
     data: placeholderHideout(langCode()),
@@ -62,6 +63,17 @@ export default function useHideoutData() {
     const { data, status, error } = useSelector((state) => state.hideout);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+        
+    useEffect(() => {
+        const dataName = 'hideout';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

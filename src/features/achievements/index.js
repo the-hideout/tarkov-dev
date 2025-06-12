@@ -6,6 +6,7 @@ import equal from 'fast-deep-equal';
 import doFetchAchievements from './do-fetch-achievements.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 const initialState = {
     data: [],
@@ -57,6 +58,17 @@ export default function useAchievementsData() {
     const { data, status, error } = useSelector((state) => state.achievements);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+        useEffect(() => {
+            const dataName = 'achievements';
+            if (status === 'idle') {
+                return;
+            } else if (status === 'loading') {
+                dispatch(setDataLoading(dataName));
+            } else {
+                dispatch(setDataLoaded(dataName));
+            }
+        }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

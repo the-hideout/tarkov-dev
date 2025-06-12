@@ -7,6 +7,7 @@ import doFetchItems from './do-fetch-items.mjs';
 import { placeholderItems } from '../../modules/placeholder-data.js';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 function processFetchedItems(allItems) {
 
@@ -47,9 +48,7 @@ function processFetchedItems(allItems) {
         const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
 
         item.buyForTradersBest = buyForTraders[0] || noneTrader;
-if (!item.sellFor) {
-    console.log(item);
-}
+
         // most profitable first
         item.sellFor = item.sellFor?.sort((a, b) => {
             return b.priceRUB - a.priceRUB;
@@ -126,6 +125,17 @@ export default function useItemsData() {
     const { data, status, error } = useSelector((state) => state.items);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+
+    useEffect(() => {
+        const dataName = 'items';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

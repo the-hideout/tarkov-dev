@@ -7,6 +7,7 @@ import doFetchQuests from './do-fetch-quests.mjs';
 import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderTasks } from '../../modules/placeholder-data.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 const initialState = {
     data: placeholderTasks(langCode()),
@@ -135,6 +136,17 @@ export default function useQuestsData() {
     const data = useSelector(selectQuestsWithActive);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'quests';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

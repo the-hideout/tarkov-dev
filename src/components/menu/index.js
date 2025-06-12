@@ -10,7 +10,7 @@ import {
     mdiClose,
 } from '@mdi/js';
 
-import { Box, Alert, IconButton, Collapse, Badge } from '@mui/material';
+import { Box, Alert, IconButton, Collapse, Badge, LinearProgress } from '@mui/material';
 
 import MenuItem from './MenuItem.jsx';
 // import SubMenu from './SubMenu';
@@ -58,6 +58,7 @@ const Menu = () => {
     const [alertOpen, setAlertOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
     const [alertStateOpen, setAlertStateOpen] = useState(alertOpen || alertConfig.alwaysShow);
     const gameMode = useSelector((state) => state.settings.gameMode);
+    const loadingData = useSelector((state) => state.settings.loadingData);
 
     const otherGameMode = useMemo(() => {
         if (gameMode === 'regular') {
@@ -142,7 +143,7 @@ const Menu = () => {
                 <ul className={`menu`}>
                 <IntersectionObserverWrapper>
                     <li key="menu-home" data-targetid="home" className="overflow-member">
-                        <Badge badgeContent={gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
+                        <Badge badgeContent={loadingData ? <LinearProgress/> : gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
                             dispatch(setGameMode(otherGameMode));
                         }}>
                             <Link className="branding" to="/" onClick={(e) => {

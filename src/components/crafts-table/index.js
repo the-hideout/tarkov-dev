@@ -51,80 +51,72 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
         setSkippedBySettings(false);
         return crafts
-            .map((craftRow) => {
-                let totalCost = 0;
-
+            .filter((craftRow) => {
                 if (!craftRow.rewardItems[0]) {
-                    console.log(craftRow);
+                    console.log('Invalid craft', craftRow);
                     return false;
                 }
-
-                if (itemFilter) {
-                    let matchesFilter = false;
-                    for (const requiredItem of craftRow.requiredItems) {
-                        if (requiredItem === null) {
-                            continue;
-                        }
-
-                        if (requiredItem.item.id === itemFilter) {
-                            matchesFilter = true;
-
-                            break;
-                        }
+                return true;
+            })
+            .filter((craftRow) => {
+                if (!itemFilter) {
+                    return true;
+                }
+                for (const requiredItem of craftRow.requiredItems) {
+                    if (requiredItem === null) {
+                        continue;
                     }
 
-                    for (const rewardItem of craftRow.rewardItems) {
-                        if (rewardItem.item.id === itemFilter) {
-                            matchesFilter = true;
-
-                            break;
-                        }
-                    }
-
-                    if (!matchesFilter) {
-                        return false;
+                    if (requiredItem.item.id === itemFilter) {
+                        return true;
                     }
                 }
 
-                if (nameFilter?.length > 0) {
-                    let matchesFilter = false;
-                    const findString = nameFilter
-                        .toLowerCase()
-                        .replace(/\s/g, '');
-                    for (const requiredItem of craftRow.requiredItems) {
-                        if (requiredItem === null) {
-                            continue;
-                        }
-
-                        if (
-                            requiredItem.item.name
-                                .toLowerCase()
-                                .replace(/\s/g, '')
-                                .includes(findString)
-                        ) {
-                            matchesFilter = true;
-
-                            break;
-                        }
-                    }
-
-                    for (const rewardItem of craftRow.rewardItems) {
-                        if (
-                            rewardItem.item.name
-                                .toLowerCase()
-                                .replace(/\s/g, '')
-                                .includes(findString)
-                        ) {
-                            matchesFilter = true;
-
-                            break;
-                        }
-                    }
-
-                    if (!matchesFilter) {
-                        return false;
+                for (const rewardItem of craftRow.rewardItems) {
+                    if (rewardItem.item.id === itemFilter) {
+                        return true;
                     }
                 }
+
+                return false;
+            })
+            .filter((craftRow) => {
+                if (!nameFilter?.length) {
+                    return true;
+                }
+                const findString = nameFilter
+                    .toLowerCase()
+                    .replace(/\s/g, '');
+                for (const requiredItem of craftRow.requiredItems) {
+                    if (requiredItem === null) {
+                        continue;
+                    }
+
+                    if (
+                        requiredItem.item.name
+                            .toLowerCase()
+                            .replace(/\s/g, '')
+                            .includes(findString)
+                    ) {
+                        return true;
+                    }
+                }
+
+                for (const rewardItem of craftRow.rewardItems) {
+                    if (
+                        rewardItem.item.name
+                            .toLowerCase()
+                            .replace(/\s/g, '')
+                            .includes(findString)
+                    ) {
+                        return true;
+                    }
+                }
+
+                return false;
+            })
+            .map((craftRow) => {
+                let totalCost = 0;
 
                 const station = hideout.find(s => s.id === craftRow.station.id);
                 const stationNormalized = station.normalizedName;

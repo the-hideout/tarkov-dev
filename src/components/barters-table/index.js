@@ -262,6 +262,23 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
                 return false;
             })
+            .filter((barter) => {
+                if (selectedTrader !== 'all') {
+                    return true;
+                }
+
+                if (selectedTrader === 'all') {
+                    return true;
+                }
+
+                if (addedTraders.includes(barter.reward.source)) {
+                    return false;
+                }
+
+                addedTraders.push(barter.reward.source);
+
+                return true;
+            })
             .map((barterRow) => {
                 let cost = 0;
                 const costItems = formatCostItems(barterRow.requiredItems, {
@@ -406,23 +423,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
             .filter(Boolean)
             .sort((itemA, itemB) => {
                 return itemB.savings - itemA.savings;
-            })
-            .filter((barter) => {
-                if (selectedTrader !== 'all') {
-                    return true;
-                }
-
-                if (selectedTrader === 'all') {
-                    return true;
-                }
-
-                if (addedTraders.includes(barter.reward.source)) {
-                    return false;
-                }
-
-                addedTraders.push(barter.reward.source);
-
-                return true;
             });
     }, [
         nameFilter,
