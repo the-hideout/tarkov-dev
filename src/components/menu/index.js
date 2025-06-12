@@ -72,8 +72,8 @@ const Menu = () => {
 
     const gameModeBadgeColor = useMemo(() => {
         const colors = {
-            pvp: 'primary',
-            pve: 'secondary',
+            regular: 'success',
+            pve: 'info',
         };
         return colors[gameMode] ?? 'warning';
     }, [gameMode]);
