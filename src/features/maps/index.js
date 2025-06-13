@@ -22,6 +22,7 @@ import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderMaps } from '../../modules/placeholder-data.js';
 import i18n from '../../i18n.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 import rawMapData from '../../data/maps.json';
 
@@ -77,6 +78,17 @@ export default function useMapsData() {
     const { data, status, error } = useSelector((state) => state.maps);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'maps';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

@@ -7,6 +7,7 @@ import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import doFetchMeta from './do-fetch-meta.mjs';
 import { placeholderMeta } from '../../modules/placeholder-data.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 const initialState = {
     data: placeholderMeta(langCode()),
@@ -61,6 +62,17 @@ export default function useMetaData() {
     const { data, status, error } = useSelector((state) => state.meta);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'meta';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,7 @@ import {
     mdiClose,
 } from '@mdi/js';
 
-import { Box, Alert, IconButton, Collapse } from '@mui/material';
+import { Box, Alert, IconButton, Collapse, Badge, LinearProgress } from '@mui/material';
 
 import MenuItem from './MenuItem.jsx';
 // import SubMenu from './SubMenu';
@@ -19,6 +20,7 @@ import categoryPages from '../../data/category-pages.json';
 import useBossesData from '../../features/bosses/index.js';
 
 import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
+import { setGameMode } from '../../features/settings/settingsSlice.mjs';
 
 import alertConfig from './alert-config.js';
 
@@ -52,8 +54,30 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const [alertOpen, setAlertOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
     const [alertStateOpen, setAlertStateOpen] = useState(alertOpen || alertConfig.alwaysShow);
+    const gameMode = useSelector((state) => state.settings.gameMode);
+    const loadingData = useSelector((state) => state.settings.loadingData);
+
+    const otherGameMode = useMemo(() => {
+        if (gameMode === 'regular') {
+            return 'pve';
+        }
+        return 'regular';
+    }, [gameMode]);
+
+    const gameModeTranslated = useMemo(() => {
+        return t(`game_mode_${gameMode}`);
+    }, [gameMode, t]);
+
+    const gameModeBadgeColor = useMemo(() => {
+        const colors = {
+            regular: 'success',
+            pve: 'info',
+        };
+        return colors[gameMode] ?? 'warning';
+    }, [gameMode]);
 
     const uniqueMaps = useMapImagesSortedArray();
     for (const map of uniqueMaps) {
@@ -119,17 +143,23 @@ const Menu = () => {
                 <ul className={`menu`}>
                 <IntersectionObserverWrapper>
                     <li key="menu-home" data-targetid="home" className="overflow-member">
-                        <Link className="branding" to="/">
-                        {/* Tarkov.dev */}
-                        <img
-                            alt="Tarkov.dev"
-                            height={30}
-                            width={186}
-                            src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                            className={'logo-padding'}
-                            loading="lazy"
-                        />
-                    </Link>
+                        <Badge badgeContent={loadingData ? <LinearProgress/> : gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
+                            dispatch(setGameMode(otherGameMode));
+                        }}>
+                            <Link className="branding" to="/" onClick={(e) => {
+                                e.stopPropagation();
+                            }}>
+                            {/* Tarkov.dev */}
+                            <img
+                                alt="Tarkov.dev"
+                                height={30}
+                                width={186}
+                                src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
+                                className={'logo-padding'}
+                                loading="lazy"
+                            />
+                            </Link>
+                        </Badge>
                     </li>
                     <li className="submenu-wrapper overflow-member"  key="menu-settings" data-targetid="settings">
                         <Link

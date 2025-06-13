@@ -182,6 +182,7 @@ const settingsSlice = createSlice({
         Ti: localStorageReadJson('Ti', 0.03),
         Tr: localStorageReadJson('Tr', 0.03),
         tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
+        loadingData: '',
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -262,6 +263,21 @@ const settingsSlice = createSlice({
             state.pve.tarkovTrackerAPIKey = '';
             localStorageWriteJson('pveSettings', state[state.pve]);
         },
+        setDataLoading: (state, action) => {
+            const loading = state.loadingData.split(',').filter(Boolean);
+            if (loading.includes(action.payload)) {
+                return;
+            }
+            loading.push(action.payload);
+            state.loadingData = loading.join(',');
+        },
+        setDataLoaded: (state, action) => {
+            const loading = state.loadingData.split(',');
+            if (!loading.includes(action.payload)) {
+                return;
+            }
+            state.loadingData = loading.filter(l => l !== action.payload).join(',');
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
@@ -351,6 +367,8 @@ export const {
     setFleaMarketFactors,
     setTarkovTrackerDomain,
     getTarkovTrackerDomain,
+    setDataLoading,
+    setDataLoaded,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

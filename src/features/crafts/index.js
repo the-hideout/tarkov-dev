@@ -8,6 +8,7 @@ import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 import { placeholderCrafts } from '../../modules/placeholder-data.js';
 
@@ -174,6 +175,17 @@ export default function useCraftsData() {
     const { status, error } = useSelector((state) => state.crafts);
     const data = useSelector(selectAllCrafts);
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'crafts';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useItemsData();
     useQuestsData();

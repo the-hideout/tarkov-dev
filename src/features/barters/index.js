@@ -8,6 +8,7 @@ import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 import { placeholderBarters } from '../../modules/placeholder-data.js';
 
@@ -162,6 +163,17 @@ export default function useBartersData() {
     const { status, error } = useSelector((state) => state.barters);
     const data = useSelector(selectAllBarters);
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'barters';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useItemsData();
     useQuestsData();

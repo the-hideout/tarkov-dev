@@ -588,20 +588,6 @@ function SmallItemTable(props) {
                 }
                 return !item.properties.blocksHeadset;
             })
-            .map((itemData) => {
-                return formatItem(itemData);
-            })
-            .filter((item) => {
-                if (!maxPrice) {
-                    return true;
-                }
-
-                if (item.cheapestObtainPrice > maxPrice) {
-                    return false;
-                }
-
-                return true;
-            })
             .filter(item => {
                 if (typeof minPenetration === 'undefined' && typeof maxPenetration === 'undefined') {
                     return true;
@@ -622,6 +608,20 @@ function SmallItemTable(props) {
                     return true;
                 }
                 return item.properties.damage >= minDamage;
+            })
+            .map((itemData) => {
+                return formatItem(itemData);
+            })
+            .filter((item) => {
+                if (!maxPrice) {
+                    return true;
+                }
+
+                if (item.cheapestObtainPrice > maxPrice) {
+                    return false;
+                }
+
+                return true;
             })
             .filter(item => {
                 if (typeof customFilter !== 'function') {

@@ -9,6 +9,7 @@ import { placeholderBosses } from '../../modules/placeholder-data.js';
 import rawBossData from '../../data/bosses.json';
 import useMapsData from '../maps/index.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
 const initialState = {
     data: placeholderBosses(langCode()),
@@ -108,6 +109,17 @@ export default function useBossesData() {
     useMapsData();
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'bosses';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
