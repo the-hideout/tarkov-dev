@@ -1,0 +1,55 @@
+{
+    "name": "Tarkov_Dev Local Dev",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/tarkov_dev",
+    "features": {
+      "ghcr.io/devcontainers/features/github-cli:1": {
+        "installDirectlyFromGitHubRelease": true,
+        "version": "latest"
+      },
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "20.11.0", // Defaults to 'lts' 
+        "nvmVersion": "latest", // Default value
+        "installYarnUsingApt": false
+      },
+      "common": {
+        "username": "automatic",
+        "uid": "automatic",
+        "gid": "automatic",
+        "installZsh": true,
+        "configureZshAsDefaultShell": true,
+        "installOhMyZsh": true,
+        "upgradePackages": true,
+        "nonFreePackages": false
+      }
+    },
+    "customizations": { // jetbrains devcontainer compatability for zsh
+      "jetbrains": {
+        "settings": {
+          "org.jetbrains.plugins.terminal:app:TerminalOptionsProvider.myShellPath": "/bin/zsh"
+        }
+      },
+      "vscode": {
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.profiles.linux": {
+            "bash": {
+              "path": "bash",
+              "icon": "terminal-bash"
+            },
+            "zsh": {
+              "path": "zsh",
+              "icon": "terminal-bash"
+            }
+          }
+        }
+      },
+      "extensions": [ // adds to @recommended exentions to install into devcontainer
+        "jasonnutter.search-node-modules",
+        "eamodio.gitlens",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+  
