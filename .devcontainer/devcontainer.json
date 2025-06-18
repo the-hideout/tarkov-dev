@@ -2,7 +2,7 @@
     "name": "Tarkov_Dev Local Dev",
     "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
-    "workspaceFolder": "/tarkov_dev",
+    "workspaceFolder": "/tarkov-dev",
     "features": {
       "ghcr.io/devcontainers/features/github-cli:1": {
         "installDirectlyFromGitHubRelease": true,
