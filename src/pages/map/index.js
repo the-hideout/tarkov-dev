@@ -1720,7 +1720,7 @@ function Map() {
             return;
         }
         const map = mapRef.current;
-        if (!map.options.baseData) {
+        if (!map?.options.baseData) {
             return;
         }
         //console.log('loading player position marker');
@@ -1746,7 +1746,7 @@ function Map() {
                 //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
                   
-            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, position: playerPosition.position}).addTo(positionLayer);
+            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, zIndexOffset: 1000, position: playerPosition.position}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
             closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
@@ -1759,6 +1759,7 @@ function Map() {
             //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
             addLayer(positionLayer, 'player_position', 'Misc');
             activateMarkerLayer({target: positionMarker});
+            mapRef.current.panTo(pos(playerPosition.position), {animate: true})
         }
     }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
     
