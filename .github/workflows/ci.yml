@@ -24,6 +24,7 @@ jobs:
         uses: GrantBirki/json-yaml-validate@v3.3.2
         with:
           comment: "true"
+          exclude_file: .github/exclude.txt
 
       - uses: actions/setup-node@v4.4.0
         with:
