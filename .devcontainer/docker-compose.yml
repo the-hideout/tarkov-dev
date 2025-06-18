@@ -4,6 +4,6 @@ services:
       context: ..
       dockerfile: ./.devcontainer/Dockerfile
     volumes:
-      - ..:/tarkov_dev
+      - ..:/tarkov-dev
     ports:
       - "3000:3000"

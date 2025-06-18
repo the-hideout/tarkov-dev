@@ -1,5 +1,5 @@
 {
-    "name": "Tarkov_Dev Local Dev",
+    "name": "Tarkov-Dev Local Dev",
     "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/tarkov-dev",
