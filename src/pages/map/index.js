@@ -1778,7 +1778,7 @@ function Map() {
     if (!mapData) {
         return <ErrorPage />;
     }
-
+console.log('savedMapSettings', savedMapSettings);
     return [
         <SEO 
             title={`${t('Map of {{mapName}}', {mapName: mapData.displayText})} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -1819,7 +1819,7 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>])}
-            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
+            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+(savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : '')} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
         </div>,
     ];
 }
