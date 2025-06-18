@@ -32,6 +32,22 @@ To build and test the site locally just follow the steps below:
 
 > Note: You can update data with: `npm run prebuild`
 
+## VS Code Dev Container
+1. Open VS Code command pallete:
+    ```
+    cmd + shift + p / ctrl + shift + p
+    ```
+
+2. Start the dev container:
+    ```
+    > Dev Containers: open folder in container...
+    ```
+3. Select local path to tarkov-dev repo
+
+4. After the container builds and starts it will auto run `npm install && npm start`
+
+5. Access the site: [localhost:3000](http://localhost:3000/) 🎉
+
 ## History 📚
 
 This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork of [tarkov-tools.com](https://github.com/kokarn/tarkov-tools). The original creator [@kokarn](https://github.com/kokarn) decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source (see infrastructure section below) and developer first. Our GitHub Organization ([the-hideout](https://github.com/the-hideout)) contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about open source and love pull requests to improve our ecosystem for all.
