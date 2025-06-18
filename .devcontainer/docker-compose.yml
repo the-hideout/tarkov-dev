@@ -1,0 +1,9 @@
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: ./.devcontainer/Dockerfile
+    volumes:
+      - ..:/tarkov-dev
+    ports:
+      - "3000:3000"
