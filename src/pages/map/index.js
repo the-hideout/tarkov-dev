@@ -1787,7 +1787,7 @@ function Map() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key="map-wrapper">
+        <div className={`display-wrapper${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
             {mapData.projection !== 'interactive' && ([    
             <Time
                 key="raid-info"
@@ -1819,7 +1819,7 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>])}
-            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+(savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : '')} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
+            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
         </div>,
     ];
 }
