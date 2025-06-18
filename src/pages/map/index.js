@@ -1778,7 +1778,7 @@ function Map() {
     if (!mapData) {
         return <ErrorPage />;
     }
-console.log('savedMapSettings', savedMapSettings);
+
     return [
         <SEO 
             title={`${t('Map of {{mapName}}', {mapName: mapData.displayText})} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
