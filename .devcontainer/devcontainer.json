@@ -3,7 +3,7 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/tarkov-dev",
-    "mounts": [
+    "mounts": [ // Mount local ssh dir into container for git-ssh compatability
       "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh,readonly"
     ],
     "features": {
