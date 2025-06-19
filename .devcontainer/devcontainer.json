@@ -3,6 +3,9 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/tarkov-dev",
+    "mounts": [ // Mount local ssh dir into container for git-ssh compatability
+      "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh,readonly"
+    ],
     "features": {
       "ghcr.io/devcontainers/features/github-cli:1": {
         "installDirectlyFromGitHubRelease": true,
