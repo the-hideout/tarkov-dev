@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Switch from 'react-switch';
 import Select from 'react-select';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import { Slider, Switch } from '@mui/material';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
@@ -44,65 +42,40 @@ function ButtonGroupFilter({ children }) {
 
 function SliderFilter({
     label,
+    value,
     defaultValue,
     min,
     max,
     marks,
     onChange,
-    reverse = false,
     style = {},
-    trackStyles = {},
-    handleStyles = {},
-    railStyles = {},
-    dotStyles = {},
-    activeDotStyles = {},
-    swapActiveColor = false,
+    size = 'medium',
+    track = 'normal',
+    step = 1,
 }) {
-    const defaultSelectedColor = '#048802';
-    const defaultUnselectedColor = '#E9E9E9';
-    let selectedColor = defaultSelectedColor;
-    let unselectedColor = defaultUnselectedColor;
-    if (swapActiveColor) {
-        selectedColor = defaultUnselectedColor;
-        unselectedColor = defaultSelectedColor;
+    if (!!marks && !Array.isArray(marks)) {
+        marks = Object.keys(marks).map(val => {
+            return {
+                label: String(marks[val]),
+                value: val,
+            };
+        });
     }
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
             <Slider
+                aria-label={label}
+                value={value}
                 defaultValue={defaultValue}
                 min={min}
                 max={max}
                 marks={marks}
                 onChange={onChange}
-                styles={{
-                    track: {
-                        backgroundColor: selectedColor,
-                        ...trackStyles,
-                    },
-                    handle: {
-                        backgroundColor: defaultSelectedColor,
-                        borderColor: defaultSelectedColor,
-                        ...handleStyles,
-                    },
-                    rail: {
-                        backgroundColor: unselectedColor,
-                        ...railStyles,
-                    }
-                }}
-                dotStyle={{
-                    backgroundColor: unselectedColor,
-                    borderColor: unselectedColor,
-                    ...dotStyles,
-                }}
-                activeDotStyle={{
-                    backgroundColor: selectedColor,
-                    borderColor: selectedColor,
-                    ...activeDotStyles,
-                }}
-                reverse={reverse}
+                size={size}
+                step={step}
+                track={track}
                 style={{
-                    top: '-7px',
                     width: '170px',
                     ...style,
                 }}
@@ -114,57 +87,42 @@ function SliderFilter({
 function RangeFilter({
     label,
     defaultValue,
+    value,
     min,
     max,
     marks,
     onChange,
     reverse = false,
     style = {},
+    size = 'medium',
+    step = 1,
 }) {
+    if (!!marks && !Array.isArray(marks)) {
+        marks = Object.keys(marks).map(val => {
+            return {
+                label: String(marks[val]),
+                value: val,
+            };
+        });
+    }
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
             <Slider
                 range={true}
-                allowCross={false}
                 defaultValue={defaultValue}
-                step={2}
+                value={value}
+                step={step}
                 min={min}
                 max={max}
                 marks={marks}
                 onChange={onChange}
-                trackStyle={[
-                    {
-                        backgroundColor: '#048802',
-                    },
-                ]}
-                // railStyle={{
-                //     backgroundColor: '#048802',
-                // }}
-                handleStyle={[
-                    {
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
-                    },
-                    {
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
-                    },
-                ]}
-                activeDotStyle={{
-                    backgroundColor: '#048802',
-                    borderColor: '#048802',
-                }}
-                // dotStyle={{
-                //     backgroundColor: '#048802',
-                //     borderColor: '#048802',
-                // }}
                 reverse={reverse}
                 style={{
-                    top: '-7px',
                     width: '170px',
                     ...style,
                 }}
+                size={size}
             />
         </div>
     );
@@ -187,11 +145,15 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
                 <Switch
                     borderRadius={5}
                     className={'filter-toggle'}
-                    onChange={onChange}
-                    // onColor='#008800'
+                    onChange={(event, value) => {
+                        if (!onChange) {
+                            return;
+                        }
+                        onChange(value);
+                    }}
                     height={20}
                     width={40}
-                    checked={checked}
+                    defaultChecked={checked}
                     disabled={disabled}
                 />
             </label>

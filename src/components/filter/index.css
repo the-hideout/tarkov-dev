@@ -103,7 +103,7 @@
     color: var(--color-gunmetal-dark);
 }
 
-.rc-slider {
+.filter-slider-wrapper .MuiSlider-root {
     margin-left: 20px;
 }
 

@@ -9,7 +9,7 @@ import {
     VictoryVoronoiContainer,
 } from 'victory';
 import { useTranslation } from 'react-i18next';
-import Slider from 'rc-slider';
+import { Slider } from '@mui/material';
 
 import formatPrice from '../../modules/format-price.js';
 import graphqlRequest from '../../modules/graphql-request.mjs';
@@ -243,26 +243,11 @@ function PriceGraph({ item, itemId, days }) {
                     min={dayTicks[0]}
                     max={data.data.itemPrices[data.data.itemPrices.length-1].timestamp}
                     marks={dayTicks.reduce((allMarks, current) => {
-                        allMarks[current] = true;//{label: new Date(current).toLocaleString(navigator.language, {weekday: 'long'})};
+                        allMarks.push({label: '', value: current});
                         return allMarks;
-                    }, {})}
-                    onChange={setFilterRange}
-                    styles={{
-                        track: {
-                            backgroundColor: '#048802',
-                        },
-                        handle: {
-                            backgroundColor: '#048802',
-                            borderColor: '#048802',
-                        },
-                    }}
-                    activeDotStyle={{
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
-                    }}
-                    reverse={false}
-                    style={{
-                        //top: '-7px',
+                    }, [])}
+                    onChange={(event, value) => {
+                        setFilterRange(value);
                     }}
                     range={true}
                 />

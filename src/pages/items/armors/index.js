@@ -119,7 +119,9 @@ function Armors(props) {
                         min={0}
                         max={6}
                         marks={marks}
-                        onChange={handleSoftArmorClassChange}
+                        onChange={(event, values) => {
+                            handleSoftArmorClassChange(values);
+                        }}
                     />
                     <RangeFilter
                         defaultValue={[minArmorClassPlate, maxArmorClassPlate]}
@@ -127,7 +129,9 @@ function Armors(props) {
                         min={0}
                         max={6}
                         marks={marks}
-                        onChange={handlePlateArmorClassChange}
+                        onChange={(event, values) => {
+                            handlePlateArmorClassChange(values);
+                        }}
                     />
                 </Filter>
             </div>

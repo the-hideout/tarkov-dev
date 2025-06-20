@@ -5,8 +5,10 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import CookieConsent from "react-cookie-consent";
 import { ErrorBoundary } from "react-error-boundary";
+import { ThemeProvider } from '@mui/material/styles';
 
 import './App.css';
+import theme from './modules/mui-theme.mjs';
 
 import i18n from './i18n.js';
 import loadPolyfills from './modules/polyfills.js';
@@ -332,6 +334,7 @@ function App() {
     const alternateLangs = supportedLanguages.filter(lang => lang !== i18n.language);
 
     return (
+        <ThemeProvider theme={theme}>
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta property="og:locale" content={i18n.language} key="meta-locale" />
@@ -970,6 +973,7 @@ function App() {
             </ErrorBoundary>
             <Footer />
         </div>
+        </ThemeProvider>
     );
 }
 
