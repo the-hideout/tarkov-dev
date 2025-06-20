@@ -206,7 +206,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     background-color: rgb( from var(--color-black) r g b / 0.75);
 }
 
-.leaflet-container.only-active-quest-markers .inactive-quest-marker {
+.display-wrapper.only-active-quest-markers .inactive-quest-marker {
     display: none;
 }
 
