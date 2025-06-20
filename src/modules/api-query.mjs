@@ -44,7 +44,7 @@ class APIQuery {
             return this.pendingQuery[storageKey];
         }
         // remove previous local storage versions (probably other languages, gamemodes)
-        this.removedCachedQueries(keyprefix);
+        this.removeCachedQueries(keyprefix);
         
         this.pendingQuery[storageKey] = this.query(options).then(results => {
             try {
@@ -83,7 +83,7 @@ class APIQuery {
         return;
     }
 
-    removedCachedQueries = (cacheKeyPrefix) => {
+    removeCachedQueries = (cacheKeyPrefix) => {
         if (!this.checkLocalStorage()) {
             return;
         }
