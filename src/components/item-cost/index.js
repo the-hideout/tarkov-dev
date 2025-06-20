@@ -151,8 +151,8 @@ function ItemCost({
             <BarterTooltip
                 barter={priceDetails}
                 allowAllSources={allowAllSources}
-                barters={barters}
-                crafts={crafts}
+                barters={useBarterIngredients ? barters : false}
+                crafts={useCraftIngredients ? crafts : false}
             />
         );
     }
@@ -168,8 +168,8 @@ function ItemCost({
             <BarterTooltip
                 barter={priceDetails}
                 allowAllSources={allowAllSources}
-                barters={barters}
-                crafts={crafts}
+                barters={useBarterIngredients ? barters : false}
+                crafts={useCraftIngredients ? crafts : false}
             />
         );
     }
