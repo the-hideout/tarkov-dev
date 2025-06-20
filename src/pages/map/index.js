@@ -1474,7 +1474,7 @@ function Map() {
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
                                 popupAnchor: [0, -12],
-                                className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
+                                className: quest.active && !obj.complete ? 'active-quest-marker' : 'inactive-quest-marker',
                             });
                             const questItemMarker = L.marker(pos(position), {
                                 icon: questItemIcon,
@@ -1514,7 +1514,7 @@ function Map() {
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
-                            className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
+                            className: quest.active && !obj.complete ? 'active-quest-marker' : 'inactive-quest-marker',
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {
