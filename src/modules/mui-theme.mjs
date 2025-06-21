@@ -17,6 +17,14 @@ const theme = createTheme({
         fontFamily: "bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
     },
     components: {
+        MuiBadge: {
+            styleOverrides: {
+                badge: {
+                    fontWeight: '600',
+                    fontSize: '0.8rem',
+                },
+            },
+        },
         MuiSlider: {
             styleOverrides: {
                 root: {

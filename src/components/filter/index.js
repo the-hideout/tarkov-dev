@@ -52,6 +52,7 @@ function SliderFilter({
     size = 'medium',
     track = 'normal',
     step = 1,
+    valueLabelDisplay = 'auto',
 }) {
     if (!!marks && !Array.isArray(marks)) {
         marks = Object.keys(marks).map(val => {
@@ -79,6 +80,7 @@ function SliderFilter({
                     width: '170px',
                     ...style,
                 }}
+                valueLabelDisplay={valueLabelDisplay}
             />
         </div>
     );
@@ -96,6 +98,7 @@ function RangeFilter({
     style = {},
     size = 'medium',
     step = 1,
+    valueLabelDisplay,
 }) {
     if (!!marks && !Array.isArray(marks)) {
         marks = Object.keys(marks).map(val => {
@@ -123,6 +126,7 @@ function RangeFilter({
                     ...style,
                 }}
                 size={size}
+                valueLabelDisplay={valueLabelDisplay}
             />
         </div>
     );

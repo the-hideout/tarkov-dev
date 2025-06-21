@@ -70,10 +70,6 @@
     flex-grow: 1;
 }
 
-.single-filter-label {
-    margin-right: 10px;
-}
-
 .filter-input-wrapper {
     display: flex;
     align-items: center;
