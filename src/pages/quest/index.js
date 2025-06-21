@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiLighthouse } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiMapLegend } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -249,33 +249,26 @@ function Quest() {
                     <h3>{t('Prerequisite Tasks')}</h3>
                     {currentQuest.taskRequirements.map((taskReq) => {
                         const task = quests.find((quest) => quest.id === taskReq.task.id);
-                        if (!task)
+                        if (!task) {
                             return null;
+                        }
+                        let taskIcon = mdiClipboardList;
+                        if (taskReq.status.includes('complete') && settings.completedQuests.includes(task.id)) {
+                            taskIcon = mdiClipboardCheck;
+                        }
+                        let taskStatuses = '';
+                        if (taskReq.status.length > 1 || taskReq.status[0] !== 'complete') {
+                            taskStatuses = ` (${taskReq.status.map((taskStatus) => t(taskStatus)).join(', ')})`;
+                        }
                         return (
                             <div key={`req-task-${task.id}`}>
                                 <Icon
-                                    path={mdiClipboardList}
+                                    path={taskIcon}
                                     size={1}
                                     className="icon-with-text"
                                 />
                                 <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
-                                <span>
-                                    {`: ${taskReq.status
-                                        .map((taskStatus) => {
-                                            // possible values for t already specified in Quests page
-                                            return t(taskStatus);
-                                        })
-                                        .join(', ')}`}
-                                </span>
-                                {taskReq.status.includes('complete') && settings.completedQuests.includes(task.id) ? (
-                                    <Icon
-                                        path={mdiClipboardCheck}
-                                        size={0.75}
-                                        className="icon-with-text"
-                                    />
-                                ) : (
-                                    ''
-                                )}
+                                {taskStatuses}
                             </div>
                         );
                     })}
@@ -284,7 +277,7 @@ function Quest() {
         }
         requirementsChunk = (
             <div key={'all-start-requirements'}>
-                <h2>📋 {t('Start Requirements')}</h2>
+                <h2><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Start Requirements')}</h2>
                 {playerLevel}
                 {traderLevels}
                 {traderReps}
@@ -882,9 +875,13 @@ function Quest() {
                 {t('Reach level {{playerLevel}}', {playerLevel: objective.playerLevel})}
             </div>
         }
+        let objectiveIconPath = mdiCheckboxBlankOutline;
+        if (objective.complete) {
+            objectiveIconPath = mdiCheckboxOutline;
+        }
         let objectiveDescription = null;
         if (objective.description) {
-            objectiveDescription = <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
+            objectiveDescription = <h3><Icon path={objectiveIconPath} size={1} className="icon-with-text" />{`${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
         }
         if (objective.zones?.length > 0) {
             mapQuery = objective.zones.reduce((ids, z) => {
@@ -1110,7 +1107,7 @@ function Quest() {
                 {requirementsChunk}
                 {nextQuests.length > 0 && (
                     <div>
-                        <h2>➡️📋 {t('Leads to')}</h2>
+                        <h2><Icon path={mdiChevronRight} size={1.5} className="icon-with-text" /> {t('Leads to')}</h2>
                         {nextQuests.map((task) => {
                             let failNote = '';
                             let status = task.taskRequirements.find(
@@ -1119,26 +1116,19 @@ function Quest() {
                             if (status.length === 1 && status[0] === 'failed') {
                                 failNote = t('(on failure)');
                             }
-                            let completedIcon = '';
+                            let taskIcon = mdiClipboardList;
                             if (settings.completedQuests.includes(currentQuest.id)) {
-                                completedIcon = (
-                                    <Icon
-                                        path={mdiClipboardCheck}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                );
+                                taskIcon = mdiClipboardCheck;
                             }
                             return (
                                 <div key={`req-task-${task.id}`}>
                                     <Icon
-                                        path={mdiClipboardList}
+                                        path={taskIcon}
                                         size={1}
                                         className="icon-with-text"
                                     />
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                                     {failNote}
-                                    {completedIcon}
                                 </div>
                             );
                         })}
@@ -1149,9 +1139,9 @@ function Quest() {
 
                 <h2 className="center-title task-details-heading">{t('Task Details')}</h2>
 
-                {currentQuest.map && <h2><span>{`🗺️ ${t('Map')}: `}</span>{questMap}</h2>}
+                {currentQuest.map && <h2><Icon path={mdiMapLegend} size={1.5} className="icon-with-text" /><span>{`${t('Map')}: `}</span>{questMap}</h2>}
 
-                <h2>🏆 {t('Objectives')}</h2>
+                <h2><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Objectives')}</h2>
                 <div key="task-objectives">
                     {currentQuest.objectives.map((objective) => {
                         return getObjective(objective);
@@ -1159,7 +1149,7 @@ function Quest() {
                 </div>
                 {currentQuest.failConditions?.length > 0 && (
                     <div>
-                        <h2>❌ {t('Fail On')}</h2>
+                        <h2><Icon path={mdiCloseThick} size={1.5} className="icon-with-text" /> {t('Fail On')}</h2>
                         <div key="task-fail-conditions">
                             {currentQuest.failConditions.map((objective) => {
                                 return getObjective(objective);
@@ -1169,7 +1159,7 @@ function Quest() {
                 )}
                 {currentQuest.neededKeys?.length > 0 && (
                     <div key="task-keys">
-                        <h2>🗝️ {t('Needed Keys')}</h2>
+                        <h2><Icon path={mdiKeyVariant} size={1.5} className="icon-with-text" /> {t('Needed Keys')}</h2>
                         <ul>
                             {neededKeysPerMap.map((map, mapIndex) => {
                                 return (
@@ -1220,7 +1210,7 @@ function Quest() {
 
                 <h2 className="center-title task-details-heading">{t('Task Completion')}</h2>
 
-                <h2>🎁 {t('Rewards')}</h2>
+                <h2><Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t('Rewards')}</h2>
                 {getRewards(currentQuest.finishRewards)}
                 {hasFailPenalties > 0 && (
                     <div>
