@@ -5,7 +5,7 @@ import ImageViewer from 'react-simple-image-viewer';
 import { Icon } from '@mdi/react';
 import {
     mdiArmFlex,
-    mdiCashMultiple,
+    mdiCashSync,
     mdiChartLine,
 } from '@mdi/js';
 
@@ -140,7 +140,7 @@ function Trader() {
         }
         props.requiredReputation = {value: levelInfo.requiredReputation, label: <span>{t('Reputation')} <Icon path={mdiChartLine} size={1} className="icon-with-text"/></span>};
         if (levelInfo.requiredCommerce > 0) {
-            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: <span>{t('Commerce')} <Icon path={mdiCashMultiple} size={1} className="icon-with-text"/></span>};
+            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: <span>{t('Commerce')} <Icon path={mdiCashSync} size={1} className="icon-with-text"/></span>};
         }
         return props;
     }, [trader, selectedTable, t]);
