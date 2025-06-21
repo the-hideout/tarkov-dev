@@ -70,10 +70,6 @@
     flex-grow: 1;
 }
 
-.single-filter-label {
-    margin-right: 10px;
-}
-
 .filter-input-wrapper {
     display: flex;
     align-items: center;
@@ -103,7 +99,7 @@
     color: var(--color-gunmetal-dark);
 }
 
-.rc-slider {
+.filter-slider-wrapper .MuiSlider-root {
     margin-left: 20px;
 }
 

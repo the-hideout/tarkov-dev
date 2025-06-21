@@ -271,14 +271,6 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     opacity: 0.4;
 }
 
-.rc-slider-mark-text {
-    color: rgb( from var(--color-gold-one) r g b / 0.8) !important;
-}
-
-.rc-slider-mark-text-active {
-    color: rgb( from var(--color-gold-one) r g b/ 1) !important;
-}
-
 /* Global reuseable styles, specific to the Tarkov.Dev style */
 .information-section {
     background: rgb( from var(--color-black) r g b / 0.1);

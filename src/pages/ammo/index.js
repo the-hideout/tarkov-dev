@@ -371,7 +371,7 @@ function Ammo() {
                     />
                 </ButtonGroupFilter>
                 <SliderFilter
-                    defaultValue={minPen}
+                    value={minPen}
                     label={t('Min Pen')}
                     min={0}
                     max={60}
@@ -384,7 +384,7 @@ function Ammo() {
                         50: 50,
                         60: '60+',
                     }}
-                    onChange={(min) => {
+                    onChange={(event, min) => {
                         setMinPen(min);
                         setPathFilters({
                             minp: min,
@@ -393,10 +393,10 @@ function Ammo() {
                     style={{
                         marginRight: '10px',
                     }}
-                    swapActiveColor={true}
+                    track={'inverted'}
                 />
                 <SliderFilter
-                    defaultValue={minDam}
+                    value={minDam}
                     label={t('Min Dmg')}
                     min={0}
                     max={105}
@@ -409,13 +409,13 @@ function Ammo() {
                         85: 85,
                         105: '105+',
                     }}
-                    onChange={(min) => {
+                    onChange={(event, min) => {
                         setMinDam(min);
                         setPathFilters({
                             mind: min
                         });
                     }}
-                    swapActiveColor={true}
+                    track={'inverted'}
                 />
             </Filter>
             <h2 className="center-title">
