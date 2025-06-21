@@ -20,8 +20,8 @@ const theme = createTheme({
         MuiBadge: {
             styleOverrides: {
                 badge: {
-                    fontWeight: '600',
-                    fontSize: '0.8rem',
+                    fontWeight: '550',
+                    fontSize: '0.75rem',
                 },
             },
         },
