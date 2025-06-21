@@ -26,7 +26,6 @@ function PropertyList({ properties, id }) {
                 .filter(([property, value]) => value.value !== undefined && value.value !== null)
                 .filter(([property, value]) => value.value?.length !== 0)
                 .sort((a, b) => {
-                    console.log(typeof a, a);
                     let aVal = a[0];
                     let bVal = b[0];
                     if (typeof a[1].order !== 'undefined' && typeof b[1].order !== 'undefined') {
