@@ -2,6 +2,12 @@ import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
+import { Icon } from '@mdi/react';
+import {
+    mdiArmFlex,
+    mdiCashMultiple,
+    mdiChartLine,
+} from '@mdi/js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
@@ -130,11 +136,11 @@ function Trader() {
         }
         const levelInfo = trader.levels.find(l => l.level === parseInt(selectedTable));
         if (levelInfo.requiredPlayerLevel > 1) {
-            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: <span>{t('Player level')} <Icon path={mdiArmFlex} size={1} className="icon-with-text"/></span>};
         }
-        props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
+        props.requiredReputation = {value: levelInfo.requiredReputation, label: <span>{t('Reputation')} <Icon path={mdiChartLine} size={1} className="icon-with-text"/></span>};
         if (levelInfo.requiredCommerce > 0) {
-            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: `${t('Commerce')} 💵`};
+            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: <span>{t('Commerce')} <Icon path={mdiCashMultiple} size={1} className="icon-with-text"/></span>};
         }
         return props;
     }, [trader, selectedTable, t]);

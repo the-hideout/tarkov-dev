@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiInvoiceTextClockOutline } from '@mdi/js';
+import { mdiBrain, mdiDiamondStone, mdiDice5, mdiHeart, mdiMapLegend, mdiAccountGroup, mdiInvoiceTextClockOutline } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 import CenterCell from '../../components/center-cell/index.js';
@@ -203,7 +203,7 @@ function BossPage(params) {
                 }
                 return bossMaps;
             }, []),
-            label: t('Map') + ' 🗺️',
+            label: <span>{t('Map')} <Icon path={mdiMapLegend} size={1} className="icon-with-text"/></span>,
             order: 2,
         },
     };
@@ -241,7 +241,7 @@ function BossPage(params) {
     if (spawnStatsMsg.length > 0) {
         bossProperties['spawnChance'] = {
             value: spawnStatsMsg.reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]),
-            label: `${t('Spawn chance')} 🎲`,
+            label: <span>{t('Spawn chance')} <Icon path={mdiDice5} size={1} className="icon-with-text"/></span>,
             tooltip: t('Chance that the boss spawns on a given map'),
             order: 3,
         };
@@ -255,7 +255,7 @@ function BossPage(params) {
         }, 0);
         bossProperties['bodyPartsHealth'] = {
             value: bossData.health,
-            label: `${t('Health')} (${totalHealth}) 🖤`,
+            label: <span>{t('Health')} ({totalHealth}) <Icon path={mdiHeart} size={1} className="icon-with-text"/></span>,
             tooltip: t('Total boss health'),
             order: 4,
         };
@@ -274,7 +274,7 @@ function BossPage(params) {
             // t('Sniper')
             // t('Batshit insane')
             value: t(bossData.behavior),
-            label: `${t('Behavior')} 💡`,
+            label: <span>{t('Behavior')} <Icon path={mdiBrain} size={1} className="icon-with-text"/></span>,
             tooltip: t("The boss's general AI behavior"),
             order: 1,
         };
