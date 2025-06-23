@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Icon } from '@mdi/react';
 import { Trans, useTranslation } from 'react-i18next';
 
-import { mdiEmoticonDevil } from '@mdi/js';
+import { mdiSkull } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 import Loading from '../../components/loading/index.js';
@@ -21,7 +21,7 @@ function Bosses(props) {
         <div className={'page-wrapper'} key="bosses-page-wrapper">
             <h1 className="center-title">
                 <Icon
-                    path={mdiEmoticonDevil}
+                    path={mdiSkull}
                     size={1.5}
                     className="icon-with-text"
                 />

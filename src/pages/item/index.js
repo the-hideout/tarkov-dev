@@ -782,7 +782,9 @@ The max profitable price is impacted by the intel center and hideout management 
                                     min={1}
                                     max={6}
                                     marks={{1:1, 2:2, 3:3, 4:4, 5:5, 6:6}}
-                                    onChange={handleArmorClassChange}
+                                    onChange={(event, value) => {
+                                        handleArmorClassChange(value);
+                                    }}
                                 />
                             </span>
                         </div>

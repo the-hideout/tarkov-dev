@@ -143,7 +143,7 @@ const Menu = () => {
                 <ul className={`menu`}>
                 <IntersectionObserverWrapper>
                     <li key="menu-home" data-targetid="home" className="overflow-member">
-                        <Badge badgeContent={loadingData ? <LinearProgress/> : gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
+                        <Badge badgeContent={loadingData ? <LinearProgress disableShrink /> : gameModeTranslated} color={gameModeBadgeColor} style={{cursor: 'pointer'}} onClick={() => {
                             dispatch(setGameMode(otherGameMode));
                         }}>
                             <Link className="branding" to="/" onClick={(e) => {
