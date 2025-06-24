@@ -20,6 +20,9 @@ import '../../modules/leaflet-control-map-settings.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
+import { connectWebSocket, sendMessage, closeWebSocket } from '../../websocket.js';
+
+
 import { useMapImages } from '../../features/maps/index.js';
 import useItemsData from '../../features/items/index.js';
 import useQuestsData from '../../features/quests/index.js';
@@ -41,6 +44,8 @@ const showStaticMarkers = false;
 const showMarkersBounds = false;
 const showTestMarkers = false;
 const showElevation = false;
+
+
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -273,6 +278,10 @@ function Map() {
 
     const focusItem = useRef(searchParams.get('q') ? searchParams.get('q').split(',') : []);
 
+    const positionLayerRef = useRef(null);
+    const positionMarkerRef = useRef(null)
+
+
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const tMaps = useCallback((string) => {
@@ -358,6 +367,34 @@ function Map() {
             mapRef.current.invalidateSize({animate: false});
         }
     }, [mapHeight]);
+
+        useEffect(() => {
+            connectWebSocket((msg) => {
+                let data = JSON.parse(msg.data);
+                if (data.messageType !== "PLAYER_POSITION") return;
+
+                if (data.position) {
+                    console.log('Position:');
+                    console.log('  x:', data.position.x);
+                    console.log('  y:', data.position.y);
+                    console.log('  z:', data.position.z);
+                } else {
+                    console.warn('Position is missing or invalid');
+                }
+
+                if (typeof data.rotation === 'number') {
+                    console.log('Rotation:', data.rotation);
+                } else {
+                    console.warn('Rotation is missing or invalid');
+                }
+
+                dispatch(setPlayerPosition(data));
+            });
+
+            return () => {
+                closeWebSocket(); // Clean up on unmount
+            };
+        }, []);
 
     useEffect(() => {
         ref?.current?.resetTransform();
@@ -529,6 +566,7 @@ function Map() {
             'stationarygun': tMaps('Stationary Gun'),
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
+            'player': tMaps('Player'),
         };
     }, [tMaps]);
 
@@ -558,6 +596,30 @@ function Map() {
         }
         mapRef.current.layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
     }, [getLayerOptions]);
+
+    const removeLayer = useCallback((layerKey) => {
+        if (!mapRef.current) return;
+        
+        // Find layer by key
+        let layerToRemove = null;
+        mapRef.current.eachLayer(l => {
+            if (l.key === layerKey) {
+                layerToRemove = l;
+            }
+        });
+        
+        if (!layerToRemove) return;
+        
+        // Remove from map
+        mapRef.current.removeLayer(layerToRemove);
+        
+        // Remove from layer control
+        if (mapRef.current.layerControl) {
+            // This is the proper way to remove layers from Leaflet's layer control
+            mapRef.current.layerControl.removeLayer(layerToRemove);
+        }
+    }, []);
+
 
     const getReactLink = (path, contents) => {
         const a = L.DomUtil.create('a');
@@ -903,6 +965,7 @@ function Map() {
             positionLayer.addTo(map);
             layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
         }
+        
 
         //map.fitWorld({maxZoom: 0, animate: false});
         //map.setView(L.latLngBounds(bounds).getCenter(), 2, {animate: false});
@@ -1727,6 +1790,22 @@ function Map() {
         }
     }, [mapData, items, addLayer, t, tMaps, getPoiLinkElement]);
 
+    //useEffect(() => {
+    //    connectWebSocket((msg) => {
+    //        // Custom message handling logic here
+    //        console.log('Received from server:', msg);
+    //        if(msg.messageType !== "PLAYER_POSITION") return;
+    //        console.log("agora sim, enviando " + msg)
+    //        //dispatch(setPlayerPosition(msg))
+    //    });
+//
+    //    return () => {
+    //        closeWebSocket(); // Clean up on unmount
+    //    };
+    //}, []);
+
+
+
     useEffect(() => {
         if (!mapData || mapData.projection !== 'interactive') {
             return;
@@ -1739,45 +1818,119 @@ function Map() {
         
         map.layerControl.removeLayerFromMap('player_position');
 
-        // Add player position
-        if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
+        if (playerPosition) {
+            console.log(playerPosition);
+            
+            // Remove existing layer if present
+            if (positionLayerRef.current) {
+                mapRef.current.removeLayer(positionLayerRef.current);
+                removeLayer('player_position');
+            }
+
             const positionLayer = L.layerGroup();
+            positionLayerRef.current = positionLayer;
+            positionLayer.key = 'player_position';  // Add key for identification
+
             let addRotation = mapData.coordinateRotation;
             if (addRotation === 90 || addRotation === 270) {
                 addRotation += 180;
             }
             const rotation = (playerPosition.rotation ?? 0) + addRotation;
-            const image = playerPosition.rotation !== undefined ? 'player-position.png' : 'player-position-no-rotation.png';
+            const image = playerPosition.rotation !== undefined 
+                ? 'player-position.png' 
+                : 'player-position-no-rotation.png';
+            
             const playerIcon = L.divIcon({
-                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
                 className: 'marker',
                 html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
                 iconSize: [24, 24],
                 iconAnchor: [12, 12],
                 popupAnchor: [0, -12],
-                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
-                  
-            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, zIndexOffset: 1000, position: playerPosition.position}).addTo(positionLayer);
-            const closeButton = L.DomUtil.create('a');
+
+            const positionMarker = L.marker(
+                pos(playerPosition.position), 
+                {
+                    icon: playerIcon,
+                    zIndexOffset: 1000
+                }
+            ).addTo(positionLayer);
+            
+            const closeButton = document.createElement('a');
             closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
                 dispatch(setPlayerPosition(null));
+                if (positionLayerRef.current) {
+                    mapRef.current.removeLayer(positionLayerRef.current);
+                    removeLayer('player_position');
+                    positionLayerRef.current = null;
+                }
             });
+
             positionMarker.bindPopup(L.popup().setContent(closeButton));
             positionMarker.on('add', checkMarkerForActiveLayers);
             positionMarker.on('click', activateMarkerLayer);
-            positionLayer.addTo(mapRef.current);
-            //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
-            addLayer(positionLayer, 'player_position', 'Misc');
-            activateMarkerLayer({target: positionMarker});
-            mapRef.current.panTo(pos(playerPosition.position), {animate: true})
+            
+            addLayer(positionLayer, 'player_position', 'Misc', tMaps('Player'));
+            activateMarkerLayer({ target: positionMarker });
+
+            mapRef.current.panTo(pos(playerPosition.position), { animate: true });
+        } else {
+            // Handle position clear
+            if (positionLayerRef.current) {
+                mapRef.current.removeLayer(positionLayerRef.current);
+                removeLayer('player_position');
+                positionLayerRef.current = null;
+            }
         }
+
+        
+        if (false) {
+            const playerLayer = L.layerGroup();
+
+            // add player
+            let rotation = 0
+            let x = 0
+            let z = 0
+            const positionLayer = L.layerGroup();
+
+            let addRotation = mapData?.coordinateRotation ?? 0;
+            if (addRotation === 90 || addRotation === 270) {
+                addRotation += 180;
+            }
+
+            const finalRotation = (rotation ?? 0) + addRotation;
+            const image = rotation !== null ? 'player-position.png' : 'player-position-no-rotation.png';
+
+            const playerIcon = L.divIcon({
+                className: 'marker',
+                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${finalRotation}deg;" />`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12],
+            });
+
+            const position = { x, y: 0, z };
+
+            const marker = L.marker(pos(position), {
+                icon: playerIcon,
+                zIndexOffset: 1000,
+                position,
+            }).addTo(positionLayer);
+            //marker.bindPopup(L.popup().setContent(popup));
+            
+            marker.on('add', checkMarkerForActiveLayers);
+            marker.on('click', activateMarkerLayer);
+            marker.addTo(playerLayer);
+            addLayer(playerLayer, 'player_layer', 'Playa', 'P');
+        }
+
     }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
     
     if (!mapData) {
         return <ErrorPage />;
     }
+
 
     return [
         <SEO 

@@ -220,12 +220,21 @@ const settingsSlice = createSlice({
             );
         },
         setPlayerPosition: (state, action) => {
-            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position, rotation : action.payload.rotation} : null;
+            const posObj = action.payload?.position;
+            const newPosition = posObj && typeof action.payload.rotation === 'number'
+                ? {
+                    position: {
+                        x: posObj.x,
+                        y: posObj.y,
+                        z: posObj.z,
+                    },
+                    rotation: action.payload.rotation
+                }
+                : null;
+            
             state.playerPosition = newPosition;
-            localStorageWriteJson(
-                'playerPosition',
-                newPosition,
-            );
+            console.log("writing new position"+JSON.stringify(newPosition))
+            localStorageWriteJson('playerPosition', newPosition);
         },
         setGameMode: (state, action) => {
             state.gameMode = action.payload;

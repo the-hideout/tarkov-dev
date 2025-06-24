@@ -89,7 +89,8 @@ const About = React.lazy(() => import('./pages/about/index.js'));
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
 
 const socketServer = 'wss://socket.tarkov.dev';
-//const socketServer = 'ws://localhost:8080';
+
+const positionServer = 'ws://localhost:12345'
 
 let socket = false;
 
@@ -211,6 +212,7 @@ function App() {
     }, [progressStatus, scheduleTarkovTrackerUpdate, updateTarkovTrackerData, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
+        // CODIGO ANMTIGO ANTIGO ANTIGO
         const handleDisplayMessage = (rawMessage) => {
             const message = JSON.parse(rawMessage.data);
 
