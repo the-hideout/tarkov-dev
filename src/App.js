@@ -212,7 +212,7 @@ function App() {
     }, [progressStatus, scheduleTarkovTrackerUpdate, updateTarkovTrackerData, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
-        // CODIGO ANMTIGO ANTIGO ANTIGO
+        // Old unused code (maybe?)
         const handleDisplayMessage = (rawMessage) => {
             const message = JSON.parse(rawMessage.data);
 
