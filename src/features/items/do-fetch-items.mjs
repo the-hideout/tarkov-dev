@@ -143,6 +143,7 @@ class ItemsQuery extends APIQuery {
                             class
                             durability
                             blindnessProtection
+                            ergoPenalty
                             material {
                                 id
                                 name
