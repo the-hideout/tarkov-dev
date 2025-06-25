@@ -17,6 +17,7 @@ import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
 import '../../modules/leaflet-control-map-search.js';
 import '../../modules/leaflet-control-map-settings.js';
+import '../../styles/mapSettings.css';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
@@ -460,10 +461,12 @@ function Map() {
             position: 'bottomright',
             checked: mapSettingsRef.current.showOnlyActiveTasks,
             activeTasksLabel: t('Only Active Tasks'),
+            playerLocationLabel: t('Use TarkovMonitor to show your position'),
             settingChanged: (settingName, settingValue) => {
                 mapSettingsRef.current[settingName] = settingValue;
                 updateSavedMapSettings();
             },
+            collapsed: true,
         }).addTo(map);
 
         map.raidInfoControl = L.control.raidInfo({
@@ -1741,6 +1744,7 @@ function Map() {
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
+            map._container.classList.add('player-position-shown');
             const positionLayer = L.layerGroup();
             let addRotation = mapData.coordinateRotation;
             if (addRotation === 90 || addRotation === 270) {

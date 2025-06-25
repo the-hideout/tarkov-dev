@@ -85,6 +85,7 @@ const Player = React.lazy(() => import('./pages/player/index.js'));
 const PlayerForward = React.lazy(() => import('./pages/player/player-forward.js'));
 const Converter = React.lazy(() => import('./pages/converter/index.js'));
 const About = React.lazy(() => import('./pages/about/index.js'));
+const OtherTools = React.lazy(() => import('./pages/other-tools/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
 
@@ -956,6 +957,16 @@ function App() {
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-converter-wrapper">
                                 <Converter key="converter-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/other-tools'}
+                        key="other-tools"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-converter-wrapper">
+                                <OtherTools key="other-tools-wrapper" />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}
