@@ -17,6 +17,7 @@ import '../../modules/leaflet-control-groupedlayer.js';
 import '../../modules/leaflet-control-raid-info.js';
 import '../../modules/leaflet-control-map-search.js';
 import '../../modules/leaflet-control-map-settings.js';
+import '../../styles/mapSettings.css';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
@@ -460,10 +461,12 @@ function Map() {
             position: 'bottomright',
             checked: mapSettingsRef.current.showOnlyActiveTasks,
             activeTasksLabel: t('Only Active Tasks'),
+            playerLocationLabel: t('Use TarkovMonitor to show your position'),
             settingChanged: (settingName, settingValue) => {
                 mapSettingsRef.current[settingName] = settingValue;
                 updateSavedMapSettings();
             },
+            collapsed: true,
         }).addTo(map);
 
         map.raidInfoControl = L.control.raidInfo({
@@ -1045,6 +1048,7 @@ function Map() {
                 const marker = L.marker(pos(spawn.position), {
                     icon: spawnIcon,
                     position: spawn.position,
+                    riseOnHover: true,
                 });
                 if (popupContent.childNodes.length > 0) {
                     marker.bindPopup(L.popup().setContent(popupContent));
@@ -1100,6 +1104,7 @@ function Map() {
                     bottom: extract.bottom,
                     outline: rect,
                     id: extract.id,
+                    riseOnHover: true,
                 });
                 extractMarker.on('mouseover', mouseHoverOutline);
                 extractMarker.on('mouseout', mouseHoverOutline);
@@ -1150,6 +1155,7 @@ function Map() {
                         bottom: transit.bottom,
                         outline: rect,
                         id: transit.id,
+                        riseOnHover: true,
                     });
                     transitMarker.on('mouseover', mouseHoverOutline);
                     transitMarker.on('mouseout', mouseHoverOutline);
@@ -1190,6 +1196,7 @@ function Map() {
                     icon: containerIcon, 
                     title: containerPosition.lootContainer.name,
                     position: containerPosition.position,
+                    riseOnHover: true,
                 });
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
@@ -1229,6 +1236,7 @@ function Map() {
                     icon: switchIcon,
                     position: sw.position,
                     id: sw.id,
+                    riseOnHover: true,
                 });
                 /*const popupLines = [t(sw.id)];
                 if (sw.previousSwitch) {
@@ -1307,6 +1315,7 @@ function Map() {
                     icon: weaponIcon, 
                     title: weaponPosition.stationaryWeapon.name,
                     position: weaponPosition.position,
+                    riseOnHover: true,
                 });
                 if (showElevation) {
                     const popup = L.DomUtil.create('div');
@@ -1343,6 +1352,7 @@ function Map() {
                     top: hazard.top,
                     bottom: hazard.bottom,
                     outline: rect,
+                    riseOnHover: true,
                 });
                 const popup = L.DomUtil.create('div');
                 const hazardText = L.DomUtil.create('div', undefined, popup);
@@ -1385,6 +1395,7 @@ function Map() {
                         top: hazard.top,
                         bottom: hazard.bottom,
                         outline: rect,
+                        riseOnHover: true,
                     });
                     const popup = L.DomUtil.create('div');
                     const hazardText = L.DomUtil.create('div', undefined, popup);
@@ -1466,7 +1477,7 @@ function Map() {
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
                                 popupAnchor: [0, -12],
-                                className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
+                                className: quest.active && !obj.complete ? 'active-quest-marker' : 'inactive-quest-marker',
                             });
                             const questItemMarker = L.marker(pos(position), {
                                 icon: questItemIcon,
@@ -1474,6 +1485,7 @@ function Map() {
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
                                 questId: quest.id,
+                                riseOnHover: true,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1505,7 +1517,7 @@ function Map() {
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
-                            className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
+                            className: quest.active && !obj.complete ? 'active-quest-marker' : 'inactive-quest-marker',
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {
@@ -1517,6 +1529,7 @@ function Map() {
                             outline: rect,
                             id: zone.id,
                             questId: quest.id,
+                            riseOnHover: true,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
@@ -1612,6 +1625,7 @@ function Map() {
                     position: lock.position,
                     title: `${tMaps('Lock')}: ${key.name}`,
                     id: key.id,
+                    riseOnHover: true,
                 });
 
                 const popupContent = L.DomUtil.create('div');
@@ -1681,6 +1695,7 @@ function Map() {
                     title: markerTitle,
                     position: looseLoot.position,
                     items: lootItems.map((item) => item.name),
+                    riseOnHover: true,
                 });
 
                 const popup = L.DomUtil.create('div');
@@ -1729,6 +1744,7 @@ function Map() {
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
+            map._container.classList.add('player-position-shown');
             const positionLayer = L.layerGroup();
             let addRotation = mapData.coordinateRotation;
             if (addRotation === 90 || addRotation === 270) {
@@ -1775,7 +1791,7 @@ function Map() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key="map-wrapper">
+        <div className={`display-wrapper${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
             {mapData.projection !== 'interactive' && ([    
             <Time
                 key="raid-info"
@@ -1807,7 +1823,7 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>])}
-            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
+            <div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'} style={{display: mapData.projection === 'interactive' ? '' : 'none'}}/>
         </div>,
     ];
 }

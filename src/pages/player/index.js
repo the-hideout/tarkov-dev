@@ -335,6 +335,7 @@ function Player() {
                         </div>
                     );
                 },
+                sortType: 'basic',
             },
             {
                 Header: t('Completed'),

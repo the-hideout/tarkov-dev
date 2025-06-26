@@ -28,7 +28,7 @@ import {
     mdiViewGrid,
     mdiHome,
     mdiCalendarClock,
-    mdiEmoticonDevil,
+    mdiSkull,
     mdiBitcoin,
 } from '@mdi/js';
 
@@ -303,7 +303,7 @@ function Start() {
                 <h3>
                     <Link to={'/bosses'} key={"bosses-page"}>
                         <Icon
-                            path={mdiEmoticonDevil}
+                            path={mdiSkull}
                             size={1}
                             className="icon-with-text"
                         />

@@ -86,7 +86,9 @@ function Helmets() {
                         min={1}
                         max={6}
                         marks={marks}
-                        onChange={handleArmorClassChange}
+                        onChange={(event ,values) => {
+                            handleArmorClassChange(values);
+                        }}
                     />
                     <InputFilter
                         defaultValue={maxPrice || ''}

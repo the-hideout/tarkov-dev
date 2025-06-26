@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react';
-import Switch from 'react-switch';
+import { Switch } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO.jsx';

@@ -1543,6 +1543,10 @@ function SmallItemTable(props) {
                     return <CenterCell value={valueStr} nowrap />;
                 },
                 position: blindnessProtection,
+                sortType: (a, b) => {
+                    console.log(a);
+                    return (a.values.blindnessProtection ?? 0) - (b.values.blindnessProtection ?? 0);
+                },
             });
         }
 

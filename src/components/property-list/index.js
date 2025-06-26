@@ -35,6 +35,12 @@ function PropertyList({ properties, id }) {
                         aVal = a[1].label;
                         bVal = b[1].label;
                     }
+                    if (typeof aVal === 'object') {
+                        aVal = a[0];
+                    }
+                    if (typeof bVal === 'object') {
+                        bVal = b[0];
+                    }
                     return aVal.localeCompare(bVal);
                 }),
 
