@@ -710,29 +710,31 @@ function Quest() {
                     {objective.usingWeaponMods?.length > 0 && (
                         <div>
                             {t('Using weapon mods:')}{' '}
-                            {objective.usingWeaponMods.map((modSet, index) => {
-                                return (
-                                    <ul key={`modset-${index}`} className="quest-item-list">
-                                        {modSet.map((mod) => {
-                                            const item = items.find((i) => i.id === mod.id);
-                                            if (!item)
-                                                return null;
-                                            return (
-                                                <li
-                                                    key={`mod-${item.id}`}
-                                                    className={'quest-list-item'}
-                                                >
-                                                    <ItemImage
-                                                        item={item}
-                                                        imageField="baseImageLink"
-                                                        linkToItem={true}
-                                                    />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                );
-                            })}
+                            <ul className="quest-item-list">
+                                {objective.usingWeaponMods.map((modSet, index) => {
+                                    return (
+                                        <li
+                                            key={`mod-set-${index}`}
+                                            className={'quest-list-item'}
+                                        >
+                                            {modSet.map((mod) => {
+                                                const item = items.find((i) => i.id === mod.id);
+                                                if (!item)
+                                                    return null;
+                                                return (
+                                                    
+                                                        <ItemImage
+                                                            item={item}
+                                                            imageField="baseImageLink"
+                                                            linkToItem={true}
+                                                            key={item.id}
+                                                        />
+                                                );
+                                            })}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         </div>
                     )}
                     {objective.wearing?.length > 0 && (
