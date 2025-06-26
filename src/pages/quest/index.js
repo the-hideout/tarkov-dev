@@ -183,6 +183,9 @@ function Quest() {
 
     const questRequirementProperties = useMemo(() => {
         const props = {};
+        if (!currentQuest) {
+            return props;
+        }
         if (currentQuest.minPlayerLevel) {
             props.minPlayerLevel = {
                 value: currentQuest.minPlayerLevel,
@@ -239,7 +242,7 @@ function Quest() {
     }, [currentQuest, traders, t]);
 
     const previousTasks = useMemo(() => {
-        if (!currentQuest.taskRequirements?.length > 0) {
+        if (!currentQuest?.taskRequirements?.length > 0) {
             return '';
         }
         return (
@@ -275,6 +278,9 @@ function Quest() {
     }, [currentQuest, quests, settings, t]);
 
     const nextTasks = useMemo(() => {
+        if (!currentQuest) {
+            return '';
+        }
         const nextQuests = quests.filter((quest) =>
             quest.taskRequirements.some(
                 (req) => req.task.id === currentQuest.id && (!req.status.includes('active') || (req.status.length === 2 && req.status.includes('complete') && req.status.includes('active'))),
