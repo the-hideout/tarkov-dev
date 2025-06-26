@@ -294,7 +294,7 @@ function Quest() {
                     failNote = t('(on failure)');
                 }
                 let taskIcon = mdiClipboardList;
-                if (settings.completedQuests.includes(currentQuest.id)) {
+                if (settings.completedQuests.includes(task.id)) {
                     taskIcon = mdiClipboardCheck;
                 }
                 return (
