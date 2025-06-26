@@ -1106,8 +1106,8 @@ function Quest() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
-            <ItemSearch showDropdown defaultSearch="task" />
             <div className={'entity-page-wrapper'} key={'quest-page-display-wrapper'}>
+                <ItemSearch showDropdown defaultSearch="task" />
                 <div className="entity-information-wrapper">
                   <div className="entity-top-content">
                     <div className="entity-information-images">
