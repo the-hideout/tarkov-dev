@@ -713,7 +713,7 @@ function Quest() {
                             </ul>
                         </div>
                     )}
-                    {objective.usingWeaponMods?.length > 0 && (
+                    {(objective.usingWeaponMods?.length > 0 && objective.usingWeaponMods[0].length > 0) && (
                         <div>
                             {t('Using weapon mods:')}{' '}
                             <ul className="quest-item-list">
