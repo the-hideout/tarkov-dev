@@ -239,9 +239,9 @@ function PriceGraph({ item, itemId, days }) {
                 }}
             >
                 <Slider
-                    defaultValue={[dayTicks[0], data.data.itemPrices[data.data.itemPrices.length-1].timestamp]}
+                    defaultValue={[dayTicks[0], parseInt(data.data.itemPrices[data.data.itemPrices.length-1].timestamp)]}
                     min={dayTicks[0]}
-                    max={data.data.itemPrices[data.data.itemPrices.length-1].timestamp}
+                    max={parseInt(data.data.itemPrices[data.data.itemPrices.length-1].timestamp)}
                     marks={dayTicks.reduce((allMarks, current) => {
                         allMarks.push({label: '', value: current});
                         return allMarks;
@@ -249,7 +249,6 @@ function PriceGraph({ item, itemId, days }) {
                     onChange={(event, value) => {
                         setFilterRange(value);
                     }}
-                    range={true}
                 />
             </div>
         </div>
