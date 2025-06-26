@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Badge } from '@mui/material';
 
 import './index.css';
 
@@ -76,12 +77,16 @@ function ID(props) {
             </div>
 
             <div className="session-id-container">
-                <span className="session-id">{sessionText}</span>
-                {props.socketEnabled && (
-                    <button className="copy-btn" onClick={handleCopyClick}>
-                        {copied ? t('Copied!') : t('Copy')}
-                    </button>
-                )}
+                <Badge
+                    badgeContent={copied ? t('Copied!') : 0}
+                    color="success"
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                >
+                    <span className="session-id" onClick={handleCopyClick} style={{cursor: 'pointer'}} >{sessionText}</span>
+                </Badge>
             </div>
         </div>
     );
