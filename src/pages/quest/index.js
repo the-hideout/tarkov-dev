@@ -1,19 +1,20 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiMapLegend } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckBold, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiPlay } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO.jsx';
 import ErrorPage from '../error-page/index.js';
 import ItemSearch from '../../components/item-search/index.js';
-import LoadingSmall from '../../components/loading-small/index.js';
 import ItemImage from '../../components/item-image/index.js';
 import TraderImage from '../../components/trader-image/index.js';
+import PropertyList from '../../components/property-list/index.js';
 
 import useQuestsData from '../../features/quests/index.js';
 import useTradersData from '../../features/traders/index.js';
@@ -32,7 +33,6 @@ const intelCashMultiplier = {
 
 function Quest() {
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
-    const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain);
     const { taskIdentifier } = useParams();
     const { t } = useTranslation();
 
@@ -60,6 +60,18 @@ function Quest() {
 
     const { data: stations } = useHideoutData();
 
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+        }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
+    };
+
     let currentQuest = useMemo(() => {
         return quests.find((quest) => {
             if (quest.id === taskIdentifier) {
@@ -81,17 +93,6 @@ function Quest() {
             currentQuest?.failureOutcome?.skillLevelReward?.length > 0 || 
             currentQuest?.failureOutcome?.offerUnlock?.length > 0 || 
             currentQuest?.failureOutcome?.traderUnlock?.length > 0;
-    }, [currentQuest]);
-
-    const questMap = useMemo(() => {
-        if (!currentQuest?.map) {
-            return null;
-        }
-        return (
-            <Link to={`/map/${currentQuest.map.normalizedName}`}>
-                {currentQuest.map.name}
-            </Link>
-        );
     }, [currentQuest]);
 
     const neededKeysPerMap = useMemo(() => {
@@ -126,7 +127,7 @@ function Quest() {
                 <Tippy
                     key={`${currentQuest.id}-kappa`}
                     content={t('Required for Kappa')}
-                    placement={'bottom'}
+                    placement={'top'}
                 >
                     <Link to={'/task/collector'}>
                         <Icon
@@ -143,7 +144,7 @@ function Quest() {
                 <Tippy
                 key={`${currentQuest.id}-lightkeeper`}
                     content={t('Required for Lightkeeper')}
-                    placement={'bottom'}
+                    placement={'top'}
                 >
                     <Link to={'/task/knock-knock'}>
                         <Icon
@@ -155,8 +156,167 @@ function Quest() {
                 </Tippy>
             );
         }
-        return goals;
+        if (goals.length > 1) {
+            return <span>{goals}</span>
+        }
+        return '';
     }, [currentQuest, t]);
+
+    const completedIcon = useMemo(() => {
+        if (!currentQuest || !settings.completedQuests.includes(currentQuest.id)) {
+            return '';
+        }
+        return (
+            <Tippy
+                key={`${currentQuest.id}-completed`}
+                content={t('Completed')}
+                placement={'top'}
+            >
+                <Icon
+                    path={mdiClipboardCheck}
+                    size={0.75}
+                    className="icon-with-text"
+                />
+            </Tippy>
+        );
+    }, [currentQuest, settings, t]);
+
+    const questRequirementProperties = useMemo(() => {
+        const props = {};
+        if (!currentQuest) {
+            return props;
+        }
+        if (currentQuest.minPlayerLevel) {
+            props.minPlayerLevel = {
+                value: currentQuest.minPlayerLevel,
+                label: t('Minimum PMC Level'),
+                order: 1,
+            };
+        }
+        const levelReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'level');
+        if (levelReqs.length > 0) {
+            props.traderLevel = {
+                value: <span>{
+                    levelReqs.map((traderReq) => {
+                        const trader = traders.find((trad) => trad.id === traderReq.trader.id);
+                        return (
+                            <div key={`req-trader-${trader.id}`}>
+                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                                <span>{` ${t('LL{{level}}', { level: traderReq.value })}`}</span>
+                            </div>
+                        );
+                    })
+                }</span>,
+                label: t('Trader Levels'),
+                order: 2,
+            };
+        }
+        const repReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'reputation');
+        if (repReqs.length > 0) {
+            props.traderRep = {
+                value: <span>{
+                    repReqs.map((traderRep) => {
+                        const trader = traders.find((trad) => trad.id === traderRep.trader.id);
+                        return (
+                            <div key={`req-trader-${trader.id}`}>
+                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                                <span>{` ${traderRep.compareMethod} ${traderRep.value}`}</span>
+                            </div>
+                        );
+                    })
+                }</span>,
+                label: t('Trader Reputation'),
+                order: 3,
+            };
+        }
+        if (currentQuest?.map) {
+            props.map = {
+                value: <Link to={`/map/${currentQuest.map.normalizedName}`}>
+                    {currentQuest.map.name}
+                </Link>,
+                label: t('Map'),
+                order: 4,
+            };
+        }
+        return props;
+    }, [currentQuest, traders, t]);
+
+    const previousTasks = useMemo(() => {
+        if (!currentQuest?.taskRequirements?.length > 0) {
+            return '';
+        }
+        return (
+            <div className="related-quests" key={'task-status-req'}>
+                <h3><Icon path={mdiCheckBold} size={1} className="icon-with-text" /> {t('Prerequisite Tasks')}</h3>
+                {currentQuest.taskRequirements.map((taskReq) => {
+                    const task = quests.find((quest) => quest.id === taskReq.task.id);
+                    if (!task) {
+                        return null;
+                    }
+                    let taskIcon = mdiClipboardList;
+                    if (taskReq.status.includes('complete') && settings.completedQuests.includes(task.id)) {
+                        taskIcon = mdiClipboardCheck;
+                    }
+                    let taskStatuses = '';
+                    if (taskReq.status.length > 1 || taskReq.status[0] !== 'complete') {
+                        taskStatuses = ` (${taskReq.status.map((taskStatus) => t(taskStatus)).join(', ')})`;
+                    }
+                    return (
+                        <div key={`req-task-${task.id}`}>
+                            <Icon
+                                path={taskIcon}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
+                            {taskStatuses}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }, [currentQuest, quests, settings, t]);
+
+    const nextTasks = useMemo(() => {
+        if (!currentQuest) {
+            return '';
+        }
+        const nextQuests = quests.filter((quest) =>
+            quest.taskRequirements.some(
+                (req) => req.task.id === currentQuest.id && (!req.status.includes('active') || (req.status.length === 2 && req.status.includes('complete') && req.status.includes('active'))),
+            )
+        );
+        if (nextQuests.length === 0) {
+            return '';
+        }
+        return <div className="related-quests">
+            <h3><Icon path={mdiChevronRight} size={1} className="icon-with-text" /> {t('Leads to')}</h3>
+            {nextQuests.map((task) => {
+                let failNote = '';
+                let status = task.taskRequirements.find(
+                    (req) => req.task.id === currentQuest.id,
+                ).status;
+                if (status.length === 1 && status[0] === 'failed') {
+                    failNote = t('(on failure)');
+                }
+                let taskIcon = mdiClipboardList;
+                if (settings.completedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardCheck;
+                }
+                return (
+                    <div key={`req-task-${task.id}`}>
+                        <Icon
+                            path={taskIcon}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                        <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
+                        {failNote}
+                    </div>
+                );
+            })}
+        </div>
+    }, [currentQuest, quests, settings, t]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -171,119 +331,6 @@ function Quest() {
 
     if (!currentQuest && (questsStatus === 'succeeded' || questsStatus === 'failed')) {
         return <ErrorPage />;
-    }
-
-    const nextQuests = quests.filter((quest) =>
-        quest.taskRequirements.some(
-            (req) => req.task.id === currentQuest.id && (!req.status.includes('active') || (req.status.length === 2 && req.status.includes('complete') && req.status.includes('active'))),
-        ),
-    );
-
-    let completedIcon = '';
-    if (settings.completedQuests.includes(currentQuest.id)) {
-        completedIcon = (
-            <Icon
-                path={mdiClipboardCheck}
-                size={1.2}
-                className="icon-with-text"
-            />
-        );
-    }
-
-    let requirementsChunk = '';
-    if (
-        currentQuest.minPlayerLevel ||
-        currentQuest.taskRequirements?.length > 0 ||
-        currentQuest.traderRequirements?.length > 0
-    ) {
-        let playerLevel = '';
-        let tasksReqs = '';
-        let traderLevels = '';
-        let traderReps = '';
-
-        if (currentQuest.minPlayerLevel) {
-            playerLevel = (
-                <div key={'player-level-req'}>
-                    {t('Player level: {{playerLevel}}', { playerLevel: currentQuest.minPlayerLevel })}
-                </div>
-            );
-        }
-        const levelReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'level');
-        if (levelReqs.length > 0) {
-            traderLevels = (
-                <div key={'trader-level-req'}>
-                    <h3>{t('Trader Levels')}</h3>
-                    {levelReqs.map((traderReq) => {
-                        const trader = traders.find((trad) => trad.id === traderReq.trader.id);
-                        return (
-                            <div key={`req-trader-${trader.id}`}>
-                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                                <span>{` ${t('LL{{level}}', { level: traderReq.value })}`}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            );
-        }
-        const repReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'reputation');
-        if (repReqs.length > 0) {
-            traderReps = (
-                <div key={'trader-rep-req'}>
-                    <h3>{t('Trader Reputation')}</h3>
-                    {repReqs.map((traderRep) => {
-                        const trader = traders.find((trad) => trad.id === traderRep.trader.id);
-                        return (
-                            <div key={`req-trader-${trader.id}`}>
-                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                                <span>{` ${traderRep.compareMethod} ${traderRep.value}`}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            );
-        }
-
-        if (currentQuest.taskRequirements?.length > 0) {
-            tasksReqs = (
-                <div key={'task-status-req'}>
-                    <h3>{t('Prerequisite Tasks')}</h3>
-                    {currentQuest.taskRequirements.map((taskReq) => {
-                        const task = quests.find((quest) => quest.id === taskReq.task.id);
-                        if (!task) {
-                            return null;
-                        }
-                        let taskIcon = mdiClipboardList;
-                        if (taskReq.status.includes('complete') && settings.completedQuests.includes(task.id)) {
-                            taskIcon = mdiClipboardCheck;
-                        }
-                        let taskStatuses = '';
-                        if (taskReq.status.length > 1 || taskReq.status[0] !== 'complete') {
-                            taskStatuses = ` (${taskReq.status.map((taskStatus) => t(taskStatus)).join(', ')})`;
-                        }
-                        return (
-                            <div key={`req-task-${task.id}`}>
-                                <Icon
-                                    path={taskIcon}
-                                    size={1}
-                                    className="icon-with-text"
-                                />
-                                <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
-                                {taskStatuses}
-                            </div>
-                        );
-                    })}
-                </div>
-            );
-        }
-        requirementsChunk = (
-            <div key={'all-start-requirements'}>
-                <h2><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Start Requirements')}</h2>
-                {playerLevel}
-                {traderLevels}
-                {traderReps}
-                {tasksReqs}
-            </div>
-        );
     }
 
     const getObjective = (objective) => {
@@ -666,32 +713,34 @@ function Quest() {
                             </ul>
                         </div>
                     )}
-                    {objective.usingWeaponMods?.length > 0 && (
+                    {(objective.usingWeaponMods?.length > 0 && objective.usingWeaponMods[0].length > 0) && (
                         <div>
                             {t('Using weapon mods:')}{' '}
-                            {objective.usingWeaponMods.map((modSet, index) => {
-                                return (
-                                    <ul key={`modset-${index}`} className="quest-item-list">
-                                        {modSet.map((mod) => {
-                                            const item = items.find((i) => i.id === mod.id);
-                                            if (!item)
-                                                return null;
-                                            return (
-                                                <li
-                                                    key={`mod-${item.id}`}
-                                                    className={'quest-list-item'}
-                                                >
-                                                    <ItemImage
-                                                        item={item}
-                                                        imageField="baseImageLink"
-                                                        linkToItem={true}
-                                                    />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                );
-                            })}
+                            <ul className="quest-item-list">
+                                {objective.usingWeaponMods.map((modSet, index) => {
+                                    return (
+                                        <li
+                                            key={`mod-set-${index}`}
+                                            className={'quest-list-item'}
+                                        >
+                                            {modSet.map((mod) => {
+                                                const item = items.find((i) => i.id === mod.id);
+                                                if (!item)
+                                                    return null;
+                                                return (
+                                                    
+                                                        <ItemImage
+                                                            item={item}
+                                                            imageField="baseImageLink"
+                                                            linkToItem={true}
+                                                            key={item.id}
+                                                        />
+                                                );
+                                            })}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         </div>
                     )}
                     {objective.wearing?.length > 0 && (
@@ -897,19 +946,21 @@ function Quest() {
         return (
             <div key={objective.id}>
                 {objectiveDescription}
-                {objective.maps.length > 0 && (
-                    <div key="objective-maps">
-                        <span>{`${t('Maps')}: `}</span>
-                        {objective.maps
-                            .map((m, i) => [
-                                i > 0 && ', ',
-                                <Link key={i} to={`/map/${maps.find(map => map.id === m.id)?.normalizedName}${mapQuery}`}>
-                                    {m.name}
-                                </Link>
-                            ])}
-                    </div>
-                )}
-                {taskDetails}
+                <div className="objective-details">    
+                    {objective.maps.length > 0 && (
+                        <div key="objective-maps">
+                            <span>{`${t('Maps')}: `}</span>
+                            {objective.maps
+                                .map((m, i) => [
+                                    i > 0 && ', ',
+                                    <Link key={i} to={`/map/${maps.find(map => map.id === m.id)?.normalizedName}${mapQuery}`}>
+                                        {m.name}
+                                    </Link>
+                                ])}
+                        </div>
+                    )}
+                    {taskDetails}
+                </div>
             </div>
         );
     };
@@ -1055,102 +1106,89 @@ function Quest() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
-            <div className={'quest-page-wrapper'}>
+            <div className={'entity-page-wrapper'} key={'quest-page-display-wrapper'}>
                 <ItemSearch showDropdown defaultSearch="task" />
-                <div className="quest-information-grid">
-                    <div className="quest-information-wrapper">
-                        <h1>
-                            <span className={'quest-font'}>
-                                {!currentQuest.loading
-                                    ? (currentQuest.name)
-                                    : (<LoadingSmall />)
-                                }
-                                {currentQuest.factionName === 'Any' ? '' : ` (${currentQuest.factionName})`}
-                            </span>
-                            {completedIcon}
+                <div className="entity-information-wrapper">
+                  <div className="entity-top-content">
+                    <div className="entity-information-images">
+                        <img
+                            alt={currentQuest.name}
+                            className={'entity-information-image'}
+                            loading="lazy"
+                            src={currentQuest.taskImageLink}
+                            onClick={() => openImageViewer(0)}
+                        />
+                        <Link to={`/trader/${currentQuest.trader.normalizedName}`}>
+                            <img
+                                alt={currentQuest.trader.name}
+                                className={'entity-information-image'}
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-icon.jpg`}
+                            />
+                        </Link>
+                    </div>
+                    <div className="title-bar">
+                      <span className="type">{t('Task')}</span>
+                      <h1>{currentQuest.name} {completedIcon}{endgameGoals}</h1>
+
+                      {currentQuest.wikiLink &&
+                        <span className="wiki-link-wrapper">
+                            <a href={currentQuest.wikiLink} target="_blank" rel="noopener noreferrer">
+                                {t('Wiki')}
+                            </a>
+                        </span>
+                      }
+                    </div>
+                    <div className="main-content">
+                      
+                    </div>
+                    <div className="entity-properties">
+                      <PropertyList properties={questRequirementProperties} />
+                    </div>
+                    <div className="task-connections">
+                        {previousTasks}
+                        {nextTasks}
+                    </div>
+                  </div>
+                  <div className="entity-icon-cont">
+                    <div className="entity-icon-and-link-wrapper"
+                      onClick={() => openImageViewer(0)}
+                      style={{ backgroundImage: `url(${currentQuest.taskImageLink})` }}
+                    >
+                        <Link to={`/trader/${currentQuest.trader.normalizedName}`}>
                             <img
                                 alt={currentQuest.trader.name}
                                 className={'quest-icon'}
                                 loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-icon.jpg`}
-                            />
-                        </h1>
-                        {currentQuest.wikiLink && (
-                            <div className="wiki-link-wrapper">
-                                <a href={currentQuest.wikiLink} target="_blank" rel="noopener noreferrer">{t('Wiki')}</a>
-                            </div>
-                        )}
-                        {false && typeof currentQuest.tarkovDataId !== 'undefined' && (
-                            <div className="wiki-link-wrapper">
-                                <a href={`https://${trackerDomain}/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
-                            </div>
-                        )}
-                        {endgameGoals.length > 0 && (
-                            <div>
-                                {endgameGoals}
-                            </div>
-                        )}
-                    </div>
-                    <div className={`quest-icon-and-link-wrapper`}>
-                        <Link to={`/trader/${currentQuest.trader.normalizedName}`}>
-                            <img
-                                alt={currentQuest.trader.name}
-                                height="86"
-                                width="86"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-portrait.png`}
-                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                style={{position: 'absolute', right: 2, bottom: 2}}
                             />
                         </Link>
                     </div>
+                  </div>
                 </div>
-                {requirementsChunk}
-                {nextQuests.length > 0 && (
-                    <div>
-                        <h2><Icon path={mdiChevronRight} size={1.5} className="icon-with-text" /> {t('Leads to')}</h2>
-                        {nextQuests.map((task) => {
-                            let failNote = '';
-                            let status = task.taskRequirements.find(
-                                (req) => req.task.id === currentQuest.id,
-                            ).status;
-                            if (status.length === 1 && status[0] === 'failed') {
-                                failNote = t('(on failure)');
-                            }
-                            let taskIcon = mdiClipboardList;
-                            if (settings.completedQuests.includes(currentQuest.id)) {
-                                taskIcon = mdiClipboardCheck;
-                            }
-                            return (
-                                <div key={`req-task-${task.id}`}>
-                                    <Icon
-                                        path={taskIcon}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
-                                    {failNote}
-                                </div>
-                            );
+                {isViewerOpen && (
+                  <ImageViewer
+                    src={[currentQuest.taskImageLink]}
+                    currentIndex={0}
+                    backgroundStyle={backgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                  />
+                )}
+                <div className="information-section has-table">
+                    <h2 key={'boss-loot-header'}><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Objectives')}</h2>
+                    <div className="information-content">
+                        {currentQuest.objectives.map((objective) => {
+                            return getObjective(objective);
                         })}
                     </div>
-                )}
-                {/* Divider between sections */}
-                <hr className="hr-muted-full"></hr>
-
-                <h2 className="center-title task-details-heading">{t('Task Details')}</h2>
-
-                {currentQuest.map && <h2><Icon path={mdiMapLegend} size={1.5} className="icon-with-text" /><span>{`${t('Map')}: `}</span>{questMap}</h2>}
-
-                <h2><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Objectives')}</h2>
-                <div key="task-objectives">
-                    {currentQuest.objectives.map((objective) => {
-                        return getObjective(objective);
-                    })}
                 </div>
                 {currentQuest.failConditions?.length > 0 && (
-                    <div>
+                    <div className="information-section has-table">
                         <h2><Icon path={mdiCloseThick} size={1.5} className="icon-with-text" /> {t('Fail On')}</h2>
-                        <div key="task-fail-conditions">
+                        <div key="task-fail-conditions" className="information-content">
                             {currentQuest.failConditions.map((objective) => {
                                 return getObjective(objective);
                             })}
@@ -1158,7 +1196,7 @@ function Quest() {
                     </div>
                 )}
                 {currentQuest.neededKeys?.length > 0 && (
-                    <div key="task-keys">
+                    <div key="task-keys" className="information-section has-table">
                         <h2><Icon path={mdiKeyVariant} size={1.5} className="icon-with-text" /> {t('Needed Keys')}</h2>
                         <ul>
                             {neededKeysPerMap.map((map, mapIndex) => {
@@ -1201,130 +1239,31 @@ function Quest() {
                     </div>
                 )}
 
-                <hr className="hr-muted-full"></hr>
+                {Object.keys(currentQuest.startRewards).some(r => currentQuest.startRewards[r]?.length) && (
+                    <div key="task-start-rewards" className="information-section has-table">
+                        <h2><Icon path={mdiPlay} size={1.5} className="icon-with-text" /> {t('Starting Equipment')}</h2>
+                        <div key="task-start-rewards-content" className="information-content">
+                            {getRewards(currentQuest.startRewards)}
+                        </div>
+                    </div>
+                )}
 
-                {Object.keys(currentQuest.startRewards).some(r => currentQuest.startRewards[r]?.length) && [
-                    <h2 className="center-title task-details-heading" key="task-start-reward-heading">{t('Task Start')}</h2>,
-                    getRewards(currentQuest.startRewards)
-                ]}
-
-                <h2 className="center-title task-details-heading">{t('Task Completion')}</h2>
-
-                <h2><Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t('Rewards')}</h2>
-                {getRewards(currentQuest.finishRewards)}
-                {hasFailPenalties > 0 && (
+                <div key="task-finish-rewards" className="information-section has-table">
+                    <h2><Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t('Completion Rewards')}</h2>
+                    <div key="task-finish-rewards-content" className="information-content">
+                        {getRewards(currentQuest.finishRewards)}
+                    </div>
+                </div>
+                
+                {(hasFailPenalties > 0 || currentQuest.restartable) && (
                     <div>
-                        <hr className="hr-muted-full"></hr>
-                        <h2 className="center-title task-details-heading">{t('Task Failure')}</h2>
-                        <p>{currentQuest.restartable ? t('Can be restarted') : t('Cannot be restarted')}</p>
-                        {hasFailPenalties && (
-                                <h2>{t('Penalties')}</h2>
-                        )}
-                        {currentQuest.failureOutcome?.items?.length > 0 && (
-                            <div key="finishRewards">
-                                <h3>{t('Items')}</h3>
-                                <ul className="quest-item-list">
-                                    {currentQuest.failureOutcome?.items.map((rewardItem, index) => {
-                                        const item = items.find((it) => it.id === rewardItem.item.id);
-                                        if (!item)
-                                            return null;
-                                        let itemCount = rewardItem.count;
-                                        if (item.categories.some(cat => cat.normalizedName === 'money')) {
-                                            const multiplier = intelCashMultiplier[settings['intelligence-center']];
-                                            itemCount = Math.round(itemCount * multiplier);
-                                        }
-                                        return (
-                                            <li
-                                                key={`reward-index-${rewardItem.item.id}-${index}`}
-                                            >
-                                                <ItemImage
-                                                    key={`reward-index-${rewardItem.item.id}-${index}`}
-                                                    item={item}
-                                                    imageField="baseImageLink"
-                                                    linkToItem={true}
-                                                    count={rewardItem.count > 1 ? itemCount : false}
-                                                    isFIR={true}
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
+                        <div key="task-failure-rewards" className="information-section has-table">
+                            <h2><Icon path={mdiCloseThick} size={1.5} className="icon-with-text" /> {t('Failure Penalties')}</h2>
+                            <div key="task-failure-rewards-content" className="information-content">{currentQuest.restartable ? t('Can be restarted') : t('Cannot be restarted')}</div>
+                            <div key="task-failure-rewards-content" className="information-content">
+                                {getRewards(currentQuest.failureOutcome)}
                             </div>
-                        )}
-                        {currentQuest.failureOutcome?.traderStanding?.length > 0 && (
-                            <>
-                                <h3>{t('Trader Standing')}</h3>
-                                <ul className="quest-item-list">
-                                    {currentQuest.failureOutcome.traderStanding.map((standing) => {
-                                        const trader = traders.find((t) => t.id === standing.trader.id);
-                                        return (
-                                            <li className="quest-list-item" key={standing.trader.id}>
-                                                <TraderImage
-                                                    trader={trader}
-                                                    reputationChange={standing.standing}
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </>
-                        )}
-                        {currentQuest.failureOutcome?.skillLevelReward?.length > 0 && (
-                            <>
-                                <h3>{t('Skill Level')}</h3>
-                                <ul>
-                                    {currentQuest.failureOutcome.skillLevelReward.map((skillReward) => {
-                                        return (
-                                            <li className="quest-list-item" key={skillReward.name}>
-                                                {`${skillReward.name} +${skillReward.level}`}
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </>
-                        )}
-                        {currentQuest.failureOutcome?.offerUnlock?.length > 0 && (
-                            <>
-                                <h3>{t('Trader Offer Unlock')}</h3>
-                                <ul className="quest-item-list">
-                                    {currentQuest.failureOutcome.offerUnlock.map((unlock, index) => {
-                                        const trader = traders.find((t) => t.id === unlock.trader.id);
-                                        const item = items.find((i) => i.id === unlock.item.id);
-                                        if (!item)
-                                            return null;
-                                        return (
-                                            <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
-                                                <ItemImage
-                                                    key={`reward-index-${item.id}-${index}`}
-                                                    item={item}
-                                                    imageField="baseImageLink"
-                                                    linkToItem={true}
-                                                    trader={trader}
-                                                    count={t('LL{{level}}', { level: unlock.level })}
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </>
-                        )}
-                        {currentQuest.failureOutcome?.traderUnlock?.length > 0 && (
-                            <>
-                                <h3>{t('Trader Unlock')}</h3>
-                                <ul>
-                                    {currentQuest.failureOutcome.traderUnlock.map((unlock) => {
-                                        const trader = traders.find((t) => t.id === unlock.id);
-                                        return (
-                                            <li className="quest-list-item" key={unlock.id}>
-                                                <Link to={`/trader/${trader.normalizedName}`}>
-                                                    {trader.name}
-                                                </Link>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </>
-                        )}
+                        </div>
                     </div>
                 )}
             </div>
