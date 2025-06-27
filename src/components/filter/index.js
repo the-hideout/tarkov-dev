@@ -58,7 +58,7 @@ function SliderFilter({
         marks = Object.keys(marks).map(val => {
             return {
                 label: String(marks[val]),
-                value: val,
+                value: parseInt(val),
             };
         });
     }
@@ -147,7 +147,6 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
             <label className={'single-filter-wrapper'}>
                 <span className={'single-filter-label'}>{label}</span>
                 <Switch
-                    borderRadius={5}
                     className={'filter-toggle'}
                     onChange={(event, value) => {
                         if (!onChange) {

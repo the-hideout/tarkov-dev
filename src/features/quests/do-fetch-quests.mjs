@@ -68,6 +68,7 @@ class QuestsQuery extends APIQuery {
                 }
                 kappaRequired
                 lightkeeperRequired
+                taskImageLink
             }
         }
         fragment TaskObjectiveInfo on TaskObjective {
