@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Badge } from '@mui/material';
 
 import './index.css';
 
@@ -10,7 +11,24 @@ const Sides = {
 
 function ID(props) {
     const [side, setSide] = useState(Sides.Left);
+    const [copied, setCopied] = useState(false);
     const { t } = useTranslation();
+
+    const sessionText = props.socketEnabled
+        ? props.sessionID
+        : t('Click to connect');
+
+    const handleCopyClick = async () => {
+        if (!props.socketEnabled) return;
+
+        try {
+            await navigator.clipboard.writeText(props.sessionID);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error('Copy failed', err);
+        }
+    };
 
     let sideClass;
     let sideButtonContent;
@@ -57,9 +75,19 @@ function ID(props) {
                     {sideButtonContent}
                 </button>
             </div>
-            <span className="session-id">
-                {props.socketEnabled ? props.sessionID : t('Click to connect')}
-            </span>
+
+            <div className="session-id-container">
+                <Badge
+                    badgeContent={copied ? t('Copied!') : 0}
+                    color="success"
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                >
+                    <span className="session-id" onClick={handleCopyClick} style={{cursor: 'pointer'}} >{sessionText}</span>
+                </Badge>
+            </div>
         </div>
     );
 }
