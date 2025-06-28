@@ -43,9 +43,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
             return failedTasks;
         }, []);
+        returnData.objectivesCompletionProgress = {};
         returnData.objectivesCompleted = progressData.taskObjectivesProgress.reduce((completedObjectives, current) => {
             if (current.complete) {
                 completedObjectives.push(current.id);
+            } else if (current.count > 0) {
+                returnData.objectivesCompletionProgress[current.id] = current.count;
             }
             return completedObjectives;
         }, []);
@@ -140,6 +143,8 @@ const defaultSettings = {
     completedQuests: [],
     failedQuests: [],
     tarkovTrackerModules: [],
+    objectivesCompleted: [],
+    objectivesCompletionProgress: {},
     prapor: localStorageReadJson('prapor', 4),
     therapist: localStorageReadJson('therapist', 4),
     fence: localStorageReadJson('fence', 0),
@@ -290,6 +295,7 @@ const settingsSlice = createSlice({
                 state[state.gameMode].completedQuests = action.payload.quests;
                 state[state.gameMode].failedQuests = action.payload.questsFailed;
                 state[state.gameMode].objectivesCompleted = action.payload.objectivesCompleted;
+                state[state.gameMode].objectivesCompletionProgress = action.payload.objectivesCompletionProgress;
                 state[state.gameMode].hasFlea = action.payload.hasFlea;
                 state[state.gameMode].playerLevel = action.payload.playerLevel;
                 state[state.gameMode].pmcFaction = action.payload.pmcFaction;

@@ -924,13 +924,20 @@ function Quest() {
                 {t('Reach level {{playerLevel}}', {playerLevel: objective.playerLevel})}
             </div>
         }
+        let objectiveCounter = '';
         let objectiveIconPath = mdiCheckboxBlankOutline;
         if (objective.complete) {
             objectiveIconPath = mdiCheckboxOutline;
+            if (objective.count && objective.count > 1) {
+                objectiveCounter = ` - ${objective.count}/${objective.count}`;
+            }
+        } else if (objective.count && objective.count > 1) {
+            const completeCount = settings.objectivesCompletionProgress?.[objective.id] ?? 0;
+            objectiveCounter = ` - ${completeCount}/${objective.count}`;
         }
         let objectiveDescription = null;
         if (objective.description) {
-            objectiveDescription = <h3><Icon path={objectiveIconPath} size={1} className="icon-with-text" />{`${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
+            objectiveDescription = <h3><Icon path={objectiveIconPath} size={1} className="icon-with-text" />{`${objective.description}${objective.optional ? ` (${t('optional')})` : ''}${objectiveCounter}`}</h3>;
         }
         if (objective.zones?.length > 0) {
             mapQuery = objective.zones.reduce((ids, z) => {
@@ -1178,7 +1185,7 @@ function Quest() {
                   />
                 )}
                 <div className="information-section has-table">
-                    <h2 key={'boss-loot-header'}><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Objectives')}</h2>
+                    <h2><Icon path={mdiFormatListCheckbox} size={1.5} className="icon-with-text" /> {t('Objectives')}</h2>
                     <div className="information-content">
                         {currentQuest.objectives.map((objective) => {
                             return getObjective(objective);
