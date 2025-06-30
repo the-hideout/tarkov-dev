@@ -17,6 +17,7 @@ class AchievementsQuery extends APIQuery {
                 adjustedPlayersCompletedPercent
                 normalizedRarity
                 rarity
+                imageLink
             }
         }`;
     

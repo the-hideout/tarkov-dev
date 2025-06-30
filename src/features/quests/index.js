@@ -76,6 +76,9 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
             }
             for (const req of quest.taskRequirements) {
                 let reqSatisfied = false;
+                if (!req) {
+                    return true;
+                }
                 for (const status of req.status) {
                     if (!questStatus[status]) {
                         console.log(`Unrecognized task status: ${status}`);

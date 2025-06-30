@@ -360,6 +360,9 @@ function QuestTable({
                 Cell: (props) => {
                     const questData = props.row.original;
                     return questData.taskRequirements.map(req => {
+                        if (!req) {
+                            return null;
+                        }
                         const reqQuest = quests.find(quest => quest.id === req.task.id);
                         if (!reqQuest)
                             return null;
