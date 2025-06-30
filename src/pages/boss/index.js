@@ -447,59 +447,56 @@ function BossPage(params) {
                   />
                 </div>
 
-                <div className="information-section spawn-locations has-table">
-                  {spawnStatsMsg.length > 0 && 
-                  <>
-                  <h2 key={'boss-spawn-table-header'}>
-                    <Icon
-                      path={mdiMapLegend}
-                      size={1.5}
-                      className="icon-with-text"
-                    />
-                    {t('Spawn Locations')}
-                  </h2>
-                  <ul>
-                    <Trans i18nKey="boss-spawn-table-description">
-                      <li>Map: The name of the map which the boss can spawn on</li>
-                      <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                      <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                    </Trans>
-                  </ul>
-                  <DataTable
-                      key="boss-spawn-table"
-                      columns={columnsLocations}
-                      data={spawnLocations}
-                      disableSortBy={false}
-                      sortBy={'map'}
-                      autoResetSortBy={false}
-                  />
-                </>}
-              </div>
-
-              <div className="information-section boss-escorts has-table">
-                <h2 key={'boss-escort-table-header'}>
-                    <Icon
-                      path={mdiAccountGroup}
-                      size={1.5}
-                      className="icon-with-text"
-                    />
-                    {t('Boss Escorts')}
-                </h2>
-                <div className="content">
-                  {escorts.length > 0 ?
+                {spawnStatsMsg.length > 0 && (
+                    <div className="information-section spawn-locations has-table">
+                    <h2 key={'boss-spawn-table-header'}>
+                        <Icon
+                        path={mdiMapLegend}
+                        size={1.5}
+                        className="icon-with-text"
+                        />
+                        {t('Spawn Locations')}
+                    </h2>
+                    <ul>
+                        <Trans i18nKey="boss-spawn-table-description">
+                        <li>Map: The name of the map which the boss can spawn on</li>
+                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        </Trans>
+                    </ul>
                     <DataTable
-                      key="boss-escort-table"
-                      columns={columnsEscorts}
-                      data={escorts}
-                      disableSortBy={false}
-                      sortBy={'map'}
-                      autoResetSortBy={false}
+                        key="boss-spawn-table"
+                        columns={columnsLocations}
+                        data={spawnLocations}
+                        disableSortBy={false}
+                        sortBy={'map'}
+                        autoResetSortBy={false}
                     />
-                    :
-                    <p>{t('This boss does not have any escorts')}</p>
-                  }
                 </div>
-              </div>
+                )}
+
+                {escorts.length > 0 && (
+                    <div className="information-section boss-escorts has-table">
+                        <h2 key={'boss-escort-table-header'}>
+                            <Icon
+                            path={mdiAccountGroup}
+                            size={1.5}
+                            className="icon-with-text"
+                            />
+                            {t('Boss Escorts')}
+                        </h2>
+                        <div className="content">
+                            <DataTable
+                            key="boss-escort-table"
+                            columns={columnsEscorts}
+                            data={escorts}
+                            disableSortBy={false}
+                            sortBy={'map'}
+                            autoResetSortBy={false}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     ]
