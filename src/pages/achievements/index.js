@@ -39,7 +39,7 @@ function Achievements() {
                 Cell: (props) => {
                     let image = <></>;
                     if (props.row.original.imageLink) {
-                        image = <img src={props.row.original.imageLink} alt="" />
+                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />
                     }
                     return <div style={{display: 'flex', alignItems: 'center'}}>
                         {image}
