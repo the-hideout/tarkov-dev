@@ -19,7 +19,7 @@ import capitalize from '../../modules/capitalize-first.js';
 
 import useBossesData from '../../features/bosses/index.js';
 import useItemsData from '../../features/items/index.js';
-import { useMapImages } from '../../features/maps/index.js';
+import useMapsData, { useMapImages } from '../../features/maps/index.js';
 
 import i18n from '../../i18n.js';
 
@@ -30,6 +30,8 @@ function BossPage(params) {
     const { data: bosses } = useBossesData();
 
     const { data: items } = useItemsData();
+
+    const { data: maps } = useMapsData();
 
     const allMaps = useMapImages();
 
@@ -336,6 +338,51 @@ function BossPage(params) {
             }
         }
     }
+    if (escorts.length === 0) {
+        for (const map of maps) {
+            const mapStub = Object.values(allMaps).reduce((found, current) => {
+                if (!map.id === current.id) {
+                    return false;
+                }
+                if (!found && current.key === `${map.normalizedName}-3d`) {
+                    found = current.key;
+                }
+                if (current.key === map.normalizedName) {
+                    found = current.key;
+                }
+                return found;
+            }, false);
+            let mapLink = false;
+            if (mapStub) {
+                mapLink = <Link to={`/map/${mapStub}`}>{map.name}</Link>
+            }
+            const escortFor = map.bosses.reduce((foundEscorts, b) => {
+                const spawnsWithBoss = b.escorts.some(e => e.normalizedName === bossData.normalizedName);
+                if (spawnsWithBoss) {
+                    foundEscorts.push({...b, amount: [{chance: 1}]});
+                    for (const e of b.escorts) {
+                        if (e.normalizedName === bossData.normalizedName) {
+                            continue;
+                        }
+                        console.log(e);
+                        foundEscorts.push(e);
+                    }
+                }
+                return foundEscorts;
+            }, []);
+            for (const escort of escortFor) {
+                for (const amount of escort.amount) {
+                    escorts.push({
+                        map: mapLink || map.name,
+                        name: escort.name,
+                        normalizedName: escort.normalizedName,
+                        chance: `${parseInt(amount.chance * 100)}%`,
+                        count: 1
+                    });
+                }
+            }
+        }
+    }
 
     let report = '';
     if (bossData.reports?.length > 0) {
@@ -485,16 +532,14 @@ function BossPage(params) {
                             />
                             {t('Boss Escorts')}
                         </h2>
-                        <div className="content">
-                            <DataTable
+                        <DataTable
                             key="boss-escort-table"
                             columns={columnsEscorts}
                             data={escorts}
                             disableSortBy={false}
                             sortBy={'map'}
                             autoResetSortBy={false}
-                            />
-                        </div>
+                        />
                     </div>
                 )}
             </div>
