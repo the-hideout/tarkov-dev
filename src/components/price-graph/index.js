@@ -249,6 +249,8 @@ function PriceGraph({ item, itemId, days }) {
                     onChange={(event, value) => {
                         setFilterRange(value);
                     }}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(timestamp) => new Date(timestamp ?? 0).toLocaleString(navigator.language, {hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: 'numeric', day: 'numeric'})}
                 />
             </div>
         </div>
