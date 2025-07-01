@@ -359,12 +359,11 @@ function BossPage(params) {
             const escortFor = map.bosses.reduce((foundEscorts, b) => {
                 const spawnsWithBoss = b.escorts.some(e => e.normalizedName === bossData.normalizedName);
                 if (spawnsWithBoss) {
-                    foundEscorts.push({...b, amount: [{chance: 1}]});
+                    foundEscorts.push({...b, amount: [{chance: 1, count: 1}]});
                     for (const e of b.escorts) {
                         if (e.normalizedName === bossData.normalizedName) {
                             continue;
                         }
-                        console.log(e);
                         foundEscorts.push(e);
                     }
                 }
@@ -377,7 +376,7 @@ function BossPage(params) {
                         name: escort.name,
                         normalizedName: escort.normalizedName,
                         chance: `${parseInt(amount.chance * 100)}%`,
-                        count: 1
+                        count: amount.count
                     });
                 }
             }
