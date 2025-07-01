@@ -53,9 +53,9 @@ function PropertyList({ properties, id }) {
 
     return (
         <div className="property-list">
-            {data.map(([property, value]) => {
+            {data.map(([property, value, index]) => {
                 return (
-                    <div className={`property-wrapper ${value.value.length >= 40 ? 'large' : ''} ${property}`}  key={property}>
+                    <div className={`property-wrapper ${value.value.length >= 40 ? 'large' : ''} ${property}`}  key={property ?? `property-${index}`}>
                       <div className="property-key-wrapper title">
                           <ConditionalWrapper
                               condition={value.tooltip}
