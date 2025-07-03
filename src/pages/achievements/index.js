@@ -77,13 +77,13 @@ function Achievements() {
                 Header: t('Player %'),
                 id: 'playersCompletedPercent',
                 accessor: 'adjustedPlayersCompletedPercent',
-                Cell: (props) => {
-                    return (
-                        <div className="center-content">
-                            {props.value}%
-                        </div>
-                    );
-                },
+                Cell: (props) => (
+                    <div className="center-content">
+                        {props.value}%
+                    </div>
+                ),
+                sortType: (rowA, rowB) =>
+                    rowA.original.adjustedPlayersCompletedPercent - rowB.original.adjustedPlayersCompletedPercent,
             },
             {
                 Header: t('Rarity'),
