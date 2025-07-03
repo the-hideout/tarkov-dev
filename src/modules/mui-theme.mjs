@@ -123,6 +123,19 @@ const theme = createTheme({
                 }
             },
         },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    backgroundColor: 'var(--color-gunmetal-dark)',
+                    borderColor: 'var(--color-gray)',
+                    borderRadius: '4px',
+                    borderStyle: 'solid',
+                    borderWidth: '3px',
+                    fontSize: '14px',
+                    color: 'rgb( from var(--color-gold-one) r g b / 0.8)',
+                },
+            },
+        },
     },
 });
 

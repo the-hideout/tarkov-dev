@@ -39,7 +39,6 @@
     "@tanstack/react-query": "^5.81.5",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
-    "@tippyjs/react": "^4.2.6",
     "classnames": "^2.5.1",
     "critical": "^7.2.0",
     "dayjs": "^1.11.13",

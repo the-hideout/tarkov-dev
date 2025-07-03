@@ -344,8 +344,8 @@ function App() {
                 ))}
             </Helmet>
             <Menu />
-            <CookieConsent>
-                tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.
+            <CookieConsent buttonText={i18n.t('I understand')}>
+                {i18n.t('cookie-consent')}
             </CookieConsent>
             <WindowFocusHandler />
             <ErrorBoundary FallbackComponent={Fallback}>

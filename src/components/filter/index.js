@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { Slider, Switch } from '@mui/material';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Slider, Switch, Tooltip } from '@mui/material';
 
 import './index.css';
 import { Fab } from '@mui/material';
@@ -23,7 +21,7 @@ function ButtonGroupFilterButton({
     type = 'image',
 }) {
     return (
-        <Tippy placement="top" content={tooltipContent}>
+        <Tooltip placement="top" title={tooltipContent} arrow>
             <button
                 className={`button-group-button button-group-${type}-button ${
                     selected ? 'selected' : ''
@@ -32,7 +30,7 @@ function ButtonGroupFilterButton({
             >
                 {content}
             </button>
-        </Tippy>
+        </Tooltip>
     );
 }
 
@@ -138,9 +136,9 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
             condition={tooltipContent}
             wrapper={(children) => {
                 return (
-                    <Tippy placement="bottom" content={tooltipContent}>
+                    <Tooltip placement="bottom" title={tooltipContent} arrow>
                         {children}
-                    </Tippy>
+                    </Tooltip>
                 );
             }}
         >
@@ -225,18 +223,21 @@ function SelectFilter({
     wide,
     parentRef,
 }) {
+    if (tooltipDisabled) {
+        tooltip = undefined;
+    }
     return (
         <ConditionalWrapper
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy
-                        disabled={tooltipDisabled}
+                    <Tooltip
                         placement="bottom"
-                        content={tooltip}
+                        title={tooltip}
+                        arrow
                     >
                         {children}
-                    </Tippy>
+                    </Tooltip>
                 );
             }}
         >
@@ -338,8 +339,9 @@ function SelectItemFilter({
 
     if (selectedItem && showImage) {
         elements.push((
-            <Tippy
-                content={t('Clear selection')}
+            <Tooltip
+                title={t('Clear selection')}
+                arrow
             >
                 <img
                     key={'select-item-filter-selected-icon'}
@@ -355,7 +357,7 @@ function SelectItemFilter({
                     src={selectedItem.iconLink}
                     style={{cursor: 'pointer'}}
                 />
-            </Tippy>
+            </Tooltip>
         ))
     }
     return elements;
@@ -379,12 +381,13 @@ function InputFilter({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy
+                    <Tooltip
                         placement="bottom"
-                        content={tooltip}
+                        title={tooltip}
+                        arrow
                     >
                         {children}
-                    </Tippy>
+                    </Tooltip>
                 );
             }}
         >

@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table/index.js';
 
