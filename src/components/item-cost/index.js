@@ -1,8 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
-import Tippy from '@tippyjs/react';
+import { Tooltip } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { followCursor } from 'tippy.js';
-import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@mdi/react';
 import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
@@ -183,16 +181,13 @@ function ItemCost({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy 
+                    <Tooltip 
                         placement="bottom"
-                        followCursor={'horizontal'}
-                        // showOnCreate = {true}
-                        interactive={true}
-                        content={tooltip}
-                        plugins={[followCursor]}
+                        title={tooltip}
+                        arrow
                     >
                         {children}
-                    </Tippy>
+                    </Tooltip>
                 );
             }}
         >

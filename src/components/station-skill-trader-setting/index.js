@@ -1,7 +1,6 @@
-import Tippy from '@tippyjs/react';
 import React from 'react';
 import Select from 'react-select';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 
 import './index.css';
 
@@ -115,9 +114,10 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     );
 
     return (
-        <Tippy
+        <Tooltip
             placement="top"
-            content={toolTip}
+            title={toolTip}
+            arrow
         >
             <div className="station-skill-trader-setting-wrapper">
                 <img
@@ -144,7 +144,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
                     isDisabled={isDisabled}
                 />
             </div>
-        </Tippy>
+        </Tooltip>
     );
 });
 

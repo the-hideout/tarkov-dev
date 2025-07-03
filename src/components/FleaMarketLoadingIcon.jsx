@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
 import { Icon } from '@mdi/react';
 import { mdiTimerSand } from '@mdi/js';
+import { Tooltip } from '@mui/material';
 
 function FleaMarketLoadingIcon({
     size = 1,
@@ -15,16 +14,17 @@ function FleaMarketLoadingIcon({
     }
 
     return (
-        <Tippy
+        <Tooltip
             placement="bottom"
-            content={tooltip}
+            title={tooltip}
+            arrow
         >
             <Icon
                 path={mdiTimerSand}
                 size={size}
                 className="icon-with-text"
             />
-        </Tippy>
+        </Tooltip>
     );
 }
 

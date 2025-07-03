@@ -9,8 +9,7 @@ import {
     mdiClipboardList,
     mdiTimerSand,
 } from '@mdi/js';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 
 import ArrowIcon from '../../components/data-table/Arrow.js';
 import DataTable from '../data-table/index.js';

@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useHotkeys } from 'react-hotkeys-hook';
 import debounce from 'lodash.debounce';
-import Tippy from '@tippyjs/react';
+import { Tooltip } from '@mui/material';
 
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import itemSearch from '../../modules/item-search.js';
@@ -192,16 +192,17 @@ function ItemSearch({
                         );
                     }
                     formattedItem.displayName.push(
-                        <Tippy
+                        <Tooltip
                             key="item-search-flea-price"
-                            content={toolTip}
+                            title={toolTip}
+                            arrow
                         >
                             <span>
                                 <span className="item-search-separator">|</span>
                                 <img alt={sellOnFleaPrice.vendor.name} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellOnFleaPrice.vendor.normalizedName}-icon.jpg`}/>
                                 <span>{formatPrice(sellOnFleaPrice.priceRUB)}</span>
                             </span>
-                        </Tippy>
+                        </Tooltip>
                     );
                 }
 
@@ -230,16 +231,17 @@ function ItemSearch({
                         );
                     }
                     formattedItem.displayName.push(
-                        <Tippy
+                        <Tooltip
                             key="item-search-trader-price"
-                            content={toolTip}
+                            title={toolTip}
+                            arrow
                         >
                             <span>
                                 <span className="item-search-separator">|</span>
                                 <img alt={sellToTrader.vendor} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellToTrader.vendor.normalizedName}-icon.jpg`}/>
                                 <span>{formatPrice(sellToTrader.priceRUB)}</span>
                             </span>
-                        </Tippy>
+                        </Tooltip>
                     );
                 }
 

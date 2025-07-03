@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
+import { Tooltip } from '@mui/material';
 import { Icon } from '@mdi/react';
 import { mdiCloseBox, mdiCheckboxMarked, mdiClipboardList } from '@mdi/js';
 
@@ -47,17 +47,17 @@ function RewardCell({
         );
         return (
             <span>
-                <Tippy
-                    content={tooltipContent}
+                <Tooltip
+                    title={tooltipContent}
                     placement="right"
-                    interactive={true}
+                    arrow
                 >
                     <Icon
                         path={mdiClipboardList}
                         size={1}
                         className="icon-with-text no-click"
                     />
-                </Tippy>
+                </Tooltip>
             </span>
         );
     }, [taskUnlock, t]);
@@ -154,15 +154,16 @@ function RewardCell({
                     </Link>
                 </div>
                 <div className="reward-info-source">{source}{taskTooltip}</div>
-                <Tippy
-                    content={valueTooltip}
+                <Tooltip
+                    title={valueTooltip}
                     placement="bottom"
+                    arrow
                 >
                     <div className="price-wrapper">
                         {displayValue}
                         {sellNote}
                     </div>
-                </Tippy>
+                </Tooltip>
             </div>
         </div>
     );
