@@ -245,6 +245,19 @@ try {
     }));
 
     apiPromises.push(doFetchMaps({prebuild: true}).then(maps => {
+        maps = maps.map(map => {
+            return {
+                ...map,
+                extracts: [],
+                hazards: [],
+                locks: [],
+                lootContainers: [],
+                lootLoose: [],
+                spawns: [],
+                switches: [],
+                transits: [],
+            };
+        });
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
 
         return getMapNames(langs).then(mapResults => {
@@ -265,6 +278,7 @@ try {
 
     apiPromises.push(doFetchBosses({prebuild: true}).then(bosses => {
         for (const boss of bosses) {
+            boss.items = [];
             boss.equipment = [];
         }
         fs.writeFileSync('./src/data/bosses_cached.json', JSON.stringify(bosses));
