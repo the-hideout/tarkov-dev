@@ -618,5 +618,7 @@
     "{{count}} years_one": "{{count}} year",
     "Wipe Length": "Długość wipe'a",
     "wipe-length-description": "Uzyskaj najnowsze informacje na temat średniej długości wipe'ów w Escape from Tarkov. Dowiedz się, jak długo zazwyczaj trwają wipe'y i przygotuj się na następny wipe.",
-    "Average Wipe Length among last 6 wipes:": "Średnia długość wipe'a wśród ostatnich 6 wipe'ów:"
+    "Average Wipe Length among last 6 wipes:": "Średnia długość wipe'a wśród ostatnich 6 wipe'ów:",
+    "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
+    "I understand": "I understand"
 }
