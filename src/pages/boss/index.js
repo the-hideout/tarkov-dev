@@ -19,7 +19,7 @@ import capitalize from '../../modules/capitalize-first.js';
 
 import useBossesData from '../../features/bosses/index.js';
 import useItemsData from '../../features/items/index.js';
-import { useMapImages } from '../../features/maps/index.js';
+import useMapsData, { useMapImages } from '../../features/maps/index.js';
 
 import i18n from '../../i18n.js';
 
@@ -30,6 +30,8 @@ function BossPage(params) {
     const { data: bosses } = useBossesData();
 
     const { data: items } = useItemsData();
+
+    const { data: maps } = useMapsData();
 
     const allMaps = useMapImages();
 
@@ -336,6 +338,50 @@ function BossPage(params) {
             }
         }
     }
+    if (escorts.length === 0) {
+        for (const map of maps) {
+            const mapStub = Object.values(allMaps).reduce((found, current) => {
+                if (!map.id === current.id) {
+                    return false;
+                }
+                if (!found && current.key === `${map.normalizedName}-3d`) {
+                    found = current.key;
+                }
+                if (current.key === map.normalizedName) {
+                    found = current.key;
+                }
+                return found;
+            }, false);
+            let mapLink = false;
+            if (mapStub) {
+                mapLink = <Link to={`/map/${mapStub}`}>{map.name}</Link>
+            }
+            const escortFor = map.bosses.reduce((foundEscorts, b) => {
+                const spawnsWithBoss = b.escorts.some(e => e.normalizedName === bossData.normalizedName);
+                if (spawnsWithBoss) {
+                    foundEscorts.push({...b, amount: [{chance: 1, count: 1}]});
+                    for (const e of b.escorts) {
+                        if (e.normalizedName === bossData.normalizedName) {
+                            continue;
+                        }
+                        foundEscorts.push(e);
+                    }
+                }
+                return foundEscorts;
+            }, []);
+            for (const escort of escortFor) {
+                for (const amount of escort.amount) {
+                    escorts.push({
+                        map: mapLink || map.name,
+                        name: escort.name,
+                        normalizedName: escort.normalizedName,
+                        chance: `${parseInt(amount.chance * 100)}%`,
+                        count: amount.count
+                    });
+                }
+            }
+        }
+    }
 
     let report = '';
     if (bossData.reports?.length > 0) {
@@ -447,59 +493,54 @@ function BossPage(params) {
                   />
                 </div>
 
-                <div className="information-section spawn-locations has-table">
-                  {spawnStatsMsg.length > 0 && 
-                  <>
-                  <h2 key={'boss-spawn-table-header'}>
-                    <Icon
-                      path={mdiMapLegend}
-                      size={1.5}
-                      className="icon-with-text"
-                    />
-                    {t('Spawn Locations')}
-                  </h2>
-                  <ul>
-                    <Trans i18nKey="boss-spawn-table-description">
-                      <li>Map: The name of the map which the boss can spawn on</li>
-                      <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                      <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                    </Trans>
-                  </ul>
-                  <DataTable
-                      key="boss-spawn-table"
-                      columns={columnsLocations}
-                      data={spawnLocations}
-                      disableSortBy={false}
-                      sortBy={'map'}
-                      autoResetSortBy={false}
-                  />
-                </>}
-              </div>
-
-              <div className="information-section boss-escorts has-table">
-                <h2 key={'boss-escort-table-header'}>
-                    <Icon
-                      path={mdiAccountGroup}
-                      size={1.5}
-                      className="icon-with-text"
-                    />
-                    {t('Boss Escorts')}
-                </h2>
-                <div className="content">
-                  {escorts.length > 0 ?
+                {spawnStatsMsg.length > 0 && (
+                    <div className="information-section spawn-locations has-table">
+                    <h2 key={'boss-spawn-table-header'}>
+                        <Icon
+                        path={mdiMapLegend}
+                        size={1.5}
+                        className="icon-with-text"
+                        />
+                        {t('Spawn Locations')}
+                    </h2>
+                    <ul>
+                        <Trans i18nKey="boss-spawn-table-description">
+                        <li>Map: The name of the map which the boss can spawn on</li>
+                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        </Trans>
+                    </ul>
                     <DataTable
-                      key="boss-escort-table"
-                      columns={columnsEscorts}
-                      data={escorts}
-                      disableSortBy={false}
-                      sortBy={'map'}
-                      autoResetSortBy={false}
+                        key="boss-spawn-table"
+                        columns={columnsLocations}
+                        data={spawnLocations}
+                        disableSortBy={false}
+                        sortBy={'map'}
+                        autoResetSortBy={false}
                     />
-                    :
-                    <p>{t('This boss does not have any escorts')}</p>
-                  }
                 </div>
-              </div>
+                )}
+
+                {escorts.length > 0 && (
+                    <div className="information-section boss-escorts has-table">
+                        <h2 key={'boss-escort-table-header'}>
+                            <Icon
+                            path={mdiAccountGroup}
+                            size={1.5}
+                            className="icon-with-text"
+                            />
+                            {t('Boss Escorts')}
+                        </h2>
+                        <DataTable
+                            key="boss-escort-table"
+                            columns={columnsEscorts}
+                            data={escorts}
+                            disableSortBy={false}
+                            sortBy={'map'}
+                            autoResetSortBy={false}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     ]

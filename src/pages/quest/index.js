@@ -21,6 +21,7 @@ import useTradersData from '../../features/traders/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMapsData from '../../features/maps/index.js';
 import useHideoutData from '../../features/hideout/index.js';
+import useBossesData from '../../features/bosses/index.js';
 
 import './index.css';
 
@@ -60,6 +61,8 @@ function Quest() {
 
     const { data: stations } = useHideoutData();
 
+    const { data: bosses } = useBossesData();
+
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
         setIsViewerOpen(true);
@@ -87,12 +90,12 @@ function Quest() {
         });
     }, [quests, taskIdentifier]);
 
-    const hasFailPenalties = useMemo(() => {
-        return currentQuest?.failureOutcome?.items?.length > 0 ||
-            currentQuest?.failureOutcome?.traderStanding?.length > 0 ||
-            currentQuest?.failureOutcome?.skillLevelReward?.length > 0 || 
-            currentQuest?.failureOutcome?.offerUnlock?.length > 0 || 
-            currentQuest?.failureOutcome?.traderUnlock?.length > 0;
+    const hasFailInfo = useMemo(() => {
+        if (!currentQuest) {
+            return false;
+        }
+        const failureOutcome = currentQuest?.failureOutcome ?? {};
+        return Object.keys(failureOutcome).some(r => failureOutcome[r].length > 0) || currentQuest.failConditions?.length > 0;
     }, [currentQuest]);
 
     const neededKeysPerMap = useMemo(() => {
@@ -644,14 +647,27 @@ function Quest() {
             if (objective.shotType !== 'kill') {
                 verb = t('Shoot');
             }
-            let shootString = `${verb} ${objective.targetNames.join(', ')}`;
+            const targets = objective.targetNames.map(t => {
+                const boss = bosses.find(b => b.name === t);
+                if (!boss) {
+                    return <span key={`mob-${t}`}>{t}</span>;
+                }
+                return <Link key={`boss-${t}`} to={`/boss/${boss.normalizedName}`}>{t}</Link>;
+            }).reduce((allTargets, current, index) => {
+                if (allTargets.length > 0) {
+                    allTargets.push(<span key={`comma-${index}`}>, </span>)
+                }
+                allTargets.push(current);
+                return allTargets;
+            }, []);
+            let shootCount = '';
             if (objective.count > 1) {
-                shootString += ` x ${objective.count}`;
+                shootCount = <span>{` x ${objective.count}`}</span>
             }
             taskDetails = (
                 <>
                     <>
-                        {shootString}
+                        {verb} {targets}{shootCount}
                     </>
                     {objective.timeFromHour !== objective.timeUntilHour && (
                         <div>
@@ -1255,18 +1271,20 @@ function Quest() {
                     </div>
                 )}
 
-                <div key="task-finish-rewards" className="information-section has-table">
-                    <h2><Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t('Completion Rewards')}</h2>
-                    <div key="task-finish-rewards-content" className="information-content">
-                        {getRewards(currentQuest.finishRewards)}
+                {Object.keys(currentQuest.finishRewards).some(r => currentQuest.finishRewards[r]?.length) && (    
+                    <div key="task-finish-rewards" className="information-section has-table">
+                        <h2><Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t('Completion Rewards')}</h2>
+                        <div key="task-finish-rewards-content" className="information-content">
+                            {getRewards(currentQuest.finishRewards)}
+                        </div>
                     </div>
-                </div>
+                )}
                 
-                {(hasFailPenalties > 0 || currentQuest.restartable) && (
+                {hasFailInfo && (
                     <div>
                         <div key="task-failure-rewards" className="information-section has-table">
                             <h2><Icon path={mdiCloseThick} size={1.5} className="icon-with-text" /> {t('Failure Penalties')}</h2>
-                            <div key="task-failure-rewards-content" className="information-content">{currentQuest.restartable ? t('Can be restarted') : t('Cannot be restarted')}</div>
+                            <div key="task-failure-rewards-content-restartable" className="information-content">{currentQuest.restartable ? t('Can be restarted') : t('Cannot be restarted')}</div>
                             <div key="task-failure-rewards-content" className="information-content">
                                 {getRewards(currentQuest.failureOutcome)}
                             </div>
