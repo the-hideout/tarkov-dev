@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTable, useSortBy, useExpanded, usePagination } from 'react-table/index.js';
 import { useInView } from 'react-intersection-observer';
-// import {ReactComponent as ArrowIcon} from './Arrow.js';
+import { Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import ArrowIcon from './Arrow.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import formatPrice from '../../modules/format-price.js';
@@ -114,26 +114,56 @@ function DataTable({
             }`;
             delete tableProps.key;
             return (
-                <tr key={`data-table-row-${i}`} {...tableProps}>
+                <TableRow key={`data-table-row-${i}`} {...tableProps}>
                     {row.cells.map((cell, i) => {
                         const cellProps = {...cell.getCellProps()};
                         const cellKey = cellProps.key;
                         delete cellProps.key;
                         return (
-                            <td
+                            <TableCell
                                 key={cellKey}
                                 className={'data-cell'}
                                 {...cellProps}
                             >
                                 {cell.render('Cell')}
-                            </td>
+                            </TableCell>
                         );
                     })}
-                </tr>
+                </TableRow>
             );
         });
     };
-
+    return (
+        <TableContainer>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        {columns.map((column) => <TableCell>
+                            {column.Header}
+                        </TableCell>)}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {getRows()}
+                    {extraRow && (<TableRow key="extra">
+                        <TableCell className="data cell table-extra-row">
+                            {extraRow}
+                        </TableCell>
+                    </TableRow>)}
+                </TableBody>
+                {sumColumns && rows.length > 1 && (<TableFooter>
+                    <TableRow>
+                        {columns.map((col, colIndex) => (<TableCell key={`col-sum-${colIndex}`}>{col.summable ? formatPrice(rows.map(row => {
+                                const val = row.cells[colIndex].value;
+                                const count = row.original?.count ? row.original.count : 1;
+                                if (isNaN(val)) return false;
+                                return val * count;
+                            }).filter(Boolean).reduce((previousValue, currentValue) => previousValue + currentValue, 0)) : ''}</TableCell>))}
+                    </TableRow>
+                </TableFooter>)}
+            </Table>
+        </TableContainer>
+    );
     // Render the UI for your table
     return (
         <div className="table-wrapper">

@@ -123,6 +123,25 @@ const theme = createTheme({
                 }
             },
         },
+        MuiTableHead: {
+            styleOverrides: {
+                root: {
+                    background: 'rgb(from var(--color-black) r g b/.4)',
+                },
+            },
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    color: 'var(--color-gold-one)',
+                },
+                head: {
+                    borderTop: 'var(--color-black-light) 4px solid',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                },
+            },
+        },
     },
 });
 
