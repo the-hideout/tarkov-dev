@@ -227,36 +227,6 @@ cite {
     font-size: larger;
 }
 
-div.tippy-box {
-    background-color: var(--color-gunmetal-dark);
-    color: var(--color-gold-one);
-    border-color: var(--color-gray);
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 3px;
-    box-shadow: 0 0 0 1px rgb( from var(--color-black) r g b / 0.1);
-}
-
-div.tippy-box[data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: var(--color-gray);
-    bottom: -10px;
-}
-
-div.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
-    border-bottom-color: var(--color-gray);
-    top: -10px;
-}
-
-div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
-    border-left-color: var(--color-gray);
-    right: -10px;
-}
-
-div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
-    border-right-color: var(--color-gray);
-    left: -10px;
-}
-
 .hr-muted {
     margin-top: 2rem;
     border-bottom: 1px solid var(--color-gold-two);

@@ -3,8 +3,7 @@ import {renderToStaticMarkup} from "react-dom/server";
 import { Link, useNavigate } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { Tooltip } from '@mui/material';
 import ResizeObserver from 'resize-observer-polyfill';
 
 import './index.css';
@@ -404,9 +403,9 @@ function ItemImage({
     const imageText = useMemo(() => {
         let element = <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>;
         if (fullNameTooltip && imageTextStyle.dispolay !== 'none') {
-            element = <Tippy content={item.name}>
+            element = <Tooltip title={item.name} arrow>
                 {element}
-            </Tippy>;
+            </Tooltip>;
         }
         return element;
     }, [fullNameTooltip, imageTextClick, imageTextStyle, item]);
@@ -456,33 +455,36 @@ function ItemImage({
             {nonFunctionalElement}
             {imageText}
             <div style={itemExtraStyle}>
-                {isFIR && <Tippy
+                {isFIR && <Tooltip
                     placement="bottom"
-                    content={t('Found In Raid')}
+                    title={t('Found In Raid')}
+                    arrow
                 >
                     <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />
-                </Tippy>}
+                </Tooltip>}
                 {count && <span className="item-image-count">{trader ? t('LL{{level}}', { level: count }) : count}</span>}
             </div>
             {trader && <div style={traderElementStyle}>
-                <Tippy
+                <Tooltip
                     placement="top"
-                    content={trader.name}
+                    title={trader.name}
+                    arrow
                 >
                     <Link to={`/trader/${trader.normalizedName}/?tab=${count}&search=${item.name}`}>
                         <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-icon.jpg`} style={traderImageStyle}/>
                     </Link>
-                </Tippy>
+                </Tooltip>
             </div>}
             {station && <div style={traderElementStyle}>
-                <Tippy
+                <Tooltip
                     placement="top"
-                    content={station.name}
+                    title={station.name}
+                    arrow
                 >
                     <Link to={`/hideout-profit/?station=${station.normalizedName}&all=true&search=${item.name}`}>
                         <img alt={station.name} src={station.imageLink} style={traderImageStyle}/>
                     </Link>
-                </Tippy>
+                </Tooltip>
             </div>}
             {loadingIcon}
             {children}
