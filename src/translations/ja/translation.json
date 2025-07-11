@@ -618,5 +618,7 @@
     "Provides {{count}} for {{totalCost}}_many": "{{count}}を{{totalCost}}で提供（多数形）",
     "Crafts {{count}} in {{duration}} for {{totalCost}}_one": "{{duration}}内に{{count}}を{{totalCost}}でクラフト",
     "Crafts {{count}} in {{duration}} for {{totalCost}}_few": "{{duration}}内に{{count}}を{{totalCost}}でクラフト（少数形）",
-    "Crafts {{count}} in {{duration}} for {{totalCost}}_many": "{{duration}}内に{{count}}を{{totalCost}}でクラフト（多数形）"
+    "Crafts {{count}} in {{duration}} for {{totalCost}}_many": "{{duration}}内に{{count}}を{{totalCost}}でクラフト（多数形）",
+    "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
+    "I understand": "I understand"
 }
