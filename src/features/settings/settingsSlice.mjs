@@ -186,6 +186,7 @@ const settingsSlice = createSlice({
         gameMode: localStorageReadJson('gameMode', 'regular'),
         Ti: localStorageReadJson('Ti', 0.03),
         Tr: localStorageReadJson('Tr', 0.03),
+        fleaEnabled: localStorageReadJson('fleaEnabled', true),
         tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
         loadingData: '',
     },

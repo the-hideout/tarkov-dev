@@ -14,7 +14,7 @@ function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
             return false;
         }
         if (buyFor.vendor.normalizedName === 'flea-market') {
-            return (allowAllSources || settings.hasFlea);
+            return settings.fleaEnabled && (allowAllSources || settings.hasFlea);
         }
         if (!allowAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
             return false;

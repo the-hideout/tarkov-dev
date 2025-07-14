@@ -346,7 +346,7 @@ function SmallItemTable(props) {
                 itemLink: `/item/${itemData.normalizedName}`,
                 types: itemData.types,
                 buyFor: itemData.buyFor.filter(buyFor => {
-                    if (!showAllSources && !settings.hasFlea && buyFor.vendor.normalizedName === 'flea-market') 
+                    if (!showAllSources && !(settings.hasFlea && settings.fleaEnabled) && buyFor.vendor.normalizedName === 'flea-market') 
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
@@ -358,7 +358,7 @@ function SmallItemTable(props) {
                 }),
                 sellFor: itemData.sellFor,
                 buyOnFleaPrice: itemData.buyFor.find(
-                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
+                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && settings.fleaEnabled && (showAllSources || settings.hasFlea),
                 ),
                 barters: barters.filter(
                     (barter) => {
@@ -407,7 +407,7 @@ function SmallItemTable(props) {
                 return best;
             }, undefined);
 
-            if (!showAllSources && !settings.hasFlea) {
+            if (!settings.FleaEnabled || (!showAllSources && !settings.hasFlea)) {
                 formattedItem.buyOnFleaPrice = 0
             }
 
@@ -420,7 +420,7 @@ function SmallItemTable(props) {
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
+            if (formattedItem.cheapestBarter && !settings.fleaEnabled && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.pricePerUnit;
@@ -432,7 +432,7 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources) && !traderBuybackFilter) {
+            if (!formattedItem.cheapestObtainInfo && settings.fleaEnabled && (settings.hasFlea || showAllSources) && !traderBuybackFilter) {
                 const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
