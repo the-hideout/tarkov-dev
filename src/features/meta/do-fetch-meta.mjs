@@ -1,5 +1,5 @@
 import APIQuery from '../../modules/api-query.mjs';
-import { localStorageWriteJson, localStorageWriteJsonGameMode } from '../settings/settingsSlice.mjs';
+import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
 class MetaQuery extends APIQuery {
     constructor() {
@@ -7,9 +7,9 @@ class MetaQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, prebuild } = options;
+        const { language, prebuild, gameMode } = options;
         const query = `query TarkovDevMeta {
-            fleaMarket(lang: ${language}) {
+            fleaMarket(lang: ${language}, gameMode: ${gameMode}) {
                 name
                 normalizedName
                 enabled
@@ -90,7 +90,7 @@ class MetaQuery extends APIQuery {
 
         localStorageWriteJson('Ti', metaData.data.fleaMarket.sellOfferFeeRate);
         localStorageWriteJson('Tr', metaData.data.fleaMarket.sellRequirementFeeRate);
-        localStorageWriteJsonGameMode('fleaEnabled', metaData.data.fleaMarket.enabled);
+        localStorageWriteJson('fleaEnabled', metaData.data.fleaMarket.enabled);
         return {
             flea: metaData.data.fleaMarket,
             armor: metaData.data.armorMaterials,

@@ -73,7 +73,7 @@ function priceIsLocked(buyFor, settings) {
     let className = '';
     if (buyFor.vendor.trader && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
         className = ' locked';
-    } else if (buyFor.vendor.normalizedName === 'flea-market' && (!settings.hasFlea || !settings.fleaEnabled)) {
+    } else if (buyFor.vendor.normalizedName === 'flea-market' && !settings.hasFlea) {
         className = ' locked';
     }
     return className;

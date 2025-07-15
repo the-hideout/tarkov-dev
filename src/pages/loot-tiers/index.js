@@ -49,7 +49,6 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     const hasFlea = useSelector((state) => state.settings[state?.setttings?.gameMode ?? 'regular'].hasFlea);
-    const fleaEnabled = useSelector((state) => state.settings[state?.setttings?.gameMode ?? 'regular'].fleaEnabled);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
         'includeMarked',
         false,
@@ -183,7 +182,7 @@ function LootTier(props) {
                 }
 
 
-                if (fleaEnabled && hasFlea && !item.types.includes('noFlea')) {
+                if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaFee = fleaMarketFee(item.basePrice, item.lastLowPrice);
                     const fleaPrice = item.lastLowPrice - fleaFee;
                     if (fleaPrice >= priceRUB) {
@@ -213,7 +212,7 @@ function LootTier(props) {
 
                 return true;
             });
-    }, [fleaEnabled, hasFlea, items]);
+    }, [hasFlea, items]);
 
     const typeFilteredItems = useMemo(() => {
         const innerTypeFilteredItems = itemData.filter((item) => {

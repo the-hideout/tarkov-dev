@@ -1,5 +1,5 @@
 import APIQuery from '../../modules/api-query.mjs';
-import { localStorageWriteJson, localStorageWriteJsonGameMode } from '../settings/settingsSlice.mjs';
+import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
 
 class ItemsQuery extends APIQuery {
     constructor() {
@@ -282,7 +282,7 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                 }
-                fleaMarket {
+                fleaMarket(gameMode: ${gameMode}) {
                     sellOfferFeeRate
                     sellRequirementFeeRate
                     enabled
@@ -438,7 +438,7 @@ class ItemsQuery extends APIQuery {
         const flea = itemData.data.fleaMarket;
         localStorageWriteJson('Ti', flea.sellOfferFeeRate);
         localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
-        localStorageWriteJsonGameMode('fleaEnabled', flea.enabled);
+        localStorageWriteJson('fleaEnabled', flea.enabled);
 
         const allItems = itemData.data.items.map((rawItem) => {
             // calculate grid

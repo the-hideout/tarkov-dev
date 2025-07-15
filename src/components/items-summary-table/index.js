@@ -337,7 +337,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
-                        } else if (!(settings.hasFlea && settings.fleaEnabled)) {
+                        } else if (!settings.hasFlea) {
                             priceContent.push((
                                 <Icon
                                     path={mdiCloseOctagon}

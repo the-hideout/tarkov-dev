@@ -6,15 +6,15 @@ const fuelIds = [
 ];
 
 function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
-        if (item.foundInRaid) {
-            return {type: 'none', pricePerUnit: 0};
-        }
+    if (item.foundInRaid) {
+        return {type: 'none', pricePerUnit: 0};
+    }
     let buySource = item.buyFor?.filter(buyFor => {
         if (buyFor.priceRUB === 0) {
             return false;
         }
         if (buyFor.vendor.normalizedName === 'flea-market') {
-            return settings.fleaEnabled && (allowAllSources || settings.hasFlea);
+            return allowAllSources || settings.hasFlea;
         }
         if (!allowAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
             return false;
