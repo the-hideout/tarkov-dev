@@ -7,9 +7,9 @@ class MetaQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, prebuild } = options;
+        const { language, prebuild, gameMode } = options;
         const query = `query TarkovDevMeta {
-            fleaMarket(lang: ${language}) {
+            fleaMarket(lang: ${language}, gameMode: ${gameMode}) {
                 name
                 normalizedName
                 enabled
@@ -90,6 +90,7 @@ class MetaQuery extends APIQuery {
 
         localStorageWriteJson('Ti', metaData.data.fleaMarket.sellOfferFeeRate);
         localStorageWriteJson('Tr', metaData.data.fleaMarket.sellRequirementFeeRate);
+        localStorageWriteJson('fleaEnabled', metaData.data.fleaMarket.enabled);
         return {
             flea: metaData.data.fleaMarket,
             armor: metaData.data.armorMaterials,
