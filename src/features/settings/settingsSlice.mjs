@@ -186,6 +186,7 @@ const settingsSlice = createSlice({
         gameMode: localStorageReadJson('gameMode', 'regular'),
         Ti: localStorageReadJson('Ti', 0.03),
         Tr: localStorageReadJson('Tr', 0.03),
+        fleaEnabled: localStorageReadJson('fleaEnabled', true),
         tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
         loadingData: '',
     },
@@ -296,7 +297,8 @@ const settingsSlice = createSlice({
                 state[state.gameMode].failedQuests = action.payload.questsFailed;
                 state[state.gameMode].objectivesCompleted = action.payload.objectivesCompleted;
                 state[state.gameMode].objectivesCompletionProgress = action.payload.objectivesCompletionProgress;
-                state[state.gameMode].hasFlea = action.payload.hasFlea;
+                const fleaEnabled = localStorageReadJson('fleaEnabled', true);
+                state[state.gameMode].hasFlea = action.payload.hasFlea && fleaEnabled;
                 state[state.gameMode].playerLevel = action.payload.playerLevel;
                 state[state.gameMode].pmcFaction = action.payload.pmcFaction;
 
