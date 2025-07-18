@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import propertyFormatter from '../../modules/property-format.js';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
+import { Tooltip } from '@mui/material';
 
 import './index.css';
 
@@ -60,12 +60,13 @@ function PropertyList({ properties, id }) {
                           <ConditionalWrapper
                               condition={value.tooltip}
                               wrapper={(children) => 
-                                  <Tippy
-                                      content={value.tooltip}
+                                  <Tooltip
+                                      title={value.tooltip}
                                       placement="bottom"
+                                      arrow
                                   >
                                       <div>{children}</div>
-                                  </Tippy>
+                                  </Tooltip>
                               }
                           >
                               {value.label ? value.label : t(property)}
