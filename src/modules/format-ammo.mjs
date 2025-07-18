@@ -3,6 +3,7 @@ const caliberMap = {
     Caliber556x45NATO: '5.56x45 mm',
     Caliber1143x23ACP: '.45 ACP',
     Caliber127x55: '12.7x55 mm',
+    Caliber127x99: '.50 BMG',
     Caliber23x75: '23x75 mm',
     Caliber46x30: '4.6x30 mm',
     Caliber545x39: '5.45x39 mm',
