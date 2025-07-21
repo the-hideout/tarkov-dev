@@ -48,7 +48,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
-    const hasFlea = useSelector((state) => state.settings[state?.setttings?.gameMode ?? 'regular'].hasFlea);
+    const hasFlea = useSelector((state) => state.settings[state?.settings?.gameMode ?? 'regular'].hasFlea);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
         'includeMarked',
         false,
