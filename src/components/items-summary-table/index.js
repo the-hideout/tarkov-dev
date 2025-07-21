@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon, 
@@ -176,9 +175,9 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                             condition={tipContent.length > 0}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="right" content={tipContent} interactive={true}>
+                                    <Tooltip placement="right" title={tipContent} arrow>
                                         {children}
-                                    </Tippy>
+                                    </Tooltip>
                                 );
                             }}
                         >
@@ -383,9 +382,9 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                             condition={tipContent}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="right" content={tipContent} interactive={true}>
+                                    <Tooltip placement="right" title={tipContent} arrow>
                                         {children}
-                                    </Tippy>
+                                    </Tooltip>
                                 );
                             }}
                         >

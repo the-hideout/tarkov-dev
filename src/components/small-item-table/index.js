@@ -10,8 +10,7 @@ import {
     mdiClipboardList,
     mdiTimerSand,
 } from '@mdi/js';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 
 import ValueCell from '../value-cell/index.js';
 import TraderPriceCell from '../trader-price-cell/index.js';
@@ -55,16 +54,17 @@ function TraderSellCell(datum, showSlotValue = false) {
     if (!datum.row.original.sellForTradersBest) {
         return (
             <div className="center-content">
-                <Tippy
+                <Tooltip
                     placement="bottom"
-                    content={t("This item can't be sold to traders")}
+                    title={t("This item can't be sold to traders")}
+                    arrow
                 >
                     <Icon
                         path={mdiCloseOctagon}
                         size={1}
                         className="icon-with-text"
                     />
-                </Tippy>
+                </Tooltip>
             </div>
         );
     }
@@ -78,15 +78,16 @@ function TraderSellCell(datum, showSlotValue = false) {
     let slotValue = '';
     if (showSlotValue && slots > 1) {
         slotValue = (
-            <Tippy
-                content={t('Per slot')}
+            <Tooltip
+                title={t('Per slot')}
                 placement="bottom"
                 key="item-sell-to-trader-slot-value"
+                arrow
             >
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(priceRUB / slots))}
                 </div>
-            </Tippy>
+            </Tooltip>
         );
     }
     return [
@@ -104,14 +105,15 @@ function TraderSellCell(datum, showSlotValue = false) {
             </span>
             <span>
                 {sellForTradersBest.currency !== 'RUB' ? (
-                    <Tippy
-                        content={formatPrice(priceRUB*count)}
+                    <Tooltip
+                        title={formatPrice(priceRUB*count)}
                         placement="bottom"
+                        arrow
                     >
                         <div>
                             {formatPrice(price*count, sellForTradersBest.currency)}
                         </div>
-                    </Tippy>
+                    </Tooltip>
                 ) : (
                     <div>
                         {formatPrice(priceRUB*count)}
@@ -1065,16 +1067,17 @@ function SmallItemTable(props) {
                                 value={allData.value}
                                 noValue={
                                     <div className="center-content">
-                                        <Tippy
+                                        <Tooltip
                                             placement="bottom"
-                                            content={t("This item can't be sold on the Flea Market")}
+                                            title={t("This item can't be sold on the Flea Market")}
+                                            arrow
                                         >
                                             <Icon
                                                 path={mdiCloseOctagon}
                                                 size={1}
                                                 className="icon-with-text"
                                             />
-                                        </Tippy>
+                                        </Tooltip>
                                     </div>
                                 }
                             />
@@ -1092,16 +1095,17 @@ function SmallItemTable(props) {
                             value={allData.value}
                             noValue={
                                 <div className="center-content">
-                                    <Tippy
+                                    <Tooltip
                                         placement="bottom"
-                                        content={noValueTip}
+                                        title={noValueTip}
+                                        arrow
                                     >
                                         <Icon
                                             path={noValueIcon}
                                             size={1}
                                             className="icon-with-text"
                                         />
-                                    </Tippy>
+                                    </Tooltip>
                                 </div>
                             }
                             slots={slots}
@@ -1142,20 +1146,21 @@ function SmallItemTable(props) {
                 },
                 Cell: (props) => {
                     return (
-                        <Tippy
+                        <Tooltip
                             placement="bottom"
                             interactive={true}
-                            content={
+                            title={
                                 <BarterTooltip
                                     barter={props.row.original.cheapestBarter?.barter}
                                     allowAllSources={showAllSources}
                                 />
                             }
+                            arrow
                         >
                             <div className="center-content">
                                 {props.value ? formatPrice(props.value) : '-'}
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     );
                 },
                 position: barterPrice,
@@ -1259,9 +1264,9 @@ function SmallItemTable(props) {
                                 condition={tipContent}
                                 wrapper={(children) => {
                                     return (
-                                        <Tippy placement="right" content={tipContent} interactive={true}>
+                                        <Tooltip placement="right" title={tipContent} arrow>
                                             {children}
-                                        </Tippy>
+                                        </Tooltip>
                                     );
                                 }}
                             >
@@ -1287,13 +1292,14 @@ function SmallItemTable(props) {
                 sortType: 'basic',
                 Cell: ({ value }) => {
                     return (
-                        <Tippy
-                            content={t('The percent recovered if you buy this item and sell it to the trader')}
+                        <Tooltip
+                            title={t('The percent recovered if you buy this item and sell it to the trader')}
+                            arrow
                         >
                             <div className="center-content">
                                 {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     );
                 },
                 position: traderBuyback,
@@ -1954,9 +1960,9 @@ function SmallItemTable(props) {
                             condition={tipContent}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="right" content={tipContent} interactive={true}>
+                                    <Tooltip placement="right" title={tipContent} arrow>
                                         {children}
-                                    </Tippy>
+                                    </Tooltip>
                                 );
                             }}
                         >

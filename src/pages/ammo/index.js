@@ -2,7 +2,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
-import 'tippy.js/dist/tippy.css'; // optional
 
 import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';

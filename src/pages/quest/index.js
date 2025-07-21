@@ -6,8 +6,7 @@ import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckBold, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiPlay } from '@mdi/js';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
 import ErrorPage from '../error-page/index.js';
@@ -127,10 +126,11 @@ function Quest() {
         const goals = [];
         if (currentQuest?.kappaRequired) {
             goals.push(
-                <Tippy
+                <Tooltip
                     key={`${currentQuest.id}-kappa`}
-                    content={t('Required for Kappa')}
+                    title={t('Required for Kappa')}
                     placement={'top'}
+                    arrow
                 >
                     <Link to={'/task/collector'}>
                         <Icon
@@ -139,15 +139,16 @@ function Quest() {
                             className="icon-with-text"
                         />
                     </Link>
-                </Tippy>
+                </Tooltip>
             );
         }
         if (currentQuest?.lightkeeperRequired) {
             goals.push(
-                <Tippy
-                key={`${currentQuest.id}-lightkeeper`}
-                    content={t('Required for Lightkeeper')}
+                <Tooltip
+                    key={`${currentQuest.id}-lightkeeper`}
+                    title={t('Required for Lightkeeper')}
                     placement={'top'}
+                    arrow
                 >
                     <Link to={'/task/knock-knock'}>
                         <Icon
@@ -156,7 +157,7 @@ function Quest() {
                             className="icon-with-text"
                         />
                     </Link>
-                </Tippy>
+                </Tooltip>
             );
         }
         if (goals.length > 1) {
@@ -170,17 +171,18 @@ function Quest() {
             return '';
         }
         return (
-            <Tippy
+            <Tooltip
                 key={`${currentQuest.id}-completed`}
-                content={t('Completed')}
+                title={t('Completed')}
                 placement={'top'}
+                arrow
             >
                 <Icon
                     path={mdiClipboardCheck}
                     size={0.75}
                     className="icon-with-text"
                 />
-            </Tippy>
+            </Tooltip>
         );
     }, [currentQuest, settings, t]);
 

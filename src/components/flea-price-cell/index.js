@@ -5,8 +5,7 @@ import {
     mdiTimerSand,
 } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 
 import ValueCell from '../value-cell/index.js';
 
@@ -19,18 +18,19 @@ const FleaPriceCell = function (props) {
                 value={props.value}
                 noValue={
                     <div className="center-content">
-                        <Tippy
+                        <Tooltip
                             placement="bottom"
-                            content={t(
+                            title={t(
                                 "This item can't be sold on the Flea Market",
                             )}
+                            arrow
                         >
                             <Icon
                                 path={mdiCloseOctagon}
                                 size={1}
                                 className="icon-with-text"
                             />
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 }
             />
@@ -49,16 +49,17 @@ const FleaPriceCell = function (props) {
             count={props.row.original.count}
             noValue={
                 <div className="center-content">
-                    <Tippy
+                    <Tooltip
                         placement="bottom"
-                        content={noFleaTip}
+                        title={noFleaTip}
+                        arrow
                     >
                         <Icon
                             path={noFleaIcon}
                             size={1}
                             className="icon-with-text"
                         />
-                    </Tippy>
+                    </Tooltip>
                 </div>
             }
         />

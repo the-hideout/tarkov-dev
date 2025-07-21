@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { Tooltip } from '@mui/material';
 
 import DataTable from '../data-table/index.js';
 import QuestItemsCell from '../quest-items-cell/index.js';
@@ -517,9 +516,10 @@ function QuestTable({
                     const endgameGoals = [];
                     if (props.row.original.kappaRequired) {
                         endgameGoals.push(
-                            <Tippy
+                            <Tooltip
                                 key={`${props.row.original.id}-kappa`}
-                                content={t('Required for Kappa')}
+                                title={t('Required for Kappa')}
+                                arrow
                             >
                                 <Link to={'/task/collector'}>
                                     <Icon
@@ -528,14 +528,15 @@ function QuestTable({
                                         className="icon-with-text"
                                     />
                                 </Link>
-                            </Tippy>
+                            </Tooltip>
                         );
                     }
                     if (props.row.original.lightkeeperRequired) {
                         endgameGoals.push(
-                            <Tippy
-                            key={`${props.row.original.id}-lightkeeper`}
-                                content={t('Required for Lightkeeper')}
+                            <Tooltip
+                                key={`${props.row.original.id}-lightkeeper`}
+                                title={t('Required for Lightkeeper')}
+                                arrow
                             >
                                 <Link to={'/task/knock-knock'}>
                                     <Icon
@@ -544,7 +545,7 @@ function QuestTable({
                                         className="icon-with-text"
                                     />
                                 </Link>
-                            </Tippy>
+                            </Tooltip>
                         );
                     }
                     return <CenterCell>

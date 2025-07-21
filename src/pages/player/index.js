@@ -19,8 +19,7 @@ import {
     mdiFolderOpen,
 } from '@mdi/js';
 import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
 import DataTable from '../../components/data-table/index.js';
@@ -1020,18 +1019,20 @@ function Player() {
             <p>
                 <Link to={`/players?gameMode=${gameMode}`}><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
                 <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile} accept="application/json,.json"/>
-                <Tippy
-                    content={t('Load profile from file')}
+                <Tooltip
+                    title={t('Load profile from file')}
                     placement="bottom"
+                    arrow
                 >
                     <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>
-                </Tippy>
-                <Tippy
-                    content={t('Switch to {{gameMode}} profile', {gameMode: otherGameModeTranslated})}
+                </Tooltip>
+                <Tooltip
+                    title={t('Switch to {{gameMode}} profile', {gameMode: otherGameModeTranslated})}
                     placement="bottom"
+                    arrow
                 >
                     <button className="profile-button switch" onClick={() => {navigate(`/players/${otherGameMode}/${accountId}`);}}><Icon path={mdiAccountSwitch} size={1} className="icon-with-text" /></button>
-                </Tippy>
+                </Tooltip>
                 <Turnstile
                     ref={turnstileRef}
                     className="turnstile-widget"
@@ -1095,31 +1096,33 @@ function Player() {
                             {playerData.aid !== 0 && !playerData.saved && (
                                 <span>
                                     {typeof playerBanned === 'undefined' && turnstileToken && (
-                                        <Tippy content={t('Check if player appears to be banned')}>
+                                        <Tooltip title={t('Check if player appears to be banned')} arrow>
                                             <button className="profile-button banned-btn" onClick={() => {
                                                 checkBanned();
                                             }}><Icon path={mdiAccountQuestion} size={1} className="icon-with-text" /></button>
-                                        </Tippy>
+                                        </Tooltip>
                                     )}
                                     {playerBanned === false && (
                                         <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
                                     )}
                                     {playerBanned === true && (
-                                        <Tippy
-                                            content={t('Ban detection may not always be accurate, especially if the account was recently renamed.')}
+                                        <Tooltip
+                                            title={t('Ban detection may not always be accurate, especially if the account was recently renamed.')}
+                                            arrow
                                         >
                                             <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
-                                        </Tippy>
+                                        </Tooltip>
                                     )}
                                 </span>
                             )}
                             {playerData.aid !== 0 && (
                                 <span>
-                                    <Tippy
-                                        content={t('Save profile')}
+                                    <Tooltip
+                                        title={t('Save profile')}
+                                        arrow
                                     >
                                     <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
-                                    </Tippy>
+                                    </Tooltip>
                                 </span>
                             )}
                         </span>
