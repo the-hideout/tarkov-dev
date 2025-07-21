@@ -1,4 +1,4 @@
-import Tippy from '@tippyjs/react';
+import { Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price.js';
@@ -29,27 +29,29 @@ function ValueCell(props) {
     }
     if (valueCount > 1) {
         countTag = (
-            <Tippy
-                content={t('Cost per unit')}
+            <Tooltip
+                title={t('Cost per unit')}
                 placement="bottom"
+                arrow
             >
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(value / valueCount))}
                 </div>
-            </Tippy>
+            </Tooltip>
         );
     }
     let slotValue = '';
     if (value && showSlotValue && slots > 1) {
         slotValue = (
-            <Tippy
-                content={t('Per slot')}
+            <Tooltip
+                title={t('Per slot')}
                 placement="bottom"
+                arrow
             >
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(value / slots))}
                 </div>
-            </Tippy>
+            </Tooltip>
         );
     }
 
@@ -65,8 +67,8 @@ function ValueCell(props) {
 
     if (valueDetails && Array.isArray(valueDetails) & valueDetails.length > 0) {
         displayValue = (
-            <Tippy
-                content={valueDetails.map(detail => {
+            <Tooltip
+                title={valueDetails.map(detail => {
                     return (
                         <div key={detail.name}>
                             <span>{`${detail.name}: `}</span>
@@ -76,9 +78,10 @@ function ValueCell(props) {
                         </div>
                     );
                 })}
+                arrow
             >
                 {displayValue}
-            </Tippy>
+            </Tooltip>
         );
     }
     return (

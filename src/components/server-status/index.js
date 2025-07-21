@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 // import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 
 import useStatusData from '../../features/status/index.mjs';
 
@@ -25,9 +24,10 @@ function ServerStatus() {
     ) {
         return (
             <div className={`server-status-wrapper`}>
-                <Tippy
+                <Tooltip
                     placement="top"
-                    content={data.messages[0]?.content}
+                    title={data.messages[0]?.content}
+                    arrow
                 >
                     <a href="https://status.escapefromtarkov.com/" target="_blank" rel="noopener noreferrer">
                         {t(`Tarkov server status`)}
@@ -38,7 +38,7 @@ function ServerStatus() {
                             {data.generalStatus.message}
                         </div>
                     </a>
-                </Tippy>
+                </Tooltip>
                 {/* <ApiMetricsGraph graph={false} /> */}
             </div>
         );

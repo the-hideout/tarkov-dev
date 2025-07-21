@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
@@ -60,9 +59,9 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
 function TraderPrice({ currency, price, priceRUB }) {
     if (currency !== 'RUB') {
         return (
-            <Tippy content={formatPrice(priceRUB)} placement="bottom">
+            <Tooltip title={formatPrice(priceRUB)} placement="bottom" arrow>
                 <div>{formatPrice(price, currency)}</div>
-            </Tippy>
+            </Tooltip>
         );
     }
 
@@ -555,9 +554,10 @@ The max profitable price is impacted by the intel center and hideout management 
                             <h2>{t('Sell for')}</h2>
                             <div className={'information-grid single-line-grid sell'}>
                                 {!currentItemData.types.includes('noFlea') && (
-                                    <Tippy
+                                    <Tooltip
                                         placement="bottom"
-                                        content={fleaTooltip}
+                                        title={fleaTooltip}
+                                        arrow
                                     >
                                         <div className={`text-and-image-information-wrapper ${sellForTradersIsTheBest ? '' : 'best-profit'}`}
                                                     key={`${currentItemData.id}-flea-market-price-sell`}>
@@ -574,7 +574,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                                 {fleaSellPriceDisplay}
                                             </div>
                                         </div>
-                                    </Tippy>
+                                    </Tooltip>
                                 )}
                                 {sellForTraders && sellForTraders.map(
                                     (sellForTrader) => {
@@ -597,12 +597,13 @@ The max profitable price is impacted by the intel center and hideout management 
                                                     <ConditionalWrapper
                                                         condition={sellForTrader.currency !== 'RUB'}
                                                         wrapper={(children) => 
-                                                            <Tippy
-                                                                content={formatPrice(sellForTrader.priceRUB)}
+                                                            <Tooltip
+                                                                title={formatPrice(sellForTrader.priceRUB)}
                                                                 placement="bottom"
+                                                                arrow
                                                             >
                                                                 <div>{children}</div>
-                                                            </Tippy>
+                                                            </Tooltip>
                                                         }
                                                     >
                                                         {formatPrice(sellForTrader.price, sellForTrader.currency)}
@@ -637,15 +638,15 @@ The max profitable price is impacted by the intel center and hideout management 
                                                     )}
                                                     {buyForSource.vendor.taskUnlock && (
                                                         <div>
-                                                            <Tippy
-                                                                content={(
+                                                            <Tooltip
+                                                                title={(
                                                                     <Link to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}>
                                                                         <div style={{whiteSpace: 'nowrap'}}>
                                                                             {t('Task: {{taskName}}', {taskName: buyForSource.vendor.taskUnlock.name})}
                                                                         </div>
                                                                     </Link>
                                                                 )}
-                                                                interactive={true}
+                                                                arrow
                                                             >
                                                                 <div className="quest-icon-wrapper">
                                                                     <Icon
@@ -654,7 +655,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                                                         className="icon-with-text"
                                                                     />
                                                                 </div>
-                                                            </Tippy>
+                                                            </Tooltip>
                                                         </div>
                                                     )}
                                                     <ConditionalWrapper

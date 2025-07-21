@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
+import { Tooltip } from '@mui/material';
 import { Icon } from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
@@ -46,11 +45,12 @@ function TraderPriceCell(props) {
         count = props.row.original.count;
     let printString = 
         bestBuyFor.currency !== 'RUB' ? (
-            <Tippy
-                content={formatPrice(
+            <Tooltip
+                title={formatPrice(
                     bestBuyFor.priceRUB*count,
                 )}
                 placement="bottom"
+                arrow
             >
                 <div>
                     {formatPrice(
@@ -58,7 +58,7 @@ function TraderPriceCell(props) {
                         bestBuyFor.currency,
                     )}
                 </div>
-            </Tippy>
+            </Tooltip>
         ) : 
             formatPrice(bestBuyFor.price*count);
     const questLocked = bestBuyFor.vendor.taskUnlock;
@@ -69,10 +69,10 @@ function TraderPriceCell(props) {
             <>
                 {printString}
                 {getItemCountPrice(bestBuyFor.price, bestBuyFor.currency, count)}
-                <Tippy 
-                    content={<Link to={`/task/${questLocked.normalizedName}`}>{t('Task')}: {questLocked.name}</Link>}
+                <Tooltip 
+                    title={<Link to={`/task/${questLocked.normalizedName}`}>{t('Task')}: {questLocked.name}</Link>}
                     placement="bottom"
-                    interactive={true}
+                    arrow
                 >
                     <div className="trader-unlock-wrapper">
                         <Icon
@@ -82,7 +82,7 @@ function TraderPriceCell(props) {
                         />
                         <span>{`${bestBuyFor.vendor.name} ${loyaltyString}`}</span>
                     </div>
-                </Tippy>
+                </Tooltip>
             </>
         );
     } else {
