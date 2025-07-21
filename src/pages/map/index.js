@@ -973,7 +973,7 @@ function Map() {
                             spawnType = 'scav';
                         }
                         else {
-                            console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                            //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
                             continue;
                         }
                     }
