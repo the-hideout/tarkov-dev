@@ -31,6 +31,10 @@
     grid-gap: 10px;
 }
 
+.basic-multi-select.game-mode {
+    margin-left: 10px;
+}
+
 .game-mode .select__control {
     color: var(--color-gray);
     background-color: var(--color-gunmetal-dark);

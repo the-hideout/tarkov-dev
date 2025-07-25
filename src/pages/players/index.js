@@ -178,6 +178,7 @@ function Players() {
                         let newNameFilter = event.target.value;
                         setNameFilter(newNameFilter);
                     }}
+                    className="player-name-search"
                 />
                 <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
             </div>
