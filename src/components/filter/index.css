@@ -92,6 +92,8 @@
 
 .filter-input {
     padding: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .basic-multi-select {
