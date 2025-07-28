@@ -74,8 +74,12 @@ class APIQuery {
             const value = localStorage.getItem(storageKey);
 
             if (typeof value === 'string') {
-                //const cached = JSON.parse(LZString.decompress(value));
-                const cached = JSON.parse(value);
+                let cached;
+                try {
+                    cached = JSON.parse(value);
+                } catch (error) {
+                    cached = JSON.parse(LZString.decompress(value));
+                }
                 if (new Date() - cached.updated < this.cacheTtl) {
                     return cached.data;
                 }
