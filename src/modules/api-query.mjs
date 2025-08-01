@@ -48,7 +48,10 @@ class APIQuery {
         
         this.pendingQuery[storageKey] = this.query(options).then(results => {
             try {
-                localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
+                //console.time(`query-save-${storageKey}`);
+                //localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
+                localStorage.setItem(storageKey, JSON.stringify({updated: new Date().getTime(), data: results}));
+                //console.timeEnd(`query-save-${storageKey}`);
             } catch (error) {
                 /* noop */
             }
@@ -71,7 +74,12 @@ class APIQuery {
             const value = localStorage.getItem(storageKey);
 
             if (typeof value === 'string') {
-                const cached = JSON.parse(LZString.decompress(value));
+                let cached;
+                try {
+                    cached = JSON.parse(value);
+                } catch (error) {
+                    cached = JSON.parse(LZString.decompress(value));
+                }
                 if (new Date() - cached.updated < this.cacheTtl) {
                     return cached.data;
                 }
