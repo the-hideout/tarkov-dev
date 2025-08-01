@@ -25,7 +25,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "prettier": "^3.6.2",
-    "sharp": "^0.34.2"
+    "sharp": "^0.34.3"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
@@ -34,16 +34,16 @@
     "@mdi/react": "^1.6.1",
     "@mui/lab": "^7.0.0-beta.14",
     "@mui/material": "^7.2.0",
-    "@mui/x-tree-view": "^8.6.0",
+    "@mui/x-tree-view": "^8.9.2",
     "@reduxjs/toolkit": "^2.8.2",
-    "@tanstack/react-query": "^5.81.5",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@tanstack/react-query": "^5.84.0",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "classnames": "^2.5.1",
     "critical": "^7.2.0",
     "dayjs": "^1.11.13",
     "fast-deep-equal": "^3.1.3",
-    "framer-motion": "^12.20.1",
+    "framer-motion": "^12.23.12",
     "fuse.js": "^7.1.0",
     "i18next": "^23.16.8",
     "i18next-browser-languagedetector": "^8.2.0",
@@ -66,7 +66,7 @@
     "react-router-dom": "^6.30.1",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
-    "react-select": "^5.10.1",
+    "react-select": "^5.10.2",
     "react-simple-image-viewer": "1.2.2",
     "react-spinners": "^0.17.0",
     "react-syntax-highlighter": "^15.6.1",
