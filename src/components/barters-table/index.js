@@ -304,7 +304,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const howManyWeSell = barterRewardContainedItem ? barterRewardItem.containsItems[0].count : barterRow.rewardItems[0].count;
                 const bestSellTo = whatWeSell.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
-                        if (currentSellFor.vendor.normalizedName === 'flea-market' && meta.flea.foundInRaidRequired) {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market' && (meta.flea.foundInRaidRequired || !meta.flea.enabled)) {
                             return previousSellFor;
                         }
                         if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
