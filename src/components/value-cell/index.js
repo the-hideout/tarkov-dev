@@ -70,7 +70,7 @@ function ValueCell(props) {
             <Tooltip
                 title={valueDetails.map(detail => {
                     return (
-                        <div key={detail.name}>
+                        <div key={detail.name} style={{overflow: 'hidden'}}>
                             <span>{`${detail.name}: `}</span>
                             <span style={{float:'right', paddingLeft: '5px'}} className={detail.value > 0 ? 'craft-profit' : 'craft-loss'}>
                                 {formatPrice(detail.value)}
