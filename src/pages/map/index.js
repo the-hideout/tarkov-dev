@@ -492,6 +492,56 @@ function Map() {
             //window.dispatchEvent(new Event('resize'));
         });
         resizeObserver.observe(mapDiv);
+
+        // Get the map container element
+        const mapContainer = map.getContainer();
+
+        // Add a 'wheel' event listener to the map container
+        mapContainer.addEventListener('wheel', function(event) {
+            // Check if the Ctrl key is pressed
+            if (!event.ctrlKey) {
+                return;
+            }
+            // Prevent default map zooming behavior if desired
+            L.DomEvent.preventDefault(event);
+            L.DomEvent.stopPropagation(event);
+
+            // Your custom logic for Ctrl + mousewheel goes here
+            const increase = event.wheelDeltaY > 0;
+            const levels = Object.values(layerControl._layers).filter(l => l.layer.options.layerType === 'level').map(l => l.layer);
+            let activeIndex = -1;
+            for (let i = 0; i < levels.length; i++) {
+                const level = levels[i];
+                if (level._map) {
+                    // we've found the active level, so we store the index and remove it from the map
+                    activeIndex = i;
+                    level.removeFrom(map);
+                    break;
+                }
+            }
+            if (activeIndex === -1) {
+                // there was no active index, so we set the active index manually
+                if (increase) {
+                    activeIndex = 0;
+                } else {
+                    activeIndex = levels.length - 1;
+                }
+            } else if (increase) {
+                activeIndex++;
+            } else {
+                activeIndex--;
+            }
+            if (activeIndex < 0) {
+                // active index went down from the first level, so don't display a level and just show the main map
+                return;
+            }
+            if (activeIndex > levels.length - 1) {
+                // active index went up from the last level, so don't display a level and just show the main map
+                return;
+            }
+            levels[activeIndex].addTo(map);
+        }, {capture: true});
+
     }, [t, tMaps, updateSavedMapSettings]);
 
     useEffect(() => {
@@ -658,6 +708,7 @@ function Map() {
                 }
             ],
             type: 'map-layer',
+            layerType: 'main',
         };
         let tileLayer = false;
         const baseLayers = [];
@@ -721,6 +772,7 @@ function Map() {
                         name: layer.name,
                         extents: layer.extents || baseLayer.options?.extents,
                         type: 'map-layer',
+                        layerType: 'level',
                         overlay: Boolean(layer.extents),
                     };
                     

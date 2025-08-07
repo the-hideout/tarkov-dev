@@ -58,6 +58,9 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
             return settings[settings.gameMode].failedQuests.includes(id);
         },
         active: (id) => {
+            if (!settings[settings.gameMode].useTarkovTracker) {
+                return true;
+            }
             if (questStatus.complete(id)) {
                 return false;
             }
@@ -114,12 +117,7 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
                     complete: settings[settings.gameMode].objectivesCompleted?.includes(obj.id) || false,
                 };
             }).filter(Boolean),
-            active: (() => {
-                if (!settings[settings.gameMode].useTarkovTracker) {
-                    return true;
-                }
-                return questStatus.active(quest.id);
-            })(),
+            active: questStatus.active(quest.id),
         };
     });
 });
