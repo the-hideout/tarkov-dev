@@ -66,6 +66,7 @@ const Provisions = React.lazy(() => import('./pages/items/provisions/index.js'))
 const Rigs = React.lazy(() => import('./pages/items/rigs/index.js'));
 const Suppressors = React.lazy(() => import('./pages/items/suppressors/index.js'));
 const BsgCategory = React.lazy(() => import('./pages/items/bsg-category/index.js'));
+const HandbookCategory = React.lazy(() => import('./pages/items/handbook-category/index.js'));
 const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator/index.js'));
 const Quests = React.lazy(() => import('./pages/quests/index.js'));
 const Quest = React.lazy(() => import('./pages/quest/index.js'));
@@ -682,6 +683,16 @@ function App() {
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
                                 <BsgCategory />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path="/items/handbook/:handbookCategoryName"
+                        key="items-handbook-category-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
+                                <HandbookCategory />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}

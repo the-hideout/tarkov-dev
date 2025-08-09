@@ -202,6 +202,9 @@ function Item() {
                     ...extraProps,
                 },
                 ...bestPrice(item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+                handbookCategories: item.handbookCategories.map(cat => {
+                    return meta?.handbookCategories?.find(c => c.id === cat.id);
+                }).filter(Boolean),
             };
         }
         return item;
@@ -738,7 +741,7 @@ The max profitable price is impacted by the intel center and hideout management 
                         {t('Stats')}
                     </h2>
                     {hasProperties
-                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} id={currentItemData.id} />)
+                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.handbookCategories}} id={currentItemData.id} />)
                         : (<LoadingSmall />)
                     }
                 </div>
