@@ -24,6 +24,7 @@ import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 import { useMapImages } from '../../features/maps/index.js';
 import useItemsData from '../../features/items/index.js';
 import useQuestsData from '../../features/quests/index.js';
+import useMetaData from '../../features/meta/index.js';
 
 import staticMapData from '../../data/maps_static.json'
 import rawMapsData from '../../data/maps.json';
@@ -366,6 +367,7 @@ function Map() {
 
     const { data: items } = useItemsData();
     const { data: quests} = useQuestsData();
+    const { data: metaData } = useMetaData();
 
     let allMaps = useMapImages();
 
@@ -433,6 +435,30 @@ function Map() {
                 mapSettingsRef.current.collapsedGroups = mapSettingsRef.current.collapsedGroups.filter(key => key !== groupState.key);
             }
             updateSavedMapSettings();
+        });
+        
+        map.on('overlayremove', (e) => {
+            if (e.group?.key !== 'Loose Loot') {
+                return;
+            }
+            for (const id in e.layer._layers) {
+                const marker = e.layer._layers[id];
+                const categories = marker.options.categories;
+                categoryLoop: for (const category of categories) {
+                    if (category === e.layer.key) {
+                        continue;
+                    }
+                    for (const groupLayer of layerControl._layers) {
+                        if (groupLayer.key !== category) {
+                            continue;
+                        }
+                        if (groupLayer.layer._map) {
+                            marker.addTo(map);
+                            break categoryLoop;
+                        }
+                    }
+                }
+            }
         });
 
         map.layerControl = layerControl;
@@ -535,7 +561,7 @@ function Map() {
         };
     }, [tMaps]);
 
-    const getLayerOptions = useCallback((layerKey, groupKey, layerName) => {
+    const getLayerOptions = useCallback((layerKey, groupKey, layerName, imageUrl) => {
         return {
             groupKey,
             layerKey,
@@ -543,19 +569,19 @@ function Map() {
             layerName: layerName || categories[layerKey] || layerKey,
             groupHidden: Boolean(mapSettingsRef.current.hiddenGroups?.includes(groupKey)),
             layerHidden: Boolean(mapSettingsRef.current.hiddenLayers?.includes(layerKey)),
-            image: images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
+            image: imageUrl ??= images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
             groupCollapsed: Boolean(mapSettingsRef.current.collapsedGroups?.includes(groupKey)),
         };
     }, [tMaps, categories]);
 
-    const addLayer = useCallback((layer, layerKey, groupKey, layerName) => {
+    const addLayer = useCallback((layer, layerKey, groupKey, layerName, imageUrl) => {
         /*for (const layerId in layer._layers) {
             const l = layer._layers[layerId];
             l.options.layerKey = layerKey;
             l.options.groupKey = groupKey;
         };*/
         layer.key = layerKey;
-        const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
+        const layerOptions = getLayerOptions(layerKey, groupKey, layerName, imageUrl);
         if (!layerOptions.layerHidden) {
             layer.addTo(mapRef.current);
         }
@@ -1655,7 +1681,7 @@ function Map() {
 
         //add loose loot
         if (mapData.lootLoose.length > 0) {
-            const looseLootLayer = L.layerGroup();
+            const looseLootLayers = {};
             for (const looseLoot of mapData.lootLoose) {
                 if (!positionIsInBounds(looseLoot.position)) {
                     continue;
@@ -1668,6 +1694,11 @@ function Map() {
                 let iconUrl = `${process.env.PUBLIC_URL}/maps/interactive/${images.loose_loot}.png`;
                 let markerTitle = t('Loose Loot');
                 let className = '';
+                const markerCategories = lootItems.reduce((markerCategories, item) => {
+                    const category = metaData.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
+                    markerCategories.add(category);
+                    return markerCategories;
+                }, new Set());
                 if (lootItems.length === 1) {
                     const item = lootItems[0];
                     iconUrl = item.baseImageLink;
@@ -1682,6 +1713,11 @@ function Map() {
                         const scale = 24 / pixelHeight;
                         iconSize = [pixelWidth * scale, 24];
                     }
+                } else if (markerCategories.size === 1) {
+                    const category = metaData.handbookCategories.find(c => c.id === markerCategories.values().next().value.id);
+                    iconUrl = category.imageLink;
+                    markerTitle = category.name;
+                    //className = 'loot-outline';
                 }
                 const lootIcon = new L.Icon({
                     iconUrl,
@@ -1696,6 +1732,7 @@ function Map() {
                     position: looseLoot.position,
                     items: lootItems.map((item) => item.name),
                     riseOnHover: true,
+                    categories: [...markerCategories].map(cat => cat.normalizedName),
                 });
 
                 const popup = L.DomUtil.create('div');
@@ -1711,15 +1748,28 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
+                    const category = metaData.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
+                    markerCategories.add(category.id);
+                    if (!looseLootLayers[category.normalizedName]) {
+                        looseLootLayers[category.normalizedName] = {
+                            layer: L.layerGroup({category: category.normalizedName}),
+                            label: category.name,
+                            image: category.imageLink,
+                        };
+                    }
+                    lootMarker.addTo(looseLootLayers[category.normalizedName].layer);
                 }
+
                 addElevation(looseLoot, popup);
                 lootMarker.bindPopup(L.popup().setContent(popup));
                 
                 lootMarker.on('add', checkMarkerForActiveLayers);
                 lootMarker.on('click', activateMarkerLayer);
-                lootMarker.addTo(looseLootLayer);
+                //lootMarker.addTo(looseLootLayers[layerKey].layer);
             }
-            addLayer(looseLootLayer, 'loose_loot', 'Loose Loot', t('Loose Loot'));
+            for (const layerKey in looseLootLayers) {
+                addLayer(looseLootLayers[layerKey].layer, layerKey, 'Loose Loot', looseLootLayers[layerKey].label, looseLootLayers[layerKey].image);
+            }
         }
         
         for (const id of focusItem.current) {
@@ -1728,7 +1778,7 @@ function Map() {
                 break;
             }
         }
-    }, [mapData, items, addLayer, t, tMaps, getPoiLinkElement]);
+    }, [mapData, items, metaData, addLayer, t, tMaps, getPoiLinkElement]);
 
     useEffect(() => {
         if (!mapData || mapData.projection !== 'interactive') {
