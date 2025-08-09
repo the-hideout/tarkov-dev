@@ -18,6 +18,9 @@ class ItemsQuery extends APIQuery {
                         name
                         normalizedName
                     }
+                    handbookCategories {
+                        id
+                    }
                     name
                     shortName
                     basePrice

@@ -231,6 +231,7 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
+        handbookCategoryFilter,
         showContainedItems,
         weight,
         showNetPPS,
@@ -572,6 +573,17 @@ function SmallItemTable(props) {
 
                 return item.categories.some(category => categoriesFilter.includes(category.id));
             })
+            .filter((item) => {
+                if (!handbookCategoryFilter) {
+                    return true;
+                }
+                let categoriesFilter = handbookCategoryFilter;
+                if (!Array.isArray(categoriesFilter)) {
+                    categoriesFilter = [categoriesFilter];
+                }
+
+                return item.handbookCategories.some(category => categoriesFilter.includes(category.id));
+            })
             .filter(item => {
                 if (!containedInFilter) {
                     return true;
@@ -908,6 +920,7 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
+        handbookCategoryFilter,
         showNetPPS,
         materialDestructibilityMap,
         materialRepairabilityMap,

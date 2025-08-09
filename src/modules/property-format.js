@@ -36,7 +36,11 @@ const itemLinkFormat = (inputItem) => {
 };
 
 const itemCategoryLinkFormat = inputCategory => {
-    return <Link to={`/items/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>{inputCategory.name}</Link>;
+    let categoryImage = '';
+    if (inputCategory.imageLink) {
+        categoryImage = <img style={{verticalAlign: 'middle'}} src={inputCategory.imageLink} alt=""></img>
+    }
+    return <Link to={`/items/handbook/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>{categoryImage}{inputCategory.name}</Link>;
 };
 
 const formatter = (key, value, id) => {
