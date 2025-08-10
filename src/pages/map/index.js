@@ -1812,7 +1812,7 @@ function Map() {
                 //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
             });
                   
-            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, zIndexOffset: 1000, position: playerPosition.position}).addTo(positionLayer);
+            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, zIndexOffset: 1000, position: playerPosition.position, markerType: 'playerPosition'}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
             closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
@@ -1825,7 +1825,9 @@ function Map() {
             //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
             addLayer(positionLayer, 'player_position', 'Misc');
             activateMarkerLayer({target: positionMarker});
-            mapRef.current.panTo(pos(playerPosition.position), {animate: true})
+            mapRef.current.panTo(pos(playerPosition.position), {animate: true});
+            const searchBar = map.searchControl._container.getElementsByClassName('maps-search-wrapper-search-bar')[0];
+            searchBar.dispatchEvent(new Event('input'));
         }
     }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
     
