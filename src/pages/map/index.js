@@ -681,6 +681,14 @@ function Map() {
         return bounds.contains(pos(position));
     };
 
+    const refreshMapSearch = () => {
+        const searchBar = mapRef.current?.searchControl?._container.getElementsByClassName('maps-search-wrapper-search-bar')[0];
+        if (!searchBar) {
+            return;
+        }
+        searchBar.dispatchEvent(new Event('input'));
+    };
+
     // load base layers when map changed
     useEffect (() => {
         if (!currentMap || !mapRef.current) {
@@ -1508,6 +1516,8 @@ function Map() {
             L.rectangle(getBounds(mapData.bounds), {color: '#00ff0055', weight: 1}).addTo(map);
         }
 
+        refreshMapSearch();
+
         // Set default zoom level
         // map.fitBounds(bounds);
         // map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
@@ -1641,6 +1651,7 @@ function Map() {
                 break;
             }
         }
+        refreshMapSearch();
     }, [mapData, quests, addLayer]);
 
     // for markers requiring game items
@@ -1830,6 +1841,7 @@ function Map() {
                 break;
             }
         }
+        refreshMapSearch();
     }, [mapData, items, metaData, addLayer, t, tMaps, getPoiLinkElement]);
 
     useEffect(() => {
@@ -1878,8 +1890,7 @@ function Map() {
             addLayer(positionLayer, 'player_position', 'Misc');
             activateMarkerLayer({target: positionMarker});
             mapRef.current.panTo(pos(playerPosition.position), {animate: true});
-            const searchBar = map.searchControl._container.getElementsByClassName('maps-search-wrapper-search-bar')[0];
-            searchBar.dispatchEvent(new Event('input'));
+            refreshMapSearch();
         }
     }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
     
