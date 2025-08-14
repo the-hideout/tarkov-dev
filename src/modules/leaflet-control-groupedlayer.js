@@ -29,6 +29,7 @@ let controlContainer;
 
 // A layer control which provides for layer groupings.
 // Author: Ishmael Smyrnow
+// Forked by tarkov.dev
 L.Control.GroupedLayers = L.Control.extend({
     options: {
         sortLayers: true,
@@ -178,6 +179,7 @@ L.Control.GroupedLayers = L.Control.extend({
         var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
         link.href = '#';
         link.title = 'Layers';
+        link.dataset.badge = this.options.badge;
     
         if (L.Browser.touch) {
             L.DomEvent.on(link, 'click', L.DomEvent.stop);
@@ -197,6 +199,10 @@ L.Control.GroupedLayers = L.Control.extend({
         container.appendChild(form);
 
         controlContainer = container;
+    },
+
+    updateBadge: function(badge) {
+        this._layersLink.dataset.badge = badge;
     },
   
     _addLayer: function (layer, name, options) {

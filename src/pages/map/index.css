@@ -284,3 +284,28 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 .leaflet-container .leaflet-marker-pane img.loot-outline {
     filter: drop-shadow(0.01em 0.01em white) drop-shadow(-0.01em -0.01em white) drop-shadow(-0.01em 0.01em white) drop-shadow(0.01em -0.01em white);
 }
+
+/* active level badge for grouped layer */
+
+[data-badge]:after {
+    background: #222;
+    border-radius: 30px;
+    color: var(--color-gold-one);
+    content: attr(data-badge);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: 30px;
+    min-width: 20px;
+    padding: 2px 5px;
+    position: absolute;
+    text-align: center;
+    white-space: nowrap;
+}
+
+[data-badge^="-"]:after,
+[data-badge="0"]:after,
+[data-badge=""]:after,
+[data-badge="undefined"]:after {
+   display: none;
+}
