@@ -23,9 +23,9 @@ L.Control.MapSettings = L.Control.extend({
             }
         }
 
-        var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+        var link = this._settingsLink = L.DomUtil.create('a', className + '-toggle', container);
         link.href = '#';
-        link.title = 'Layers';
+        link.title = 'Settings';
     
         if (L.Browser.touch) {
             L.DomEvent.on(link, 'click', L.DomEvent.stop);

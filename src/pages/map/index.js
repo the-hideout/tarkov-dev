@@ -505,6 +505,7 @@ function Map() {
         map.searchControl = L.control.mapSearch({
             placeholderText: t('Task, item or container...'),
             descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
+            collapsed: true,
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);

@@ -287,7 +287,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 /* active level badge for grouped layer */
 
-[data-badge]:after {
+.leaflet-control-layers-toggle[data-badge]:after {
     background: #222;
     border-radius: 30px;
     color: var(--color-gold-one);
@@ -303,9 +303,9 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     white-space: nowrap;
 }
 
-[data-badge^="-"]:after,
-[data-badge="0"]:after,
-[data-badge=""]:after,
-[data-badge="undefined"]:after {
+.leaflet-control-layers-toggle[data-badge^="-"]:after,
+.leaflet-control-layers-toggle[data-badge="0"]:after,
+.leaflet-control-layers-toggle[data-badge=""]:after,
+.leaflet-control-layers-toggle[data-badge="undefined"]:after {
    display: none;
 }
