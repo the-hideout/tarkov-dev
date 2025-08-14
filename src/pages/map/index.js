@@ -731,6 +731,7 @@ function Map() {
             }
             layer.removeFrom(map);
         });
+        map.layerControl.updateBadge();
 
         const layerOptions = map.options.layerOptions = {
             maxZoom: maxZoom,
@@ -846,6 +847,7 @@ function Map() {
                         } else if (baseLayer._container && !layer.show) {
                             baseLayer._container.classList.add('off-level');
                         }
+                        map.layerControl.updateBadge(tMaps(layer.name));
                     });
                     heightLayer.on('remove', () => {
                         const heightLayer = Object.values(map._layers).findLast(l => l.options?.extents);
@@ -857,6 +859,7 @@ function Map() {
                             if (layers.length !== 1) {
                                 return;
                             }
+                            map.layerControl.updateBadge();
                             if (baseLayer._image) {
                                 baseLayer._image.classList.remove('off-level');
                             } else if (baseLayer._container) {
