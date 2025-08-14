@@ -81,7 +81,7 @@ L.Control.MapSearch = L.Control.extend({
                     (acc, marker) => {
                         if (foundQuest.some((quest) => quest.id === marker.options.questId)) {
                             acc.objectiveMarkers.push(marker);
-                        } else {
+                        } else if (marker.options.markerType !== 'playerPosition') {
                             acc.nonObjectiveMarkers.push(marker);
                         }
 

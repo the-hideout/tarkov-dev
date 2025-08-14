@@ -35,6 +35,15 @@ class MetaQuery extends APIQuery {
                     id
                 }
             }
+            handbookCategories(lang: ${language}) {
+                id
+                name
+                normalizedName
+                parent {
+                    id
+                }
+                imageLink
+            }
             playerLevels {
                 level
                 exp
@@ -82,6 +91,7 @@ class MetaQuery extends APIQuery {
                 !metaData.data.fleaMarket || 
                 !metaData.data.armorMaterials || !metaData.data.armorMaterials.length || 
                 !metaData.data.itemCategories || !metaData.data.itemCategories.length ||
+                !metaData.data.handbookCategories || !metaData.data.handbookCategories.length ||
                 !metaData.data.playerLevels 
             ) {
                 return Promise.reject(new Error(metaData.errors[0].message));
@@ -95,6 +105,7 @@ class MetaQuery extends APIQuery {
             flea: metaData.data.fleaMarket,
             armor: metaData.data.armorMaterials,
             categories: metaData.data.itemCategories,
+            handbookCategories: metaData.data.handbookCategories,
             playerLevels: metaData.data.playerLevels,
             skills: metaData.data.skills,
             mastering: metaData.data.mastering,

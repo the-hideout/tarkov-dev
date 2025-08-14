@@ -140,6 +140,11 @@ async function build_sitemap() {
         sitemap = addPath(sitemap, `/items/${itemCategory.normalizedName}`);
     }
 
+    const itemHandbookCategories = await graphqlRequest('{handbookCategories{normalizedName}}');
+    for (const itemCategory of itemCategories.data.handbookCategories) {
+        sitemap = addPath(sitemap, `/items/handbook/${itemCategory.normalizedName}`);
+    }
+
     for (const categoryPage of categoryPages) {
         sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
     }
