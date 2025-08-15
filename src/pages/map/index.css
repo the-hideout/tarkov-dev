@@ -197,6 +197,10 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-size: 16px;
 }
 
+.leaflet-control-layers-separator {
+    border-color: var(--color-gold-two);
+}
+
 .leaflet-control input[type="checkbox"] {
   /* Add if not using autoprefixer */
   -webkit-appearance: none;
