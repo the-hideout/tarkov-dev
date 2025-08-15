@@ -9,7 +9,7 @@ L.Control.MapSearch = L.Control.extend({
     onAdd: function (map) {
         const className = 'leaflet-control-icon-search';
         const wrapper = this._container = L.DomUtil.create('div', `search-wrapper ${className} maps-search-wrapper`);
-console.log(this.options);
+
         const collapsed = this.options.collapsed;
         
         L.DomEvent.disableClickPropagation(wrapper);
@@ -29,9 +29,9 @@ console.log(this.options);
             }
         }
 
-        const link = this._settingsLink = L.DomUtil.create('a', className + '-toggle', wrapper);
+        const link = this._searchLink = L.DomUtil.create('a', className + '-toggle', wrapper);
         link.href = '#';
-        link.title = 'Settings';
+        link.title = 'Search';
     
         if (L.Browser.touch) {
             L.DomEvent.on(link, 'click', L.DomEvent.stop);
@@ -78,6 +78,7 @@ console.log(this.options);
             'input',
             debounce((e) => {
                 const inputValue = e.target.value.trim();
+                this._searchLink.dataset.badge = inputValue;
 
                 // Split the input into multiple search terms and filter out empty strings
                 const searchTerms = inputValue
