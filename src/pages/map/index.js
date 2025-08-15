@@ -486,7 +486,7 @@ function Map() {
             hidden: false,
             position: 'bottomright',
             checked: mapSettingsRef.current.showOnlyActiveTasks,
-            activeTasksLabel: t('Only Active Tasks'),
+            activeTasksLabel: t('Only show markers for active tasks'),
             playerLocationLabel: t('Use TarkovMonitor to show your position'),
             settingChanged: (settingName, settingValue) => {
                 mapSettingsRef.current[settingName] = settingValue;

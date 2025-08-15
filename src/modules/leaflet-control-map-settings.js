@@ -51,7 +51,7 @@ L.Control.MapSettings = L.Control.extend({
 
         var activeQuestMarkersLabel = L.DomUtil.create('label', undefined, activeQuestMarkersDiv);
         activeQuestMarkersLabel.setAttribute('for', 'only-active-quest-markers');
-        activeQuestMarkersLabel.textContent = this.options.activeTasksLabel ?? 'Only Active Tasks';
+        activeQuestMarkersLabel.textContent = this.options.activeTasksLabel ?? 'Only show markers for active tasks';
 
         L.DomUtil.create('div', `${className}-separator player-location-help-separator`, form);
 

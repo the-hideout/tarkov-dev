@@ -197,7 +197,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-size: 16px;
 }
 
-/* only active tasks control */
+/* settings control */
 .leaflet-control-map-settings.leaflet-control {
     padding: 4px 4px;
 }
