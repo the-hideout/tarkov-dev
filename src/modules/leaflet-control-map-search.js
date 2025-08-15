@@ -90,8 +90,12 @@ L.Control.MapSearch = L.Control.extend({
                     // Reset markers if no valid search terms are provided
                     markers.allMarkers.forEach((marker) => {
                         if ('getElement' in marker && !('_bounds' in marker)) {
-                            marker.getElement().classList.remove('not-shown');
-                            marker.getElement().classList.remove('pulse');
+                            const element = marker.getElement();
+                            if (!element) {
+                                return;
+                            }
+                            element.classList.remove('not-shown');
+                            element.classList.remove('pulse');
                         }
                     });
                     return;
