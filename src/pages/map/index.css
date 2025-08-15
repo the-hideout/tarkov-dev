@@ -197,6 +197,75 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-size: 16px;
 }
 
+.leaflet-control input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--color-gunmetal-dark);
+  /* Not removed via appearance */
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid var(--color-gold-two);
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+}
+
+.leaflet-control input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-gold-one);
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  display: grid;
+  place-content: center;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.leaflet-control input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.leaflet-control input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--color-gunmetal-dark);
+  /* Not removed via appearance */
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid var(--color-gold-two);
+  border-radius: 0.5em;
+  transform: translateY(-0.075em);
+}
+
+.leaflet-control input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 0.5em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-gold-one);
+  display: grid;
+  place-content: center;
+  margin-left: 0.10em;
+  margin-top: 0.10em;
+}
+
+.leaflet-control input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
 /* settings control */
 .leaflet-control-map-settings.leaflet-control {
     padding: 4px 4px;

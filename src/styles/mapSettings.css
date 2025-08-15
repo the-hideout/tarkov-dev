@@ -69,6 +69,11 @@
     color: var(--color-gold-two);
 }
 
+.leaflet-control-map-settings-active-quests label {
+	display: flex;
+	align-items: center;
+}
+
 .leaflet-control-map-settings-player-location-help {
 	background-image: url("../../public/maps/interactive/player-position.png");
     background-repeat: no-repeat;
