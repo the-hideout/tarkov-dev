@@ -9,7 +9,7 @@ L.Control.MapSettings = L.Control.extend({
         L.DomEvent.disableClickPropagation(container);
         L.DomEvent.disableScrollPropagation(container);
 
-        var form = this._form = L.DomUtil.create('form', className + '-list');
+        var form = this._form = L.DomUtil.create('div', className + '-list');
         container.appendChild(form);
 
         if (collapsed) {

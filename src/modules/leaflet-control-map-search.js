@@ -15,7 +15,7 @@ console.log(this.options);
         L.DomEvent.disableClickPropagation(wrapper);
         L.DomEvent.disableScrollPropagation(wrapper);
 
-        const form = this._form = L.DomUtil.create('form', className + '-list');
+        const form = this._form = L.DomUtil.create('div', className + '-list');
         wrapper.appendChild(form);
 
         if (collapsed) {

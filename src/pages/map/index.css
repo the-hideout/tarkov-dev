@@ -287,7 +287,16 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 /* active level badge for grouped layer */
 
-.leaflet-control-layers-toggle[data-badge]:after {
+.leaflet-left [data-badge]:after {
+    margin-left: 30px;
+}
+
+.leaflet-right [data-badge]:after {
+    margin-right: -14px;
+    right: 100%;
+}
+
+.leaflet-control-container [data-badge]:after {
     background: #222;
     border-radius: 30px;
     color: var(--color-gold-one);
@@ -295,7 +304,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     font-size: 14px;
     font-weight: bold;
     margin-top: -10px;
-    margin-left: 30px;
     min-width: 20px;
     padding: 2px 5px;
     position: absolute;
@@ -303,9 +311,9 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     white-space: nowrap;
 }
 
-.leaflet-control-layers-toggle[data-badge^="-"]:after,
-.leaflet-control-layers-toggle[data-badge="0"]:after,
-.leaflet-control-layers-toggle[data-badge=""]:after,
-.leaflet-control-layers-toggle[data-badge="undefined"]:after {
+.leaflet-control-container [data-badge^="-"]:after,
+.leaflet-control-container [data-badge="0"]:after,
+.leaflet-control-container [data-badge=""]:after,
+.leaflet-control-container [data-badge="undefined"]:after {
    display: none;
 }
