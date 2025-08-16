@@ -1,0 +1,25 @@
+.leaflet-control-remote {
+    background-color: rgb( from var(--color-black) r g b / 0.5);
+    color: #fff;
+    font-family: bender;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 10px 40px;
+    z-index: 405;
+}
+
+.leaflet-left .leaflet-control-remote .session-switch-side {
+    content: '>>';
+}
+
+.leaflet-right .leaflet-control-remote .session-switch-side {
+    content: '<<';
+}
+
+.leaflet-left .leaflet-control-remote .session-question {
+    right: 0px;
+}
+
+.leaflet-right .leaflet-control-remote .session-question {
+    left: 0px;
+}

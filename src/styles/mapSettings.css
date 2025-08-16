@@ -52,7 +52,7 @@
 }
 .leaflet-control-map-settings-separator {
 	height: 0;
-	border-top: 1px solid #999;
+	border-top: 1px solid var(--color-gold-two);
 	margin: 5px 5px 5px 5px;
 }
 .leaflet-touch .leaflet-control-map-settings {
@@ -67,6 +67,11 @@
 }
 .leaflet-control-map-settings a {
     color: var(--color-gold-two);
+}
+
+.leaflet-control-map-settings-active-quests label {
+	display: flex;
+	align-items: center;
 }
 
 .leaflet-control-map-settings-player-location-help {

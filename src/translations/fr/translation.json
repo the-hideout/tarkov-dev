@@ -445,7 +445,7 @@
     "Include Marked": "Inclure marqué",
     "Group by type": "Regrouper par type",
     "min value": "valeur min",
-    "Only Active Tasks": "Only Active Tasks",
+    "Only show markers for active tasks": "Only show markers for active tasks",
     "Map of {{mapName}}": "Map of {{mapName}}",
     "maps-page-description": "Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game",
     "maps-page-p": "<0>There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another.</0>",
