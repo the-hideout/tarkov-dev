@@ -390,3 +390,11 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 .leaflet-control-container [data-badge="undefined"]:after {
    display: none;
 }
+
+/* remote styles */
+
+.display-wrapper:has(~ .id-wrapper-left) .leaflet-bottom.leaflet-left,
+.display-wrapper:has(~ .id-wrapper-right) .leaflet-bottom.leaflet-right {
+    margin-bottom: 60px;
+}
+
