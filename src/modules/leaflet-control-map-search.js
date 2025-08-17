@@ -7,28 +7,55 @@ L.Control.MapSearch = L.Control.extend({
         descriptionText: null,
     },
     onAdd: function (map) {
-        const wrapper = L.DomUtil.create('div');
-        wrapper.classList.add(
-            'search-wrapper',
-            'leaflet-control-icon-search',
-            'maps-search-wrapper',
-        );
+        const className = 'leaflet-control-icon-search';
+        const wrapper = this._container = L.DomUtil.create('div', `search-wrapper ${className} maps-search-wrapper`);
 
-        const info = L.DomUtil.create('div');
-        info.classList.add('maps-search-wrapper-info');
-        info.innerHTML = `<b>${this.options.descriptionText ?? "Supports multisearch (e.g. 'labs, ledx, bitcoin')"}</b>`;
+        const collapsed = this.options.collapsed;
+        
+        L.DomEvent.disableClickPropagation(wrapper);
+        L.DomEvent.disableScrollPropagation(wrapper);
 
-        const searchBar = L.DomUtil.create('input');
-        searchBar.classList.add('maps-search-wrapper-search-bar');
+        const form = this._form = L.DomUtil.create('div', className + '-list');
+        wrapper.appendChild(form);
+
+        if (collapsed) {
+            this._map.on('click', this._collapse, this);
+    
+            if (!L.Browser.android) {
+                L.DomEvent.on(wrapper, {
+                    mouseenter: this._expand,
+                    mouseleave: this._collapse
+                }, this);
+            }
+        }
+
+        const link = this._searchLink = L.DomUtil.create('a', className + '-toggle', wrapper);
+        link.href = '#';
+        link.title = 'Search';
+    
+        if (L.Browser.touch) {
+            L.DomEvent.on(link, 'click', L.DomEvent.stop);
+            L.DomEvent.on(link, 'click', this._expand, this);
+        } else {
+            L.DomEvent.on(link, 'focus', this._expand, this);
+        }
+    
+        if (!collapsed) {
+            this._expand();
+        }
+
+        const searchBar = L.DomUtil.create('input', 'maps-search-wrapper-search-bar', form);
         searchBar.setAttribute('type', 'text');
         searchBar.setAttribute(
             'placeholder',
             this.options.placeholderText ?? 'Task, item or container...',
         );
 
-        const resetSearch = L.DomUtil.create('button');
-        resetSearch.classList.add('maps-search-wrapper-reset-search');
-        resetSearch.innerHTML = "X";
+        const info = L.DomUtil.create('div', 'maps-search-wrapper-info', form);
+        info.innerHTML = `<b>${this.options.descriptionText ?? "Supports multisearch (e.g. 'labs, ledx, bitcoin')"}</b>`;
+
+        const resetSearch = L.DomUtil.create('button', 'maps-search-wrapper-reset-search', form);
+        resetSearch.innerHTML = 'X';
 
         const markers = {
             objectiveMarkers: [],
@@ -51,6 +78,7 @@ L.Control.MapSearch = L.Control.extend({
             'input',
             debounce((e) => {
                 const inputValue = e.target.value.trim();
+                this._searchLink.dataset.badge = inputValue;
 
                 // Split the input into multiple search terms and filter out empty strings
                 const searchTerms = inputValue
@@ -62,8 +90,12 @@ L.Control.MapSearch = L.Control.extend({
                     // Reset markers if no valid search terms are provided
                     markers.allMarkers.forEach((marker) => {
                         if ('getElement' in marker && !('_bounds' in marker)) {
-                            marker.getElement().classList.remove('not-shown');
-                            marker.getElement().classList.remove('pulse');
+                            const element = marker.getElement();
+                            if (!element) {
+                                return;
+                            }
+                            element.classList.remove('not-shown');
+                            element.classList.remove('pulse');
                         }
                     });
                     return;
@@ -134,10 +166,32 @@ L.Control.MapSearch = L.Control.extend({
             }, 300),
         );
 
-        wrapper.append(searchBar);
-        wrapper.append(info);
-        wrapper.append(resetSearch);
         return wrapper;
+    },
+    
+    _expand: function () {
+        L.DomUtil.addClass(this._container, 'leaflet-control-icon-search-expanded');
+        this._form.style.height = null;
+        var acceptableHeight = this._map.getSize().y - (this._container.offsetTop + 50);
+        if (acceptableHeight < this._form.clientHeight) {
+            L.DomUtil.addClass(this._form, 'leaflet-control-icon-search-scrollbar');
+            this._form.style.height = acceptableHeight + 'px';
+        } else {
+            L.DomUtil.removeClass(this._form, 'leaflet-control-icon-search-scrollbar');
+        }
+    
+        return this;
+    },
+    
+    _expandIfNotCollapsed: function () {
+        if (this._map && !this.options.collapsed) {
+            this._expand();
+        }
+        return this;
+    },
+    
+    _collapse: function () {
+        this._container.className = this._container.className.replace(' leaflet-control-icon-search-expanded', '');
     },
 });
 

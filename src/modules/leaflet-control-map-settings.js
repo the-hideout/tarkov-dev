@@ -9,7 +9,7 @@ L.Control.MapSettings = L.Control.extend({
         L.DomEvent.disableClickPropagation(container);
         L.DomEvent.disableScrollPropagation(container);
 
-        var form = this._form = L.DomUtil.create('form', className + '-list');
+        var form = this._form = L.DomUtil.create('div', className + '-list');
         container.appendChild(form);
 
         if (collapsed) {
@@ -23,9 +23,9 @@ L.Control.MapSettings = L.Control.extend({
             }
         }
 
-        var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+        var link = this._settingsLink = L.DomUtil.create('a', className + '-toggle', container);
         link.href = '#';
-        link.title = 'Layers';
+        link.title = 'Settings';
     
         if (L.Browser.touch) {
             L.DomEvent.on(link, 'click', L.DomEvent.stop);
@@ -40,7 +40,11 @@ L.Control.MapSettings = L.Control.extend({
 
         // show only active quests setting
         var activeQuestMarkersDiv = L.DomUtil.create('div', `${className}-active-quests`, form);
-        var activeQuestMarkersCheckbox = L.DomUtil.create('input', undefined, activeQuestMarkersDiv);
+
+        var activeQuestMarkersLabel = L.DomUtil.create('label', undefined, activeQuestMarkersDiv);
+        activeQuestMarkersLabel.setAttribute('for', 'only-active-quest-markers');
+
+        var activeQuestMarkersCheckbox = L.DomUtil.create('input', undefined, activeQuestMarkersLabel);
         activeQuestMarkersCheckbox.id = 'only-active-quest-markers';
         activeQuestMarkersCheckbox.setAttribute('type', 'checkbox');
         if (!!this.options.checked) {
@@ -49,9 +53,8 @@ L.Control.MapSettings = L.Control.extend({
         }
         L.DomEvent.on(activeQuestMarkersCheckbox, 'click', this._onActiveQuestMarkersToggle, this);
 
-        var activeQuestMarkersLabel = L.DomUtil.create('label', undefined, activeQuestMarkersDiv);
-        activeQuestMarkersLabel.setAttribute('for', 'only-active-quest-markers');
-        activeQuestMarkersLabel.textContent = this.options.activeTasksLabel ?? 'Only Active Tasks';
+        const activeQuestMarkersLabelContent = L.DomUtil.create('span', undefined, activeQuestMarkersLabel);
+        activeQuestMarkersLabelContent.textContent = this.options.activeTasksLabel ?? 'Only show markers for active tasks';
 
         L.DomUtil.create('div', `${className}-separator player-location-help-separator`, form);
 
