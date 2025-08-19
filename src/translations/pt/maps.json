@@ -43,5 +43,11 @@
     "Objective": "Objetivo",
     "Misc": "Misc",
     "openworld-name": "Mundo Aberto",
-    "openworld-description": "Essa é uma projeção de como seria o mapa completo de Tarkov. Esse mapa de mundo aberto provavelmente incluiria todas as localizações chave dos mapas existentes combinadas em um gigantesco mapa único."
+    "openworld-description": "Essa é uma projeção de como seria o mapa completo de Tarkov. Esse mapa de mundo aberto provavelmente incluiria todas as localizações chave dos mapas existentes combinadas em um gigantesco mapa único.",
+    "Transit": "Transit",
+    "Task, item or container...": "Task, item or container...",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",
+    "Only show markers for active tasks": "Only show markers for active tasks",
+    "Don't collapse layers control": "Don't collapse layers control",
+    "Use TarkovMonitor to show your position": "Use TarkovMonitor to show your position"
 }

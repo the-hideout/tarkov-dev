@@ -4,7 +4,7 @@ L.Control.MapSettings = L.Control.extend({
     options: {
         activeTasksChecked: false,
         activeTasksLabel: 'Only show markers for active tasks',
-        expandMapLegendLabel: 'Keep layers control expanded',
+        expandMapLegendLabel: 'Don\'t collapse layers control',
         expandMapLegendChecked: false,
     },
     onAdd: function(map) {

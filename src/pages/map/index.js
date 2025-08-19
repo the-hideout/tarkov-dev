@@ -487,10 +487,10 @@ function Map() {
             hidden: false,
             position: 'bottomright',
             activeTasksChecked: mapSettingsRef.current.showOnlyActiveTasks,
-            activeTasksLabel: t('Only show markers for active tasks'),
+            activeTasksLabel: tMaps('Only show markers for active tasks'),
             expandMapLegendChecked: mapSettingsRef.current.expandMapLegend,
-            expandMapLegendLabel: t('Keep layers control expanded'),
-            playerLocationLabel: t('Use TarkovMonitor to show your position'),
+            expandMapLegendLabel: tMaps('Don\'t collapse layers control'),
+            playerLocationLabel: tMaps('Use TarkovMonitor to show your position'),
             collapsed: true,
         }).addTo(map);
         map.settingsControl.on('settingChanged', (e) => {
@@ -516,8 +516,8 @@ function Map() {
         }).addTo(map);
 
         map.searchControl = L.control.mapSearch({
-            placeholderText: t('Task, item or container...'),
-            descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
+            placeholderText: tMaps('Task, item or container...'),
+            descriptionText: tMaps("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
             collapsed: true,
         }).addTo(map);
 
