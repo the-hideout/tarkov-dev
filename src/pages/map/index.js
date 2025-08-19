@@ -289,6 +289,7 @@ function Map() {
             hiddenLayers: [],
             collapsedGroups: [],
             showOnlyActiveTasks: false,
+            expandMapLegend: false,
         },
     );
 
@@ -393,7 +394,7 @@ function Map() {
 
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
-            collapsed: true,
+            collapsed: !mapSettingsRef.current.expandMapLegend,
             groupCheckboxes: true,
             groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
@@ -485,15 +486,27 @@ function Map() {
         map.settingsControl = L.control.mapSettings({
             hidden: false,
             position: 'bottomright',
-            checked: mapSettingsRef.current.showOnlyActiveTasks,
+            activeTasksChecked: mapSettingsRef.current.showOnlyActiveTasks,
             activeTasksLabel: t('Only show markers for active tasks'),
+            expandMapLegendChecked: mapSettingsRef.current.expandMapLegend,
+            expandMapLegendLabel: t('Keep layers control expanded'),
             playerLocationLabel: t('Use TarkovMonitor to show your position'),
-            settingChanged: (settingName, settingValue) => {
-                mapSettingsRef.current[settingName] = settingValue;
-                updateSavedMapSettings();
-            },
             collapsed: true,
         }).addTo(map);
+        map.settingsControl.on('settingChanged', (e) => {
+            if (e.settingName === 'showOnlyActiveTasks') {
+                if (e.settingValue) {
+                    map._container.classList.add('only-active-quest-markers');
+                } else {
+                    map._container.classList.remove('only-active-quest-markers');
+                }
+            }
+            if (e.settingName === 'expandMapLegend') {
+                layerControl.setCollapse(!e.settingValue);
+            }
+            mapSettingsRef.current[e.settingName] = e.settingValue;
+            updateSavedMapSettings();
+        });
 
         map.raidInfoControl = L.control.raidInfo({
             position: 'topright',

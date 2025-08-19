@@ -1,6 +1,12 @@
 import L from 'leaflet';
 
 L.Control.MapSettings = L.Control.extend({
+    options: {
+        activeTasksChecked: false,
+        activeTasksLabel: 'Only show markers for active tasks',
+        expandMapLegendLabel: 'Keep layers control expanded',
+        expandMapLegendChecked: false,
+    },
     onAdd: function(map) {
         const className = 'leaflet-control-map-settings';
         var container = this._container = L.DomUtil.create('div', className);
@@ -38,29 +44,49 @@ L.Control.MapSettings = L.Control.extend({
             this._expand();
         }
 
+        this._eventTarget = new EventTarget();
+
+        // keep legend expanded
+        const expandMapLegendDiv = L.DomUtil.create('div', `${className}-setting-container`, form);
+
+        const expandMapLegendLabel = L.DomUtil.create('label', undefined, expandMapLegendDiv);
+        expandMapLegendLabel.setAttribute('for', 'expandMapLegend');
+
+        const expandMapLegendCheckbox = L.DomUtil.create('input', undefined, expandMapLegendLabel);
+        expandMapLegendCheckbox.id = 'expandMapLegend';
+        expandMapLegendCheckbox.setAttribute('type', 'checkbox');
+        if (!!this.options.expandMapLegendChecked) {
+            expandMapLegendCheckbox.setAttribute('checked', !!this.options.expandMapLegendChecked);
+            expandMapLegendCheckbox.checked = true;
+        }
+        L.DomEvent.on(expandMapLegendCheckbox, 'click', this._onSettingChanged, this);
+
+        const expandMapLegendLabelContent = L.DomUtil.create('span', undefined, expandMapLegendLabel);
+        expandMapLegendLabelContent.textContent = this.options.expandMapLegendLabel;
+
         // show only active quests setting
-        var activeQuestMarkersDiv = L.DomUtil.create('div', `${className}-active-quests`, form);
+        const activeQuestMarkersDiv = L.DomUtil.create('div', `${className}-setting-container`, form);
 
-        var activeQuestMarkersLabel = L.DomUtil.create('label', undefined, activeQuestMarkersDiv);
-        activeQuestMarkersLabel.setAttribute('for', 'only-active-quest-markers');
+        const activeQuestMarkersLabel = L.DomUtil.create('label', undefined, activeQuestMarkersDiv);
+        activeQuestMarkersLabel.setAttribute('for', 'showOnlyActiveTasks');
 
-        var activeQuestMarkersCheckbox = L.DomUtil.create('input', undefined, activeQuestMarkersLabel);
-        activeQuestMarkersCheckbox.id = 'only-active-quest-markers';
+        const activeQuestMarkersCheckbox = L.DomUtil.create('input', undefined, activeQuestMarkersLabel);
+        activeQuestMarkersCheckbox.id = 'showOnlyActiveTasks';
         activeQuestMarkersCheckbox.setAttribute('type', 'checkbox');
-        if (!!this.options.checked) {
-            activeQuestMarkersCheckbox.setAttribute('checked', !!this.options.checked);
+        if (!!this.options.activeTasksChecked) {
+            activeQuestMarkersCheckbox.setAttribute('checked', !!this.options.activeTasksChecked);
             activeQuestMarkersCheckbox.checked = true;
         }
-        L.DomEvent.on(activeQuestMarkersCheckbox, 'click', this._onActiveQuestMarkersToggle, this);
+        L.DomEvent.on(activeQuestMarkersCheckbox, 'click', this._onSettingChanged, this);
 
         const activeQuestMarkersLabelContent = L.DomUtil.create('span', undefined, activeQuestMarkersLabel);
-        activeQuestMarkersLabelContent.textContent = this.options.activeTasksLabel ?? 'Only show markers for active tasks';
+        activeQuestMarkersLabelContent.textContent = this.options.activeTasksLabel;
 
         L.DomUtil.create('div', `${className}-separator player-location-help-separator`, form);
 
         // show location labels setting
-        var playerLocationDiv = L.DomUtil.create('div', `${className}-player-location-help`, form);
-        var playerLocationLink = L.DomUtil.create('a', undefined, playerLocationDiv);
+        const playerLocationDiv = L.DomUtil.create('div', `${className}-player-location-help`, form);
+        const playerLocationLink = L.DomUtil.create('a', undefined, playerLocationDiv);
         playerLocationLink.setAttribute('href', '/other-tools#tarkov-monitor');
         playerLocationLink.setAttribute('target', '_blank');
         playerLocationLink.textContent = this.options.playerLocationLabel ?? 'Use TarkovMonitor to show your position';
@@ -70,6 +96,25 @@ L.Control.MapSettings = L.Control.extend({
 
     onRemove: function(map) {
         // Nothing to do here
+    },
+
+    on: function (eventType, listener, options) {
+        this._eventTarget.addEventListener(eventType, listener, options);
+    },
+
+    once: function (eventType, listener, options) {
+        this._eventTarget.addEventListener(eventType, listener, {...options, once: true});
+    },
+
+    off: function (eventType, listener, options) {
+        this._eventTarget.removeEventListener(eventType, listener, options);
+    },
+
+    _onSettingChanged: function (e) {
+        const event = new Event('settingChanged');
+        event.settingName = e.target.id;
+        event.settingValue = e.target.checked ?? e.target.value;
+        this._eventTarget.dispatchEvent(event);
     },
 
     _onActiveQuestMarkersToggle: function (event) {
