@@ -55,8 +55,8 @@ const Menu = () => {
     };*/
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const [alertOpen, setAlertOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
-    const [alertStateOpen, setAlertStateOpen] = useState(alertOpen || alertConfig.alwaysShow);
+    const [alertsClosed, setAlertsClosed] = useStateWithLocalStorage('alertBannersClosed', []);
+    const [alertStateOpen, setAlertStateOpen] = useState(alertConfig.alwaysShow || !alertsClosed.includes(alertConfig.bannerKey));
     const gameMode = useSelector((state) => state.settings.gameMode);
     const loadingData = useSelector((state) => state.settings.loadingData);
 
@@ -112,7 +112,10 @@ const Menu = () => {
                                 color="inherit"
                                 size="small"
                                 onClick={() => {
-                                    setAlertOpen(false);
+                                    //setAlertOpen(false);
+                                    if (!alertsClosed.includes(alertConfig.bannerKey)) {
+                                        setAlertsClosed([...alertsClosed, alertConfig.bannerKey]);
+                                    }
                                     setAlertStateOpen(false);
                                 }}
                             >
