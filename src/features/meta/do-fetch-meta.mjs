@@ -52,6 +52,7 @@ class MetaQuery extends APIQuery {
             skills(lang: ${language}) {
                 id
                 name
+                imageLink
             }
             mastering {
                 id

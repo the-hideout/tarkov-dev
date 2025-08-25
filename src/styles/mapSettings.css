@@ -62,14 +62,14 @@
 	border: 2px solid rgba(0,0,0,0.2);
 	background-clip: padding-box;
 }
-.leaflet-control-map-settings-active-quests {
+.leaflet-control-map-settings-setting-container {
     display: flex;
 }
 .leaflet-control-map-settings a {
     color: var(--color-gold-two);
 }
 
-.leaflet-control-map-settings-active-quests label {
+.leaflet-control-map-settings-setting-container label {
 	display: flex;
 	align-items: center;
 }

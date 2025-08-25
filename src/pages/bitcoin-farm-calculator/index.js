@@ -124,7 +124,7 @@ const BitcoinFarmCalculator = () => {
                         label={t('Use fuel cost: {{price}}/day', {
                             price: formatPrice(fuelPricePerDay),
                         })}
-                        tooltipContent={fuelItem.name}
+                        tooltipContent={fuelItem?.name}
                         checked={calculateWithFuelCost}
                         onChange={() =>
                             setCalculateWithFuelCost((prev) => !prev)
@@ -152,7 +152,7 @@ const BitcoinFarmCalculator = () => {
                     <RewardCell
                         item={graphicCardItem}
                         sellValue={graphicsCardBuy.priceRUB}
-                        sellTo={graphicsCardBuy.vendor.name}
+                        sellTo={graphicsCardBuy.vendor?.name}
                         sellType={graphicsCardBuy.sellType}
                         valueTooltip={t('Purchase cost')}
                         key="gpu-price-display"

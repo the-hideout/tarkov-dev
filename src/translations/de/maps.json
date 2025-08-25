@@ -43,5 +43,10 @@
     "Objective": "Objective",
     "Misc": "Misc",
     "openworld-name": "Openworld",
-    "openworld-description": "Das ist eine Vorstellung wie die vollständige Karte von Tarkov aussehen könnte. Diese Openworld Karte würde vermutlich alle Standorte von den existierenden Karten in eine einzige riesige Karte zusammenfassen."
+    "openworld-description": "Das ist eine Vorstellung wie die vollständige Karte von Tarkov aussehen könnte. Diese Openworld Karte würde vermutlich alle Standorte von den existierenden Karten in eine einzige riesige Karte zusammenfassen.",
+    "Transit": "Transit",
+    "Task, item or container...": "Aufgaben, items, oder Container...",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Unterstützt Multisuche (e.g. 'labs, ledx, bitcoin')",
+    "Only show markers for active tasks": "Only show markers for active tasks",
+    "Don't collapse layers control": "Don't collapse layers control"
 }

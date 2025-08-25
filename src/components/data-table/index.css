@@ -69,6 +69,10 @@ td.data-cell:last-child {
     max-height: 64px;
 }
 
+.data-table .table-image + span {
+    margin-left: 10px;
+}
+
 .data-table tr td {
     background-color: var(--color-gunmetal-dark);
 }
