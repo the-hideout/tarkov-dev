@@ -621,5 +621,6 @@
     "Crafts {{count}} in {{duration}} for {{totalCost}}_many": "{{duration}}内に{{count}}を{{totalCost}}でクラフト（多数形）",
     "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
     "I understand": "I understand",
-    "Other Options": "Other Options"
+    "Other Options": "Other Options",
+    "This task {{taskStatus}}": "This task {{taskStatus}}"
 }
