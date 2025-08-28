@@ -181,26 +181,6 @@ function Quest() {
         return '';
     }, [currentQuest, t]);
 
-    const completedIcon = useMemo(() => {
-        if (!currentQuest || !settings.completedQuests.includes(currentQuest.id)) {
-            return '';
-        }
-        return (
-            <Tooltip
-                key={`${currentQuest.id}-completed`}
-                title={t('Completed')}
-                placement={'top'}
-                arrow
-            >
-                <Icon
-                    path={mdiClipboardCheck}
-                    size={0.75}
-                    className="icon-with-text"
-                />
-            </Tooltip>
-        );
-    }, [currentQuest, settings, t]);
-
     const taskStatusIcon = useMemo(() => {
         if (!currentQuest || !settings.completedQuests.includes(currentQuest.id)) {
             return '';
