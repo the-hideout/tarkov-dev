@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,8 @@ import {
     mdiGift,
     mdiKeyVariant,
     mdiLighthouse,
-    mdiPlay
+    mdiPlay,
+    mdiSourceBranch,
 } from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
@@ -340,6 +341,41 @@ function Quest() {
                         />
                         <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                         {failNote}
+                    </div>
+                );
+            })}
+        </div>
+    }, [currentQuest, quests, settings, t]);
+
+    const alternateTasks = useMemo(() => {
+        if (!currentQuest) {
+            return '';
+        }
+        const altQuests = quests.filter(q => currentQuest.failConditions.some((objective) => 
+            objective.type === 'taskStatus' && 
+            objective.task.id === q.id &&
+            objective.status.includes('complete')
+        ));
+        if (altQuests.length === 0) {
+            return '';
+        }
+        return <div className="alternative-quests">
+            <h3><Icon path={mdiSourceBranch} size={1} className="icon-with-text" /> {t('Other Options')}</h3>
+            {altQuests.map((task) => {
+                let taskIcon = mdiClipboardList;
+                if (settings.failedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardRemove;
+                } else if (settings.completedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardCheck;
+                }
+                return (
+                    <div key={`req-task-${task.id}`}>
+                        <Icon
+                            path={taskIcon}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                        <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                     </div>
                 );
             })}
@@ -1202,6 +1238,7 @@ function Quest() {
                     <div className="task-connections">
                         {previousTasks}
                         {nextTasks}
+                        {alternateTasks}
                     </div>
                   </div>
                   <div className="entity-icon-cont">
