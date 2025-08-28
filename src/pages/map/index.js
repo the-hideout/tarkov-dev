@@ -1212,8 +1212,9 @@ function Map() {
                 extractMarker.on('mouseover', mouseHoverOutline);
                 extractMarker.on('mouseout', mouseHoverOutline);
                 extractMarker.on('click', toggleForceOutline);
+                let popup;
                 if (extract.switches?.length > 0) {
-                    const popup = L.DomUtil.create('div');
+                    popup ??= L.DomUtil.create('div');
                     const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
@@ -1224,10 +1225,26 @@ function Map() {
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
                     }
-                    addElevation(extract, popup);
-                    extractMarker.bindPopup(L.popup().setContent(popup));
-                } else if (showElevation) {
-                    const popup = L.DomUtil.create('div');
+                }
+                if (extract.transferItem) {
+                    popup ??= L.DomUtil.create('div');
+                    let itemCount = '';
+                    if (extract.transferItem.count > 1) {
+                        itemCount = ` x ${extract.transferItem.count.toLocaleString()}`
+                    }
+                    const transferText = L.DomUtil.create('div', undefined, popup);
+                    transferText.innerText = `${tMaps('Required item')}:`;
+                    const itemName = `${extract.transferItem.item.name}${itemCount}`;
+                    const itemImage = L.DomUtil.create('img', 'popup-item');
+                    itemImage.setAttribute('src', `${extract.transferItem.item.baseImageLink}`);
+                    const itemLink = getReactLink(`/item/${extract.transferItem.item.normalizedName}`, itemImage);
+                    itemLink.setAttribute('title', itemName);
+                    itemLink.append(itemName);
+                    popup.append(itemLink);
+                }
+
+                if (popup || showElevation) {
+                    popup ??= L.DomUtil.create('div');
                     addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }

@@ -5,7 +5,22 @@ import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckBold, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiPlay } from '@mdi/js';
+import { 
+    mdiClipboardCheck,
+    mdiClipboardList,
+    mdiClipboardRemove,
+    mdiBriefcase,
+    mdiCheckboxBlankOutline,
+    mdiCheckBold,
+    mdiCheckboxOutline,
+    mdiChevronRight,
+    mdiCloseThick,
+    mdiFormatListCheckbox,
+    mdiGift,
+    mdiKeyVariant,
+    mdiLighthouse,
+    mdiPlay
+} from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
@@ -186,6 +201,32 @@ function Quest() {
         );
     }, [currentQuest, settings, t]);
 
+    const taskStatusIcon = useMemo(() => {
+        if (!currentQuest || !settings.completedQuests.includes(currentQuest.id)) {
+            return '';
+        }
+        let iconPath = mdiClipboardCheck;
+        let iconTitle = t('Completed');
+        if (settings.failedQuests.includes(currentQuest.id)) {
+            iconPath = mdiClipboardRemove;
+            iconTitle = t('Failed');
+        }
+        return (
+            <Tooltip
+                key={`${currentQuest.id}-status-icon`}
+                title={iconTitle}
+                placement={'top'}
+                arrow
+            >
+                <Icon
+                    path={iconPath}
+                    size={0.75}
+                    className="icon-with-text"
+                />
+            </Tooltip>
+        );
+    }, [currentQuest, settings, t]);
+
     const questRequirementProperties = useMemo(() => {
         const props = {};
         if (!currentQuest) {
@@ -305,7 +346,9 @@ function Quest() {
                     failNote = t('(on failure)');
                 }
                 let taskIcon = mdiClipboardList;
-                if (settings.completedQuests.includes(task.id)) {
+                if (settings.failedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardRemove;
+                } else if (settings.completedQuests.includes(task.id)) {
                     taskIcon = mdiClipboardCheck;
                 }
                 return (
@@ -864,10 +907,16 @@ function Quest() {
             const task = quests.find((q) => q.id === objective.task.id);
             if (!task)
                 return null;
+            let taskIcon = mdiClipboardList;
+            if (settings.failedQuests.includes(task.id)) {
+                taskIcon = mdiClipboardRemove;
+            } else if (settings.completedQuests.includes(task.id)) {
+                taskIcon = mdiClipboardCheck;
+            }
             taskDetails = (
                 <>
                     <Icon
-                        path={mdiClipboardList}
+                        path={taskIcon}
                         size={1}
                         className="icon-with-text"
                     />
@@ -1154,7 +1203,7 @@ function Quest() {
                     </div>
                     <div className="title-bar">
                       <span className="type">{t('Task')}</span>
-                      <h1>{currentQuest.name} {completedIcon}{endgameGoals}</h1>
+                      <h1>{currentQuest.name} {taskStatusIcon}{endgameGoals}</h1>
 
                       {currentQuest.wikiLink &&
                         <span className="wiki-link-wrapper">
