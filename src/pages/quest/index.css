@@ -44,10 +44,15 @@ ul.quest-item-list li {
   margin-top: 0px;
 }
 .entity-top-content .related-quests {
-  width: 33%;
+  width: 50%;
   float: left;
   /*padding: 20px;
   border: 2px solid red;*/
+}
+
+.entity-top-content div.related-quests:first-child:nth-last-child(3),
+.entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+    width: 33%;
 }
 
 .class-status-list svg.icon-with-text {
@@ -61,13 +66,15 @@ ul.quest-item-list li {
 }
 
 @media screen and (max-width: 960px) {
-    .entity-top-content .related-quests {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
         width: 33%;
     }
 }
 
 @media screen and (max-width: 750px) {
-    .entity-top-content .related-quests {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
         width: 50%;
     }
 }
