@@ -110,19 +110,6 @@
 .entity-top-content .main-content p.entity-details h3 {
   margin-top: 0;
 }
-.entity-top-content .task-connections {
-  /*border: 3px solid #fff;*/
-  padding: 0px 20px 5px;
-}
-.task-connections h3 {
-  margin-top: 0px;
-}
-.entity-top-content .related-quests {
-  width: 50%;
-  float: left;
-  /*padding: 20px;
-  border: 2px solid red;*/
-}
 
 
 @media screen and (max-width: 960px){

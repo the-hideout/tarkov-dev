@@ -86,8 +86,6 @@
     "Search item...": "Item suchen...",
     "Search task...": "Aufgaben suchen...",
     "Tasks": "Aufgaben",
-    "Task, item or container...": "Aufgaben, items, oder Container...",
-    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Unterstützt Multisuche (e.g. 'labs, ledx, bitcoin')",
     "Items": "Gegenstände",
     "No hideout modules requires this item": "Keine Unterschlupf Station benötigt diesen Gegenstand",
     "No unbuilt hideout modules for selected filters but some were hidden by ": "keine ungebauten Unterschlupf Stationen für die selektierten Filter aber versteckt bei ",
@@ -443,7 +441,6 @@
     "Include Marked": "Beziehe Makierte ein",
     "Group by type": "Gruppiere bei Typ",
     "min value": "Mindestwert",
-    "Only show markers for active tasks": "Only show markers for active tasks",
     "Map of {{mapName}}": "Map of {{mapName}}",
     "maps-page-description": "Erhalte die aktuellsten Informationen über Karten in Escape from Tarkov, inklusive Ausgängen und Loot Fundorten. Finde heraus wo es die besten Gegenstände gibt.",
     "maps-page-p": "<0>Es gibt 11 unterschiedliche Standorte auf der Escape from Tarkov Karte, wovon 10 bis jetzt veröffentlicht wurden. Obwohl alle Standorte letztlich verbunden sein werden, sind sie im Moment voneinander getrennt.</0>",
@@ -606,5 +603,7 @@
     "wipe-length-description": "Erhalte aktuelle Informationen über die durchschnittliche Wipe-Länge in Escape from Tarkov. Finde heraus wie lange diese durchschnittlich dauern und bereite dich auf den nächsten vor",
     "Average Wipe Length among last 6 wipes:": "Durchschnittliche Wipe-Länge der letzten 6 Monate:",
     "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
-    "I understand": "I understand"
+    "I understand": "I understand",
+    "Other Options": "Other Options",
+    "This task {{taskStatus}}": "This task {{taskStatus}}"
 }

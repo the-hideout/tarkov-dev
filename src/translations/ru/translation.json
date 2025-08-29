@@ -620,5 +620,7 @@
     "wipe-length-description": "Получите последнюю информацию о средней продолжительности вайпа в Escape from Tarkov. Узнайте, сколько времени обычно длится вайп, и подготовьтесь к следующему вайпу.",
     "Average Wipe Length among last 6 wipes:": "Средняя продолжительность вайпа за последние 6 вайпов:",
     "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
-    "I understand": "I understand"
+    "I understand": "I understand",
+    "Other Options": "Other Options",
+    "This task {{taskStatus}}": "This task {{taskStatus}}"
 }

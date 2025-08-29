@@ -72,6 +72,14 @@ class MapsQuery extends APIQuery {
                         id
                         name
                     }
+                    transferItem {
+                        item {
+                            name
+                            normalizedName
+                            baseImageLink
+                        }
+                        count
+                    }
                 }
                 transits {
                     id

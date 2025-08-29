@@ -38,7 +38,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             return completedTasks;
         }, []);
         returnData.questsFailed = progressData.tasksProgress.reduce((failedTasks, current) => {
-            if (current.invalid) {
+            if (current.invalid || current.failed) {
                 failedTasks.push(current.id);
             }
             return failedTasks;

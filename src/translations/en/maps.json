@@ -44,5 +44,11 @@
     "Misc": "Misc",
     "openworld-name": "Openworld",
     "openworld-description": "This is an imagination of what the full map of Tarkov could look like. This open world map would likely include all of the key locations from the existing maps combined in a huge single map.",
-    "Transit": "Transit"
+    "Transit": "Transit",
+    "Task, item or container...": "Task, item or container...",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",
+    "Only show markers for active tasks": "Only show markers for active tasks",
+    "Don't collapse layers control": "Don't collapse layers control",
+    "Use TarkovMonitor to show your position": "Use TarkovMonitor to show your position",
+    "Required item": "Required item"
 }
