@@ -1086,20 +1086,22 @@ function Map() {
                     else {
                         spawnType = 'boss';
                     }
-                } else if (spawn.categories.includes('sniper')) {
-                    spawnType = 'sniper_scav';
-                } else if (spawn.sides.includes('scav')) {
-                    if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
-                        spawnType = 'scav';
+                }
+                else if (spawn.categories.includes('player')) {
+                    if (spawn.sides.includes('pmc') || spawn.sides.includes('all')) {
+                        spawnType = 'pmc'
                     }
                     else {
                         //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
                         continue;
                     }
-                } 
-                else if (spawn.categories.includes('player')) {
-                    if (spawn.sides.includes('pmc') || spawn.sides.includes('all')) {
-                        spawnType = 'pmc'
+                }
+                else if (spawn.categories.includes('sniper')) {
+                    spawnType = 'sniper_scav';
+                }
+                else if (spawn.sides.includes('scav')) {
+                    if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
+                        spawnType = 'scav';
                     }
                     else {
                         //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
