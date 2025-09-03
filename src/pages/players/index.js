@@ -151,7 +151,7 @@ function Players() {
                     label={t('Game mode')}
                     placeholder={t(`game_mode_${defaultGameMode}`)}
                     defaultValue={defaultGameMode}
-                    options={gameModes.filter(m => m !== 'pve').map(m => {
+                    options={gameModes.map(m => {
                         return {
                             label: t(`game_mode_${m}`),
                             value: m,
