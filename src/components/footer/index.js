@@ -75,7 +75,7 @@ function Footer() {
                 <p>
                     {t('Map marker icons by')}{' '}
                     <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki" target="_blank" rel="noopener noreferrer">
-                        <span>The Official Escape From Tarkov Wiki</span>
+                        <span>{t('The Official Escape From Tarkov Wiki')}</span>
                     </a>
                 </p>
             </div>
