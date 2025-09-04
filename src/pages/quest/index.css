@@ -20,23 +20,6 @@ ul.quest-item-list li {
     color: var(--color-gold-two)
 }
 
-
-.quest-page-wrapper {
-    margin: 0 auto 100px auto;
-    max-width: 1200px;
-    padding-top: 10px;
-    position: relative;
-}
-
-.quest-page-wrapper h2 {
-    margin-top: 40px;
-    font-size: 24px;
-}
-
-.quest-information-grid h1 {
-    display: block;
-}
-
 .quest-font {
     font-size: 36px;
     font-weight: bold;
@@ -47,27 +30,34 @@ ul.quest-item-list li {
     height: 64px;
 }
 
-.quest-information-grid h1,
-.quest-icon-and-link-wrapper {
-    margin: 0 0 10px 0;
-}
-
-.quest-icon-and-link-wrapper {
-    align-items: flex-start;
-    display: none;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    flex-grow: 1;
-}
-
-.quest-icon-and-link-wrapper img {
-    max-height: 50px;
-}
-
 .objective-details {
     margin-left: 20px;
     padding: 10px;
     background-color: rgba(0, 0, 0, .25);
+}
+
+.entity-top-content .task-connections {
+  /*border: 3px solid #fff;*/
+  padding: 0px 20px 5px;
+}
+.task-connections h3 {
+  margin-top: 0px;
+}
+.entity-top-content .related-quests {
+  width: 50%;
+  float: left;
+  /*padding: 20px;
+  border: 2px solid red;*/
+}
+
+.entity-top-content div.related-quests:first-child:nth-last-child(3),
+.entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+    width: 33%;
+}
+
+.class-status-list svg.icon-with-text {
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
 .related-quests {
@@ -75,29 +65,16 @@ ul.quest-item-list li {
     overflow-y: scroll;
 }
 
-@media screen and (min-width: 800px) {
-    .quest-page-wrapper {
-        padding-top: 20px;
+@media screen and (max-width: 960px) {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+        width: 33%;
     }
+}
 
-    .quest-information-grid {
-        display: flex;
-    }
-
-    .quest-information-grid h1 img {
-        display: none;
-    }
-
-    .quest-information-grid h1,
-    .quest-icon-and-link-wrapper {
-        margin: 0 0;
-    }
-
-    .quest-icon-and-link-wrapper {
-        display: flex;
-    }
-
-    .quest-icon-and-link-wrapper img {
-        max-height: 200px;
+@media screen and (max-width: 750px) {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+        width: 50%;
     }
 }

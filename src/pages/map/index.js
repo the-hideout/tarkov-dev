@@ -289,6 +289,7 @@ function Map() {
             hiddenLayers: [],
             collapsedGroups: [],
             showOnlyActiveTasks: false,
+            expandMapLegend: false,
         },
     );
 
@@ -393,7 +394,7 @@ function Map() {
 
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
-            collapsed: true,
+            collapsed: !mapSettingsRef.current.expandMapLegend,
             groupCheckboxes: true,
             groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
@@ -485,15 +486,27 @@ function Map() {
         map.settingsControl = L.control.mapSettings({
             hidden: false,
             position: 'bottomright',
-            checked: mapSettingsRef.current.showOnlyActiveTasks,
-            activeTasksLabel: t('Only show markers for active tasks'),
-            playerLocationLabel: t('Use TarkovMonitor to show your position'),
-            settingChanged: (settingName, settingValue) => {
-                mapSettingsRef.current[settingName] = settingValue;
-                updateSavedMapSettings();
-            },
+            activeTasksChecked: mapSettingsRef.current.showOnlyActiveTasks,
+            activeTasksLabel: tMaps('Only show markers for active tasks'),
+            expandMapLegendChecked: mapSettingsRef.current.expandMapLegend,
+            expandMapLegendLabel: tMaps('Don\'t collapse layers control'),
+            playerLocationLabel: tMaps('Use TarkovMonitor to show your position'),
             collapsed: true,
         }).addTo(map);
+        map.settingsControl.on('settingChanged', (e) => {
+            if (e.settingName === 'showOnlyActiveTasks') {
+                if (e.settingValue) {
+                    map._container.classList.add('only-active-quest-markers');
+                } else {
+                    map._container.classList.remove('only-active-quest-markers');
+                }
+            }
+            if (e.settingName === 'expandMapLegend') {
+                layerControl.setCollapse(!e.settingValue);
+            }
+            mapSettingsRef.current[e.settingName] = e.settingValue;
+            updateSavedMapSettings();
+        });
 
         map.raidInfoControl = L.control.raidInfo({
             position: 'topright',
@@ -503,8 +516,8 @@ function Map() {
         }).addTo(map);
 
         map.searchControl = L.control.mapSearch({
-            placeholderText: t('Task, item or container...'),
-            descriptionText: t("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
+            placeholderText: tMaps('Task, item or container...'),
+            descriptionText: tMaps("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
             collapsed: true,
         }).addTo(map);
 
@@ -1073,20 +1086,22 @@ function Map() {
                     else {
                         spawnType = 'boss';
                     }
-                } else if (spawn.categories.includes('sniper')) {
-                    spawnType = 'sniper_scav';
-                } else if (spawn.sides.includes('scav')) {
-                    if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
-                        spawnType = 'scav';
+                }
+                else if (spawn.categories.includes('player')) {
+                    if (spawn.sides.includes('pmc') || spawn.sides.includes('all')) {
+                        spawnType = 'pmc'
                     }
                     else {
                         //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
                         continue;
                     }
-                } 
-                else if (spawn.categories.includes('player')) {
-                    if (spawn.sides.includes('pmc') || spawn.sides.includes('all')) {
-                        spawnType = 'pmc'
+                }
+                else if (spawn.categories.includes('sniper')) {
+                    spawnType = 'sniper_scav';
+                }
+                else if (spawn.sides.includes('scav')) {
+                    if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
+                        spawnType = 'scav';
                     }
                     else {
                         //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
@@ -1199,8 +1214,9 @@ function Map() {
                 extractMarker.on('mouseover', mouseHoverOutline);
                 extractMarker.on('mouseout', mouseHoverOutline);
                 extractMarker.on('click', toggleForceOutline);
+                let popup;
                 if (extract.switches?.length > 0) {
-                    const popup = L.DomUtil.create('div');
+                    popup ??= L.DomUtil.create('div');
                     const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
@@ -1211,10 +1227,26 @@ function Map() {
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
                     }
-                    addElevation(extract, popup);
-                    extractMarker.bindPopup(L.popup().setContent(popup));
-                } else if (showElevation) {
-                    const popup = L.DomUtil.create('div');
+                }
+                if (extract.transferItem) {
+                    popup ??= L.DomUtil.create('div');
+                    let itemCount = '';
+                    if (extract.transferItem.count > 1) {
+                        itemCount = ` x ${extract.transferItem.count.toLocaleString()}`
+                    }
+                    const transferText = L.DomUtil.create('div', undefined, popup);
+                    transferText.innerText = `${tMaps('Required item')}:`;
+                    const itemName = `${extract.transferItem.item.name}${itemCount}`;
+                    const itemImage = L.DomUtil.create('img', 'popup-item');
+                    itemImage.setAttribute('src', `${extract.transferItem.item.baseImageLink}`);
+                    const itemLink = getReactLink(`/item/${extract.transferItem.item.normalizedName}`, itemImage);
+                    itemLink.setAttribute('title', itemName);
+                    itemLink.append(itemName);
+                    popup.append(itemLink);
+                }
+
+                if (popup || showElevation) {
+                    popup ??= L.DomUtil.create('div');
                     addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }
