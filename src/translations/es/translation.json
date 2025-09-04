@@ -609,5 +609,6 @@
     "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
     "I understand": "I understand",
     "Other Options": "Other Options",
-    "This task {{taskStatus}}": "This task {{taskStatus}}"
+    "This task {{taskStatus}}": "This task {{taskStatus}}",
+    "Slots per kg": "Slots per kg"
 }
