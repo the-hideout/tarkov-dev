@@ -166,14 +166,7 @@ L.Control.GroupedLayers = L.Control.extend({
         var form = this._form = L.DomUtil.create('form', className + '-list');
     
         if (collapsed) {
-            this._map.on('click', this._collapse, this);  
-    
-            if (!L.Browser.android) {
-                L.DomEvent.on(container, {
-                    mouseenter: this._expand,
-                    mouseleave: this._collapse
-                }, this);
-            }
+            this.addCollapseListeners();
         }
     
         var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
@@ -623,6 +616,36 @@ L.Control.GroupedLayers = L.Control.extend({
     off: (eventName, handler, options) => {
         controlContainer.removeEventListener(eventName, handler, options);
     },
+    addCollapseListeners: function () {
+        this._map.on('click', this._collapse, this);  
+    
+        if (!L.Browser.android) {
+            L.DomEvent.on(this._container, {
+                mouseenter: this._expand,
+                mouseleave: this._collapse
+            }, this);
+        }
+    },
+    removeCollapseListeners: function () {
+        this._map.off('click', this._collapse, this);  
+    
+        if (!L.Browser.android) {
+            L.DomEvent.off(this._container, {
+                mouseenter: this._expand,
+                mouseleave: this._collapse
+            }, this);
+        }
+    },
+    setCollapse: function (collapsed) {
+        this.options.collapsed = collapsed;
+        if (collapsed) {
+            this.addCollapseListeners();
+            this._collapse();
+        } else {
+            this.removeCollapseListeners();
+            this._expand();
+        }
+    }
 });
   
 L.control.groupedLayers = function (baseLayers, groupedOverlays, options) {

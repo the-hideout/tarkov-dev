@@ -613,5 +613,7 @@
     "wipe-length-description": "Ottieni le ultime informazioni sulla durata media dei wipe in Escape from Tarkov. Scoprite quanto durano in genere i wipe e preparatevi per il prossimo wipe.",
     "Average Wipe Length among last 6 wipes:": "Lunghezza media degli ultimi 6 wipe:",
     "cookie-consent": "tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.",
-    "I understand": "I understand"
+    "I understand": "I understand",
+    "Other Options": "Other Options",
+    "This task {{taskStatus}}": "This task {{taskStatus}}"
 }

@@ -576,7 +576,14 @@ function Player() {
                 id: 'skill',
                 accessor: 'skill',
                 Cell: (props) => {
-                    return props.value;
+                    let image = <></>;
+                    if (props.row.original.imageLink) {
+                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />
+                    }
+                    return <div style={{display: 'flex', alignItems: 'center'}}>
+                        {image}
+                        <span>{props.value}</span>
+                    </div>
                 },
             },
             {
@@ -615,6 +622,8 @@ function Player() {
             const skill = metaData.skills.find(skill => skill.id === s.Id);
             return {
                 skill: skill?.name || s.Id,
+                id: s.Id,
+                imageLink: skill.imageLink,
                 progress: s.Progress,
                 lastAccess: s.LastAccess,
             }
