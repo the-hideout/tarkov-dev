@@ -234,6 +234,7 @@ function SmallItemTable(props) {
         handbookCategoryFilter,
         showContainedItems,
         weight,
+        slotsPerWeight,
         showNetPPS,
         showAllSources = false,
         cheapestPrice,
@@ -1474,6 +1475,22 @@ function SmallItemTable(props) {
             });
         }
 
+        if (slotsPerWeight) {
+            useColumns.push({
+                Header: t('Slots per kg'),
+                id: 'slotsPerWeight',
+                accessor: (d) => {
+                    const ratio = d.size / d.weight;
+                    return ratio.toFixed(2);
+                },
+                sortType: (a, b) => {
+                    return (a.values.innerSize / a.values.weight) - (b.values.innerSize / b.values.weight);
+                },
+                Cell: CenterCell,
+                position: slotsPerWeight,
+            });
+        }
+
         if (stats) {
             useColumns.push({
                 Header: (
@@ -2040,6 +2057,7 @@ function SmallItemTable(props) {
         stats,
         showContainedItems,
         weight,
+        slotsPerWeight,
         caliber,
         damage,
         penetrationPower,
