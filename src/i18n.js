@@ -17,6 +17,7 @@ import propertiesEN from './translations/en/properties.json';
 import propertiesDE from './translations/de/properties.json';
 import propertiesRU from './translations/ru/properties.json';
 import propertiesIT from './translations/it/properties.json';
+import propertiesFR from './translations/fr/properties.json';
 import propertiesES from './translations/es/properties.json';
 import propertiesJA from './translations/ja/properties.json';
 import propertiesPL from './translations/pl/properties.json';
@@ -26,6 +27,7 @@ import bossesEN from './translations/en/bosses.json';
 import bossesDE from './translations/de/bosses.json';
 import bossesRU from './translations/ru/bosses.json';
 import bossesIT from './translations/it/bosses.json';
+import bossesFR from './translations/fr/bosses.json';
 import bossesES from './translations/es/bosses.json';
 import bossesJA from './translations/ja/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
@@ -35,6 +37,7 @@ import mapsEN from './translations/en/maps.json';
 import mapsDE from './translations/de/maps.json';
 import mapsRU from './translations/ru/maps.json';
 import mapsIT from './translations/it/maps.json';
+import mapsFR from './translations/fr/maps.json';
 import mapsES from './translations/es/maps.json';
 import mapsJA from './translations/ja/maps.json';
 import mapsPL from './translations/pl/maps.json';
@@ -102,6 +105,9 @@ i18n
             },
             fr: {
                 translation: translationFR,
+                properties: propertiesFR,
+                bosses: bossesFR,
+                maps: mapsFR,
             },
             ja: {
                 translation: translationJA,
