@@ -1,11 +1,30 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
 
 import { Icon } from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiCheckboxBlankOutline, mdiCheckBold, mdiCheckboxOutline, mdiChevronRight, mdiCloseThick, mdiFormatListCheckbox, mdiGift, mdiKeyVariant, mdiLighthouse, mdiPlay } from '@mdi/js';
+import { 
+    mdiCheck,
+    mdiClipboardCheck,
+    mdiClipboardList,
+    mdiClipboardPlay,
+    mdiClipboardRemove,
+    mdiClose,
+    mdiBriefcase,
+    mdiCheckboxBlankOutline,
+    mdiCheckBold,
+    mdiCheckboxOutline,
+    mdiChevronRight,
+    mdiCloseThick,
+    mdiFormatListCheckbox,
+    mdiGift,
+    mdiKeyVariant,
+    mdiLighthouse,
+    mdiPlay,
+    mdiSourceBranch,
+} from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
@@ -166,19 +185,29 @@ function Quest() {
         return '';
     }, [currentQuest, t]);
 
-    const completedIcon = useMemo(() => {
-        if (!currentQuest || !settings.completedQuests.includes(currentQuest.id)) {
+    const taskStatusIcon = useMemo(() => {
+        if (!currentQuest || (!settings.completedQuests.includes(currentQuest.id) && !currentQuest.active)) {
             return '';
+        }
+        let iconPath = mdiClipboardCheck;
+        let iconTitle = t('Completed');
+        if (settings.failedQuests.includes(currentQuest.id)) {
+            iconPath = mdiClipboardRemove;
+            iconTitle = t('Failed');
+        }
+        if (currentQuest.active) {
+            iconPath = mdiClipboardPlay;
+            iconTitle = t('Active');
         }
         return (
             <Tooltip
-                key={`${currentQuest.id}-completed`}
-                title={t('Completed')}
+                key={`${currentQuest.id}-status-icon`}
+                title={iconTitle}
                 placement={'top'}
                 arrow
             >
                 <Icon
-                    path={mdiClipboardCheck}
+                    path={iconPath}
                     size={0.75}
                     className="icon-with-text"
                 />
@@ -246,6 +275,17 @@ function Quest() {
         return props;
     }, [currentQuest, traders, t]);
 
+    const getTaskStatusIcon = useCallback((status, options = {}) => {
+        const questStatusIconMap = {
+            active: mdiPlay,
+            complete: mdiCheck,
+            failed: mdiClose,
+        };
+        return <Tooltip title={options.tooltip ?? t(status)} key={options.key ?? `task-status-${status}`} arrow>
+            <Icon path={questStatusIconMap[status]} size={options.size ?? 0.75} className="icon-with-text"/>
+        </Tooltip>
+    }, [t]);
+
     const previousTasks = useMemo(() => {
         if (!currentQuest?.taskRequirements?.length > 0) {
             return '';
@@ -261,10 +301,12 @@ function Quest() {
                     let taskIcon = mdiClipboardList;
                     if (taskReq.status.includes('complete') && settings.completedQuests.includes(task.id)) {
                         taskIcon = mdiClipboardCheck;
+                    } else if (task.active) {
+                        taskIcon = mdiClipboardPlay;
                     }
-                    let taskStatuses = '';
+                    let taskStatuses = [];
                     if (taskReq.status.length > 1 || taskReq.status[0] !== 'complete') {
-                        taskStatuses = ` (${taskReq.status.map((taskStatus) => t(taskStatus)).join(', ')})`;
+                        taskStatuses = taskReq.status.map((s, i) => getTaskStatusIcon(s));
                     }
                     return (
                         <div key={`req-task-${task.id}`}>
@@ -274,13 +316,13 @@ function Quest() {
                                 className="icon-with-text"
                             />
                             <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
-                            {taskStatuses}
+                            <span className="class-status-list">{taskStatuses}</span>
                         </div>
                     );
                 })}
             </div>
         );
-    }, [currentQuest, quests, settings, t]);
+    }, [currentQuest, quests, settings, t, getTaskStatusIcon]);
 
     const nextTasks = useMemo(() => {
         if (!currentQuest) {
@@ -294,19 +336,23 @@ function Quest() {
         if (nextQuests.length === 0) {
             return '';
         }
-        return <div className="related-quests">
+        return <div className="related-quests" key="next-tasks">
             <h3><Icon path={mdiChevronRight} size={1} className="icon-with-text" /> {t('Leads to')}</h3>
             {nextQuests.map((task) => {
-                let failNote = '';
                 let status = task.taskRequirements.find(
                     (req) => req.task.id === currentQuest.id,
                 ).status;
-                if (status.length === 1 && status[0] === 'failed') {
-                    failNote = t('(on failure)');
+                let taskStatuses = [];
+                if (status.length > 1 || status[0] !== 'complete') {
+                    taskStatuses = status.map((s) => getTaskStatusIcon(s, {tooltip: t('This task {{taskStatus}}', {taskStatus: t(s)})}));
                 }
                 let taskIcon = mdiClipboardList;
-                if (settings.completedQuests.includes(task.id)) {
+                if (settings.failedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardRemove;
+                } else if (settings.completedQuests.includes(task.id)) {
                     taskIcon = mdiClipboardCheck;
+                } else if (task.active) {
+                    taskIcon = mdiClipboardPlay;
                 }
                 return (
                     <div key={`req-task-${task.id}`}>
@@ -316,7 +362,44 @@ function Quest() {
                             className="icon-with-text"
                         />
                         <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
-                        {failNote}
+                        <span className="class-status-list">{taskStatuses}</span>
+                    </div>
+                );
+            })}
+        </div>
+    }, [currentQuest, quests, settings, t, getTaskStatusIcon]);
+
+    const alternateTasks = useMemo(() => {
+        if (!currentQuest) {
+            return '';
+        }
+        const altQuests = quests.filter(q => currentQuest.failConditions.some((objective) => 
+            objective.type === 'taskStatus' && 
+            objective.task.id === q.id &&
+            objective.status.includes('complete')
+        ));
+        if (altQuests.length === 0) {
+            return '';
+        }
+        return <div className="related-quests" key="alternate-quests">
+            <h3><Icon path={mdiSourceBranch} size={1} className="icon-with-text" /> {t('Other Options')}</h3>
+            {altQuests.map((task) => {
+                let taskIcon = mdiClipboardList;
+                if (settings.failedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardRemove;
+                } else if (settings.completedQuests.includes(task.id)) {
+                    taskIcon = mdiClipboardCheck;
+                } else if (task.active) {
+                    taskIcon = mdiClipboardPlay;
+                }
+                return (
+                    <div key={`req-task-${task.id}`}>
+                        <Icon
+                            path={taskIcon}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                        <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                     </div>
                 );
             })}
@@ -864,10 +947,18 @@ function Quest() {
             const task = quests.find((q) => q.id === objective.task.id);
             if (!task)
                 return null;
+            let taskIcon = mdiClipboardList;
+            if (settings.failedQuests.includes(task.id)) {
+                taskIcon = mdiClipboardRemove;
+            } else if (settings.completedQuests.includes(task.id)) {
+                taskIcon = mdiClipboardCheck;
+            } else if (task.active) {
+                taskIcon = mdiClipboardPlay;
+            }
             taskDetails = (
                 <>
                     <Icon
-                        path={mdiClipboardList}
+                        path={taskIcon}
                         size={1}
                         className="icon-with-text"
                     />
@@ -1154,7 +1245,7 @@ function Quest() {
                     </div>
                     <div className="title-bar">
                       <span className="type">{t('Task')}</span>
-                      <h1>{currentQuest.name} {completedIcon}{endgameGoals}</h1>
+                      <h1>{currentQuest.name} {taskStatusIcon}{endgameGoals}</h1>
 
                       {currentQuest.wikiLink &&
                         <span className="wiki-link-wrapper">
@@ -1173,6 +1264,7 @@ function Quest() {
                     <div className="task-connections">
                         {previousTasks}
                         {nextTasks}
+                        {alternateTasks}
                     </div>
                   </div>
                   <div className="entity-icon-cont">
