@@ -33,7 +33,7 @@ To build and test the site locally just follow the steps below:
 > Note: You can update data with: `npm run prebuild`
 
 ## VS Code Dev Container
-1. Open VS Code command pallete:
+1. Open VS Code command pallet:
     ```
     cmd + shift + p / ctrl + shift + p
     ```

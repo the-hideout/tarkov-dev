@@ -387,7 +387,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
             {
-                Header: t('Duration') + '\n' + t('Finishes'),
+                Header: t('Crafting Duration') + '\n' + t('Finishes'),
                 id: 'craftTime',
                 accessor: 'craftTime',
                 sortType: 'basic',
