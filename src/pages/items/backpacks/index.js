@@ -56,8 +56,9 @@ function Backpacks() {
                 grid={1}
                 innerSize={2}
                 weight={3}
-                cheapestPrice={4}
-                pricePerSlot={5}
+                slotsPerWeight={4}
+                cheapestPrice={5}
+                pricePerSlot={6}
                 sortBy='pricePerSlot'
             />
             
