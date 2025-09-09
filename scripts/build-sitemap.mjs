@@ -141,7 +141,7 @@ async function build_sitemap() {
     }
 
     const itemHandbookCategories = await graphqlRequest('{handbookCategories{normalizedName}}');
-    for (const itemCategory of itemCategories.data.handbookCategories) {
+    for (const itemCategory of itemHandbookCategories.data.handbookCategories) {
         sitemap = addPath(sitemap, `/items/handbook/${itemCategory.normalizedName}`);
     }
 
