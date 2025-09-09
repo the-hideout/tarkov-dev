@@ -38,6 +38,14 @@ function Quests() {
         'hideLockedTasks',
         false,
     );
+    const [hideNonKappa, setHideNonKappa] = useStateWithLocalStorage(
+        'hideNonKappaTasks',
+        false,
+    );
+    const [hideNonLK, setHideNonLK] = useStateWithLocalStorage(
+        'hideNonLKTasks',
+        false,
+    );
 
     const { data: allTraders } = useTradersData();
     const { data: quests } = useQuestsData();
@@ -78,6 +86,26 @@ function Quests() {
                         tooltipContent={
                             <>
                                 {t('Hides locked tasks')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
+                        checked={hideNonKappa}
+                        label={t('Kappa')}
+                        onChange={(e) => setHideNonKappa(!hideNonKappa)}
+                        tooltipContent={
+                            <>
+                                {t('Required for Kappa')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
+                        checked={hideNonLK}
+                        label={t('Lightkeeper')}
+                        onChange={(e) => setHideNonLK(!hideNonLK)}
+                        tooltipContent={
+                            <>
+                                {t('Required for Lightkeeper')}
                             </>
                         }
                     />
@@ -130,6 +158,8 @@ function Quests() {
             <QuestTable
                 hideCompleted={hideCompleted}
                 hideLocked={hideLocked}
+                hideNonKappa={hideNonKappa}
+                hideNonLK={hideNonLK}
                 giverFilter={selectedTrader}
                 nameFilter={nameFilter}
                 questRequirements={1}

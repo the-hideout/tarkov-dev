@@ -154,7 +154,7 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
                     }}
                     height={20}
                     width={40}
-                    defaultChecked={checked}
+                    checked={checked}
                     disabled={disabled}
                 />
             </label>
