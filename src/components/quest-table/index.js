@@ -155,6 +155,8 @@ function QuestTable({
     hideBorders,
     hideCompleted,
     hideLocked,
+    hideNonKappa,
+    hideNonLK,
     questRequirements,
     minimumLevel,
     minimumTraderLevel,
@@ -267,12 +269,24 @@ function QuestTable({
             }
 
             return completedPassed && lockedPassed;
+        }).filter(quest => {
+            if (!hideNonKappa) {
+                return true;
+            }
+            return quest.kappaRequired;
+        }).filter(quest => {
+            if (!hideNonLK) {
+                return true;
+            }
+            return quest.lightkeeperRequired;
         });
     }, [
         settings,
         allQuestData,
         hideCompleted,
         hideLocked,
+        hideNonKappa,
+        hideNonLK,
     ]);
 
     const columns = useMemo(() => {
@@ -526,6 +540,7 @@ function QuestTable({
                                         path={mdiBriefcase}
                                         size={0.75}
                                         className="icon-with-text"
+                                        color={hideNonKappa ? 'var(--color-green)' : undefined}
                                     />
                                 </Link>
                             </Tooltip>
@@ -543,6 +558,7 @@ function QuestTable({
                                         path={mdiLighthouse}
                                         size={0.75}
                                         className="icon-with-text"
+                                        color={hideNonLK ? 'var(--color-green)' : undefined}
                                     />
                                 </Link>
                             </Tooltip>
@@ -592,6 +608,8 @@ function QuestTable({
         rewardItems,
         reputationRewards,
         requiredForEndGame,
+        hideNonKappa,
+        hideNonLK,
     ]);
 
     let extraRow = false;
