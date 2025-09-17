@@ -49,6 +49,7 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     const hasFlea = useSelector((state) => state.settings[state?.settings?.gameMode ?? 'regular'].hasFlea);
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
         'includeMarked',
         false,
@@ -401,6 +402,18 @@ function LootTier(props) {
                     onChange={(e) => setGroupByType(!groupByType)}
                     checked={groupByType}
                 />
+                <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                 <SelectFilter
                     placeholder={t('Select...')}
                     defaultValue={filters.types?.map((filter) => {
