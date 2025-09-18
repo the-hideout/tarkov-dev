@@ -49,7 +49,10 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     const hasFlea = useSelector((state) => state.settings[state?.settings?.gameMode ?? 'regular'].hasFlea);
-    const [showAllItemSources, setShowAllItemSources] = useState(false);
+    const [ignoreFleaSetting, setIgnoreFleaSetting] = useStateWithLocalStorage(
+        'ignoreFleaSetting',
+        false,
+    );
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
         'includeMarked',
         false,
@@ -182,8 +185,12 @@ function LootTier(props) {
                     itemTypes = item.types.filter((type) => type !== 'wearable');
                 }
 
-
-                if (hasFlea && !item.types.includes('noFlea')) {
+                // Use flea market if: 
+                // 1. User has flea enabled AND ignore setting is off, OR
+                // 2. Ignore setting is on (regardless of user's flea setting)
+                const shouldUseFlea = (hasFlea && !ignoreFleaSetting) || ignoreFleaSetting;
+                
+                if (shouldUseFlea && !item.types.includes('noFlea')) {
                     const fleaFee = fleaMarketFee(item.basePrice, item.lastLowPrice);
                     const fleaPrice = item.lastLowPrice - fleaFee;
                     if (fleaPrice >= priceRUB) {
@@ -213,7 +220,7 @@ function LootTier(props) {
 
                 return true;
             });
-    }, [hasFlea, items]);
+    }, [hasFlea, items, ignoreFleaSetting]);
 
     const typeFilteredItems = useMemo(() => {
         const innerTypeFilteredItems = itemData.filter((item) => {
@@ -403,10 +410,10 @@ function LootTier(props) {
                     checked={groupByType}
                 />
                 <ToggleFilter
-                        checked={showAllItemSources}
+                        checked={ignoreFleaSetting}
                         label={t('Ignore settings')}
                         onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
+                            setIgnoreFleaSetting(!ignoreFleaSetting)
                         }
                         tooltipContent={
                             <>
