@@ -7,7 +7,7 @@ import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter } from '../../components/filter/index.js';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter, RangeFilter } from '../../components/filter/index.js';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
@@ -21,7 +21,7 @@ import './index.css';
 import { useSelector } from 'react-redux';
 import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
-const MAX_DAMAGE = 170;
+const MAX_DAMAGE = 260; // De-clutter right side of graph with the addition of the AK-50 rounds
 const MAX_PENETRATION = 70;
 
 const skipCalibers = [
@@ -82,6 +82,8 @@ function Ammo() {
     );
     const [minPen, setMinPen] = useState(searchParams.get('minp') ?? 0);
     const [minDam, setMinDam] = useState(searchParams.get('mind') ?? 0);
+    const [minPrice, setMinPrice] = useState(searchParams.get('minpr') ?? 0);
+    const [enablePriceFilter, setEnablePriceFilter] = useState(Boolean(searchParams.get('minpr')));
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
@@ -90,6 +92,7 @@ function Ammo() {
         const params = {
             minp: minPen,
             mind: minDam,
+            minpr: minPrice,
         };
         for (const paramName in filtervalues) {
             params[paramName] = filtervalues[paramName];
@@ -100,8 +103,11 @@ function Ammo() {
         if (params.mind === 0) {
             delete params.mind;
         }
+        if (params.minpr === 0) {
+            delete params.minpr;
+        }
         setSearchParams(params, { replace: true });
-    }, [setSearchParams, minPen, minDam]);
+    }, [setSearchParams, minPen, minDam, minPrice]);
 
     useEffect(() => {
         if (!currentAmmo || !currentAmmo.length) {
@@ -218,6 +224,16 @@ function Ammo() {
                     return true;
                 }
                 return ammo.properties.damage >= minDam;
+            }).filter(ammo => {
+                // Filter by cheapest available purchase price (trader or flea)
+                if (!enablePriceFilter || !minPrice) {
+                    return true;
+                }
+                const vendorPrices = (ammo.buyFor || []).map(b => b.priceRUB).filter(Boolean);
+                const fleaPrice = ammo.buyFor?.find(b => b.vendor.normalizedName === 'flea-market')?.priceRUB || 0;
+                const cheapest = vendorPrices.length > 0 ? Math.min(...vendorPrices) : fleaPrice;
+                if (minPrice && cheapest < minPrice) return false;
+                return true;
             })
             .map((ammo) => {
                 ammo.chartName = ammo.name
@@ -248,7 +264,7 @@ function Ammo() {
                 };
             });
         return returnData;
-    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, showOnlyTraderAmmo, allTraders]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, minPrice, enablePriceFilter, showOnlyTraderAmmo, allTraders]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -416,6 +432,43 @@ function Ammo() {
                     }}
                     track={'inverted'}
                 />
+                <ToggleFilter
+                    checked={enablePriceFilter}
+                    label={t('Enable price filter')}
+                    onChange={(e) => {
+                        const next = !enablePriceFilter;
+                        setEnablePriceFilter(next);
+                        if (!next) {
+                            setMinPrice(0);
+                            setPathFilters({ minpr: 0 });
+                        } else {
+                            setPathFilters({ minpr: minPrice });
+                        }
+                    }}
+                    tooltipContent={<>{t('Toggle price filtering on/off')}</>}
+                />
+                <SliderFilter
+                    value={minPrice}
+                    label={t('Min Price')}
+                    min={0}
+                    max={1000}
+                    marks={{
+                        0: 0,
+                        1000: '1000+',
+                    }}
+                    onChange={(event, min) => {
+                        setMinPrice(min);
+                        setPathFilters({
+                            minpr: min,
+                        });
+                    }}
+                    style={{
+                        marginRight: '10px',
+                    }}
+                    track={'inverted'}
+                    step={100}
+                    valueLabelDisplay={'auto'}
+                />
             </Filter>
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
@@ -428,6 +481,7 @@ function Ammo() {
                 showAllSources={showAllTraderPrices}
                 caliberFilter={selectedLegendName}
                 useAllProjectileDamage={useAllProjectileDamage}
+                minPrice={enablePriceFilter ? minPrice : 0}
                 caliber={1}
                 damage={2}
                 penetrationPower={3}

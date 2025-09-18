@@ -230,6 +230,7 @@ function SmallItemTable(props) {
         minPropertyFilter,
         maxPropertyFilter,
         maxPrice,
+        minPrice,
         bsgCategoryFilter,
         handbookCategoryFilter,
         showContainedItems,
@@ -628,6 +629,17 @@ function SmallItemTable(props) {
                 return formatItem(itemData);
             })
             .filter((item) => {
+                if (!minPrice) {
+                    return true;
+                }
+
+                if (item.cheapestObtainPrice < minPrice) {
+                    return false;
+                }
+
+                return true;
+            })
+            .filter((item) => {
                 if (!maxPrice) {
                     return true;
                 }
@@ -920,6 +932,7 @@ function SmallItemTable(props) {
         minPropertyFilter,
         maxPropertyFilter,
         maxPrice,
+        minPrice,
         bsgCategoryFilter,
         handbookCategoryFilter,
         showNetPPS,
