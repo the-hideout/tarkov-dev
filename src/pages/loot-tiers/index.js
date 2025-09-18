@@ -186,9 +186,9 @@ function LootTier(props) {
                 }
 
                 // Use flea market if: 
-                // 1. User has flea enabled AND ignore setting is off, OR
+                // 1. User has flea enabled 
                 // 2. Ignore setting is on (regardless of user's flea setting)
-                const shouldUseFlea = (hasFlea && !ignoreFleaSetting) || ignoreFleaSetting;
+                const shouldUseFlea = hasFlea || ignoreFleaSetting;
                 
                 if (shouldUseFlea && !item.types.includes('noFlea')) {
                     const fleaFee = fleaMarketFee(item.basePrice, item.lastLowPrice);
