@@ -108,7 +108,7 @@ function Ammo() {
         if (params.mind === 0) {
             delete params.mind;
         }
-        if (params.maxpr === MAX_PRICE_CEILING) {
+        if (params.maxpr >= MAX_PRICE_CEILING) {
             delete params.maxpr;
         }
         setSearchParams(params, { replace: true });
@@ -231,7 +231,7 @@ function Ammo() {
                 return ammo.properties.damage >= minDam;
             }).filter(ammo => {
                 // Filter by cheapest available purchase price (trader or flea)
-                if (!maxPrice || maxPrice === MAX_PRICE_CEILING) {
+                if (!maxPrice || maxPrice >= MAX_PRICE_CEILING) {
                     return true;
                 }
                 const vendorPrices = (ammo.buyFor || []).map(b => b.priceRUB).filter(Boolean);
