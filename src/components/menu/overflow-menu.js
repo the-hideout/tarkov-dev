@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from '@mui/material';
 import { Icon } from '@mdi/react';
@@ -9,15 +9,52 @@ import classnames from 'classnames';
 export default function OverflowMenu({ children, className, visibilityMap }) {
     const { t } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
-    const [mouseEntered, setMouseEntered] = useState(false);
     const open = Boolean(anchorEl);
+    const triggerRef = useRef(null);
+    const menuRef = useRef(null);
+
+    useEffect(() => {
+        if (!open) return undefined;
+
+        const onPointerMove = (e) => {
+            try {
+                const pt = { x: e.clientX, y: e.clientY };
+                const triggerNode = triggerRef.current;
+                const menuNode = menuRef.current; // MenuList node captured via MenuListProps.ref
+
+                const isInside = (node) => {
+                    if (!node) return false;
+                    const rect = node.getBoundingClientRect();
+                    return (
+                        pt.x >= rect.left &&
+                        pt.x <= rect.right &&
+                        pt.y >= rect.top &&
+                        pt.y <= rect.bottom
+                    );
+                };
+
+                if (!isInside(triggerNode) && !isInside(menuNode)) {
+                    handleClose();
+                }
+            } catch (err) {
+                // swallow any errors from node access
+            }
+        };
+
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerdown', onPointerMove);
+
+        return () => {
+            document.removeEventListener('pointermove', onPointerMove);
+            document.removeEventListener('pointerdown', onPointerMove);
+        };
+    }, [open]);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
-        setMouseEntered(false);
     };
 
     const handleItemClick = (event) => {
@@ -29,42 +66,35 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         [visibilityMap],
     );
 
-    className += ` ${shouldShowMenu ? 'visible-overflow visible-menu-all' : 'invisible-overflow'}`;
+    // ensure className is a string
+    className =
+        (className || '').trim() +
+        ` ${shouldShowMenu ? 'visible-overflow visible-menu-all' : 'invisible-overflow'}`;
     return (
-        <li className={className}>
-            <Link
-                alt={t('More')}
-                to="#"
-                onClick={handleClick}
-                onMouseEnter={handleClick}
-            >
+        <li className={className} ref={triggerRef}>
+            <Link alt={t('More')} to="#" onClick={handleClick} onMouseEnter={handleClick}>
                 <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
             </Link>
             <Menu
                 id="long-menu"
                 className="overflow-menu"
                 anchorEl={anchorEl}
-                //getContentAnchorEl={null}
                 keepMounted
                 open={open}
                 onClose={handleClose}
-                onMouseOver={(event) => {
-                    if (event.target.classList.contains('MuiList-padding')) {
-                        setMouseEntered(true);
-                    }
-                    if (
-                        mouseEntered &&
-                        event.target.nodeName === 'DIV' &&
-                        event.target.innerHTML === '' &&
-                        event.target.classList.length === 0 &&
-                        event.target.style.backgroundColor === 'transparent' &&
-                        event.target.parentElement.classList.contains('overflow-menu')
-                    ) {
-                        handleClose();
-                    }
+                // close the menu when the mouse leaves the menu list
+                MenuListProps={{
+                    onMouseLeave: handleClose,
+                    // don't autofocus items when opening via hover/click combination
+                    disableAutoFocusItem: true,
+                    ref: (node) => {
+                        // MenuList is wrapped; store the list node when available
+                        menuRef.current = node;
+                    },
                 }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                // Menu's own ref is not the list; MenuListProps.ref will capture list node
             >
                 {React.Children.map(children, (child) => {
                     if (!visibilityMap[child.props['data-targetid']]) {
