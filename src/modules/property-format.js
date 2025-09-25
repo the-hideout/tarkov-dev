@@ -130,7 +130,10 @@ const formatter = (key, value, id) => {
         value = value?.map(category => {
             if (ignoreCategories.includes(category.id)) return false;
             return itemCategoryLinkFormat(category);
-        }).filter(Boolean).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
+        }).filter(Boolean);
+        if (value.length > 0) {
+            value = value.reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
+        }
     }
 
     if (key === 'stimEffects') {
