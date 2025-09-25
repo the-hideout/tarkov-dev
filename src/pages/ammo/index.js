@@ -7,7 +7,7 @@ import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter, RangeFilter } from '../../components/filter/index.js';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter } from '../../components/filter/index.js';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
@@ -21,8 +21,14 @@ import './index.css';
 import { useSelector } from 'react-redux';
 import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
-const MAX_DAMAGE = 260; // De-clutter right side of graph with the addition of the AK-50 rounds
+const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
+const MAX_PRICE_CEILING = 3000;
+
+const maxPriceSliderMarks = {
+    100: 100,
+};
+maxPriceSliderMarks[MAX_PRICE_CEILING] = `${MAX_PRICE_CEILING}+`;
 
 const skipCalibers = [
     'Caliber30x29',
@@ -82,8 +88,7 @@ function Ammo() {
     );
     const [minPen, setMinPen] = useState(searchParams.get('minp') ?? 0);
     const [minDam, setMinDam] = useState(searchParams.get('mind') ?? 0);
-    const [minPrice, setMinPrice] = useState(searchParams.get('minpr') ?? 0);
-    const [enablePriceFilter, setEnablePriceFilter] = useState(Boolean(searchParams.get('minpr')));
+    const [maxPrice, setMaxPrice] = useState(searchParams.get('maxpr') ?? MAX_PRICE_CEILING);
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
@@ -92,7 +97,7 @@ function Ammo() {
         const params = {
             minp: minPen,
             mind: minDam,
-            minpr: minPrice,
+            maxpr: maxPrice,
         };
         for (const paramName in filtervalues) {
             params[paramName] = filtervalues[paramName];
@@ -103,11 +108,11 @@ function Ammo() {
         if (params.mind === 0) {
             delete params.mind;
         }
-        if (params.minpr === 0) {
-            delete params.minpr;
+        if (params.maxpr === MAX_PRICE_CEILING) {
+            delete params.maxpr;
         }
         setSearchParams(params, { replace: true });
-    }, [setSearchParams, minPen, minDam, minPrice]);
+    }, [setSearchParams, minPen, minDam, maxPrice]);
 
     useEffect(() => {
         if (!currentAmmo || !currentAmmo.length) {
@@ -226,13 +231,13 @@ function Ammo() {
                 return ammo.properties.damage >= minDam;
             }).filter(ammo => {
                 // Filter by cheapest available purchase price (trader or flea)
-                if (!enablePriceFilter || !minPrice) {
+                if (!maxPrice || maxPrice === MAX_PRICE_CEILING) {
                     return true;
                 }
                 const vendorPrices = (ammo.buyFor || []).map(b => b.priceRUB).filter(Boolean);
                 const fleaPrice = ammo.buyFor?.find(b => b.vendor.normalizedName === 'flea-market')?.priceRUB || 0;
                 const cheapest = vendorPrices.length > 0 ? Math.min(...vendorPrices) : fleaPrice;
-                if (minPrice && cheapest < minPrice) return false;
+                if (cheapest > maxPrice) return false;
                 return true;
             })
             .map((ammo) => {
@@ -264,7 +269,7 @@ function Ammo() {
                 };
             });
         return returnData;
-    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, minPrice, enablePriceFilter, showOnlyTraderAmmo, allTraders]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, maxPrice, showOnlyTraderAmmo, allTraders]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -432,40 +437,21 @@ function Ammo() {
                     }}
                     track={'inverted'}
                 />
-                <ToggleFilter
-                    checked={enablePriceFilter}
-                    label={t('Enable price filter')}
-                    onChange={(e) => {
-                        const next = !enablePriceFilter;
-                        setEnablePriceFilter(next);
-                        if (!next) {
-                            setMinPrice(0);
-                            setPathFilters({ minpr: 0 });
-                        } else {
-                            setPathFilters({ minpr: minPrice });
-                        }
-                    }}
-                    tooltipContent={<>{t('Toggle price filtering on/off')}</>}
-                />
                 <SliderFilter
-                    value={minPrice}
-                    label={t('Min Price')}
+                    value={maxPrice}
+                    label={t('Max Price')}
                     min={0}
-                    max={1000}
-                    marks={{
-                        0: 0,
-                        1000: '1000+',
-                    }}
-                    onChange={(event, min) => {
-                        setMinPrice(min);
+                    max={MAX_PRICE_CEILING}
+                    marks={maxPriceSliderMarks}
+                    onChange={(event, max) => {
+                        setMaxPrice(max);
                         setPathFilters({
-                            minpr: min,
+                            maxpr: max,
                         });
                     }}
                     style={{
                         marginRight: '10px',
                     }}
-                    track={'inverted'}
                     step={100}
                     valueLabelDisplay={'auto'}
                 />
@@ -481,7 +467,7 @@ function Ammo() {
                 showAllSources={showAllTraderPrices}
                 caliberFilter={selectedLegendName}
                 useAllProjectileDamage={useAllProjectileDamage}
-                minPrice={enablePriceFilter ? minPrice : 0}
+                maxPrice={maxPrice < MAX_PRICE_CEILING ? maxPrice : undefined}
                 caliber={1}
                 damage={2}
                 penetrationPower={3}
