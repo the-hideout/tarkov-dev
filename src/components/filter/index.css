@@ -11,7 +11,8 @@
     transform-origin: top;
     transform: scaleY(0);
     transition: transform 0.26s ease;
-    z-index: 1;
+    /* Raise stacking context so the filter and its controls can appear above page content */
+    z-index: 1000;
 }
 
 .filter-wrapper.full-width {
@@ -35,7 +36,7 @@
 }
 
 .filter-wrapper.open {
-    box-shadow: 0px 5px 15px 5px rgb( from var(--color-black) r g b / 0.70);
+    box-shadow: 0px 5px 15px 5px rgb(from var(--color-black) r g b / 0.7);
     overflow: visible;
     transform: scaleY(1);
 }
@@ -50,7 +51,26 @@
     position: fixed;
     right: 20px;
     width: 6vh;
-    z-index: 1;
+    /* Make sure the toggle button sits above the filter when needed */
+    z-index: 1001;
+}
+
+/* Ensure react-select controls and menus in the filter stack above other elements.
+   Some react-select menus are rendered into a portal (body); adding global rules
+   here ensures consistent stacking regardless of portal usage. */
+.basic-multi-select .select__control {
+    z-index: 1002;
+}
+
+.basic-multi-select .select__menu,
+.basic-multi-select .select__menu-list {
+    z-index: 9999; /* match inline portal z-index used in SelectFilter */
+}
+
+/* Also cover portal-mounted menus which are rendered as siblings under <body> */
+.select__menu,
+.select__menu-list {
+    z-index: 9999 !important;
 }
 
 .filter-toggle-icon-wrapper svg {
@@ -64,6 +84,20 @@
 
 .single-filter-wrapper-wide {
     width: 400px;
+}
+
+/* Page-specific tweak: add spacing to filter labels on the barrel attachments page */
+.barrel-attachments-filter .single-filter-label {
+    padding-right: 12px;
+}
+
+/* Narrow the inner filter content on the Barrel Attachments page so the
+   page headline can fit on a single line next to the filter controls. */
+.barrel-attachments-filter .filter-content-wrapper {
+    max-width: 820px; /* reduce from full width to keep headline on one line */
+    padding-left: 12px;
+    padding-right: 12px;
+    justify-content: flex-end;
 }
 
 .single-filter-wrapper-wide .basic-multi-select {
@@ -98,7 +132,15 @@
 
 .basic-multi-select {
     min-width: 110px;
-    color: var(--color-gunmetal-dark);
+    /* Ensure the select's visible text is light on the dark control background */
+    color: var(--color-white);
+}
+
+/* Make sure the react-select input, single value and placeholder text are readable */
+.basic-multi-select .select__input,
+.basic-multi-select .select__single-value,
+.basic-multi-select .select__placeholder {
+    color: var(--color-white) !important;
 }
 
 .filter-slider-wrapper .MuiSlider-root {
@@ -140,7 +182,7 @@
 
 .button-group-button:hover img,
 .button-group-button.selected img {
-    opacity: 1.0;
+    opacity: 1;
 }
 
 .button-group-button:first-child {
