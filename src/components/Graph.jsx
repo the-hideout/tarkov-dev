@@ -162,7 +162,8 @@ const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
 const chartAnimate = { duration: 500 };
 const chartPadding = { top: 10, bottom: 20, right: 50, left: 10 };
-const chartMaxDomain = { y: MAX_PENETRATION, x: MAX_DAMAGE };
+// Use provided max domains if passed, otherwise fallback to defaults
+// Note: evaluated inside component to access props
 
 const Graph = (props) => {
     const { xMax, listState } = props;
@@ -208,6 +209,7 @@ const Graph = (props) => {
         });
     }, [listState]);
 
+    const chartMaxDomain = { y: props.yMax ?? MAX_PENETRATION, x: props.xMax ?? MAX_DAMAGE };
     return (
         <VictoryChart
             domainPadding={10}

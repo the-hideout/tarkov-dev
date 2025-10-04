@@ -23,6 +23,12 @@ import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
+const MAX_PRICE_CEILING = 3000;
+
+const maxPriceSliderMarks = {
+    100: 100,
+};
+maxPriceSliderMarks[MAX_PRICE_CEILING] = `${MAX_PRICE_CEILING}+`;
 
 const skipCalibers = [
     'Caliber30x29',
@@ -82,6 +88,7 @@ function Ammo() {
     );
     const [minPen, setMinPen] = useState(searchParams.get('minp') ?? 0);
     const [minDam, setMinDam] = useState(searchParams.get('mind') ?? 0);
+    const [maxPrice, setMaxPrice] = useState(searchParams.get('maxpr') ?? MAX_PRICE_CEILING);
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
@@ -90,6 +97,7 @@ function Ammo() {
         const params = {
             minp: minPen,
             mind: minDam,
+            maxpr: maxPrice,
         };
         for (const paramName in filtervalues) {
             params[paramName] = filtervalues[paramName];
@@ -100,8 +108,11 @@ function Ammo() {
         if (params.mind === 0) {
             delete params.mind;
         }
+        if (params.maxpr >= MAX_PRICE_CEILING) {
+            delete params.maxpr;
+        }
         setSearchParams(params, { replace: true });
-    }, [setSearchParams, minPen, minDam]);
+    }, [setSearchParams, minPen, minDam, maxPrice]);
 
     useEffect(() => {
         if (!currentAmmo || !currentAmmo.length) {
@@ -218,6 +229,16 @@ function Ammo() {
                     return true;
                 }
                 return ammo.properties.damage >= minDam;
+            }).filter(ammo => {
+                // Filter by cheapest available purchase price (trader or flea)
+                if (!maxPrice || maxPrice >= MAX_PRICE_CEILING) {
+                    return true;
+                }
+                const vendorPrices = (ammo.buyFor || []).map(b => b.priceRUB).filter(Boolean);
+                const fleaPrice = ammo.buyFor?.find(b => b.vendor.normalizedName === 'flea-market')?.priceRUB || 0;
+                const cheapest = vendorPrices.length > 0 ? Math.min(...vendorPrices) : fleaPrice;
+                if (cheapest > maxPrice) return false;
+                return true;
             })
             .map((ammo) => {
                 ammo.chartName = ammo.name
@@ -248,7 +269,7 @@ function Ammo() {
                 };
             });
         return returnData;
-    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, showOnlyTraderAmmo, allTraders]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, minDam, maxPrice, showOnlyTraderAmmo, allTraders]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -416,6 +437,24 @@ function Ammo() {
                     }}
                     track={'inverted'}
                 />
+                <SliderFilter
+                    value={maxPrice}
+                    label={t('Max Price')}
+                    min={0}
+                    max={MAX_PRICE_CEILING}
+                    marks={maxPriceSliderMarks}
+                    onChange={(event, max) => {
+                        setMaxPrice(max);
+                        setPathFilters({
+                            maxpr: max,
+                        });
+                    }}
+                    style={{
+                        marginRight: '10px',
+                    }}
+                    step={100}
+                    valueLabelDisplay={'auto'}
+                />
             </Filter>
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
@@ -428,6 +467,7 @@ function Ammo() {
                 showAllSources={showAllTraderPrices}
                 caliberFilter={selectedLegendName}
                 useAllProjectileDamage={useAllProjectileDamage}
+                maxPrice={maxPrice < MAX_PRICE_CEILING ? maxPrice : undefined}
                 caliber={1}
                 damage={2}
                 penetrationPower={3}
