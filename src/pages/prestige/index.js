@@ -297,7 +297,7 @@ function Prestige() {
                         <div key="transfer-settings-skills">
                             <ul>
                                 {currentPrestige.transferSettings.filter(t => !!t.skillType).map(skillTransfer => {
-                                    return <li>{skillTransfer.name}: {skillTransfer.transferRate * 100}%</li>
+                                    return <li key={`skill-transfer-${skillTransfer.skillType}`}>{skillTransfer.name}: {skillTransfer.transferRate * 100}%</li>
                                 })}
                             </ul>
                         </div>
