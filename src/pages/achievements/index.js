@@ -8,7 +8,7 @@ import SEO from '../../components/SEO.jsx';
 
 import DataTable from '../../components/data-table/index.js';
 
-import useAchievementsData from '../../features/achievements/index.js';
+import { useAchievementsData } from '../../features/quests/index.js';
 
 import './index.css';
 

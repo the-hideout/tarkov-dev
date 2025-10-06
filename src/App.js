@@ -70,6 +70,8 @@ const HandbookCategory = React.lazy(() => import('./pages/items/handbook-categor
 const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator/index.js'));
 const Quests = React.lazy(() => import('./pages/quests/index.js'));
 const Quest = React.lazy(() => import('./pages/quest/index.js'));
+const Prestiges = React.lazy(() => import('./pages/prestige/list.js'));
+const Prestige = React.lazy(() => import('./pages/prestige/index.js'));
 
 const Bosses = React.lazy(() => import('./pages/bosses/index.js'));
 const Boss = React.lazy(() => import('./pages/boss/index.js'));
@@ -918,6 +920,26 @@ function App() {
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-task-wrapper">
                                 <Quest key="task-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/prestige/'}
+                        key="prestige-list-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-tasks-wrapper">
+                                <Prestiges key="prestige-list-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/prestige/:prestigeLevel'}
+                        key="prestige-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-task-wrapper">
+                                <Prestige key="rpestige-wrapper" />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}

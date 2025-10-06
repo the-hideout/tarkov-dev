@@ -22,9 +22,8 @@ import '../../styles/mapSettings.css';
 import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
 import { useMapImages } from '../../features/maps/index.js';
-import useItemsData from '../../features/items/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useQuestsData from '../../features/quests/index.js';
-import useMetaData from '../../features/meta/index.js';
 
 import staticMapData from '../../data/maps_static.json'
 import rawMapsData from '../../data/maps.json';
@@ -368,7 +367,7 @@ function Map() {
 
     const { data: items } = useItemsData();
     const { data: quests} = useQuestsData();
-    const { data: metaData } = useMetaData();
+    const { data: handbook } = useHandbookData();
 
     let allMaps = useMapImages();
 
@@ -1794,7 +1793,7 @@ function Map() {
                 let markerTitle = t('Loose Loot');
                 let className = '';
                 const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = metaData.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
+                    const category = handbook.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
                     markerCategories.add(category);
                     return markerCategories;
                 }, new Set());
@@ -1813,7 +1812,7 @@ function Map() {
                         iconSize = [pixelWidth * scale, 24];
                     }
                 } else if (markerCategories.size === 1) {
-                    const category = metaData.handbookCategories.find(c => c.id === markerCategories.values().next().value.id);
+                    const category = handbook.handbookCategories.find(c => c.id === markerCategories.values().next().value.id);
                     iconUrl = category.imageLink;
                     markerTitle = category.name;
                     //className = 'loot-outline';
@@ -1847,7 +1846,7 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
-                    const category = metaData.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
+                    const category = handbook.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
                     markerCategories.add(category.id);
                     if (!looseLootLayers[category.normalizedName]) {
                         looseLootLayers[category.normalizedName] = {
@@ -1878,7 +1877,7 @@ function Map() {
             }
         }
         refreshMapSearch();
-    }, [mapData, items, metaData, addLayer, t, tMaps, getPoiLinkElement]);
+    }, [mapData, items, handbook, addLayer, t, tMaps, getPoiLinkElement]);
 
     useEffect(() => {
         if (!mapData || mapData.projection !== 'interactive') {

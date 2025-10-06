@@ -325,6 +325,14 @@ const Menu = () => {
                             {t('Achievements')}
                         </Link>
                     </li>
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-prestige" data-targetid="prestige">
+                        <Link
+                            to="/prestige"
+                            //onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Prestige')}
+                        </Link>
+                    </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-players" data-targetid="players">
                         <Link
                             to="/players"
