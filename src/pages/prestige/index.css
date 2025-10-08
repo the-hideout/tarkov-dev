@@ -1,0 +1,144 @@
+ul.quest-item-list {
+    list-style: none;
+    padding: 0px;
+}
+
+ul.quest-item-list li {
+    display: inline-block;
+    padding-left: 2px;
+}
+
+.quest-list-item {
+    padding-bottom: 5px;
+}
+
+.task-details-heading {
+    font-size: xx-large !important;
+}
+
+.hover-item-name {
+    color: var(--color-gold-two)
+}
+
+.quest-font {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.quest-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.objective-details {
+    margin-left: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .25);
+}
+
+.entity-top-content .task-connections {
+  /*border: 3px solid #fff;*/
+  padding: 0px 20px 5px;
+}
+.task-connections h3 {
+  margin-top: 0px;
+}
+.entity-top-content .related-quests {
+  width: 50%;
+  float: left;
+  /*padding: 20px;
+  border: 2px solid red;*/
+}
+
+.entity-top-content div.related-quests:first-child:nth-last-child(3),
+.entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+    width: 33%;
+}
+
+.class-status-list svg.icon-with-text {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.related-quests {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.game-mode-warning {
+    color: var(--color-red);
+}
+
+img.prestige-icon {
+    max-width: 40px;
+    max-height: 40px;
+    vertical-align: middle;
+}
+
+.map-block .page-wrapper {
+    padding: 10px 20px;
+    cursor: default;
+    line-height: 28px;
+}
+
+/* Map block map images */
+.prestige-block .prestiges-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+}
+
+.prestige-block .prestige-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33.3%;
+    padding: 10px;
+    position: relative;
+    border: 1px solid rgb( from var(--color-white) r g b / 0.2);
+    padding: 25px 0 50px 0;
+    background: rgb( from var(--color-gunmetal) r g b / 0.38);
+
+}
+
+.prestige-block .prestige-wrapper h3 {
+    position: absolute;
+    text-align: center;
+    letter-spacing: 1px;
+    color: var(--color-white);
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgb( from var(--color-black) r g b / 0.5);
+    margin: 0;
+    transition: all .2s;
+}
+.prestige-block .prestige-wrapper:hover h3 {
+    color: var(--color-gold-two);
+}
+
+.prestige-block .prestige-wrapper a {
+    display: flex;
+    flex: 1 auto;
+    align-items: center;
+    justify-content: center;
+}
+.prestige-block .prestige-wrapper img {
+    max-height: 200px;
+}
+
+@media screen and (max-width: 960px) {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+        width: 33%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .entity-top-content div.related-quests:first-child:nth-last-child(3),
+    .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
+        width: 50%;
+    }
+}

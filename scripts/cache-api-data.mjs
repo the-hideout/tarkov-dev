@@ -5,7 +5,6 @@ import doFetchBarters from '../src/features/barters/do-fetch-barters.mjs';
 import doFetchCrafts from '../src/features/crafts/do-fetch-crafts.mjs';
 import doFetchTraders from '../src/features/traders/do-fetch-traders.mjs';
 import doFetchMaps from '../src/features/maps/do-fetch-maps.mjs';
-import doFetchMeta from '../src/features/meta/do-fetch-meta.mjs';
 import doFetchHideout from '../src/features/hideout/do-fetch-hideout.mjs';
 import doFetchQuests from '../src/features/quests/do-fetch-quests.mjs';
 import doFetchBosses from '../src/features/bosses/do-fetch-bosses.mjs';
@@ -132,7 +131,8 @@ try {
             return crafts;
         })
     ]).then((bartersAndCrafts) => {
-        return doFetchItems({prebuild: true}).then(items => {
+        return doFetchItems({prebuild: true}).then(itemsResults => {
+            const items = itemsResults.items;
             const filteredItems = [];
             for (const bartersCrafts of bartersAndCrafts) {
                 bartersCrafts.forEach(bc => {
@@ -193,7 +193,7 @@ try {
                 item.updated = '';
                 item.cached = true;
             }
-            fs.writeFileSync('./src/data/items_cached.json', JSON.stringify(filteredItems));
+            fs.writeFileSync('./src/data/items_cached.json', JSON.stringify({items: filteredItems, handbook: itemsResults.handbook}));
             return new Promise(async (resolve) => {
                 const itemLangs = {};
                 await getItemNames(langs).then(itemResults => {
@@ -298,12 +298,8 @@ try {
         });
     }));
 
-    apiPromises.push(doFetchMeta({prebuild: true}).then(meta => {
-        fs.writeFileSync('./src/data/meta_cached.json', JSON.stringify(meta));
-    }));
-
-    apiPromises.push(doFetchQuests({prebuild: true}).then(quests => {
-        const groupedQuestsDic = quests.reduce((acc, item) => {
+    apiPromises.push(doFetchQuests({prebuild: true}).then(questsResult => {
+        const groupedQuestsDic = questsResult.tasks.reduce((acc, item) => {
             if (!acc[item.trader.normalizedName]) {
                 acc[item.trader.normalizedName] = [];
             }
@@ -315,7 +311,20 @@ try {
         const filteredQuests = [].concat(...filteredQuestsDic);
         // const filteredQuests = [].concat(...groupedQuestsDic);
 
-        fs.writeFileSync('./src/data/quests_cached.json', JSON.stringify(filteredQuests));
+        fs.writeFileSync('./src/data/quests_cached.json', JSON.stringify({
+            tasks: filteredQuests,
+            prestige: questsResult.prestige.map(p => {
+                return {
+                    ...p,
+                    itemFilters: {
+                        allowedCategories: [],
+                        allowedItems: [],
+                        excludedCategories: [],
+                        excludedItems: [],
+                    },
+                };
+            }),
+        }));
 
         return new Promise(async (resolve) => {
             const taskLangs = {};

@@ -30,12 +30,11 @@ import CenterCell from '../../components/center-cell/index.js';
 
 import warningIcon from '../../images/icon-warning.png';
 
-import useMetaData from '../../features/meta/index.js';
 import useBartersData from '../../features/barters/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useCraftsData from '../../features/crafts/index.js';
-import useQuestsData from '../../features/quests/index.js';
-import useItemsData from '../../features/items/index.js';
+import useQuestsData, { usePrestigeData } from '../../features/quests/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useMapsData from '../../features/maps/index.js';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.mjs';
 
@@ -170,7 +169,7 @@ function Item() {
 
     const { data: items, status: itemsStatus } = useItemsData();
 
-    const { data: meta } = useMetaData();
+    const { data: handbook } = useHandbookData();
 
     const { data: barters } = useBartersData();
 
@@ -179,6 +178,8 @@ function Item() {
     const { data: hideout } = useHideoutData();
 
     const { data: quests } = useQuestsData();
+
+    const { data: prestiges } = usePrestigeData();
 
     const { data: maps } = useMapsData();
 
@@ -201,14 +202,14 @@ function Item() {
                     ...item.properties,
                     ...extraProps,
                 },
-                ...bestPrice(item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+                ...bestPrice(item, handbook?.fleaMarket?.sellOfferFeeRate, handbook?.fleaMarket?.sellRequirementFeeRate),
                 handbookCategories: item.handbookCategories.map(cat => {
-                    return meta?.handbookCategories?.find(c => c.id === cat.id);
+                    return handbook?.handbookCategories?.find(c => c.id === cat.id);
                 }).filter(Boolean),
             };
         }
         return item;
-    }, [items, itemName, meta, itemsStatus, loadingData, maps]);
+    }, [items, itemName, handbook, itemsStatus, loadingData, maps]);
 
     const questsRequiringCount = useMemo(() => {
         if (!currentItemData || currentItemData.id === 'loading') {
@@ -229,6 +230,16 @@ function Item() {
             return getRewardQuestItems(questData, currentItemData.id);
         }).filter(reward => reward.length > 0).length;
     }, [currentItemData, quests]);
+
+    const prestigeAwarding = useMemo(() => {
+        if (!currentItemData || currentItemData.id === 'loading') {
+            return;
+        }
+        return prestiges.find(p => 
+            p.rewards?.customization?.some(cust => cust.items?.some(i => i.id === currentItemData.id)) ||
+            p.rewards?.items.some(i => i.item.id === currentItemData.id)
+        );
+    }, [currentItemData, prestiges]);
 
     const questsToggle = useMemo(() => {
         if (settings.completedQuests?.length > 0) {
@@ -994,6 +1005,19 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+                {!!prestigeAwarding && (
+                    <div>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Prestige Reward')}
+                            </h2>
+                        </div>
+                        <div>
+                            <Link to={`/prestige/${prestigeAwarding.prestigeLevel}`}><img src={prestigeAwarding.iconLink} alt={prestigeAwarding.name} title={prestigeAwarding.name}/></Link>
+                        </div>
+                    </div>
+                )
+                }
             </div>
         </div>,
     ];

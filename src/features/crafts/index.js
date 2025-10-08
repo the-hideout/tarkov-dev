@@ -121,8 +121,8 @@ export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 export const craftsReducer = craftsSlice.reducer;
 
 const selectCrafts = state => state.crafts.data;
-const selectQuests = state => state.quests.data;
-const selectItems = state => state.items.data;
+const selectQuests = state => state.quests.data.tasks;
+const selectItems = state => state.items.data.items;
 
 export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selectItems], (crafts, quests, items) => {
     return crafts.map(craft => {

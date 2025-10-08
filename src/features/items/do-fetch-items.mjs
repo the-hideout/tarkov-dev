@@ -285,10 +285,58 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                 }
-                fleaMarket(gameMode: ${gameMode}) {
+                fleaMarket(lang: ${language}, gameMode: ${gameMode}) {
+                    name
+                    normalizedName
+                    enabled
+                    minPlayerLevel
                     sellOfferFeeRate
                     sellRequirementFeeRate
-                    enabled
+                    foundInRaidRequired
+                }
+                armorMaterials(lang: ${language}) {
+                    id
+                    name
+                    destructibility
+                    minRepairDegradation
+                    maxRepairDegradation
+                    minRepairKitDegradation
+                    maxRepairKitDegradation
+                }
+                itemCategories(lang: ${language}) {
+                    id
+                    name
+                    normalizedName
+                    parent {
+                        id
+                    }
+                }
+                handbookCategories(lang: ${language}) {
+                    id
+                    name
+                    normalizedName
+                    parent {
+                        id
+                    }
+                    imageLink
+                }
+                playerLevels {
+                    level
+                    exp
+                    levelBadgeImageLink
+                }
+                skills(lang: ${language}) {
+                    id
+                    name
+                    imageLink
+                }
+                mastering {
+                    id
+                    weapons {
+                        id
+                    }
+                    level2
+                    level3
                 }
             }
             fragment GridFragment on ItemStorageGrid {
@@ -432,7 +480,15 @@ class ItemsQuery extends APIQuery {
             }
             // only throw error if this is for prebuild or data wasn't returned
             if (
-                prebuild || !itemData.data?.items?.length || !itemData.data?.fleaMarket
+                prebuild ||
+                !itemData.data?.items?.length ||
+                !itemData.data?.fleaMarket ||
+                !itemData.data?.armorMaterials ||
+                !itemData.data?.itemCategories ||
+                !itemData.data?.handbookCategories ||
+                !itemData.data?.playerLevels ||
+                !itemData.data?.skills ||
+                !itemData.data?.mastering
             ) {
                 return Promise.reject(new Error(itemData.errors[0].message));
             }
@@ -499,7 +555,18 @@ class ItemsQuery extends APIQuery {
             return rawItem;
         });
 
-        return allItems;
+        return {
+            items: allItems,
+            handbook: {
+                fleaMarket: itemData.data.fleaMarket,
+                armorMaterials: itemData.data.armorMaterials,
+                itemCategories: itemData.data.itemCategories,
+                handbookCategories: itemData.data.handbookCategories,
+                playerLevels: itemData.data.playerLevels,
+                skills: itemData.data.skills,
+                mastering: itemData.data.mastering,
+            },
+        };
     }
 }
 

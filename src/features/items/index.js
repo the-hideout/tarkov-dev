@@ -9,7 +9,8 @@ import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
 import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
 
-function processFetchedItems(allItems) {
+function processFetchedItems(allData) {
+    const allItems = allData.items;
 
     for (const item of allItems) {
 
@@ -61,7 +62,7 @@ function processFetchedItems(allItems) {
         item.sellForTradersBest = sellForTraders[0] || noneTrader;
     }
 
-    return allItems;
+    return allData;
 }
 
 const initialState = {
@@ -157,5 +158,45 @@ export default function useItemsData() {
         };
     }, [dispatch, lang, gameMode]);
     
-    return { data, status, error };
+    return { data: data.items, status, error };
+};
+
+export function useHandbookData() {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.items);
+    const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
+    
+        useEffect(() => {
+            const dataName = 'items';
+            if (status === 'idle') {
+                return;
+            } else if (status === 'loading') {
+                dispatch(setDataLoading(dataName));
+            } else {
+                dispatch(setDataLoaded(dataName));
+            }
+        }, [status, dispatch]);
+
+    useEffect(() => {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
+            fetchedLang = lang;
+            fetchedGameMode = gameMode;
+            dispatch(fetchItems());
+            clearRefreshInterval();
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
+                dispatch(fetchItems());
+            }, 600000);
+        }
+        return () => {
+            clearRefreshInterval();
+        };
+    }, [dispatch, lang, gameMode]);
+    
+    return { data: data.handbook, status, error };
 };

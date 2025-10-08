@@ -114,8 +114,8 @@ export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 export const bartersReducer = bartersSlice.reducer;
 
 const selectBarters = state => state.barters.data;
-const selectQuests = state => state.quests.data;
-const selectItems = state => state.items.data;
+const selectQuests = state => state.quests.data.tasks;
+const selectItems = state => state.items.data.items;
 
 export const selectAllBarters = createSelector([selectBarters, selectQuests, selectItems], (barters, quests, items) => {
     return barters.map(barter => {

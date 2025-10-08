@@ -70,6 +70,55 @@ class QuestsQuery extends APIQuery {
                 lightkeeperRequired
                 taskImageLink
             }
+            achievements(lang: ${language}) {
+                id
+                name
+                description
+                hidden
+                playersCompletedPercent
+                adjustedPlayersCompletedPercent
+                normalizedRarity
+                rarity
+                imageLink
+            }
+            prestige(lang: ${language}, gameMode: regular) {
+                id
+                name
+                prestigeLevel
+                imageLink
+                iconLink
+                conditions {
+                    ...TaskObjectiveInfo
+                }
+                rewards {
+                    ...taskRewardFragment
+                }
+                transferSettings {
+                    ...on PrestigeTransferSettingsSkill {
+                        name
+                        skillType
+                        transferRate
+                    }
+                    ...on PrestigeTransferSettingsStash {
+                        gridWidth
+                        gridHeight
+                        itemFilters {
+                            allowedCategories {
+                                id
+                            }
+                            allowedItems {
+                                id
+                            }
+                            excludedCategories {
+                                id
+                            }
+                            excludedItems {
+                                id
+                            }
+                        }
+                    }
+                }
+            }
         }
         fragment TaskObjectiveInfo on TaskObjective {
             __typename
@@ -135,6 +184,12 @@ class QuestsQuery extends APIQuery {
                 exitStatus
                 exitName
                 count
+            }
+            ...on TaskObjectiveHideoutStation {
+                hideoutStation {
+                    id
+                }
+                stationLevel
             }
             ...on TaskObjectiveItem {
                 items {
@@ -293,8 +348,10 @@ class QuestsQuery extends APIQuery {
             }
             ...on TaskObjectiveSkill {
                 skillLevel {
-                    name
                     level
+                    skill {
+                        id
+                    }
                 }
             }
             ...on TaskObjectiveTaskStatus {
@@ -340,6 +397,18 @@ class QuestsQuery extends APIQuery {
                     }
                     top
                     bottom
+                }
+            }
+        }
+        fragment cutomizationRewardFragment on CustomizationItem {
+            id
+            name
+            customizationType
+            customizationTypeName
+            imageLink
+            ...on CustomizationItems {
+                items {
+                    id
                 }
             }
         }
@@ -395,6 +464,12 @@ class QuestsQuery extends APIQuery {
             traderUnlock {
                 id
             }
+            achievement {
+                id
+            }
+            customization {
+                ...cutomizationRewardFragment
+            }
         }`;
     
         const questsData = await this.graphqlRequest(query);
@@ -417,14 +492,15 @@ class QuestsQuery extends APIQuery {
             }
             // only throw error if this is for prebuild or data wasn't returned
             if (
-                prebuild || !questsData.data || 
-                !questsData.data.tasks || !questsData.data.tasks.length
+                prebuild ||
+                !questsData.data?.tasks?.length ||
+                !questsData.data?.achievements?.length ||
+                !questsData.data?.prestige?.length
             ) {
                 return Promise.reject(new Error(questsData.errors[0].message));
             }
         }
-    
-        return questsData.data.tasks;
+        return questsData.data;
     }
 }
 

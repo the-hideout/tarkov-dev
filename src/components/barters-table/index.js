@@ -7,8 +7,7 @@ import DataTable from '../../components/data-table/index.js';
 
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
-import useItemsData from '../../features/items/index.js';
-import useMetaData from '../../features/meta/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
 import ValueCell from '../value-cell/index.js';
@@ -35,7 +34,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
     const { data: items } = useItemsData();
-    const { data: meta } = useMetaData();
+    const { data: handbook } = useHandbookData();
 
     const columns = useMemo(
         () => [
@@ -304,7 +303,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const howManyWeSell = barterRewardContainedItem ? barterRewardItem.containsItems[0].count : barterRow.rewardItems[0].count;
                 const bestSellTo = whatWeSell.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
-                        if (currentSellFor.vendor.normalizedName === 'flea-market' && (meta.flea.foundInRaidRequired || !meta.flea.enabled)) {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market' && (handbook.fleaMarket.foundInRaidRequired || !handbook.fleaMarket.enabled)) {
                             return previousSellFor;
                         }
                         if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
@@ -429,7 +428,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         barters,
         crafts,
         items,
-        meta,
+        handbook,
         itemFilter,
         traders,
         completedQuests,

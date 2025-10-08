@@ -2,13 +2,12 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useMetaData from '../../features/meta/index.js';
-import useItemsData from '../../features/items/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 
 import './index.css';
 
 const ContainedItemsList = ({ item, showRestrictedType }) => {
-    const { data: meta, status: metaStatus } = useMetaData();
+    const { data: handbook, status: handbookStatus } = useHandbookData();
     const { data: items } = useItemsData();
     const { t } = useTranslation();
 
@@ -58,8 +57,8 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
                 return false;
             });
     
-            if (metaStatus !== 'idle') {
-                meta.categories.forEach(category => {
+            if (handbookStatus !== 'idle') {
+                handbook.itemCategories.forEach(category => {
                     for (const slot of containers) {
                         if (slot.filters.allowedCategories.includes(category.id)) {
                             sorted.push(category);
@@ -78,8 +77,8 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
         }
     }, [
         items,
-        meta,
-        metaStatus,
+        handbook,
+        handbookStatus,
         containers,
         item,
         showRestrictedType

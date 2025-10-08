@@ -1,0 +1,28 @@
+.customization-image {
+    position: relative;
+    outline: rgb(73, 81, 84) solid 1px;
+}
+
+.customization-name {
+    position: absolute;
+    top: 4px;
+    right: 7px;
+    color: #a4aeb4;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 var(--color-black), -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black);
+    font-size: 12px;
+    text-align: right;
+}
+
+.customization-type {
+    background: rgb(from var(--color-black) r g b / 0.3);
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+}
+
+.achievement-name {
+    background-color: rgb(from var(--color-black) r g b / 0.8);
+    padding: 4px;
+    font-size: 12px;
+}
