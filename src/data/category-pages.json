@@ -54,10 +54,10 @@
         "type": "pistolGrip"
     },
     {
-        "key": "suppressors",
-        "displayText": "Suppressors",
+        "key": "barrel-attachments",
+        "displayText": "Barrel Attachments",
         "icon": "mdiBottleWine",
-        "type": "suppressor"
+        "type": "barrel-attachment"
     },
     {
         "key": "grenades",

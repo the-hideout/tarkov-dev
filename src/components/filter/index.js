@@ -13,13 +13,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ButtonGroupFilterButton({
-    tooltipContent,
-    onClick,
-    content,
-    selected,
-    type = 'image',
-}) {
+function ButtonGroupFilterButton({ tooltipContent, onClick, content, selected, type = 'image' }) {
     return (
         <Tooltip placement="top" title={tooltipContent} arrow>
             <button
@@ -53,7 +47,7 @@ function SliderFilter({
     valueLabelDisplay = 'auto',
 }) {
     if (!!marks && !Array.isArray(marks)) {
-        marks = Object.keys(marks).map(val => {
+        marks = Object.keys(marks).map((val) => {
             return {
                 label: String(marks[val]),
                 value: parseInt(val),
@@ -99,7 +93,7 @@ function RangeFilter({
     valueLabelDisplay,
 }) {
     if (!!marks && !Array.isArray(marks)) {
-        marks = Object.keys(marks).map(val => {
+        marks = Object.keys(marks).map((val) => {
             return {
                 label: String(marks[val]),
                 value: val,
@@ -166,7 +160,7 @@ const selectFilterStyle = {
     multiValueLabel: (provided) => ({
         ...provided,
         color: 'var(--color-yellow-light)',
-        padding: '0.1rem'
+        padding: '0.1rem',
     }),
     menu: (provided) => ({
         ...provided,
@@ -208,6 +202,9 @@ const selectFilterStyle = {
     }),
 };
 
+// Export the style object so pages can reuse the same react-select styles
+export { selectFilterStyle };
+
 function SelectFilter({
     placeholder,
     defaultValue,
@@ -231,11 +228,7 @@ function SelectFilter({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tooltip
-                        placement="bottom"
-                        title={tooltip}
-                        arrow
-                    >
+                    <Tooltip placement="bottom" title={tooltip} arrow>
                         {children}
                     </Tooltip>
                 );
@@ -253,7 +246,7 @@ function SelectFilter({
                             <span className={'single-filter-label'}>{label}</span>
                             {labelChildren}
                         </label>
-                    )
+                    );
                 }}
             >
                 <Select
@@ -270,7 +263,9 @@ function SelectFilter({
                     options={options}
                     ref={parentRef}
                     styles={selectFilterStyle}
-                    noOptionsMessage={() => { return t('All options already selected');}}
+                    noOptionsMessage={() => {
+                        return t('All options already selected');
+                    }}
                 />
             </ConditionalWrapper>
         </ConditionalWrapper>
@@ -299,16 +294,16 @@ function SelectItemFilter({
     const selectInputRef = useRef(null);
     const { t } = useTranslation();
 
-    const elements = [(
+    const elements = [
         <SelectFilter
             key={'select-item-filter'}
             placeholder={placeholder}
             label={label}
             options={items.map((item) => {
                 return {
-                    label: shortNames? item.shortName : item.name,
+                    label: shortNames ? item.shortName : item.name,
                     value: item[valueField],
-                    selected: selection && selection.id === item.id
+                    selected: selection && selection.id === item.id,
                 };
             })}
             onChange={(event) => {
@@ -316,11 +311,7 @@ function SelectItemFilter({
                     return true;
                 }
 
-                setSelectedItem(
-                    items.find(
-                        (item) => item.id === event.value,
-                    ),
-                );
+                setSelectedItem(items.find((item) => item.id === event.value));
                 if (onChange) {
                     onChange(event);
                 }
@@ -334,15 +325,12 @@ function SelectItemFilter({
             tooltipDisabled={tooltipDisabled}
             onMenuOpen={onMenuOpen}
             onMenuClose={onMenuClose}
-        />
-    )];
+        />,
+    ];
 
     if (selectedItem && showImage) {
-        elements.push((
-            <Tooltip
-                title={t('Clear selection')}
-                arrow
-            >
+        elements.push(
+            <Tooltip title={t('Clear selection')} arrow>
                 <img
                     key={'select-item-filter-selected-icon'}
                     alt={`${selectedItem.name}-icon`}
@@ -350,15 +338,15 @@ function SelectItemFilter({
                         selectInputRef.current?.clearValue();
                         setSelectedItem(false);
                         if (onChange) {
-                            onChange({label: '', value: false});
+                            onChange({ label: '', value: false });
                         }
                     }}
                     loading="lazy"
                     src={selectedItem.iconLink}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                 />
-            </Tooltip>
-        ))
+            </Tooltip>,
+        );
     }
     return elements;
 }
@@ -381,11 +369,7 @@ function InputFilter({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tooltip
-                        placement="bottom"
-                        title={tooltip}
-                        arrow
-                    >
+                    <Tooltip placement="bottom" title={tooltip} arrow>
                         {children}
                     </Tooltip>
                 );
@@ -410,14 +394,14 @@ function InputFilter({
     );
 }
 
-function Filter({ center, children, fullWidth }) {
+function Filter({ center, children, fullWidth, className }) {
     const [showFilter, setShowFilter] = useState(false);
     const toggleButton = useRef();
     useEffect(() => {
         if (!toggleButton.current) {
             return;
         }
-        const intersectionObserver = new IntersectionObserver(entries => {
+        const intersectionObserver = new IntersectionObserver((entries) => {
             if (!toggleButton.current) {
                 return;
             }
@@ -447,7 +431,7 @@ function Filter({ center, children, fullWidth }) {
         <div
             className={`filter-wrapper${showFilter ? ' open' : ''}${
                 center ? ' filter-wrapper-center' : ''
-            }${fullWidth ? ' full-width' : ''}`}
+            }${fullWidth ? ' full-width' : ''} ${className || ''}`}
             key="page-filter"
         >
             <div className={'filter-content-wrapper'}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import { selectFilterStyle } from '../filter/index.js';
 import { Tooltip } from '@mui/material';
 
 import './index.css';
@@ -132,6 +133,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
                     options={options}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    styles={selectFilterStyle}
                     onChange={(event) => {
                         dispatch(
                             setStationOrTraderLevel({

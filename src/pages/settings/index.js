@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
+import { selectFilterStyle } from '../../components/filter/index.js';
 
 import i18n from '../../i18n.js';
 
@@ -183,6 +184,7 @@ function Settings() {
                     options={langOptions}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    styles={selectFilterStyle}
                     onChange={(event) => {
                         handleLangChange({
                             target: language,
@@ -207,6 +209,7 @@ function Settings() {
                         })}
                         className="basic-multi-select game-mode"
                         classNamePrefix="select"
+                        styles={selectFilterStyle}
                         onChange={(event) => {
                             dispatch(setGameMode(event.value));
                             window.location.reload();
@@ -257,6 +260,7 @@ function Settings() {
                         })}
                         className="basic-multi-select tracker-domain"
                         classNamePrefix="select"
+                        styles={selectFilterStyle}
                         onChange={handleTrackerDomainChange}
                     />
                 </label>
