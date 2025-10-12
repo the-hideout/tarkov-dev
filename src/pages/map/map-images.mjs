@@ -52,6 +52,7 @@ const images = {
     'spawn_scav': 'spawn_scav',
     'stationarygun': 'stationarygun',
     'switch': 'switch',
+    'btr-stop': 'btr_stop',
 };
 
 export default images;

@@ -148,6 +148,7 @@ export const useMapImages = () => {
                 switches: apiData?.switches || [],
                 stationaryWeapons: apiData?.stationaryWeapons || [],
                 artillery: apiData?.artillery,
+                btrStops: apiData?.btrStops,
             };
             mapImages[imageData.key].displayVariant = i18n.t(imageData.projection, { ns: 'maps' });
             if (imageData.orientation) {

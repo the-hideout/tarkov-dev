@@ -621,6 +621,7 @@ function Map() {
             'stationarygun': tMaps('Stationary Gun'),
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
+            'btr-stop': tMaps('BTR Stop'),
         };
     }, [tMaps]);
 
@@ -1045,6 +1046,7 @@ function Map() {
         const layerIds = [
             'stationarygun',
             'switch',
+            'btr-stop',
         ];
         for (const layerId of layerIds) {
             map.layerControl.removeLayerFromMap(layerId);
@@ -1542,6 +1544,31 @@ function Map() {
                     addLayer(hazardLayers[key], `hazard_${key}`, 'Hazards', hazardNames[key]);
                 }
             }
+        }
+
+        // Add btr stops
+        if (mapData.btrStops?.length > 0) {
+            const stopsGroup = L.layerGroup();
+            for (const btrStop of mapData.btrStops) {
+                const stopIcon = L.divIcon({
+                    className: 'btr-stop',
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/btr_stop.png"/><span class="btr-stop-name">${btrStop.name}</span>`,
+                    iconAnchor: [8, 8]
+                });
+                const stopMarker = L.marker(pos(btrStop), {
+                    icon: stopIcon,
+                    title: btrStop.name,
+                    //zIndexOffset: zIndexOffsets[faction],
+                    position: btrStop,
+                    top: btrStop.y,
+                    bottom: btrStop.y,
+                    riseOnHover: true,
+                });
+                stopMarker.on('add', checkMarkerForActiveLayers);
+                stopMarker.addTo(stopsGroup);
+                checkMarkerBounds(btrStop, markerBoundsRef.current);
+            }
+            addLayer(stopsGroup, 'btr-stop', 'Landmarks');
         }
 
         if (showMarkersBounds) {
