@@ -1557,7 +1557,7 @@ function Map() {
                 });
                 const stopMarker = L.marker(pos(btrStop), {
                     icon: stopIcon,
-                    title: btrStop.name,
+                    title: `${tMaps('BTR Stop')}: ${btrStop.name}`,
                     //zIndexOffset: zIndexOffsets[faction],
                     position: btrStop,
                     top: btrStop.y,
