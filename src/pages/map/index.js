@@ -622,6 +622,7 @@ function Map() {
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
             'btr-stop': tMaps('BTR Stop'),
+            'player-position': tMaps('Player Position'),
         };
     }, [tMaps]);
 
@@ -1921,7 +1922,7 @@ function Map() {
         }
         //console.log('loading player position marker');
         
-        map.layerControl.removeLayerFromMap('player_position');
+        map.layerControl.removeLayerFromMap('player-position');
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
@@ -1954,7 +1955,7 @@ function Map() {
             positionMarker.on('click', activateMarkerLayer);
             positionLayer.addTo(mapRef.current);
             //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
-            addLayer(positionLayer, 'player_position', 'Misc');
+            addLayer(positionLayer, 'player-position', 'Landmarks');
             activateMarkerLayer({target: positionMarker});
             mapRef.current.panTo(pos(playerPosition.position), {animate: true});
             refreshMapSearch();
