@@ -115,7 +115,8 @@
 /* elevation visability */
 
 .leaflet-layer.off-level > .leaflet-tile-container,
-div.leaflet-pane.leaflet-overlay-pane > img.off-level {
+div.leaflet-pane.leaflet-overlay-pane > img.off-level,
+div.leaflet-pane.leaflet-overlay-pane > svg.off-level {
     opacity: 20%;
 }
 
@@ -417,3 +418,10 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     margin-bottom: 60px;
 }
 
+.leaflet-pane.leaflet-overlay-pane svg.base-layer {
+    z-index: 1;
+}
+
+.leaflet-pane.leaflet-overlay-pane svg.level-layer {
+    z-index: 2;
+}
