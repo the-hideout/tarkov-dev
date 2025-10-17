@@ -211,6 +211,12 @@ class MapsQuery extends APIQuery {
                         bottom
                     }
                 }
+                btrStops {
+                    name
+                    x
+                    y
+                    z
+                }
             }
         }`;
     

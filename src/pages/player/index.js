@@ -27,9 +27,8 @@ import ItemImage from '../../components/item-image/index.js';
 import ArrowIcon from '../../components/data-table/Arrow.js';
 import ItemNameCell from '../../components/item-name-cell/index.js';
 
-import useItemsData from '../../features/items/index.js';
-import useMetaData from '../../features/meta/index.js';
-import useAchievementsData from '../../features/achievements/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
+import { usePrestigeData, useAchievementsData } from '../../features/quests/index.js';
 
 import playerStats from '../../modules/player-stats.mjs';
 import { wipeDetails } from '../../modules/wipe-length.js';
@@ -125,8 +124,9 @@ function Player() {
     const [profileError, setProfileError] = useState(false);
     //console.log(playerData);
     const { data: items } = useItemsData();
-    const { data: metaData } = useMetaData();
+    const { data: handbook } = useHandbookData();
     const { data: achievements } = useAchievementsData();
+    const { data: prestigeData } = usePrestigeData();
     const [turnstileToken, setTurnstileToken] = useState();
     const [ playerBanned, setPlayerBanned ] = useState();
     const profileImageRef = useRef();
@@ -241,8 +241,8 @@ function Player() {
         let expTotal = 0;
         let level = 0;
         let levelImageLink;
-        for (let i = 0; i < metaData.playerLevels.length; i++) {
-            const levelData = metaData.playerLevels[i];
+        for (let i = 0; i < handbook.playerLevels.length; i++) {
+            const levelData = handbook.playerLevels[i];
             expTotal += levelData.exp;
             if (expTotal === playerData.info.experience) {
                 level = levelData.level;
@@ -250,8 +250,8 @@ function Player() {
                 break;
             }
             if (expTotal > playerData.info.experience) {
-                level = metaData.playerLevels[i - 1].level;
-                levelImageLink = metaData.playerLevels[i - 1].levelBadgeImageLink;
+                level = handbook.playerLevels[i - 1].level;
+                levelImageLink = handbook.playerLevels[i - 1].levelBadgeImageLink;
                 break;
             }
         }
@@ -261,14 +261,18 @@ function Player() {
                 <span style={{display: 'block'}}>{t('Level {{playerLevel}}', {playerLevel: level})}</span>
             </span>
         </div>);
-    }, [playerData, metaData, t]);
+    }, [playerData, handbook, t]);
 
     const prestigeImage = useMemo(() => {
         if (!playerData.info.prestigeLevel) {
             return '';
         }
-        return <div style={{float: 'left'}}><img src={`https://assets.tarkov.dev/prestige-${playerData.info.prestigeLevel}-icon.png`} alt={t('Prestige {{prestigeLevel}}', {prestigeLevel: playerData.info.prestigeLevel})}/></div>
-    }, [playerData, t]);
+        const p = prestigeData.find(p => p.prestigeLevel === playerData.info.prestigeLevel);
+        if (!p) {
+            return;
+        }
+        return <Link to={`/prestige/${playerData.info.prestigeLevel}`}><div style={{float: 'left'}}><img src={p.iconLink} alt={p.name}/></div></Link>
+    }, [playerData, prestigeData]);
 
     const accountCategories = useMemo(() => {
         if (!playerData?.info?.memberCategory) {
@@ -619,7 +623,7 @@ function Player() {
             if (!s.Progress || s.LastAccess <= 0) {
                 return false;
             }
-            const skill = metaData.skills.find(skill => skill.id === s.Id);
+            const skill = handbook.skills.find(skill => skill.id === s.Id);
             return {
                 skill: skill?.name || s.Id,
                 id: s.Id,
@@ -628,7 +632,7 @@ function Player() {
                 lastAccess: s.LastAccess,
             }
         }).filter(Boolean) || [];
-    }, [playerData, metaData]);
+    }, [playerData, handbook]);
 
     const masteringColumns = useMemo(
         () => [
@@ -714,7 +718,7 @@ function Player() {
 
     const masteringData = useMemo(() => {
         return playerData.skills?.Mastering?.map(masteringProgress => {
-            const mastering = metaData.mastering.find(m => m.id === String(masteringProgress.Id));
+            const mastering = handbook.mastering.find(m => m.id === String(masteringProgress.Id));
             if (!mastering) {
                 return false;
             }
@@ -744,7 +748,7 @@ function Player() {
                 }).filter(Boolean),
             };
         }).filter(Boolean) || [];
-    }, [playerData, metaData, items]);
+    }, [playerData, handbook, items]);
 
     const totalTimeInGame = useMemo(() => {
         const totalSecondsInGame = playerData.pmcStats?.eft?.totalInGameTime || 0;

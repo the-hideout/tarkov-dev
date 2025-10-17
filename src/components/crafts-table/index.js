@@ -21,7 +21,7 @@ import './index.css';
 import RewardCell from '../reward-cell/index.js';
 import { getDurationDisplay } from '../../modules/format-duration.js';
 import bestPrice from '../../modules/best-price.js';
-import useMetaData from '../../features/meta/index.js';
+import { useHandbookData } from '../../features/items/index.js';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
@@ -41,7 +41,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const { data: barters } = useBartersData();
 
-    const { data: meta } = useMetaData();
+    const { data: handbook } = useHandbookData();
 
     const { data: hideout} = useHideoutData();
 
@@ -216,7 +216,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 }
 
                 if (!tradeData.cached && !craftRewardItem.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRewardItem, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
+                    const bestFleaPrice = bestPrice(craftRewardItem, handbook?.fleaMarket?.sellOfferFeeRate, handbook?.fleaMarket?.sellRequirementFeeRate, fleaPriceToUse);
                     if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
@@ -338,7 +338,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         t,
         showAll,
         averagePrices,
-        meta,
+        handbook,
         settings,
         sortState,
         useCraftIngredients,

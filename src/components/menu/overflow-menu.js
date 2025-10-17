@@ -86,7 +86,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
                 MenuListProps={{
                     onMouseLeave: handleClose,
                     // don't autofocus items when opening via hover/click combination
-                    disableAutoFocusItem: true,
+                    disableautofocusitem: 'true',
                     ref: (node) => {
                         // MenuList is wrapped; store the list node when available
                         menuRef.current = node;

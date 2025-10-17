@@ -143,12 +143,19 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     max-height: 24px !important;
 }
 
-.extract-icon {
+.leaflet-container .leaflet-marker-pane .btr-stop img {
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+.extract-icon,
+.btr-stop {
     display: inline;
     white-space: nowrap;
 }
 
-.extract-name {
+.extract-name,
+.btr-stop-name {
     font-weight: 800;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
@@ -174,6 +181,18 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 .extract-name.transit {
     color: var(--color-red);
+}
+
+.btr-stop img {
+    vertical-align: middle;
+}
+
+.btr-stop .btr-stop-name {
+    margin-left: 5px;
+    color: var(--color-gold-one);
+    text-shadow: 0 0 3px var(--color-black);
+    -webkit-text-stroke: 0.5px var(--color-black);
+    vertical-align: middle;
 }
 
 .poi-image, img.popup-item {

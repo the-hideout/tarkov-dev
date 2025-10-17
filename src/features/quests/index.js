@@ -45,7 +45,8 @@ const questsSlice = createSlice({
 
 export const questsReducer = questsSlice.reducer;
 
-const selectQuests = state => state.quests.data;
+const selectQuests = state => state.quests.data.tasks;
+//const selectPrestige = state => state.quests.data.prestige;
 const selectTraders = state => state.traders.data;
 const selectSettings = state => state.settings;
 
@@ -129,6 +130,86 @@ let refreshInterval = false;
 const clearRefreshInterval = () => {
     clearInterval(refreshInterval);
     refreshInterval = false;
+};
+
+export function useAchievementsData() {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.quests);
+    const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
+    
+        useEffect(() => {
+            const dataName = 'achievements';
+            if (status === 'idle') {
+                return;
+            } else if (status === 'loading') {
+                dispatch(setDataLoading(dataName));
+            } else {
+                dispatch(setDataLoaded(dataName));
+            }
+        }, [status, dispatch]);
+
+    useEffect(() => {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
+            fetchedLang = lang;
+            fetchedGameMode = gameMode;
+            dispatch(fetchQuests());
+            clearRefreshInterval();
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+        return () => {
+            clearRefreshInterval();
+        };
+    }, [dispatch, lang, gameMode]);
+    
+    return { data: data.achievements, status, error };
+};
+
+export const usePrestigeData = () => {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.quests);
+    const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
+    
+    useEffect(() => {
+        const dataName = 'quests';
+        if (status === 'idle') {
+            return;
+        } else if (status === 'loading') {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
+
+    useEffect(() => {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
+            fetchedLang = lang;
+            fetchedGameMode = gameMode;
+            dispatch(fetchQuests());
+            clearRefreshInterval();
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+        return () => {
+            clearRefreshInterval();
+        };
+    }, [dispatch, lang, gameMode]);
+
+    return { data: data.prestige, status, error };
 };
 
 export default function useQuestsData() {

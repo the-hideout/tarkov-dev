@@ -6,8 +6,6 @@ import cachedHideout from '../data/hideout_cached.json';
 import cachedItems from '../data/items_cached.json';
 import cachedItemsLocale from '../data/items_locale.json';
 
-import cachedMeta from '../data/meta_cached.json';
-
 import cachedMaps from '../data/maps_cached.json';
 import cachedMapsLocale from '../data/maps_locale.json';
 
@@ -34,12 +32,15 @@ export function placeholderHideout(language = 'en') {
 
 export function placeholderItems(language = 'en') {
     if (language !== 'en' && cachedItemsLocale[language]) {
-        return cachedItems.map(item => {
-            return {
-                ...item,
-                ...cachedItemsLocale[language][item.id]
-            };
-        });
+        return {
+            ...cachedItems,
+            items: cachedItems.items.map(item => {
+                return {
+                    ...item,
+                    ...cachedItemsLocale[language][item.id]
+                };
+            }),
+        };
     }
     return cachedItems;
 }
@@ -68,24 +69,23 @@ export function placeholderBosses(language = 'en') {
     return cachedBosses;
 }
 
-export function placeholderMeta(language = 'en') {
-    return cachedMeta;
-}
-
 export function placeholderTasks(language = 'en') {
     if (language !== 'en' && cachedTasksLocale[language]) {
-        return cachedTasks.map(task => {
-            return {
-                ...task,
-                name: cachedTasksLocale[language][task.id].name,
-                objectives: task.objectives.map(defObj => {
-                    return {
-                        ...defObj,
-                        description: cachedTasksLocale[language][task.id].objectives[defObj.id]
-                    }
-                })
-            };
-        });
+        return {
+            ...cachedTasks,
+            tasks: cachedTasks.tasks.map(task => {
+                return {
+                    ...task,
+                    name: cachedTasksLocale[language][task.id].name,
+                    objectives: task.objectives.map(defObj => {
+                        return {
+                            ...defObj,
+                            description: cachedTasksLocale[language][task.id].objectives[defObj.id]
+                        }
+                    })
+                }
+            }),
+        };
     }
     return cachedTasks;
 }

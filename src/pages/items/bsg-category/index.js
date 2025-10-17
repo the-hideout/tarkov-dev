@@ -9,7 +9,7 @@ import SmallItemTable from '../../../components/small-item-table/index.js';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task.js';
 
-import useMetaData from '../../../features/meta/index.js';
+import { useHandbookData } from '../../../features/items/index.js';
 
 function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -24,8 +24,8 @@ function BsgCategory() {
         (category) => category.urlName === bsgCategoryName?.toLowerCase(),
     );*/
 
-    const { data: meta } = useMetaData();
-    const category = meta.categories.find(cat => bsgCategoryName === cat.normalizedName);
+    const { data: handbook } = useHandbookData();
+    const category = handbook.itemCategories.find(cat => bsgCategoryName === cat.normalizedName);
 
     const handleNameFilterChange = useCallback(
         (e) => {

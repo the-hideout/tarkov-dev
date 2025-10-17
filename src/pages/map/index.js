@@ -22,9 +22,8 @@ import '../../styles/mapSettings.css';
 import { setPlayerPosition } from '../../features/settings/settingsSlice.mjs';
 
 import { useMapImages } from '../../features/maps/index.js';
-import useItemsData from '../../features/items/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useQuestsData from '../../features/quests/index.js';
-import useMetaData from '../../features/meta/index.js';
 
 import staticMapData from '../../data/maps_static.json'
 import rawMapsData from '../../data/maps.json';
@@ -368,7 +367,7 @@ function Map() {
 
     const { data: items } = useItemsData();
     const { data: quests} = useQuestsData();
-    const { data: metaData } = useMetaData();
+    const { data: handbook } = useHandbookData();
 
     let allMaps = useMapImages();
 
@@ -622,6 +621,7 @@ function Map() {
             'stationarygun': tMaps('Stationary Gun'),
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
+            'btr-stop': tMaps('BTR Stop'),
         };
     }, [tMaps]);
 
@@ -1046,6 +1046,7 @@ function Map() {
         const layerIds = [
             'stationarygun',
             'switch',
+            'btr-stop',
         ];
         for (const layerId of layerIds) {
             map.layerControl.removeLayerFromMap(layerId);
@@ -1545,6 +1546,31 @@ function Map() {
             }
         }
 
+        // Add btr stops
+        if (mapData.btrStops?.length > 0) {
+            const stopsGroup = L.layerGroup();
+            for (const btrStop of mapData.btrStops) {
+                const stopIcon = L.divIcon({
+                    className: 'btr-stop',
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/btr_stop.png"/><span class="btr-stop-name">${btrStop.name}</span>`,
+                    iconAnchor: [8, 8]
+                });
+                const stopMarker = L.marker(pos(btrStop), {
+                    icon: stopIcon,
+                    title: `${tMaps('BTR Stop')}: ${btrStop.name}`,
+                    //zIndexOffset: zIndexOffsets[faction],
+                    position: btrStop,
+                    top: btrStop.y,
+                    bottom: btrStop.y,
+                    riseOnHover: true,
+                });
+                stopMarker.on('add', checkMarkerForActiveLayers);
+                stopMarker.addTo(stopsGroup);
+                checkMarkerBounds(btrStop, markerBoundsRef.current);
+            }
+            addLayer(stopsGroup, 'btr-stop', 'Landmarks');
+        }
+
         if (showMarkersBounds) {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
@@ -1794,7 +1820,7 @@ function Map() {
                 let markerTitle = t('Loose Loot');
                 let className = '';
                 const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = metaData.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
+                    const category = handbook.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
                     markerCategories.add(category);
                     return markerCategories;
                 }, new Set());
@@ -1813,7 +1839,7 @@ function Map() {
                         iconSize = [pixelWidth * scale, 24];
                     }
                 } else if (markerCategories.size === 1) {
-                    const category = metaData.handbookCategories.find(c => c.id === markerCategories.values().next().value.id);
+                    const category = handbook.handbookCategories.find(c => c.id === markerCategories.values().next().value.id);
                     iconUrl = category.imageLink;
                     markerTitle = category.name;
                     //className = 'loot-outline';
@@ -1847,7 +1873,7 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
-                    const category = metaData.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
+                    const category = handbook.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
                     markerCategories.add(category.id);
                     if (!looseLootLayers[category.normalizedName]) {
                         looseLootLayers[category.normalizedName] = {
@@ -1878,7 +1904,7 @@ function Map() {
             }
         }
         refreshMapSearch();
-    }, [mapData, items, metaData, addLayer, t, tMaps, getPoiLinkElement]);
+    }, [mapData, items, handbook, addLayer, t, tMaps, getPoiLinkElement]);
 
     useEffect(() => {
         if (!mapData || mapData.projection !== 'interactive') {

@@ -30,9 +30,8 @@ import itemCanContain from '../../modules/item-can-contain.js';
 
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
-import useItemsData from '../../features/items/index.js';
+import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useHideoutData from '../../features/hideout/index.js';
-import useMetaData from '../../features/meta/index.js';
 import { selectAllSkills } from '../../features/settings/settingsSlice.mjs';
 
 import CanvasGrid from '../../components/canvas-grid/index.js';
@@ -287,19 +286,19 @@ function SmallItemTable(props) {
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const skills = useSelector(selectAllSkills);
 
-    const { data: meta } = useMetaData();
+    const { data: handbook } = useHandbookData();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
         () => {
             const destruct = {};
             const repair = {};
-            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
-            meta.armor.forEach(armor => {
+            if (!handbook?.armorMaterials) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+            handbook.armorMaterials.forEach(armor => {
                 destruct[armor.id] = armor.destructibility;
                 repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
             });
             return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
         },
-        [meta]
+        [handbook]
     );
 
     // Create a constant of all data returned
