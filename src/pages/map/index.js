@@ -1974,7 +1974,7 @@ function Map() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className={`display-wrapper${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
+        <div className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
             {mapData.projection !== 'interactive' && ([    
             <Time
                 key="raid-info"
