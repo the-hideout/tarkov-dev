@@ -25,7 +25,7 @@ import { useMapImages } from '../../features/maps/index.js';
 import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useQuestsData from '../../features/quests/index.js';
 
-import staticMapData from '../../data/maps_static.json'
+import staticMapMarkers from '../../data/maps_static.json'
 import rawMapsData from '../../data/maps.json';
 
 import Time from '../../components/Time.jsx';
@@ -622,6 +622,7 @@ function Map() {
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
             'btr-stop': tMaps('BTR Stop'),
+            'player-position': tMaps('Player Position'),
         };
     }, [tMaps]);
 
@@ -773,12 +774,14 @@ function Map() {
 
         let svgLayer = false;
         if (mapData.svgPath) {
-            // if (process.env.NODE_ENV === "development") {
-            //     mapData.svgPath = mapData.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
-            // }
-            //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
             const svgBounds = mapData.svgBounds ? getBounds(mapData.svgBounds) : bounds;
-            svgLayer = L.imageOverlay(mapData.svgPath, svgBounds, layerOptions);
+            const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            fetch(mapData.svgPath).then(response => response.text()).then(svgText => {
+                svgElement.innerHTML = svgText;
+                svgElement.setAttribute('viewBox', svgElement.children[0].getAttribute('viewBox'));
+            });
+            svgLayer = L.svgOverlay(svgElement, svgBounds, {...layerOptions, className: 'base-layer'});
             baseLayers.push(svgLayer);
         }
 
@@ -795,7 +798,7 @@ function Map() {
 
             let selectedLayer = '';
             baseLayer.on('add', () => {
-                const svgParent = baseLayer._url.endsWith('.svg');
+                const svgParent = baseLayer._url.nodeName === 'svg';
                 if (tileLayer && svgLayer) {
                     const selectedStyle = svgParent ? 'svg' : 'tile';
                     if (mapSettingsRef.current.style !== selectedStyle) {
@@ -836,10 +839,13 @@ function Map() {
                         continue;
                     }
                     if (usedStyle === 'svg') {
-                        // if (process.env.NODE_ENV === "development") {
-                        //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
-                        // }
-                        heightLayer = L.imageOverlay(layer.svgPath, bounds, layerOptions);
+                        const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                        fetch(layer.svgPath).then(response => response.text()).then(svgText => {
+                            svgElement.innerHTML = svgText;
+                            svgElement.setAttribute('viewBox', svgElement.children[0].getAttribute('viewBox'));
+                        });
+                        heightLayer = L.svgOverlay(svgElement, bounds, {...layerOptions, className: 'level-layer'});
                     }
                     else if (usedStyle === 'tile') {
                         heightLayer = L.tileLayer(layer.tilePath, {
@@ -949,10 +955,10 @@ function Map() {
 
         // Add static items 
         if (showStaticMarkers) {
-            for (const category in staticMapData[mapData.normalizedName]) {
+            for (const category in staticMapMarkers[mapData.normalizedName]) {
                 const markerLayer = L.layerGroup();
 
-                const items = staticMapData[mapData.normalizedName][category];
+                const items = staticMapMarkers[mapData.normalizedName][category];
                 for (const item of items) {
                     const itemIcon = L.icon({
                         iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
@@ -1916,7 +1922,7 @@ function Map() {
         }
         //console.log('loading player position marker');
         
-        map.layerControl.removeLayerFromMap('player_position');
+        map.layerControl.removeLayerFromMap('player-position');
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
@@ -1949,7 +1955,7 @@ function Map() {
             positionMarker.on('click', activateMarkerLayer);
             positionLayer.addTo(mapRef.current);
             //layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
-            addLayer(positionLayer, 'player_position', 'Misc');
+            addLayer(positionLayer, 'player-position', 'Landmarks');
             activateMarkerLayer({target: positionMarker});
             mapRef.current.panTo(pos(playerPosition.position), {animate: true});
             refreshMapSearch();
@@ -1968,7 +1974,7 @@ function Map() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className={`display-wrapper${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
+        <div className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}`} key="map-wrapper">
             {mapData.projection !== 'interactive' && ([    
             <Time
                 key="raid-info"

@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { ReactComponent as GithubIcon } from '../../images/Github.svg';
 import { ReactComponent as DiscordIcon } from '../../images/Discord.svg';
@@ -16,6 +16,10 @@ const version = rawVersion.version.slice(0, 7);
 
 function Footer() {
     const { t } = useTranslation();
+    const location = useLocation();
+    if (location.pathname.startsWith('/map/')) {
+        return '';
+    }
 
     return (
         <div className={'footer-wrapper'}>
