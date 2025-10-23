@@ -9,7 +9,7 @@ from shutil import copyfile
 translations_dir = './'
 
 # List of languages
-languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru']
+languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru', 'zh']
 
 for en_file_name in os.listdir(os.path.join(translations_dir, 'en')):
     en_file_path = os.path.join(translations_dir, 'en', en_file_name)
