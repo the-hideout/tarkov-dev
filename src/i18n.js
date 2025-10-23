@@ -12,6 +12,7 @@ import translationFR from './translations/fr/translation.json';
 import translationJA from './translations/ja/translation.json';
 import translationPL from './translations/pl/translation.json';
 import translationPT from './translations/pt/translation.json';
+import translationZH from './translations/zh/translation.json';
 
 import propertiesEN from './translations/en/properties.json';
 import propertiesDE from './translations/de/properties.json';
@@ -22,6 +23,7 @@ import propertiesES from './translations/es/properties.json';
 import propertiesJA from './translations/ja/properties.json';
 import propertiesPL from './translations/pl/properties.json';
 import propertiesPT from './translations/pt/properties.json';
+import propertiesZH from './translations/zh/properties.json';
 
 import bossesEN from './translations/en/bosses.json';
 import bossesDE from './translations/de/bosses.json';
@@ -32,6 +34,7 @@ import bossesES from './translations/es/bosses.json';
 import bossesJA from './translations/ja/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
 import bossesPT from './translations/pt/bosses.json';
+import bossesZH from './translations/zh/bosses.json';
 
 import mapsEN from './translations/en/maps.json';
 import mapsDE from './translations/de/maps.json';
@@ -42,6 +45,7 @@ import mapsES from './translations/es/maps.json';
 import mapsJA from './translations/ja/maps.json';
 import mapsPL from './translations/pl/maps.json';
 import mapsPT from './translations/pt/maps.json';
+import mapsZH from './translations/zh/maps.json';
 
 // const myParseMissingKeyHandler = (key, defaultValue) => {
 //     console.log(`Missing translation "${key}": "${key}"`)
@@ -126,6 +130,12 @@ i18n
                 properties: propertiesPT,
                 bosses: bossesPT,
                 maps: mapsPT,
+            },
+            zh: {
+                translation: translationZH,
+                properties: propertiesZH,
+                bosses: bossesZH,
+                maps: mapsZH,
             }
 
         },
