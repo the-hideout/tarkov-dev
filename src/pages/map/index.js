@@ -622,6 +622,7 @@ function Map() {
             'switch': tMaps('Switch'),
             'place-names': tMaps('Place Names'),
             'btr-stop': tMaps('BTR Stop'),
+            'Landmarks': tMaps('Landmarks'),
         };
     }, [tMaps]);
 
