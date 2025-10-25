@@ -53,6 +53,7 @@ const images = {
     'stationarygun': 'stationarygun',
     'switch': 'switch',
     'btr-stop': 'btr_stop',
+    'player-position': 'player-position',
 };
 
 export default images;
