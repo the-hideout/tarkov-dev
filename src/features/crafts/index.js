@@ -125,13 +125,14 @@ const selectQuests = state => state.quests.data.tasks;
 const selectItems = state => state.items.data.items;
 
 export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selectItems], (crafts, quests, items) => {
-    return crafts.map(craft => {
+    const validatedCrafts = crafts.map(craft => {
         let taskUnlock = craft.taskUnlock;
         if (taskUnlock) {
             taskUnlock = quests.find(t => t.id === taskUnlock.id);
         }
         return {
             ...craft,
+            startRequiredItemCount: craft.requiredItems.length,
             requiredItems: craft.requiredItems.map(req => {
                 let matchedItem = items.find(it => it.id === req.item.id);
                 if (matchedItem && matchedItem.types.includes('gun')) {
@@ -159,7 +160,9 @@ export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selec
             }).filter(Boolean),
             taskUnlock: taskUnlock,
         };
-    }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
+    }).filter(craft => craft.rewardItems.length > 0 && (craft.requiredItems.length > 0 || craft.startRequiredItemCount === 0));
+    validatedCrafts.forEach(craft => {delete craft.startRequiredItemCount});
+    return validatedCrafts;
 });
 
 let fetchedGamMode = false;
