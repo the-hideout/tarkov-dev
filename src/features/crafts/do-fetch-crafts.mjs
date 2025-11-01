@@ -67,9 +67,10 @@ class CraftsQuery extends APIQuery {
     
         // validate to make sure crafts all have valid requirements and rewards
         return craftsData.data.crafts.reduce((crafts, craft) => {
+            const originalRequirementCount = craft.requiredItems.length;
             craft.requiredItems = craft.requiredItems.filter(Boolean);
             craft.rewardItems = craft.rewardItems.filter(Boolean);
-            if (craft.requiredItems.length > 0 && craft.rewardItems.length > 0) {
+            if ((craft.requiredItems.length > 0 || originalRequirementCount === 0) && craft.rewardItems.length > 0) {
                 crafts.push(craft);
             }
             return crafts;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import useItemsData from '../../features/items/index.js'
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
-import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data.js';
+import { BitcoinItemId, GraphicCardItemId, getAllProduceBitcoinData } from './data.js';
 import DataTable from '../../components/data-table/index.js';
 import formatPrice from '../../modules/format-price.js';
 import CenterCell from '../../components/center-cell/index.js';
@@ -22,7 +22,7 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining, gameMode }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining, gameMode, duration }) => {
     const stations = useSelector(selectAllStations);
 
     const { data: hideout } = useHideoutData();
@@ -34,6 +34,28 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     const { data: crafts } = useCraftsData();
 
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
+
+    const bitcoinCraftDuration = useMemo(() => {
+        if (!crafts?.length) {
+            return 0
+        }
+        const btcStation = hideout?.find(s => s.normalizedName === 'bitcoin-farm');
+        if (!btcStation) {
+            return 0;
+        }
+        for (const craft of crafts) {
+            //console.log(btcStation.id, craft.station.normalizedName, craft);
+            if (craft.station.id !== btcStation.id) {
+                continue;
+            }
+            return craft.duration;
+        }
+        return 0;
+    }, [crafts, hideout]);
+
+    const bitcoinProductionData = useMemo(() => {
+        return getAllProduceBitcoinData(bitcoinCraftDuration)
+    }, [bitcoinCraftDuration]);
 
     const bitcoinItem = useMemo(() => {
         return items.find(i => i.id === BitcoinItemId);
@@ -111,7 +133,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         }, 0);
 
         return profitForNumCards.map((graphicCardsCount) => {
-            const data = ProduceBitcoinData[graphicCardsCount];
+            const data = bitcoinProductionData[graphicCardsCount];
             if (!data) {
                 return false;
             }
@@ -186,7 +208,8 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         farmCosts,
         stations,
         useBuildCosts,
-        daysLeft
+        daysLeft,
+        bitcoinProductionData,
     ]);
 
     if (data.length <= 0) {
