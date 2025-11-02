@@ -2036,24 +2036,212 @@
                 "projection": "interactive",
                 "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.268, 0, 0.268, 0],
+                "transform": [0.395, 122.0, 0.395, 137.65],
                 "coordinateRotation": 180,
                 "bounds": [
+                    [289, -293],
+                    [-303, 244]
+                ],
+                "svgBounds": [
                     [289, -338],
                     [-303, 336]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "tilePath": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
                 "heightRange": [-7, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/bunkers/{z}/{x}/{y}.png",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
                         "show": false,
                         "extents": [
                             {
-                                "height": [-10000, -7]
+                                "height": [-10000, -7.27],
+                                "bounds": [
+                                    [[128, -208], [18, -33], "storage bunker"],
+                                    [[-46, -42], [-176, 127], "command bunkers"]
+                                ]
+                            },
+                            {
+                                "height": [-10000, -12],
+                                "bounds": [
+                                    [[-40, 124], [-124, 189], "D2"]
+                                ]
+                            },
+                            {
+                                "height": [-10000, 18],
+                                "bounds": [
+                                    [[23, 173], [-65, 189], "dome tunnels"]
+                                ]
+                            },
+                            {
+                                "height": [-7.27, -3.2],
+                                "bounds": [
+                                    [[74, -196], [19, -149], "bunker hermetic door bunkers"]
+                                ]
+                            },
+                            {
+                                "height": [-11, -4.6],
+                                "bounds": [
+                                    [[-246, -79], [-274, -53], "E1 bunkers"],
+                                    [[238, -26], [126, 45], "bunkers"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [22.1, 25.7],
+                                "bounds": [
+                                    [[1, 164], [-17, 199], "dome"]
+                                ]
+                            },
+                            {
+                                "height": [-3.5, -0.64],
+                                "bounds": [
+                                    [[-77, 26], [-177, 106], "pawns"],
+                                    [[62, 59], [51, 108], "checkpoint fence tower"]
+                                ]
+                            },
+                            {
+                                "height": [-3.5, -0.64],
+                                "bounds": [
+                                    [[-104, -37], [-177, 5], "black bishop"]
+                                ]
+                            },
+                            {
+                                "height": [-3.9, -0.6],
+                                "bounds": [
+                                    [[-47, -47], [-85, -18], "white bishop"]
+                                ]
+                            },
+                            {
+                                "height": [-4.3, -2.2],
+                                "bounds": [
+                                    [[-19.91, -13], [-78, 39], "white king"]
+                                ]
+                            },
+                            {
+                                "height": [-3.8, -1.1],
+                                "bounds": [
+                                    [[99, -50], [-2, 7], "knights"]
+                                ]
+                            },
+                            {
+                                "height": [-1.9, 11.3],
+                                "bounds": [
+                                    [[191, -175], [137, -120], "train depot"]
+                                ]
+                            },
+                            {
+                                "height": [1, 8],
+                                "bounds": [
+                                    [[-109, -156], [-119, -147], "towers"],
+                                    [[289, -92], [299, -82], "towers"],
+                                    [[3, -210], [-7, -200], "towers"],
+                                    [[195, -260], [185, -250], "towers"],
+                                    [[276, 17], [266, 27], "towers"]
+                                ]
+                            },
+                            {
+                                "height": [-4.1, -1.2],
+                                "bounds": [
+                                    [[-128, -139], [-146, -120], "scav lands"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/3rd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [25.7, 29.3],
+                                "bounds": [
+                                    [[1, 164], [-17, 199], "dome"]
+                                ]
+                            },
+                            {
+                                "height": [-0.64, 2.23],
+                                "bounds": [
+                                    [[-77, 26], [-177, 106], "pawns"]
+                                ]
+                            },
+                            {
+                                "height": [-0.64, 2.23],
+                                "bounds": [
+                                    [[-104, -37], [-177, 5], "black bishop"]
+                                ]
+                            },
+                            {
+                                "height": [-0.6, 10],
+                                "bounds": [
+                                    [[-47, -47], [-85, -18], "white bishop"]
+                                ]
+                            },
+                            {
+                                "height": [-2.2, 2.14],
+                                "bounds": [
+                                    [[-19.91, -13], [-78, 39], "white king"]
+                                ]
+                            },
+                            {
+                                "height": [-1.1, 1.6],
+                                "bounds": [
+                                    [[99, -50], [-2, 7], "knights"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "4th Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/4th/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [29.3, 36],
+                                "bounds": [
+                                    [[1, 164], [-17, 199], "dome"]
+                                ]
+                            },
+                            {
+                                "height": [2.23, 5],
+                                "bounds": [
+                                    [[-77, 26], [-177, 106], "pawns"]
+                                ]
+                            },
+                            {
+                                "height": [2.15, 6.6],
+                                "bounds": [
+                                    [[-19.91, -13], [-78, 39], "white king"]
+                                ]
+                            },
+                            {
+                                "height": [1.6, 4.7],
+                                "bounds": [
+                                    [[99, -50], [-2, 7], "knights"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "5th Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/5th/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [5, 9.5],
+                                "bounds": [
+                                    [[-77, 26], [-177, 106], "pawns"]
+                                ]
                             }
                         ]
                     }
