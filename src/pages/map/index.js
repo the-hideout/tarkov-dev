@@ -623,7 +623,6 @@ function Map() {
             'place-names': tMaps('Place Names'),
             'btr-stop': tMaps('BTR Stop'),
             'player-position': tMaps('Player Position'),
-            'Landmarks': tMaps('Landmarks'),
         };
     }, [tMaps]);
 
