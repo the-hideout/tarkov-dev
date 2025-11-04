@@ -17,11 +17,12 @@
                 "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg",
+                "svgLayer": "Ground_Level",
                 "layers": [
                     {
                         "name": "Underground",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Underground_Level.svg",
+                        "svgLayer": "Underground_Level",
                         "show": false,
                         "extents": [
                             {
@@ -31,7 +32,7 @@
                     },
                     {
                         "name": "2nd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -41,7 +42,7 @@
                     },
                     {
                         "name": "3rd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Third_Floor.svg",
+                        "svgLayer": "Third_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -51,7 +52,7 @@
                     },
                     {
                         "name": "4th Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fourth_Floor.svg",
+                        "svgLayer": "Fourth_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -61,7 +62,7 @@
                     },
                     {
                         "name": "5th Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fifth_Floor.svg",
+                        "svgLayer": "Fifth_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -360,12 +361,13 @@
                 "heightRange": [-1000, 28],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero.svg",
+                "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Garage",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Underground_Level.svg",
+                        "svgLayer": "Underground_Level",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -380,7 +382,7 @@
                     },
                     {
                         "name": "2nd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -395,7 +397,7 @@
                     },
                     {
                         "name": "3rd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Third_Floor.svg",
+                        "svgLayer": "Third_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -505,12 +507,13 @@
                 "heightRange": [-1000, 1000],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg",
+                "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
+                        "svgLayer": "Underground_Level",
                         "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/underground/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -529,7 +532,7 @@
                     },
                     {
                         "name": "2nd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -584,7 +587,7 @@
                     },
                     {
                         "name": "3rd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
+                        "svgLayer": "Third_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -773,12 +776,13 @@
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "tilePath": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Ground_Floor.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Factory.svg",
+                "svgLayer": "Ground_Floor",
                 "layers": [
                     {
                         "name": "2nd Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/factory/2nd/{z}/{x}/{y}.png",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -789,7 +793,7 @@
                     {
                         "name": "3rd Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/factory/3rd/{z}/{x}/{y}.png",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Third_Floor.svg",
+                        "svgLayer": "Third_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -800,7 +804,7 @@
                     {
                         "name": "Tunnels",
                         "tilePath": "https://assets.tarkov.dev/maps/factory/tunnels/{z}/{x}/{y}.png",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Basement.svg",
+                        "svgLayer": "Basement",
                         "show": false,
                         "extents": [
                             {
@@ -1024,13 +1028,14 @@
                 ],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange.svg",
+                "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png",
                 "_heightRange": [-1000, 25],
                 "layers": [
                     {
                         "name": "2nd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
+                        "svgLayer": "First_Floor",
                         "show": true,
                         "extents": [
                             {
@@ -1041,7 +1046,7 @@
                     },
                     {
                         "name": "3rd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -1916,6 +1921,7 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg",
+                "svgLayer": "Ground_Level",
                 "labels": [
                     {
                         "position": [-30, -882],
@@ -2049,13 +2055,14 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "tilePath": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve.svg",
+                "svgLayer": "Ground_Level",
                 "heightRange": [-7, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
                         "tilePath": "https://assets.tarkov.dev/maps/reserve/bunkers/{z}/{x}/{y}.png",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
+                        "svgLayer": "Bunkers",
                         "show": false,
                         "extents": [
                             {
@@ -2454,12 +2461,13 @@
                 "heightRange": [-1000, -1],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg",
+                "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Underground_Level.svg",
+                        "svgLayer": "Underground_Level",
                         "show": false,
                         "extents": [
                             {
@@ -2473,7 +2481,7 @@
                     },
                     {
                         "name": "2nd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Second_Floor.svg",
+                        "svgLayer": "Second_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -2483,7 +2491,7 @@
                     },
                     {
                         "name": "3rd Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Third_Floor.svg",
+                        "svgLayer": "Third_Floor",
                         "show": false,
                         "extents": [
                             {
@@ -2652,6 +2660,7 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
+                "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",
                 "labels": [
                     {
