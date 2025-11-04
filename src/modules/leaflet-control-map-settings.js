@@ -64,6 +64,24 @@ L.Control.MapSettings = L.Control.extend({
         const expandMapLegendLabelContent = L.DomUtil.create('span', undefined, expandMapLegendLabel);
         expandMapLegendLabelContent.textContent = this.options.expandMapLegendLabel;
 
+        // keep search expanded
+        const expandSearchDiv = L.DomUtil.create('div', `${className}-setting-container`, form);
+
+        const expandSearchLabel = L.DomUtil.create('label', undefined, expandSearchDiv);
+        expandSearchLabel.setAttribute('for', 'expandSearch');
+
+        const expandSearchCheckbox = L.DomUtil.create('input', undefined, expandSearchLabel);
+        expandSearchCheckbox.id = 'expandSearch';
+        expandSearchCheckbox.setAttribute('type', 'checkbox');
+        if (!!this.options.expandSearchChecked) {
+            expandSearchCheckbox.setAttribute('checked', !!this.options.expandSearchChecked);
+            expandSearchCheckbox.checked = true;
+        }
+        L.DomEvent.on(expandSearchCheckbox, 'click', this._onSettingChanged, this);
+
+        const expandSearchLabelContent = L.DomUtil.create('span', undefined, expandSearchLabel);
+        expandSearchLabelContent.textContent = this.options.expandSearchLabel;
+
         // show only active quests setting
         const activeQuestMarkersDiv = L.DomUtil.create('div', `${className}-setting-container`, form);
 
