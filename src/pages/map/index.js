@@ -289,6 +289,7 @@ function Map() {
             collapsedGroups: [],
             showOnlyActiveTasks: false,
             expandMapLegend: false,
+            expandSearch: false,
         },
     );
 
@@ -489,6 +490,8 @@ function Map() {
             activeTasksLabel: tMaps('Only show markers for active tasks'),
             expandMapLegendChecked: mapSettingsRef.current.expandMapLegend,
             expandMapLegendLabel: tMaps('Don\'t collapse layers control'),
+            expandSearchChecked: mapSettingsRef.current.expandSearch,
+            expandSearchLabel: tMaps('Don\'t collapse search control'),
             playerLocationLabel: tMaps('Use TarkovMonitor to show your position'),
             collapsed: true,
         }).addTo(map);
@@ -502,6 +505,9 @@ function Map() {
             }
             if (e.settingName === 'expandMapLegend') {
                 layerControl.setCollapse(!e.settingValue);
+            }
+            if (e.settingName === 'expandSearch') {
+                map.searchControl.setCollapse(!e.settingValue);
             }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
@@ -517,7 +523,7 @@ function Map() {
         map.searchControl = L.control.mapSearch({
             placeholderText: tMaps('Task, item or container...'),
             descriptionText: tMaps("Supports multisearch (e.g. 'labs, ledx, bitcoin')"),
-            collapsed: true,
+            collapsed: !mapSettingsRef.current.expandSearch,
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);

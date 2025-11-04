@@ -193,6 +193,37 @@ L.Control.MapSearch = L.Control.extend({
     _collapse: function () {
         this._container.className = this._container.className.replace(' leaflet-control-icon-search-expanded', '');
     },
+    
+    addCollapseListeners: function () {
+        this._map.on('click', this._collapse, this);  
+    
+        if (!L.Browser.android) {
+            L.DomEvent.on(this._container, {
+                mouseenter: this._expand,
+                mouseleave: this._collapse
+            }, this);
+        }
+    },
+    removeCollapseListeners: function () {
+        this._map.off('click', this._collapse, this);  
+    
+        if (!L.Browser.android) {
+            L.DomEvent.off(this._container, {
+                mouseenter: this._expand,
+                mouseleave: this._collapse
+            }, this);
+        }
+    },
+    setCollapse: function (collapsed) {
+        this.options.collapsed = collapsed;
+        if (collapsed) {
+            this.addCollapseListeners();
+            this._collapse();
+        } else {
+            this.removeCollapseListeners();
+            this._expand();
+        }
+    }
 });
 
 L.control.mapSearch = function (opts) {
