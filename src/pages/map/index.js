@@ -779,15 +779,28 @@ function Map() {
         }
 
         let svgLayer = false;
+        let svgLoaded = Promise.resolve();
         if (mapData.svgPath) {
             const svgBounds = mapData.svgBounds ? getBounds(mapData.svgBounds) : bounds;
             const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            fetch(mapData.svgPath).then(response => response.text()).then(svgText => {
+            svgLoaded = fetch(mapData.svgPath).then(response => response.text()).then(svgText => {
                 svgElement.innerHTML = svgText;
                 svgElement.setAttribute('viewBox', svgElement.children[0].getAttribute('viewBox'));
+                // layer groups are the svg's top-level children that are: (1) g nodes (2) with ids set
+                const layerGroups = [...svgElement.children[0].children].filter(c => c.nodeName === 'g' && !!c.id);
+                // mark the base layer as base-layer
+                // mark other layer groups as overlays
+                // if a layer is marked to keep with base layer, mark it as base layer
+                for (const layerGroup of layerGroups) {
+                    if (layerGroup.id === mapData.svgLayer || layerGroup.dataset['keepWithGroup'] === mapData.svgLayer) {
+                        layerGroup.classList.add('base-layer');
+                    } else {
+                        layerGroup.classList.add('hidden-layer', 'overlay-layer');
+                    }
+                }
             });
-            svgLayer = L.svgOverlay(svgElement, svgBounds, {...layerOptions, className: 'base-layer'});
+            svgLayer = L.svgOverlay(svgElement, svgBounds, {...layerOptions, className: 'base-layer', layerName: mapData.svgLayer});
             baseLayers.push(svgLayer);
         }
 
@@ -835,22 +848,20 @@ function Map() {
                     };
                     
                     let usedStyle = svgParent ? 'svg' : 'tile';
-                    if (!layer.svgPath) {
+                    if (!layer.svgLayer) {
                         usedStyle = 'tile';
                     }
                     if (!layer.tilePath) {
                         usedStyle = 'svg';
                     }
-                    if (!layer.svgPath && !layer.tilePath) {
+                    if (!layer.svgLayer && !layer.tilePath) {
                         continue;
                     }
                     if (usedStyle === 'svg') {
+                        // create dummy layer for leaflet to remove
+                        // actual layer display changes are handled in the layer add and remove events
                         const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                         svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                        fetch(layer.svgPath).then(response => response.text()).then(svgText => {
-                            svgElement.innerHTML = svgText;
-                            svgElement.setAttribute('viewBox', svgElement.children[0].getAttribute('viewBox'));
-                        });
                         heightLayer = L.svgOverlay(svgElement, bounds, {...layerOptions, className: 'level-layer'});
                     }
                     else if (usedStyle === 'tile') {
@@ -867,11 +878,19 @@ function Map() {
                                 checkMarkerForActiveLayers(marker);
                             }
                         }
-                        // mapLayer._image means svg
+                        // if baseLayer._image is set, it's an svg map
                         if (baseLayer._image && !layer.show) {
                             baseLayer._image.classList.add('off-level');
                         } else if (baseLayer._container && !layer.show) {
                             baseLayer._container.classList.add('off-level');
+                        }
+                        if (baseLayer._image) {
+                            // remove the hidden-layer class from the added layer
+                            // we wrap it in the svg loading promsise to make sure the svg file has finished loading
+                            svgLoaded.finally(() => {
+                                const layerGroup = [...baseLayer._image.children[0]?.children].find(c => c.id === layer.svgLayer);
+                                layerGroup?.classList.remove('hidden-layer');
+                            });
                         }
                         map.layerControl.updateBadge(tMaps(layer.name));
                     });
@@ -891,12 +910,16 @@ function Map() {
                             } else if (baseLayer._container) {
                                 baseLayer._container.classList.remove('off-level');
                             }
+                            if (baseLayer._image?.children[0]) {
+                                // add the hidden-layer class to the removed layer
+                                const layerGroup = [...baseLayer._image.children[0].children].find(c =>c.id === layer.svgLayer);
+                                layerGroup?.classList.add('hidden-layer');
+                            }
                         }
                     });
 
-                    if (selectedLayer === layer.name) {
-                        heightLayer.addTo(map);
-                    } else if (!selectedLayer && layer.show) {
+                    const activateLayer = selectedLayer === layer.name || (!selectedLayer && layer.show);
+                    if (activateLayer) {
                         heightLayer.addTo(map);
                     }
 
