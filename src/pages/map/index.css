@@ -116,7 +116,7 @@
 
 .leaflet-layer.off-level > .leaflet-tile-container,
 div.leaflet-pane.leaflet-overlay-pane > img.off-level,
-div.leaflet-pane.leaflet-overlay-pane > svg.off-level {
+div.leaflet-pane.leaflet-overlay-pane > svg.off-level g.base-layer {
     opacity: 20%;
 }
 
@@ -428,4 +428,12 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 .display-wrapper.map-page {
     margin: 0px;
+}
+
+.leaflet-pane.leaflet-overlay-pane svg .overlay-layer.hidden-layer {
+    display: none;
+}
+
+.leaflet-pane.leaflet-overlay-pane svg.auto-show .overlay-layer.hidden-layer {
+    display: block;
 }

@@ -49,6 +49,7 @@
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "支持多重搜索（例如：'实验室 LEDX, 比特币'）",
     "Only show markers for active tasks": "仅显示当前任务的标记",
     "Don't collapse layers control": "保持图层控制栏展开",
+    "Don't collapse search control": "Don't collapse search control",
     "Use TarkovMonitor to show your position": "使用 TarkovMonitor 来显示你的位置",
     "Required item": "所需物品",
     "BTR Stop": "BTR 停车点"

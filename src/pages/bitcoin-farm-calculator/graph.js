@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
     VictoryAxis,
     VictoryChart,
@@ -6,12 +7,16 @@ import {
     VictoryVoronoiContainer,
 } from 'victory';
 import { getDurationDisplay } from '../../modules/format-duration.js';
-import { ProduceBitcoinData } from './data.js';
+import { getAllProduceBitcoinData } from './data.js';
 
 import { useTranslation } from 'react-i18next';
 
-const BtcGraph = () => {
+const BtcGraph = ({duration}) => {
     const { t } = useTranslation();
+
+    const tableData = useMemo(() => {
+        return getAllProduceBitcoinData(duration);
+    }, [duration]);
 
     return (
         <VictoryChart
@@ -28,7 +33,7 @@ const BtcGraph = () => {
             }
         >
             <VictoryLine
-                data={Object.values(ProduceBitcoinData)}
+                data={Object.values(tableData)}
                 x="count"
                 y="hoursToProduceBTC"
             />

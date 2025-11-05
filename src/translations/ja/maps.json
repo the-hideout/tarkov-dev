@@ -49,6 +49,7 @@
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",
     "Only show markers for active tasks": "Only show markers for active tasks",
     "Don't collapse layers control": "Don't collapse layers control",
+    "Don't collapse search control": "Don't collapse search control",
     "Use TarkovMonitor to show your position": "Use TarkovMonitor to show your position",
     "Required item": "Required item",
     "BTR Stop": "BTR Stop",
