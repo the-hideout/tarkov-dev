@@ -494,7 +494,7 @@ function SmallItemTable(props) {
                     if (!baseItem?.types.includes('gun')) {
                         return false;
                     }
-                    if (baseItem.properties.defaultPreset.id !== item.id) {
+                    if (baseItem.properties.defaultPreset?.id !== item.id) {
                         return false;
                     }
                     return true;

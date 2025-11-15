@@ -328,6 +328,9 @@ function Map() {
     });
 
     const playerPosition = useSelector((state) => state.settings.playerPosition);
+    // if playerPosition is set, user already has used TarkovMonitor
+    // so we can hide the TarkovMonitor link in the settings control
+    const playerPositionUsedRef = useRef(!!playerPosition);
 
     const ref = useRef();
     const mapRef = useRef(null);
@@ -391,6 +394,9 @@ function Map() {
             minZoom: 1,
             maxZoom: 1,
         });
+        if (playerPositionUsedRef.current) {
+            map._container.classList.add('player-position-shown');
+        }
 
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
