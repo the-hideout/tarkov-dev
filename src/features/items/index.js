@@ -81,7 +81,7 @@ const itemsSlice = createSlice({
     initialState,
     reducers: {
         setCustomSellValue: (state, action) => {
-            const item = state.data.find(i => i.id === action.payload.itemId);
+            const item = state.data.items.find(i => i.id === action.payload.itemId);
             if (!item) {
                 return;
             }
