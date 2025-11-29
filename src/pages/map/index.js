@@ -1861,8 +1861,10 @@ function Map() {
                 let markerTitle = t('Loose Loot');
                 let className = '';
                 const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = handbook.handbookCategories.find(c => c.id === item.handbookCategories[0].id);
-                    markerCategories.add(category);
+                    const category = handbook.handbookCategories.find(c => c.id === item.handbookCategories[0]?.id);
+                    if (category) {
+                        markerCategories.add(category);
+                    }
                     return markerCategories;
                 }, new Set());
                 if (lootItems.length === 1) {
@@ -1914,7 +1916,10 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
-                    const category = handbook.handbookCategories.find(c => c.id === lootItem.handbookCategories[0].id);
+                    const category = handbook.handbookCategories.find(c => c.id === lootItem.handbookCategories[0]?.id);
+                    if (!category) {
+                        continue;
+                    }
                     markerCategories.add(category.id);
                     if (!looseLootLayers[category.normalizedName]) {
                         looseLootLayers[category.normalizedName] = {
