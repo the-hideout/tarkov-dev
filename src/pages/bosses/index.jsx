@@ -5,8 +5,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import { mdiSkull } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import Loading from '../../components/loading/index.js';
-import { BossPageList } from '../../components/boss-list/index.js';
+import Loading from '../../components/loading/index.jsx';
+import { BossPageList } from '../../components/boss-list/index.jsx';
 
 import './index.css';
 

@@ -3,7 +3,7 @@ import { Switch } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO.jsx';
-import ItemGrid from '../../components/item-grid/index.js';
+import ItemGrid from '../../components/item-grid/index.jsx';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 

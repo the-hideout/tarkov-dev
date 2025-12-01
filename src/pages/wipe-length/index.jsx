@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
 import SEO from '../../components/SEO.jsx';
-import DataTable from '../../components/data-table/index.js';
-import CenterCell from '../../components/center-cell/index.js';
+import DataTable from '../../components/data-table/index.jsx';
+import CenterCell from '../../components/center-cell/index.jsx';
 
 import { averageWipeLength, wipeDetails } from '../../modules/wipe-length.js';
 

@@ -11,8 +11,8 @@ import {
 } from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
-import ArrowIcon from '../../components/data-table/Arrow.js';
-import DataTable from '../data-table/index.js';
+import ArrowIcon from '../data-table/Arrow.jsx';
+import DataTable from '../data-table/index.jsx';
 import useItemsData from '../../features/items/index.js';
 import useTradersData from '../../features/traders/index.js';
 

@@ -6,7 +6,7 @@ import { Tooltip } from '@mui/material';
 import { Icon } from '@mdi/react';
 import { mdiCloseBox, mdiCheckboxMarked, mdiClipboardList } from '@mdi/js';
 
-import ItemImage from '../item-image/index.js';
+import ItemImage from '../item-image/index.jsx';
 
 import formatPrice from '../../modules/format-price.js';
 

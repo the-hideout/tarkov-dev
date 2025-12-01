@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO.jsx';
-import { InputFilter } from '../../components/filter/index.js';
+import { InputFilter } from '../../components/filter/index.jsx';
 
 import useItemsData from '../../features/items/index.js';
 

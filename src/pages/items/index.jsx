@@ -5,8 +5,8 @@ import { Icon } from '@mdi/react';
 import { mdiViewGrid } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import ItemSearch from '../../components/item-search/index.js';
-import ItemIconList from '../../components/item-icon-list/index.js';
+import ItemSearch from '../../components/item-search/index.jsx';
+import ItemIconList from '../../components/item-icon-list/index.jsx';
 
 import categoryPages from '../../data/category-pages.json';
 

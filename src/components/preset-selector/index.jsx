@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import useItemsData from '../../features/items/index.js';
-import { SelectItemFilter } from '../filter/index.js';
+import { SelectItemFilter } from '../filter/index.jsx';
 
 export function PresetSelector({ item, alt = '' }) {
     const navigate = useNavigate();

@@ -5,8 +5,8 @@ import { Icon } from '@mdi/react';
 import {mdiKeyVariant} from '@mdi/js';
 
 import SEO from '../../../components/SEO.jsx';
-import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.js';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task.js';
 

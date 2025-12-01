@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import ItemCost from '../item-cost/index.js';
-import ItemImage from '../item-image/index.js';
+import ItemCost from '../item-cost/index.jsx';
+import ItemImage from '../item-image/index.jsx';
 
 import './index.css';
 

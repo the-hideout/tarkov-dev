@@ -24,12 +24,12 @@ import useStateWithLocalStorage from './hooks/useStateWithLocalStorage.jsx';
 import makeID from './modules/make-id.js';
 import WindowFocusHandler from './modules/window-focus-handler.mjs';
 
-import Loading from './components/loading/index.js';
+import Loading from './components/loading/index.jsx';
 
 import supportedLanguages from './data/supported-languages.json';
 
-import Menu from './components/menu/index.js';
-import Footer from './components/footer/index.js';
+import Menu from './components/menu/index.jsx';
+import Footer from './components/footer/index.jsx';
 
 const Map = React.lazy(() => import('./pages/map/index.jsx'));
 const ErrorPage = React.lazy(() => import('./pages/error-page/index.jsx'));
@@ -67,7 +67,7 @@ const Rigs = React.lazy(() => import('./pages/items/rigs/index.jsx'));
 const Suppressors = React.lazy(() => import('./pages/items/suppressors/index.jsx'));
 const BsgCategory = React.lazy(() => import('./pages/items/bsg-category/index.jsx'));
 const HandbookCategory = React.lazy(() => import('./pages/items/handbook-category/index.jsx'));
-const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator/index.js'));
+const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator/index.jsx'));
 const Quests = React.lazy(() => import('./pages/quests/index.jsx'));
 const Quest = React.lazy(() => import('./pages/quest/index.jsx'));
 const Prestiges = React.lazy(() => import('./pages/prestige/list.jsx'));

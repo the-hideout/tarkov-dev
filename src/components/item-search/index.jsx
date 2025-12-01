@@ -7,7 +7,7 @@ import { Tooltip } from '@mui/material';
 
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import itemSearch from '../../modules/item-search.js';
-import { SelectFilter } from '../filter/index.js';
+import { SelectFilter } from '../filter/index.jsx';
 import formatPrice from '../../modules/format-price.js';
 
 import './index.css';

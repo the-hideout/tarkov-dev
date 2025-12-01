@@ -7,7 +7,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@mui/material';
 
-import ValueCell from '../value-cell/index.js';
+import ValueCell from '../value-cell/index.jsx';
 
 const FleaPriceCell = function (props) {
     const { t } = useTranslation();

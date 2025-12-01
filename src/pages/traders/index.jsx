@@ -6,8 +6,8 @@ import { Icon } from '@mdi/react';
 import { mdiAccountGroup } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import TraderResetTime from '../../components/trader-reset-time/index.js';
-import LoadingSmall from '../../components/loading-small/index.js';
+import TraderResetTime from '../../components/trader-reset-time/index.jsx';
+import LoadingSmall from '../../components/loading-small/index.jsx';
 
 import useTradersData from '../../features/traders/index.js';
 

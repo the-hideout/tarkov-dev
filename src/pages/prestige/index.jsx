@@ -15,7 +15,7 @@ import {
 
 import SEO from '../../components/SEO.jsx';
 import ErrorPage from '../error-page/index.jsx';
-import PropertyList from '../../components/property-list/index.js';
+import PropertyList from '../../components/property-list/index.jsx';
 
 import useQuestsData, { usePrestigeData, useAchievementsData } from '../../features/quests/index.js';
 import useTradersData from '../../features/traders/index.js';
@@ -25,7 +25,7 @@ import useHideoutData from '../../features/hideout/index.js';
 import useBossesData from '../../features/bosses/index.js';
 
 import { TaskObjective, TaskRewards } from '../../modules/task-elements.mjs';
-import ItemImage from '../../components/item-image/index.js';
+import ItemImage from '../../components/item-image/index.jsx';
 
 import './index.css';
 

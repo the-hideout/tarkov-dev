@@ -14,10 +14,10 @@ import {
     mdiCheckCircle,
 } from '@mdi/js';
 
-import DataTable from '../data-table/index.js';
-import ItemNameCell from '../item-name-cell/index.js';
-import ValueCell from '../value-cell/index.js';
-import BarterTooltip from '../barter-tooltip/index.js';
+import DataTable from '../data-table/index.jsx';
+import ItemNameCell from '../item-name-cell/index.jsx';
+import ValueCell from '../value-cell/index.jsx';
+import BarterTooltip from '../barter-tooltip/index.jsx';
 
 import formatPrice from '../../modules/format-price.js';
 import { getCheapestPrice } from '../../modules/format-cost-items.js';

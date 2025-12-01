@@ -7,12 +7,12 @@ import Select from 'react-select';
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
 
-import LoadingSmall from '../../components/loading-small/index.js';
+import LoadingSmall from '../../components/loading-small/index.jsx';
 
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import { InputFilter } from '../../components/filter/index.js';
+import { InputFilter } from '../../components/filter/index.jsx';
 
 import playerStats from '../../modules/player-stats.mjs';
 import gameModes from '../../data/game-modes.json';

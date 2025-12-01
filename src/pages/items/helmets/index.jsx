@@ -7,13 +7,13 @@ import {mdiRacingHelmet} from '@mdi/js';
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../../components/SEO.jsx';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 import {
     Filter,
     ToggleFilter,
     RangeFilter,
     InputFilter,
-} from '../../../components/filter/index.js';
+} from '../../../components/filter/index.jsx';
 
 const marks = {
     1: 1,

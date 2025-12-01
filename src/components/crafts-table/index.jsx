@@ -3,22 +3,22 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import DataTable from '../data-table/index.js';
+import DataTable from '../data-table/index.jsx';
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 import useCraftsData from '../../features/crafts/index.js';
 import useBartersData from '../../features/barters/index.js';
 import useHideoutData from '../../features/hideout/index.js';
-import ValueCell from '../value-cell/index.js';
-import CostItemsCell from '../cost-items-cell/index.js';
+import ValueCell from '../value-cell/index.jsx';
+import CostItemsCell from '../cost-items-cell/index.jsx';
 import formatCostItems from '../../modules/format-cost-items.js';
 import {
     selectAllStations,
     selectAllSkills,
 } from '../../features/settings/settingsSlice.mjs';
-import CenterCell from '../center-cell/index.js';
+import CenterCell from '../center-cell/index.jsx';
 
 import './index.css';
-import RewardCell from '../reward-cell/index.js';
+import RewardCell from '../reward-cell/index.jsx';
 import { getDurationDisplay } from '../../modules/format-duration.js';
 import bestPrice from '../../modules/best-price.js';
 import { useHandbookData } from '../../features/items/index.js';

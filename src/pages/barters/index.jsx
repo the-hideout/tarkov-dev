@@ -7,14 +7,14 @@ import { Icon } from '@mdi/react';
 import { mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import BartersTable from '../../components/barters-table/index.js';
+import BartersTable from '../../components/barters-table/index.jsx';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter/index.js';
+} from '../../components/filter/index.jsx';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 

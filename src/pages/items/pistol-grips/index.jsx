@@ -5,8 +5,8 @@ import { Icon } from '@mdi/react';
 import {mdiHandPointingLeft} from '@mdi/js';
 
 import SEO from '../../../components/SEO.jsx';
-import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter/index.js';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter/index.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 
 import useItemsData from '../../../features/items/index.js';
 

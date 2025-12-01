@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import ContainedItemsList from '../contained-items-list/index.js';
+import ContainedItemsList from '../contained-items-list/index.jsx';
 
 import './index.css';
 

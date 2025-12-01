@@ -5,7 +5,7 @@ import { mdiClipboardList } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price.js';
-import CenterCell from '../center-cell/index.js';
+import CenterCell from '../center-cell/index.jsx';
 
 import './index.css';
 

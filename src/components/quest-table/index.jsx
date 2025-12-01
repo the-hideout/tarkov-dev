@@ -6,13 +6,13 @@ import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
-import DataTable from '../data-table/index.js';
-import QuestItemsCell from '../quest-items-cell/index.js';
-import CenterCell from '../center-cell/index.js';
+import DataTable from '../data-table/index.jsx';
+import QuestItemsCell from '../quest-items-cell/index.jsx';
+import CenterCell from '../center-cell/index.jsx';
 import useQuestsData from '../../features/quests/index.js';
 import useItemsData from '../../features/items/index.js';
 import useTradersData from '../../features/traders/index.js';
-import TraderImage from '../trader-image/index.js';
+import TraderImage from '../trader-image/index.jsx';
 
 import './index.css';
 

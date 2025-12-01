@@ -12,15 +12,15 @@ import {
 } from '@mdi/js';
 import { Tooltip } from '@mui/material';
 
-import ValueCell from '../value-cell/index.js';
-import TraderPriceCell from '../trader-price-cell/index.js';
-import CenterCell from '../center-cell/index.js';
-import ItemNameCell from '../item-name-cell/index.js';
-import FleaPriceCell from '../flea-price-cell/index.js';
-import BarterTooltip from '../barter-tooltip/index.js';
-import DataTable from '../data-table/index.js';
-import LoadingSmall from '../loading-small/index.js';
-import ArrowIcon from '../../components/data-table/Arrow.js';
+import ValueCell from '../value-cell/index.jsx';
+import TraderPriceCell from '../trader-price-cell/index.jsx';
+import CenterCell from '../center-cell/index.jsx';
+import ItemNameCell from '../item-name-cell/index.jsx';
+import FleaPriceCell from '../flea-price-cell/index.jsx';
+import BarterTooltip from '../barter-tooltip/index.jsx';
+import DataTable from '../data-table/index.jsx';
+import LoadingSmall from '../loading-small/index.jsx';
+import ArrowIcon from '../../components/data-table/Arrow.jsx';
 
 import formatPrice from '../../modules/format-price.js';
 import itemSearch from '../../modules/item-search.js';
@@ -34,7 +34,7 @@ import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 import { selectAllSkills } from '../../features/settings/settingsSlice.mjs';
 
-import CanvasGrid from '../../components/canvas-grid/index.js';
+import CanvasGrid from '../canvas-grid/index.jsx';
 
 import './index.css';
 

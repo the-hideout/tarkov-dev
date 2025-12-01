@@ -6,9 +6,9 @@ import useItemsData from '../../features/items/index.js'
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
 import { BitcoinItemId, GraphicCardItemId, getAllProduceBitcoinData } from './data.js';
-import DataTable from '../../components/data-table/index.js';
+import DataTable from '../../components/data-table/index.jsx';
 import formatPrice from '../../modules/format-price.js';
-import CenterCell from '../../components/center-cell/index.js';
+import CenterCell from '../../components/center-cell/index.jsx';
 import { getDurationDisplay } from '../../modules/format-duration.js';
 import useHideoutData from '../../features/hideout/index.js';
 import { selectAllStations } from '../../features/settings/settingsSlice.mjs';

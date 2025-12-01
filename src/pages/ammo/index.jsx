@@ -7,11 +7,11 @@ import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter } from '../../components/filter/index.js';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, SliderFilter } from '../../components/filter/index.jsx';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
-import SmallItemTable from '../../components/small-item-table/index.js';
+import SmallItemTable from '../../components/small-item-table/index.jsx';
 
 import useItemsData from '../../features/items/index.js';
 

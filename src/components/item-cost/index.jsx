@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from '@mdi/react';
 import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
 
-import BarterTooltip from '../barter-tooltip/index.js';
+import BarterTooltip from '../barter-tooltip/index.jsx';
 import formatPrice from '../../modules/format-price.js';
 
 import { setCustomSellValue } from '../../features/items/index.js';

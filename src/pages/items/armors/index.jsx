@@ -12,8 +12,8 @@ import {
     ToggleFilter,
     InputFilter,
     RangeFilter,
-} from '../../../components/filter/index.js';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+} from '../../../components/filter/index.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 
 const marks = {
     1: 1,

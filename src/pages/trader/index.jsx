@@ -17,14 +17,14 @@ import {
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
-} from '../../components/filter/index.js';
-import SmallItemTable from '../../components/small-item-table/index.js';
-import QuestTable from '../../components/quest-table/index.js';
-import TraderResetTime from '../../components/trader-reset-time/index.js';
+} from '../../components/filter/index.jsx';
+import SmallItemTable from '../../components/small-item-table/index.jsx';
+import QuestTable from '../../components/quest-table/index.jsx';
+import TraderResetTime from '../../components/trader-reset-time/index.jsx';
 import ErrorPage from '../error-page/index.jsx';
-import Loading from '../../components/loading/index.js';
-import LoadingSmall from '../../components/loading-small/index.js';
-import PropertyList from '../../components/property-list/index.js';
+import Loading from '../../components/loading/index.jsx';
+import LoadingSmall from '../../components/loading-small/index.jsx';
+import PropertyList from '../../components/property-list/index.jsx';
 import formatPrice from '../../modules/format-price.js';
 
 import QueueBrowserTask from '../../modules/queue-browser-task.js';

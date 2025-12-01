@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import SEO from '../../../components/SEO.jsx';
 import ErrorPage from '../../error-page/index.jsx';
-import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.js';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task.js';
 

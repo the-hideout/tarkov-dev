@@ -8,10 +8,10 @@ import useItemsData from '../../features/items/index.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import { Filter, InputFilter, ToggleFilter } from '../../components/filter/index.js';
-import Loading from '../../components/loading/index.js';
-import RewardCell from '../../components/reward-cell/index.js';
-import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.js';
+import { Filter, InputFilter, ToggleFilter } from '../../components/filter/index.jsx';
+import Loading from '../../components/loading/index.jsx';
+import RewardCell from '../../components/reward-cell/index.jsx';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.jsx';
 
 import formatPrice from '../../modules/format-price.js';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
@@ -27,7 +27,7 @@ import {
     useFuelPricePerDay,
 } from './data.js';
 // import BtcGraph from './graph';
-import ProfitInfo from './profit-info.js';
+import ProfitInfo from './profit-info.jsx';
 
 import './index.css';
 

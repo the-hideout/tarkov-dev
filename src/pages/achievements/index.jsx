@@ -6,7 +6,7 @@ import { mdiTrophy, mdiCheckboxMarked, mdiCheckboxBlank } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 
-import DataTable from '../../components/data-table/index.js';
+import DataTable from '../../components/data-table/index.jsx';
 
 import { useAchievementsData } from '../../features/quests/index.js';
 

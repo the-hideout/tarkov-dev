@@ -5,8 +5,8 @@ import { Icon } from '@mdi/react';
 import {mdiTshirtCrewOutline} from '@mdi/js';
 
 import SEO from '../../../components/SEO.jsx';
-import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter/index.js';
-import SmallItemTable from '../../../components/small-item-table/index.js';
+import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter/index.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
 

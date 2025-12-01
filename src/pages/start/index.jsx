@@ -10,8 +10,8 @@ import QueueBrowserTask from '../../modules/queue-browser-task.js';
 import categoryPages from '../../data/category-pages.json';
 
 import SEO from '../../components/SEO.jsx';
-import ItemIconList from '../../components/item-icon-list/index.js';
-import LoadingSmall from '../../components/loading-small/index.js';
+import ItemIconList from '../../components/item-icon-list/index.jsx';
+import LoadingSmall from '../../components/loading-small/index.jsx';
 
 import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
 import useTradersData from '../../features/traders/index.js';
@@ -37,10 +37,10 @@ import './index.css';
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
 // Use Lazy and Suspense to load these components
-const ServerStatus = lazy(() => import('../../components/server-status/index.js'));
-const SmallItemTable = lazy(() => import('../../components/small-item-table/index.js'));
-const ItemSearch = lazy(() => import('../../components/item-search/index.js'));
-const BossList = lazy(() => import('../../components/boss-list/index.js'));
+const ServerStatus = lazy(() => import('../../components/server-status/index.jsx'));
+const SmallItemTable = lazy(() => import('../../components/small-item-table/index.jsx'));
+const ItemSearch = lazy(() => import('../../components/item-search/index.jsx'));
+const BossList = lazy(() => import('../../components/boss-list/index.jsx'));
 
 function Start() {
     const [searchParams, setSearchParams] = useSearchParams();

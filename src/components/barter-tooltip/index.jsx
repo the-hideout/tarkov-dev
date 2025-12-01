@@ -8,7 +8,7 @@ import {
     mdiProgressWrench
 } from '@mdi/js';
 
-import ItemImage from '../item-image/index.js';
+import ItemImage from '../item-image/index.jsx';
 import formatPrice from '../../modules/format-price.js';
 import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags.js';
 import { getCheapestPrice } from '../../modules/format-cost-items.js';

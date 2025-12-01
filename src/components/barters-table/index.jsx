@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import DataTable from '../../components/data-table/index.js';
+import DataTable from '../data-table/index.jsx';
 
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
 import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import { selectAllTraders } from '../../features/settings/settingsSlice.mjs';
 
-import ValueCell from '../value-cell/index.js';
-import CostItemsCell from '../cost-items-cell/index.js';
-import RewardCell from '../reward-cell/index.js';
+import ValueCell from '../value-cell/index.jsx';
+import CostItemsCell from '../cost-items-cell/index.jsx';
+import RewardCell from '../reward-cell/index.jsx';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 

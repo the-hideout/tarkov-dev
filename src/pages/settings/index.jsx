@@ -6,9 +6,9 @@ import Select from 'react-select';
 import i18n from '../../i18n.js';
 
 import SEO from '../../components/SEO.jsx';
-import { InputFilter, ToggleFilter } from '../../components/filter/index.js';
-import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.js';
-import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.js';
+import { InputFilter, ToggleFilter } from '../../components/filter/index.jsx';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.jsx';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.jsx';
 
 import {
     //selectAllTraders as traderSettings,

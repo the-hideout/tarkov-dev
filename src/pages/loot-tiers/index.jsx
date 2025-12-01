@@ -10,13 +10,13 @@ import {mdiFinance} from '@mdi/js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import ItemGrid from '../../components/item-grid/index.js';
+import ItemGrid from '../../components/item-grid/index.jsx';
 import {
     Filter,
     ToggleFilter,
     SelectFilter,
     InputFilter,
-} from '../../components/filter/index.js';
+} from '../../components/filter/index.jsx';
 
 import QueueBrowserTask from '../../modules/queue-browser-task.js';
 import capitalizeFirst from '../../modules/capitalize-first.js';

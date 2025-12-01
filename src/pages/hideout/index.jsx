@@ -8,13 +8,13 @@ import { mdiHome } from '@mdi/js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import ItemsSummaryTable from '../../components/items-summary-table/index.js';
+import ItemsSummaryTable from '../../components/items-summary-table/index.jsx';
 import {
     Filter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter/index.js';
+} from '../../components/filter/index.jsx';
 
 import useHideoutData from '../../features/hideout/index.js';
 

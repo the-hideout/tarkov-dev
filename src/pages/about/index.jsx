@@ -7,9 +7,9 @@ import { ReactComponent as DiscordIcon } from '../../images/Discord.svg';
 import { ReactComponent as XIcon } from '../../images/X.svg';
 
 import SEO from '../../components/SEO.jsx';
-import UkraineButton from '../../components/ukraine-button/index.js';
-import OpenCollectiveButton from "../../components/open-collective-button/index.js";
-import Contributors from '../../components/contributors/index.js';
+import UkraineButton from '../../components/ukraine-button/index.jsx';
+import OpenCollectiveButton from "../../components/open-collective-button/index.jsx";
+import Contributors from '../../components/contributors/index.jsx';
 
 import './index.css';
 

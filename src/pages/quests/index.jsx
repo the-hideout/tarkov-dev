@@ -7,14 +7,14 @@ import { mdiClipboardList } from '@mdi/js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import QuestTable from '../../components/quest-table/index.js';
+import QuestTable from '../../components/quest-table/index.jsx';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter/index.js';
+} from '../../components/filter/index.jsx';
 
 import useTradersData from '../../features/traders/index.js';
 import useQuestsData from '../../features/quests/index.js';

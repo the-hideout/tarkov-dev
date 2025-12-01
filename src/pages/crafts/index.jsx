@@ -10,14 +10,14 @@ import useHideoutData from '../../features/hideout/index.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import SEO from '../../components/SEO.jsx';
-import CraftsTable from '../../components/crafts-table/index.js';
+import CraftsTable from '../../components/crafts-table/index.jsx';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter/index.js';
+} from '../../components/filter/index.jsx';
 
 import './index.css';
 

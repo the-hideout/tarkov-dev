@@ -24,7 +24,7 @@ import { setGameMode } from '../../features/settings/settingsSlice.mjs';
 
 import alertConfig from './alert-config.js';
 
-import IntersectionObserverWrapper from './intersection-observer-wrapper.js';
+import IntersectionObserverWrapper from './intersection-observer-wrapper.jsx';
 
 import './index.css';
 import useTradersData from '../../features/traders/index.js';

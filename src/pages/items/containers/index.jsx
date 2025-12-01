@@ -5,8 +5,8 @@ import { Icon } from '@mdi/react';
 import {mdiArchive} from '@mdi/js';
 
 import SEO from '../../../components/SEO.jsx';
-import SmallItemTable from '../../../components/small-item-table/index.js';
-import { Filter, ToggleFilter } from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.jsx';
+import { Filter, ToggleFilter } from '../../../components/filter/index.jsx';
 
 function Containers(props) {
     const [showAllItemSources, setShowAllItemSources] = useState(false);

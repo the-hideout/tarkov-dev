@@ -22,10 +22,10 @@ import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
-import DataTable from '../../components/data-table/index.js';
-import ItemImage from '../../components/item-image/index.js';
-import ArrowIcon from '../../components/data-table/Arrow.js';
-import ItemNameCell from '../../components/item-name-cell/index.js';
+import DataTable from '../../components/data-table/index.jsx';
+import ItemImage from '../../components/item-image/index.jsx';
+import ArrowIcon from '../../components/data-table/Arrow.jsx';
+import ItemNameCell from '../../components/item-name-cell/index.jsx';
 
 import useItemsData, { useHandbookData } from '../../features/items/index.js';
 import { usePrestigeData, useAchievementsData } from '../../features/quests/index.js';
