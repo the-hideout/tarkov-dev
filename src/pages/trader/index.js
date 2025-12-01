@@ -21,7 +21,7 @@ import {
 import SmallItemTable from '../../components/small-item-table/index.js';
 import QuestTable from '../../components/quest-table/index.js';
 import TraderResetTime from '../../components/trader-reset-time/index.js';
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 import Loading from '../../components/loading/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import PropertyList from '../../components/property-list/index.js';

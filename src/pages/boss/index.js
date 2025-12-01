@@ -8,7 +8,7 @@ import { mdiBrain, mdiDiamondStone, mdiDice5, mdiHeart, mdiMapLegend, mdiAccount
 
 import SEO from '../../components/SEO.jsx';
 import CenterCell from '../../components/center-cell/index.js';
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 import Loading from '../../components/loading/index.js';
 import SmallItemTable from '../../components/small-item-table/index.js';
 import DataTable from '../../components/data-table/index.js';

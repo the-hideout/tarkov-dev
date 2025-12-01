@@ -31,8 +31,8 @@ import supportedLanguages from './data/supported-languages.json';
 import Menu from './components/menu/index.js';
 import Footer from './components/footer/index.js';
 
-const Map = React.lazy(() => import('./pages/map/index.js'));
-const ErrorPage = React.lazy(() => import('./pages/error-page/index.js'));
+const Map = React.lazy(() => import('./pages/map/index.jsx'));
+const ErrorPage = React.lazy(() => import('./pages/error-page/index.jsx'));
 const Debug = React.lazy(() => import('./components/Debug.jsx'));
 
 const Ammo = React.lazy(() => import('./pages/ammo/index.js'));
@@ -87,7 +87,7 @@ const Players = React.lazy(() => import('./pages/players/index.js'));
 const Player = React.lazy(() => import('./pages/player/index.js'));
 const PlayerForward = React.lazy(() => import('./pages/player/player-forward.js'));
 const Converter = React.lazy(() => import('./pages/converter/index.js'));
-const About = React.lazy(() => import('./pages/about/index.js'));
+const About = React.lazy(() => import('./pages/about/index.jsx'));
 const OtherTools = React.lazy(() => import('./pages/other-tools/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));

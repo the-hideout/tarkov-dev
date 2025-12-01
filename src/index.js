@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 // import * as serviceWorker from './serviceWorker';
 // import * as Sentry from '@sentry/react';
 // import { BrowserTracing } from '@sentry/tracing';
-import App from './App.js';
+import App from './App.jsx';
 import store from './store.js';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

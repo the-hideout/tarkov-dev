@@ -26,7 +26,7 @@ import {
 import { Tooltip } from '@mui/material';
 
 import SEO from '../../components/SEO.jsx';
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 import ItemSearch from '../../components/item-search/index.js';
 import ItemImage from '../../components/item-image/index.js';
 import PropertyList from '../../components/property-list/index.js';

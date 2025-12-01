@@ -14,7 +14,7 @@ import CraftsTable from '../../components/crafts-table/index.js';
 import BartersTable from '../../components/barters-table/index.js';
 import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table/index.js';
 import CanvasGrid from '../../components/canvas-grid/index.js';
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon/index.js';
 import PropertyList from '../../components/property-list/index.js';
 import ItemsForHideout from '../../components/items-for-hideout/index.js';

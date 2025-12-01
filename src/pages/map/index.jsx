@@ -31,7 +31,7 @@ import rawMapsData from '../../data/maps.json';
 import Time from '../../components/Time.jsx';
 import SEO from '../../components/SEO.jsx';
 
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 

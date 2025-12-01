@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import SEO from '../../../components/SEO.jsx';
-import ErrorPage from '../../error-page/index.js';
+import ErrorPage from '../../error-page/index.jsx';
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.js';
 import SmallItemTable from '../../../components/small-item-table/index.js';
 

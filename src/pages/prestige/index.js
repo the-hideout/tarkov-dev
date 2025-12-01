@@ -14,7 +14,7 @@ import {
 } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
-import ErrorPage from '../error-page/index.js';
+import ErrorPage from '../error-page/index.jsx';
 import PropertyList from '../../components/property-list/index.js';
 
 import useQuestsData, { usePrestigeData, useAchievementsData } from '../../features/quests/index.js';
