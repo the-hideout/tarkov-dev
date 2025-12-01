@@ -30,7 +30,7 @@ import useTradersData from '../../features/traders/index.js';
 import supportedLanguages from '../../data/supported-languages.json';
 import gameModes from '../../data/game-modes.json';
 
-import { getWipeData } from '../wipe-length/index.js';
+import { getWipeData } from '../wipe-length/index.jsx';
 
 import './index.css';
 
