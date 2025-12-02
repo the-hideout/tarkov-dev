@@ -624,6 +624,9 @@ function Player() {
                 return false;
             }
             const skill = handbook.skills.find(skill => skill.id === s.Id);
+            if (!skill) {
+                return false;
+            }
             return {
                 skill: skill?.name || s.Id,
                 id: s.Id,
