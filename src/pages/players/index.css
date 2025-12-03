@@ -1,11 +1,25 @@
 .search-button {
   padding: .2rem;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .search-button:disabled {
-  background-color: var(--color-gold-two);
-  color: var(--color-gray);
+  opacity: 0.5;
+  position: relative;
+  cursor: not-allowed;
+}
+
+.search-button:disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .search-controls {

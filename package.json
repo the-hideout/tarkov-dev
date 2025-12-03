@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "prettier": "^3.6.2",
-    "sharp": "^0.34.4"
+    "prettier": "^3.7.3",
+    "sharp": "^0.34.5"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
@@ -33,10 +33,10 @@
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@mui/lab": "^7.0.0-beta.17",
-    "@mui/material": "^7.3.4",
-    "@mui/x-tree-view": "^8.16.0",
-    "@reduxjs/toolkit": "^2.9.2",
-    "@tanstack/react-query": "^5.90.5",
+    "@mui/material": "^7.3.5",
+    "@mui/x-tree-view": "^8.19.0",
+    "@reduxjs/toolkit": "^2.11.0",
+    "@tanstack/react-query": "^5.90.11",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "classnames": "^2.5.1",
@@ -63,7 +63,7 @@
     "react-i18next": "^15.4.1",
     "react-intersection-observer": "^10.0.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^6.30.1",
+    "react-router-dom": "^6.30.2",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-select": "^5.10.2",
