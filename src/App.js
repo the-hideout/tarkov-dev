@@ -89,6 +89,8 @@ const PlayerForward = React.lazy(() => import('./pages/player/player-forward.js'
 const Converter = React.lazy(() => import('./pages/converter/index.js'));
 const About = React.lazy(() => import('./pages/about/index.js'));
 const OtherTools = React.lazy(() => import('./pages/other-tools/index.js'));
+const TarkovMonitorPage = React.lazy(() => import('./pages/tarkov-monitor/index.js'));
+const StashBotPage = React.lazy(() => import('./pages/stash-bot/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
 
@@ -1004,8 +1006,28 @@ function App() {
                         path={'/other-tools'}
                         key="other-tools"
                         element={[
-                            <Suspense fallback={<Loading />} key="suspense-converter-wrapper">
+                            <Suspense fallback={<Loading />} key="suspense-other-tools-wrapper">
                                 <OtherTools key="other-tools-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/tarkov-monitor'}
+                        key="tarkov-monitor"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-tarkov-monitor-wrapper">
+                                <TarkovMonitorPage key="tarkov-monitor-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/stash'}
+                        key="stash-bot"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-stash-wrapper">
+                                <StashBotPage key="stash-wrapper" />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}

@@ -1,23 +1,64 @@
-.boss-list-wrapper {
+.other-tools-page {
+    max-width: 1100px;
+}
+
+.other-tools-page h1 {
     display: flex;
-    flex-flow: wrap;
-    justify-content: center;
+    align-items: center;
+    gap: .6rem;
 }
 
-.boss-page-wrapper {
-    min-height: 0;
+.page-intro {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
 }
 
-.boss-list-wrapper img {
-    width: 128px;
-    height: 128px;
+.tool-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-top: 2rem;
 }
 
-.boss-sub-text {
-    margin: .75rem;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 400;
+.tool-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-@media screen and (min-width: 800px) {}
+.tool-card-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.tool-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tool-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: auto;
+}
+
+.tool-link {
+    padding: .6rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.tool-link.secondary {
+    opacity: .85;
+}

@@ -91,9 +91,14 @@ function Footer() {
                     </Link>
                 </p>
                 <p>
-                    <a href="https://github.com/the-hideout/TarkovMonitor" target="_blank" rel="noopener noreferrer">
-                        Tarkov Monitor
-                    </a>
+                    <Link to={'/tarkov-monitor'}>
+                        TarkovMonitor
+                    </Link>
+                </p>
+                <p>
+                    <Link to={'/stash'}>
+                        {t('Stash Discord Bot')}
+                    </Link>
                 </p>
                 <p>
                     <Link to={'/moobot'}>
