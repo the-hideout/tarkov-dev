@@ -9,8 +9,6 @@ import './index.css';
 const RELEASE_URL = 'https://github.com/the-hideout/TarkovMonitor/releases/latest';
 const REPOSITORY_URL = 'https://github.com/the-hideout/TarkovMonitor';
 const DISCORD_URL = 'https://discord.gg/XPAsKGHSzH';
-const TARKOV_TRACKER_URL = 'https://tarkovtracker.io';
-
 function TarkovMonitorPage() {
     const { t } = useTranslation();
     const monitorContributors = projectContributors['the-hideout/TarkovMonitor'] ?? [];
@@ -31,8 +29,10 @@ function TarkovMonitorPage() {
                     <h1>{t('TarkovMonitor')}</h1>
                     <Trans i18nKey="tarkov-monitor-hero">
                         <p>
-                            TarkovMonitor watches your Escape from Tarkov logs to trigger audio alerts, capture queue times,
-                            and sync your quest progress with TarkovTracker while also unlocking Tarkov.dev map integrations.
+                            {t(
+                                'tarkov-monitor-summary',
+                                'TarkovMonitor provides helpful alerts and timers for Escape From Tarkov so you can manage raids without interrupting gameplay.',
+                            )}
                         </p>
                     </Trans>
                     <div className="tool-cta-group">
@@ -56,104 +56,90 @@ function TarkovMonitorPage() {
                     <figcaption>{t('Visual timers, raid state, and integration health in TarkovMonitor.')}</figcaption>
                 </figure>
             </section>
-            <section className="tool-card-grid" aria-label={t('Feature highlights')}>
-                <article>
-                    <h2>{t('Audio & visual alerts')}</h2>
-                    <ul>
-                        <li>{t('Match found and raid start notifications')}</li>
-                        <li>{t('Run-through, scav timer, and air filter reminders')}</li>
-                        <li>{t('Customizable sounds for every trigger')}</li>
-                    </ul>
-                </article>
-                <article>
-                    <h2>{t('Map + remote control')}</h2>
-                    <ul>
-                        <li>{t('Automatically opens the correct Tarkov.dev map as you load a raid')}</li>
-                        <li>{t('Drop screenshots to plot your position and rotation on interactive maps')}</li>
-                        <li>{t('Submit anonymous queue times to help the community')}</li>
-                    </ul>
-                </article>
-                <article>
-                    <h2>{t('Quest automation')}</h2>
-                    <ul>
-                        <li>{t('Mark quests complete on TarkovTracker the moment they finish')}</li>
-                        <li>{t('Optional past-log reprocessing to backfill wiped progress')}</li>
-                        <li>{t('Keep everything local—only your API token leaves the machine')}</li>
-                    </ul>
-                </article>
+            <section id="features" className="feature-list" aria-label={t('Main Features')}>
+                <h2>{t('Main Features')}</h2>
+                <ul>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-audio',
+                            'Audio alerts for matchmaking, raid start, runthrough timer, scav cooldown, and air filter notifications.',
+                        )}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-map',
+                            'Automatic map opening on Tarkov.dev based on the location you are joining.',
+                        )}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-screenshot',
+                            'Optional screenshot-activated position display for quick location sharing.',
+                        )}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-quests',
+                            'Automatic quest updates to TarkovTracker whenever completions are detected.',
+                        )}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-stats',
+                            'Local statistics such as flea market income, queue durations, and map play frequency.',
+                        )}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-feature-timers',
+                            'Visible timers for time in raid plus scav cooldowns so you can plan the next run.',
+                        )}
+                    </li>
+                </ul>
             </section>
 
-            <section id="installation">
-                <h2>{t('Installation')}</h2>
-                <Trans i18nKey="tarkov-monitor-installation">
-                    <p>
-                        Head to the <a href={RELEASE_URL} target="_blank" rel="noreferrer">latest release</a> and download the <code>TarkovMonitor.zip</code> asset.
-                        Extract the archive anywhere on your PC and run the bundled <code>TarkovMonitor.exe</code>.
-                        The application uses Microsoft&apos;s WebView2 runtime. If Windows reports that WebView2 is missing, install it from Microsoft before relaunching.
-                    </p>
-                </Trans>
-                <figure>
-                    <img
-                        src={`${process.env.PUBLIC_URL}/images/other-tools/tarkov-monitor-release.png`}
-                        alt={t('Screenshot of the TarkovMonitor GitHub release assets')}
-                        loading="lazy"
-                    />
-                    <figcaption>{t('Download the ZIP asset from the Releases page, then extract and run the EXE.')}</figcaption>
-                </figure>
+            <section id="download">
+                <h2>{t('Download')}</h2>
+                <ol>
+                    <li>
+                        {t(
+                            'tarkov-monitor-download-1',
+                            'Grab the latest TarkovMonitor.zip release from GitHub.',
+                        )}
+                    </li>
+                    <li>
+                        {t('tarkov-monitor-download-2', 'Extract the archive anywhere on your PC.')}
+                    </li>
+                    <li>
+                        {t(
+                            'tarkov-monitor-download-3',
+                            'Run TarkovMonitor.exe and keep it open while you play.',
+                        )}
+                    </li>
+                </ol>
             </section>
 
-            <section id="tarkovtracker-integration">
-                <h2>{t('Quest tracking with TarkovTracker')}</h2>
-                <Trans i18nKey="tarkov-monitor-tracker">
-                    <p>
-                        Log in to <a href={TARKOV_TRACKER_URL} target="_blank" rel="noreferrer">TarkovTracker</a> and open the settings page.
-                        Create an API token that can <strong>get progression</strong> and <strong>write progression</strong>,
-                        copy it, and paste it into the TarkovMonitor settings panel. Use the <em>Test token</em> button—once it passes,
-                        TarkovMonitor will mark quests complete as soon as the corresponding log entries appear.
-                    </p>
-                </Trans>
+            <section id="community-support">
+                <h2>{t('Community support')}</h2>
                 <p>
-                    {t('Need to sync older quests? Use the “Read past logs” action inside TarkovMonitor to replay previous wipe logs and backfill progress.')}
+                    {t(
+                        'tarkov-monitor-community',
+                        'Have questions or want to chat with other users? Join the Discord server for tips, troubleshooting, and feature discussions.',
+                    )}
                 </p>
+                <a className="tool-cta secondary" href={DISCORD_URL} target="_blank" rel="noreferrer">
+                    {t('Join the Discord')}
+                </a>
             </section>
 
-            <section id="website-integration">
-                <h2>{t('Tarkov.dev website integration')}</h2>
-                <Trans i18nKey="tarkov-monitor-remote">
-                    <p>
-                        Open Tarkov.dev in the browser you want to control and click the <strong>Click to connect</strong> badge in the lower corner.
-                        Copy the <strong>ID for remote control</strong> value and paste it into the TarkovMonitor Remote ID field.
-                        When TarkovMonitor is running it will switch the controlled browser to the map you are queueing for and,
-                        after you capture a screenshot, plot your live position directly on the map.
-                    </p>
-                </Trans>
+            <section id="security-note">
+                <h2>{t('Security')}</h2>
                 <p>
-                    {t('If you reload Tarkov.dev, repeat the connect flow so the app can keep driving the site.') }
+                    {t(
+                        'tarkov-monitor-security',
+                        'TarkovMonitor is not a cheat. It only reads the Escape From Tarkov log files stored on your PC and never modifies the game or injects code.',
+                    )}
                 </p>
-            </section>
-
-            <section>
-                <h2>{t('FAQ')}</h2>
-                <div className="faq-grid">
-                    <details>
-                        <summary>{t('Is TarkovMonitor a cheat?')}</summary>
-                        <p>
-                            {t('No. The app passively reads Battlestate log files that already live on your PC. Logs are not updated mid-raid, so TarkovMonitor can only react to events after they occur.')}
-                        </p>
-                    </details>
-                    <details>
-                        <summary>{t('What information ever leaves my machine?')}</summary>
-                        <p>
-                            {t('Only the data required for the features you enable (for example, queue durations, TarkovTracker API calls, or remote-control actions). All statistics the app shows stay on disk locally.')}
-                        </p>
-                    </details>
-                    <details>
-                        <summary>{t('TarkovMonitor is running but nothing happens—why?')}</summary>
-                        <p>
-                            {t('The app must be open before a log line is written. Start TarkovMonitor before you enter the queue so it can hear match events.')}
-                        </p>
-                    </details>
-                </div>
             </section>
             {monitorContributors.length > 0 && (
                 <section className="project-contributors-block" aria-label={t('Contributors')}>

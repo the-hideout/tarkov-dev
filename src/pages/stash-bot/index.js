@@ -46,7 +46,7 @@ function StashBotPage() {
     return [
         <SEO 
             title={`${t('Stash Discord Bot')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('stash-page-description', 'Invite the official Tarkov.dev Discord bot, explore its commands, and learn how to self-host it.')}
+            description={t('stash-page-description', 'Invite the Stash Discord bot, explore its commands, and see how it can help your community.')}
             key="seo-wrapper"
         />,
         <div className="page-wrapper tool-detail-page stash-page" key="stash-wrapper">
@@ -129,40 +129,6 @@ function StashBotPage() {
                 </div>
             </section>
 
-            <section id="self-hosting">
-                <h2>{t('Self-host or contribute')}</h2>
-                <Trans i18nKey="stash-self-host">
-                    <p>
-                        Want your own instance? Clone the repository, duplicate the <code>config-dev.example.json</code> file to <code>config-dev.json</code>,
-                        and fill in your Discord application details. Create an application + bot user inside the Discord Developer Portal,
-                        copy the client ID into <code>clientId</code>, your test guild ID into <code>guildId</code>, and paste the bot token into both the config and <code>.env</code>.
-                    </p>
-                </Trans>
-                <figure>
-                    <img
-                        src={`${process.env.PUBLIC_URL}/images/other-tools/stash-app-setup.png`}
-                        alt={t('Screenshot showing how to create a Discord application for Stash')}
-                        loading="lazy"
-                    />
-                    <figcaption>{t('Create a Discord application, then grab the application ID for config-dev.json.')}</figcaption>
-                </figure>
-                <Trans i18nKey="stash-env">
-                    <p>
-                        The <code>.env</code> file needs your <code>DISCORD_API_TOKEN</code>, <code>ADMIN_ID</code>, and (optionally) a <code>WEBHOOK_URL</code> for aggregating error reports.
-                        Once configured, run <code>npm install</code>, deploy slash commands with <code>npm run dev-commands</code>, and start the bot locally using <code>npm run dev</code>.
-                        Docker users can leverage the included <code>docker-compose.yml</code> for one-command deployments.
-                    </p>
-                </Trans>
-                <figure>
-                    <img
-                        src={`${process.env.PUBLIC_URL}/images/other-tools/stash-bot-token.png`}
-                        alt={t('Discord screenshot showing how to copy a bot token')}
-                        loading="lazy"
-                    />
-                    <figcaption>{t('Copy the bot token once—store it safely in your .env file.')}</figcaption>
-                </figure>
-            </section>
-
             <section id="support">
                 <h2>{t('Support & feedback')}</h2>
                 <Trans i18nKey="stash-support">
@@ -173,6 +139,12 @@ function StashBotPage() {
                 </Trans>
                 <p>
                     {t('Need the privacy policy or terms of service for your server security review? They live inside the /assets folder of the repository and stay up-to-date with every release.')}
+                </p>
+                <p>
+                    {t(
+                        'stash-tech-note',
+                        'Need developer-focused setup guides or self-hosting instructions? Review the README on GitHub for the latest technical documentation.',
+                    )}
                 </p>
             </section>
             {stashContributors.length > 0 && (

@@ -67,7 +67,7 @@ function OtherTools() {
             </h1>
             <Trans i18nKey="other-tools-body">
                 <p className="page-intro">
-                    Tarkov.dev is more than a website. These official tools extend your raids, streams, and Discord communities using the same open-source data set.
+                    Tarkov.dev is more than a website. These tools extend your raids, streams, and Discord communities using the same open-source data set.
                     Dive into each tool to see screenshots, setup guides, and support links.
                 </p>
             </Trans>

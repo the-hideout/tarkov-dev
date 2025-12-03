@@ -143,6 +143,25 @@
     margin-right: 0;
 }
 
+.feature-list ul,
+#download ol {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.feature-list li + li,
+#download li + li {
+    margin-top: .4rem;
+}
+
+#community-support {
+    margin: 2rem 0;
+}
+
+#community-support .tool-cta {
+    margin-top: 1rem;
+}
+
 @media screen and (max-width: 600px) {
     .tool-cta-group {
         flex-direction: column;
