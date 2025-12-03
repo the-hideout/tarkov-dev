@@ -1,5 +1,7 @@
 import { Trans, useTranslation } from 'react-i18next';
 
+import Contributors from '../../components/contributors/index.js';
+import projectContributors from '../../data/project-contributors.json';
 import SEO from '../../components/SEO.jsx';
 
 import '../tarkov-monitor/index.css';
@@ -10,35 +12,36 @@ const REPOSITORY_URL = 'https://github.com/the-hideout/stash';
 const ISSUE_URL = 'https://github.com/the-hideout/stash/issues';
 
 const popularCommands = [
-    {
-        command: '/price',
-        example: '/price name: LedX',
-        description: 'Get instant price, tier, and trader data for any item.',
-    },
-    {
-        command: '/quest',
-        example: '/quest name: Spa Tour',
-        description: 'View requirements, rewards, and needed items for a task.',
-    },
-    {
-        command: '/ammo',
-        example: '/ammo ammo_type: 5.45x39mm',
-        description: 'Pull a filtered ammo table matching the Tarkov.dev data.',
-    },
-    {
-        command: '/goons',
-        example: '/goons',
-        description: 'Report or check the latest community sightings.',
-    },
-    {
-        command: '/map',
-        example: '/map woods',
-        description: 'Send a high-resolution map preview directly to chat.',
-    },
+    { command: '/help', example: '/help or help <command>', description: 'The help command to view all available commands' },
+    { command: '/about', example: '-', description: 'View details about the bot' },
+    { command: '/ammo', example: '/ammo ammo_type: 5.45x39mm', description: 'Get a sorted ammo table for a certain ammo type' },
+    { command: '/barter', example: '/barter name: <item>', description: 'Check barter details for an item' },
+    { command: '/boss', example: '-', description: 'Get detailed information about a boss' },
+    { command: '/changes', example: '-', description: 'Get the latest game changes from tarkov-changes.com' },
+    { command: '/craft', example: '/craft name: <item>', description: 'Check crafting details for an item' },
+    { command: '/gamemode', example: '-', description: 'Set the game mode (regular, PVE) for bot responses' },
+    { command: '/goons', example: '-', description: 'Check or report the location of the Goons' },
+    { command: '/invite', example: '-', description: 'Get a Discord invite link for the bot to join it to another server' },
+    { command: '/issue', example: '/issue message: <text>', description: 'Report an issue with the bot' },
+    { command: '/item', example: '-', description: 'Get price, craft, barter, etc. information about an item' },
+    { command: '/key', example: '-', description: "Get a key's price and maps it is used on" },
+    { command: '/map', example: '/map woods', description: 'View a map and some general info about it' },
+    { command: '/patchnotes', example: '-', description: 'Get the latest official patchnotes for EFT' },
+    { command: '/player', example: '-', description: 'Get player profile information' },
+    { command: '/price', example: '/price name: <item>', description: "Get a detailed output on the price of an item, its price tier, and more!" },
+    { command: '/progress', example: '-', description: 'Manage your customized hideout and trader progress' },
+    { command: '/quest', example: '-', description: 'Get detailed information about a quest' },
+    { command: '/restock', example: '-', description: 'Show or set alerts for trader restock timers' },
+    { command: '/roulette', example: '-', description: 'Play a game of roulette to determine how you play your next raid' },
+    { command: '/status', example: '-', description: 'Get the game/server/website status of Escape from Tarkov' },
+    { command: '/stim', example: '-', description: 'Get information about a in-game stim' },
+    { command: '/tier', example: '-', description: 'Show the criteria for loot tiers' },
+    { command: '/uptime', example: '-', description: "Get the bot's uptime" },
 ];
 
 function StashBotPage() {
     const { t } = useTranslation();
+    const stashContributors = projectContributors['the-hideout/stash'] ?? [];
 
     return [
         <SEO 
@@ -69,16 +72,7 @@ function StashBotPage() {
                         </a>
                     </div>
                 </div>
-                <figure>
-                    <img
-                        src={`${process.env.PUBLIC_URL}/images/api-users/stash.png`}
-                        alt={t('Screenshots of the Stash Discord bot responding to commands')}
-                        loading="lazy"
-                    />
-                    <figcaption>{t('Deliver Tarkov data straight into your Discord channels.')}</figcaption>
-                </figure>
             </section>
-
             <section className="tool-card-grid" aria-label={t('Highlights')}>
                 <article>
                     <h2>{t('Item intelligence')}</h2>
@@ -181,6 +175,14 @@ function StashBotPage() {
                     {t('Need the privacy policy or terms of service for your server security review? They live inside the /assets folder of the repository and stay up-to-date with every release.')}
                 </p>
             </section>
+            {stashContributors.length > 0 && (
+                <section className="project-contributors-block" aria-label={t('Contributors')}>
+                    <h2>{t('Contributors')}</h2>
+                    <div className="contributors-grid">
+                        <Contributors size={48} data={stashContributors} />
+                    </div>
+                </section>
+            )}
         </div>,
     ];
 }

@@ -2,9 +2,12 @@ import { Icon } from '@mdi/react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { mdiTools, mdiTextSearch, mdiDiscord } from '@mdi/js';
+import { mdiTools, mdiTextSearch, mdiRobot } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
+
+import Contributors from '../../components/contributors/index.js';
+import projectContributors from '../../data/project-contributors.json';
 
 import './index.css';
 
@@ -20,26 +23,30 @@ const toolCards = (t) => [
         screenshot: `${process.env.PUBLIC_URL}/images/other-tools/tarkov-monitor-overview.png`,
         ctaLabel: t('Read more'),
         ctaLink: '/tarkov-monitor',
+        repository: 'the-hideout/TarkovMonitor',
         secondaryAction: {
             label: t('Download'),
             href: 'https://github.com/the-hideout/TarkovMonitor/releases/latest',
         },
+        contributors: projectContributors['the-hideout/TarkovMonitor'] ?? [],
     },
     {
         id: 'stash',
         title: t('Stash Discord Bot'),
-        icon: mdiDiscord,
+        icon: mdiRobot,
         description: t(
             'card-stash-desc',
             'Slash commands for price checks, quest help, hideout progress, and restock timers sourced directly from Tarkov.dev.',
         ),
-        screenshot: `${process.env.PUBLIC_URL}/images/api-users/stash_thumb.png`,
+        screenshot: 'https://avatars.githubusercontent.com/u/101240793?s=200&v=4',
         ctaLabel: t('Read more'),
         ctaLink: '/stash',
+        repository: 'the-hideout/stash',
         secondaryAction: {
             label: t('Invite now'),
             href: 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands',
         },
+        contributors: projectContributors['the-hideout/stash'] ?? [],
     },
 ];
 
@@ -90,6 +97,12 @@ function OtherTools() {
                                 </a>
                             )}
                         </div>
+                        {card.contributors && card.contributors.length > 0 && (
+                            <div className="tool-card-contributors">
+                                <p>{t('Contributors')}</p>
+                                <Contributors size={28} stack data={card.contributors} />
+                            </div>
+                        )}
                     </article>
                 ))}
             </div>

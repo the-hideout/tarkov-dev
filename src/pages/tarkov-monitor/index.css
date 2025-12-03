@@ -115,6 +115,34 @@
     margin-bottom: .5rem;
 }
 
+.project-contributors-block {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.project-contributors-block h2 {
+    margin-top: 0;
+    margin-bottom: .75rem;
+}
+
+.project-contributors-block .contributors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.project-contributors-block .contributors-grid a {
+    display: inline-flex;
+}
+
+.project-contributors-block .contributors-grid .MuiAvatar-root {
+    margin-right: 0;
+}
+
 @media screen and (max-width: 600px) {
     .tool-cta-group {
         flex-direction: column;

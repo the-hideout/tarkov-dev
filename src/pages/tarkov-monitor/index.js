@@ -1,5 +1,7 @@
 import { Trans, useTranslation } from 'react-i18next';
 
+import Contributors from '../../components/contributors/index.js';
+import projectContributors from '../../data/project-contributors.json';
 import SEO from '../../components/SEO.jsx';
 
 import './index.css';
@@ -11,6 +13,7 @@ const TARKOV_TRACKER_URL = 'https://tarkovtracker.io';
 
 function TarkovMonitorPage() {
     const { t } = useTranslation();
+    const monitorContributors = projectContributors['the-hideout/TarkovMonitor'] ?? [];
 
     return [
         <SEO 
@@ -53,7 +56,6 @@ function TarkovMonitorPage() {
                     <figcaption>{t('Visual timers, raid state, and integration health in TarkovMonitor.')}</figcaption>
                 </figure>
             </section>
-
             <section className="tool-card-grid" aria-label={t('Feature highlights')}>
                 <article>
                     <h2>{t('Audio & visual alerts')}</h2>
@@ -153,6 +155,14 @@ function TarkovMonitorPage() {
                     </details>
                 </div>
             </section>
+            {monitorContributors.length > 0 && (
+                <section className="project-contributors-block" aria-label={t('Contributors')}>
+                    <h2>{t('Contributors')}</h2>
+                    <div className="contributors-grid">
+                        <Contributors size={48} data={monitorContributors} />
+                    </div>
+                </section>
+            )}
         </div>,
     ];
 }

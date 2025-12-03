@@ -62,3 +62,15 @@
 .tool-link.secondary {
     opacity: .85;
 }
+
+.tool-card-contributors {
+    margin-top: .5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: .75rem;
+}
+
+.tool-card-contributors p {
+    margin: 0 0 .5rem;
+    font-size: .9rem;
+    color: var(--color-text-muted);
+}
