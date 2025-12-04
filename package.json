@@ -10,8 +10,8 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "prestart": "npm run prebuild",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "rsbuild start",
+    "build": "rsbuild build",
     "test": "react-scripts test --env=jsdom",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx,json,css,scss,md}\"",
     "eject": "react-scripts eject",
@@ -25,7 +25,10 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "prettier": "^3.7.3",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "@rsbuild/core": "^1.6.11",
+    "@rsbuild/plugin-react": "^1.4.2",
+    "@rsbuild/plugin-svgr": "^1.2.2"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
@@ -83,6 +86,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "ignorePatterns": [
+      "*.html",
+      "public/**/*.html",
+      "build/**/*.html"
     ]
   },
   "browserslist": {
