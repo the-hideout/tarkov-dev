@@ -7,6 +7,11 @@ export default defineConfig({
     server: {
         base: process.env.PUBLIC_URL,
     },
+    source: {
+        define: {
+            'process.env.RSTEST': process.env.RSTEST,
+        },
+    },
     html: {
         template: './public/index.html',
     },

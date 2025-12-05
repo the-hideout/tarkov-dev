@@ -450,10 +450,17 @@ class ItemsQuery extends APIQuery {
                     return resolve({});
                 }
                 try {
-                    const itemGrids = (
-                        await fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`)
-                    ).json();
-                    resolve(itemGrids);
+                    // if running in rstest, use the local item-grids.json which in public/data/ folder.
+                    if (process.env.RSTEST) {
+                        const itemGrids = await import('#public/data/item-grids.min.json');
+                        resolve(itemGrids);
+                    } else {
+                        const response = await fetch(
+                            `${process.env.PUBLIC_URL}/data/item-grids.min.json`,
+                        );
+                        const itemGrids = await response.json();
+                        resolve(itemGrids);
+                    }
                 } catch (error) {
                     console.log('Error retrieving item grids', error);
                     return resolve({});
