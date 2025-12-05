@@ -50,6 +50,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
+          PUBLIC_URL: ''
 
       # deploy to the dev env and also save the stdout to a file
       - name: deploy - dev
