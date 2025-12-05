@@ -24,7 +24,8 @@
     "stage": "npx rimraf build && npm run build && npm run preview",
     "preview": "npx serve build -l 3001 -s",
     "critical": "node scripts/critical.mjs",
-    "cache-api-data": "node scripts/cache-api-data.mjs"
+    "cache-api-data": "node scripts/cache-api-data.mjs",
+    "lint": "eslint src"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -34,6 +35,8 @@
     "@rsbuild/plugin-react": "^1.4.2",
     "@rsbuild/plugin-svgr": "^1.2.2",
     "@rstest/core": "^0.7.0",
+    "eslint": "^8.57.1",
+    "eslint-config-react-app": "^7.0.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
