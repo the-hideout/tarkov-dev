@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import defaultStore from './store';
+import defaultStore from '#src/store';
 
 export function renderWithProviders(
     ui,
