@@ -45,12 +45,19 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm ci
 
+      - name: env setup
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        env:
+          PUBLIC_URL: ''
+        run: |
+          touch .env
+          echo PUBLIC_URL=$PUBLIC_URL >> .env
+
       - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
-          PUBLIC_URL: ''
 
       # deploy to the dev env and also save the stdout to a file
       - name: deploy - dev

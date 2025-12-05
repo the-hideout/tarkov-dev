@@ -43,6 +43,14 @@ jobs:
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm ci
 
+      - name: env setup
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        env:
+          PUBLIC_URL: ''
+        run: |
+          touch .env
+          echo PUBLIC_URL=$PUBLIC_URL >> .env
+
       - name: build
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm run build
