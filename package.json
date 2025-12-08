@@ -25,18 +25,22 @@
     "preview": "npx serve build -l 3001 -s",
     "critical": "node scripts/critical.mjs",
     "cache-api-data": "node scripts/cache-api-data.mjs",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "prettier": "^3.7.3",
-    "sharp": "^0.34.5",
     "@rsbuild/core": "^1.6.11",
     "@rsbuild/plugin-react": "^1.4.2",
     "@rsbuild/plugin-svgr": "^1.2.2",
     "@rstest/core": "^0.7.0",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-react-app": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.3",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -91,7 +95,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "prettier"
     ],
     "ignorePatterns": [
       "*.html",
@@ -111,10 +116,7 @@
       "last 1 safari version"
     ]
   },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "tabWidth": 4
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
