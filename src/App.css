@@ -1,3 +1,6 @@
+@import './styles/singleEntity.css';
+@import './styles/mapSearch.css';
+
 /* Variables start */
 :root {
   --color-black: #000;
@@ -303,6 +306,3 @@ cite {
         max-width: 1600px;
     }
 }
-
-@import './styles/singleEntity.css';
-@import './styles/mapSearch.css';
