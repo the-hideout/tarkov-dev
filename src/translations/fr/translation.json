@@ -98,7 +98,7 @@
     "Item": "Article",
     "Amount": "Quantité",
     "Player level: {{playerLevel}}": "Niveau du joueur : {{playerLevel}}",
-    "Reputation: {{reputation}}": "Reputation : {{reputation}}",
+    "Reputation: {{reputation}}": "Réputation : {{reputation}}",
     "Commerce: {{commerce}}": "Commerce : {{commerce}}",
     "Cheapest Price": "Prix les plus bas",
     "Task: {{taskName}}": "Tâche : {{taskName}}",
