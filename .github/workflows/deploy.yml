@@ -56,6 +56,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
+          PUBLIC_URL: ''
 
       - name: test
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
