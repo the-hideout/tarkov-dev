@@ -5,7 +5,7 @@
     "No barters found for this item": "Aucun échange trouvé pour cet article",
     "LL{{level}}": "LL{{level}}",
     "Barter at {{trader}}": "Échange chez {{trader}}",
-    "Craft at {{station}}": "Craft a {{station}}",
+    "Craft at {{station}}": "Fabriquer à {{station}}",
     "Barter": "Objets d'échange",
     "Craft at {{stationName}} {{stationLevel}}": "Fabriquer sur {{stationName}} {{stationLevel}}",
     "Provides {{count}} for {{totalCost}}_one": "Fournir {{count}} pour {{totalCost}}",
