@@ -19,7 +19,7 @@
     "build": "rsbuild build",
     "test": "rstest",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx,json,css,scss,md}\"",
-    "prebuild": "node scripts/update-props.mjs && node scripts/cache-api-data.mjs && node scripts/get-version.mjs && node scripts/get-contributors.mjs && node scripts/build-sitemap.mjs && node scripts/generate-thumbnails.mjs",
+    "prebuild": "node scripts/update-props.mjs && node scripts/cache-api-data.mjs && node scripts/get-contributors.mjs && node scripts/build-sitemap.mjs && node scripts/generate-thumbnails.mjs",
     "postbuild": "node scripts/build-redirects.mjs && node scripts/critical.mjs",
     "stage": "npx rimraf build && npm run build && npm run preview",
     "preview": "npx serve build -l 3001 -s",
