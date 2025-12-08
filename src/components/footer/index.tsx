@@ -220,7 +220,7 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {__BRANCH_NAME__}-{__COMMIT_HASH__}
+          {__COMMIT_HASH__}
         </a>
       </div>
     </div>
