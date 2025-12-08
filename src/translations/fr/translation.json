@@ -4,7 +4,7 @@
     "API Latency in milliseconds": "Latence de l'API en millisecondes",
     "No barters found for this item": "Aucun échange trouvé pour cet article",
     "LL{{level}}": "LL{{level}}",
-    "Barter at {{trader}}": "Echangé à {{trader}}",
+    "Barter at {{trader}}": "Échange chez {{trader}}",
     "Craft at {{station}}": "Craft a {{station}}",
     "Barter": "Objets d'échange",
     "Craft at {{stationName}} {{stationLevel}}": "Fabriquer sur {{stationName}} {{stationLevel}}",
