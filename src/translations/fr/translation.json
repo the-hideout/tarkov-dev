@@ -495,7 +495,7 @@
     "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds_one": "Applique les effets {{effectNames, list}} sur vos {{bodyParts, list(type: disjunction)}} pendant {{operator}} {{count}} secondes",
     "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds_many": "Applique les effets {{effectNames, list}} sur vos {{bodyParts, list(type: disjunction)}} pendant {{operator}} {{count}} secondes",
     "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds_other": "Applique les effets {{effectNames, list}} sur vos {{bodyParts, list(type: disjunction)}} pendant {{operator}} {{count}} secondes",
-    "using extract: {{extractName}}": "using extract: {{extractName}}",
+    "using extract: {{extractName}}": "En utilisant l'extraction : {{extractName}}",
     "Extract with the status(es): {{extractStatuses, list(type: disjunction)}}": "Extraire avec le(s) statut(s) : {{extractStatuses, list(type: disjunction)}}",
     "Extract {{extractCount}} times with the status(es): {{extractStatuses, list(type: disjunction)}}": "Extraire {{extractCount}} fois avec le(s) statut(s) : {{extractStatuses, list(type: disjunction)}}",
     "{{itemCount}}x any of": "{{itemCount}}x l'un des",
