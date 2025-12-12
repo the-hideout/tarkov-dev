@@ -29,6 +29,8 @@ To build and test the site locally just follow the steps below:
    npm install
    ```
 
+1. Copy .env.example to .env (no values need to be changed)
+
 1. Start development server:
 
    ```bash
