@@ -54,12 +54,12 @@ function StashBotPage() {
                 <div>
                     <p className="eyebrow">{t('Discord companion')}</p>
                     <h1>{t('Stash Discord Bot')}</h1>
-                    <Trans i18nKey="stash-hero">
-                        <p>
-                            Stash pipes the full Tarkov.dev dataset into Discord so your community can check prices,
-                            quest progress, hideout timers, and more without leaving chat.
-                        </p>
-                    </Trans>
+                    <p>
+                        {t(
+                            'stash-hero',
+                            'Stash pipes the full Tarkov.dev dataset into Discord so your community can check prices, quest progress, hideout timers, and more without leaving chat.',
+                        )}
+                    </p>
                     <div className="tool-cta-group">
                         <a className="tool-cta primary" href={INVITE_URL} target="_blank" rel="noreferrer">
                             {t('Invite Stash')}

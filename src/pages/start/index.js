@@ -3,8 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as DiscordIcon } from '../../images/Discord-icon.svg';
-
 import QueueBrowserTask from '../../modules/queue-browser-task.js';
 
 import categoryPages from '../../data/category-pages.json';
@@ -20,6 +18,8 @@ import { Icon } from '@mdi/react';
 import {
     mdiAccountGroup,
     mdiAmmunition,
+    mdiCalendarClock,
+    mdiBitcoin,
     mdiHammerWrench,
     mdiFinance,
     mdiCached,
@@ -27,14 +27,12 @@ import {
     mdiMap,
     mdiViewGrid,
     mdiHome,
-    mdiCalendarClock,
     mdiSkull,
-    mdiBitcoin,
+    mdiMonitorCellphone,
+    mdiRobot,
 } from '@mdi/js';
 
 import './index.css';
-
-const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
 // Use Lazy and Suspense to load these components
 const ServerStatus = lazy(() => import('../../components/server-status/index.js'));
@@ -211,16 +209,25 @@ function Start() {
                             {t('Bitcoin farm profit')}
                         </Link>
                     </li>
-                    <li key="start-link-stash-bot-invite">
-                        <a
-                            href={DISCORD_STASH_INVITE_LINK}
-                        >
-                            <DiscordIcon
+                    <li key="start-link-tarkov-monitor">
+                        <Link to="/tarkov-monitor">
+                            <Icon
+                                path={mdiMonitorCellphone}
+                                size={1}
                                 className="icon-with-text"
-                                style={{ width: '1.5rem', height: '1.5rem', fill: 'currentcolor' }}
                             />
-                            {t('Invite Discord bot')}
-                        </a>
+                            {t('TarkovMonitor')}
+                        </Link>
+                    </li>
+                    <li key="start-link-stash-page">
+                        <Link to="/stash">
+                            <Icon
+                                path={mdiRobot}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            {t('Stash Discord Bot')}
+                        </Link>
                     </li>
                 </ul>
                 <h3>
@@ -329,6 +336,11 @@ function Start() {
                 </Link>
                 <h1 className='main-h1 main-headers'>{t('tarkov.dev is an open source tool kit for Escape from Tarkov.')}</h1>
                 <h2 className='main-h2 main-headers'>{t('It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.')}</h2>
+                <div className="start-hero-cta-group">
+                    <Link className="start-hero-cta primary" to="/tarkov-monitor">
+                        {t('Learn about TarkovMonitor')}
+                    </Link>
+                </div>
             </div>
         </div>,
     ];

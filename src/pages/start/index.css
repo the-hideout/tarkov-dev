@@ -35,6 +35,40 @@
     margin-bottom: 0;
 }
 
+.start-hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.start-hero-cta {
+    border: 2px solid var(--color-gold-two);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.6rem 1.75rem;
+    text-transform: uppercase;
+    transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.start-hero-cta.primary {
+    background-color: var(--color-gold-two);
+    color: var(--color-black);
+}
+
+.start-hero-cta.secondary {
+    background-color: transparent;
+    color: var(--color-gold-two);
+}
+
+.start-hero-cta:hover {
+    background-color: var(--color-gold-dark);
+    color: var(--color-black);
+}
+
 .start-wrapper .icon-with-text {
     margin-left: 0;
 }
