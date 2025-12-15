@@ -5,7 +5,6 @@ import url from "url";
 const repositories = [
     'the-hideout/tarkov-dev',
     'the-hideout/stash',
-    'the-hideout/TarkovMonitor',
     'the-hideout/tarkov-api',
     'the-hideout/cloudflare',
     'the-hideout/tarkov-data-manager',
@@ -70,14 +69,17 @@ async function getContributors(repository) {
 (async () => {
     console.log('Loading contributors');
     let allContributors = [];
-    let repoContributorMap = {};
 
     try {
         let allRepContributors = [];
         for (const repository of repositories) {
-            const contributosArr = await getContributors(repository) ?? [];
+            const contributosArr = await getContributors(repository);
 
-            repoContributorMap[repository] = contributosArr;
+            if (!contributosArr) {
+                console.log(`Error fetching contributors of ${repository}`);
+                
+                continue;
+            }
 
             allRepContributors.push(...contributosArr);
         }
@@ -123,7 +125,7 @@ async function getContributors(repository) {
 
     if (allContributors.length === 0) {
         console.log('using fallback contributors.json (offline mode?)');
-        const fallbackContributors = [
+        allContributors = [
             {
                 login: "hideout-bot",
                 html_url: "https://github.com/hideout-bot",
@@ -131,17 +133,6 @@ async function getContributors(repository) {
                 totalContributions: 9000,
             }
         ];
-
-        allContributors = fallbackContributors;
-        repoContributorMap = repositories.reduce((acc, repository) => {
-            acc[repository] = [{
-                login: "hideout-bot",
-                html_url: "https://github.com/hideout-bot",
-                avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
-                contributions: 9000,
-            }];
-            return acc;
-        }, {});
     }
     else {
         console.log(`Total contributors: ${allContributors.length}`);
@@ -152,10 +143,6 @@ async function getContributors(repository) {
     let stringifyed = JSON.stringify(allContributors, null, 4);
     const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), stringifyed);
-    fs.writeFileSync(
-        path.join(__dirname, '..', 'src', 'data', 'project-contributors.json'),
-        JSON.stringify(repoContributorMap, null, 4),
-    );
 
     console.timeEnd('Write new data');
 })();
