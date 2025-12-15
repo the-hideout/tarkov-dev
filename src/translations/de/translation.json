@@ -141,6 +141,8 @@
     "Endgame": "Endgame",
     "Required for Kappa": "Für Kappa benötigt",
     "Required for Lightkeeper": "Für Lightkeeper benötigt",
+    "Kappa": "Kappa",
+    "Lightkeeper": "Lightkeeper",
     "No quests found": "Keine Quest gefunden",
     "Some tasks hidden by filter settings": "Einige Aufgaben durch Filtereinstellungen nicht sichtbar",
     "open this page in another browser or window and connect using this id": "Öffne die Seite in einem anderen Browser oder Fenster und verbinden dich mit dieser ID",
@@ -441,6 +443,7 @@
     "Include Marked": "Beziehe Makierte ein",
     "Group by type": "Gruppiere bei Typ",
     "min value": "Mindestwert",
+    "Only show markers for active tasks": "Nur Markierungen für aktive Aufgaben anzeigen",
     "Map of {{mapName}}": "Map of {{mapName}}",
     "maps-page-description": "Erhalte die aktuellsten Informationen über Karten in Escape from Tarkov, inklusive Ausgängen und Loot Fundorten. Finde heraus wo es die besten Gegenstände gibt.",
     "maps-page-p": "<0>Es gibt 11 unterschiedliche Standorte auf der Escape from Tarkov Karte, wovon 10 bis jetzt veröffentlicht wurden. Obwohl alle Standorte letztlich verbunden sein werden, sind sie im Moment voneinander getrennt.</0>",
@@ -606,5 +609,15 @@
     "I understand": "Verstanden",
     "Other Options": "Andere Optionen",
     "This task {{taskStatus}}": "Diese Aufgabe {{taskStatus}}",
-    "Slots per kg": "Slots pro kg"
+    "Slots per kg": "Slots pro kg",
+    "Trader Ammo": "Händler Munition",
+    "Only show ammo available from traders on your settings": "Nur Munition anzeigen, die bei Händlern gemäß deinen Einstellungen verfügbar ist",
+    "Reset": "Zurücksetzen",
+    "Convert one currency to another": "Eine Währung in eine andere umrechnen",
+    "Currency Converter": "Währungsrechner",
+    "game_mode_regular": "PVP",
+    "game_mode_pve": "PVE",
+    "Most recent reports:": "Neueste Berichte:",
+    "Switch to {{gameMode}} profile": "Zu {{gameMode}}-Profil wechseln",
+    "control-info-p": "<0>Diese Seite ermöglicht es dir, die Tarkov.dev-Website mit einem anderen Browser zu steuern. Der typische Anwendungsfall ist, die Tarkov.dev-Website in einem Browser auf einem zweiten Monitor geöffnet zu haben, während du das Spiel spielst, und diese Seite auf deinem Handy oder einem anderen Gerät geöffnet zu haben, damit du zu verschiedenen Seiten auf der Tarkov.dev-Website navigieren kannst, ohne aus dem Spiel alt+tabben zu müssen. Alles was du tun musst, ist die Tarkov.dev-Website in einem Browser zu öffnen, wo sie angezeigt werden soll, auf den \"Klicke um zu verbinden\"-Button unten links* zu klicken und dann die dort angezeigte ID auf dieser Seite auf dem Steuergerät zu verwenden und auf Verbinden zu klicken. Sobald verbunden, kannst du diese Steuerungsseite verwenden, um bestimmte Karten- oder Munitionsseiten im gesteuerten Browser zu öffnen.</0><1>*Standardmäßig erscheint es unten links, kann aber auf die untere rechte Seite des Bildschirms umgeschaltet werden. Es kann auch durch die Option \"Fernsteuerung ausblenden\" auf der Einstellungsseite versteckt werden.</1>"
 }
