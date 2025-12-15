@@ -367,6 +367,7 @@ src/data/quests_cached.json
 src/data/quests_locale.json
 src/data/traders_cached.json
 src/data/traders_locale.json
+src/data/project-contributors.json
 # Sitemap
 public/sitemap*.xml
 public/sitemap*.xml.gz
