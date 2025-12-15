@@ -7,21 +7,11 @@ import contributorJson from '../../data/contributors.json';
 // quality: number (pixels) of the quality of the avatar
 // stack: boolean (true/false) to stack the avatars
 function Contributors(props) {
-    if (!props.size) {
-        return null;
-    }
-
     var quality;
     if (!props.quality) {
         quality = props.size;
     } else {
         quality = props.quality;
-    }
-
-    const contributors = props.data && props.data.length ? props.data : contributorJson;
-
-    if (!contributors.length) {
-        return null;
     }
 
     const avatarTheme = createTheme({
@@ -47,9 +37,9 @@ function Contributors(props) {
 
     if (props.stack === true) {
         return (
-            <ThemeProvider theme={avatarTheme}>
-                <AvatarGroup max={props.max ?? 10}>
-                    {contributors.map((contributor) => (
+            <AvatarGroup max={10}>
+                <ThemeProvider theme={avatarTheme}>
+                    {contributorJson.map((contributor) => (
                         <Avatar
                             key={contributor.login}
                             src={`${contributor.avatar_url}&size=${quality}`}
@@ -57,22 +47,25 @@ function Contributors(props) {
                             loading='lazy'
                         />
                     ))}
-                </AvatarGroup>
-            </ThemeProvider>
+                </ThemeProvider>
+            </AvatarGroup>
         );
     } else {
         return (
-            <ThemeProvider theme={avatarTheme}>
-                {contributors.map((contributor) => (
-                    <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
-                        <Avatar
-                            src={`${contributor.avatar_url}&size=${quality}`}
-                            alt={contributor.login}
-                            loading='lazy'
-                        />
-                    </a>
-                ))}
-            </ThemeProvider>
+            <>
+                <ThemeProvider theme={avatarTheme}>
+                    {contributorJson.map((contributor) => (
+                        <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
+                            <Avatar
+                                key={contributor.login}
+                                src={`${contributor.avatar_url}&size=${quality}`}
+                                alt={contributor.login}
+                                loading='lazy'
+                            />
+                        </a>
+                    ))}
+                </ThemeProvider>
+            </>
         );
     }
 }
