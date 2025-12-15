@@ -14,6 +14,8 @@ function Contributors(props) {
         quality = props.quality;
     }
 
+    const contributorData = props.data && props.data.length > 0 ? props.data : contributorJson;
+
     const avatarTheme = createTheme({
         components: {
             // Name of the component
@@ -39,7 +41,7 @@ function Contributors(props) {
         return (
             <AvatarGroup max={10}>
                 <ThemeProvider theme={avatarTheme}>
-                    {contributorJson.map((contributor) => (
+                    {contributorData.map((contributor) => (
                         <Avatar
                             key={contributor.login}
                             src={`${contributor.avatar_url}&size=${quality}`}
@@ -54,7 +56,7 @@ function Contributors(props) {
         return (
             <>
                 <ThemeProvider theme={avatarTheme}>
-                    {contributorJson.map((contributor) => (
+                    {contributorData.map((contributor) => (
                         <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
                             <Avatar
                                 key={contributor.login}

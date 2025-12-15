@@ -7,52 +7,53 @@ import { mdiTools, mdiTextSearch, mdiRobot } from '@mdi/js';
 import SEO from '../../components/SEO.jsx';
 
 import Contributors from '../../components/contributors/index.js';
-import projectContributors from '../../data/project-contributors.json';
+import useRepositoryContributors from '../../hooks/useRepositoryContributors.js';
 
 import './index.css';
 
-const toolCards = (t) => [
-    {
-        id: 'tarkov-monitor',
-        title: 'TarkovMonitor',
-        icon: mdiTextSearch,
-        description: t(
-            'card-tarkov-monitor-desc',
-            'Automate TarkovTracker progress, capture queue timers, and drive Tarkov.dev maps with a single Windows companion app.',
-        ),
-        screenshot: `${process.env.PUBLIC_URL}/images/other-tools/tarkov-monitor-overview.png`,
-        ctaLabel: t('Read more'),
-        ctaLink: '/tarkov-monitor',
-        repository: 'the-hideout/TarkovMonitor',
-        secondaryAction: {
-            label: t('Download'),
-            href: 'https://github.com/the-hideout/TarkovMonitor/releases/latest',
-        },
-        contributors: projectContributors['the-hideout/TarkovMonitor'] ?? [],
-    },
-    {
-        id: 'stash',
-        title: t('Stash Discord Bot'),
-        icon: mdiRobot,
-        description: t(
-            'card-stash-desc',
-            'Slash commands for price checks, quest help, hideout progress, and restock timers sourced directly from Tarkov.dev.',
-        ),
-        screenshot: 'https://avatars.githubusercontent.com/u/101240793?s=200&v=4',
-        ctaLabel: t('Read more'),
-        ctaLink: '/stash',
-        repository: 'the-hideout/stash',
-        secondaryAction: {
-            label: t('Invite now'),
-            href: 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands',
-        },
-        contributors: projectContributors['the-hideout/stash'] ?? [],
-    },
-];
-
 function OtherTools() {
     const { t } = useTranslation();
-    const cards = toolCards(t);
+    const { contributors: monitorContributors } = useRepositoryContributors('the-hideout/TarkovMonitor');
+    const { contributors: stashContributors } = useRepositoryContributors('the-hideout/stash');
+
+    const cards = [
+        {
+            id: 'tarkov-monitor',
+            title: 'TarkovMonitor',
+            icon: mdiTextSearch,
+            description: t(
+                'card-tarkov-monitor-desc',
+                'Automate TarkovTracker progress, capture queue timers, and drive Tarkov.dev maps with a single Windows companion app.',
+            ),
+            screenshot: `${process.env.PUBLIC_URL}/images/other-tools/tarkov-monitor-overview.png`,
+            ctaLabel: t('Read more'),
+            ctaLink: '/tarkov-monitor',
+            repository: 'the-hideout/TarkovMonitor',
+            secondaryAction: {
+                label: t('Download'),
+                href: 'https://github.com/the-hideout/TarkovMonitor/releases/latest',
+            },
+            contributors: monitorContributors,
+        },
+        {
+            id: 'stash',
+            title: t('Stash Discord Bot'),
+            icon: mdiRobot,
+            description: t(
+                'card-stash-desc',
+                'Slash commands for price checks, quest help, hideout progress, and restock timers sourced directly from Tarkov.dev.',
+            ),
+            screenshot: 'https://avatars.githubusercontent.com/u/101240793?s=200&v=4',
+            ctaLabel: t('Read more'),
+            ctaLink: '/stash',
+            repository: 'the-hideout/stash',
+            secondaryAction: {
+                label: t('Invite now'),
+                href: 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands',
+            },
+            contributors: stashContributors,
+        },
+    ];
 
     return [
         <SEO 

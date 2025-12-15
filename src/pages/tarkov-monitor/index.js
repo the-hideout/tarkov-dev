@@ -1,8 +1,8 @@
 import { Trans, useTranslation } from 'react-i18next';
 
 import Contributors from '../../components/contributors/index.js';
-import projectContributors from '../../data/project-contributors.json';
 import SEO from '../../components/SEO.jsx';
+import useRepositoryContributors from '../../hooks/useRepositoryContributors.js';
 
 import './index.css';
 
@@ -11,7 +11,7 @@ const REPOSITORY_URL = 'https://github.com/the-hideout/TarkovMonitor';
 const DISCORD_URL = 'https://discord.gg/XPAsKGHSzH';
 function TarkovMonitorPage() {
     const { t } = useTranslation();
-    const monitorContributors = projectContributors['the-hideout/TarkovMonitor'] ?? [];
+    const { contributors: monitorContributors } = useRepositoryContributors('the-hideout/TarkovMonitor');
 
     return [
         <SEO 

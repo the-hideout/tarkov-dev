@@ -1,8 +1,8 @@
 import { Trans, useTranslation } from 'react-i18next';
 
 import Contributors from '../../components/contributors/index.js';
-import projectContributors from '../../data/project-contributors.json';
 import SEO from '../../components/SEO.jsx';
+import useRepositoryContributors from '../../hooks/useRepositoryContributors.js';
 
 import '../tarkov-monitor/index.css';
 import './index.css';
@@ -41,7 +41,7 @@ const popularCommands = [
 
 function StashBotPage() {
     const { t } = useTranslation();
-    const stashContributors = projectContributors['the-hideout/stash'] ?? [];
+    const { contributors: stashContributors } = useRepositoryContributors('the-hideout/stash');
 
     return [
         <SEO 
