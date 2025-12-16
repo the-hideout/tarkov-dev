@@ -350,7 +350,7 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-stash" data-targetid="stash">
                         <Link
-                            to="/stash"
+                            to="/stash-discord-bot"
                         >
                             {t('Stash Discord Bot')}
                         </Link>
