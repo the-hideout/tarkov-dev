@@ -1023,7 +1023,7 @@ function App() {
                         ]}
                     />
                     <Route
-                        path={'/stash'}
+                        path={'/stash-discord-bot'}
                         key="stash-bot"
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-stash-wrapper">
