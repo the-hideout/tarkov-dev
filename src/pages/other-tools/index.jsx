@@ -6,7 +6,7 @@ import { mdiTools, mdiTextSearch, mdiRobot } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
 
-import Contributors from '../../components/contributors/index.js';
+import Contributors from '../../components/contributors/index.jsx';
 import useRepositoryContributors from '../../hooks/useRepositoryContributors.js';
 
 import './index.css';
