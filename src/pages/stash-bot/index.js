@@ -86,7 +86,7 @@ function StashBotPage() {
                     <h2>{t('Progress tracking')}</h2>
                     <ul>
                         <li>{t('Quest command lists requirements, turn-ins, and rewards.')}</li>
-                        <li>{t('Progress command mirrors the hideout and trader upgrades you have saved on Tarkov.dev.')}</li>
+                        <li>{t('Progress command mirrors the hideout and trader upgrades you have saved on TarkovTracker.')}</li>
                         <li>{t('Restock and status alerts keep everyone informed between raids.')}</li>
                     </ul>
                 </article>
