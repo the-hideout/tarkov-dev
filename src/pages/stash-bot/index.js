@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from 'react-i18next';
 
-import Contributors from '../../components/contributors/index.js';
+import Contributors from '../../components/contributors/index.jsx';
 import SEO from '../../components/SEO.jsx';
 import useRepositoryContributors from '../../hooks/useRepositoryContributors.js';
 
