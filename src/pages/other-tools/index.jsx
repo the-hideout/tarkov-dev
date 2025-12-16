@@ -45,7 +45,7 @@ function OtherTools() {
             ),
             screenshot: 'https://avatars.githubusercontent.com/u/101240793?s=200&v=4',
             ctaLabel: t('Read more'),
-            ctaLink: '/stash',
+            ctaLink: '/stash-discord-bot',
             repository: 'the-hideout/stash',
             secondaryAction: {
                 label: t('Invite now'),
