@@ -7,7 +7,7 @@ class ItemsQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `
             query TarkovDevItems {
                 items(lang: ${language}, gameMode: ${gameMode}) {
@@ -445,17 +445,27 @@ class ItemsQuery extends APIQuery {
         //console.time('items query');
         const [itemData, itemGrids] = await Promise.all([
             this.graphqlRequest(query),
-            new Promise(resolve => {
+            new Promise(async (resolve) => {
                 if (prebuild) {
                     return resolve({});
                 }
-                return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
-                    (response) => response.json(),
-                )).catch(error => {
+                try {
+                    // if running in rstest, use the local item-grids.json which in public/data/ folder.
+                    if (process.env.RSTEST) {
+                        const itemGrids = await import('#public/data/item-grids.min.json');
+                        resolve(itemGrids);
+                    } else {
+                        const response = await fetch(
+                            `${process.env.PUBLIC_URL}/data/item-grids.min.json`,
+                        );
+                        const itemGrids = await response.json();
+                        resolve(itemGrids);
+                    }
+                } catch (error) {
                     console.log('Error retrieving item grids', error);
-                    return {};
-                });
-            })
+                    return resolve({});
+                }
+            }),
         ]);
         //console.timeEnd('items query');
         if (itemData.errors) {
@@ -474,7 +484,7 @@ class ItemsQuery extends APIQuery {
                     }
                     console.log(`Error in items API query: ${error.message}`, error.path);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
@@ -508,14 +518,15 @@ class ItemsQuery extends APIQuery {
                 let gridPockets = [];
                 if (itemGrids[rawItem.id]) {
                     gridPockets = itemGrids[rawItem.id];
-                } 
-                else if (rawItem.properties.grids.length === 1) {
-                    gridPockets = [{
-                        row: 0,
-                        col: 0,
-                        width: rawItem.properties.grids[0].width,
-                        height: rawItem.properties.grids[0].height,
-                    }];
+                } else if (rawItem.properties.grids.length === 1) {
+                    gridPockets = [
+                        {
+                            row: 0,
+                            col: 0,
+                            width: rawItem.properties.grids[0].width,
+                            height: rawItem.properties.grids[0].height,
+                        },
+                    ];
                 }
 
                 if (gridPockets.length > 1) {
@@ -525,12 +536,10 @@ class ItemsQuery extends APIQuery {
                     grid.width = Math.max(
                         ...gridPockets.map((pocket) => pocket.col + pocket.width),
                     );
-                }
-                else if (rawItem.properties.grids.length >= 1) {
+                } else if (rawItem.properties.grids.length >= 1) {
                     grid.height = rawItem.properties.grids[0].height;
                     grid.width = rawItem.properties.grids[0].width;
-                }
-                else {
+                } else {
                     grid.height = rawItem.height;
                     grid.width = rawItem.width;
                 }
@@ -539,16 +548,20 @@ class ItemsQuery extends APIQuery {
             rawItem.grid = grid;
 
             rawItem.properties = {
-                ...rawItem.properties
+                ...rawItem.properties,
             };
 
             const container = rawItem.properties?.slots || rawItem.properties?.grids;
             if (container) {
                 for (const slot of container) {
-                    slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
-                    slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
-                    slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
-                    slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
+                    slot.filters.allowedCategories = slot.filters.allowedCategories.map(
+                        (cat) => cat.id,
+                    );
+                    slot.filters.allowedItems = slot.filters.allowedItems.map((it) => it.id);
+                    slot.filters.excludedCategories = slot.filters.excludedCategories.map(
+                        (cat) => cat.id,
+                    );
+                    slot.filters.excludedItems = slot.filters.excludedItems.map((it) => it.id);
                 }
             }
 

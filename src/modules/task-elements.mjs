@@ -9,8 +9,8 @@ import {
     mdiCheckboxOutline,
 } from '@mdi/js';
 
-import ItemImage from '../components/item-image/index.js';
-import TraderImage from '../components/trader-image/index.js';
+import ItemImage from '../components/item-image/index.jsx';
+import TraderImage from '../components/trader-image/index.jsx';
 
 import './task-elements.css';
 

@@ -16,32 +16,43 @@ View Escape from Tarkov information about items, barters, trades, flea market pr
 
 To build and test the site locally just follow the steps below:
 
+0. Install Node.js
+
+   ```bash
+   # use nvm to install the correct version of Node.js
+   nvm use
+   ```
+
 1. Install dependencies:
 
-    ```bash
-    npm install
-    ````
+   ```bash
+   npm install
+   ```
+
+1. Copy .env.example to .env (no values need to be changed)
 
 1. Start development server:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 1. Access the site: [localhost:3000](http://localhost:3000/) 🎉
 
 > Note: You can update data with: `npm run prebuild`
 
 ## VS Code Dev Container
+
 1. Open VS Code command palette:
-    ```
-    cmd + shift + p / ctrl + shift + p
-    ```
+
+   ```
+   cmd + shift + p / ctrl + shift + p
+   ```
 
 2. Start the dev container:
-    ```
-    > Dev Containers: open folder in container...
-    ```
+   ```
+   > Dev Containers: open folder in container...
+   ```
 3. Select local path to tarkov-dev repo
 
 4. After the container builds and starts it will auto run `npm install && npm start`
@@ -69,7 +80,7 @@ Deploying your changes to production is easy! Just do the following:
 
 ## Updating Languages 🌐
 
-There are two *ways* to update languages on the site:
+There are two _ways_ to update languages on the site:
 
 - Updating the core translations (most common)
 - Updating the language that the GraphQL API uses (least common)

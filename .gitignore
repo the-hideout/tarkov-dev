@@ -350,7 +350,6 @@ $RECYCLE.BIN/
 build/
 public/maps/*_thumb.jpg
 src/data/contributors.json
-src/data/version.json
 src/data/supported-languages.json
 # Cache
 src/data/barters_cached.json
