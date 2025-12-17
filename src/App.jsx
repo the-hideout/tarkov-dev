@@ -32,7 +32,7 @@ import Loading from "./components/loading/index.jsx";
 import supportedLanguages from "./data/supported-languages.json";
 
 import Menu from "./components/menu/index.jsx";
-import Footer from "./components/footer/index.jsx";
+import Footer from "./components/footer/index.tsx";
 
 const Map = React.lazy(() => import("./pages/map/index.jsx"));
 const ErrorPage = React.lazy(() => import("./pages/error-page/index.jsx"));
@@ -112,6 +112,10 @@ const PlayerForward = React.lazy(
 const Converter = React.lazy(() => import("./pages/converter/index.jsx"));
 const About = React.lazy(() => import("./pages/about/index.jsx"));
 const OtherTools = React.lazy(() => import("./pages/other-tools/index.jsx"));
+const TarkovMonitorPage = React.lazy(
+  () => import("./pages/tarkov-monitor/index.js"),
+);
+const StashBotPage = React.lazy(() => import("./pages/stash-bot/index.js"));
 
 const APIDocs = React.lazy(() => import("./pages/api-docs/index.jsx"));
 
@@ -1154,9 +1158,32 @@ function App() {
               element={[
                 <Suspense
                   fallback={<Loading />}
-                  key="suspense-converter-wrapper"
+                  key="suspense-other-tools-wrapper"
                 >
                   <OtherTools key="other-tools-wrapper" />
+                </Suspense>,
+                remoteControlSessionElement,
+              ]}
+            />
+            <Route
+              path={"/tarkov-monitor"}
+              key="tarkov-monitor"
+              element={[
+                <Suspense
+                  fallback={<Loading />}
+                  key="suspense-tarkov-monitor-wrapper"
+                >
+                  <TarkovMonitorPage key="tarkov-monitor-wrapper" />
+                </Suspense>,
+                remoteControlSessionElement,
+              ]}
+            />
+            <Route
+              path={"/stash-discord-bot"}
+              key="stash-bot"
+              element={[
+                <Suspense fallback={<Loading />} key="suspense-stash-wrapper">
+                  <StashBotPage key="stash-wrapper" />
                 </Suspense>,
                 remoteControlSessionElement,
               ]}

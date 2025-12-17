@@ -1,0 +1,35 @@
+.stash-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stash-page thead {
+  text-align: left;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.stash-page th,
+.stash-page td {
+  padding: 0.75rem 0.5rem;
+  vertical-align: top;
+}
+
+.stash-page tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.scroll-table {
+  overflow-x: auto;
+}
+
+.stash-page code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+}
+
+.stash-page figure img {
+  width: 100%;
+  max-width: 640px;
+  border-radius: 8px;
+}

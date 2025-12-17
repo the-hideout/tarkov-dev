@@ -1,0 +1,169 @@
+.tool-detail-page {
+  max-width: 1100px;
+}
+
+.tool-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.tool-hero figure,
+.tool-hero img {
+  margin: 0;
+  max-width: 480px;
+  width: 100%;
+}
+
+.tool-hero figure {
+  text-align: center;
+}
+
+.tool-hero figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.tool-hero img {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.tool-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.tool-cta {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-cta.primary {
+  background: var(--color-primary, #3e83f8);
+  color: #fff;
+}
+
+.tool-cta.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tool-card-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-bottom: 2.5rem;
+}
+
+.tool-card-grid article {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.tool-card-grid ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.tool-card-grid li + li {
+  margin-top: 0.35rem;
+}
+
+.tool-detail-page figure img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.faq-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.faq-grid details {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.faq-grid summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.project-contributors-block {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 2.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.project-contributors-block h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.project-contributors-block .contributors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-contributors-block .contributors-grid a {
+  display: inline-flex;
+}
+
+.project-contributors-block .contributors-grid .MuiAvatar-root {
+  margin-right: 0;
+}
+
+.feature-list ul,
+#download ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.feature-list li + li,
+#download li + li {
+  margin-top: 0.4rem;
+}
+
+#community-support {
+  margin: 2rem 0;
+}
+
+#community-support .tool-cta {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .tool-cta-group {
+    flex-direction: column;
+  }
+}

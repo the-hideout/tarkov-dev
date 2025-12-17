@@ -162,13 +162,7 @@ function Footer() {
           </Link>
         </p>
         <p>
-          <a
-            href={
-              "https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands"
-            }
-          >
-            {t("Discord bot for your Discord")}
-          </a>
+          <Link to={"/stash-discord-bot"}>{t("Stash Discord Bot")}</Link>
         </p>
         <h3>{t("External resources")}</h3>
         <p>
