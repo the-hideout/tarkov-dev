@@ -69,6 +69,8 @@ async function getContributors(repository) {
 (async () => {
     console.log('Loading contributors');
     let allContributors = [];
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+    const contributorsPath = path.join(__dirname, '..', 'src', 'data', 'contributors.json');
 
     try {
         let allRepContributors = [];
@@ -125,24 +127,32 @@ async function getContributors(repository) {
 
     if (allContributors.length === 0) {
         console.log('using fallback contributors.json (offline mode?)');
-        allContributors = [
-            {
-                login: "hideout-bot",
-                html_url: "https://github.com/hideout-bot",
-                avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
-                totalContributions: 9000,
+        try {
+            const existing = JSON.parse(fs.readFileSync(contributorsPath, 'utf-8'));
+            if (Array.isArray(existing) && existing.length > 0) {
+                allContributors = existing;
             }
-        ];
+        }
+        catch (readError) {
+            console.warn(`Unable to read existing contributors.json fallback: ${readError}`);
+        }
+
+        if (allContributors.length === 0) {
+            allContributors = [
+                {
+                    login: "hideout-bot",
+                    html_url: "https://github.com/hideout-bot",
+                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
+                    totalContributions: 9000,
+                }
+            ];
+        }
     }
     else {
         console.log(`Total contributors: ${allContributors.length}`);
+        console.time('Write new data');
+        const stringifyed = JSON.stringify(allContributors, null, 4);
+        fs.writeFileSync(contributorsPath, stringifyed);
+        console.timeEnd('Write new data');
     }
-
-    console.time('Write new data');
-
-    let stringifyed = JSON.stringify(allContributors, null, 4);
-    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), stringifyed);
-
-    console.timeEnd('Write new data');
 })();

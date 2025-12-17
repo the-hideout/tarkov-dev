@@ -341,6 +341,20 @@ const Menu = () => {
                             {t('Players')}
                         </Link>
                     </li>
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-tarkov-monitor" data-targetid="tarkov-monitor">
+                        <Link
+                            to="/tarkov-monitor"
+                        >
+                            {t('TarkovMonitor')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-stash" data-targetid="stash">
+                        <Link
+                            to="/stash-discord-bot"
+                        >
+                            {t('Stash Discord Bot')}
+                        </Link>
+                    </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-converter" data-targetid="converter">
                         <Link
                             to="/converter"

@@ -105,7 +105,7 @@ L.Control.MapSettings = L.Control.extend({
         // show location labels setting
         const playerLocationDiv = L.DomUtil.create('div', `${className}-player-location-help`, form);
         const playerLocationLink = L.DomUtil.create('a', undefined, playerLocationDiv);
-        playerLocationLink.setAttribute('href', '/other-tools#tarkov-monitor');
+        playerLocationLink.setAttribute('href', '/tarkov-monitor#website-integration');
         playerLocationLink.setAttribute('target', '_blank');
         playerLocationLink.textContent = this.options.playerLocationLabel ?? 'Use TarkovMonitor to show your position';
 
