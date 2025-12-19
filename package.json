@@ -41,6 +41,8 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.3",
     "sharp": "^0.34.5",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -117,6 +119,13 @@
     ]
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,mjs}": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
   }
 }
