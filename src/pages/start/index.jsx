@@ -228,7 +228,7 @@ function Start() {
             </Link>
           </li>
           <li key="start-link-stash-page">
-            <Link to="/stash">
+            <Link to="/stash-discord-bot">
               <Icon path={mdiRobot} size={1} className="icon-with-text" />
               {t("Stash Discord Bot")}
             </Link>
