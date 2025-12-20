@@ -162,9 +162,7 @@ function Footer() {
           </Link>
         </p>
         <p>
-          <Link to={"/stash-discord-bot"}>
-            {t("Stash Discord Bot")}
-          </Link>
+          <Link to={"/stash-discord-bot"}>{t("Stash Discord Bot")}</Link>
         </p>
         <h3>{t("External resources")}</h3>
         <p>

@@ -15,7 +15,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "prestart": "npm run prebuild",
-    "start": "rsbuild start",
+    "start": "rsbuild start --open",
     "build": "rsbuild build",
     "test": "rstest",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx,json,css,scss,md}\"",
