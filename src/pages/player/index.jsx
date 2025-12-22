@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Turnstile } from '@marsidev/react-turnstile'
+import { Turnstile } from '@marsidev/react-turnstile';
 import { Icon } from '@mdi/react';
 import {
     mdiAccountQuestion,
@@ -39,24 +39,24 @@ function getHMS(seconds) {
     // calculate (and subtract) whole hours
     const secondsPerHour = 60 * 60;
     const hours = Math.trunc(seconds / secondsPerHour);
-    seconds -= (hours * secondsPerHour);
+    seconds -= hours * secondsPerHour;
 
     // calculate (and subtract) whole minutes
     const minutes = Math.trunc(seconds / 60) % 60;
-    seconds -= (minutes * 60);
+    seconds -= minutes * 60;
 
     return {
         hours,
         minutes,
         seconds,
-    }
+    };
 }
 
 const raritySort = {
-    "common": 0,
-    "rare": 1,
-    "legendary": 2
-}
+    common: 0,
+    rare: 1,
+    legendary: 2,
+};
 
 const memberFlags = {
     Developer: 1,
@@ -65,13 +65,13 @@ const memberFlags = {
     Sherpa: 256,
     Emissary: 512,
     Unheard: 1024,
-}
+};
 
 const defaultProfileImageLink = 'https://assets.tarkov.dev/profile-loading.webp';
 
 function Player() {
     const turnstileRef = useRef();
-    const inputFile = useRef() 
+    const inputFile = useRef();
     const { t } = useTranslation();
     const params = useParams();
     const navigate = useNavigate();
@@ -128,7 +128,7 @@ function Player() {
     const { data: achievements } = useAchievementsData();
     const { data: prestigeData } = usePrestigeData();
     const [turnstileToken, setTurnstileToken] = useState();
-    const [ playerBanned, setPlayerBanned ] = useState();
+    const [playerBanned, setPlayerBanned] = useState();
     const profileImageRef = useRef();
     const [profileImageLoaded, setProfileImageLoaded] = useState(false);
     const [profileImageLoading, setProfileImageLoading] = useState(false);
@@ -200,29 +200,32 @@ function Player() {
             return;
         }
         const element = document.createElement('a');
-        const file = new Blob([JSON.stringify(playerData, null, 4)], {type: 'application/json'});
+        const file = new Blob([JSON.stringify(playerData, null, 4)], { type: 'application/json' });
         element.href = URL.createObjectURL(file);
         element.download = `${playerData.aid}.json`;
         document.body.appendChild(element); // Required for this to work in FireFox
         element.click();
     }, [playerData]);
 
-    const loadProfile = useCallback((e) => {
-        e.preventDefault()
-        const reader = new FileReader();
-        reader.onload = async (e) => { 
-            const text = (e.target.result);
-            try {
-                const data = JSON.parse(text);
-                data.saved = true;
-                setPlayerData(data);
-                window.history.replaceState(null, null, `/players/${gameMode}/${data.aid}`);
-            } catch(error) {
-                setProfileError('Error reading profile');
-            }
-        };
-        reader.readAsText(e.target.files[0]);
-    }, [setPlayerData, setProfileError, gameMode]);
+    const loadProfile = useCallback(
+        (e) => {
+            e.preventDefault();
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const text = e.target.result;
+                try {
+                    const data = JSON.parse(text);
+                    data.saved = true;
+                    setPlayerData(data);
+                    window.history.replaceState(null, null, `/players/${gameMode}/${data.aid}`);
+                } catch (error) {
+                    setProfileError('Error reading profile');
+                }
+            };
+            reader.readAsText(e.target.files[0]);
+        },
+        [setPlayerData, setProfileError, gameMode],
+    );
 
     const currentWipe = wipeDetails()[0];
 
@@ -255,23 +258,31 @@ function Player() {
                 break;
             }
         }
-        return (<div style={{float: 'left'}}>
-            <span style={{verticalAlign: 'top', display: 'inline-block', textAlign: 'center'}}>
-                <img src={levelImageLink} alt={t('Level {{playerLevel}}', {playerLevel: level})}/>
-                <span style={{display: 'block'}}>{t('Level {{playerLevel}}', {playerLevel: level})}</span>
-            </span>
-        </div>);
+        return (
+            <div style={{ float: 'left' }}>
+                <span style={{ verticalAlign: 'top', display: 'inline-block', textAlign: 'center' }}>
+                    <img src={levelImageLink} alt={t('Level {{playerLevel}}', { playerLevel: level })} />
+                    <span style={{ display: 'block' }}>{t('Level {{playerLevel}}', { playerLevel: level })}</span>
+                </span>
+            </div>
+        );
     }, [playerData, handbook, t]);
 
     const prestigeImage = useMemo(() => {
         if (!playerData.info.prestigeLevel) {
             return '';
         }
-        const p = prestigeData.find(p => p.prestigeLevel === playerData.info.prestigeLevel);
+        const p = prestigeData.find((p) => p.prestigeLevel === playerData.info.prestigeLevel);
         if (!p) {
             return;
         }
-        return <Link to={`/prestige/${playerData.info.prestigeLevel}`}><div style={{float: 'left'}}><img src={p.iconLink} alt={p.name}/></div></Link>
+        return (
+            <Link to={`/prestige/${playerData.info.prestigeLevel}`}>
+                <div style={{ float: 'left' }}>
+                    <img src={p.iconLink} alt={p.name} />
+                </div>
+            </Link>
+        );
     }, [playerData, prestigeData]);
 
     const accountCategories = useMemo(() => {
@@ -306,34 +317,30 @@ function Player() {
         if (latest === 0) {
             return '';
         }
-        return (<p>{t('Last active: {{date}}', {date: new Date(latest * 1000).toLocaleString()})}</p>);
+        return <p>{t('Last active: {{date}}', { date: new Date(latest * 1000).toLocaleString() })}</p>;
     }, [playerData, t]);
 
     const achievementColumns = useMemo(
         () => [
             {
-                Header: () => (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Name')}
-                    </div>),
+                Header: () => <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Name')}</div>,
                 id: 'name',
                 accessor: 'name',
                 Cell: (props) => {
                     let image = <></>;
                     if (props.row.original.imageLink) {
-                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />
+                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />;
                     }
-                    return <div style={{display: 'flex', alignItems: 'center'}}>
-                        {image}
-                        <span>{props.value}</span>
-                    </div>
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {image}
+                            <span>{props.value}</span>
+                        </div>
+                    );
                 },
             },
             {
-                Header: () => (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Description')}
-                    </div>),
+                Header: () => <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Description')}</div>,
                 id: 'description',
                 accessor: 'description',
             },
@@ -342,11 +349,7 @@ function Player() {
                 id: 'playersCompletedPercent',
                 accessor: 'adjustedPlayersCompletedPercent',
                 Cell: (props) => {
-                    return (
-                        <div className="center-content">
-                            {props.value}%
-                        </div>
-                    );
+                    return <div className="center-content">{props.value}%</div>;
                 },
                 sortType: 'basic',
             },
@@ -356,9 +359,7 @@ function Player() {
                 accessor: 'completionDate',
                 Cell: (props) => {
                     return (
-                        <div className={`center-content${new Date(props.value * 1000) > currentWipe.start ? ' current-wipe-achievement' : ''}`}>
-                            {new Date(props.value * 1000).toLocaleString()}
-                        </div>
+                        <div className={`center-content${new Date(props.value * 1000) > currentWipe.start ? ' current-wipe-achievement' : ''}`}>{new Date(props.value * 1000).toLocaleString()}</div>
                     );
                 },
             },
@@ -367,17 +368,13 @@ function Player() {
                 id: 'rarity',
                 accessor: 'rarity',
                 Cell: (props) => {
-                    return (
-                        <div className={`center-content ${props.row.original.normalizedRarity}`}>
-                            {props.value}
-                        </div>
-                    );
+                    return <div className={`center-content ${props.row.original.normalizedRarity}`}>{props.value}</div>;
                 },
                 sortType: (rowA, rowB) => {
                     let rowAr = raritySort[rowA.original.normalizedRarity];
                     let rowBr = raritySort[rowB.original.normalizedRarity];
                     if (rowAr === rowBr) {
-                        return rowB.original.playersCompletedPercent - rowA.original.playersCompletedPercent
+                        return rowB.original.playersCompletedPercent - rowA.original.playersCompletedPercent;
                     }
                     return rowAr - rowBr;
                 },
@@ -387,25 +384,25 @@ function Player() {
     );
 
     const achievementsData = useMemo(() => {
-        return achievements?.map(a => {
-            if (!playerData.achievements[a.id]) {
-                return false;
-            }
-            return {
-                ...a,
-                completionDate: playerData.achievements[a.id],
-            }
-        }).filter(Boolean) || [];
+        return (
+            achievements
+                ?.map((a) => {
+                    if (!playerData.achievements[a.id]) {
+                        return false;
+                    }
+                    return {
+                        ...a,
+                        completionDate: playerData.achievements[a.id],
+                    };
+                })
+                .filter(Boolean) || []
+        );
     }, [achievements, playerData]);
 
     const raidsColumns = useMemo(
         () => [
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Side')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Side')}</div>,
                 id: 'side',
                 accessor: 'side',
                 Cell: (props) => {
@@ -413,29 +410,17 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Raids')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Raids')}</div>,
                 id: 'raids',
                 accessor: 'raids',
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Survived')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Survived')}</div>,
                 id: 'survived',
                 accessor: 'survived',
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Runthrough')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Runthrough')}</div>,
                 id: 'runthrough',
                 accessor: 'runthrough',
                 Cell: (props) => {
@@ -443,11 +428,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('MIA')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('MIA')}</div>,
                 id: 'mia',
                 accessor: 'mia',
                 Cell: (props) => {
@@ -455,11 +436,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('KIA')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('KIA')}</div>,
                 id: 'kia',
                 accessor: 'kia',
                 Cell: (props) => {
@@ -467,11 +444,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Kills')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Kills')}</div>,
                 id: 'kills',
                 accessor: 'kills',
                 Cell: (props) => {
@@ -479,11 +452,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('K:D', { nsSeparator: '|' })}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('K:D', { nsSeparator: '|' })}</div>,
                 id: 'kdr',
                 accessor: 'kills',
                 Cell: (props) => {
@@ -494,11 +463,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Win Streak')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Win Streak')}</div>,
                 id: 'streak',
                 accessor: 'streak',
                 Cell: (props) => {
@@ -513,7 +478,7 @@ function Player() {
         if (!playerData.pmcStats?.eft) {
             return [];
         }
-        const statSides = { 'scavStats': 'Scav', 'pmcStats': 'PMC' };
+        const statSides = { scavStats: 'Scav', pmcStats: 'PMC' };
         const statTypes = [
             {
                 name: 'raids',
@@ -541,8 +506,8 @@ function Player() {
             },
             {
                 name: 'streak',
-                key: ['LongestWinStreak']
-            }
+                key: ['LongestWinStreak'],
+            },
         ];
         const getStats = (side) => {
             return {
@@ -550,7 +515,7 @@ function Player() {
                 ...statTypes.reduce((all, s) => {
                     all[s.name] = 0;
                     return all;
-                }, {})
+                }, {}),
             };
         };
         const totalStats = getStats('Total');
@@ -560,7 +525,7 @@ function Player() {
             const stats = playerData[sideKey].eft.overAllCounters.Items;
             const currentData = getStats(sideLabel);
             for (const st of statTypes) {
-                const foundStat = stats.find(s => !st.key.some(keyPart => !s.Key.includes(keyPart)));
+                const foundStat = stats.find((s) => !st.key.some((keyPart) => !s.Key.includes(keyPart)));
                 currentData[st.name] = foundStat?.Value || 0;
                 totalStats[st.name] += currentData[st.name];
             }
@@ -572,30 +537,24 @@ function Player() {
     const skillsColumns = useMemo(
         () => [
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Skill')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Skill')}</div>,
                 id: 'skill',
                 accessor: 'skill',
                 Cell: (props) => {
                     let image = <></>;
                     if (props.row.original.imageLink) {
-                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />
+                        image = <img src={props.row.original.imageLink} alt="" className="table-image" />;
                     }
-                    return <div style={{display: 'flex', alignItems: 'center'}}>
-                        {image}
-                        <span>{props.value}</span>
-                    </div>
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {image}
+                            <span>{props.value}</span>
+                        </div>
+                    );
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Level')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Level')}</div>,
                 id: 'progress',
                 accessor: 'progress',
                 Cell: (props) => {
@@ -603,11 +562,7 @@ function Player() {
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Last Access')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Last Access')}</div>,
                 id: 'lastAccess',
                 accessor: 'lastAccess',
                 Cell: (props) => {
@@ -619,32 +574,31 @@ function Player() {
     );
 
     const skillsData = useMemo(() => {
-        return playerData.skills?.Common?.map(s => {
-            if (!s.Progress || s.LastAccess <= 0) {
-                return false;
-            }
-            const skill = handbook.skills.find(skill => skill.id === s.Id);
-            if (!skill) {
-                return false;
-            }
-            return {
-                skill: skill?.name || s.Id,
-                id: s.Id,
-                imageLink: skill.imageLink,
-                progress: s.Progress,
-                lastAccess: s.LastAccess,
-            }
-        }).filter(Boolean) || [];
+        return (
+            playerData.skills?.Common?.map((s) => {
+                if (!s.Progress || s.LastAccess <= 0) {
+                    return false;
+                }
+                const skill = handbook.skills.find((skill) => skill.id === s.Id);
+                if (!skill) {
+                    return false;
+                }
+                return {
+                    skill: skill?.name || s.Id,
+                    id: s.Id,
+                    imageLink: skill.imageLink,
+                    progress: s.Progress,
+                    lastAccess: s.LastAccess,
+                };
+            }).filter(Boolean) || []
+        );
     }, [playerData, handbook]);
 
     const masteringColumns = useMemo(
         () => [
             {
                 id: 'expander',
-                Header: ({
-                    getToggleAllRowsExpandedProps,
-                    isAllRowsExpanded,
-                }) =>
+                Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
                     // <span {...getToggleAllRowsExpandedProps()}>
                     //     {isAllRowsExpanded ? 'v' : '>'}
                     // </span>
@@ -663,40 +617,23 @@ function Player() {
                                 },
                             })}
                         >
-                            {row.isExpanded ? (
-                                <ArrowIcon />
-                            ) : (
-                                <ArrowIcon className={'arrow-right'} />
-                            )}
+                            {row.isExpanded ? <ArrowIcon /> : <ArrowIcon className={'arrow-right'} />}
                         </span>
                     ) : null,
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Weapon')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Weapon')}</div>,
                 id: 'name',
                 accessor: 'name',
                 Cell: (props) => {
                     if (props.row.original.shortName) {
-                        return (
-                            <ItemNameCell
-                                item={props.row.original}
-                                items={items}
-                            />
-                        );
+                        return <ItemNameCell item={props.row.original} items={items} />;
                     }
                     return props.value;
                 },
             },
             {
-                Header: (
-                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                        {t('Progress')}
-                    </div>
-                ),
+                Header: <div style={{ textAlign: 'left', paddingLeft: '10px' }}>{t('Progress')}</div>,
                 id: 'Progress',
                 accessor: 'Progress',
                 Cell: (props) => {
@@ -720,37 +657,41 @@ function Player() {
     );
 
     const masteringData = useMemo(() => {
-        return playerData.skills?.Mastering?.map(masteringProgress => {
-            const mastering = handbook.mastering.find(m => m.id === String(masteringProgress.Id));
-            if (!mastering) {
-                return false;
-            }
-            let level = 1;
-            if (masteringProgress.Progress > mastering.level3) {
-                level = 3;
-            } else if (masteringProgress.Progress > mastering.level2) {
-                level = 2;
-            }
-            return {
-                ...masteringProgress,
-                name: masteringProgress.Id,
-                level,
-                subRows: mastering.weapons.map(w => {
-                    const baseItem = items.find(i => i.id === w.id);
-                    if (!baseItem) {
-                        return false;
-                    }
-                    const preset = items.find (i => i.id === baseItem.properties.defaultPreset?.id);
-                    return {
-                        ...baseItem,
-                        itemLink: `/item/${baseItem.normalizedName}`,
-                        iconLink: preset ? preset.iconLink : baseItem.iconLink,
-                        Progress: masteringProgress.Progress,
-                        level,
-                    };
-                }).filter(Boolean),
-            };
-        }).filter(Boolean) || [];
+        return (
+            playerData.skills?.Mastering?.map((masteringProgress) => {
+                const mastering = handbook.mastering.find((m) => m.id === String(masteringProgress.Id));
+                if (!mastering) {
+                    return false;
+                }
+                let level = 1;
+                if (masteringProgress.Progress > mastering.level3) {
+                    level = 3;
+                } else if (masteringProgress.Progress > mastering.level2) {
+                    level = 2;
+                }
+                return {
+                    ...masteringProgress,
+                    name: masteringProgress.Id,
+                    level,
+                    subRows: mastering.weapons
+                        .map((w) => {
+                            const baseItem = items.find((i) => i.id === w.id);
+                            if (!baseItem) {
+                                return false;
+                            }
+                            const preset = items.find((i) => i.id === baseItem.properties.defaultPreset?.id);
+                            return {
+                                ...baseItem,
+                                itemLink: `/item/${baseItem.normalizedName}`,
+                                iconLink: preset ? preset.iconLink : baseItem.iconLink,
+                                Progress: masteringProgress.Progress,
+                                level,
+                            };
+                        })
+                        .filter(Boolean),
+                };
+            }).filter(Boolean) || []
+        );
     }, [playerData, handbook, items]);
 
     const totalTimeInGame = useMemo(() => {
@@ -762,224 +703,258 @@ function Player() {
         const formattedTime = t('{{hours}} h, {{minutes}} m, {{seconds}} s', {
             hours,
             minutes,
-            seconds
+            seconds,
         });
-        return (<p>{`${t('Account Time')}: ${formattedTime}`}</p>);
+        return <p>{`${t('Account Time')}: ${formattedTime}`}</p>;
     }, [playerData, t]);
 
     const accountDetails = useMemo(() => {
         let accountType = '';
         if (accountCategories) {
-            accountType = <p>{t('Account Type: {{accountTypes}}', {accountTypes: accountCategories})}</p>
+            accountType = <p>{t('Account Type: {{accountTypes}}', { accountTypes: accountCategories })}</p>;
         }
-        return (<div style={{float: 'left'}}>
-            {accountType}            
-            {totalTimeInGame}
-            {lastActiveDate}
-        </div>);       
+        return (
+            <div style={{ float: 'left' }}>
+                {accountType}
+                {totalTimeInGame}
+                {lastActiveDate}
+            </div>
+        );
     }, [accountCategories, totalTimeInGame, lastActiveDate, t]);
 
-    const getItemParts = useCallback((baseItem, itemPool) => {
-        const customSlots = [
-            'FirstPrimaryWeapon',
-            'SecondPrimaryWeapon',
-            'Holster',
-            'Headwear', // helmets pick up on armor plates, but the display isn't different
-        ];
-        let itemJson;
-        if (baseItem.slotId && !customSlots.includes(baseItem.slotId)) {
-            return itemJson;
-        }
-        itemPool = itemPool.filter(i => items.some(item => item.id === i._tpl)); // filter out soft armor inserts
-        itemJson = {
-            id: baseItem._id,
-            items: [],
-        };
-        for (const i of itemPool) {
-            if (i._id === itemJson.id || itemJson.items.some(ji => ji._id === i.parentId)) {
-                itemJson.items.push({...i});
+    const getItemParts = useCallback(
+        (baseItem, itemPool) => {
+            const customSlots = [
+                'FirstPrimaryWeapon',
+                'SecondPrimaryWeapon',
+                'Holster',
+                'Headwear', // helmets pick up on armor plates, but the display isn't different
+            ];
+            let itemJson;
+            if (baseItem.slotId && !customSlots.includes(baseItem.slotId)) {
+                return itemJson;
             }
-        }
-        if (itemJson.items.length < 2) {
-            itemJson = undefined;
-        } else {
-            delete itemJson.items[0].parentId;
-            delete itemJson.items[0].slotId;
-        }
-        return itemJson;
-    }, [items]);
-
-    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}, itemSource) => {
-        let item = items.find(i => i.id === loadoutItem._tpl);
-        if (!item) {
-            return undefined;
-        }
-        if (item.properties?.defaultPreset) {
-            const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-            item = {
-                ...item,
-                width: preset.width,
-                height: preset.height,
-                baseImageLink: preset.baseImageLink,
+            itemPool = itemPool.filter((i) => items.some((item) => item.id === i._tpl)); // filter out soft armor inserts
+            itemJson = {
+                id: baseItem._id,
+                items: [],
             };
-        }
-        const itemPartsData = getItemParts(loadoutItem, itemSource);
-        if (itemPartsData) {
-            const params = new URLSearchParams();
-            params.append('data', JSON.stringify(itemPartsData));
-            imageOptions.imageLink = `https://imagemagic.tarkov.dev/${itemPartsData.id}.webp?${params}`;
-        }
-        let countLabel;
-
-        let label = '';
-        if (loadoutItem.upd?.StackObjectsCount > 1) {
-            countLabel = loadoutItem.upd?.StackObjectsCount;
-        }
-        if (loadoutItem.upd?.Dogtag) {
-            const tag = loadoutItem.upd.Dogtag;
-            const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
-            countLabel = tag.Level;
-            let killerInfo = <span>{tag.KillerName}</span>;
-            if (tag.KillerAccountId) {
-                killerInfo = <Link to={`/players/${gameMode}/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
+            for (const i of itemPool) {
+                if (i._id === itemJson.id || itemJson.items.some((ji) => ji._id === i.parentId)) {
+                    itemJson.items.push({ ...i });
+                }
             }
-            let victimInfo = (
-                <span>{tag.Nickname}</span>
-            );
-            if (tag.AccountId !== '0') {
-                victimInfo = (
-                    <Link to={`/players/${gameMode}/${tag.AccountId}`}>{tag.Nickname}</Link>
+            if (itemJson.items.length < 2) {
+                itemJson = undefined;
+            } else {
+                delete itemJson.items[0].parentId;
+                delete itemJson.items[0].slotId;
+            }
+            return itemJson;
+        },
+        [items],
+    );
+
+    const getItemDisplay = useCallback(
+        (loadoutItem, imageOptions = {}, itemSource) => {
+            let item = items.find((i) => i.id === loadoutItem._tpl);
+            if (!item) {
+                return undefined;
+            }
+            if (item.properties?.defaultPreset) {
+                const preset = items.find((i) => i.id === item.properties.defaultPreset.id);
+                item = {
+                    ...item,
+                    width: preset.width,
+                    height: preset.height,
+                    baseImageLink: preset.baseImageLink,
+                };
+            }
+            const itemPartsData = getItemParts(loadoutItem, itemSource);
+            if (itemPartsData) {
+                const params = new URLSearchParams();
+                params.append('data', JSON.stringify(itemPartsData));
+                imageOptions.imageLink = `https://imagemagic.tarkov.dev/item/${itemPartsData.id}.webp?${params}`;
+            }
+            let countLabel;
+
+            let label = '';
+            if (loadoutItem.upd?.StackObjectsCount > 1) {
+                countLabel = loadoutItem.upd?.StackObjectsCount;
+            }
+            if (loadoutItem.upd?.Dogtag) {
+                const tag = loadoutItem.upd.Dogtag;
+                const weapon = items.find((i) => i.id === tag.WeaponName?.split(' ')[0]);
+                countLabel = tag.Level;
+                let killerInfo = <span>{tag.KillerName}</span>;
+                if (tag.KillerAccountId) {
+                    killerInfo = <Link to={`/players/${gameMode}/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
+                }
+                let victimInfo = <span>{tag.Nickname}</span>;
+                if (tag.AccountId !== '0') {
+                    victimInfo = <Link to={`/players/${gameMode}/${tag.AccountId}`}>{tag.Nickname}</Link>;
+                }
+                label = (
+                    <span>
+                        {victimInfo}
+                        <span>{` ${t(tag.Status)} `}</span>
+                        {killerInfo}
+                        {weapon !== undefined && [
+                            <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
+                            <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>
+                                {weapon.shortName}
+                            </Link>,
+                        ]}
+                        <div>{` ${new Date(tag.Time).toLocaleString()}`}</div>
+                    </span>
                 );
             }
-            label = (
-                <span>
-                    {victimInfo}
-                    <span>{` ${t(tag.Status)} `}</span>
-                    {killerInfo}
-                    {weapon !== undefined && [
-                        <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
-                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.shortName}</Link>
-                    ]}
-                    <div>{` ${new Date(tag.Time).toLocaleString()}`}</div>
-                </span>
-            );
-        }
-        if (loadoutItem.upd?.Key) {
-            const key = items.find(i => i.id === loadoutItem._tpl);
-            if (key) {
-                if (key.properties.uses) {
-                    countLabel = `${key.properties.uses - loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
-                } else {
-                    countLabel = loadoutItem.upd.Key.NumberOfUsages;
+            if (loadoutItem.upd?.Key) {
+                const key = items.find((i) => i.id === loadoutItem._tpl);
+                if (key) {
+                    if (key.properties.uses) {
+                        countLabel = `${key.properties.uses - loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+                    } else {
+                        countLabel = loadoutItem.upd.Key.NumberOfUsages;
+                    }
                 }
-
             }
-        }
-        if (loadoutItem.upd?.Repairable) {
-            countLabel = `${loadoutItem.upd.Repairable.Durability.toFixed(2)}/${loadoutItem.upd.Repairable.MaxDurability}`
-        }
-        if (loadoutItem.upd?.MedKit) {
-            const item = items.find(i => i.id === loadoutItem._tpl);
-            if (item?.properties?.uses || item?.properties?.hitpoints) {
-                countLabel = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
+            if (loadoutItem.upd?.Repairable) {
+                countLabel = `${loadoutItem.upd.Repairable.Durability.toFixed(2)}/${loadoutItem.upd.Repairable.MaxDurability}`;
             }
-        }
+            if (loadoutItem.upd?.MedKit) {
+                const item = items.find((i) => i.id === loadoutItem._tpl);
+                if (item?.properties?.uses || item?.properties?.hitpoints) {
+                    countLabel = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
+                }
+            }
 
-        const itemImage = (
-            <ItemImage
-                item={item}
-                imageLink={imageOptions?.imageLink}
-                imageField={imageOptions?.imageField || 'baseImageLink'}
-                linkToItem={imageOptions?.linkToItem}
-                count={countLabel}
-            />
-        );
-        return { image: itemImage, label };
-    }, [items, t, gameMode, getItemParts]);
+            const itemImage = (
+                <ItemImage item={item} imageLink={imageOptions?.imageLink} imageField={imageOptions?.imageField || 'baseImageLink'} linkToItem={imageOptions?.linkToItem} count={countLabel} />
+            );
+            return { image: itemImage, label };
+        },
+        [items, t, gameMode, getItemParts],
+    );
 
-    const getLoadoutContents = useCallback((parentItem, itemType = 'loadout') => {
-        const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;
-        return itemSource?.reduce((contents, loadoutItem) => {
-            if (loadoutItem.parentId !== parentItem._id) {
+    const getLoadoutContents = useCallback(
+        (parentItem, itemType = 'loadout') => {
+            const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;
+            return itemSource?.reduce((contents, loadoutItem) => {
+                if (loadoutItem.parentId !== parentItem._id) {
+                    return contents;
+                }
+                const itemDisplay = getItemDisplay(loadoutItem, {}, itemSource);
+                if (!itemDisplay) {
+                    return contents;
+                }
+                contents.push(
+                    <TreeItem
+                        key={`${itemType}-item-${loadoutItem._id}`}
+                        itemId={loadoutItem._id}
+                        slots={{
+                            icon: () => {
+                                return itemDisplay.image;
+                            },
+                        }}
+                        label={itemDisplay.label}
+                    >
+                        {getLoadoutContents(loadoutItem, itemType)}
+                    </TreeItem>,
+                );
                 return contents;
+            }, []);
+        },
+        [playerData, getItemDisplay],
+    );
+
+    const getLoadoutInSlot = useCallback(
+        (slot) => {
+            if (playerData?.equipment?.Id === undefined) {
+                return 'None';
             }
-            const itemDisplay = getItemDisplay(loadoutItem, {}, itemSource);
-            if (!itemDisplay) {
-                return contents;
+
+            let loadoutRoot = playerData.equipment.Items.find((i) => i._id === playerData.equipment.Id);
+            let loadoutItem = playerData.equipment.Items.find((i) => i.slotId === slot && i.parentId === loadoutRoot._id);
+
+            if (loadoutItem === undefined) {
+                return 'None';
             }
-            contents.push((
-                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemDisplay.image}}} label={itemDisplay.label}>
-                    {getLoadoutContents(loadoutItem, itemType)}
-                </TreeItem>
-            ));
-            return contents;
-        }, []);
-    }, [playerData, getItemDisplay]);
 
-    const getLoadoutInSlot = useCallback((slot) => {
-        if (playerData?.equipment?.Id === undefined) {
-            return "None";
-        }
+            let itemImage = undefined;
+            let itemLabel = '';
+            let contents = [];
+            let itemDisplay = getItemDisplay(loadoutItem, {}, playerData.equipment.Items);
+            if (itemDisplay) {
+                itemImage = itemDisplay.image;
+            } else {
+                itemLabel = slot;
+            }
+            contents.push(
+                <TreeItem
+                    key={`loadout-item-${loadoutItem._id}`}
+                    itemId={loadoutItem._id}
+                    slots={{
+                        icon: () => {
+                            return itemImage;
+                        },
+                    }}
+                    label={itemLabel}
+                >
+                    {getLoadoutContents(loadoutItem)}
+                </TreeItem>,
+            );
 
-        let loadoutRoot = playerData.equipment.Items.find(i => i._id === playerData.equipment.Id);
-        let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id);
-
-        if (loadoutItem === undefined) {
-            return "None";
-        }
-
-        let itemImage = undefined;
-        let itemLabel = '';
-        let contents = [];
-        let itemDisplay = getItemDisplay(loadoutItem, {}, playerData.equipment.Items);
-        if (itemDisplay) {
-            itemImage = itemDisplay.image;
-        }
-        else {
-            itemLabel = slot;
-        }
-        contents.push((
-            <TreeItem key={`loadout-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
-                {getLoadoutContents(loadoutItem)}
-            </TreeItem>
-        ));
-
-        return <SimpleTreeView>
-            {contents}
-        </SimpleTreeView>
-    }, [playerData, getItemDisplay, getLoadoutContents]);
+            return <SimpleTreeView>{contents}</SimpleTreeView>;
+        },
+        [playerData, getItemDisplay, getLoadoutContents],
+    );
 
     const favoriteItemsContent = useMemo(() => {
         if (!playerData?.favoriteItems?.length) {
             return '';
         }
-        return ([
-            <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text" />{t('Favorite Items')}</h2>,
+        return [
+            <h2 key="favorite-items-title">
+                <Icon path={mdiTrophyAward} size={1.5} className="icon-with-text" />
+                {t('Favorite Items')}
+            </h2>,
             <ul key="favorite-items-content" className="favorite-item-list">
-                {playerData.favoriteItems.map(itemData => {
-                    if (itemData.parentId) {
-                        return false;
-                    }
+                {playerData.favoriteItems
+                    .map((itemData) => {
+                        if (itemData.parentId) {
+                            return false;
+                        }
 
-                    let itemImage = undefined;
-                    let itemLabel = '';
-                    let itemDisplay = getItemDisplay(itemData, {}, playerData.favoriteItems);
-                    if (itemDisplay) {
-                        itemImage = itemDisplay.image;
-                        itemLabel = itemDisplay.label;
-                    }
-                    return (
-                        <li key={itemData._id}>
-                            <SimpleTreeView>
-                                <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
-                                    {getLoadoutContents(itemData, 'favorite')}
-                                </TreeItem>
-                            </SimpleTreeView>
-                        </li>
-                    );
-                }).filter(Boolean)}
-            </ul>
-        ])
+                        let itemImage = undefined;
+                        let itemLabel = '';
+                        let itemDisplay = getItemDisplay(itemData, {}, playerData.favoriteItems);
+                        if (itemDisplay) {
+                            itemImage = itemDisplay.image;
+                            itemLabel = itemDisplay.label;
+                        }
+                        return (
+                            <li key={itemData._id}>
+                                <SimpleTreeView>
+                                    <TreeItem
+                                        key={`loadout-item-${itemData._id}`}
+                                        itemId={itemData._id}
+                                        slots={{
+                                            icon: () => {
+                                                return itemImage;
+                                            },
+                                        }}
+                                        label={itemLabel}
+                                    >
+                                        {getLoadoutContents(itemData, 'favorite')}
+                                    </TreeItem>
+                                </SimpleTreeView>
+                            </li>
+                        );
+                    })
+                    .filter(Boolean)}
+            </ul>,
+        ];
     }, [playerData, getItemDisplay, getLoadoutContents, t]);
 
     useEffect(() => {
@@ -1001,7 +976,7 @@ function Player() {
         }
 
         const url = new URL(`https://imagemagic.tarkov.dev/player/${playerData.aid}.webp`);
-        url.searchParams.set('data', JSON.stringify({aid: playerData.aid, customization: playerData.customization, equipment: playerData.equipment}));
+        url.searchParams.set('data', JSON.stringify({ aid: playerData.aid, customization: playerData.customization, equipment: playerData.equipment }));
         setProfileImageLoading(true);
         return url.toString();
     }, [playerData]);
@@ -1020,7 +995,6 @@ function Player() {
         if (playerData.aid === 0) {
             return;
         }
-
     }, [playerData]);
 
     const profileImageLink = useMemo(() => {
@@ -1033,26 +1007,35 @@ function Player() {
     const playerSearchDiv = (
         <div>
             <p>
-                <Link to={`/players?gameMode=${gameMode}`}><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
-                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile} accept="application/json,.json"/>
-                <Tooltip
-                    title={t('Load profile from file')}
-                    placement="bottom"
-                    arrow
-                >
-                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>
+                <Link to={`/players?gameMode=${gameMode}`}>
+                    <Icon path={mdiAccountSearch} size={1} className="icon-with-text" />
+                    {t('Search different player')}
+                </Link>
+                <input type="file" id="file" ref={inputFile} style={{ display: 'none' }} onChange={loadProfile} accept="application/json,.json" />
+                <Tooltip title={t('Load profile from file')} placement="bottom" arrow>
+                    <button
+                        className="profile-button open"
+                        onClick={() => {
+                            inputFile.current?.click();
+                        }}
+                    >
+                        <Icon path={mdiFolderOpen} size={1} className="icon-with-text" />
+                    </button>
                 </Tooltip>
-                <Tooltip
-                    title={t('Switch to {{gameMode}} profile', {gameMode: otherGameModeTranslated})}
-                    placement="bottom"
-                    arrow
-                >
-                    <button className="profile-button switch" onClick={() => {navigate(`/players/${otherGameMode}/${accountId}`);}}><Icon path={mdiAccountSwitch} size={1} className="icon-with-text" /></button>
+                <Tooltip title={t('Switch to {{gameMode}} profile', { gameMode: otherGameModeTranslated })} placement="bottom" arrow>
+                    <button
+                        className="profile-button switch"
+                        onClick={() => {
+                            navigate(`/players/${otherGameMode}/${accountId}`);
+                        }}
+                    >
+                        <Icon path={mdiAccountSwitch} size={1} className="icon-with-text" />
+                    </button>
                 </Tooltip>
                 <Turnstile
                     ref={turnstileRef}
                     className="turnstile-widget"
-                    siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
+                    siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
                     onSuccess={setTurnstileToken}
                     onError={(errorCode) => {
                         // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
@@ -1062,7 +1045,7 @@ function Player() {
                             setProfileError(`Turnstile error code ${errorCode}`);
                         }
                     }}
-                    options={{appearance: 'interaction-only'}}
+                    options={{ appearance: 'interaction-only' }}
                 />
             </p>
         </div>
@@ -1078,23 +1061,17 @@ function Player() {
     }
 
     return [
-        <SEO
-            title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('player-page-description', 'View player profile.')}
-            key="seo-wrapper"
-        />,
+        <SEO title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`} description={t('player-page-description', 'View player profile.')} key="seo-wrapper" />,
         <div className={'page-wrapper'} key="player-page-wrapper">
             {playerSearchDiv}
             <div className="entity-information-wrapper">
                 <div className="entity-top-content">
+                    <img alt={playerData.info.nickname} className={'entity-information-icon'} loading="lazy" src={profileImageLink} />
                     <img
-                        alt={playerData.info.nickname}
-                        className={'entity-information-icon'}
-                        loading="lazy"
-                        src={profileImageLink}
-                    />
-                    <img 
-                        width={1} height={1} ref={profileImageRef} alt=""
+                        width={1}
+                        height={1}
+                        ref={profileImageRef}
+                        alt=""
                         onLoad={(e) => {
                             setProfileImageLoaded(true);
                             setProfileImageLoading(false);
@@ -1104,40 +1081,45 @@ function Player() {
                         }}
                     />
                     <div className="title-bar">
-                        {playerData.aid !== 0 && (
-                            <span className="type">{playerData.info.side.toUpperCase()}</span>
-                        )}
+                        {playerData.aid !== 0 && <span className="type">{playerData.info.side.toUpperCase()}</span>}
                         <h1>{playerData.info.nickname}</h1>
                         <span className="wiki-link-wrapper">
                             {playerData.aid !== 0 && !playerData.saved && (
                                 <span>
                                     {typeof playerBanned === 'undefined' && turnstileToken && (
                                         <Tooltip title={t('Check if player appears to be banned')} arrow>
-                                            <button className="profile-button banned-btn" onClick={() => {
-                                                checkBanned();
-                                            }}><Icon path={mdiAccountQuestion} size={1} className="icon-with-text" /></button>
+                                            <button
+                                                className="profile-button banned-btn"
+                                                onClick={() => {
+                                                    checkBanned();
+                                                }}
+                                            >
+                                                <Icon path={mdiAccountQuestion} size={1} className="icon-with-text" />
+                                            </button>
                                         </Tooltip>
                                     )}
                                     {playerBanned === false && (
-                                        <span className="not-banned"><Icon path={mdiCheck} size={1} className="icon-with-text" />{t('Not banned')}</span>
+                                        <span className="not-banned">
+                                            <Icon path={mdiCheck} size={1} className="icon-with-text" />
+                                            {t('Not banned')}
+                                        </span>
                                     )}
                                     {playerBanned === true && (
-                                        <Tooltip
-                                            title={t('Ban detection may not always be accurate, especially if the account was recently renamed.')}
-                                            arrow
-                                        >
-                                            <span className="banned"><Icon path={mdiCloseCircle} size={1} className="icon-with-text" />{t('Possibly banned')}</span>
+                                        <Tooltip title={t('Ban detection may not always be accurate, especially if the account was recently renamed.')} arrow>
+                                            <span className="banned">
+                                                <Icon path={mdiCloseCircle} size={1} className="icon-with-text" />
+                                                {t('Possibly banned')}
+                                            </span>
                                         </Tooltip>
                                     )}
                                 </span>
                             )}
                             {playerData.aid !== 0 && (
                                 <span>
-                                    <Tooltip
-                                        title={t('Save profile')}
-                                        arrow
-                                    >
-                                    <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
+                                    <Tooltip title={t('Save profile')} arrow>
+                                        <button className="profile-button download" onClick={downloadProfile}>
+                                            <Icon path={mdiDownloadBox} size={1} className="icon-with-text" />
+                                        </button>
                                     </Tooltip>
                                 </span>
                             )}
@@ -1149,20 +1131,19 @@ function Player() {
                         {accountDetails}
                     </div>
                 </div>
-                  <div className="entity-icon-cont">
-                    <div className="entity-icon-and-link-wrapper"
-                      style={{ backgroundImage: `url(${profileImageLink})`, cursor: 'inherit' }}
-                    >
-                        {profileImageLoading && (
-                            <img src={'/images/loading.gif'} alt={t('Loading...')} loading="lazy" style={{maxWidth: `${32}px`,maxHeight: `${32}px`,}}/>
-                        )}
+                <div className="entity-icon-cont">
+                    <div className="entity-icon-and-link-wrapper" style={{ backgroundImage: `url(${profileImageLink})`, cursor: 'inherit' }}>
+                        {profileImageLoading && <img src={'/images/loading.gif'} alt={t('Loading...')} loading="lazy" style={{ maxWidth: `${32}px`, maxHeight: `${32}px` }} />}
                     </div>
-                  </div>
+                </div>
             </div>
             <div>
                 {playerData.equipment?.Items?.length > 0 && (
                     <>
-                        <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
+                        <h2>
+                            <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />
+                            {t('Loadout')}
+                        </h2>
                         <div className="inventory">
                             <div className="grid-container main">
                                 <div className="earpiece slot">
@@ -1225,48 +1206,40 @@ function Player() {
                     </>
                 )}
                 {favoriteItemsContent}
-                {raidsData?.length > 0  && (
+                {raidsData?.length > 0 && (
                     <>
-                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
-                        <DataTable
-                            key="raids-table"
-                            columns={raidsColumns}
-                            data={raidsData}
-                        />
+                        <h2 key="raids-title">
+                            <Icon path={mdiChartLine} size={1.5} className="icon-with-text" />
+                            {t('Raid Stats')}
+                        </h2>
+                        <DataTable key="raids-table" columns={raidsColumns} data={raidsData} />
                     </>
                 )}
-                {achievementsData?.length > 0  && (
+                {achievementsData?.length > 0 && (
                     <>
-                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
-                        <DataTable
-                            key="achievements-table"
-                            columns={achievementColumns}
-                            data={achievementsData}
-                            sortBy={'completionDate'}
-                        />
+                        <h2 key="achievements-title">
+                            <Icon path={mdiTrophy} size={1.5} className="icon-with-text" />
+                            {t('Achievements')}
+                        </h2>
+                        <DataTable key="achievements-table" columns={achievementColumns} data={achievementsData} sortBy={'completionDate'} />
                     </>
                 )}
                 {skillsData?.length > 0 && (
                     <>
-                        <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>
-                        <DataTable
-                            key="skills-table"
-                            columns={skillsColumns}
-                            data={skillsData}
-                            sortBy={'skill'}
-                        />
+                        <h2 key="skills-title">
+                            <Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />
+                            {t('Skills')}
+                        </h2>
+                        <DataTable key="skills-table" columns={skillsColumns} data={skillsData} sortBy={'skill'} />
                     </>
                 )}
                 {masteringData?.length > 0 && (
                     <>
-                        <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>
-                        <DataTable
-                            key="skills-table"
-                            columns={masteringColumns}
-                            data={masteringData}
-                            sortBy={'Progress'}
-                            sortByDesc={true}
-                        />
+                        <h2 key="mastering-title">
+                            <Icon path={mdiStarBox} size={1.5} className="icon-with-text" />
+                            {t('Mastering')}
+                        </h2>
+                        <DataTable key="skills-table" columns={masteringColumns} data={masteringData} sortBy={'Progress'} sortByDesc={true} />
                     </>
                 )}
             </div>
