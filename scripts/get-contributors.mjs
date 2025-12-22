@@ -1,30 +1,28 @@
-import fs from "fs";
-import path from "path";
-import url from "url";
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 
 const repositories = [
-  "the-hideout/tarkov-dev",
-  "the-hideout/stash",
-  "the-hideout/tarkov-api",
-  "the-hideout/cloudflare",
-  "the-hideout/tarkov-data-manager",
-  "the-hideout/cache",
-  "the-hideout/status",
-  "the-hideout/tarkov-dev-image-generator",
-  "TarkovTracker/tarkovdata",
+    'the-hideout/tarkov-dev',
+    'the-hideout/stash',
+    'the-hideout/tarkov-api',
+    'the-hideout/cloudflare',
+    'the-hideout/tarkov-data-manager',
+    'the-hideout/cache',
+    'the-hideout/status',
+    'the-hideout/tarkov-dev-image-generator',
+    'the-hideout/tarkov-dev-svg-maps',
 ];
 
 // If a GitHub token is provided, use it to increase the rate limit
 const token = process.env.GITHUB_TOKEN;
 const headers = {};
 if (token) {
-  headers.authorization = `token ${token}`;
-  console.log("Using provided GitHub token to increase rate limit");
+    headers.authorization = `token ${token}`;
+    console.log('Using provided GitHub token to increase rate limit');
 } else {
-  console.log("No GitHub token provided, rate limit may be reached");
-  console.warn(
-    "To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable",
-  );
+    console.log('No GitHub token provided, rate limit may be reached');
+    console.warn('To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable');
 }
 
 async function getContributors(repository) {

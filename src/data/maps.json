@@ -14,11 +14,11 @@
                     [323, -317],
                     [-280, 554]
                 ],
-                "heightRange": [-6, 10],
                 "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg",
                 "svgLayer": "Ground_Level",
+                "heightRange": [-6, 10],
                 "layers": [
                     {
                         "name": "Underground",
@@ -231,7 +231,7 @@
                         "size": 70
                     },
                     {
-                        "position": [-173,226],
+                        "position": [-173, 226],
                         "text": "Office",
                         "size": 70
                     },
@@ -358,12 +358,12 @@
                     [249, -124],
                     [-99, 364]
                 ],
-                "heightRange": [-1000, 28],
-                "author": "Tarkov.dev",
-                "authorLink": "https://tarkov.dev",
+                "author": "Shebuka",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png",
+                "heightRange": [-1000, 28],
                 "layers": [
                     {
                         "name": "Garage",
@@ -504,12 +504,12 @@
                     [698, -307],
                     [-372, 237]
                 ],
-                "heightRange": [-1000, 1000],
-                "author": "Tarkov.dev",
-                "authorLink": "https://tarkov.dev/",
+                "author": "Shebuka",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png",
+                "heightRange": [-1000, 1000],
                 "layers": [
                     {
                         "name": "Underground",
@@ -561,27 +561,19 @@
                             },
                             {
                                 "height": [14, 15],
-                                "bounds": [
-                                    [[497, -44], [450, -90], "chemical warehouse sniper scav"]
-                                ]
+                                "bounds": [[[497, -44], [450, -90], "chemical warehouse sniper scav"]]
                             },
                             {
                                 "height": [3.9, 7.6],
-                                "bounds": [
-                                    [[73, 57], [22, -38], "warehouse 17"]
-                                ]
+                                "bounds": [[[73, 57], [22, -38], "warehouse 17"]]
                             },
                             {
                                 "height": [4.4, 6.5],
-                                "bounds": [
-                                    [[119, -57], [100, -42], "boiler"]
-                                ]
+                                "bounds": [[[119, -57], [100, -42], "boiler"]]
                             },
                             {
                                 "height": [4.6, 7.9],
-                                "bounds": [
-                                    [[279, -79], [246, -1.4], "oilrig & panda"]
-                                ]
+                                "bounds": [[[279, -79], [246, -1.4], "oilrig & panda"]]
                             }
                         ]
                     },
@@ -597,21 +589,15 @@
                             },
                             {
                                 "height": [7.7, 11.3],
-                                "bounds": [
-                                    [[73, -73], [22, -38], "warehouse 17"]
-                                ]
+                                "bounds": [[[73, -73], [22, -38], "warehouse 17"]]
                             },
                             {
                                 "height": [6.7, 11.6],
-                                "bounds": [
-                                    [[126, -64], [88, -35], "boiler"]
-                                ]
+                                "bounds": [[[126, -64], [88, -35], "boiler"]]
                             },
                             {
                                 "height": [8.0, 11.1],
-                                "bounds": [
-                                    [[279, -79], [246, -1.4], "oilrig & panda"]
-                                ]
+                                "bounds": [[[279, -79], [246, -1.4], "oilrig & panda"]]
                             }
                         ]
                     },
@@ -622,9 +608,7 @@
                         "extents": [
                             {
                                 "height": [11.2, 54.7],
-                                "bounds": [
-                                    [[279, -79], [246, -1.4], "oilrig & panda"]
-                                ]
+                                "bounds": [[[279, -79], [246, -1.4], "oilrig & panda"]]
                             }
                         ]
                     }
@@ -772,12 +756,12 @@
                     [79, -64.5],
                     [-66.5, 67.4]
                 ],
-                "heightRange": [-1, 3],
-                "author": "Tarkov.dev",
-                "authorLink": "https://tarkov.dev",
-                "tilePath": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png",
+                "author": "Shebuka",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Factory.svg",
                 "svgLayer": "Ground_Floor",
+                "tilePath": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png",
+                "heightRange": [-1, 3],
                 "layers": [
                     {
                         "name": "2nd Floor",
@@ -1026,8 +1010,8 @@
                     [532.75, -442.75],
                     [-364, 453.5]
                 ],
-                "author": "Tarkov.dev",
-                "authorLink": "https://tarkov.dev",
+                "author": "Shebuka",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png",
@@ -1919,7 +1903,7 @@
                     [-545, 725]
                 ],
                 "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg",
                 "svgLayer": "Ground_Level",
                 "labels": [
@@ -2053,10 +2037,10 @@
                     [-303, 336]
                 ],
                 "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "tilePath": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve.svg",
                 "svgLayer": "Ground_Level",
+                "tilePath": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png",
                 "heightRange": [-7, 10000],
                 "layers": [
                     {
@@ -2074,21 +2058,15 @@
                             },
                             {
                                 "height": [-10000, -12],
-                                "bounds": [
-                                    [[-40, 124], [-124, 189], "D2"]
-                                ]
+                                "bounds": [[[-40, 124], [-124, 189], "D2"]]
                             },
                             {
                                 "height": [-10000, 18],
-                                "bounds": [
-                                    [[23, 173], [-65, 189], "dome tunnels"]
-                                ]
+                                "bounds": [[[23, 173], [-65, 189], "dome tunnels"]]
                             },
                             {
                                 "height": [-7.27, -3.2],
-                                "bounds": [
-                                    [[74, -196], [19, -149], "bunker hermetic door bunkers"]
-                                ]
+                                "bounds": [[[74, -196], [19, -149], "bunker hermetic door bunkers"]]
                             },
                             {
                                 "height": [-11, -4.6],
@@ -2106,9 +2084,7 @@
                         "extents": [
                             {
                                 "height": [22.1, 25.7],
-                                "bounds": [
-                                    [[1, 164], [-17, 199], "dome"]
-                                ]
+                                "bounds": [[[1, 164], [-17, 199], "dome"]]
                             },
                             {
                                 "height": [-3.5, -0.64],
@@ -2119,33 +2095,23 @@
                             },
                             {
                                 "height": [-3.5, -0.64],
-                                "bounds": [
-                                    [[-104, -37], [-177, 5], "black bishop"]
-                                ]
+                                "bounds": [[[-104, -37], [-177, 5], "black bishop"]]
                             },
                             {
                                 "height": [-3.9, -0.6],
-                                "bounds": [
-                                    [[-47, -47], [-85, -18], "white bishop"]
-                                ]
+                                "bounds": [[[-47, -47], [-85, -18], "white bishop"]]
                             },
                             {
                                 "height": [-4.3, -2.2],
-                                "bounds": [
-                                    [[-19.91, -13], [-78, 39], "white king"]
-                                ]
+                                "bounds": [[[-19.91, -13], [-78, 39], "white king"]]
                             },
                             {
                                 "height": [-3.8, -1.1],
-                                "bounds": [
-                                    [[99, -50], [-2, 7], "knights"]
-                                ]
+                                "bounds": [[[99, -50], [-2, 7], "knights"]]
                             },
                             {
                                 "height": [-1.9, 11.3],
-                                "bounds": [
-                                    [[191, -175], [137, -120], "train depot"]
-                                ]
+                                "bounds": [[[191, -175], [137, -120], "train depot"]]
                             },
                             {
                                 "height": [1, 8],
@@ -2159,9 +2125,7 @@
                             },
                             {
                                 "height": [-4.1, -1.2],
-                                "bounds": [
-                                    [[-128, -139], [-146, -120], "scav lands"]
-                                ]
+                                "bounds": [[[-128, -139], [-146, -120], "scav lands"]]
                             }
                         ]
                     },
@@ -2172,39 +2136,27 @@
                         "extents": [
                             {
                                 "height": [25.7, 29.3],
-                                "bounds": [
-                                    [[1, 164], [-17, 199], "dome"]
-                                ]
+                                "bounds": [[[1, 164], [-17, 199], "dome"]]
                             },
                             {
                                 "height": [-0.64, 2.23],
-                                "bounds": [
-                                    [[-77, 26], [-177, 106], "pawns"]
-                                ]
+                                "bounds": [[[-77, 26], [-177, 106], "pawns"]]
                             },
                             {
                                 "height": [-0.64, 2.23],
-                                "bounds": [
-                                    [[-104, -37], [-177, 5], "black bishop"]
-                                ]
+                                "bounds": [[[-104, -37], [-177, 5], "black bishop"]]
                             },
                             {
                                 "height": [-0.6, 10],
-                                "bounds": [
-                                    [[-47, -47], [-85, -18], "white bishop"]
-                                ]
+                                "bounds": [[[-47, -47], [-85, -18], "white bishop"]]
                             },
                             {
                                 "height": [-2.2, 2.14],
-                                "bounds": [
-                                    [[-19.91, -13], [-78, 39], "white king"]
-                                ]
+                                "bounds": [[[-19.91, -13], [-78, 39], "white king"]]
                             },
                             {
                                 "height": [-1.1, 1.6],
-                                "bounds": [
-                                    [[99, -50], [-2, 7], "knights"]
-                                ]
+                                "bounds": [[[99, -50], [-2, 7], "knights"]]
                             }
                         ]
                     },
@@ -2215,27 +2167,19 @@
                         "extents": [
                             {
                                 "height": [29.3, 36],
-                                "bounds": [
-                                    [[1, 164], [-17, 199], "dome"]
-                                ]
+                                "bounds": [[[1, 164], [-17, 199], "dome"]]
                             },
                             {
                                 "height": [2.23, 5],
-                                "bounds": [
-                                    [[-77, 26], [-177, 106], "pawns"]
-                                ]
+                                "bounds": [[[-77, 26], [-177, 106], "pawns"]]
                             },
                             {
                                 "height": [2.15, 6.6],
-                                "bounds": [
-                                    [[-19.91, -13], [-78, 39], "white king"]
-                                ]
+                                "bounds": [[[-19.91, -13], [-78, 39], "white king"]]
                             },
                             {
                                 "height": [1.6, 4.7],
-                                "bounds": [
-                                    [[99, -50], [-2, 7], "knights"]
-                                ]
+                                "bounds": [[[99, -50], [-2, 7], "knights"]]
                             }
                         ]
                     },
@@ -2246,9 +2190,7 @@
                         "extents": [
                             {
                                 "height": [5, 9.5],
-                                "bounds": [
-                                    [[-77, 26], [-177, 106], "pawns"]
-                                ]
+                                "bounds": [[[-77, 26], [-177, 106], "pawns"]]
                             }
                         ]
                     }
@@ -2458,12 +2400,12 @@
                     [508, -415],
                     [-1060, 618]
                 ],
-                "heightRange": [-1000, -1],
                 "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png",
+                "heightRange": [-1000, -1],
                 "layers": [
                     {
                         "name": "Underground",
@@ -2658,7 +2600,7 @@
                     [-762, 470]
                 ],
                 "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",
