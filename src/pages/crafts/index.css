@@ -15,7 +15,7 @@
     min-height: 0;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .crafts-page-title {
         margin: 0;
         text-align: left;

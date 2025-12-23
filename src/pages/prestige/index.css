@@ -17,7 +17,7 @@ ul.quest-item-list li {
 }
 
 .hover-item-name {
-    color: var(--color-gold-two)
+    color: var(--color-gold-two);
 }
 
 .quest-font {
@@ -33,21 +33,29 @@ ul.quest-item-list li {
 .objective-details {
     margin-left: 20px;
     padding: 10px;
-    background-color: rgba(0, 0, 0, .25);
+    background-color: rgb(0 0 0 / 0.25);
 }
 
 .entity-top-content .task-connections {
-  /*border: 3px solid #fff;*/
-  padding: 0px 20px 5px;
+    /* border: 3px solid #fff; */
+    padding: 0px 20px 5px;
 }
+
 .task-connections h3 {
-  margin-top: 0px;
+    margin-top: 0px;
 }
+
+.related-quests {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
 .entity-top-content .related-quests {
-  width: 50%;
-  float: left;
-  /*padding: 20px;
-  border: 2px solid red;*/
+    width: 50%;
+    float: left;
+
+    /* padding: 20px;
+  border: 2px solid red; */
 }
 
 .entity-top-content div.related-quests:first-child:nth-last-child(3),
@@ -58,11 +66,6 @@ ul.quest-item-list li {
 .class-status-list svg.icon-with-text {
     margin-left: 1px;
     margin-right: 1px;
-}
-
-.related-quests {
-    max-height: 200px;
-    overflow-y: scroll;
 }
 
 .game-mode-warning {
@@ -94,12 +97,10 @@ img.prestige-icon {
     align-items: center;
     justify-content: center;
     width: 33.3%;
-    padding: 10px;
     position: relative;
-    border: 1px solid rgb( from var(--color-white) r g b / 0.2);
+    border: 1px solid rgb(from var(--color-white) r g b / 0.2);
     padding: 25px 0 50px 0;
-    background: rgb( from var(--color-gunmetal) r g b / 0.38);
-
+    background: rgb(from var(--color-gunmetal) r g b / 0.38);
 }
 
 .prestige-block .prestige-wrapper h3 {
@@ -111,10 +112,11 @@ img.prestige-icon {
     bottom: 0;
     width: 100%;
     padding: 10px 20px;
-    background: rgb( from var(--color-black) r g b / 0.5);
+    background: rgb(from var(--color-black) r g b / 0.5);
     margin: 0;
-    transition: all .2s;
+    transition: all 0.2s;
 }
+
 .prestige-block .prestige-wrapper:hover h3 {
     color: var(--color-gold-two);
 }
@@ -125,18 +127,19 @@ img.prestige-icon {
     align-items: center;
     justify-content: center;
 }
+
 .prestige-block .prestige-wrapper img {
     max-height: 200px;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (width <= 960px) {
     .entity-top-content div.related-quests:first-child:nth-last-child(3),
     .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
         width: 33%;
     }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (width <= 750px) {
     .entity-top-content div.related-quests:first-child:nth-last-child(3),
     .entity-top-content div.related-quests:first-child:nth-last-child(3) ~ div {
         width: 50%;

@@ -35,7 +35,7 @@
 }
 
 .filter-wrapper.open {
-    box-shadow: 0px 5px 15px 5px rgb( from var(--color-black) r g b / 0.70);
+    box-shadow: 0px 5px 15px 5px rgb(from var(--color-black) r g b / 0.7);
     overflow: visible;
     transform: scaleY(1);
 }
@@ -66,6 +66,11 @@
     width: 400px;
 }
 
+.basic-multi-select {
+    min-width: 110px;
+    color: var(--color-gunmetal-dark);
+}
+
 .single-filter-wrapper-wide .basic-multi-select {
     flex-grow: 1;
 }
@@ -94,11 +99,6 @@
     padding: 4px;
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.basic-multi-select {
-    min-width: 110px;
-    color: var(--color-gunmetal-dark);
 }
 
 .filter-slider-wrapper .MuiSlider-root {
@@ -140,7 +140,7 @@
 
 .button-group-button:hover img,
 .button-group-button.selected img {
-    opacity: 1.0;
+    opacity: 1;
 }
 
 .button-group-button:first-child {
@@ -153,7 +153,7 @@
     border-bottom-right-radius: 4px;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .button-group-wrapper {
         margin-right: 10px;
         gap: 10px;
@@ -162,6 +162,8 @@
 
     .filter-content-wrapper {
         background: none;
+        justify-content: flex-end;
+        padding: 20px 0px;
     }
 
     .filter-toggle-icon-wrapper {
@@ -172,10 +174,5 @@
         transform: scaleY(1);
         overflow: initial;
         position: relative;
-    }
-
-    .filter-content-wrapper {
-        justify-content: flex-end;
-        padding: 20px 0px;
     }
 }

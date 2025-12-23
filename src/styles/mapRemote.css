@@ -1,7 +1,16 @@
 .leaflet-control-remote {
-    background-color: rgb( from var(--color-black) r g b / 0.5);
+    background-color: rgb(from var(--color-black) r g b / 0.5);
     color: #fff;
-    font-family: bender;
+    font-family:
+        'bender',
+        -apple-system,
+        system-ui,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Helvetica Neue',
+        'Arial',
+        sans-serif;
     font-size: 16px;
     line-height: 20px;
     padding: 10px 40px;

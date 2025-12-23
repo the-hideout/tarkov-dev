@@ -1,13 +1,13 @@
+.small-data-table td.data-cell {
+    padding: 10px;
+}
+
 .small-data-table.no-borders td.data-cell:first-child {
     border-left: 0;
 }
 
 .small-data-table.no-borders td.data-cell:last-child {
     border-right: 0;
-}
-
-.small-data-table td.data-cell {
-    padding: 10px;
 }
 
 .small-data-table .trader-icon {

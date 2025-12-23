@@ -6,6 +6,7 @@ const config = {
         'alpha-value-notation': 'number',
         'shorthand-property-no-redundant-values': null,
         'font-family-name-quotes': 'always-unless-keyword',
+        'selector-class-pattern': '.+',
     },
 };
 
