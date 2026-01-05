@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     'settings/fetchTarkovTrackerProgress',
     async (apiKey, { getState }) => {
-        if (!apiKey || typeof apiKey !== 'string' || !apiKey.match(/^[a-zA-Z0-9]{22}$/)) {
+        if (!apiKey || typeof apiKey !== 'string') {
             return false;
         }
 
@@ -18,6 +18,13 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         };
 
         const domain = localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io');
+        const validators = {
+            'tarkovtracker.io': /^[a-zA-Z0-9]{22}$/,
+            'tarkovtracker.org': /^(?:PVP_|PVE_).+$/i,
+        };
+        if (!apiKey.match(validators[domain])) {
+            return false;
+        }
 
         const response = await fetch(
             `https://${domain}/api/v2/progress`,
