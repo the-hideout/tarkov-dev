@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,7 @@ import alertConfig from './alert-config.js';
 import useTradersData from '../../features/traders/index.js';
 import CategoryMenu from './CategoryMenu.jsx';
 import { getMenuData } from './menu-data.js';
+import useMenuOverflow from './useMenuOverflow.js';
 
 import './index.css';
 
@@ -85,8 +86,27 @@ const Menu = () => {
         [t, traders, bosses, processedMaps],
     );
 
+    const desktopMenuRef = useRef(null);
+    const measuringRef = useRef(null);
+    const { visibleCount } = useMenuOverflow(desktopMenuRef, measuringRef, menuData);
+
+    const visibleItems = useMemo(() => {
+        return menuData.slice(0, visibleCount);
+    }, [menuData, visibleCount]);
+
+    const overflowItems = useMemo(() => {
+        return menuData.slice(visibleCount);
+    }, [menuData, visibleCount]);
+
     return (
         <>
+            {/* Ghost menu for stable measurement - hidden via CSS */}
+            <ul className="desktop-menu ghost-menu" ref={measuringRef}>
+                {menuData.map((category) => (
+                    <CategoryMenu key={`ghost-${category.id}`} title={category.text} items={category.items} to={category.to} />
+                ))}
+            </ul>
+
             {alertConfig?.alertEnabled === true && (
                 <Box>
                     <Collapse in={alertStateOpen}>
@@ -139,10 +159,11 @@ const Menu = () => {
                             </div>
                         </div>
 
-                        <ul className="desktop-menu">
-                            {menuData.map((category) => (
+                        <ul className="desktop-menu" ref={desktopMenuRef}>
+                            {visibleItems.map((category) => (
                                 <CategoryMenu key={category.id} title={category.text} items={category.items} to={category.to} />
                             ))}
+                            {overflowItems.length > 0 && <CategoryMenu id="more-menu" title={t('More')} items={overflowItems} />}
                         </ul>
                     </div>
 
