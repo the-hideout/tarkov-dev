@@ -9,7 +9,7 @@
     --bg-dark: #0a0a0a;
 }
 
-.navigation-container {
+.navigation {
     position: sticky;
     top: 0;
     z-index: 1000;

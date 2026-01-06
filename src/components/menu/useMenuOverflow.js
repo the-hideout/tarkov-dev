@@ -52,6 +52,11 @@ const useMenuOverflow = (containerRef, measuringRef, items) => {
             setVisibleCount((prev) => (prev !== count ? count : prev));
         };
 
+        if (typeof ResizeObserver === 'undefined') {
+            measure();
+            return;
+        }
+
         const observer = new ResizeObserver(() => {
             window.requestAnimationFrame(measure);
         });

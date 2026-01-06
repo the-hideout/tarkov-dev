@@ -147,7 +147,7 @@ const Menu = () => {
                 </Box>
             )}
 
-            <nav className="navigation-container">
+            <nav className="navigation">
                 <div className="nav-content">
                     <div className="nav-left">
                         <div className="branding-section">
