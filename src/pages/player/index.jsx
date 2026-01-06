@@ -820,7 +820,7 @@ function Player() {
                 }
             }
             if (loadoutItem.upd?.Repairable) {
-                countLabel = `${loadoutItem.upd.Repairable.Durability.toFixed(2)}/${loadoutItem.upd.Repairable.MaxDurability}`;
+                countLabel = `${Math.round(loadoutItem.upd.Repairable.Durability)}/${Math.round(loadoutItem.upd.Repairable.MaxDurability)}`;
             }
             if (loadoutItem.upd?.MedKit) {
                 const item = items.find((i) => i.id === loadoutItem._tpl);
