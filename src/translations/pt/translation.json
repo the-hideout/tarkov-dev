@@ -702,5 +702,9 @@
   "Get information about a in-game stim": "Obter informações sobre um estimulante do jogo",
   "Show the criteria for loot tiers": "Mostrar os critérios dos níveis de loot",
   "Get the bot's uptime": "Ver o tempo de atividade do bot",
-  "stash-support": "<0>O Stash é mantido pela equipe do Tarkov.dev. Bugs ou ideias? Abra um issue no <1>GitHub</1> ou fale com os devs no <2>Discord Tarkov.dev</2>. Se sincronizar Tarkov.dev e os dados do bot, inclua capturas e passos de reprodução.</0>"
+  "stash-support": "<0>O Stash é mantido pela equipe do Tarkov.dev. Bugs ou ideias? Abra um issue no <1>GitHub</1> ou fale com os devs no <2>Discord Tarkov.dev</2>. Se sincronizar Tarkov.dev e os dados do bot, inclua capturas e passos de reprodução.</0>",
+  "Database": "Database",
+  "Calculators": "Calculators",
+  "Progression": "Progression",
+  "Community": "Community"
 }

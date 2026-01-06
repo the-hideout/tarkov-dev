@@ -705,5 +705,9 @@
   "Get information about a in-game stim": "获取游戏内注射剂信息",
   "Show the criteria for loot tiers": "显示战利品等级的标准",
   "Get the bot's uptime": "查看机器人运行时间",
-  "stash-support": "<0>Stash 由 Tarkov.dev 团队维护。遇到 bug 或有想法？请在 <1>GitHub</1> 提 issue，或在 <2>Tarkov.dev Discord</2> 与开发者交流。若同步 Tarkov.dev 与机器人数据，请附上截图和复现步骤。</0>"
+  "stash-support": "<0>Stash 由 Tarkov.dev 团队维护。遇到 bug 或有想法？请在 <1>GitHub</1> 提 issue，或在 <2>Tarkov.dev Discord</2> 与开发者交流。若同步 Tarkov.dev 与机器人数据，请附上截图和复现步骤。</0>",
+  "Database": "Database",
+  "Calculators": "Calculators",
+  "Progression": "Progression",
+  "Community": "Community"
 }
