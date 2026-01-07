@@ -736,6 +736,13 @@
                 "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "customs-3d-dorms",
+                "projection": "3D",
+                "specific": "Dorms",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -1586,6 +1593,12 @@
                 "projection": "2D",
                 "author": "Lorathor",
                 "authorLink": "https://www.reddit.com/user/Lorathor6/"
+            },
+            {
+                "key": "interchange-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -1884,6 +1897,12 @@
                 "authorLink": "https://tarkov.dev",
                 "tilePath": "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png",
                 "labels": []
+            },
+            {
+                "key": "labyrinth-2d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
