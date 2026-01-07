@@ -2,5 +2,5 @@
 // Example: wowCow -> wow-cow
 
 export default function camelCaseToDashes(input) {
-    return input.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-};
+    return input.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+}

@@ -1,4 +1,4 @@
-import calculateFee from './flea-market-fee.mjs';
+import calculateFee from "./flea-market-fee.mjs";
 
 export default function bestPrice(itemData, Ti = false, Tr = false, startPrice) {
     if (!itemData.basePrice) {
@@ -7,7 +7,7 @@ export default function bestPrice(itemData, Ti = false, Tr = false, startPrice) 
             bestPriceFee: 0,
         };
     }
-    let testPrice = startPrice || itemData.lastLowPrice || (itemData.basePrice * 100);
+    let testPrice = startPrice || itemData.lastLowPrice || itemData.basePrice * 100;
     let currentFee = calculateFee(itemData.basePrice, testPrice, 1, Ti, Tr);
     let bestProfit = testPrice - currentFee;
     let bestPrice = testPrice;
@@ -31,4 +31,4 @@ export default function bestPrice(itemData, Ti = false, Tr = false, startPrice) 
         bestPrice: bestPrice,
         bestPriceFee: bestPriceFee,
     };
-};
+}
