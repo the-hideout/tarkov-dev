@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class QuestsQuery extends APIQuery {
     constructor() {
-        super('quests');
+        super("quests");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevTasks {
             tasks(lang: ${language}, gameMode: ${gameMode}) {
                 id
@@ -471,9 +471,9 @@ class QuestsQuery extends APIQuery {
                 ...cutomizationRewardFragment
             }
         }`;
-    
+
         const questsData = await this.graphqlRequest(query);
-    
+
         if (questsData.errors) {
             if (questsData.data) {
                 for (const error of questsData.errors) {
@@ -486,7 +486,7 @@ class QuestsQuery extends APIQuery {
                     }
                     console.log(`Error in tasks API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }

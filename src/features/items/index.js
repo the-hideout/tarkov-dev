@@ -1,43 +1,40 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import equal from 'fast-deep-equal';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 
-import doFetchItems from './do-fetch-items.mjs';
-import { placeholderItems } from '../../modules/placeholder-data.js';
-import { langCode, useLangCode } from '../../modules/lang-helpers.js';
-import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
-import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
+import doFetchItems from "./do-fetch-items.mjs";
+import { placeholderItems } from "../../modules/placeholder-data.js";
+import { langCode, useLangCode } from "../../modules/lang-helpers.js";
+import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
+import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
 
 function processFetchedItems(allData) {
     const allItems = allData.items;
 
     for (const item of allItems) {
-
         item.slots = item.width * item.height;
 
-        item.categoryIds = item.categories.map(cat => cat.id);
+        item.categoryIds = item.categories.map((cat) => cat.id);
 
-        if (item.properties)
-            item.properties.weight = item.weight;
+        if (item.properties) item.properties.weight = item.weight;
 
-        if (item.types.includes('gun')) {
+        if (item.types.includes("gun")) {
             item.containsItems = [];
-        }
-        else {
-            item.containsItems = item.containsItems.filter(contained => contained != null);
+        } else {
+            item.containsItems = item.containsItems.filter((contained) => contained != null);
         }
 
         // dummy trader for items that can't be sold or bought
         const noneTrader = {
             price: 0,
             priceRUB: 0,
-            currency: 'RUB',
+            currency: "RUB",
             vendor: {
-                name: 'N/A',
-                normalizedName: 'unknown',
+                name: "N/A",
+                normalizedName: "unknown",
             },
-        }
+        };
 
         // cheapest first
         item.buyFor = item.buyFor.sort((a, b) => {
@@ -46,18 +43,19 @@ function processFetchedItems(allData) {
 
         item.buyForBest = item.buyFor[0] || noneTrader;
 
-        const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+        const buyForTraders = item.buyFor.filter((buyFor) => buyFor.vendor.normalizedName !== "flea-market");
 
         item.buyForTradersBest = buyForTraders[0] || noneTrader;
 
         // most profitable first
-        item.sellFor = item.sellFor?.sort((a, b) => {
-            return b.priceRUB - a.priceRUB;
-        }) ?? [];
+        item.sellFor =
+            item.sellFor?.sort((a, b) => {
+                return b.priceRUB - a.priceRUB;
+            }) ?? [];
 
         item.sellForBest = item.sellFor[0] || noneTrader;
 
-        const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+        const sellForTraders = item.sellFor.filter((sellFor) => sellFor.vendor.normalizedName !== "flea-market");
 
         item.sellForTradersBest = sellForTraders[0] || noneTrader;
     }
@@ -67,21 +65,21 @@ function processFetchedItems(allData) {
 
 const initialState = {
     data: processFetchedItems(placeholderItems(langCode())),
-    status: 'idle',
+    status: "idle",
     error: null,
 };
 
-export const fetchItems = createAsyncThunk('items/fetchItems', (arg, { getState }) => {
+export const fetchItems = createAsyncThunk("items/fetchItems", (arg, { getState }) => {
     const state = getState();
     const gameMode = state.settings.gameMode;
-    return doFetchItems({language: langCode(), gameMode});
+    return doFetchItems({ language: langCode(), gameMode });
 });
 const itemsSlice = createSlice({
-    name: 'items',
+    name: "items",
     initialState,
     reducers: {
         setCustomSellValue: (state, action) => {
-            const item = state.data.items.find(i => i.id === action.payload.itemId);
+            const item = state.data.items.find((i) => i.id === action.payload.itemId);
             if (!item) {
                 return;
             }
@@ -90,16 +88,16 @@ const itemsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
-            state.status = 'succeeded';
+            state.status = "succeeded";
             if (!equal(state.data, action.payload)) {
                 state.data = processFetchedItems(action.payload);
             }
         });
         builder.addCase(fetchItems.rejected, (state, action) => {
-            state.status = 'failed';
+            state.status = "failed";
             console.log(action.error);
             state.error = action.payload;
         });
@@ -128,10 +126,10 @@ export default function useItemsData() {
     const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
-        const dataName = 'items';
-        if (status === 'idle') {
+        const dataName = "items";
+        if (status === "idle") {
             return;
-        } else if (status === 'loading') {
+        } else if (status === "loading") {
             dispatch(setDataLoading(dataName));
         } else {
             dispatch(setDataLoaded(dataName));
@@ -157,26 +155,26 @@ export default function useItemsData() {
             clearRefreshInterval();
         };
     }, [dispatch, lang, gameMode]);
-    
+
     return { data: data.items, status, error };
-};
+}
 
 export function useHandbookData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.items);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
-    
-        useEffect(() => {
-            const dataName = 'items';
-            if (status === 'idle') {
-                return;
-            } else if (status === 'loading') {
-                dispatch(setDataLoading(dataName));
-            } else {
-                dispatch(setDataLoaded(dataName));
-            }
-        }, [status, dispatch]);
+
+    useEffect(() => {
+        const dataName = "items";
+        if (status === "idle") {
+            return;
+        } else if (status === "loading") {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
 
     useEffect(() => {
         if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
@@ -197,6 +195,6 @@ export function useHandbookData() {
             clearRefreshInterval();
         };
     }, [dispatch, lang, gameMode]);
-    
+
     return { data: data.handbook, status, error };
-};
+}

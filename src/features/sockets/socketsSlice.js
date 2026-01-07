@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const socketsSlice = createSlice({
-    name: 'sockets',
+    name: "sockets",
     initialState: {
         id: false,
         controlId: false,
         connected: false,
         enabled: false,
-        status: 'idle',
+        status: "idle",
         error: null,
     },
     reducers: {
@@ -23,7 +23,6 @@ const socketsSlice = createSlice({
     },
 });
 
-export const { setControlId, setConnectionStatus, enableConnection } =
-    socketsSlice.actions;
+export const { setControlId, setConnectionStatus, enableConnection } = socketsSlice.actions;
 
 export default socketsSlice.reducer;

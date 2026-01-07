@@ -1,44 +1,44 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import equal from 'fast-deep-equal';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 
-import doFetchHideout from './do-fetch-hideout.mjs';
+import doFetchHideout from "./do-fetch-hideout.mjs";
 
-import { langCode, useLangCode } from '../../modules/lang-helpers.js';
-import { placeholderHideout } from '../../modules/placeholder-data.js';
-import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
-import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
+import { langCode, useLangCode } from "../../modules/lang-helpers.js";
+import { placeholderHideout } from "../../modules/placeholder-data.js";
+import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
+import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
 
 const initialState = {
     data: placeholderHideout(langCode()),
-    status: 'idle',
+    status: "idle",
     error: null,
 };
 
-export const fetchHideout = createAsyncThunk('hideout/fetchHideout', (arg, { getState }) => {
+export const fetchHideout = createAsyncThunk("hideout/fetchHideout", (arg, { getState }) => {
     const state = getState();
     const gameMode = state.settings.gameMode;
-    return doFetchHideout({language: langCode(), gameMode});
+    return doFetchHideout({ language: langCode(), gameMode });
 });
 
 const hideoutSlice = createSlice({
-    name: 'hideout',
+    name: "hideout",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchHideout.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchHideout.fulfilled, (state, action) => {
-            state.status = 'succeeded';
+            state.status = "succeeded";
 
             if (!equal(state.hideout, action.payload)) {
                 state.data = action.payload;
             }
         });
         builder.addCase(fetchHideout.rejected, (state, action) => {
-            state.status = 'failed';
+            state.status = "failed";
             console.log(action.error);
             state.error = action.payload;
         });
@@ -63,12 +63,12 @@ export default function useHideoutData() {
     const { data, status, error } = useSelector((state) => state.hideout);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
-        
+
     useEffect(() => {
-        const dataName = 'hideout';
-        if (status === 'idle') {
+        const dataName = "hideout";
+        if (status === "idle") {
             return;
-        } else if (status === 'loading') {
+        } else if (status === "loading") {
             dispatch(setDataLoading(dataName));
         } else {
             dispatch(setDataLoaded(dataName));
@@ -94,6 +94,6 @@ export default function useHideoutData() {
             clearRefreshInterval();
         };
     }, [dispatch, lang, gameMode]);
-    
+
     return { data, status, error };
-};
+}

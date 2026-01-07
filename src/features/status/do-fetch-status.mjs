@@ -1,8 +1,8 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class StatusQuery extends APIQuery {
     constructor() {
-        super('status');
+        super("status");
     }
 
     async query(options) {
@@ -23,9 +23,9 @@ class StatusQuery extends APIQuery {
                 }
             }
         `;
-    
+
         const statusData = await this.graphqlRequest(query);
-        
+
         if (statusData.errors) {
             if (statusData.data) {
                 for (const error of statusData.errors) {
@@ -38,7 +38,7 @@ class StatusQuery extends APIQuery {
                     }
                     console.log(`Error in status API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
@@ -47,7 +47,7 @@ class StatusQuery extends APIQuery {
                 return Promise.reject(new Error(statusData.errors[0].message));
             }
         }
-    
+
         return statusData.data.status;
     }
 }

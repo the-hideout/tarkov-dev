@@ -91,7 +91,7 @@ export const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);
 
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             return JSON.parse(value);
         }
     } catch (error) {
@@ -109,12 +109,12 @@ export const localStorageWriteJson = (key, value) => {
 };
 export const localStorageReadJsonGameMode = (key, defaultValue) => {
     try {
-        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const gameMode = JSON.parse(localStorage.getItem("gameMode") ?? '"regular"');
         const settingsString = localStorage.getItem(`${gameMode}Settings`);
 
-        if (typeof settingsString === 'string') {
+        if (typeof settingsString === "string") {
             const settings = JSON.parse(settingsString);
-            if (typeof settings[key] !== 'undefined') {
+            if (typeof settings[key] !== "undefined") {
                 return settings[key];
             }
         }
@@ -126,7 +126,7 @@ export const localStorageReadJsonGameMode = (key, defaultValue) => {
 };
 export const localStorageWriteJsonGameMode = (key, value) => {
     try {
-        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const gameMode = JSON.parse(localStorage.getItem("gameMode") ?? '"regular"');
         const gameModeSettings = JSON.parse(localStorage.getItem(`${gameMode}Settings`));
         gameModeSettings[key] = value;
         localStorage.setItem(`${gameMode}Settings`, JSON.stringify(gameModeSettings));
@@ -173,23 +173,23 @@ const defaultSettings = {
 };
 
 const settingsSlice = createSlice({
-    name: 'settings',
+    name: "settings",
     initialState: {
         progressStatus: 'idle',
         regular: localStorageReadJson('regularSettings', { ...defaultSettings }),
         pve: localStorageReadJson('pveSettings', {
             ...defaultSettings,
-            tarkovTrackerAPIKey: '',
+            tarkovTrackerAPIKey: "",
             useTarkovTracker: false,
         }),
-        hideRemoteControl: localStorageReadJson('hide-remote-control', false),
-        playerPosition: localStorageReadJson('playerPosition', null),
-        gameMode: localStorageReadJson('gameMode', 'regular'),
-        Ti: localStorageReadJson('Ti', 0.03),
-        Tr: localStorageReadJson('Tr', 0.03),
-        fleaEnabled: localStorageReadJson('fleaEnabled', true),
-        tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
-        loadingData: '',
+        hideRemoteControl: localStorageReadJson("hide-remote-control", false),
+        playerPosition: localStorageReadJson("playerPosition", null),
+        gameMode: localStorageReadJson("gameMode", "regular"),
+        Ti: localStorageReadJson("Ti", 0.03),
+        Tr: localStorageReadJson("Tr", 0.03),
+        fleaEnabled: localStorageReadJson("fleaEnabled", true),
+        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.io"),
+        loadingData: "",
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -238,11 +238,11 @@ const settingsSlice = createSlice({
         setFleaMarketFactors: (state, action) => {
             state.Ti = action.payload.Ti;
             state.Tr = action.payload.Tr;
-            localStorageWriteJson('Ti', action.payload.Ti);
-            localStorageWriteJson('Tr', action.payload.Tr);
+            localStorageWriteJson("Ti", action.payload.Ti);
+            localStorageWriteJson("Tr", action.payload.Tr);
         },
         getTarkovTrackerDomain: (state, action) => {
-            return state.tarkovTrackerDomain || 'tarkovtracker.io';
+            return state.tarkovTrackerDomain || "tarkovtracker.io";
         },
         setTarkovTrackerDomain: (state, action) => {
             if (state.tarkovTrackerDomain === action.payload) {
@@ -256,15 +256,15 @@ const settingsSlice = createSlice({
             localStorageWriteJson('pveSettings', state[state.pve]);
         },
         setDataLoading: (state, action) => {
-            const loading = state.loadingData.split(',').filter(Boolean);
+            const loading = state.loadingData.split(",").filter(Boolean);
             if (loading.includes(action.payload)) {
                 return;
             }
             loading.push(action.payload);
-            state.loadingData = loading.join(',');
+            state.loadingData = loading.join(",");
         },
         setDataLoaded: (state, action) => {
-            const loading = state.loadingData.split(',');
+            const loading = state.loadingData.split(",");
             if (!loading.includes(action.payload)) {
                 return;
             }
@@ -273,17 +273,17 @@ const settingsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchTarkovTrackerProgress.fulfilled, (state, action) => {
-            state.progressStatus = 'succeeded';
+            state.progressStatus = "succeeded";
 
             if (action.payload) {
                 state[state.gameMode].completedQuests = action.payload.quests;
                 state[state.gameMode].failedQuests = action.payload.questsFailed;
                 state[state.gameMode].objectivesCompleted = action.payload.objectivesCompleted;
                 state[state.gameMode].objectivesCompletionProgress = action.payload.objectivesCompletionProgress;
-                const fleaEnabled = localStorageReadJson('fleaEnabled', true);
+                const fleaEnabled = localStorageReadJson("fleaEnabled", true);
                 state[state.gameMode].hasFlea = action.payload.hasFlea && fleaEnabled;
                 state[state.gameMode].playerLevel = action.payload.playerLevel;
                 state[state.gameMode].pmcFaction = action.payload.pmcFaction;
@@ -299,7 +299,7 @@ const settingsSlice = createSlice({
             }
         });
         builder.addCase(fetchTarkovTrackerProgress.rejected, (state, action) => {
-            state.progressStatus = 'failed';
+            state.progressStatus = "failed";
             state.error = action.payload;
         });
     },
@@ -323,24 +323,24 @@ export const selectAllTraders = createSelector([selectSettings], (settings) => {
 
 export const selectAllStations = createSelector([selectSettings], (settings) => {
     return {
-        'bitcoin-farm': settings[settings.gameMode]['bitcoin-farm'],
-        'booze-generator': settings[settings.gameMode]['booze-generator'],
-        'christmas-tree': settings[settings.gameMode]['christmas-tree'],
-        'intelligence-center': settings[settings.gameMode]['intelligence-center'],
-        lavatory: settings[settings.gameMode].lavatory,
-        medstation: settings[settings.gameMode].medstation,
-        'nutrition-unit': settings[settings.gameMode]['nutrition-unit'],
-        'water-collector': settings[settings.gameMode]['water-collector'],
-        workbench: settings[settings.gameMode].workbench,
-        'solar-power': settings[settings.gameMode]['solar-power'],
+        "bitcoin-farm": settings[settings.gameMode]["bitcoin-farm"],
+        "booze-generator": settings[settings.gameMode]["booze-generator"],
+        "christmas-tree": settings[settings.gameMode]["christmas-tree"],
+        "intelligence-center": settings[settings.gameMode]["intelligence-center"],
+        "lavatory": settings[settings.gameMode].lavatory,
+        "medstation": settings[settings.gameMode].medstation,
+        "nutrition-unit": settings[settings.gameMode]["nutrition-unit"],
+        "water-collector": settings[settings.gameMode]["water-collector"],
+        "workbench": settings[settings.gameMode].workbench,
+        "solar-power": settings[settings.gameMode]["solar-power"],
     };
 });
 
 export const selectAllSkills = createSelector([selectSettings], (settings) => {
     return {
-        crafting: settings[settings.gameMode].crafting,
-        'hideout-management': settings[settings.gameMode]['hideout-management'],
-        metabolism: settings[settings.gameMode].metabolism,
+        "crafting": settings[settings.gameMode].crafting,
+        "hideout-management": settings[settings.gameMode]["hideout-management"],
+        "metabolism": settings[settings.gameMode].metabolism,
     };
 });
 

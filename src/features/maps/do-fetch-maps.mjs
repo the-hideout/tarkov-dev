@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class MapsQuery extends APIQuery {
     constructor() {
-        super('maps');
+        super("maps");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevMaps {
             maps(lang: ${language}, gameMode: ${gameMode}) {
                 id
@@ -219,9 +219,9 @@ class MapsQuery extends APIQuery {
                 }
             }
         }`;
-    
+
         const mapsData = await this.graphqlRequest(query);
-    
+
         if (mapsData.errors) {
             if (mapsData.data) {
                 for (const error of mapsData.errors) {
@@ -234,19 +234,16 @@ class MapsQuery extends APIQuery {
                     }
                     console.log(`Error in maps API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !mapsData.data || 
-                !mapsData.data.maps || !mapsData.data.maps.length
-            ) {
+            if (prebuild || !mapsData.data || !mapsData.data.maps || !mapsData.data.maps.length) {
                 return Promise.reject(new Error(mapsData.errors[0].message));
             }
         }
-    
+
         return mapsData.data.maps;
     }
 }

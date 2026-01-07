@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class CraftsQuery extends APIQuery {
     constructor() {
-        super('crafts');
+        super("crafts");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevCrafts {
             crafts(lang: ${language}, gameMode: ${gameMode}) {
                 station {
@@ -37,9 +37,9 @@ class CraftsQuery extends APIQuery {
                 }
             }
         }`;
-    
+
         const craftsData = await this.graphqlRequest(query);
-        
+
         if (craftsData.errors) {
             if (craftsData.data) {
                 for (const error of craftsData.errors) {
@@ -52,19 +52,16 @@ class CraftsQuery extends APIQuery {
                     }
                     console.log(`Error in crafts API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !craftsData.data || 
-                !craftsData.data.crafts || !craftsData.data.crafts.length
-            ) {
+            if (prebuild || !craftsData.data || !craftsData.data.crafts || !craftsData.data.crafts.length) {
                 return Promise.reject(new Error(craftsData.errors[0].message));
             }
         }
-    
+
         // validate to make sure crafts all have valid requirements and rewards
         return craftsData.data.crafts.reduce((crafts, craft) => {
             const originalRequirementCount = craft.requiredItems.length;
@@ -82,4 +79,4 @@ const craftsQuery = new CraftsQuery();
 
 export default async function doFetchCrafts(options) {
     return craftsQuery.run(options);
-};
+}

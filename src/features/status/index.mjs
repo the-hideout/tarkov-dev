@@ -1,37 +1,37 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import equal from 'fast-deep-equal';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 
-import doFetchStatus from './do-fetch-status.mjs';
-import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
+import doFetchStatus from "./do-fetch-status.mjs";
+import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 
 const initialState = {
     data: null,
-    status: 'idle',
+    status: "idle",
     error: null,
 };
 
-export const fetchStatus = createAsyncThunk('status/fetchStatus', () => {
+export const fetchStatus = createAsyncThunk("status/fetchStatus", () => {
     return doFetchStatus();
 });
 const statusSlice = createSlice({
-    name: 'status',
+    name: "status",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchStatus.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchStatus.fulfilled, (state, action) => {
-            state.status = 'succeeded';
+            state.status = "succeeded";
 
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
         builder.addCase(fetchStatus.rejected, (state, action) => {
-            state.status = 'failed';
+            state.status = "failed";
             console.log(action.error);
             state.error = action.payload;
         });
@@ -67,6 +67,6 @@ export default function useStatusData() {
             clearRefreshInterval();
         };
     }, [dispatch, data]);
-    
+
     return { data, status, error };
-};
+}
