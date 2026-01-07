@@ -6,35 +6,35 @@ import { exit } from "process";
 import categoryPages from "../src/data/category-pages.json" with { type: "json" };
 
 const ignoredCategories = [
-    'headsets',
-    'helmets',
-    'glasses',
-    'armors',
-    'rigs',
-    'backpacks',
-    'guns',
+    "headsets",
+    "helmets",
+    "glasses",
+    "armors",
+    "rigs",
+    "backpacks",
+    "guns",
     // 'mods',
-    'pistol-grips',
-    'suppressors',
-    'grenades',
-    'containers',
-    'barter-items',
-    'keys',
-    'provisions'
+    "pistol-grips",
+    "suppressors",
+    "grenades",
+    "containers",
+    "barter-items",
+    "keys",
+    "provisions",
 ];
 
 const graphqlRequest = (queryString) => {
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
+    return fetch("https://api.tarkov.dev/graphql", {
+        method: "POST",
+        cache: "no-store",
         headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
         body: JSON.stringify({
-            query: queryString
+            query: queryString,
         }),
-    }).then(response => response.json());
+    }).then((response) => response.json());
 };
 
 function shuffle(array) {
@@ -56,18 +56,18 @@ function shuffle(array) {
 
 (async () => {
     try {
-        console.time('Generating thumbnails');
+        console.time("Generating thumbnails");
 
         const maxWidth = 256;
         const maxHeight = 144;
-        const mapsPath = './public/images/items/';
+        const mapsPath = "./public/images/items/";
 
         for (const categoryPage of categoryPages) {
             if (ignoredCategories.includes(categoryPage.key)) {
                 continue;
             }
 
-            const originalImg = await sharp(mapsPath + categoryPage.key + '-table.png');
+            const originalImg = await sharp(mapsPath + categoryPage.key + "-table.png");
             const metadata = await originalImg.metadata();
             const scale = metadata.width / maxWidth;
             const cropHeight = Math.ceil(scale * maxHeight);
@@ -95,7 +95,12 @@ function shuffle(array) {
             const items = itemsOfType.data.items;
             shuffle(items);
 
-            const itemResize = { width: itemWidth, height: itemHeight, fit: sharp.fit.contain, background: { r: 255, g: 255, b: 255, alpha: 0.0 } };
+            const itemResize = {
+                width: itemWidth,
+                height: itemHeight,
+                fit: sharp.fit.contain,
+                background: { r: 255, g: 255, b: 255, alpha: 0.0 },
+            };
             const itemRotate = 0; //7 + Math.random()*4-2;
 
             const tlImageFetch = await fetch(items[0].image512pxLink);
@@ -121,25 +126,27 @@ function shuffle(array) {
             const composedImage = await croppedImage
                 .blur(6)
                 .composite([
-                    { input: tlImage, gravity: 'northwest', blend: 'over' },
-                    { input: trImage, gravity: 'northeast', blend: 'over' },
-                    { input: blImage, gravity: 'southwest', blend: 'over' },
-                    { input: brImage, gravity: 'southeast', blend: 'over' },
-                    { input: cImage, gravity: 'centre', blend: 'over' },
-                ]).toBuffer();
+                    { input: tlImage, gravity: "northwest", blend: "over" },
+                    { input: trImage, gravity: "northeast", blend: "over" },
+                    { input: blImage, gravity: "southwest", blend: "over" },
+                    { input: brImage, gravity: "southeast", blend: "over" },
+                    { input: cImage, gravity: "centre", blend: "over" },
+                ])
+                .toBuffer();
 
-            const finalImage = await sharp(composedImage).resize(maxWidth, maxHeight).jpeg({ mozjpeg: true, quality: 100 });
+            const finalImage = await sharp(composedImage)
+                .resize(maxWidth, maxHeight)
+                .jpeg({ mozjpeg: true, quality: 100 });
             // const finalImage = await sharp(composedImage).jpeg({mozjpeg: true, quality: 90});
-            
-            await finalImage.toFile(mapsPath + categoryPage.key + '-table_thumb.jpg');
+
+            await finalImage.toFile(mapsPath + categoryPage.key + "-table_thumb.jpg");
 
             console.log(`Generated thumbnail for ${categoryPage.key}`);
             // return;
         }
-        console.timeEnd('Generating thumbnails');
-    }
-    catch (error) {
+        console.timeEnd("Generating thumbnails");
+    } catch (error) {
         console.error(error);
-        console.log('error generating thumbnail (offline mode?)');
+        console.log("error generating thumbnail (offline mode?)");
     }
 })();
