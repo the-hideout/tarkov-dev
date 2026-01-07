@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import Supporter from '../supporter/index.jsx';
+import Supporter from "../supporter/index.jsx";
 
-import supporters from '../../supporters';
+import supporters from "../../supporters";
 
 function SupportersList({ tierFilter, typeFilter, type }) {
     const { t } = useTranslation();
 
     let validSupporters = supporters.filter((supporter) => {
-        if (supporter.name === 'kokarn') {
+        if (supporter.name === "kokarn") {
             return false;
         }
 
@@ -27,7 +27,7 @@ function SupportersList({ tierFilter, typeFilter, type }) {
         return (
             <p>
                 <a href="https://www.patreon.com/kokarn" target="_blank" rel="noopener noreferrer">
-                    {t('Be the first!')}
+                    {t("Be the first!")}
                 </a>
             </p>
         );
@@ -42,7 +42,7 @@ function SupportersList({ tierFilter, typeFilter, type }) {
                     // github = {supporter.github}
                     // patreon = {supporter.patreon}
                     link={supporter.link}
-                    inline={type === 'inline'}
+                    inline={type === "inline"}
                 />
             );
         }),

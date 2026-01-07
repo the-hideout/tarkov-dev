@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
-import propertyFormatter from '../../modules/property-format.js';
-import { useTranslation } from 'react-i18next';
-import { Tooltip } from '@mui/material';
+import { useMemo } from "react";
+import propertyFormatter from "../../modules/property-format.js";
+import { useTranslation } from "react-i18next";
+import { Tooltip } from "@mui/material";
 
-import './index.css';
+import "./index.css";
 
-const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots', 'presets', 'armorSlots'];
+const skipProps = ["grid", "ConflictingItems", "__typename", "slots", "presets", "armorSlots"];
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -28,17 +28,17 @@ function PropertyList({ properties, id }) {
                 .sort((a, b) => {
                     let aVal = a[0];
                     let bVal = b[0];
-                    if (typeof a[1].order !== 'undefined' && typeof b[1].order !== 'undefined') {
+                    if (typeof a[1].order !== "undefined" && typeof b[1].order !== "undefined") {
                         aVal = String(a[1].order);
                         bVal = String(b[1].order);
                     } else if (a[1].label && b[1].label) {
                         aVal = a[1].label;
                         bVal = b[1].label;
                     }
-                    if (typeof aVal === 'object') {
+                    if (typeof aVal === "object") {
                         aVal = a[0];
                     }
-                    if (typeof bVal === 'object') {
+                    if (typeof bVal === "object") {
                         bVal = b[0];
                     }
                     return aVal.localeCompare(bVal);
@@ -48,34 +48,33 @@ function PropertyList({ properties, id }) {
     );
 
     if (data.length === 0) {
-        return '';
+        return "";
     }
 
     return (
         <div className="property-list">
             {data.map(([property, value, index]) => {
                 return (
-                    <div className={`property-wrapper ${value.value.length >= 40 ? 'large' : ''} ${property}`}  key={property ?? `property-${index}`}>
-                      <div className="property-key-wrapper title">
-                          <ConditionalWrapper
-                              condition={value.tooltip}
-                              wrapper={(children) => 
-                                  <Tooltip
-                                      title={value.tooltip}
-                                      placement="bottom"
-                                      arrow
-                                  >
-                                      <div>{children}</div>
-                                  </Tooltip>
-                              }
-                          >
-                              {value.label ? value.label : t(property)}
-                          </ConditionalWrapper>
-                      </div>
-                      <div className="item">
-                        <div>{value.value}</div>
-                      </div>
-                  </div>
+                    <div
+                        className={`property-wrapper ${value.value.length >= 40 ? "large" : ""} ${property}`}
+                        key={property ?? `property-${index}`}
+                    >
+                        <div className="property-key-wrapper title">
+                            <ConditionalWrapper
+                                condition={value.tooltip}
+                                wrapper={(children) => (
+                                    <Tooltip title={value.tooltip} placement="bottom" arrow>
+                                        <div>{children}</div>
+                                    </Tooltip>
+                                )}
+                            >
+                                {value.label ? value.label : t(property)}
+                            </ConditionalWrapper>
+                        </div>
+                        <div className="item">
+                            <div>{value.value}</div>
+                        </div>
+                    </div>
                 );
             })}
         </div>

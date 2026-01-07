@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import formatPrice from '../../modules/format-price.js';
+import formatPrice from "../../modules/format-price.js";
 
 function ItemTooltip(props) {
     const { t } = useTranslation();
@@ -10,16 +10,16 @@ function ItemTooltip(props) {
     }
 
     return (
-        <span className={'grid-item-tooltip'}>
-            <div className={'grid-item-tooltip-title'}>{props.name}</div>
+        <span className={"grid-item-tooltip"}>
+            <div className={"grid-item-tooltip-title"}>{props.name}</div>
             <div>
-                {t('Value')}: {formatPrice(props.pricePerSlot * props.slots)}
+                {t("Value")}: {formatPrice(props.pricePerSlot * props.slots)}
             </div>
             <div>
-                {t('Per slot')}: {formatPrice(props.pricePerSlot)}
+                {t("Per slot")}: {formatPrice(props.pricePerSlot)}
             </div>
             <div>
-                {t('Sell to')}: {props.sellTo}
+                {t("Sell to")}: {props.sellTo}
             </div>
         </span>
     );

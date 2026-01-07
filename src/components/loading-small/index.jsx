@@ -1,15 +1,11 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import './index.css';
+import "./index.css";
 
 function LoadingSmall() {
     const { t } = useTranslation();
 
-    return (
-        <div className={`loading-wipe`}>
-            {t('Loading...')}
-        </div>
-    );
+    return <div className={`loading-wipe`}>{t("Loading...")}</div>;
 }
 
 export default LoadingSmall;

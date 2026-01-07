@@ -1,12 +1,12 @@
-import { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Badge } from '@mui/material';
+import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { Badge } from "@mui/material";
 
-import './index.css';
+import "./index.css";
 
 const Sides = {
-    Left: 'Left',
-    Right: 'Right',
+    Left: "Left",
+    Right: "Right",
 };
 
 function ID(props) {
@@ -14,9 +14,7 @@ function ID(props) {
     const [copied, setCopied] = useState(false);
     const { t } = useTranslation();
 
-    const sessionText = props.socketEnabled
-        ? props.sessionID
-        : t('Click to connect');
+    const sessionText = props.socketEnabled ? props.sessionID : t("Click to connect");
 
     const handleCopyClick = async () => {
         if (!props.socketEnabled) return;
@@ -26,7 +24,7 @@ function ID(props) {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
-            console.error('Copy failed', err);
+            console.error("Copy failed", err);
         }
     };
 
@@ -34,12 +32,12 @@ function ID(props) {
     let sideButtonContent;
     let otherSide;
     if (side === Sides.Left) {
-        sideClass = 'id-wrapper-left';
-        sideButtonContent = '>>';
+        sideClass = "id-wrapper-left";
+        sideButtonContent = ">>";
         otherSide = Sides.Right;
     } else {
-        sideClass = 'id-wrapper-right';
-        sideButtonContent = '<<';
+        sideClass = "id-wrapper-right";
+        sideButtonContent = "<<";
         otherSide = Sides.Left;
     }
 
@@ -50,42 +48,35 @@ function ID(props) {
     return (
         <div
             className={`id-wrapper ${sideClass}`}
-            alt={t(
-                'open this page in another browser or window and connect using this id',
-            )}
-            title={t(
-                'open this page in another browser or window and connect using this id',
-            )}
+            alt={t("open this page in another browser or window and connect using this id")}
+            title={t("open this page in another browser or window and connect using this id")}
             onClick={props.onClick}
         >
             <div className="update-label">
-                {t('ID for remote control')}
+                {t("ID for remote control")}
                 <span className="session-question">
                     <span>?</span>
                     <div className="session-popup">
-                        {t(
-                            'Go to Tarkov.dev with another browser and enter this ID to control this page from there',
-                        )}
+                        {t("Go to Tarkov.dev with another browser and enter this ID to control this page from there")}
                     </div>
                 </span>
-                <button
-                    className="session-switch-side"
-                    onClick={handleSwitchSideClick}
-                >
+                <button className="session-switch-side" onClick={handleSwitchSideClick}>
                     {sideButtonContent}
                 </button>
             </div>
 
             <div className="session-id-container">
                 <Badge
-                    badgeContent={copied ? t('Copied!') : 0}
+                    badgeContent={copied ? t("Copied!") : 0}
                     color="success"
                     anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
+                        vertical: "bottom",
+                        horizontal: "right",
                     }}
                 >
-                    <span className="session-id" onClick={handleCopyClick} style={{cursor: 'pointer'}} >{sessionText}</span>
+                    <span className="session-id" onClick={handleCopyClick} style={{ cursor: "pointer" }}>
+                        {sessionText}
+                    </span>
                 </Badge>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
 function CanvasGrid(props) {
     const canvas = useRef(null);
@@ -30,7 +30,7 @@ function CanvasGrid(props) {
         canvasEle.width = canvasEle.clientWidth;
         canvasEle.height = canvasEle.clientHeight;
 
-        const ctx = canvasEle.getContext('2d');
+        const ctx = canvasEle.getContext("2d");
         boxes.map((info) => drawPocket(info, ctx));
     });
 
@@ -48,7 +48,7 @@ function CanvasGrid(props) {
         const width = 20;
 
         ctx.beginPath();
-        ctx.fillStyle = 'var(--color-black)'; // outer border color
+        ctx.fillStyle = "var(--color-black)"; // outer border color
         ctx.fillRect(startX, startY, horizontal * 20 + 2, vertical * 20 + 2);
 
         startX = startX + 1;
@@ -64,7 +64,7 @@ function CanvasGrid(props) {
                     y: y,
                     width: width,
                     height: height,
-                    fillStyle: '#181818', // inner border color
+                    fillStyle: "#181818", // inner border color
                 },
                 ctx,
             );
@@ -75,7 +75,7 @@ function CanvasGrid(props) {
                     y: y + 1,
                     width: width - 2,
                     height: height - 2,
-                    fillStyle: '#121212', // inner background color
+                    fillStyle: "#121212", // inner background color
                 },
                 ctx,
             );
@@ -92,13 +92,7 @@ function CanvasGrid(props) {
         ctx.fillRect(info.x, info.y, info.width, info.height);
     };
 
-    return (
-        <canvas
-            height={props.height * 22}
-            width={props.width * 22}
-            ref={canvas}
-        ></canvas>
-    );
+    return <canvas height={props.height * 22} width={props.width * 22} ref={canvas}></canvas>;
 }
 
 export default CanvasGrid;

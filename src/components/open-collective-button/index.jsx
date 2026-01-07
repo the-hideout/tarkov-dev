@@ -1,19 +1,20 @@
-import { useTranslation } from 'react-i18next';
-import { Button } from '@mui/material';
-import './index.css';
+import { useTranslation } from "react-i18next";
+import { Button } from "@mui/material";
+import "./index.css";
 
-function OpenCollectiveButton({ large=false, linkStyle }) {
+function OpenCollectiveButton({ large = false, linkStyle }) {
     const { t } = useTranslation();
 
     return (
         <Button
-            style={{...linkStyle, ...(large ? {width: "100%"} : '')}}
-            className={'oc-button'}
+            style={{ ...linkStyle, ...(large ? { width: "100%" } : "") }}
+            className={"oc-button"}
             variant="contained"
             href="https://opencollective.com/tarkov-dev"
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
         >
-            {t('Donate')}
+            {t("Donate")}
         </Button>
     );
 }

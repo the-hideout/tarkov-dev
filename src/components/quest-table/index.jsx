@@ -1,20 +1,20 @@
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Icon } from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
-import { Tooltip } from '@mui/material';
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Icon } from "@mdi/react";
+import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from "@mdi/js";
+import { Tooltip } from "@mui/material";
 
-import DataTable from '../data-table/index.jsx';
-import QuestItemsCell from '../quest-items-cell/index.jsx';
-import CenterCell from '../center-cell/index.jsx';
-import useQuestsData from '../../features/quests/index.js';
-import useItemsData from '../../features/items/index.js';
-import useTradersData from '../../features/traders/index.js';
-import TraderImage from '../trader-image/index.jsx';
+import DataTable from "../data-table/index.jsx";
+import QuestItemsCell from "../quest-items-cell/index.jsx";
+import CenterCell from "../center-cell/index.jsx";
+import useQuestsData from "../../features/quests/index.js";
+import useItemsData from "../../features/items/index.js";
+import useTradersData from "../../features/traders/index.js";
+import TraderImage from "../trader-image/index.jsx";
 
-import './index.css';
+import "./index.css";
 
 export function getRequiredQuestItems(quest, itemFilter = false) {
     const requiredItems = [];
@@ -22,20 +22,20 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
         if (itemFilter && item.id !== itemFilter) {
             return;
         }
-        let req = requiredItems.find(reqItem => reqItem.item.id === item.id);
+        let req = requiredItems.find((reqItem) => reqItem.item.id === item.id);
         if (!req) {
             req = {
                 item: item,
                 count: 0,
                 foundInRaid: foundInRaid,
-                alternates: alternates
+                alternates: alternates,
             };
             requiredItems.push(req);
         }
         req.count += count;
     };
     quest.objectives.forEach((objectiveData) => {
-        if (objectiveData.items && objectiveData.type !== 'findItem' && objectiveData.items.length < 1000) {
+        if (objectiveData.items && objectiveData.type !== "findItem" && objectiveData.items.length < 1000) {
             const alternates = objectiveData.items.length > 1;
             for (const objItem of objectiveData.items) {
                 addItem(objItem, objectiveData.count || 1, objectiveData.foundInRaid, alternates);
@@ -44,22 +44,22 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
         if (objectiveData.markerItem?.id) {
             addItem(objectiveData.markerItem);
         }
-        objectiveData.containsAll?.forEach(part => {
+        objectiveData.containsAll?.forEach((part) => {
             addItem(part);
         });
         if (objectiveData.usingWeapon?.length === 1) {
-            objectiveData.usingWeapon?.forEach(item => {
+            objectiveData.usingWeapon?.forEach((item) => {
                 addItem(item);
             });
         }
         if (objectiveData.usingWeaponMods?.length === 1) {
-            objectiveData.usingWeaponMods[0].forEach(item => {
+            objectiveData.usingWeaponMods[0].forEach((item) => {
                 addItem(item);
             });
         } else if (objectiveData.usingWeaponMods?.length) {
             let requiredCount = {};
-            objectiveData.usingWeaponMods?.forEach(modSet => {
-                modSet.forEach(item => {
+            objectiveData.usingWeaponMods?.forEach((modSet) => {
+                modSet.forEach((item) => {
                     if (!requiredCount[item.id]) {
                         requiredCount[item.id] = 0;
                     }
@@ -68,20 +68,20 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
             });
             for (const id of Object.keys(requiredCount)) {
                 if (requiredCount[id] === objectiveData.usingWeaponMods.length) {
-                    addItem(objectiveData.usingWeaponMods[0].find(mod => mod.id === id));
+                    addItem(objectiveData.usingWeaponMods[0].find((mod) => mod.id === id));
                 }
             }
         }
         if (objectiveData.wearing?.length === 1) {
-            objectiveData.wearing?.forEach(outfit => {
-                outfit.forEach(item => {
+            objectiveData.wearing?.forEach((outfit) => {
+                outfit.forEach((item) => {
                     addItem(item);
                 });
             });
         } else if (objectiveData.wearing?.length) {
             let requiredCount = {};
-            objectiveData.wearing?.forEach(outfit => {
-                outfit.forEach(item => {
+            objectiveData.wearing?.forEach((outfit) => {
+                outfit.forEach((item) => {
                     if (!requiredCount[item.id]) {
                         requiredCount[item.id] = 0;
                     }
@@ -90,14 +90,14 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
             });
             for (const id of Object.keys(requiredCount)) {
                 if (requiredCount[id] === objectiveData.wearing.length) {
-                    addItem(objectiveData.wearing[0].find(item => item.id === id));
+                    addItem(objectiveData.wearing[0].find((item) => item.id === id));
                 }
             }
         }
     });
 
-    quest.neededKeys?.forEach(taskKey => {
-        taskKey.keys.forEach(key => {
+    quest.neededKeys?.forEach((taskKey) => {
+        taskKey.keys.forEach((key) => {
             addItem(key);
         });
     });
@@ -105,7 +105,7 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
     return requiredItems;
 }
 
-const rewardTypes = ['startRewards', 'finishRewards'];
+const rewardTypes = ["startRewards", "finishRewards"];
 
 export function getRewardQuestItems(quest, itemFilter = false) {
     const rewardItems = [];
@@ -124,19 +124,19 @@ export function getRewardQuestItems(quest, itemFilter = false) {
                 return;
             }
         }
-        let rew = rewardItems.find(rewItem => rewItem.item.id === item.id);
+        let rew = rewardItems.find((rewItem) => rewItem.item.id === item.id);
         if (!rew) {
             rew = {
                 item: item,
                 count: 0,
-                rewardType: rewardType
+                rewardType: rewardType,
             };
             rewardItems.push(rew);
         }
         rew.count += count;
     };
-    rewardTypes.forEach(rewardType => {
-        quest[rewardType].items.forEach(contained => {
+    rewardTypes.forEach((rewardType) => {
+        quest[rewardType].items.forEach((contained) => {
             if (!contained) {
                 return;
             }
@@ -164,78 +164,84 @@ function QuestTable({
     rewardItems,
     reputationRewards,
     requiredForEndGame,
- }) {
+}) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
 
     const { data: items } = useItemsData();
 
     const { data: traders } = useTradersData();
-    
+
     const { data: quests } = useQuestsData();
 
     const allQuestData = useMemo(() => {
-        return quests.map(rawQuest => {
-            const questData = {
-                ...rawQuest,
-                requiredItems: [],
-                rewardItems: [],
-            };
+        return quests
+            .map((rawQuest) => {
+                const questData = {
+                    ...rawQuest,
+                    requiredItems: [],
+                    rewardItems: [],
+                };
 
-            if (reputationRewards) {
-                questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce((total, current) => {
-                    total += current.standing;
-                    return Math.round(total * 100) / 100;
-                }, 0);
-            }
-
-            if (requiredItemFilter || requiredItems) {
-                questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter).map(req => {
-                    return {
-                        ...req,
-                        item: items.find(i => i.id === req.item.id)
-                    };
-                }).filter(req => req.item);
-                if (requiredItemFilter && questData.requiredItems.length === 0) {
-                    return false;
+                if (reputationRewards) {
+                    questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce((total, current) => {
+                        total += current.standing;
+                        return Math.round(total * 100) / 100;
+                    }, 0);
                 }
-            }
 
-            if (rewardItemFilter || rewardItems) {
-                questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter).map(rew => {
-                    const foundItem = items.find(i => i.id === rew.item.id);
-                    if (!foundItem) {
+                if (requiredItemFilter || requiredItems) {
+                    questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter)
+                        .map((req) => {
+                            return {
+                                ...req,
+                                item: items.find((i) => i.id === req.item.id),
+                            };
+                        })
+                        .filter((req) => req.item);
+                    if (requiredItemFilter && questData.requiredItems.length === 0) {
                         return false;
                     }
-                    const contained = rew.item.containsItems;
-                    const mapped = {
-                        ...rew,
-                        item: {
-                            ...foundItem,
-                            containsItems: contained,
-                        },
-                    };
-                    return mapped;
-                }).filter(Boolean);
-                if (rewardItemFilter && questData.rewardItems.length === 0) {
+                }
+
+                if (rewardItemFilter || rewardItems) {
+                    questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter)
+                        .map((rew) => {
+                            const foundItem = items.find((i) => i.id === rew.item.id);
+                            if (!foundItem) {
+                                return false;
+                            }
+                            const contained = rew.item.containsItems;
+                            const mapped = {
+                                ...rew,
+                                item: {
+                                    ...foundItem,
+                                    containsItems: contained,
+                                },
+                            };
+                            return mapped;
+                        })
+                        .filter(Boolean);
+                    if (rewardItemFilter && questData.rewardItems.length === 0) {
+                        return false;
+                    }
+                }
+
+                if (giverFilter && giverFilter !== "all") {
+                    if (questData.trader.normalizedName !== giverFilter) {
+                        return false;
+                    }
+                }
+
+                if (nameFilter && !questData.name.toLowerCase().includes(nameFilter.toLowerCase())) {
                     return false;
                 }
-            }
 
-            if (giverFilter && giverFilter !== 'all') {
-                if (questData.trader.normalizedName !== giverFilter) {
-                    return false;
-                }
-            }
-
-            if (nameFilter && !questData.name.toLowerCase().includes(nameFilter.toLowerCase())) {
-                return false
-            }
-
-            return questData;
-        }).filter(Boolean);
+                return questData;
+            })
+            .filter(Boolean);
     }, [
-        quests, 
+        quests,
         items,
         giverFilter,
         nameFilter,
@@ -247,98 +253,81 @@ function QuestTable({
     ]);
 
     const shownQuests = useMemo(() => {
-        return allQuestData.filter(quest => {
-            if (!hideCompleted && !hideLocked) {
-                return true;
-            }
-
-            let completedPassed = true;
-            if (hideCompleted) {
-                completedPassed = !settings.completedQuests.includes(quest.id) && !settings.failedQuests.includes(quest.id);
-            }
-
-            let lockedPassed = true;
-            if (hideLocked) {
-                lockedPassed = quest.active;
-                if (!hideCompleted && !quest.active) {
-                    lockedPassed = settings.completedQuests.includes(quest.id) || settings.failedQuests.includes(quest.id);
+        return allQuestData
+            .filter((quest) => {
+                if (!hideCompleted && !hideLocked) {
+                    return true;
                 }
-                if (settings.playerLevel < quest.minPlayerLevel) {
-                    lockedPassed = false;
-                }
-            }
 
-            return completedPassed && lockedPassed;
-        }).filter(quest => {
-            if (!hideNonKappa) {
-                return true;
-            }
-            return quest.kappaRequired;
-        }).filter(quest => {
-            if (!hideNonLK) {
-                return true;
-            }
-            return quest.lightkeeperRequired;
-        });
-    }, [
-        settings,
-        allQuestData,
-        hideCompleted,
-        hideLocked,
-        hideNonKappa,
-        hideNonLK,
-    ]);
+                let completedPassed = true;
+                if (hideCompleted) {
+                    completedPassed =
+                        !settings.completedQuests.includes(quest.id) && !settings.failedQuests.includes(quest.id);
+                }
+
+                let lockedPassed = true;
+                if (hideLocked) {
+                    lockedPassed = quest.active;
+                    if (!hideCompleted && !quest.active) {
+                        lockedPassed =
+                            settings.completedQuests.includes(quest.id) || settings.failedQuests.includes(quest.id);
+                    }
+                    if (settings.playerLevel < quest.minPlayerLevel) {
+                        lockedPassed = false;
+                    }
+                }
+
+                return completedPassed && lockedPassed;
+            })
+            .filter((quest) => {
+                if (!hideNonKappa) {
+                    return true;
+                }
+                return quest.kappaRequired;
+            })
+            .filter((quest) => {
+                if (!hideNonLK) {
+                    return true;
+                }
+                return quest.lightkeeperRequired;
+            });
+    }, [settings, allQuestData, hideCompleted, hideLocked, hideNonKappa, hideNonLK]);
 
     const columns = useMemo(() => {
         const useColumns = [
             {
-                Header: t('Task'),
-                id: 'name',
-                accessor: 'name',
+                Header: t("Task"),
+                id: "name",
+                accessor: "name",
                 Cell: (props) => {
                     const questData = props.row.original;
-                    let completedIcon = '';
+                    let completedIcon = "";
                     if (settings.completedQuests.includes(questData.id)) {
-                        completedIcon = (
-                            <Icon
-                                path={mdiClipboardCheck}
-                                size={1}
-                                className="icon-with-text"
-                            />
-                        );
+                        completedIcon = <Icon path={mdiClipboardCheck} size={1} className="icon-with-text" />;
                     }
                     return (
                         <div className="quest-link-wrapper">
-                            <TraderImage
-                                trader={questData.trader}
-                                style={{marginRight: '10px'}}
-                            />
-                            <Link
-                                to={`/task/${questData.normalizedName}`}
-                            >
-                                {questData.name} {questData.factionName !== 'Any' ? ` (${questData.factionName})` : ''}
+                            <TraderImage trader={questData.trader} style={{ marginRight: "10px" }} />
+                            <Link to={`/task/${questData.normalizedName}`}>
+                                {questData.name} {questData.factionName !== "Any" ? ` (${questData.factionName})` : ""}
                             </Link>
                             {completedIcon}
                         </div>
                     );
                 },
-            }
+            },
         ];
 
         if (requiredItems) {
             useColumns.push({
-                Header: t('Required items'),
-                id: 'requiredItems',
+                Header: t("Required items"),
+                id: "requiredItems",
                 accessor: (quest) => {
                     return quest.requiredItems[0]?.item.name;
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return (
-                        <QuestItemsCell
-                            questItems={questData.requiredItems}
-                        />
-                    );
+                    return <QuestItemsCell questItems={questData.requiredItems} />;
                 },
                 position: requiredItems,
             });
@@ -346,18 +335,14 @@ function QuestTable({
 
         if (rewardItems) {
             useColumns.push({
-                Header: t('Reward items'),
-                id: 'rewardItems',
+                Header: t("Reward items"),
+                id: "rewardItems",
                 accessor: (quest) => {
                     return quest.rewardItems[0]?.item.name;
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return (
-                        <QuestItemsCell
-                            questItems={questData.rewardItems}
-                        />
-                    );
+                    return <QuestItemsCell questItems={questData.rewardItems} />;
                 },
                 position: rewardItems,
             });
@@ -365,54 +350,44 @@ function QuestTable({
 
         if (questRequirements) {
             useColumns.push({
-                Header: t('Required tasks'),
-                id: 'questRequirements',
+                Header: t("Required tasks"),
+                id: "questRequirements",
                 accessor: (questData) => {
-                    return quests.find(quest => quest.id === questData.taskRequirements[0]?.task.id)?.name;
+                    return quests.find((quest) => quest.id === questData.taskRequirements[0]?.task.id)?.name;
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return questData.taskRequirements.map(req => {
+                    return questData.taskRequirements.map((req) => {
                         if (!req) {
                             return null;
                         }
-                        const reqQuest = quests.find(quest => quest.id === req.task.id);
-                        if (!reqQuest)
-                            return null;
-                        let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(req.task.id)) {
-                            completedIcon = (
-                                <Icon
-                                    path={mdiClipboardCheck}
-                                    size={0.75}
-                                    className="icon-with-text"
-                                />
-                            );
+                        const reqQuest = quests.find((quest) => quest.id === req.task.id);
+                        if (!reqQuest) return null;
+                        let completedIcon = "";
+                        if (req.status.includes("complete") && settings.completedQuests.includes(req.task.id)) {
+                            completedIcon = <Icon path={mdiClipboardCheck} size={0.75} className="icon-with-text" />;
                         }
-                        if (completedIcon === '' && req.status.includes('failed') && settings.failedQuests.includes(req.task.id)) {
-                            completedIcon = (
-                                <Icon
-                                    path={mdiClipboardCheck}
-                                    size={0.75}
-                                    className="icon-with-text"
-                                />
-                            );
+                        if (
+                            completedIcon === "" &&
+                            req.status.includes("failed") &&
+                            settings.failedQuests.includes(req.task.id)
+                        ) {
+                            completedIcon = <Icon path={mdiClipboardCheck} size={0.75} className="icon-with-text" />;
                         }
-                        if (completedIcon === '' && req.status.length === 1 && req.status[0] === 'active' && (settings.completedQuests.includes(req.task.id) || settings.failedQuests.includes(req.task.id))) {
-                            completedIcon = (
-                                <Icon
-                                    path={mdiClipboardRemove}
-                                    size={0.75}
-                                    className="icon-with-text"
-                                />
-                            );
+                        if (
+                            completedIcon === "" &&
+                            req.status.length === 1 &&
+                            req.status[0] === "active" &&
+                            (settings.completedQuests.includes(req.task.id) ||
+                                settings.failedQuests.includes(req.task.id))
+                        ) {
+                            completedIcon = <Icon path={mdiClipboardRemove} size={0.75} className="icon-with-text" />;
                         }
                         return (
                             <div key={`quest-req-${req.task.id}`}>
-                                <Link
-                                    to={`/task/${reqQuest.normalizedName}`}
-                                >
-                                    {reqQuest.name}{reqQuest.factionName !== 'Any' ? ` (${reqQuest.factionName})` : ''}
+                                <Link to={`/task/${reqQuest.normalizedName}`}>
+                                    {reqQuest.name}
+                                    {reqQuest.factionName !== "Any" ? ` (${reqQuest.factionName})` : ""}
                                 </Link>
                                 <span>
                                     {`: ${
@@ -421,7 +396,7 @@ function QuestTable({
                                         // t('succeeded')
                                         // t('complete')
                                         // t('failed')
-                                        req.status.map(status => t(status)).join(', ')
+                                        req.status.map((status) => t(status)).join(", ")
                                     }`}
                                     {completedIcon}
                                 </span>
@@ -435,9 +410,9 @@ function QuestTable({
 
         if (minimumLevel) {
             useColumns.push({
-                Header: t('Minimum level'),
-                id: 'minimumLevel',
-                accessor: 'minPlayerLevel',
+                Header: t("Minimum level"),
+                id: "minimumLevel",
+                accessor: "minPlayerLevel",
                 sortType: (a, b, columnId, desc) => {
                     let minA = a.original.minPlayerLevel;
                     let minB = b.original.minPlayerLevel;
@@ -451,11 +426,9 @@ function QuestTable({
                 },
                 Cell: (props) => {
                     if (!props.value) {
-                        return '';
+                        return "";
                     }
-                    return (
-                        <CenterCell value={props.value}/>
-                    );
+                    return <CenterCell value={props.value} />;
                 },
                 position: minimumLevel,
             });
@@ -463,14 +436,19 @@ function QuestTable({
 
         if (minimumTraderLevel) {
             useColumns.push({
-                Header: t('Minimum trader level'),
-                id: 'minimumTraderLevel',
+                Header: t("Minimum trader level"),
+                id: "minimumTraderLevel",
                 accessor: (questData) => {
-                    return questData.traderRequirements.filter(req => req.requirementType === 'level')[0]?.value;
+                    return questData.traderRequirements.filter((req) => req.requirementType === "level")[0]?.value;
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value={props.row.original.traderRequirements.filter(req => req.requirementType === 'level').map(req => req.value).join(', ')}/>
+                        <CenterCell
+                            value={props.row.original.traderRequirements
+                                .filter((req) => req.requirementType === "level")
+                                .map((req) => req.value)
+                                .join(", ")}
+                        />
                     );
                 },
                 position: minimumTraderLevel,
@@ -479,26 +457,26 @@ function QuestTable({
 
         if (reputationRewards) {
             useColumns.push({
-                Header: t('Reputation rewards'),
-                id: 'reputationRewards',
-                accessor: 'totalRepReward',
+                Header: t("Reputation rewards"),
+                id: "reputationRewards",
+                accessor: "totalRepReward",
                 sortType: (a, b, columnId, desc) => {
                     return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 Cell: (props) => {
-                    return <CenterCell>
-                        {props.row.original.finishRewards.traderStanding.map(reward => {
-                            const trader = traders.find(t => t.id === reward.trader.id);
-                            if (!trader) {
-                                return '';
-                            }
-                            return <TraderImage
-                                trader={trader}
-                                reputationChange={reward.standing}
-                                key={trader.id}
-                            />
-                        })}
-                    </CenterCell>;
+                    return (
+                        <CenterCell>
+                            {props.row.original.finishRewards.traderStanding.map((reward) => {
+                                const trader = traders.find((t) => t.id === reward.trader.id);
+                                if (!trader) {
+                                    return "";
+                                }
+                                return (
+                                    <TraderImage trader={trader} reputationChange={reward.standing} key={trader.id} />
+                                );
+                            })}
+                        </CenterCell>
+                    );
                 },
                 position: reputationRewards,
             });
@@ -506,9 +484,9 @@ function QuestTable({
 
         if (requiredForEndGame) {
             useColumns.push({
-                Header: t('Endgame'),
-                id: 'requiredForEndGame',
-                accessor: 'kappaRequired',
+                Header: t("Endgame"),
+                id: "requiredForEndGame",
+                accessor: "kappaRequired",
                 sortType: (a, b, columnId, desc) => {
                     let aValue = 0;
                     let bValue = 0;
@@ -530,43 +508,37 @@ function QuestTable({
                     const endgameGoals = [];
                     if (props.row.original.kappaRequired) {
                         endgameGoals.push(
-                            <Tooltip
-                                key={`${props.row.original.id}-kappa`}
-                                title={t('Required for Kappa')}
-                                arrow
-                            >
-                                <Link to={'/task/collector'}>
+                            <Tooltip key={`${props.row.original.id}-kappa`} title={t("Required for Kappa")} arrow>
+                                <Link to={"/task/collector"}>
                                     <Icon
                                         path={mdiBriefcase}
                                         size={0.75}
                                         className="icon-with-text"
-                                        color={hideNonKappa ? 'var(--color-green)' : undefined}
+                                        color={hideNonKappa ? "var(--color-green)" : undefined}
                                     />
                                 </Link>
-                            </Tooltip>
+                            </Tooltip>,
                         );
                     }
                     if (props.row.original.lightkeeperRequired) {
                         endgameGoals.push(
                             <Tooltip
                                 key={`${props.row.original.id}-lightkeeper`}
-                                title={t('Required for Lightkeeper')}
+                                title={t("Required for Lightkeeper")}
                                 arrow
                             >
-                                <Link to={'/task/knock-knock'}>
+                                <Link to={"/task/knock-knock"}>
                                     <Icon
                                         path={mdiLighthouse}
                                         size={0.75}
                                         className="icon-with-text"
-                                        color={hideNonLK ? 'var(--color-green)' : undefined}
+                                        color={hideNonLK ? "var(--color-green)" : undefined}
                                     />
                                 </Link>
-                            </Tooltip>
+                            </Tooltip>,
                         );
                     }
-                    return <CenterCell>
-                        {endgameGoals}
-                    </CenterCell>;
+                    return <CenterCell>{endgameGoals}</CenterCell>;
                 },
                 position: requiredForEndGame,
             });
@@ -581,7 +553,7 @@ function QuestTable({
                     position = 1;
                 }
                 if (position >= useColumns.length) {
-                    position = useColumns.length-1;
+                    position = useColumns.length - 1;
                 }
                 if (position !== i && !claimedPositions.includes(position)) {
                     //console.log(`Moving ${column.Header} from ${i} to ${position}`);
@@ -615,20 +587,20 @@ function QuestTable({
     let extraRow = false;
 
     if (allQuestData.length <= 0) {
-        extraRow = t('No quests found');
+        extraRow = t("No quests found");
     } else if (allQuestData.length !== shownQuests.length) {
-        extraRow = t('Some tasks hidden by filter settings');
+        extraRow = t("Some tasks hidden by filter settings");
     }
 
     return (
         <DataTable
-            className={`quest-table ${hideBorders ? 'no-borders' : ''}`}
+            className={`quest-table ${hideBorders ? "no-borders" : ""}`}
             key="quest-table"
             columns={columns}
             data={shownQuests}
             extraRow={extraRow}
             autoResetSortBy={false}
-            sortBy={'minimumLevel'}
+            sortBy={"minimumLevel"}
         />
     );
 }
