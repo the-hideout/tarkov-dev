@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import equal from 'fast-deep-equal';
+import { useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 import {
     mdiImageFilterCenterFocusStrong,
     mdiCity,
@@ -15,45 +15,45 @@ import {
     mdiPineTree,
     mdiEarthBox,
     mdiTunnelOutline,
-} from '@mdi/js';
+} from "@mdi/js";
 
-import doFetchMaps from './do-fetch-maps.mjs';
-import { langCode, useLangCode } from '../../modules/lang-helpers.js';
-import { placeholderMaps } from '../../modules/placeholder-data.js';
-import i18n from '../../i18n.js';
-import { windowHasFocus } from '../../modules/window-focus-handler.mjs';
-import { setDataLoading, setDataLoaded } from '../settings/settingsSlice.mjs';
+import doFetchMaps from "./do-fetch-maps.mjs";
+import { langCode, useLangCode } from "../../modules/lang-helpers.js";
+import { placeholderMaps } from "../../modules/placeholder-data.js";
+import i18n from "../../i18n.js";
+import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
+import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
 
-import rawMapData from '../../data/maps.json';
+import rawMapData from "../../data/maps.json";
 
 const initialState = {
     data: placeholderMaps(langCode()),
-    status: 'idle',
+    status: "idle",
     error: null,
 };
 
-export const fetchMaps = createAsyncThunk('maps/fetchMaps', (arg, { getState }) => {
+export const fetchMaps = createAsyncThunk("maps/fetchMaps", (arg, { getState }) => {
     const state = getState();
     const gameMode = state.settings.gameMode;
-    return doFetchMaps({language: langCode(), gameMode});
+    return doFetchMaps({ language: langCode(), gameMode });
 });
 const mapsSlice = createSlice({
-    name: 'maps',
+    name: "maps",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchMaps.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchMaps.fulfilled, (state, action) => {
-            state.status = 'succeeded';
+            state.status = "succeeded";
 
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
         builder.addCase(fetchMaps.rejected, (state, action) => {
-            state.status = 'failed';
+            state.status = "failed";
             console.log(action.error);
             state.error = action.payload;
         });
@@ -78,12 +78,12 @@ export default function useMapsData() {
     const { data, status, error } = useSelector((state) => state.maps);
     const lang = useLangCode();
     const gameMode = useSelector((state) => state.settings.gameMode);
-    
+
     useEffect(() => {
-        const dataName = 'maps';
-        if (status === 'idle') {
+        const dataName = "maps";
+        if (status === "idle") {
             return;
-        } else if (status === 'loading') {
+        } else if (status === "loading") {
             dispatch(setDataLoading(dataName));
         } else {
             dispatch(setDataLoaded(dataName));
@@ -109,9 +109,9 @@ export default function useMapsData() {
             clearRefreshInterval();
         };
     }, [dispatch, lang, gameMode]);
-    
+
     return { data, status, error };
-};
+}
 
 export const useMapImages = () => {
     const { data: maps } = useMapsData();
@@ -121,22 +121,22 @@ export const useMapImages = () => {
             mapImages[imageData.key] = {
                 id: apiData?.id,
                 ...imageData,
-                name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: 'maps' }),
+                name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: "maps" }),
                 normalizedName: mapGroup.normalizedName,
                 primaryPath: mapGroup.primaryPath,
-                displayText: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: 'maps' }),
-                description: apiData?.description || i18n.t(`${mapGroup.normalizedName}-description`, { ns: 'maps' }),
-                duration: apiData?.raidDuration ? apiData?.raidDuration + ' min' : undefined,
+                displayText: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: "maps" }),
+                description: apiData?.description || i18n.t(`${mapGroup.normalizedName}-description`, { ns: "maps" }),
+                duration: apiData?.raidDuration ? apiData?.raidDuration + " min" : undefined,
                 players: apiData?.players || mapGroup.players,
                 image: `/maps/${imageData.key}.jpg`,
                 imageThumb: `/maps/${imageData.key}_thumb.jpg`,
-                bosses: apiData?.bosses.map(bossSpawn => {
+                bosses: apiData?.bosses.map((bossSpawn) => {
                     return {
                         name: bossSpawn.name,
                         normalizedName: bossSpawn.normalizedName,
                         spawnChance: bossSpawn.spawnChance,
                         spawnLocations: bossSpawn.spawnLocations,
-                    }
+                    };
                 }),
                 spawns: apiData?.spawns || [],
                 extracts: apiData?.extracts || [],
@@ -150,12 +150,12 @@ export const useMapImages = () => {
                 artillery: apiData?.artillery,
                 btrStops: apiData?.btrStops,
             };
-            mapImages[imageData.key].displayVariant = i18n.t(imageData.projection, { ns: 'maps' });
+            mapImages[imageData.key].displayVariant = i18n.t(imageData.projection, { ns: "maps" });
             if (imageData.orientation) {
-                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.orientation, { ns: 'maps' })}`;
+                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.orientation, { ns: "maps" })}`;
             }
             if (imageData.specific) {
-                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.specific, { ns: 'maps' })}`;
+                mapImages[imageData.key].displayVariant += ` - ${i18n.t(imageData.specific, { ns: "maps" })}`;
             }
             if (imageData.extra) {
                 mapImages[imageData.key].displayVariant += ` - ${imageData.extra}`;
@@ -168,22 +168,26 @@ export const useMapImages = () => {
 
             if (imageData.altMaps) {
                 for (const altKey of imageData.altMaps) {
-                    const altApiMap = maps.find(map => map.normalizedName === altKey);
+                    const altApiMap = maps.find((map) => map.normalizedName === altKey);
                     if (!altApiMap) {
                         // alt map is missing; so we skip it
                         continue;
                     }
-                    apiImageDataMerge(mapGroup, {
-                        ...imageData,
-                        key: altKey,
-                        altMaps: undefined,
-                        suppress: true,
-                    }, altApiMap);
+                    apiImageDataMerge(
+                        mapGroup,
+                        {
+                            ...imageData,
+                            key: altKey,
+                            altMaps: undefined,
+                            suppress: true,
+                        },
+                        altApiMap,
+                    );
                 }
             }
         };
         for (const mapsGroup of rawMapData) {
-            const apiMap = maps.find(map => map.normalizedName === mapsGroup.normalizedName);
+            const apiMap = maps.find((map) => map.normalizedName === mapsGroup.normalizedName);
             for (const map of mapsGroup.maps) {
                 apiImageDataMerge(mapsGroup, map, apiMap);
             }
@@ -194,30 +198,32 @@ export const useMapImages = () => {
 };
 
 export const useMapImagesSortedArray = () => {
-    let mapArray = Object.values(useMapImages())
-    
+    let mapArray = Object.values(useMapImages());
+
     mapArray.sort((a, b) => {
-        if (a.normalizedName === 'openworld')
+        if (a.normalizedName === "openworld") {
             return 1;
-        if (b.normalizedName === 'openworld')
+        }
+        if (b.normalizedName === "openworld") {
             return -1;
+        }
         return a.name.localeCompare(b.name);
     });
 
-    return mapArray
-}
+    return mapArray;
+};
 
 export const mapIcons = {
-    'ground-zero': mdiImageFilterCenterFocusStrong,
-    'streets-of-tarkov': mdiCity,
-    'customs': mdiWarehouse,
-    'factory': mdiFactory,
-    'interchange': mdiStore24Hour,
-    'the-lab': mdiNeedle,
-    'the-labyrinth': mdiTunnelOutline,
-    'lighthouse': mdiLighthouse,
-    'reserve': mdiTank,
-    'shoreline': mdiBeach,
-    'woods': mdiPineTree,
-    'openworld': mdiEarthBox,
+    "ground-zero": mdiImageFilterCenterFocusStrong,
+    "streets-of-tarkov": mdiCity,
+    "customs": mdiWarehouse,
+    "factory": mdiFactory,
+    "interchange": mdiStore24Hour,
+    "the-lab": mdiNeedle,
+    "the-labyrinth": mdiTunnelOutline,
+    "lighthouse": mdiLighthouse,
+    "reserve": mdiTank,
+    "shoreline": mdiBeach,
+    "woods": mdiPineTree,
+    "openworld": mdiEarthBox,
 };

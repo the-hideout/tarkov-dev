@@ -11,7 +11,7 @@
     white-space: pre-wrap;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .moobot-page-wrapper pre {
         white-space: pre;
     }

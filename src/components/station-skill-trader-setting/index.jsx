@@ -1,19 +1,19 @@
-import React from 'react';
-import Select from 'react-select';
-import { Tooltip } from '@mui/material';
+import React from "react";
+import Select from "react-select";
+import { Tooltip } from "@mui/material";
 
-import './index.css';
+import "./index.css";
 
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import {
     selectAllStations,
     selectAllSkills,
     selectAllTraders,
     setStationOrTraderLevel,
-} from '../../features/settings/settingsSlice.mjs';
-import capitalizeFirst from '../../modules/capitalize-first.js';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
+} from "../../features/settings/settingsSlice.mjs";
+import capitalizeFirst from "../../modules/capitalize-first.js";
+import camelcaseToDashes from "../../modules/camelcase-to-dashes.js";
 
 const getNumericSelect = (min, max) => {
     let returnOptions = [];
@@ -32,27 +32,23 @@ const getOptionsForStation = (t, stationKey) => {
     let options = [
         {
             value: 0,
-            label: t('Not built'),
+            label: t("Not built"),
         },
         {
             value: 1,
-            label: '1',
+            label: "1",
         },
         {
             value: 2,
-            label: '2',
+            label: "2",
         },
         {
             value: 3,
-            label: '3',
+            label: "3",
         },
     ];
 
-    if (
-        ['booze-generator', 'christmas-tree', 'solar-power'].includes(
-            stationKey,
-        )
-    ) {
+    if (["booze-generator", "christmas-tree", "solar-power"].includes(stationKey)) {
         options = [...options.slice(0, 2)];
     }
 
@@ -66,17 +62,17 @@ const getOptionsForSkill = (t, skillKey) => {
 const getOptionsForTrader = (t, traderKey) => {
     let options = getNumericSelect(1, 4);
 
-    if (traderKey === 'jaeger' || traderKey === 'ref') {
+    if (traderKey === "jaeger" || traderKey === "ref") {
         options.unshift({
             value: 0,
-            label: t('Locked'),
+            label: t("Locked"),
         });
     }
 
-    if (traderKey === 'fence') {
+    if (traderKey === "fence") {
         options.unshift({
             value: 0,
-            label: '0',
+            label: "0",
         });
         options = [...options.slice(0, 2)];
     }
@@ -91,17 +87,17 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     let selector;
     let options;
     let imageLink = image;
-    const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' ')));
-    if (type === 'station') {
+    const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, " ")));
+    if (type === "station") {
         selector = selectAllStations;
         options = getOptionsForStation(t, stateKey);
-    } else if (type === 'skill') {
+    } else if (type === "skill") {
         // t('Crafting')
         // t('Hideout Management')
         selector = selectAllSkills;
         options = getOptionsForSkill(t, stateKey);
         imageLink = `${process.env.PUBLIC_URL}/images/${type}s/${stateKey}-icon.png`;
-    } else if (type === 'trader') {
+    } else if (type === "trader") {
         selector = selectAllTraders;
         options = getOptionsForTrader(t, stateKey);
         imageLink = `${process.env.PUBLIC_URL}/images/${type}s/${stateKey}-icon.jpg`;
@@ -109,24 +105,12 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     const dispatch = useDispatch();
     const state = useSelector(selector);
 
-    const selectedOption = options.find(
-        (option) => option.value === state[stateKey],
-    );
+    const selectedOption = options.find((option) => option.value === state[stateKey]);
 
     return (
-        <Tooltip
-            placement="top"
-            title={toolTip}
-            arrow
-        >
+        <Tooltip placement="top" title={toolTip} arrow>
             <div className="station-skill-trader-setting-wrapper">
-                <img
-                    alt={`${stateKey}-icon`}
-                    loading="lazy"
-                    height={39}
-                    src={imageLink}
-                    width={39}
-                />
+                <img alt={`${stateKey}-icon`} loading="lazy" height={39} src={imageLink} width={39} />
                 <Select
                     defaultValue={selectedOption}
                     options={options}

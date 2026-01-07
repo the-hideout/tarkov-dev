@@ -1,9 +1,9 @@
-import APIQuery from '../../modules/api-query.mjs';
-import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
+import APIQuery from "../../modules/api-query.mjs";
+import { localStorageWriteJson } from "../settings/settingsSlice.mjs";
 
 class ItemsQuery extends APIQuery {
     constructor() {
-        super('items');
+        super("items");
     }
 
     async query(options) {
@@ -502,7 +502,7 @@ class ItemsQuery extends APIQuery {
                 try {
                     // if running in rstest, use the local item-grids.json which in public/data/ folder.
                     if (process.env.RSTEST) {
-                        const itemGrids = await import('#public/data/item-grids.min.json');
+                        const itemGrids = await import("#public/data/item-grids.min.json");
                         resolve(itemGrids);
                     } else {
                         const response = await fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`);
@@ -510,7 +510,7 @@ class ItemsQuery extends APIQuery {
                         resolve(itemGrids);
                     }
                 } catch (error) {
-                    console.log('Error retrieving item grids', error);
+                    console.log("Error retrieving item grids", error);
                     return resolve({});
                 }
             }),
@@ -522,7 +522,7 @@ class ItemsQuery extends APIQuery {
                     let badItem = false;
                     if (error.path) {
                         let traverseLimit = 2;
-                        if (error.path[0] === 'fleaMarket') {
+                        if (error.path[0] === "fleaMarket") {
                             traverseLimit = 1;
                         }
                         badItem = itemData.data;
@@ -555,9 +555,9 @@ class ItemsQuery extends APIQuery {
         }
 
         const flea = otherData.data.fleaMarket;
-        localStorageWriteJson('Ti', flea.sellOfferFeeRate);
-        localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
-        localStorageWriteJson('fleaEnabled', flea.enabled);
+        localStorageWriteJson("Ti", flea.sellOfferFeeRate);
+        localStorageWriteJson("Tr", flea.sellRequirementFeeRate);
+        localStorageWriteJson("fleaEnabled", flea.enabled);
 
         const allItems = itemData.data.items.map((rawItem) => {
             // calculate grid

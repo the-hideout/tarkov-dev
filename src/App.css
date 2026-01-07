@@ -1,28 +1,27 @@
-@import './styles/singleEntity.css';
-@import './styles/mapSearch.css';
+@import url('./styles/singleEntity.css');
+@import url('./styles/mapSearch.css');
 
 /* Variables start */
 :root {
-  --color-black: #000;
+    --color-black: #000;
     --color-black-light: #1b1919;
-  --color-white: #fff;
-  --color-gunmetal: #383945;
+    --color-white: #fff;
+    --color-gunmetal: #383945;
     --color-gunmetal-dark: #2d2d2f;
-  --color-gold-one: #c7c5b3;
-  --color-gold-two: #9a8866;
-  --color-blue-light: #0292c0;
-  --color-gray: #424242;
-    --color-gray-light : #636363;
-  --color-green: #00a700;
+    --color-gold-one: #c7c5b3;
+    --color-gold-two: #9a8866;
+    --color-blue-light: #0292c0;
+    --color-gray: #424242;
+    --color-gray-light: #636363;
+    --color-green: #00a700;
     --color-green-light: #6a9a66;
-  --color-orange : #ca8a00;
-  --color-red: #cd1e2f;
+    --color-orange: #ca8a00;
+    --color-red: #cd1e2f;
     --color-red-light: #9a6666;
-  --color-purple: #8c6edf;
-  --color-yellow: #ffe084;
-    --color-yellow-light: #E0DFD6;
+    --color-purple: #8c6edf;
+    --color-yellow: #ffe084;
+    --color-yellow-light: #e0dfd6;
 }
-
 
 .desc-line-break {
     margin-top: 2rem;
@@ -37,19 +36,27 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family:
+        'bender',
+        -apple-system,
+        system-ui,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Helvetica Neue',
+        'Arial',
+        sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     word-spacing: 1px;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 
 body * {
@@ -131,7 +138,8 @@ cite {
 .page-wrapper {
     margin: 0 10px;
     max-width: 1200px;
-    /*min-height: 80vh;*/
+
+    /* min-height: 80vh; */
 }
 
 .updated-label {
@@ -143,7 +151,7 @@ cite {
 }
 
 .time-wrapper {
-    background-color: rgb( from var(--color-black) r g b / 0.5);
+    background-color: rgb(from var(--color-black) r g b / 0.5);
     padding: 10px 20px;
     position: absolute;
     right: -10px;
@@ -157,7 +165,7 @@ cite {
 }
 
 .time-wrapper div {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 
 .map-image-wrapper {
@@ -246,12 +254,13 @@ cite {
 
 /* Global reuseable styles, specific to the Tarkov.Dev style */
 .information-section {
-    background: rgb( from var(--color-black) r g b / 0.1);
-    border: 1px solid rgb( from var(--color-white) r g b/ 0.1);
+    background: rgb(from var(--color-black) r g b / 0.1);
+    border: 1px solid rgb(from var(--color-white) r g b/ 0.1);
     border-radius: 0 20px 0 20px;
     margin-bottom: 50px;
     overflow: hidden;
 }
+
 .information-section.has-table {
     border-radius: 0 20px 0 0;
 }
@@ -262,28 +271,30 @@ cite {
     font-size: 24px;
     margin: 0;
     padding: 15px 20px;
-    background: rgb( from var(--primary-color-black) r g b / 0.4);
     color: var(--color-gold-one);
-    background: rgb( from var(--color-black) r g b / 0.3);
-    border-bottom: 1px solid rgb( from var(--color-white) r g b / 0.1);
+    background: rgb(from var(--color-black) r g b / 0.3);
+    border-bottom: 1px solid rgb(from var(--color-white) r g b / 0.1);
 }
+
 .information-section h2 svg {
     width: 1.6rem !important;
     height: auto !important;
     margin: 0 12px 0 0;
 }
+
 .information-section .content {
-  padding: 20px;
+    padding: 20px;
 }
+
 .information-section .content p {
-  margin: 0;
+    margin: 0;
 }
 
 .filter-wrapper.open {
     z-index: 2;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .control-wrapper {
         display: none;
     }
@@ -294,13 +305,13 @@ cite {
     }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (width >= 1280px) {
     .page-wrapper {
         margin: 0 auto;
     }
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (width >= 1920px) {
     .page-wrapper {
         margin: 0 auto;
         max-width: 1600px;

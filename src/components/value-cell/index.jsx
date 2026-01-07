@@ -1,25 +1,25 @@
-import { Tooltip } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { Tooltip } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-import formatPrice from '../../modules/format-price.js';
+import formatPrice from "../../modules/format-price.js";
 
-import './index.css';
+import "./index.css";
 
 function ValueCell(props) {
-    const { 
-        value, 
-        highlightProfit, 
-        children, 
-        noValue = '-', 
-        count = 1, 
-        slots, 
+    const {
+        value,
+        highlightProfit,
+        children,
+        noValue = "-",
+        count = 1,
+        slots,
         showSlotValue,
         valueCount = 1,
         valueDetails,
     } = props;
     const { t } = useTranslation();
 
-    let countTag = '';
+    let countTag = "";
     if (count > 1 && value) {
         countTag = (
             <div>
@@ -29,50 +29,37 @@ function ValueCell(props) {
     }
     if (valueCount > 1) {
         countTag = (
-            <Tooltip
-                title={t('Cost per unit')}
-                placement="bottom"
-                arrow
-            >
-                <div className="trader-unlock-wrapper">
-                    {formatPrice(Math.round(value / valueCount))}
-                </div>
+            <Tooltip title={t("Cost per unit")} placement="bottom" arrow>
+                <div className="trader-unlock-wrapper">{formatPrice(Math.round(value / valueCount))}</div>
             </Tooltip>
         );
     }
-    let slotValue = '';
+    let slotValue = "";
     if (value && showSlotValue && slots > 1) {
         slotValue = (
-            <Tooltip
-                title={t('Per slot')}
-                placement="bottom"
-                arrow
-            >
-                <div className="trader-unlock-wrapper">
-                    {formatPrice(Math.round(value / slots))}
-                </div>
+            <Tooltip title={t("Per slot")} placement="bottom" arrow>
+                <div className="trader-unlock-wrapper">{formatPrice(Math.round(value / slots))}</div>
             </Tooltip>
         );
     }
 
-    let className = '';
+    let className = "";
     if (highlightProfit && value !== 0) {
-        className = value > 0 ? 'craft-profit' : 'craft-loss';
+        className = value > 0 ? "craft-profit" : "craft-loss";
     }
-    let displayValue = (
-        <div className={className}>
-            {value ? formatPrice(value*count) : noValue}
-        </div>
-    );
+    let displayValue = <div className={className}>{value ? formatPrice(value * count) : noValue}</div>;
 
-    if (valueDetails && Array.isArray(valueDetails) & valueDetails.length > 0) {
+    if (valueDetails && Array.isArray(valueDetails) & (valueDetails.length > 0)) {
         displayValue = (
             <Tooltip
-                title={valueDetails.map(detail => {
+                title={valueDetails.map((detail) => {
                     return (
-                        <div key={detail.name} style={{overflow: 'hidden'}}>
+                        <div key={detail.name} style={{ overflow: "hidden" }}>
                             <span>{`${detail.name}: `}</span>
-                            <span style={{float:'right', paddingLeft: '5px'}} className={detail.value > 0 ? 'craft-profit' : 'craft-loss'}>
+                            <span
+                                style={{ float: "right", paddingLeft: "5px" }}
+                                className={detail.value > 0 ? "craft-profit" : "craft-loss"}
+                            >
                                 {formatPrice(detail.value)}
                             </span>
                         </div>

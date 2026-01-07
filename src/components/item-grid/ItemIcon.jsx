@@ -17,7 +17,7 @@ function ItemIcon(props) {
         sell = count;
     }
 
-    return <span className={'sell-to-icon'}>{sell}</span>;
+    return <span className={"sell-to-icon"}>{sell}</span>;
 }
 
 export default ItemIcon;

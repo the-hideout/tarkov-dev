@@ -1,4 +1,4 @@
-import { VictoryChart, VictoryTheme, VictoryLine, VictoryAxis } from 'victory';
+import { VictoryChart, VictoryTheme, VictoryLine, VictoryAxis } from "victory";
 
 const ProfitableGraph = (props) => {
     const { data } = props;
@@ -9,13 +9,7 @@ const ProfitableGraph = (props) => {
                 <VictoryLine key={graphicCardsCount} data={values} />
             ))}
             {data.map(({ profitableDay, graphicCardsCount }) => {
-                return (
-                    <VictoryAxis
-                        axisValue={profitableDay}
-                        label={profitableDay}
-                        key={graphicCardsCount}
-                    />
-                );
+                return <VictoryAxis axisValue={profitableDay} label={profitableDay} key={graphicCardsCount} />;
             })}
         </VictoryChart>
     );

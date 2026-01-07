@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class BossesQuery extends APIQuery {
     constructor() {
-        super('bosses');
+        super("bosses");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevBosses {
             bosses(lang: ${language}, gameMode: ${gameMode}) {
                 name
@@ -43,9 +43,9 @@ class BossesQuery extends APIQuery {
                 timestamp
             }
         }`;
-    
+
         const bossesData = await this.graphqlRequest(query);
-    
+
         if (bossesData.errors) {
             if (bossesData.data) {
                 for (const error of bossesData.errors) {
@@ -58,21 +58,18 @@ class BossesQuery extends APIQuery {
                     }
                     console.log(`Error in bosses API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !bossesData.data || 
-                !bossesData.data.bosses || !bossesData.data.bosses.length
-            ) {
+            if (prebuild || !bossesData.data || !bossesData.data.bosses || !bossesData.data.bosses.length) {
                 return Promise.reject(new Error(bossesData.errors[0].message));
             }
         }
-    
-        return bossesData.data.bosses.map(boss => {
-            if (boss.normalizedName === 'knight') {
+
+        return bossesData.data.bosses.map((boss) => {
+            if (boss.normalizedName === "knight") {
                 boss.reports = bossesData.data.goonReports;
             }
             return boss;

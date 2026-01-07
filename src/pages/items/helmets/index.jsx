@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
-import { Icon } from '@mdi/react';
-import {mdiRacingHelmet} from '@mdi/js';
+import { Icon } from "@mdi/react";
+import { mdiRacingHelmet } from "@mdi/js";
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
+import useStateWithLocalStorage from "../../../hooks/useStateWithLocalStorage.jsx";
 
-import SEO from '../../../components/SEO.jsx';
-import SmallItemTable from '../../../components/small-item-table/index.jsx';
-import {
-    Filter,
-    ToggleFilter,
-    RangeFilter,
-    InputFilter,
-} from '../../../components/filter/index.jsx';
+import SEO from "../../../components/SEO.jsx";
+import SmallItemTable from "../../../components/small-item-table/index.jsx";
+import { Filter, ToggleFilter, RangeFilter, InputFilter } from "../../../components/filter/index.jsx";
 
 const marks = {
     1: 1,
@@ -26,20 +21,13 @@ const marks = {
 
 function Helmets() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
-    const [includeBlockingHeadset, setIncludeBlockingHeadset] =
-        useStateWithLocalStorage('includeBlockingHeadset', true);
-    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage(
-        'minHelmetArmorClass',
-        1,
+    const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage(
+        "includeBlockingHeadset",
+        true,
     );
-    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage(
-        'maxHelmetArmorClass',
-        6,
-    );
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
-        'helmetMaxPrice',
-        '',
-    );
+    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage("minHelmetArmorClass", 1);
+    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage("maxHelmetArmorClass", 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage("helmetMaxPrice", "");
 
     const handleArmorClassChange = ([min, max]) => {
         setMinArmorClass(min);
@@ -49,66 +37,61 @@ function Helmets() {
     const { t } = useTranslation();
 
     return [
-        <SEO 
-            title={`${t('Helmets')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('helmet-page-description', 'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.')}
+        <SEO
+            title={`${t("Helmets")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
+            description={t(
+                "helmet-page-description",
+                "This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.",
+            )}
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={"display-wrapper"}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiRacingHelmet} size={1.5} className="icon-with-text" /> 
-                    {t('Helmets')}
+                    <Icon path={mdiRacingHelmet} size={1.5} className="icon-with-text" />
+                    {t("Helmets")}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
-                        label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
-                        tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
-                        }
+                        label={t("Ignore settings")}
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
+                        tooltipContent={<>{t("Shows all sources of items regardless of your settings")}</>}
                     />
                     <ToggleFilter
-                        label={t('Show blocking headset')}
-                        onChange={(e) =>
-                            setIncludeBlockingHeadset(!includeBlockingHeadset)
-                        }
+                        label={t("Show blocking headset")}
+                        onChange={(e) => setIncludeBlockingHeadset(!includeBlockingHeadset)}
                         checked={includeBlockingHeadset}
                     />
                     <RangeFilter
                         defaultValue={[minArmorClass, maxArmorClass]}
-                        label={t('Min armor class')}
+                        label={t("Min armor class")}
                         min={1}
                         max={6}
                         marks={marks}
-                        onChange={(event ,values) => {
+                        onChange={(event, values) => {
                             handleArmorClassChange(values);
                         }}
                     />
                     <InputFilter
-                        defaultValue={maxPrice || ''}
-                        label={t('Max price')}
+                        defaultValue={maxPrice || ""}
+                        label={t("Max price")}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
-                        placeholder={t('max price')}
+                        placeholder={t("max price")}
                         type="number"
                     />
                 </Filter>
             </div>
 
             <SmallItemTable
-                bsgCategoryFilter={['5a341c4686f77469e155819e', '5a341c4086f77401f2541505']}
+                bsgCategoryFilter={["5a341c4686f77469e155819e", "5a341c4086f77401f2541505"]}
                 showAllSources={showAllItemSources}
                 minPropertyFilter={{
-                    property: 'class',
+                    property: "class",
                     value: minArmorClass,
                 }}
                 maxPropertyFilter={{
-                    property: 'class',
+                    property: "class",
                     value: maxArmorClass,
                 }}
                 includeBlockingHeadset={includeBlockingHeadset}
@@ -122,10 +105,11 @@ function Helmets() {
                 maxDurability={5}
                 stats={6}
                 cheapestPrice={7}
-                sortBy='armorClass'
+                sortBy="armorClass"
             />
 
             <div className="page-wrapper helmets-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'helmets-page-p'}>
                     <p>
                         {"In Escape from Tarkov, headgear serves a variety of functions."}

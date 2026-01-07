@@ -37,7 +37,7 @@
     order: -1;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .api-user-data-wrapper {
         text-align: center;
         width: 50%;

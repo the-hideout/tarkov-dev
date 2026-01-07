@@ -1,15 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import {
-    VictoryChart,
-    VictoryLine,
-    VictoryTheme,
-    VictoryVoronoiContainer,
-} from 'victory';
-import { useTranslation } from 'react-i18next';
+import { useQuery } from "@tanstack/react-query";
+import { VictoryChart, VictoryLine, VictoryTheme, VictoryVoronoiContainer } from "victory";
+import { useTranslation } from "react-i18next";
 
-import './index.css';
+import "./index.css";
 
-const API_METRICS_ENDPOINT = 'https://status.tarkov.dev/api/status-page/heartbeat/api'
+const API_METRICS_ENDPOINT = "https://status.tarkov.dev/api/status-page/heartbeat/api";
 
 const fetchApiData = async () => {
     const res = await fetch(API_METRICS_ENDPOINT);
@@ -18,7 +13,12 @@ const fetchApiData = async () => {
 
 function ApiMetricsGraph({ graph }) {
     const { t } = useTranslation();
-    const { status, data } = useQuery({queryKey: `api-metrics`, queryFn: fetchApiData, refetchOnMount: false, refetchOnWindowFocus: false });
+    const { status, data } = useQuery({
+        queryKey: `api-metrics`,
+        queryFn: fetchApiData,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+    });
 
     let height = VictoryTheme.material.height;
 
@@ -26,16 +26,16 @@ function ApiMetricsGraph({ graph }) {
         height = 1280;
     }
 
-    if (status === 'error') {
+    if (status === "error") {
         return "⚠️ Error Fetching API Metrics";
     }
 
-    if (status !== 'success') {
+    if (status !== "success") {
         return null;
     }
 
-    if (status === 'success' && data.heartbeatList["1"] === 0) {
-        return `⚠️ ${t('No data')}`;
+    if (status === "success" && data.heartbeatList["1"] === 0) {
+        return `⚠️ ${t("No data")}`;
     }
 
     let max = 0;
@@ -59,8 +59,10 @@ function ApiMetricsGraph({ graph }) {
     if (graph === true) {
         return (
             <div className="api-metrics-wrapper">
-                <p>{t('Current Average Latency')}: {average}ms</p>
-                <p>{t('API Latency in milliseconds')}:</p>
+                <p>
+                    {t("Current Average Latency")}: {average}ms
+                </p>
+                <p>{t("API Latency in milliseconds")}:</p>
                 <VictoryChart
                     height={height}
                     width={900}
@@ -68,29 +70,25 @@ function ApiMetricsGraph({ graph }) {
                     minDomain={{ y: 0 }}
                     maxDomain={{ y: max + max * 0.1 }}
                     theme={VictoryTheme.material}
-                    containerComponent={
-                        <VictoryVoronoiContainer
-                            labels={({ datum }) => `${(datum.y)}`}
-                        />
-                    }
+                    containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
                 >
                     <VictoryLine
                         animate={{
                             duration: 1000,
-                            onLoad: { duration: 1000 }
+                            onLoad: { duration: 1000 },
                         }}
                         interpolation="natural"
                         padding={{ right: -120 }}
                         scale={{
-                            x: 'time',
-                            y: 'linear',
+                            x: "time",
+                            y: "linear",
                         }}
                         style={{
                             data: {
-                                stroke: 'var(--color-green)',
+                                stroke: "var(--color-green)",
                                 strokeWidth: 4,
                             },
-                            parent: { border: '1px solid #ccc' },
+                            parent: { border: "1px solid #ccc" },
                         }}
                         data={data.heartbeatList["1"].map((heartbeat) => {
                             return {
@@ -106,8 +104,7 @@ function ApiMetricsGraph({ graph }) {
 
     // If the graph param was not provided, return the latency average as a div
     else {
-        return `${average}ms`
-        
+        return `${average}ms`;
     }
 }
 

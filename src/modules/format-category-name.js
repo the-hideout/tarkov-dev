@@ -1,12 +1,9 @@
-import capitalizeTheFirstLetterOfEachWord from './capitalize-first';
+import capitalizeTheFirstLetterOfEachWord from "./capitalize-first";
 
 const formatCategoryName = (currentCategoryData) => {
     return (
         currentCategoryData.displayName ||
-        capitalizeTheFirstLetterOfEachWord(currentCategoryData.urlName).replace(
-            /-/g,
-            ' ',
-        )
+        capitalizeTheFirstLetterOfEachWord(currentCategoryData.urlName).replace(/-/g, " ")
     );
 };
 

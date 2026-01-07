@@ -22,7 +22,7 @@ import {
     mdiFoodForkDrink,
     mdiTshirtCrewOutline,
     mdiBottleWine,
-} from '@mdi/js';
+} from "@mdi/js";
 
 const map = {
     mdiAccountGroup,

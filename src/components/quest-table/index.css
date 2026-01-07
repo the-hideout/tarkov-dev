@@ -11,7 +11,7 @@
 
 .quest-item-wrapper {
     display: flex;
-    align-items: left;
+    align-items: start;
     justify-content: left;
 }
 
@@ -44,17 +44,19 @@
 }
 
 @keyframes endgame-pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1); /* Slightly larger at the midpoint */
-  }
-  100% {
-    transform: scale(1); /* Returns to original size */
-  }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1); /* Slightly larger at the midpoint */
+    }
+
+    100% {
+        transform: scale(1); /* Returns to original size */
+    }
 }
 
 .endgame-filtered-icon {
-  animation: endgame-pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    animation: endgame-pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }

@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class TradersQuery extends APIQuery {
     constructor() {
-        super('traders');
+        super("traders");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevTraders {
             traders(lang: ${language}, gameMode: ${gameMode}) {
                 id
@@ -35,10 +35,10 @@ class TradersQuery extends APIQuery {
                     id
                 }
             }
-        }`.replace(/\s{2,}/g, ' ');
-    
+        }`.replace(/\s{2,}/g, " ");
+
         const tradersData = await this.graphqlRequest(query);
-    
+
         if (tradersData.errors) {
             if (tradersData.data) {
                 for (const error of tradersData.errors) {
@@ -51,22 +51,18 @@ class TradersQuery extends APIQuery {
                     }
                     console.log(`Error in traders API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !tradersData.data || 
-                !tradersData.data.traders || !tradersData.data.traders.length
-            ) {
+            if (prebuild || !tradersData.data || !tradersData.data.traders || !tradersData.data.traders.length) {
                 return Promise.reject(new Error(tradersData.errors[0].message));
             }
         }
-    
+
         return tradersData.data.traders;
     }
-        
 }
 
 const tradersQuery = new TradersQuery();

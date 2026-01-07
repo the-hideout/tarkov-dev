@@ -1,59 +1,59 @@
-import { useRef, useMemo } from 'react';
-import Select from 'react-select';
-import { useSelector } from 'react-redux';
-import { Trans, useTranslation } from 'react-i18next';
+import { useRef, useMemo } from "react";
+import Select from "react-select";
+import { useSelector } from "react-redux";
+import { Trans, useTranslation } from "react-i18next";
 
-import SEO from '../../components/SEO.jsx';
+import SEO from "../../components/SEO.jsx";
 
-import { caliberArrayWithSplit } from '../../modules/format-ammo.mjs';
+import { caliberArrayWithSplit } from "../../modules/format-ammo.mjs";
 
-import useItemsData from '../../features/items/index.js';
-import { useMapImagesSortedArray } from '../../features/maps/index.js';
+import useItemsData from "../../features/items/index.js";
+import { useMapImagesSortedArray } from "../../features/maps/index.js";
 
-import Connect from './Connect.jsx';
+import Connect from "./Connect.jsx";
 
-import './index.css';
+import "./index.css";
 
 const ammoTypes = caliberArrayWithSplit();
 
 const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
-        backgroundColor: 'var(--color-gunmetal-dark)',
-        border: '2px solid var(--color-gold-two)',
+        backgroundColor: "var(--color-gunmetal-dark)",
+        border: "2px solid var(--color-gold-two)",
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
-        backgroundColor: 'var(--color-gunmetal-dark)',
-        border: '2px solid var(--color-gold-two)',
+        backgroundColor: "var(--color-gunmetal-dark)",
+        border: "2px solid var(--color-gold-two)",
         borderRadius: 0,
     }),
     menuList: (provided) => ({
         ...provided,
-        color: 'var(--color-yellow-light)',
+        color: "var(--color-yellow-light)",
         borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
-        color: 'var(--color-yellow-light)',
-        backgroundColor: 'var(--color-gunmetal-dark)',
+        "color": "var(--color-yellow-light)",
+        "backgroundColor": "var(--color-gunmetal-dark)",
 
-        borderRadius: 0,
-        '&:hover': {
-            backgroundColor: 'var(--color-gold-two)',
-            color: 'var(--color-gunmetal-dark)',
+        "borderRadius": 0,
+        "&:hover": {
+            backgroundColor: "var(--color-gold-two)",
+            color: "var(--color-gunmetal-dark)",
             fontweight: 700,
         },
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: 'var(--color-gold-one)',
+        color: "var(--color-gold-one)",
     }),
     multiValue: (provided) => ({
         ...provided,
-        backgroundColor: 'var(--color-white)',
-        color: 'var(--color-white)',
+        backgroundColor: "var(--color-white)",
+        color: "var(--color-white)",
     }),
 };
 
@@ -83,13 +83,13 @@ function Control(props) {
     };
 
     const handleMapChange = () => {
-        handleViewChange('map', typeRefs['map'].current.value);
+        handleViewChange("map", typeRefs["map"].current.value);
     };
 
     const handleAmmoChange = () => {
         const ammoValues = [];
 
-        for (const option of typeRefs['ammo'].current.children) {
+        for (const option of typeRefs["ammo"].current.children) {
             if (!option.selected) {
                 continue;
             }
@@ -98,7 +98,7 @@ function Control(props) {
         }
 
         ammoValues.sort();
-        handleViewChange('ammo', ammoValues.join(','));
+        handleViewChange("ammo", ammoValues.join(","));
     };
 
     // const handleLootTierChange = () => {
@@ -113,7 +113,7 @@ function Control(props) {
         }
 
         props.send({
-            type: 'command',
+            type: "command",
             data: {
                 type: view,
                 value: value,
@@ -122,25 +122,23 @@ function Control(props) {
     };
 
     const handleSelectChange = (event) => {
-        handleViewChange('item', event.value);
+        handleViewChange("item", event.value);
     };
 
-    return (
-        <SEO 
-            title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
-            description={t('remote-control-page-description', 'This page contains all necessary tools to remote control another instance of Tarkov.dev website.')}
+    return [
+        <SEO
+            title={`${t("Remote Control")} - ${t("Tarkov.dev")}`}
+            description={t(
+                "remote-control-page-description",
+                "This page contains all necessary tools to remote control another instance of Tarkov.dev website.",
+            )}
             key="seo-wrapper"
         />,
         <div className="control-wrapper" key="">
-            <h1>{t('Remote Control')}</h1>
-            <div className={'control-section'}>
-                <span>{t('View Map')}:</span>
-                <select
-                    disabled={!socketConnected}
-                    name="map"
-                    onChange={handleMapChange}
-                    ref={typeRefs['map']}
-                >
+            <h1>{t("Remote Control")}</h1>
+            <div className={"control-section"}>
+                <span>{t("View Map")}:</span>
+                <select disabled={!socketConnected} name="map" onChange={handleMapChange} ref={typeRefs["map"]}>
                     {uniqueMaps.map((map) => (
                         <option key={map.key} value={map.key}>
                             {map.displayText}
@@ -148,17 +146,17 @@ function Control(props) {
                     ))}
                 </select>
                 <button disabled={!socketConnected} onClick={handleMapChange}>
-                    {t('Go')}
+                    {t("Go")}
                 </button>
             </div>
-            <div className={'control-section'}>
-                <span>{t('View caliber')}:</span>
+            <div className={"control-section"}>
+                <span>{t("View caliber")}:</span>
                 <select
                     disabled={!socketConnected}
                     multiple
                     name="ammo"
                     onChange={handleAmmoChange}
-                    ref={typeRefs['ammo']}
+                    ref={typeRefs["ammo"]}
                 >
                     {ammoTypes.map((ammoType) => (
                         <option key={ammoType} value={ammoType}>
@@ -167,7 +165,7 @@ function Control(props) {
                     ))}
                 </select>
                 <button disabled={!socketConnected} onClick={handleAmmoChange}>
-                    {t('Go')}
+                    {t("Go")}
                 </button>
             </div>
             <Select
@@ -175,7 +173,7 @@ function Control(props) {
                 // isMulti = {isMulti}
                 isDisabled={!socketConnected}
                 name="colors"
-                placeholder={t('Select...')}
+                placeholder={t("Select...")}
                 options={itemList}
                 className="basic-multi-select"
                 onChange={handleSelectChange}
@@ -216,15 +214,16 @@ function Control(props) {
             </button>
         </div> */}
             <div className="info-wrapper">
-                {t('Load tarkov.dev in another browser or window to control it from here')}
+                {t("Load tarkov.dev in another browser or window to control it from here")}
             </div>
             <Connect />
+            {/* prettier-ignore */}
             <Trans i18nKey={'control-info-p'}>
                 <p>This page allows you to control the Tarkov.dev website using another browser. The typical use case is to have the Tarkov.dev website open in a browser on a second monitor while you play the game and this page open on your phone or another device so that you can navigate to different pages on the Tarkov.dev website without having to alt+tab out of the game. All you have to do is open the Tarkov.dev website in a browser where you want it to be displayed, click the "Click to connect" button in the lower left*, and then enter the id on this control page on the other device and click the Connect. Once connected, you can use this control page to open specific map or ammo pages in the controlled browser.</p>
                 <p>*It appears on the lower left by default but can be toggled to the lower right side of the screen. It can also be hidden by the "Hide remote control" option on the settings page.</p>
             </Trans>
-        </div>
-    );
+        </div>,
+    ];
 }
 
 export default Control;
