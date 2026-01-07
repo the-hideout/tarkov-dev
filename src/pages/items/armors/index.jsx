@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
-import { Icon } from '@mdi/react';
-import {mdiTshirtCrew} from '@mdi/js';
+import { Icon } from "@mdi/react";
+import { mdiTshirtCrew } from "@mdi/js";
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
+import useStateWithLocalStorage from "../../../hooks/useStateWithLocalStorage.jsx";
 
-import SEO from '../../../components/SEO.jsx';
-import {
-    Filter,
-    ToggleFilter,
-    InputFilter,
-    RangeFilter,
-} from '../../../components/filter/index.jsx';
-import SmallItemTable from '../../../components/small-item-table/index.jsx';
+import SEO from "../../../components/SEO.jsx";
+import { Filter, ToggleFilter, InputFilter, RangeFilter } from "../../../components/filter/index.jsx";
+import SmallItemTable from "../../../components/small-item-table/index.jsx";
 
 const marks = {
     1: 1,
@@ -27,33 +22,15 @@ const marks = {
 function Armors(props) {
     const [showAllArmorSources, setShowAllArmorSources] = useState(false);
     const [useClassEffectiveDurability, setUseClassEffectiveDurability] = useStateWithLocalStorage(
-        'useClassEffectiveDurability',
+        "useClassEffectiveDurability",
         false,
     );
-    const [includeRigs, setIncludeRigs] = useStateWithLocalStorage(
-        'includeRigs',
-        true,
-    );
-    const [minArmorClassSoft, setMinArmorClassSoft] = useStateWithLocalStorage(
-        'minArmorClassSoft',
-        0,
-    );
-    const [maxArmorClassSoft, setMaxArmorClassSoft] = useStateWithLocalStorage(
-        'maxArmorClassSoft',
-        6,
-    );
-    const [minArmorClassPlate, setMinArmorClassPlate] = useStateWithLocalStorage(
-        'minArmorClassPlate',
-        0,
-    );
-    const [maxArmorClassPlate, setMaxArmorClassPlate] = useStateWithLocalStorage(
-        'maxArmorClassPlate',
-        6,
-    );
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
-        'armorMaxPrice',
-        '',
-    );
+    const [includeRigs, setIncludeRigs] = useStateWithLocalStorage("includeRigs", true);
+    const [minArmorClassSoft, setMinArmorClassSoft] = useStateWithLocalStorage("minArmorClassSoft", 0);
+    const [maxArmorClassSoft, setMaxArmorClassSoft] = useStateWithLocalStorage("maxArmorClassSoft", 6);
+    const [minArmorClassPlate, setMinArmorClassPlate] = useStateWithLocalStorage("minArmorClassPlate", 0);
+    const [maxArmorClassPlate, setMaxArmorClassPlate] = useStateWithLocalStorage("maxArmorClassPlate", 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage("armorMaxPrice", "");
     const { t } = useTranslation();
 
     const handleSoftArmorClassChange = ([min, max]) => {
@@ -65,57 +42,54 @@ function Armors(props) {
         setMaxArmorClassPlate(max);
     };
 
-    const typeFilter = ['armor'];
+    const typeFilter = ["armor"];
 
     if (includeRigs) {
-        typeFilter.push('rig');
+        typeFilter.push("rig");
     }
 
     return [
-        <SEO 
-            title={`${t('Armors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
+        <SEO
+            title={`${t("Armors")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
+            description={t(
+                "armors-page-description",
+                "This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.",
+            )}
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={"display-wrapper"}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiTshirtCrew} size={1.5} className="icon-with-text" /> 
-                    {t('Armors')}
+                    <Icon path={mdiTshirtCrew} size={1.5} className="icon-with-text" />
+                    {t("Armors")}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllArmorSources}
-                        label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllArmorSources(!showAllArmorSources)
-                        }
-                        tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
-                        }
+                        label={t("Ignore settings")}
+                        onChange={(e) => setShowAllArmorSources(!showAllArmorSources)}
+                        tooltipContent={<>{t("Shows all sources of items regardless of your settings")}</>}
                     />
                     <ToggleFilter
-                        label={t('Class effective durability')}
+                        label={t("Class effective durability")}
                         onChange={(e) => setUseClassEffectiveDurability(!useClassEffectiveDurability)}
                         checked={useClassEffectiveDurability}
                     />
                     <ToggleFilter
-                        label={t('Include rigs')}
+                        label={t("Include rigs")}
                         onChange={(e) => setIncludeRigs(!includeRigs)}
                         checked={includeRigs}
                     />
                     <InputFilter
-                        defaultValue={maxPrice || ''}
-                        label={t('Max price')}
+                        defaultValue={maxPrice || ""}
+                        label={t("Max price")}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
-                        placeholder={t('max price')}
+                        placeholder={t("max price")}
                         type="number"
                     />
                     <RangeFilter
                         defaultValue={[minArmorClassSoft, maxArmorClassSoft]}
-                        label={t('Soft armor class')}
+                        label={t("Soft armor class")}
                         min={0}
                         max={6}
                         marks={marks}
@@ -125,7 +99,7 @@ function Armors(props) {
                     />
                     <RangeFilter
                         defaultValue={[minArmorClassPlate, maxArmorClassPlate]}
-                        label={t('Plate armor class')}
+                        label={t("Plate armor class")}
                         min={0}
                         max={6}
                         marks={marks}
@@ -137,8 +111,8 @@ function Armors(props) {
             </div>
 
             <SmallItemTable
-                typeFilter={'armor'}
-                excludeTypeFilter={includeRigs ? false : 'rig'}
+                typeFilter={"armor"}
+                excludeTypeFilter={includeRigs ? false : "rig"}
                 softArmorFilter={[minArmorClassSoft, maxArmorClassSoft]}
                 plateArmorFilter={[minArmorClassPlate, maxArmorClassPlate]}
                 maxPrice={maxPrice}
@@ -152,9 +126,9 @@ function Armors(props) {
                 weight
                 stats
                 showAllSources={showAllArmorSources}
-                sortBy='armorClass'
+                sortBy="armorClass"
             />
-            
+
             <div className="page-wrapper armors-page-wrapper">
                 {/* prettier-ignore */}
                 <Trans i18nKey={'armors-page-p'}>

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 function PlayerForward() {
     const params = useParams();
@@ -7,7 +7,7 @@ function PlayerForward() {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            navigate('/players/regular/'+params.accountId);
+            navigate("/players/regular/" + params.accountId);
         }, 500);
         return () => {
             clearTimeout(timeout);

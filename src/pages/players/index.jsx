@@ -1,23 +1,23 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
-import { Trans, useTranslation } from 'react-i18next';
-import { Turnstile } from '@marsidev/react-turnstile';
-import Select from 'react-select';
-import { Icon } from '@mdi/react';
-import { mdiAccountSearch } from '@mdi/js';
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { Link, useSearchParams } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
+import { Turnstile } from "@marsidev/react-turnstile";
+import Select from "react-select";
+import { Icon } from "@mdi/react";
+import { mdiAccountSearch } from "@mdi/js";
 
-import LoadingSmall from '../../components/loading-small/index.jsx';
+import LoadingSmall from "../../components/loading-small/index.jsx";
 
-import useKeyPress from '../../hooks/useKeyPress.jsx';
+import useKeyPress from "../../hooks/useKeyPress.jsx";
 
-import SEO from '../../components/SEO.jsx';
-import { InputFilter } from '../../components/filter/index.jsx';
+import SEO from "../../components/SEO.jsx";
+import { InputFilter } from "../../components/filter/index.jsx";
 
-import playerStats from '../../modules/player-stats.mjs';
-import gameModes from '../../data/game-modes.json';
+import playerStats from "../../modules/player-stats.mjs";
+import gameModes from "../../data/game-modes.json";
 
-import './index.css';
+import "./index.css";
 
 function Players() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -26,16 +26,16 @@ function Players() {
 
     const { t } = useTranslation();
 
-    const enterPress = useKeyPress('Enter');
+    const enterPress = useKeyPress("Enter");
 
     const gameModeSetting = useSelector((state) => state.settings.gameMode);
     const defaultGameMode = useMemo(() => {
-        return searchParams.get('gameMode') ?? gameModeSetting;
+        return searchParams.get("gameMode") ?? gameModeSetting;
     }, [searchParams, gameModeSetting]);
     const [gameMode, setGameMode] = useState(defaultGameMode);
-    const lastSearch = useRef({ name: '', gameMode });
+    const lastSearch = useRef({ name: "", gameMode });
 
-    const [nameFilter, setNameFilter] = useState('');
+    const [nameFilter, setNameFilter] = useState("");
     const [nameResults, setNameResults] = useState([]);
     const [nameResultsError, setNameResultsError] = useState(false);
 
@@ -49,9 +49,7 @@ function Players() {
         const lengthValid = !!nameFilter.match(/^[a-zA-Z0-9-_]{3,15}$|^TarkovCitizen\d{1,10}$/i);
         setNameResultsError(false);
         if (!charactersValid) {
-            setNameResultsError(
-                `Names can only contain letters, numbers, dashes (-), and underscores (_)`,
-            );
+            setNameResultsError(`Names can only contain letters, numbers, dashes (-), and underscores (_)`);
         }
         return charactersValid && lengthValid;
     }, [nameFilter, setNameResultsError]);
@@ -69,7 +67,7 @@ function Players() {
             return;
         }
         if (!turnstileToken.current) {
-            setNameResultsError('Turnstile challenge not solved');
+            setNameResultsError("Turnstile challenge not solved");
             if (turnstileRef.current?.reset) {
                 turnstileRef.current.reset();
             }
@@ -83,16 +81,16 @@ function Players() {
             setSearching(true);
             setNameResultsError(false);
             setNameResults(
-                (
-                    await playerStats.searchPlayers(nameFilter, gameMode, turnstileToken.current)
-                ).sort((a, b) => a.name.localeCompare(b.name)),
+                (await playerStats.searchPlayers(nameFilter, gameMode, turnstileToken.current)).sort((a, b) =>
+                    a.name.localeCompare(b.name),
+                ),
             );
             setSearched(true);
             lastSearch.current.name = nameFilter;
             lastSearch.current.gameMode = gameMode;
         } catch (error) {
             setSearched(false);
-            lastSearch.current.name = '';
+            lastSearch.current.name = "";
             setNameResults([]);
             setNameResultsError(error.message);
         } finally {
@@ -102,26 +100,18 @@ function Players() {
         if (turnstileRef.current?.reset) {
             turnstileRef.current.reset();
         }
-    }, [
-        nameFilter,
-        searchTextValid,
-        setNameResults,
-        setNameResultsError,
-        turnstileToken,
-        turnstileRef,
-        gameMode,
-    ]);
+    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileToken, turnstileRef, gameMode]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
-            return '';
+            return "";
         }
         if (nameResults.length < 1) {
-            return <p>{t('No players with this name')}</p>;
+            return <p>{t("No players with this name")}</p>;
         }
-        let morePlayers = '';
+        let morePlayers = "";
         if (nameResults.length >= 5) {
-            morePlayers = <p>{t('Refine your search to get better results')}</p>;
+            morePlayers = <p>{t("Refine your search to get better results")}</p>;
         }
         return (
             <div>
@@ -147,18 +137,18 @@ function Players() {
 
     return [
         <SEO
-            title={`${t('Players')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            title={`${t("Players")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
             description={t(
-                'players-page-description',
-                'Search Escape from Tarkov players. View player profiles and see their stats.',
+                "players-page-description",
+                "Search Escape from Tarkov players. View player profiles and see their stats.",
             )}
             key="seo-wrapper"
         />,
-        <div className={'page-wrapper'} key="players-page-wrapper">
+        <div className={"page-wrapper"} key="players-page-wrapper">
             <div className="players-headline-wrapper" key="players-headline">
                 <h1 className="players-page-title">
                     <Icon path={mdiAccountSearch} size={1.5} className="icon-with-text" />
-                    {t('Players')}
+                    {t("Players")}
                 </h1>
             </div>
             <div>
@@ -167,10 +157,10 @@ function Players() {
                     <p>Search for Escape From Tarkov players and view their profiles.</p>
                 </Trans>
             </div>
-            <label className={'single-filter-wrapper'} style={{ marginBottom: '1em' }}>
-                <span className={'single-filter-label'}>{t('Game mode')}</span>
+            <label className={"single-filter-wrapper"} style={{ marginBottom: "1em" }}>
+                <span className={"single-filter-label"}>{t("Game mode")}</span>
                 <Select
-                    label={t('Game mode')}
+                    label={t("Game mode")}
                     placeholder={t(`game_mode_${defaultGameMode}`)}
                     defaultValue={defaultGameMode}
                     options={gameModes.map((m) => {
@@ -183,11 +173,7 @@ function Players() {
                     classNamePrefix="select"
                     onChange={(event) => {
                         setSearchParams({ gameMode: event.value });
-                        if (
-                            searchTextValid &&
-                            gameMode !== event.value &&
-                            !!turnstileToken.current
-                        ) {
+                        if (searchTextValid && gameMode !== event.value && !!turnstileToken.current) {
                             setButtonDisabled(false);
                         }
                         setGameMode(event.value);
@@ -196,9 +182,9 @@ function Players() {
             </label>
             <div className="search-controls">
                 <InputFilter
-                    label={t('Player Name')}
+                    label={t("Player Name")}
                     defaultValue={nameFilter}
-                    placeholder={t('Between 3 and 15 characters')}
+                    placeholder={t("Between 3 and 15 characters")}
                     type="text"
                     onChange={(event) => {
                         let newNameFilter = event.target.value;
@@ -206,12 +192,8 @@ function Players() {
                     }}
                     className="player-name-search"
                 />
-                <button
-                    className="search-button"
-                    onClick={searchForName}
-                    disabled={isButtonDisabled}
-                >
-                    {searching ? <LoadingSmall /> : t('Search')}
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>
+                    {searching ? <LoadingSmall /> : t("Search")}
                 </button>
             </div>
             {!!nameResultsError && (
@@ -228,17 +210,15 @@ function Players() {
                 }}
                 onError={(errorCode) => {
                     // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
-                    if (errorCode === '110200') {
-                        setNameResultsError(
-                            `Turnstile error: ${window.location.hostname} is not a valid hostname`,
-                        );
-                    } else if (errorCode.startsWith('600')) {
-                        setNameResultsError('Turnstile challenge failed');
+                    if (errorCode === "110200") {
+                        setNameResultsError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                    } else if (errorCode.startsWith("600")) {
+                        setNameResultsError("Turnstile challenge failed");
                     } else {
                         setNameResultsError(`Turnstile error code ${errorCode}`);
                     }
                 }}
-                options={{ appearance: 'interaction-only' }}
+                options={{ appearance: "interaction-only" }}
             />
             {!nameResultsError && searchResults}
         </div>,

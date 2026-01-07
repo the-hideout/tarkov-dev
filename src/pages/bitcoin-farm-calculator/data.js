@@ -1,21 +1,18 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import useItemsData from '../../features/items/index.js';
-import {
-    selectAllSkills,
-    selectAllStations,
-} from '../../features/settings/settingsSlice.mjs';
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import useItemsData from "../../features/items/index.js";
+import { selectAllSkills, selectAllStations } from "../../features/settings/settingsSlice.mjs";
 
 // https://escapefromtarkov.fandom.com/wiki/Hideout
 const calculateMSToProduceBTC = (numCards, duration = 300000) => {
     return (duration / (1 + (numCards - 1) * 0.041225)) * 1000;
 };
 
-export const BitcoinItemId = '59faff1d86f7746c51718c9c';
-export const GraphicCardItemId = '57347ca924597744596b4e71';
+export const BitcoinItemId = "59faff1d86f7746c51718c9c";
+export const GraphicCardItemId = "57347ca924597744596b4e71";
 
-export const MetalFuelTankItemId = '5d1b36a186f7742523398433';
-export const ExpeditionaryFuelTankItemId = '5d1b371186f774253763a656';
+export const MetalFuelTankItemId = "5d1b36a186f7742523398433";
+export const ExpeditionaryFuelTankItemId = "5d1b371186f774253763a656";
 
 const FuelDurations = {
     [ExpeditionaryFuelTankItemId]: {
@@ -33,11 +30,7 @@ export const ProduceBitcoinData = {};
 
 const createProduceBitcoinData = (duration) => {
     ProduceBitcoinData[duration] = {};
-    for (
-        let count = MinNumGraphicsCards;
-        count <= MaxNumGraphicsCards;
-        count = count + 1
-    ) {
+    for (let count = MinNumGraphicsCards; count <= MaxNumGraphicsCards; count = count + 1) {
         const msToProduceBTC = calculateMSToProduceBTC(count, duration);
         const hoursToProduceBTC = msToProduceBTC / 60 / 60 / 1000;
         const btcPerHour = 1 / hoursToProduceBTC;
@@ -68,7 +61,7 @@ export const getMaxSellFor = (item) => {
         }
     }
 
-    return {...max};
+    return { ...max };
 };
 
 export const getMinBuyFor = (item) => {
@@ -79,7 +72,7 @@ export const getMinBuyFor = (item) => {
         }
     }
 
-    return {...min};
+    return { ...min };
 };
 
 const getBestFuelItem = (items) => {
@@ -93,8 +86,8 @@ const getBestFuelItem = (items) => {
             return current;
         }
         return best;
-    }, false)
-}
+    }, false);
+};
 
 export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
@@ -102,11 +95,11 @@ export const useFuelPricePerDay = () => {
     const { data: items } = useItemsData();
 
     const metalFuelTankItem = useMemo(() => {
-        return items.find(item => item.id === MetalFuelTankItemId);
+        return items.find((item) => item.id === MetalFuelTankItemId);
     }, [items]);
 
     const expeditionaryFuelTankItem = useMemo(() => {
-        return items.find(item => item.id === ExpeditionaryFuelTankItemId);
+        return items.find((item) => item.id === ExpeditionaryFuelTankItemId);
     }, [items]);
 
     if (!metalFuelTankItem?.buyFor.length || !expeditionaryFuelTankItem?.buyFor.length) {
@@ -125,13 +118,10 @@ export const useFuelPricePerDay = () => {
 
     // https://escapefromtarkov.fandom.com/wiki/Hideout_management
     // 0.5% per level, but 25% max
-    const skillFuelDecreasedConsumptionRate = Math.min(
-        0.005 * skills['hideout-management'],
-        0.25,
-    );
+    const skillFuelDecreasedConsumptionRate = Math.min(0.005 * skills["hideout-management"], 0.25);
     durationMs = durationMs / (1 - skillFuelDecreasedConsumptionRate);
 
-    if (stations['solar-power'] === 1) {
+    if (stations["solar-power"] === 1) {
         durationMs = durationMs * 2;
     }
 

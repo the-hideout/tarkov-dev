@@ -1,24 +1,27 @@
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism/index.js';
-import { Trans, useTranslation } from 'react-i18next';
-import { HashLink } from 'react-router-hash-link';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark as atomOneDark } from "react-syntax-highlighter/dist/esm/styles/prism/index.js";
+import { Trans, useTranslation } from "react-i18next";
+import { HashLink } from "react-router-hash-link";
 
-import SEO from '../../components/SEO.jsx';
+import SEO from "../../components/SEO.jsx";
 //import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 
-import './index.css';
+import "./index.css";
 
 function APIDocs() {
     const { t } = useTranslation();
     return [
-        <SEO 
-            title={`${t('API Documentation')} - ${t('Tarkov.dev')}`}
-            description={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
+        <SEO
+            title={`${t("API Documentation")} - ${t("Tarkov.dev")}`}
+            description={t(
+                "api-docs-page-description",
+                "Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.",
+            )}
             key="seo-wrapper"
         />,
-        <div className={'page-wrapper api-docs-page-wrapper'}>
-            <h1>{t('Tarkov.dev API')}</h1>
-            <h2>{t('About')}</h2>
+        <div className={"page-wrapper api-docs-page-wrapper"}>
+            <h1>{t("Tarkov.dev API")}</h1>
+            <h2>{t("About")}</h2>
             {/* prettier-ignore */}
             <Trans i18nKey={'api-about-p'}>
                 <div className="section-text-wrapper">
@@ -38,20 +41,20 @@ function APIDocs() {
                     Once you're ready to send API queries from outside the playground, the endpoint is: <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">https://api.tarkov.dev/graphql</a>.
                 </div>
             </Trans>
-            <h2>{t('FAQ')}</h2>
+            <h2>{t("FAQ")}</h2>
             <div className="section-text-wrapper">
-                <h3>{t('Is it free?')}</h3>
-                {t('Yes')}
+                <h3>{t("Is it free?")}</h3>
+                {t("Yes")}
             </div>
             <div className="section-text-wrapper">
-                <h3>{t('Is it open source?')}</h3>
+                <h3>{t("Is it open source?")}</h3>
                 {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-open-source-p'}>
                     Of course! Source code for the API can be found in its GitHub repo: <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-api</a>.
                 </Trans>
             </div>
             <div className="section-text-wrapper">
-                <h3>{t('Is there a rate limit?')}</h3>
+                <h3>{t("Is there a rate limit?")}</h3>
                 {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-rate-limit-p'}>
                     We occasionally get hit with a lot of traffic from bad actors that require implementing rate limits.
@@ -60,7 +63,7 @@ function APIDocs() {
                 </Trans>
             </div>
             <div className="section-text-wrapper">
-                <h3>{t('What about caching?')}</h3>
+                <h3>{t("What about caching?")}</h3>
                 {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-caching-p'}>
                     Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.
@@ -68,8 +71,8 @@ function APIDocs() {
                 </Trans>
             </div>
             <div className="section-text-wrapper">
-                <h3>{t('Where is the data from?')}</h3>
-                {t('We source data from multiple places to build an API as complete as possible. We use data from:')}
+                <h3>{t("Where is the data from?")}</h3>
+                {t("We source data from multiple places to build an API as complete as possible. We use data from:")}
                 <ul>
                     <li>
                         <a href="https://tarkov-changes.com/" target="_blank" rel="noopener noreferrer">
@@ -77,19 +80,27 @@ function APIDocs() {
                         </a>
                     </li>
                     <li>
-                        <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Escape from Tarkov Wiki
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/TarkovTracker/tarkovdata/" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://github.com/TarkovTracker/tarkovdata/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             TarkovTracker/tarkovdata
                         </a>
                     </li>
-                    <li>{t('Our network of scanners')}</li>
+                    <li>{t("Our network of scanners")}</li>
                 </ul>
             </div>
-            <h2>{t('Examples')}</h2>
+            <h2>{t("Examples")}</h2>
             <ul>
                 <li>
                     <HashLink to="#browser-js">Browser JS</HashLink>
@@ -123,7 +134,7 @@ function APIDocs() {
                 </li>
             </ul>
             <div className="example-wrapper">
-                <h3 id="browser-js">Browser JS {t('example')}</h3>
+                <h3 id="browser-js">Browser JS {t("example")}</h3>
                 <SyntaxHighlighter language="javascript" style={atomOneDark}>
                     {`fetch('https://api.tarkov.dev/graphql', {
   method: 'POST',
@@ -143,7 +154,7 @@ function APIDocs() {
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
-                <h3 id="node-js">Node JS {t('example')}</h3>
+                <h3 id="node-js">Node JS {t("example")}</h3>
                 <SyntaxHighlighter language="javascript" style={atomOneDark}>
                     {`import { request, gql } from 'graphql-request'
 
@@ -161,7 +172,7 @@ request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
-                <h3 id="python">Python {t('example')}</h3>
+                <h3 id="python">Python {t("example")}</h3>
                 <SyntaxHighlighter language="python" style={atomOneDark}>
                     {`import requests
 
@@ -189,10 +200,12 @@ print(result)`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
-                <h3 id="ruby">Ruby {t('example')}</h3>
+                <h3 id="ruby">Ruby {t("example")}</h3>
                 <cite>
-                    <span>{t('Contributed by')} </span>
-                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">GrantBirki</a>
+                    <span>{t("Contributed by")} </span>
+                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">
+                        GrantBirki
+                    </a>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
                     {`# frozen_string_literal: true
@@ -222,7 +235,7 @@ puts response.body`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
-                <h3 id="cli">CLI {t('example')}</h3>
+                <h3 id="cli">CLI {t("example")}</h3>
                 <SyntaxHighlighter language="bash" style={atomOneDark}>
                     {`curl -X POST \
 -H "Content-Type: application/json" \
@@ -231,7 +244,7 @@ https://api.tarkov.dev/graphql`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
-                <h3 id="php">PHP {t('example')}</h3>
+                <h3 id="php">PHP {t("example")}</h3>
                 <SyntaxHighlighter language="php" style={atomOneDark}>
                     {`$headers = ['Content-Type: application/json'];
 
@@ -254,10 +267,12 @@ return json_decode($data, true);`}
             </div>
             <div className="example-wrapper">
                 <h3 id="java-11">
-                    <span>Java 11's HttpClient {t('example')}</span>
+                    <span>Java 11's HttpClient {t("example")}</span>
                     <cite>
-                        <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
+                        <span>{t("Contributed by")} </span>
+                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">
+                            HeyBanditoz
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="java" style={atomOneDark}>
@@ -287,8 +302,8 @@ class Scratch {
             </div>
             <div className="example-wrapper">
                 <h3 id="csharp">
-                    <span>C# {t('example')}</span>
-                    <cite>{t('Contributed by')} BambusBo</cite>
+                    <span>C# {t("example")}</span>
+                    <cite>{t("Contributed by")} BambusBo</cite>
                 </h3>
                 <SyntaxHighlighter language="csharp" style={atomOneDark}>
                     {`var data = new Dictionary<string, string>()
@@ -313,10 +328,12 @@ using (var httpClient = new HttpClient())
             </div>
             <div className="example-wrapper">
                 <h3 id="go">
-                    <span>Go {t('example')}</span>
+                    <span>Go {t("example")}</span>
                     <cite>
-                        <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
+                        <span>{t("Contributed by")} </span>
+                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">
+                            HeyBanditoz
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="go" style={atomOneDark}>
@@ -356,10 +373,12 @@ func main() {
             </div>
             <div className="example-wrapper">
                 <h3 id="luvit">
-                    <span>Lua (Luvit) {t('example')}</span>
+                    <span>Lua (Luvit) {t("example")}</span>
                     <cite>
-                        <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">AntwanR942</a>
+                        <span>{t("Contributed by")} </span>
+                        <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">
+                            AntwanR942
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="lua" style={atomOneDark}>
