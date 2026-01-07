@@ -555,9 +555,9 @@ class ItemsQuery extends APIQuery {
         }
 
         const flea = otherData.data.fleaMarket;
-        localStorageWriteJson('Ti', flea.sellOfferFeeRate);
-        localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
-        localStorageWriteJson('fleaEnabled', flea.enabled);
+        localStorageWriteJson("Ti", flea.sellOfferFeeRate);
+        localStorageWriteJson("Tr", flea.sellRequirementFeeRate);
+        localStorageWriteJson("fleaEnabled", flea.enabled);
 
         const allItems = itemData.data.items.map((rawItem) => {
             // calculate grid
