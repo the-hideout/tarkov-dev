@@ -322,6 +322,7 @@ function Ammo() {
             </div>
             
             <div className="page-wrapper ammo-page-wrapper">
+            {/* prettier-ignore */}
             <Trans i18nKey={'ammo-page-p'}>
                 <p>
                     The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed.

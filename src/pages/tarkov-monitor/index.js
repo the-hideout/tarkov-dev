@@ -33,6 +33,7 @@ function TarkovMonitorPage() {
         <div>
           <p className="eyebrow">{t("Companion app")}</p>
           <h1>{t("TarkovMonitor")}</h1>
+          {/* prettier-ignore */}
           <Trans i18nKey="tarkov-monitor-hero">
             <p>
               {t(

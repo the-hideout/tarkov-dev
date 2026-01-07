@@ -63,6 +63,7 @@ function Backpacks() {
             />
             
             <div className="page-wrapper backpacks-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'backpacks-page-p'}>
                     <p>
                         {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}

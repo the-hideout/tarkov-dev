@@ -19,6 +19,7 @@ function APIDocs() {
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'api-about-p'}>
                 <div className="section-text-wrapper">
                     The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes. 
@@ -44,12 +45,14 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-open-source-p'}>
                     Of course! Source code for the API can be found in its GitHub repo: <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-api</a>.
                 </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-rate-limit-p'}>
                     We occasionally get hit with a lot of traffic from bad actors that require implementing rate limits.
                     Price data is updated every 5 minutes, so there's really no need to query faster than that.
@@ -58,6 +61,7 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'api-faq-caching-p'}>
                     Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.
                     This helps to greatly reduce the load on our servers while making your requests speedy quick!

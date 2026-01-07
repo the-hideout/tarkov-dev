@@ -61,6 +61,7 @@ function Prestiges() {
             </div>
         </div>
             <div>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'prestige-page-p'}>
                     <p>
                         Prestige in Escape from Tarkov provides access to a number of unique cosmetic items.

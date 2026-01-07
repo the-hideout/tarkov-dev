@@ -169,6 +169,7 @@ function Quests() {
             />
 
             <div>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'quests-page-p'}>
                     <p>
                         Traders in Escape from Tarkov have a number of tasks you can complete.

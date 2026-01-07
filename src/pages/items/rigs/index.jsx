@@ -129,6 +129,7 @@ function Rigs() {
             />
 
             <div className="page-wrapper rigs-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'rigs-page-p'}>
                     <p>
                         {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}

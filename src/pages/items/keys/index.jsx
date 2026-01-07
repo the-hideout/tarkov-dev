@@ -77,6 +77,7 @@ function Keys() {
             />
 
             <div className="page-wrapper keys-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'keys-page-p'}>
                     <p>
                         {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}

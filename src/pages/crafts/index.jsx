@@ -226,6 +226,7 @@ function Crafts() {
             />
 
             <div className="page-wrapper crafts-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'crafts-page-p'}>
                     <p>
                         In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit.

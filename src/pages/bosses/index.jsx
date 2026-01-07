@@ -36,6 +36,7 @@ function Bosses(props) {
             <hr className='desc-line-break' />
             <div className="bosses-page-wrapper">
                 <h3>{t('About Bosses')}</h3>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'bosses-page-p'}>
                     <p>
                         In Escape from Tarkov, there are many bosses that roam the area of besieged Norvinsk.

@@ -77,6 +77,7 @@ function Grenades() {
             />
 
             <div className="page-wrapper grenades-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'grenades-page-p'}>
                     <p>
                         {"There are only a handful distinct types of grenades that may be thrown or launched in Escape from Tarkov, and each one has a unique effect: flash, smokes, high explosive, and fragmentation."}

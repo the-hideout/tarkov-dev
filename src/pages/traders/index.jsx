@@ -68,6 +68,7 @@ function Traders(props) {
             <hr className='desc-line-break' />
             <div className="traders-page-wrapper">
                 <h3>{t('About Traders')}</h3>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'traders-page-p'}>
                     <p>
                         The backbones of trade in the destroyed, besieged Norvinsk. In Escape from Tarkov, each merchant specialized in a particular kind of products, such as medical supplies, weaponry, or military equipment. Although their prices are typically high, you get what you pay for.

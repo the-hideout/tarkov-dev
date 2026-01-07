@@ -156,6 +156,7 @@ function Armors(props) {
             />
             
             <div className="page-wrapper armors-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'armors-page-p'}>
                     <p>
                         {"In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them."}

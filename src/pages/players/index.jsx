@@ -162,6 +162,7 @@ function Players() {
                 </h1>
             </div>
             <div>
+                {/* prettier-ignore */}
                 <Trans i18nKey={'players-page-p'}>
                     <p>Search for Escape From Tarkov players and view their profiles.</p>
                 </Trans>

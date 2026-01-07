@@ -271,6 +271,7 @@ function StashBotPage() {
 
       <section id="support">
         <h2>{t("Support & feedback")}</h2>
+        {/* prettier-ignore */}
         <Trans i18nKey="stash-support">
           <p>
             Stash is maintained by the Tarkov.dev team. Bugs or feature ideas?

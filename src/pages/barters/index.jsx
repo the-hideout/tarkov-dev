@@ -170,6 +170,7 @@ function Barters() {
             />
 
             <div className="page-wrapper barters-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'barters-page-p'}>
                     <p>
                         Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright.

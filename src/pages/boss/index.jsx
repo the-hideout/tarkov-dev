@@ -436,6 +436,7 @@ function BossPage(params) {
                     <div className="main-content">
                       {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
                         <p className='entity-details'>
+                          {/* prettier-ignore */}
                           <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
                         </p>
                       }
@@ -443,6 +444,7 @@ function BossPage(params) {
                         <div>
                           <h3>{t('Behavior')}</h3>
                           <p className='entity-details'>
+                            {/* prettier-ignore */}
                             <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
                           </p>
                         </div>
@@ -504,6 +506,7 @@ function BossPage(params) {
                         {t('Spawn Locations')}
                     </h2>
                     <ul>
+                        {/* prettier-ignore */}
                         <Trans i18nKey="boss-spawn-table-description">
                         <li>Map: The name of the map which the boss can spawn on</li>
                         <li>Spawn Location: The exact location on the given map which the boss can spawn</li>

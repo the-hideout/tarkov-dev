@@ -52,6 +52,7 @@ function Glasses() {
             />
 
             <div className="page-wrapper glasses-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'glasses-page-p'}>
                     <p>
                         {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}

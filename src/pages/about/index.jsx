@@ -45,47 +45,55 @@ function About() {
         <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-open-source-p'}>
                 <p>
                     The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
                 </p>
             </Trans>
             <h2>{t('Discussions & feedback')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-discord-p'}>
                 <p>
                     If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/WwTvNe356u" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                 </p>
             </Trans>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-x-p'}>
                 <p>
                     Follow us on <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><XIcon /> X</a> for all the latest updates.
                 </p>
             </Trans>
             <h2>{t('Support')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-support-ukraine-p'}>
             <p>
                 We encourage everyone who can to donate to support the people of Ukraine using the button below.
             </p>
             </Trans>
             <UkraineButton large={false}/>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-support-collective-p'}>
             <p>
                 If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
             </p>
             </Trans>
             <OpenCollectiveButton large={false}/>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-support-more-p'}>
             <p>
                 You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.
             </p>
             </Trans>
             <h2>{t('API')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-api-p'}>
             <p>
                 We offer a 100% free and publically accessible API for all your Tarkov development needs - <Link to="/api/">API</Link>.
             </p>
             </Trans>
             <h2>{t('History')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-history-p'}>
             <p>
                 This project is a fork of <a href="https://github.com/kokarn/tarkov-tools" target="_blank" rel="noopener noreferrer">tarkov-tools.com</a>.
@@ -96,6 +104,7 @@ function About() {
             </p>
             </Trans>
             <h2>{t('Core Contributors')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-core-contributors-p'}>
             <p>
                 The core contributors to this project (in no particular order) are:
@@ -148,6 +157,7 @@ function About() {
                 </ul>
             </ThemeProvider>
             <h2>{t('All Contributors')}</h2>
+            {/* prettier-ignore */}
             <Trans i18nKey={'about-all-contributors-p'}>
             <p>
                 Massive thank you to all the people that have contributed to this project to make it possible! ❤️

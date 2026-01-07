@@ -37,6 +37,7 @@ function Maps() {
                 {t('Maps')}
             </h1>
             <div className="page-wrapper map-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'maps-page-p'}>
                     <p>
                         There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far.

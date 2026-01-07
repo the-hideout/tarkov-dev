@@ -96,6 +96,7 @@ function PistolGrips() {
             />
 
             <div className="page-wrapper pistol-grips-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'pistol-grips-page-p'}>
                     <p>
                         {"In Escape from Tarkov a pistol grips and stocks are vital parts of a weapon."}

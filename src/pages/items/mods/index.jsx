@@ -79,6 +79,7 @@ function Mods() {
             />
 
             <div className="page-wrapper mods-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'mods-page-p'}>
                     <p>
                         {"In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:"}

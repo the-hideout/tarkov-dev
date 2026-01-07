@@ -75,6 +75,7 @@ function OtherTools() {
         <Icon path={mdiTools} size={1.5} className="icon-with-text" />
         {t("More Tools")}
       </h1>
+      {/* prettier-ignore */}
       <Trans i18nKey="other-tools-body">
         <p className="page-intro">
           Tarkov.dev is more than a website. These tools extend your raids,

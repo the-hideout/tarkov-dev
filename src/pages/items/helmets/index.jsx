@@ -126,6 +126,7 @@ function Helmets() {
             />
 
             <div className="page-wrapper helmets-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'helmets-page-p'}>
                     <p>
                         {"In Escape from Tarkov, headgear serves a variety of functions."}

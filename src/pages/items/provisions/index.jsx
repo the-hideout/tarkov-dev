@@ -97,6 +97,7 @@ function Provisions() {
             />
 
             <div className="page-wrapper provisions-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'provisions-page-p'}>
                     <p>
                         {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}

@@ -79,6 +79,7 @@ function Headsets() {
             />
 
             <div className="page-wrapper headsets-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'headsets-page-p'}>
                     <p>
                         {"In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models."}

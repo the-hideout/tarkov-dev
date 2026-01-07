@@ -219,6 +219,7 @@ function Control(props) {
                 {t('Load tarkov.dev in another browser or window to control it from here')}
             </div>
             <Connect />
+            {/* prettier-ignore */}
             <Trans i18nKey={'control-info-p'}>
                 <p>This page allows you to control the Tarkov.dev website using another browser. The typical use case is to have the Tarkov.dev website open in a browser on a second monitor while you play the game and this page open on your phone or another device so that you can navigate to different pages on the Tarkov.dev website without having to alt+tab out of the game. All you have to do is open the Tarkov.dev website in a browser where you want it to be displayed, click the "Click to connect" button in the lower left*, and then enter the id on this control page on the other device and click the Connect. Once connected, you can use this control page to open specific map or ammo pages in the controlled browser.</p>
                 <p>*It appears on the lower left by default but can be toggled to the lower right side of the screen. It can also be hidden by the "Hide remote control" option on the settings page.</p>
