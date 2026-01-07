@@ -33,7 +33,9 @@ import CanvasGrid from "../canvas-grid/index.jsx";
 import "./index.css";
 
 function getItemCountPrice(item) {
-    if (item.count < 2) return "";
+    if (item.count < 2) {
+        return "";
+    }
     return (
         <div key="countprice">
             {formatPrice(item.sellForTradersBest.priceRUB)} x {item.count}
@@ -781,7 +783,9 @@ function SmallItemTable(props) {
             }
             returnData = returnData
                 .filter((item) => {
-                    if (caliberFilter.length < 1) return true;
+                    if (caliberFilter.length < 1) {
+                        return true;
+                    }
                     let caliber = formatCaliber(item.properties.caliber, item.properties.ammoType);
                     if (!caliber) {
                         return false;
@@ -794,7 +798,9 @@ function SmallItemTable(props) {
                     if (caliberA === caliberB) {
                         const damageA = a.properties.damage;
                         const damageB = b.properties.damage;
-                        if (damageA === damageB) return a.name.localeCompare(b.name);
+                        if (damageA === damageB) {
+                            return a.name.localeCompare(b.name);
+                        }
                         return damageA - damageB;
                     }
                     return caliberA.localeCompare(caliberB);
@@ -805,7 +811,9 @@ function SmallItemTable(props) {
             returnData.forEach((item) => {
                 item.subRows = items
                     .filter((linkedItem) => {
-                        if (!item.properties?.slots) return false;
+                        if (!item.properties?.slots) {
+                            return false;
+                        }
                         for (const slot of item.properties.slots) {
                             const included =
                                 slot.filters.allowedItems.includes(linkedItem.id) ||
@@ -813,7 +821,9 @@ function SmallItemTable(props) {
                             const excluded =
                                 slot.filters.excludedItems.includes(linkedItem.id) ||
                                 linkedItem.categoryIds.some((catId) => slot.filters.excludedCategories.includes(catId));
-                            if (included && !excluded) return true;
+                            if (included && !excluded) {
+                                return true;
+                            }
                         }
                         return false;
                     })

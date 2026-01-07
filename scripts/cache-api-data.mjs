@@ -323,7 +323,9 @@ try {
                 if (!acc[item.trader.normalizedName]) {
                     acc[item.trader.normalizedName] = [];
                 }
-                if (item.minPlayerLevel < 20) acc[item.trader.normalizedName].push(item);
+                if (item.minPlayerLevel < 20) {
+                    acc[item.trader.normalizedName].push(item);
+                }
                 return acc;
             }, {});
             const filteredQuestsDic = Object.values(groupedQuestsDic).map((group) => group.slice(0, 20));

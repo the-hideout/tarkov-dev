@@ -17,7 +17,9 @@ function ID(props) {
     const sessionText = props.socketEnabled ? props.sessionID : t("Click to connect");
 
     const handleCopyClick = async () => {
-        if (!props.socketEnabled) return;
+        if (!props.socketEnabled) {
+            return;
+        }
 
         try {
             await navigator.clipboard.writeText(props.sessionID);

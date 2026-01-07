@@ -195,7 +195,9 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     if (rewardItem.item.id === itemFilter) {
                         return true;
                     }
-                    if (!rewardItem.item.containsItems) continue;
+                    if (!rewardItem.item.containsItems) {
+                        continue;
+                    }
                     for (const contained of rewardItem.item.containsItems) {
                         if (!contained) {
                             continue;

@@ -76,7 +76,9 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
 
             return sorted
                 .reduce((allItems, current) => {
-                    if (!allItems.some((item) => item.id === current.id)) allItems.push(current);
+                    if (!allItems.some((item) => item.id === current.id)) {
+                        allItems.push(current);
+                    }
                     return allItems;
                 }, [])
                 .sort((a, b) => {

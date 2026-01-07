@@ -46,7 +46,9 @@ export const formatCaliber = (caliber, type) => {
     let formattedCaliber = caliberMap[caliber] ?? caliber?.replace("Caliber", "") ?? undefined;
 
     if (formattedCaliber === "12 Gauge" || formattedCaliber === "20 Gauge") {
-        if (formattedCaliber && type) formattedCaliber += type === "bullet" ? " Slug" : " Shot";
+        if (formattedCaliber && type) {
+            formattedCaliber += type === "bullet" ? " Slug" : " Shot";
+        }
     }
 
     return formattedCaliber;

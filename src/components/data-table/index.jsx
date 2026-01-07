@@ -198,7 +198,9 @@ function DataTable({
                                                   .map((row) => {
                                                       const val = row.cells[colIndex].value;
                                                       const count = row.original?.count ? row.original.count : 1;
-                                                      if (isNaN(val)) return false;
+                                                      if (isNaN(val)) {
+                                                          return false;
+                                                      }
                                                       return val * count;
                                                   })
                                                   .filter(Boolean)

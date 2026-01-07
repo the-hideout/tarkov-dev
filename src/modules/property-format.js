@@ -115,7 +115,9 @@ const formatter = (key, value, id) => {
             ?.sort((a, b) => a.width * a.height - b.width * b.height)
             .forEach((grid) => {
                 const gridLabel = grid.width + "x" + grid.height;
-                if (!gridCounts[gridLabel]) gridCounts[gridLabel] = 0;
+                if (!gridCounts[gridLabel]) {
+                    gridCounts[gridLabel] = 0;
+                }
                 gridCounts[gridLabel]++;
             });
         const displayGrids = [];
@@ -136,7 +138,9 @@ const formatter = (key, value, id) => {
     if (key === "categories") {
         value = value
             ?.map((category) => {
-                if (ignoreCategories.includes(category.id)) return false;
+                if (ignoreCategories.includes(category.id)) {
+                    return false;
+                }
                 return itemCategoryLinkFormat(category);
             })
             .filter(Boolean);

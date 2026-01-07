@@ -362,7 +362,9 @@ function QuestTable({
                             return null;
                         }
                         const reqQuest = quests.find((quest) => quest.id === req.task.id);
-                        if (!reqQuest) return null;
+                        if (!reqQuest) {
+                            return null;
+                        }
                         let completedIcon = "";
                         if (req.status.includes("complete") && settings.completedQuests.includes(req.task.id)) {
                             completedIcon = <Icon path={mdiClipboardCheck} size={0.75} className="icon-with-text" />;

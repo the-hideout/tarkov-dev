@@ -10,7 +10,9 @@ import CenterCell from "../center-cell/index.jsx";
 import "./index.css";
 
 function getItemCountPrice(price, currency = "RUB", count = 1) {
-    if (count < 2) return "";
+    if (count < 2) {
+        return "";
+    }
     return (
         <div key="countprice">
             {formatPrice(price, currency)} x {count}
@@ -28,7 +30,9 @@ function TraderPriceCell(props) {
         if (current.vendor.normalizedName === "flea-market") {
             return previous;
         }
-        if (!previous || current.priceRUB < previous.priceRUB) return current;
+        if (!previous || current.priceRUB < previous.priceRUB) {
+            return current;
+        }
         return previous;
     }, false);
 
@@ -36,7 +40,9 @@ function TraderPriceCell(props) {
         return null;
     }
     let count = 1;
-    if (props.row.original.count) count = props.row.original.count;
+    if (props.row.original.count) {
+        count = props.row.original.count;
+    }
     let printString =
         bestBuyFor.currency !== "RUB" ? (
             <Tooltip title={formatPrice(bestBuyFor.priceRUB * count)} placement="bottom" arrow>

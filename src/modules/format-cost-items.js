@@ -31,8 +31,12 @@ function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
     });
     if (!buySource || buySource.length === 0) {
         let sellToTrader = item.sellFor.filter((sellFor) => {
-            if (sellFor.vendor.normalizedName === "flea-market") return false;
-            if (!allowAllSources && sellFor.vendor.normalizedName === "jaeger" && !settings.jaeger) return false;
+            if (sellFor.vendor.normalizedName === "flea-market") {
+                return false;
+            }
+            if (!allowAllSources && sellFor.vendor.normalizedName === "jaeger" && !settings.jaeger) {
+                return false;
+            }
             return true;
         });
         let sourceType = "cash-sell";

@@ -45,5 +45,8 @@ export function getRelativeTimeAndUnit(d1, d2 = new Date()) {
     var elapsed = d1 - d2;
 
     // "Math.abs" accounts for both "past" & "future" scenarios
-    for (var u in units) if (Math.abs(elapsed) > units[u] || u === "second") return [Math.round(elapsed / units[u]), u];
+    for (var u in units)
+        if (Math.abs(elapsed) > units[u] || u === "second") {
+            return [Math.round(elapsed / units[u]), u];
+        }
 }

@@ -17,7 +17,9 @@ function processFetchedItems(allData) {
 
         item.categoryIds = item.categories.map((cat) => cat.id);
 
-        if (item.properties) item.properties.weight = item.weight;
+        if (item.properties) {
+            item.properties.weight = item.weight;
+        }
 
         if (item.types.includes("gun")) {
             item.containsItems = [];

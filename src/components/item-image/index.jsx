@@ -45,7 +45,7 @@ function ItemImage({
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
-        if (!refContainer.current) return;
+        if (!refContainer.current) { return; }
         const resizeObserver = new ResizeObserver(() => {
             setDimensions({
                 width: refContainer.current.offsetWidth,
