@@ -15,7 +15,9 @@ import {
     mdiPineTree,
     mdiEarthBox,
     mdiTunnelOutline,
-} from "@mdi/js";
+    mdiFerry,
+    mdiTransitConnectionVariant,
+} from '@mdi/js';
 
 import doFetchMaps from "./do-fetch-maps.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
@@ -201,12 +203,10 @@ export const useMapImagesSortedArray = () => {
     let mapArray = Object.values(useMapImages());
 
     mapArray.sort((a, b) => {
-        if (a.normalizedName === "openworld") {
-            return 1;
-        }
-        if (b.normalizedName === "openworld") {
-            return -1;
-        }
+        if (a.normalizedName === 'openworld' && b.normalizedName !== 'transits') return 1;
+        if (b.normalizedName === 'openworld' && a.normalizedName !== 'transits') return -1;
+        if (a.normalizedName === 'transits' && b.normalizedName !== 'openworld') return 1;
+        if (b.normalizedName === 'transits' && a.normalizedName !== 'openworld') return -1;
         return a.name.localeCompare(b.name);
     });
 
@@ -214,16 +214,18 @@ export const useMapImagesSortedArray = () => {
 };
 
 export const mapIcons = {
-    "ground-zero": mdiImageFilterCenterFocusStrong,
-    "streets-of-tarkov": mdiCity,
-    "customs": mdiWarehouse,
-    "factory": mdiFactory,
-    "interchange": mdiStore24Hour,
-    "the-lab": mdiNeedle,
-    "the-labyrinth": mdiTunnelOutline,
-    "lighthouse": mdiLighthouse,
-    "reserve": mdiTank,
-    "shoreline": mdiBeach,
-    "woods": mdiPineTree,
-    "openworld": mdiEarthBox,
+    'ground-zero': mdiImageFilterCenterFocusStrong,
+    'streets-of-tarkov': mdiCity,
+    customs: mdiWarehouse,
+    factory: mdiFactory,
+    interchange: mdiStore24Hour,
+    'the-lab': mdiNeedle,
+    'the-labyrinth': mdiTunnelOutline,
+    lighthouse: mdiLighthouse,
+    reserve: mdiTank,
+    shoreline: mdiBeach,
+    terminal: mdiFerry,
+    woods: mdiPineTree,
+    transits: mdiTransitConnectionVariant,
+    openworld: mdiEarthBox,
 };

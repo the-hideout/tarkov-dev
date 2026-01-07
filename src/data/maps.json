@@ -2396,8 +2396,8 @@
                 "authorLink": "https://reemr.se"
             },
             {
-                "key": "reserve-2d-tunnels",
-                "projection": "2D",
+                "key": "reserve-3d-tunnels",
+                "projection": "3D",
                 "specific": "Tunnels",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
@@ -2596,6 +2596,24 @@
                 "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "shoreline-3d-resort",
+                "projection": "3D",
+                "specific": "Resort",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "terminal",
+        "maps": [
+            {
+                "key": "terminal-2d",
+                "projection": "2D",
+                "author": "Official",
+                "authorLink": "https://escapefromtarkov.fandom.com/wiki/Map:Terminal"
             }
         ]
     },
@@ -2709,6 +2727,20 @@
             {
                 "key": "woods-3d",
                 "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "name": "Transits",
+        "normalizedName": "transits",
+        "description": "This is a trasit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
+        "primaryPath": "/map/transits-2d",
+        "maps": [
+            {
+                "key": "transits-2d",
+                "projection": "2D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
             }
