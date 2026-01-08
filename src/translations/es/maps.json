@@ -44,6 +44,8 @@
     "Misc": "Misc",
     "openworld-name": "Mundo abierto",
     "openworld-description": "Esta es una suposición de cómo podría verse el mapa completo de Tarkov. Este mapa de mundo abierto probablemente incluiría todas las ubicaciones clave de los mapas existentes combinadas en un mapa único enorme.",
+    "transits-name": "Transits",
+    "transits-description": "This is a trasit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
     "Transit": "Transit",
     "Task, item or container...": "Task, item or container...",
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",

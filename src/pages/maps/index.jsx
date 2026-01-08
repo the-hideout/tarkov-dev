@@ -43,8 +43,8 @@ function Maps() {
                 {/* prettier-ignore */}
                 <Trans i18nKey={'maps-page-p'}>
                     <p>
-                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far.
-                        Although eventually all maps will be connected, they are currently all apart from one another.
+                        There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far. Although eventually all maps will be connected, they are
+                        currently all apart from one another.
                     </p>
                 </Trans>
 
@@ -80,10 +80,13 @@ function Maps() {
                                 // t('Factory')
                                 // t('Interchange')
                                 // t('The Lab')
+                                // t('The Labirynth')
                                 // t('Lighthouse')
                                 // t('Reserve')
                                 // t('Shoreline')
+                                // t('Terminal')
                                 // t('Woods')
+                                // t('Transit')
                                 // t('Openworld')
                                 mapsGroup.name
                             }

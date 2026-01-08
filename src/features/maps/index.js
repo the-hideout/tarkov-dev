@@ -15,6 +15,8 @@ import {
     mdiPineTree,
     mdiEarthBox,
     mdiTunnelOutline,
+    mdiFerry,
+    mdiTransitConnectionVariant,
 } from "@mdi/js";
 
 import doFetchMaps from "./do-fetch-maps.mjs";
@@ -119,7 +121,7 @@ export const useMapImages = () => {
         const mapImages = {};
         const apiImageDataMerge = (mapGroup, imageData, apiData) => {
             mapImages[imageData.key] = {
-                id: apiData?.id,
+                id: apiData?.id || mapGroup.id,
                 ...imageData,
                 name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: "maps" }),
                 normalizedName: mapGroup.normalizedName,
@@ -201,12 +203,10 @@ export const useMapImagesSortedArray = () => {
     let mapArray = Object.values(useMapImages());
 
     mapArray.sort((a, b) => {
-        if (a.normalizedName === "openworld") {
-            return 1;
-        }
-        if (b.normalizedName === "openworld") {
-            return -1;
-        }
+        if (a.normalizedName === "openworld" && b.normalizedName !== "transits") return 1;
+        if (b.normalizedName === "openworld" && a.normalizedName !== "transits") return -1;
+        if (a.normalizedName === "transits" && b.normalizedName !== "openworld") return 1;
+        if (b.normalizedName === "transits" && a.normalizedName !== "openworld") return -1;
         return a.name.localeCompare(b.name);
     });
 
@@ -224,6 +224,8 @@ export const mapIcons = {
     "lighthouse": mdiLighthouse,
     "reserve": mdiTank,
     "shoreline": mdiBeach,
+    "terminal": mdiFerry,
     "woods": mdiPineTree,
+    "transits": mdiTransitConnectionVariant,
     "openworld": mdiEarthBox,
 };
