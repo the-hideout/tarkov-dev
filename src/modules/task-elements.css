@@ -1,6 +1,6 @@
 .customization-image {
     position: relative;
-    outline: rgb(73, 81, 84) solid 1px;
+    outline: rgb(73 81 84) solid 1px;
 }
 
 .customization-name {
@@ -9,7 +9,11 @@
     right: 7px;
     color: #a4aeb4;
     font-weight: bold;
-    text-shadow: 1px 1px 0 var(--color-black), -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black);
+    text-shadow:
+        1px 1px 0 var(--color-black),
+        -1px -1px 0 var(--color-black),
+        1px -1px 0 var(--color-black),
+        -1px 1px 0 var(--color-black);
     font-size: 12px;
     text-align: right;
 }

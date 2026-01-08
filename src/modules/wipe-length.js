@@ -1,4 +1,4 @@
-import wipeDetailsJson from '../data/wipe-details.json';
+import wipeDetailsJson from "../data/wipe-details.json";
 
 // number or wipes to use when calculating the average
 const CountLastNumWipesForAverage = 6; //Infinity;
@@ -19,9 +19,7 @@ for (let i = 0; i < wipeDetailsJson.length; i += 1) {
         ongoing = true;
     }
 
-    const lengthDays = Math.floor(
-        (end.getTime() - currentWipeStart.getTime()) / (1000 * 60 * 60 * 24),
-    );
+    const lengthDays = Math.floor((end.getTime() - currentWipeStart.getTime()) / (1000 * 60 * 60 * 24));
 
     const addData = {
         ...currentWipe,
@@ -37,10 +35,7 @@ for (let i = 0; i < wipeDetailsJson.length; i += 1) {
 export function averageWipeLength() {
     const endedWipes = data.filter(({ ongoing }) => !ongoing);
     endedWipes.sort((a, b) => b.start.getTime() - a.start.getTime());
-    const calculateUsingWipes = endedWipes.slice(
-        0,
-        CountLastNumWipesForAverage,
-    );
+    const calculateUsingWipes = endedWipes.slice(0, CountLastNumWipesForAverage);
 
     let sum = 0;
     for (const endedWipe of calculateUsingWipes) {
@@ -58,5 +53,5 @@ export function wipeDetails() {
 }
 
 export function currentWipeLength() {
-    return data.find(({ongoing}) => ongoing === true).lengthDays;
+    return data.find(({ ongoing }) => ongoing === true).lengthDays;
 }

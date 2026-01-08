@@ -12,6 +12,11 @@
     width: 100%;
 }
 
+.barter-required-item-image img {
+    width: 48px;
+    height: 48px;
+}
+
 .barter-tooltip-wrapper .reward-image-wrapper img {
     height: 48px;
     width: 48px;
@@ -43,9 +48,4 @@
 
 .barter-required-item-image {
     margin-right: 10px;
-}
-
-.barter-required-item-image img {
-    width: 48px;
-    height: 48px;
 }

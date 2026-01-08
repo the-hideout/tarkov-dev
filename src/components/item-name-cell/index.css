@@ -25,7 +25,7 @@
     max-height: 10px;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .small-item-table-image-wrapper img {
         width: 64px;
         height: 64px;

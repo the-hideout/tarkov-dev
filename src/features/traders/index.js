@@ -1,41 +1,41 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import equal from 'fast-deep-equal';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 
-import { langCode, useLangCode } from '../../modules/lang-helpers.js';
-import doFetchTraders from './do-fetch-traders.mjs';
+import { langCode, useLangCode } from "../../modules/lang-helpers.js";
+import doFetchTraders from "./do-fetch-traders.mjs";
 
-import { placeholderTraders } from '../../modules/placeholder-data.js';
+import { placeholderTraders } from "../../modules/placeholder-data.js";
 
 const initialState = {
     data: placeholderTraders(langCode()),
-    status: 'idle',
+    status: "idle",
     error: null,
 };
 
-export const fetchTraders = createAsyncThunk('traders/fetchTraders', (arg, { getState }) => {
+export const fetchTraders = createAsyncThunk("traders/fetchTraders", (arg, { getState }) => {
     const state = getState();
     const gameMode = state.settings.gameMode;
-    return doFetchTraders({language: langCode(), gameMode});
+    return doFetchTraders({ language: langCode(), gameMode });
 });
 const tradersSlice = createSlice({
-    name: 'traders',
+    name: "traders",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchTraders.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchTraders.fulfilled, (state, action) => {
-            state.status = 'succeeded';
+            state.status = "succeeded";
 
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
         builder.addCase(fetchTraders.rejected, (state, action) => {
-            state.status = 'failed';
+            state.status = "failed";
             console.log(action.error);
             state.error = action.payload;
         });
@@ -77,6 +77,6 @@ export default function useTradersData() {
             clearRefreshInterval();
         };
     }, [dispatch, lang, gameMode]);
-    
+
     return { data, status, error };
-};
+}

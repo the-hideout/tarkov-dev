@@ -1,16 +1,16 @@
-import { useMemo, useState, useEffect } from 'react';
-import { Tooltip } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Icon } from '@mdi/react';
-import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
+import { useMemo, useState, useEffect } from "react";
+import { Tooltip } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Icon } from "@mdi/react";
+import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from "@mdi/js";
 
-import BarterTooltip from '../barter-tooltip/index.jsx';
-import formatPrice from '../../modules/format-price.js';
+import BarterTooltip from "../barter-tooltip/index.jsx";
+import formatPrice from "../../modules/format-price.js";
 
-import { setCustomSellValue } from '../../features/items/index.js';
+import { setCustomSellValue } from "../../features/items/index.js";
 
-import './index.css';
+import "./index.css";
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -20,8 +20,8 @@ function ItemCost({
     itemId,
     count,
     price = 0,
-    vendor = {name: 'N/A', normalizedName: 'unknown'},
-    priceType = 'cash',
+    vendor = { name: "N/A", normalizedName: "unknown" },
+    priceType = "cash",
     priceDetails,
     isTool,
     allowAllSources = false,
@@ -40,17 +40,17 @@ function ItemCost({
         setCustomPrice(price);
     }, [price, setCustomPrice]);
 
-    if (barters && typeof useBarterIngredients === 'undefined') {
+    if (barters && typeof useBarterIngredients === "undefined") {
         useBarterIngredients = true;
     }
-    if (crafts && typeof useCraftIngredients === 'undefined') {
+    if (crafts && typeof useCraftIngredients === "undefined") {
         useCraftIngredients = true;
     }
-    let { displayPrice, tooltip, displayImage} = useMemo(() => {
-        let displayPrice = '';
+    let { displayPrice, tooltip, displayImage } = useMemo(() => {
+        let displayPrice = "";
         let tooltip = false;
-        let displayImage = '';
-        if (vendor.normalizedName !== 'unknown') {
+        let displayImage = "";
+        if (vendor.normalizedName !== "unknown") {
             displayImage = (
                 <img
                     alt={vendor.name}
@@ -60,39 +60,32 @@ function ItemCost({
                 />
             );
         }
-        if (priceType === 'cached') {
+        if (priceType === "cached") {
             displayPrice = count;
-            displayImage =  (
-                <Icon
-                    path={mdiTimerSand}
-                    size={0.5}
-                    className="icon-with-text"
-                />
-            );
-            tooltip = t('Flea market prices loading');
+            displayImage = <Icon path={mdiTimerSand} size={0.5} className="icon-with-text" />;
+            tooltip = t("Flea market prices loading");
         } else if (isTool) {
-            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`
+            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`;
         } else {
             displayPrice = (
                 <span>
                     <span>{count} x </span>
-                    <span 
-                        className={`no-click${editingCustomPrice ? ' hidden' : ''}`}
+                    <span
+                        className={`no-click${editingCustomPrice ? " hidden" : ""}`}
                         onClick={(event) => {
                             setEditingCustomPrice(true);
                         }}
                     >
-                        {formatPrice(price)}{priceType === 'custom' ? '*' : ''}
+                        {formatPrice(price)}
+                        {priceType === "custom" ? "*" : ""}
                     </span>
-                    <span
-                        className={`no-click${editingCustomPrice ? '' : ' hidden'}`}
-                    >
-                        <input 
-                            className="no-click item-cost-custom-price" 
+                    <span className={`no-click${editingCustomPrice ? "" : " hidden"}`}>
+                        <input
+                            className="no-click item-cost-custom-price"
                             value={customPrice}
                             inputMode="numeric"
                             onChange={(e) => {
-                                let sanitized = e.target.value.replaceAll(/[^0-9]/g, '');
+                                let sanitized = e.target.value.replaceAll(/[^0-9]/g, "");
                                 if (sanitized) {
                                     sanitized = parseInt(sanitized);
                                 }
@@ -108,7 +101,7 @@ function ItemCost({
                                 dispatch(
                                     setCustomSellValue({
                                         itemId: itemId,
-                                        price: customPrice
+                                        price: customPrice,
                                     }),
                                 );
                                 setEditingCustomPrice(false);
@@ -122,7 +115,7 @@ function ItemCost({
                                 dispatch(
                                     setCustomSellValue({
                                         itemId: itemId,
-                                        price: false
+                                        price: false,
                                     }),
                                 );
                                 setEditingCustomPrice(false);
@@ -133,13 +126,26 @@ function ItemCost({
                 </span>
             );
         }
-        return {displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage};
-    }, [dispatch, t, vendor, priceType, itemId, count, price, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
+        return { displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage };
+    }, [
+        dispatch,
+        t,
+        vendor,
+        priceType,
+        itemId,
+        count,
+        price,
+        isTool,
+        customPrice,
+        setCustomPrice,
+        editingCustomPrice,
+        setEditingCustomPrice,
+    ]);
 
-    if (priceType === 'barter') {
+    if (priceType === "barter") {
         displayImage = (
             <img
-                alt={t('Barter')}
+                alt={t("Barter")}
                 className="item-cost-barter-icon"
                 loading="lazy"
                 src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
@@ -153,15 +159,8 @@ function ItemCost({
                 crafts={useCraftIngredients ? crafts : false}
             />
         );
-    }
-    else if (priceType === 'craft') {
-        displayImage = (
-            <Icon
-                path={mdiProgressWrench}
-                size={0.60}
-                className="craft-barter-icon sno-click"
-            />
-        );
+    } else if (priceType === "craft") {
+        displayImage = <Icon path={mdiProgressWrench} size={0.6} className="craft-barter-icon sno-click" />;
         tooltip = (
             <BarterTooltip
                 barter={priceDetails}
@@ -170,10 +169,9 @@ function ItemCost({
                 crafts={useCraftIngredients ? crafts : false}
             />
         );
-    }
-    else if (priceType === 'cash-sell' && !isTool && price !== 0) {
-        displayPrice = <span className='item-cost-cash-sell'>{displayPrice}</span>
-        tooltip = t('This item can only be sold to trader');
+    } else if (priceType === "cash-sell" && !isTool && price !== 0) {
+        displayPrice = <span className="item-cost-cash-sell">{displayPrice}</span>;
+        tooltip = t("This item can only be sold to trader");
     }
 
     return (
@@ -181,11 +179,7 @@ function ItemCost({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tooltip 
-                        placement="bottom"
-                        title={tooltip}
-                        arrow
-                    >
+                    <Tooltip placement="bottom" title={tooltip} arrow>
                         {children}
                     </Tooltip>
                 );

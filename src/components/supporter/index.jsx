@@ -1,7 +1,7 @@
-import { ReactComponent as PatreonIcon } from '../../images/Patreon.svg';
-import { ReactComponent as GithubIcon } from '../../images/Github.svg';
+import { ReactComponent as PatreonIcon } from "../../images/Patreon.svg";
+import { ReactComponent as GithubIcon } from "../../images/Github.svg";
 
-import './index.css';
+import "./index.css";
 
 function Supporter(props) {
     const supporterTypes = [];
@@ -15,7 +15,7 @@ function Supporter(props) {
     }
 
     return (
-        <div className={`supporter-wrapper ${props.inline ? 'inline' : ''}`}>
+        <div className={`supporter-wrapper ${props.inline ? "inline" : ""}`}>
             {props.link && (
                 <a href={props.link} target="_blank" rel="noopener noreferrer">
                     <div className="supporter-name-wrapper">{props.name}</div>

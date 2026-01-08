@@ -1,32 +1,40 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import SEO from '../../components/SEO.jsx';
+import SEO from "../../components/SEO.jsx";
 
-import './index.css';
+import "./index.css";
 
 function StreamElements() {
     const { t } = useTranslation();
-    const botName = 'StreamElements';
-    return (
-        <SEO 
-            title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
-            description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+    const botName = "StreamElements";
+    return [
+        <SEO
+            title={`${t("Tarkov.dev {{bot}} integration", { bot: botName })} - ${t("Tarkov.dev")}`}
+            description={t(
+                "bot-page-description",
+                "This page contains everything necessary to integrate {{bot}} with Tarkov.dev.",
+                { bot: botName },
+            )}
             key="seo-wrapper"
         />,
-        <div className={'page-wrapper stream-elements-page-wrapper'}>
-            <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>
+        <div className={"page-wrapper stream-elements-page-wrapper"}>
+            <h1>{t("Tarkov.dev {{bot}} integration", { bot: botName })}</h1>
             <p>
-                {t('You can add command to your StreamElements bot to get price check in your twitch / youtube channel chat')}
+                {t(
+                    "You can add command to your StreamElements bot to get price check in your twitch / youtube channel chat",
+                )}
             </p>
-            <h2>{t('Instructions')}</h2>
+            <h2>{t("Instructions")}</h2>
             <ul>
                 <li>
-                    {t('Register at')}{' '}
-                    <a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">streamelements.com</a>{' '}
-                    {t('using your twitch / youtube account')}
+                    {t("Register at")}{" "}
+                    <a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">
+                        streamelements.com
+                    </a>{" "}
+                    {t("using your twitch / youtube account")}
                 </li>
                 <li>
-                    {t('Go to dashboard')}{' '}
+                    {t("Go to dashboard")}{" "}
                     <a href="https://streamelements.com/dashboard" target="_blank" rel="noopener noreferrer">
                         streamelements.com/dashboard
                     </a>
@@ -43,14 +51,14 @@ function StreamElements() {
                 />
             </p>
             <ul>
+                <li>{t("Make bot - moderator, just type /mod streamelements in your chat")}</li>
                 <li>
-                    {t(
-                        'Make bot - moderator, just type /mod streamelements in your chat',
-                    )}
-                </li>
-                <li>
-                    {t('Go to custom commands')}{' '}
-                    <a href="https://streamelements.com/dashboard/bot/commands/custom" target="_blank" rel="noopener noreferrer">
+                    {t("Go to custom commands")}{" "}
+                    <a
+                        href="https://streamelements.com/dashboard/bot/commands/custom"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         streamelements.com/dashboard/bot/commands/custom
                     </a>
                 </li>
@@ -66,13 +74,13 @@ function StreamElements() {
                 />
             </p>
             <ul>
-                <li>{t('Command: !p or anything you like')}</li>
+                <li>{t("Command: !p or anything you like")}</li>
                 <li>
-                    {t('Message:')}
+                    {t("Message:")}
                     <pre>
                         {
                             // eslint-disable-next-line no-template-curly-in-string
-                            '${urlfetch https://streamer.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}'
+                            "${urlfetch https://streamer.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}"
                         }
                     </pre>
                 </li>
@@ -88,12 +96,14 @@ function StreamElements() {
                 />
             </p>
             <p>
-                {t('Big thanks to')}{' '}
-                <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">PhreakinPhil</a>{' '}
-                {t('for feedback')}
+                {t("Big thanks to")}{" "}
+                <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">
+                    PhreakinPhil
+                </a>{" "}
+                {t("for feedback")}
             </p>
-        </div>
-    );
+        </div>,
+    ];
 }
 
 export default StreamElements;

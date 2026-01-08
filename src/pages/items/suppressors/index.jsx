@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useMemo, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
-import { Icon } from '@mdi/react';
-import {mdiBottleWine} from '@mdi/js';
+import { Icon } from "@mdi/react";
+import { mdiBottleWine } from "@mdi/js";
 
-import SEO from '../../../components/SEO.jsx';
-import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter/index.jsx';
-import SmallItemTable from '../../../components/small-item-table/index.jsx';
+import SEO from "../../../components/SEO.jsx";
+import { Filter, ToggleFilter, SelectItemFilter } from "../../../components/filter/index.jsx";
+import SmallItemTable from "../../../components/small-item-table/index.jsx";
 
-import useItemsData from '../../../features/items/index.js';
+import useItemsData from "../../../features/items/index.js";
 
 function Suppressors() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
@@ -18,50 +18,50 @@ function Suppressors() {
     const { t } = useTranslation();
 
     const activeGuns = useMemo(() => {
-        return items.filter(item => item.types.includes('gun')).sort((a, b) => a.name.localeCompare(b.name)).map(item => {
-            let iconLink = item.iconLink;
-            if (item.properties?.defaultPreset) {
-                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                if (preset) {
-                    iconLink = preset.iconLink;
+        return items
+            .filter((item) => item.types.includes("gun"))
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((item) => {
+                let iconLink = item.iconLink;
+                if (item.properties?.defaultPreset) {
+                    const preset = items.find((i) => i.id === item.properties.defaultPreset.id);
+                    if (preset) {
+                        iconLink = preset.iconLink;
+                    }
                 }
-            }
-            return {
-                ...item,
-                iconLink,
-            };
-        });
+                return {
+                    ...item,
+                    iconLink,
+                };
+            });
     }, [items]);
 
     return [
-        <SEO 
-            title={`${t('Suppressors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('suppressors-page-description', 'This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
+        <SEO
+            title={`${t("Suppressors")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
+            description={t(
+                "suppressors-page-description",
+                "This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.",
+            )}
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={"display-wrapper"}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')}
-                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" /> 
-                    {t('Suppressors')}
+                    {t("Escape from Tarkov")}
+                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" />
+                    {t("Suppressors")}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
-                        label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
-                        tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
-                        }
+                        label={t("Ignore settings")}
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
+                        tooltipContent={<>{t("Shows all sources of items regardless of your settings")}</>}
                     />
                     <SelectItemFilter
-                        label={t('Filter by gun')}
-                        placeholder={t('select a gun')}
+                        label={t("Filter by gun")}
+                        placeholder={t("select a gun")}
                         items={activeGuns}
                         onChange={(event) => {
                             if (!event) {
@@ -72,11 +72,7 @@ function Suppressors() {
                                 setSelectedGun(undefined);
                             }
 
-                            setSelectedGun(
-                                activeGuns.find(
-                                    (activeGun) => activeGun.id === event.value,
-                                ),
-                            );
+                            setSelectedGun(activeGuns.find((activeGun) => activeGun.id === event.value));
                         }}
                         wide
                     />
@@ -94,6 +90,7 @@ function Suppressors() {
             />
 
             <div className="page-wrapper suppressors-page-wrapper">
+                {/* prettier-ignore */}
                 <Trans i18nKey={'suppressors-page-p'}>
                     <p>
                         {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}

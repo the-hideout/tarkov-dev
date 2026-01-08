@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * A hook to determine how many menu items can fit in a container.
@@ -52,7 +52,7 @@ const useMenuOverflow = (containerRef, measuringRef, items) => {
             setVisibleCount((prev) => (prev !== count ? count : prev));
         };
 
-        if (typeof ResizeObserver === 'undefined') {
+        if (typeof ResizeObserver === "undefined") {
             measure();
             return;
         }

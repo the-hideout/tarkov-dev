@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import ResizeObserver from 'resize-observer-polyfill';
+import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import ResizeObserver from "resize-observer-polyfill";
 
 const useObserver = ({ callback, element }) => {
     const current = element && element.current;

@@ -1,18 +1,18 @@
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useHotkeys } from 'react-hotkeys-hook';
-import debounce from 'lodash.debounce';
-import { Tooltip } from '@mui/material';
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useHotkeys } from "react-hotkeys-hook";
+import debounce from "lodash.debounce";
+import { Tooltip } from "@mui/material";
 
-import useKeyPress from '../../hooks/useKeyPress.jsx';
-import itemSearch from '../../modules/item-search.js';
-import { SelectFilter } from '../filter/index.jsx';
-import formatPrice from '../../modules/format-price.js';
+import useKeyPress from "../../hooks/useKeyPress.jsx";
+import itemSearch from "../../modules/item-search.js";
+import { SelectFilter } from "../filter/index.jsx";
+import formatPrice from "../../modules/format-price.js";
 
-import './index.css';
-import useItemsData from '../../features/items/index.js';
-import useQuestsData from '../../features/quests/index.js';
+import "./index.css";
+import useItemsData from "../../features/items/index.js";
+import useQuestsData from "../../features/quests/index.js";
 
 function ItemSearch({
     defaultValue,
@@ -20,21 +20,21 @@ function ItemSearch({
     placeholder,
     autoFocus,
     showDropdown,
-    defaultSearch = 'item',
+    defaultSearch = "item",
     showSearchTypeSelector = true,
 }) {
     const { data: items } = useItemsData();
     const { data: tasks } = useQuestsData();
     const { t } = useTranslation();
 
-    const [nameFilter, setNameFilter] = useState(defaultValue || '');
-    const [searchFor, setSearchFor] = useState(defaultSearch || 'item');
+    const [nameFilter, setNameFilter] = useState(defaultValue || "");
+    const [searchFor, setSearchFor] = useState(defaultSearch || "item");
     const searchTypeSelectRef = useRef();
     const [cursor, setCursor] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
-    const downPress = useKeyPress('ArrowDown');
-    const upPress = useKeyPress('ArrowUp');
-    const enterPress = useKeyPress('Enter');
+    const downPress = useKeyPress("ArrowDown");
+    const upPress = useKeyPress("ArrowUp");
+    const enterPress = useKeyPress("Enter");
     let navigate = useNavigate();
     let location = useLocation();
     const inputRef = useRef(null);
@@ -49,17 +49,17 @@ function ItemSearch({
     }, [placeholder, searchFor, t]);
 
     const selectPlaceholder = useMemo(() => {
-        if (searchFor === 'task') {
-            return t('Tasks');
+        if (searchFor === "task") {
+            return t("Tasks");
         }
-        return t('Items');
+        return t("Items");
     }, [t, searchFor]);
 
-    useHotkeys('ctrl+q', () => {
+    useHotkeys("ctrl+q", () => {
         if (inputRef?.current.scrollIntoView) {
             inputRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
+                behavior: "smooth",
+                block: "start",
             });
         }
 
@@ -98,13 +98,11 @@ function ItemSearch({
 
     useEffect(() => {
         if (upPress) {
-            setCursor((prevState) =>
-                prevState > 0 ? prevState - 1 : prevState,
-            );
+            setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState));
         }
     }, [upPress]);
 
-    if (autoFocus && window?.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
+    if (autoFocus && window?.matchMedia && window.matchMedia("(max-width: 600px)").matches) {
         autoFocus = false;
     }
 
@@ -114,19 +112,21 @@ function ItemSearch({
         }
 
         let returnData;
-        if (searchFor === 'task') {
-            returnData = tasks.filter(task => {
-                if (nameFilter.length === 0) {
-                    return true;
-                }
-                return task.name.toLowerCase().includes(nameFilter.toLowerCase()) || task.id === nameFilter;
-            }).map(task => {
-                return {
-                    ...task, 
-                    itemLink: `/task/${task.normalizedName}`,
-                    displayName: task.name,
-                };
-            });
+        if (searchFor === "task") {
+            returnData = tasks
+                .filter((task) => {
+                    if (nameFilter.length === 0) {
+                        return true;
+                    }
+                    return task.name.toLowerCase().includes(nameFilter.toLowerCase()) || task.id === nameFilter;
+                })
+                .map((task) => {
+                    return {
+                        ...task,
+                        itemLink: `/task/${task.normalizedName}`,
+                        displayName: task.name,
+                    };
+                });
         } else {
             returnData = items
                 .map((itemData) => {
@@ -146,68 +146,66 @@ function ItemSearch({
                         width: itemData.width,
                         height: itemData.height,
                     };
-    
+
                     const buyOnFleaPrice = itemData.buyFor.find(
-                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName === "flea-market",
                     );
-    
+
                     if (buyOnFleaPrice) {
                         formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
                     }
-    
+
                     return formattedItem;
                 })
                 .filter((item) => {
-                    return !item.types.includes('disabled');
+                    return !item.types.includes("disabled");
                 });
-    
+
             if (nameFilter.length > 0) {
                 returnData = itemSearch(returnData, nameFilter);
             }
-            returnData.forEach(formattedItem => {
+            returnData.forEach((formattedItem) => {
                 formattedItem.displayName = [
                     <img
-                        key={'item-search-image'}
+                        key={"item-search-image"}
                         alt={`${formattedItem.name}`}
                         loading="lazy"
                         src={formattedItem.iconLink}
                         className="item-search-item-image"
                     />,
-                    <span key={'item-search-name'}>{formattedItem.name}</span>
+                    <span key={"item-search-name"}>{formattedItem.name}</span>,
                 ];
 
                 const sellOnFleaPrice = formattedItem.sellFor.find(
-                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
+                    (buyPrice) => buyPrice.vendor.normalizedName === "flea-market",
                 );
 
                 if (sellOnFleaPrice) {
-                    let toolTip = [
-                        <div key="item-search-sell-to-tooltip">{t('Sell to Flea')}</div>
-                    ];
+                    let toolTip = [<div key="item-search-sell-to-tooltip">{t("Sell to Flea")}</div>];
                     if (formattedItem.width > 1 || formattedItem.height > 1) {
                         toolTip.push(
                             <div key="item-search-sell-to-per-slot">
-                                {`\n ${t('Per slot')}: ${formatPrice(Math.round(sellOnFleaPrice.priceRUB / (formattedItem.width * formattedItem.height)))}`}
-                            </div>
+                                {`\n ${t("Per slot")}: ${formatPrice(Math.round(sellOnFleaPrice.priceRUB / (formattedItem.width * formattedItem.height)))}`}
+                            </div>,
                         );
                     }
                     formattedItem.displayName.push(
-                        <Tooltip
-                            key="item-search-flea-price"
-                            title={toolTip}
-                            arrow
-                        >
+                        <Tooltip key="item-search-flea-price" title={toolTip} arrow>
                             <span>
                                 <span className="item-search-separator">|</span>
-                                <img alt={sellOnFleaPrice.vendor.name} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellOnFleaPrice.vendor.normalizedName}-icon.jpg`}/>
+                                <img
+                                    alt={sellOnFleaPrice.vendor.name}
+                                    className="item-search-price"
+                                    src={`${process.env.PUBLIC_URL}/images/traders/${sellOnFleaPrice.vendor.normalizedName}-icon.jpg`}
+                                />
                                 <span>{formatPrice(sellOnFleaPrice.priceRUB)}</span>
                             </span>
-                        </Tooltip>
+                        </Tooltip>,
                     );
                 }
 
                 const sellToTrader = formattedItem.sellFor.reduce((best, buyPrice) => {
-                    if (buyPrice.vendor.normalizedName === 'flea-market') {
+                    if (buyPrice.vendor.normalizedName === "flea-market") {
                         return best;
                     }
                     if (!best) {
@@ -220,32 +218,32 @@ function ItemSearch({
                 }, undefined);
 
                 if (sellToTrader) {
-                    let toolTip = [
-                        <div key="item-search-sell-to-tooltip">{sellToTrader.vendor.name}</div>
-                    ];
+                    let toolTip = [<div key="item-search-sell-to-tooltip">{sellToTrader.vendor.name}</div>];
                     if (formattedItem.width > 1 || formattedItem.height > 1) {
                         toolTip.push(
                             <div key="item-search-sell-to-per-slot">
-                                {`\n ${t('Per slot')}: ${formatPrice(Math.round(sellToTrader.priceRUB / (formattedItem.width * formattedItem.height)))}`}
-                            </div>
+                                {`\n ${t("Per slot")}: ${formatPrice(Math.round(sellToTrader.priceRUB / (formattedItem.width * formattedItem.height)))}`}
+                            </div>,
                         );
                     }
                     formattedItem.displayName.push(
-                        <Tooltip
-                            key="item-search-trader-price"
-                            title={toolTip}
-                            arrow
-                        >
+                        <Tooltip key="item-search-trader-price" title={toolTip} arrow>
                             <span>
                                 <span className="item-search-separator">|</span>
-                                <img alt={sellToTrader.vendor} className="item-search-price" src={`${process.env.PUBLIC_URL}/images/traders/${sellToTrader.vendor.normalizedName}-icon.jpg`}/>
+                                <img
+                                    alt={sellToTrader.vendor}
+                                    className="item-search-price"
+                                    src={`${process.env.PUBLIC_URL}/images/traders/${sellToTrader.vendor.normalizedName}-icon.jpg`}
+                                />
                                 <span>{formatPrice(sellToTrader.priceRUB)}</span>
                             </span>
-                        </Tooltip>
+                        </Tooltip>,
                     );
                 }
 
-                formattedItem.displayName = <span className="item-search-result-parts-wrapper">{formattedItem.displayName}</span>
+                formattedItem.displayName = (
+                    <span className="item-search-result-parts-wrapper">{formattedItem.displayName}</span>
+                );
             });
         }
 
@@ -261,7 +259,7 @@ function ItemSearch({
     useEffect(() => {
         setCursor(0);
         if (!location.search) {
-            setNameFilter('');
+            setNameFilter("");
         }
     }, [location]);
 
@@ -280,30 +278,32 @@ function ItemSearch({
             />
             <div className="search-extras-wrapper">
                 {!isFocused && <div className="search-tip-wrapper">ctrl+q</div>}
-                {showSearchTypeSelector && (<div className="search-type-selector">
-                    <SelectFilter
-                        value={searchFor}
-                        onChange={handleSearchTypeChange}
-                        onMenuOpen={(e) => {
-                            setIsFocused(true);
-                        }}
-                        className="search-type-selector"
-                        placeholder={selectPlaceholder}
-                        parentRef={searchTypeSelectRef}
-                        options={[
-                            {
-                                label: t('Items'),
-                                value: 'item',
-                                selected: searchFor !== 'task',
-                            },
-                            {
-                                label: t('Tasks'),
-                                value: 'task',
-                                selected: searchFor === 'task',
-                            }
-                        ]}
-                    />
-                </div>)}
+                {showSearchTypeSelector && (
+                    <div className="search-type-selector">
+                        <SelectFilter
+                            value={searchFor}
+                            onChange={handleSearchTypeChange}
+                            onMenuOpen={(e) => {
+                                setIsFocused(true);
+                            }}
+                            className="search-type-selector"
+                            placeholder={selectPlaceholder}
+                            parentRef={searchTypeSelectRef}
+                            options={[
+                                {
+                                    label: t("Items"),
+                                    value: "item",
+                                    selected: searchFor !== "task",
+                                },
+                                {
+                                    label: t("Tasks"),
+                                    value: "task",
+                                    selected: searchFor === "task",
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
             </div>
             {showDropdown && (
                 <div className="item-list-wrapper">
@@ -314,9 +314,7 @@ function ItemSearch({
 
                         return (
                             <Link
-                                className={`search-result-wrapper ${
-                                    index === cursor ? 'active' : ''
-                                }`}
+                                className={`search-result-wrapper ${index === cursor ? "active" : ""}`}
                                 key={`search-result-wrapper-${item.id}`}
                                 to={`${item.itemLink}`}
                             >

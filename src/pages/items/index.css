@@ -1,7 +1,7 @@
 .items-list-wrapper {
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
     justify-content: space-between;
 }
 

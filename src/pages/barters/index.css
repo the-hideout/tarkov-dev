@@ -19,7 +19,7 @@
     font-size: 14px;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .barters-page-title {
         margin: 0;
         text-align: left;

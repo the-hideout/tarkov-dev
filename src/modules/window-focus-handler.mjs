@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export let windowHasFocus = false;
 
@@ -14,16 +14,16 @@ const onBlur = () => {
 
 const WindowFocusHandler = () => {
     useEffect(() => {
-        window.addEventListener('focus', onFocus);
-        window.addEventListener('blur', onBlur);
+        window.addEventListener("focus", onFocus);
+        window.addEventListener("blur", onBlur);
         // Calls onFocus when the window first loads
         onFocus();
         // Specify how to clean up after this effect:
         return () => {
-            window.removeEventListener('focus', onFocus);
-            window.removeEventListener('blur', onBlur);
+            window.removeEventListener("focus", onFocus);
+            window.removeEventListener("blur", onBlur);
         };
-  }, []);
+    }, []);
 
     return <></>;
 };

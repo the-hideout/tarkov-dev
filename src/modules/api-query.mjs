@@ -1,10 +1,10 @@
-import LZString from 'lz-string';
+import LZString from "lz-string";
 
-import graphqlRequest from './graphql-request.mjs';
+import graphqlRequest from "./graphql-request.mjs";
 
 const defaultOptions = {
-    language: 'en',
-    gameMode: 'regular',
+    language: "en",
+    gameMode: "regular",
     //prebuild: false,
 };
 
@@ -20,7 +20,7 @@ class APIQuery {
     }
 
     async query() {
-        return Promise.reject('Not implemented');
+        return Promise.reject("Not implemented");
     }
 
     async run(options = defaultOptions) {
@@ -28,12 +28,12 @@ class APIQuery {
             ...defaultOptions,
             ...options,
         };
-        const keyparts = ['api-cached-data', this.name];
-        const keyprefix = keyparts.join('-');
+        const keyparts = ["api-cached-data", this.name];
+        const keyprefix = keyparts.join("-");
         for (const variable in options) {
             keyparts.push(options[variable]);
         }
-        const storageKey = keyparts.join('-');
+        const storageKey = keyparts.join("-");
         const cached = this.checkCachedQuery(storageKey);
         if (cached) {
             //console.log('returning cached value', this.name);
@@ -45,26 +45,28 @@ class APIQuery {
         }
         // remove previous local storage versions (probably other languages, gamemodes)
         this.removeCachedQueries(keyprefix);
-        
-        this.pendingQuery[storageKey] = this.query(options).then(results => {
-            try {
-                //console.time(`query-save-${storageKey}`);
-                //localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
-                localStorage.setItem(storageKey, JSON.stringify({updated: new Date().getTime(), data: results}));
-                //console.timeEnd(`query-save-${storageKey}`);
-            } catch (error) {
-                /* noop */
-            }
-            return results;
-        }).finally(() => {
-            this.pendingQuery[storageKey] = undefined;
-        });
+
+        this.pendingQuery[storageKey] = this.query(options)
+            .then((results) => {
+                try {
+                    //console.time(`query-save-${storageKey}`);
+                    //localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
+                    localStorage.setItem(storageKey, JSON.stringify({ updated: new Date().getTime(), data: results }));
+                    //console.timeEnd(`query-save-${storageKey}`);
+                } catch (error) {
+                    /* noop */
+                }
+                return results;
+            })
+            .finally(() => {
+                this.pendingQuery[storageKey] = undefined;
+            });
         return this.pendingQuery[storageKey];
     }
 
     checkLocalStorage = () => {
-        return typeof window !== 'undefined';
-    }
+        return typeof window !== "undefined";
+    };
 
     checkCachedQuery = (storageKey) => {
         if (!this.checkLocalStorage()) {
@@ -73,7 +75,7 @@ class APIQuery {
         try {
             const value = localStorage.getItem(storageKey);
 
-            if (typeof value === 'string') {
+            if (typeof value === "string") {
                 let cached;
                 try {
                     cached = JSON.parse(value);
@@ -89,20 +91,20 @@ class APIQuery {
         }
 
         return;
-    }
+    };
 
     removeCachedQueries = (cacheKeyPrefix) => {
         if (!this.checkLocalStorage()) {
             return;
         }
-        for (let i = 0; i < localStorage.length ?? -1; i++){
+        for (let i = 0; i < localStorage.length ?? -1; i++) {
             const localStorageKey = localStorage.key(i);
             if (!localStorageKey.startsWith(cacheKeyPrefix)) {
                 continue;
             }
             localStorage.removeItem(localStorageKey);
         }
-    }
+    };
 }
 
 export default APIQuery;

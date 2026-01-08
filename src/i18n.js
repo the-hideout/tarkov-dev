@@ -1,51 +1,51 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 // import Backend from 'i18next-http-backend';
 
-import translationEN from './translations/en/translation.json';
-import translationDE from './translations/de/translation.json';
-import translationRU from './translations/ru/translation.json';
-import translationIT from './translations/it/translation.json';
+import translationEN from "./translations/en/translation.json";
+import translationDE from "./translations/de/translation.json";
+import translationRU from "./translations/ru/translation.json";
+import translationIT from "./translations/it/translation.json";
 // import translationES from './translations/es/translation.json';
-import translationFR from './translations/fr/translation.json';
-import translationJA from './translations/ja/translation.json';
-import translationPL from './translations/pl/translation.json';
-import translationPT from './translations/pt/translation.json';
-import translationZH from './translations/zh/translation.json';
+import translationFR from "./translations/fr/translation.json";
+import translationJA from "./translations/ja/translation.json";
+import translationPL from "./translations/pl/translation.json";
+import translationPT from "./translations/pt/translation.json";
+import translationZH from "./translations/zh/translation.json";
 
-import propertiesEN from './translations/en/properties.json';
-import propertiesDE from './translations/de/properties.json';
-import propertiesRU from './translations/ru/properties.json';
-import propertiesIT from './translations/it/properties.json';
-import propertiesFR from './translations/fr/properties.json';
-import propertiesES from './translations/es/properties.json';
-import propertiesJA from './translations/ja/properties.json';
-import propertiesPL from './translations/pl/properties.json';
-import propertiesPT from './translations/pt/properties.json';
-import propertiesZH from './translations/zh/properties.json';
+import propertiesEN from "./translations/en/properties.json";
+import propertiesDE from "./translations/de/properties.json";
+import propertiesRU from "./translations/ru/properties.json";
+import propertiesIT from "./translations/it/properties.json";
+import propertiesFR from "./translations/fr/properties.json";
+import propertiesES from "./translations/es/properties.json";
+import propertiesJA from "./translations/ja/properties.json";
+import propertiesPL from "./translations/pl/properties.json";
+import propertiesPT from "./translations/pt/properties.json";
+import propertiesZH from "./translations/zh/properties.json";
 
-import bossesEN from './translations/en/bosses.json';
-import bossesDE from './translations/de/bosses.json';
-import bossesRU from './translations/ru/bosses.json';
-import bossesIT from './translations/it/bosses.json';
-import bossesFR from './translations/fr/bosses.json';
-import bossesES from './translations/es/bosses.json';
-import bossesJA from './translations/ja/bosses.json';
-import bossesPL from './translations/pl/bosses.json';
-import bossesPT from './translations/pt/bosses.json';
-import bossesZH from './translations/zh/bosses.json';
+import bossesEN from "./translations/en/bosses.json";
+import bossesDE from "./translations/de/bosses.json";
+import bossesRU from "./translations/ru/bosses.json";
+import bossesIT from "./translations/it/bosses.json";
+import bossesFR from "./translations/fr/bosses.json";
+import bossesES from "./translations/es/bosses.json";
+import bossesJA from "./translations/ja/bosses.json";
+import bossesPL from "./translations/pl/bosses.json";
+import bossesPT from "./translations/pt/bosses.json";
+import bossesZH from "./translations/zh/bosses.json";
 
-import mapsEN from './translations/en/maps.json';
-import mapsDE from './translations/de/maps.json';
-import mapsRU from './translations/ru/maps.json';
-import mapsIT from './translations/it/maps.json';
-import mapsFR from './translations/fr/maps.json';
-import mapsES from './translations/es/maps.json';
-import mapsJA from './translations/ja/maps.json';
-import mapsPL from './translations/pl/maps.json';
-import mapsPT from './translations/pt/maps.json';
-import mapsZH from './translations/zh/maps.json';
+import mapsEN from "./translations/en/maps.json";
+import mapsDE from "./translations/de/maps.json";
+import mapsRU from "./translations/ru/maps.json";
+import mapsIT from "./translations/it/maps.json";
+import mapsFR from "./translations/fr/maps.json";
+import mapsES from "./translations/es/maps.json";
+import mapsJA from "./translations/ja/maps.json";
+import mapsPL from "./translations/pl/maps.json";
+import mapsPT from "./translations/pt/maps.json";
+import mapsZH from "./translations/zh/maps.json";
 
 // const myParseMissingKeyHandler = (key, defaultValue) => {
 //     console.log(`Missing translation "${key}": "${key}"`)
@@ -72,7 +72,7 @@ i18n
         // debug: true,
         // saveMissing: true,
         // parseMissingKeyHandler: myParseMissingKeyHandler,
-        
+
         // the translations
         // (tip move them in a JSON file and import them,
         // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
@@ -102,7 +102,7 @@ i18n
                 maps: mapsIT,
             },
             es: {
-            //     translation: translationES,
+                //     translation: translationES,
                 properties: propertiesES,
                 bosses: bossesES,
                 maps: mapsES,
@@ -136,13 +136,12 @@ i18n
                 properties: propertiesZH,
                 bosses: bossesZH,
                 maps: mapsZH,
-            }
-
+            },
         },
 
         // lng: "en", // if you're using a language detector, do not define the lng option
-        fallbackLng: 'en',
-        load: 'languageOnly',
+        fallbackLng: "en",
+        load: "languageOnly",
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default

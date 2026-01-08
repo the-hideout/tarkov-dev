@@ -1,9 +1,7 @@
-import Fuse from 'fuse.js';
+import Fuse from "fuse.js";
 
 const formatName = (name) => {
-    return name
-        .trim()
-        .replace(/\s{2,}/g, ' ');
+    return name.trim().replace(/\s{2,}/g, " ");
 };
 
 const itemSearch = (items, searchString) => {
@@ -20,21 +18,21 @@ const itemSearch = (items, searchString) => {
         shouldSort: true,
         keys: [
             {
-              name: 'shortName',
-              weight: 0.1
+                name: "shortName",
+                weight: 0.1,
             },
             {
-              name: 'name',
-              weight: 0.3
+                name: "name",
+                weight: 0.3,
             },
             {
-              name: 'normalizedName',
-              weight: 0.9
+                name: "normalizedName",
+                weight: 0.9,
             },
             {
-              name: 'id',
-              weight: 1
-            }
+                name: "id",
+                weight: 1,
+            },
         ],
         threshold: 0.3,
         ignoreLocation: true,

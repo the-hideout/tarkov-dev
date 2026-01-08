@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import ItemImage from '../item-image/index.jsx';
+import ItemImage from "../item-image/index.jsx";
 
-import './index.css';
+import "./index.css";
 
 const rewardMap = {
-    finishRewards: 'On Task Completion',
-    startRewards: 'On Task Start'
+    finishRewards: "On Task Completion",
+    startRewards: "On Task Start",
 };
 
 function QuestItemsCell({ questItems }) {
@@ -24,13 +24,11 @@ function QuestItemsCell({ questItems }) {
                     />
                 </div>
                 <div className="quest-item-text-wrapper">
-                    <Link to={`/item/${questItem.item.normalizedName}`}>
-                        {questItem.item.name}
-                    </Link>
+                    <Link to={`/item/${questItem.item.normalizedName}`}>{questItem.item.name}</Link>
                     <div className="amount-wrapper">
-                        {t('Amount')}
+                        {t("Amount")}
                         <span>:</span> {questItem.count.toLocaleString()}
-                        {questItem.alternates ? ` (${t('has alternates')})` : ''}
+                        {questItem.alternates ? ` (${t("has alternates")})` : ""}
                     </div>
                     <div className="reward-type-wrapper">
                         {

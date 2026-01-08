@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function useDate(initial, updateSpeed) {
     const [time, setTime] = useState(initial);

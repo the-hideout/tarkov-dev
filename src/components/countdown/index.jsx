@@ -1,6 +1,6 @@
-import Countdown from 'react-countdown';
+import Countdown from "react-countdown";
 
-import './index.css';
+import "./index.css";
 
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -10,15 +10,14 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
         // Render a countdown
         return (
             <span className="countdown-wrapper">
-                {days} days {hours} hours {minutes} minutes {seconds} seconds to
-                wipe
+                {days} days {hours} hours {minutes} minutes {seconds} seconds to wipe
             </span>
         );
     }
 };
 
 function WipeCountdown() {
-    return <Countdown date={'2021-06-30T10:00:00+03:00'} renderer={renderer} />;
+    return <Countdown date={"2021-06-30T10:00:00+03:00"} renderer={renderer} />;
 }
 
 export default WipeCountdown;
