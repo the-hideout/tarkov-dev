@@ -2733,6 +2733,7 @@
         ]
     },
     {
+        "id": -1,
         "name": "Transits",
         "normalizedName": "transits",
         "description": "This is a trasit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
@@ -2747,6 +2748,7 @@
         ]
     },
     {
+        "id": -2,
         "name": "Openworld",
         "normalizedName": "openworld",
         "description": "This is an imagination of what the full map of Tarkov would like. This open world map would likely include all of the key locations from the existing maps combined in a huge single map.",
