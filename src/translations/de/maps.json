@@ -45,7 +45,7 @@
     "openworld-name": "Openworld",
     "openworld-description": "Das ist eine Vorstellung wie die vollständige Karte von Tarkov aussehen könnte. Diese Openworld Karte würde vermutlich alle Standorte von den existierenden Karten in eine einzige riesige Karte zusammenfassen.",
     "transits-name": "Transits",
-    "transits-description": "This is a trasit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
+    "transits-description": "This is a transit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
     "Transit": "Transit",
     "Task, item or container...": "Aufgaben, items, oder Container...",
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Unterstützt Multisuche (e.g. 'labs, ledx, bitcoin')",
