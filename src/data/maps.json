@@ -736,6 +736,13 @@
                 "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "customs-3d-dorms",
+                "projection": "3D",
+                "specific": "Dorms",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -1007,8 +1014,8 @@
                 "transform": [0.265, 150.6, 0.265, 134.6],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [532.75, -442.75],
-                    [-364, 453.5]
+                    [598, -482],
+                    [-433, 466]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -1586,6 +1593,12 @@
                 "projection": "2D",
                 "author": "Lorathor",
                 "authorLink": "https://www.reddit.com/user/Lorathor6/"
+            },
+            {
+                "key": "interchange-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -1884,6 +1897,12 @@
                 "authorLink": "https://tarkov.dev",
                 "tilePath": "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png",
                 "labels": []
+            },
+            {
+                "key": "labyrinth-2d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -2377,8 +2396,8 @@
                 "authorLink": "https://reemr.se"
             },
             {
-                "key": "reserve-2d-tunnels",
-                "projection": "2D",
+                "key": "reserve-3d-tunnels",
+                "projection": "3D",
                 "specific": "Tunnels",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
@@ -2577,6 +2596,24 @@
                 "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "shoreline-3d-resort",
+                "projection": "3D",
+                "specific": "Resort",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "terminal",
+        "maps": [
+            {
+                "key": "terminal-2d",
+                "projection": "2D",
+                "author": "Official",
+                "authorLink": "https://escapefromtarkov.fandom.com/wiki/Map:Terminal"
             }
         ]
     },
@@ -2591,10 +2628,6 @@
                 "maxZoom": 6,
                 "transform": [0.1855, 113.1, 0.1855, 167.8],
                 "coordinateRotation": 180,
-                "svgBounds": [
-                    [650, -945],
-                    [-695, 470]
-                ],
                 "bounds": [
                     [650, -945],
                     [-762, 470]
@@ -2696,6 +2729,22 @@
         ]
     },
     {
+        "id": -1,
+        "name": "Transits",
+        "normalizedName": "transits",
+        "description": "This is a trasit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
+        "primaryPath": "/map/transits-2d",
+        "maps": [
+            {
+                "key": "transits-2d",
+                "projection": "2D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "id": -2,
         "name": "Openworld",
         "normalizedName": "openworld",
         "description": "This is an imagination of what the full map of Tarkov would like. This open world map would likely include all of the key locations from the existing maps combined in a huge single map.",

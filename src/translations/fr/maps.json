@@ -44,6 +44,8 @@
     "Misc": "Divers",
     "openworld-name": "Monde Ouvert",
     "openworld-description": "Voici une ébauche de ce à quoi pourrait ressembler la carte complète de Tarkov. Cette carte du monde ouvert regrouperait probablement tous les lieux clés des cartes existantes, réunis en une seule et immense carte.",
+    "transits-name": "Transits",
+    "transits-description": "Ceci est un overlay des transit par dessus la carte officielle montrant les transits de toutes les maps, et lesquels sont à sens unique.",
     "Transit": "Transit",
     "Task, item or container...": "Tâche, objet ou container...",
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supporte la recherche multiple (e.g. 'labs, ledx, bitcoin')",

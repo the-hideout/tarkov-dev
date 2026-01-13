@@ -714,8 +714,8 @@
   "Show the criteria for loot tiers": "Afficher les critères des niveaux de butin",
   "Get the bot's uptime": "Connaître le temps de fonctionnement du bot",
   "stash-support": "<0>Stash est maintenu par l’équipe Tarkov.dev. Un bug ou une idée ? Ouvrez un ticket sur <1>GitHub</1> ou discutez avec les développeurs sur le <2>Discord Tarkov.dev</2>. Si vous synchronisez Tarkov.dev et les données du bot, pensez à joindre des captures et des étapes de reproduction.</0>",
-  "Database": "Database",
-  "Calculators": "Calculators",
+  "Database": "Base de données",
+  "Calculators": "Calculateurs",
   "Progression": "Progression",
-  "Community": "Community"
+  "Community": "Communauté"
 }
