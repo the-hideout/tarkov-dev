@@ -1014,8 +1014,8 @@
                 "transform": [0.265, 150.6, 0.265, 134.6],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [532.75, -442.75],
-                    [-364, 453.5]
+                    [598, -482],
+                    [-433, 466]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -2628,10 +2628,6 @@
                 "maxZoom": 6,
                 "transform": [0.1855, 113.1, 0.1855, 167.8],
                 "coordinateRotation": 180,
-                "svgBounds": [
-                    [650, -945],
-                    [-695, 470]
-                ],
                 "bounds": [
                     [650, -945],
                     [-762, 470]
