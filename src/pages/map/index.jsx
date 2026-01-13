@@ -39,6 +39,7 @@ const showStaticMarkers = false;
 const showMarkersBounds = false;
 const showTestMarkers = false;
 const showElevation = false;
+const svgFromGit = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -835,6 +836,13 @@ function Map() {
         let svgLayer = false;
         let svgLoaded = Promise.resolve();
         if (mapData.svgPath) {
+            if (svgFromGit) {
+                mapData.svgPath = mapData.svgPath.replace(
+                    "https://assets.tarkov.dev/maps/svg",
+                    "https://raw.githubusercontent.com/the-hideout/tarkov-dev-svg-maps/refs/heads/main",
+                );
+            }
+
             const svgBounds = mapData.svgBounds ? getBounds(mapData.svgBounds) : bounds;
             const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -1696,7 +1704,8 @@ function Map() {
             );
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], { color: "#ff000055", weight: 1 }).addTo(map);
-            L.rectangle(getBounds(mapData.bounds), { color: "#00ff0055", weight: 1 }).addTo(map);
+            const svgBounds = mapData.svgPath && mapData.svgBounds ? getBounds(mapData.svgBounds) : mapData.bounds;
+            L.rectangle(svgBounds, { color: "#00ff0055", weight: 1 }).addTo(map);
         }
 
         refreshMapSearch();
