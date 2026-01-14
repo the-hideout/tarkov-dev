@@ -43,6 +43,7 @@
     "Objective": "目标",
     "Misc": "杂项",
     "openworld-name": "开放世界",
+    "terminal-name": "终点站",
     "openworld-description": "这是对塔科夫完整地图样貌的构想。这张开放世界地图可能会将所有现有地图中的关键地点整合到一个巨大的单张地图中。",
     "transits-name": "Transits",
     "transits-description": "This is a transit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
