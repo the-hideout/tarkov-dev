@@ -57,7 +57,7 @@
     "@tanstack/react-query": "^5.90.11",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
     "critical": "^7.2.0",
     "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
