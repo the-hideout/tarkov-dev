@@ -489,7 +489,7 @@ function Player() {
     const raidsColumns = useMemo(
         () => [
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Side")}</div>,
+                Header: t("Side"),
                 id: "side",
                 accessor: "side",
                 Cell: (props) => {
@@ -497,17 +497,17 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Raids")}</div>,
+                Header: t("Raids"),
                 id: "raids",
                 accessor: "raids",
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Survived")}</div>,
+                Header: t("Survived"),
                 id: "survived",
                 accessor: "survived",
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Runthrough")}</div>,
+                Header: t("Runthrough"),
                 id: "runthrough",
                 accessor: "runthrough",
                 Cell: (props) => {
@@ -515,7 +515,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("MIA")}</div>,
+                Header: t("MIA"),
                 id: "mia",
                 accessor: "mia",
                 Cell: (props) => {
@@ -523,7 +523,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("KIA")}</div>,
+                Header: t("KIA"),
                 id: "kia",
                 accessor: "kia",
                 Cell: (props) => {
@@ -531,7 +531,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Kills")}</div>,
+                Header: t("Kills"),
                 id: "kills",
                 accessor: "kills",
                 Cell: (props) => {
@@ -539,7 +539,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("K:D", { nsSeparator: "|" })}</div>,
+                Header: t("K:D", { nsSeparator: "|" }),
                 id: "kdr",
                 accessor: "kills",
                 Cell: (props) => {
@@ -550,7 +550,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Win Streak")}</div>,
+                Header: t("Win Streak"),
                 id: "streak",
                 accessor: "streak",
                 Cell: (props) => {
@@ -1351,7 +1351,12 @@ function Player() {
                             <Icon path={mdiChartLine} size={1.5} className="icon-with-text" />
                             {t("Raid Stats")}
                         </h2>
-                        <DataTable key="raids-table" columns={raidsColumns} data={raidsData} />
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                            headConfig={raidsTableHeadConfig}
+                        />
                     </>
                 )}
                 {achievementsData?.length > 0 && (
