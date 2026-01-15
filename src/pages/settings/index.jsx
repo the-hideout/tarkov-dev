@@ -34,7 +34,7 @@ import { getWipeData } from "../wipe-length/index.jsx";
 
 import "./index.css";
 
-const trackerDomains = ["tarkovtracker.io", "tarkovtracker.org"];
+const trackerDomains = ["tarkovtracker.org", "tarkovtracker.io"];
 
 // Defined Languages
 /*const langOptions = [
