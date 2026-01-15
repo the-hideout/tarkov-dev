@@ -26,6 +26,7 @@ export default function TableHead({
             className={clsx(headProps.className, {
                 "table-head--left": align === "left",
                 "table-head--right": align === "right",
+                "table-head--center": align === "center",
             })}
         >
             <span>{children}</span>
@@ -33,7 +34,7 @@ export default function TableHead({
             <i
                 className={clsx(
                     "header-sort-icon-container",
-                    !isSorted && "header-sort-icon-container--h-0",
+                    !isSorted && align !== "center" && "header-sort-icon-container--h-0",
                     align === "center" ? "header-sort-icon-container--block" : "header-sort-icon-container--ml-6",
                 )}
             >

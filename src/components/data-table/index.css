@@ -156,6 +156,10 @@ div.no-data-info {
     .table-head--right {
         text-align: right;
     }
+
+    .table-head--center {
+        padding-top: 20px;
+    }
 }
 
 @media screen and (width >= 800px) {
