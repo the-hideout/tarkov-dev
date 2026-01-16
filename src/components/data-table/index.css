@@ -83,7 +83,7 @@ td.data-cell:last-child {
     background-color: var(--color-gunmetal-dark);
 }
 
-.header-sort-icon__icon {
+.arrow-icon {
     fill: var(--color-gold-one);
     height: 10px;
     width: 10px;
@@ -92,16 +92,20 @@ td.data-cell:last-child {
         opacity 0.2s ease-in-out;
 }
 
-.header-sort-icon__icon.header-sort-icon__icon--up {
+.arrow-icon--up {
     transform: rotate(180deg);
 }
 
-.header-sort-icon__icon.header-sort-icon__icon--right {
-    transform: rotate(-90deg);
+.arrow-icon--down {
+    transform: rotate(0deg);
 }
 
-.header-sort-icon__icon.header-sort-icon__icon--down {
-    transform: rotate(0deg);
+.arrow-icon--left {
+    transform: rotate(90deg);
+}
+
+.arrow-icon--right {
+    transform: rotate(-90deg);
 }
 
 .header-sort-icon__icon.header-sort-icon__icon--visible {

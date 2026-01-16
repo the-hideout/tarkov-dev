@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import ArrowIcon from "#src/components/data-table/Arrow.jsx";
 import { TableHeaderProps } from "react-table";
 
 import "./index.css";
+import ArrowIcon from "#src/components/data-table/Arrow.jsx";
 
 export default function TableHead({
     itemKey,
@@ -41,9 +41,9 @@ export default function TableHead({
                 <ArrowIcon
                     className={clsx(
                         "header-sort-icon__icon",
-                        isSortedDesc ? "header-sort-icon__icon--down" : "header-sort-icon__icon--up",
                         isSorted ? "header-sort-icon__icon--visible" : "header-sort-icon__icon--hidden",
                     )}
+                    direction={isSortedDesc ? "down" : "up"}
                 />
             </i>
         </th>

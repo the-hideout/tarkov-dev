@@ -704,7 +704,7 @@ function Player() {
                                 },
                             })}
                         >
-                            {row.isExpanded ? <ArrowIcon /> : <ArrowIcon className={"arrow-right"} />}
+                            <ArrowIcon direction={row.isExpanded ? "down" : "right"} />
                         </span>
                     ) : null,
             },
