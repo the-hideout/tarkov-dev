@@ -67,6 +67,89 @@ const memberFlags = {
     Unheard: 1024,
 };
 
+const achievementTableHeadConfig = {
+    align: [
+        {
+            id: "name",
+            align: "left",
+        },
+        {
+            id: "description",
+            align: "left",
+        },
+    ],
+};
+
+const raidsTableHeadConfig = {
+    align: [
+        {
+            id: "side",
+            align: "left",
+        },
+        {
+            id: "raids",
+            align: "left",
+        },
+        {
+            id: "survived",
+            align: "left",
+        },
+        {
+            id: "runthrough",
+            align: "left",
+        },
+        {
+            id: "mia",
+            align: "left",
+        },
+        {
+            id: "kia",
+            align: "left",
+        },
+        {
+            id: "kills",
+            align: "left",
+        },
+        {
+            id: "kdr",
+            align: "left",
+        },
+        {
+            id: "streak",
+            align: "left",
+        },
+    ],
+};
+
+const skillsTableHeadConfig = {
+    align: [
+        {
+            id: "skill",
+            align: "left",
+        },
+        {
+            id: "progress",
+            align: "left",
+        },
+        {
+            id: "lastAccess",
+            align: "left",
+        },
+    ],
+};
+
+const masteringTableHeadConfig = {
+    align: [
+        {
+            id: "name",
+            align: "left",
+        },
+        {
+            id: "Progress",
+            align: "left",
+        },
+    ],
+};
 const defaultProfileImageLink = "https://assets.tarkov.dev/profile-loading.webp";
 
 function Player() {
@@ -323,7 +406,7 @@ function Player() {
     const achievementColumns = useMemo(
         () => [
             {
-                Header: () => <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Name")}</div>,
+                Header: t("Name"),
                 id: "name",
                 accessor: "name",
                 Cell: (props) => {
@@ -340,7 +423,7 @@ function Player() {
                 },
             },
             {
-                Header: () => <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Description")}</div>,
+                Header: t("Description"),
                 id: "description",
                 accessor: "description",
             },
@@ -406,7 +489,7 @@ function Player() {
     const raidsColumns = useMemo(
         () => [
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Side")}</div>,
+                Header: t("Side"),
                 id: "side",
                 accessor: "side",
                 Cell: (props) => {
@@ -414,17 +497,17 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Raids")}</div>,
+                Header: t("Raids"),
                 id: "raids",
                 accessor: "raids",
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Survived")}</div>,
+                Header: t("Survived"),
                 id: "survived",
                 accessor: "survived",
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Runthrough")}</div>,
+                Header: t("Runthrough"),
                 id: "runthrough",
                 accessor: "runthrough",
                 Cell: (props) => {
@@ -432,7 +515,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("MIA")}</div>,
+                Header: t("MIA"),
                 id: "mia",
                 accessor: "mia",
                 Cell: (props) => {
@@ -440,7 +523,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("KIA")}</div>,
+                Header: t("KIA"),
                 id: "kia",
                 accessor: "kia",
                 Cell: (props) => {
@@ -448,7 +531,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Kills")}</div>,
+                Header: t("Kills"),
                 id: "kills",
                 accessor: "kills",
                 Cell: (props) => {
@@ -456,7 +539,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("K:D", { nsSeparator: "|" })}</div>,
+                Header: t("K:D", { nsSeparator: "|" }),
                 id: "kdr",
                 accessor: "kills",
                 Cell: (props) => {
@@ -467,7 +550,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Win Streak")}</div>,
+                Header: t("Win Streak"),
                 id: "streak",
                 accessor: "streak",
                 Cell: (props) => {
@@ -541,7 +624,7 @@ function Player() {
     const skillsColumns = useMemo(
         () => [
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Skill")}</div>,
+                Header: t("Skill"),
                 id: "skill",
                 accessor: "skill",
                 Cell: (props) => {
@@ -558,7 +641,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Level")}</div>,
+                Header: t("Level"),
                 id: "progress",
                 accessor: "progress",
                 Cell: (props) => {
@@ -566,7 +649,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Last Access")}</div>,
+                Header: t("Last Access"),
                 id: "lastAccess",
                 accessor: "lastAccess",
                 Cell: (props) => {
@@ -621,12 +704,12 @@ function Player() {
                                 },
                             })}
                         >
-                            {row.isExpanded ? <ArrowIcon /> : <ArrowIcon className={"arrow-right"} />}
+                            <ArrowIcon direction={row.isExpanded ? "down" : "right"} />
                         </span>
                     ) : null,
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Weapon")}</div>,
+                Header: t("Weapon"),
                 id: "name",
                 accessor: "name",
                 Cell: (props) => {
@@ -637,7 +720,7 @@ function Player() {
                 },
             },
             {
-                Header: <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Progress")}</div>,
+                Header: t("Progress"),
                 id: "Progress",
                 accessor: "Progress",
                 Cell: (props) => {
@@ -1268,7 +1351,12 @@ function Player() {
                             <Icon path={mdiChartLine} size={1.5} className="icon-with-text" />
                             {t("Raid Stats")}
                         </h2>
-                        <DataTable key="raids-table" columns={raidsColumns} data={raidsData} />
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                            headConfig={raidsTableHeadConfig}
+                        />
                     </>
                 )}
                 {achievementsData?.length > 0 && (
@@ -1281,7 +1369,8 @@ function Player() {
                             key="achievements-table"
                             columns={achievementColumns}
                             data={achievementsData}
-                            sortBy={"completionDate"}
+                            sortBy="completionDate"
+                            headConfig={achievementTableHeadConfig}
                         />
                     </>
                 )}
@@ -1291,7 +1380,13 @@ function Player() {
                             <Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />
                             {t("Skills")}
                         </h2>
-                        <DataTable key="skills-table" columns={skillsColumns} data={skillsData} sortBy={"skill"} />
+                        <DataTable
+                            key="skills-table"
+                            columns={skillsColumns}
+                            data={skillsData}
+                            sortBy="skill"
+                            headConfig={skillsTableHeadConfig}
+                        />
                     </>
                 )}
                 {masteringData?.length > 0 && (
@@ -1304,8 +1399,9 @@ function Player() {
                             key="skills-table"
                             columns={masteringColumns}
                             data={masteringData}
-                            sortBy={"Progress"}
+                            sortBy="Progress"
                             sortByDesc={true}
+                            headConfig={masteringTableHeadConfig}
                         />
                     </>
                 )}
