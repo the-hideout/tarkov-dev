@@ -18,6 +18,18 @@ const raritySort = {
     legendary: 2,
 };
 
+const achievementsTableHeadConfig = {
+    align: [
+        {
+            id: "name",
+            align: "left",
+        },
+        {
+            id: "description",
+            align: "left",
+        },
+    ],
+};
 function Achievements() {
     const { t } = useTranslation();
 
@@ -30,7 +42,7 @@ function Achievements() {
     const columns = useMemo(
         () => [
             {
-                Header: () => <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Name")}</div>,
+                Header: t("Name"),
                 id: "name",
                 accessor: "name",
                 Cell: (props) => {
@@ -47,7 +59,7 @@ function Achievements() {
                 },
             },
             {
-                Header: () => <div style={{ textAlign: "left", paddingLeft: "10px" }}>{t("Description")}</div>,
+                Header: t("Description"),
                 id: "description",
                 accessor: "description",
             },
@@ -118,7 +130,12 @@ function Achievements() {
                     {t("Achievements")}
                 </h1>
             </div>
-            <DataTable key="achievements-table" columns={columns} data={tableData} />
+            <DataTable
+                key="achievements-table"
+                columns={columns}
+                data={tableData}
+                headConfig={achievementsTableHeadConfig}
+            />
         </div>,
     ];
 }
