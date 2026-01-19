@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useTable, useSortBy, useExpanded, usePagination } from "react-table/index.js";
 import { useInView } from "react-intersection-observer";
-// import {ReactComponent as ArrowIcon} from './Arrow.js';
-import ArrowIcon from "./Arrow.jsx";
-import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
-import formatPrice from "../../modules/format-price.js";
+import useStateWithLocalStorage from "#src/hooks/useStateWithLocalStorage.jsx";
+import formatPrice from "#src/modules/format-price.js";
+import TableHead from "#src/components/data-table/TableHead.tsx";
 
 import "./index.css";
 
@@ -22,6 +21,7 @@ function DataTable({
     nameFilter,
     autoScroll,
     onSort,
+    headConfig = {},
 }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
@@ -144,35 +144,25 @@ function DataTable({
                                 return props;
                             }, {})}
                         >
-                            {headerGroup.headers.map((column) => (
-                                <th
-                                    key={column.getHeaderProps(column.getSortByToggleProps({ title: undefined })).key}
-                                    {...Object.keys(
-                                        column.getHeaderProps(column.getSortByToggleProps({ title: undefined })),
-                                    ).reduce((props, propName) => {
-                                        if (propName !== "key") {
-                                            props[propName] = column.getHeaderProps(
-                                                column.getSortByToggleProps({ title: undefined }),
-                                            )[propName];
-                                        }
-                                        return props;
-                                    }, {})}
-                                >
-                                    <span>{column.render("Header")}</span>
-                                    {/* Add a sort direction indicator */}
-                                    <div className={"header-sort-icon"}>
-                                        {column.isSorted ? (
-                                            column.isSortedDesc ? (
-                                                <ArrowIcon />
-                                            ) : (
-                                                <ArrowIcon className={"arrow-up"} />
-                                            )
-                                        ) : (
-                                            <div className={"arrow-placeholder"} />
-                                        )}
-                                    </div>
-                                </th>
-                            ))}
+                            {headerGroup.headers.map((column) => {
+                                const { key, ...restProps } = column.getHeaderProps(
+                                    column.getSortByToggleProps({ title: undefined }),
+                                );
+                                const headAlign = headConfig?.align?.find((h) => h.id === column.id)?.align || "center";
+
+                                return (
+                                    <TableHead
+                                        key={key}
+                                        itemKey={key}
+                                        headProps={restProps}
+                                        align={headAlign}
+                                        isSorted={column.isSorted}
+                                        isSortedDesc={column.isSortedDesc}
+                                    >
+                                        {column.render("Header")}
+                                    </TableHead>
+                                );
+                            })}
                         </tr>
                     ))}
                 </thead>
