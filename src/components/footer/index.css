@@ -25,7 +25,7 @@
     width: 100%;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .footer-section-wrapper {
         width: 20%;
     }

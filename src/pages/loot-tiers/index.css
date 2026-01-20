@@ -1,13 +1,12 @@
 .loot-tier-wrapper {
-    flex-direction: column;
+    flex-flow: column wrap;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
 .loot-tier-text {
-    margin: .75rem;
+    margin: 0.75rem;
     text-align: center;
 }
 

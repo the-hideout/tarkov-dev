@@ -181,7 +181,7 @@
 }
 
 h2 div.historical-price-days {
-    float:inline-end;
+    float: inline-end;
 }
 
 .historical-price-days .select__control {
@@ -194,7 +194,7 @@ h2 div.historical-price-days {
     color: #fff;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .item-page-wrapper {
         padding-top: 20px;
     }
@@ -233,7 +233,7 @@ h2 div.historical-price-days {
     .single-line-grid.sell {
         justify-content: flex-start;
     }
-    
+
     .single-line-grid.buy {
         justify-content: flex-end;
     }

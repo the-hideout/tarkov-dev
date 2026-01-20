@@ -44,6 +44,8 @@
     "Misc": "Różne",
     "openworld-name": "Otwarty świat",
     "openworld-description": "To jest wyobrażenie tego, jak wyglądałaby pełna mapa Tarkowa. Ta mapa z otwartym światem prawdopodobnie zawierałaby wszystkie kluczowe lokacje z istniejących map połączone w jedną wielką mapę.",
+    "transits-name": "Transits",
+    "transits-description": "This is a transit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
     "Transit": "Transit",
     "Task, item or container...": "Task, item or container...",
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",

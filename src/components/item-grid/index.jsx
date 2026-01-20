@@ -1,30 +1,26 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import ItemImage from '../item-image/index.jsx';
-import ItemTooltip from './ItemTooltip.jsx';
-import ItemIcon from './ItemIcon.jsx';
-import formatPrice from '../../modules/format-price.js';
+import ItemImage from "../item-image/index.jsx";
+import ItemTooltip from "./ItemTooltip.jsx";
+import ItemIcon from "./ItemIcon.jsx";
+import formatPrice from "../../modules/format-price.js";
 
-import './index.css';
+import "./index.css";
 
 const getSubtitle = (text, minPrice, maxPrice, t) => {
     if (minPrice || maxPrice) {
         return (
             <div className="item-group-subtitle-wrapper">
                 <div>{formatPrice(maxPrice)}</div>
-                <div>{'⇩'}</div>
+                <div>{"⇩"}</div>
                 <div>{formatPrice(minPrice)}</div>
-                <div className="note">{t('per slot')}</div>
+                <div className="note">{t("per slot")}</div>
             </div>
         );
     }
 
-    return (
-        <div className="item-group-subtitle-wrapper">
-            {text}
-        </div>
-    );
+    return <div className="item-group-subtitle-wrapper">{text}</div>;
 };
 
 function ItemGrid(props) {
@@ -45,7 +41,7 @@ function ItemGrid(props) {
     minPrice = Math.ceil(minPrice / 250) * 250;
     maxPrice = Math.ceil(maxPrice / 250) * 250;
 
-    let className = 'item-group-wrapper';
+    let className = "item-group-wrapper";
 
     if (props.name.length <= 2) {
         className = `${className} big`;
@@ -64,12 +60,12 @@ function ItemGrid(props) {
                         key={`${item.normalizedName}-${item.id}`}
                         to={`/item/${item.normalizedName}`}
                         className={`grid-item`}
-                        style={{gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`, gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`}}
+                        style={{
+                            gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`,
+                            gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`,
+                        }}
                     >
-                        <ItemImage
-                            key={`${item.id}-itemimage`}
-                            item={item}
-                        >
+                        <ItemImage key={`${item.id}-itemimage`} item={item}>
                             <ItemTooltip
                                 key={`${item.id}-tooltip`}
                                 pricePerSlot={item.pricePerSlot}

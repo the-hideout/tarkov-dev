@@ -1,81 +1,89 @@
 .leaflet-control-map-settings-toggle {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+    background-image: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width="0.75"><path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.03 7.03 0 0 0-1.7-.98l-.38-2.65a.5.5 0 0 0-.5-.42h-4a.5.5 0 0 0-.5.42l-.38 2.65c-.63.23-1.2.55-1.7.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1c.5.43 1.07.79 1.7.98l.38 2.65a.5.5 0 0 0 .5.42h4a.5.5 0 0 0 .5-.42l.38-2.65c.63-.23 1.2-.55 1.7-.98l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg>');
+    width: 36px;
+    height: 36px;
 }
+
 .leaflet-control-map-settings {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-	background: #fff;
-	border-radius: 5px;
+    box-shadow: 0 1px 5px rgb(0 0 0 / 0.4);
+    background: #fff;
+    border-radius: 5px;
 }
-.leaflet-control-map-settings-toggle {
-	background-image: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width="0.75"><path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.03 7.03 0 0 0-1.7-.98l-.38-2.65a.5.5 0 0 0-.5-.42h-4a.5.5 0 0 0-.5.42l-.38 2.65c-.63.23-1.2.55-1.7.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1c.5.43 1.07.79 1.7.98l.38 2.65a.5.5 0 0 0 .5.42h4a.5.5 0 0 0 .5-.42l.38-2.65c.63-.23 1.2-.55 1.7-.98l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg>');
-	width: 36px;
-	height: 36px;
-}
+
 .leaflet-touch .leaflet-control-map-settings-toggle {
-	width: 44px;
-	height: 44px;
+    width: 44px;
+    height: 44px;
 }
+
+.leaflet-control-map-settings-expanded {
+    padding: 6px 10px 6px 6px;
+    color: #333;
+    background: #fff;
+}
+
+.leaflet-control-map-settings-list {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
 .leaflet-control-map-settings .leaflet-control-map-settings-list,
 .leaflet-control-map-settings-expanded .leaflet-control-map-settings-toggle {
-	display: none;
+    display: none;
 }
+
 .leaflet-control-map-settings-expanded .leaflet-control-map-settings-list {
-	display: block;
-	position: relative;
+    display: block;
+    position: relative;
 }
-.leaflet-control-map-settings-list {
-	border: 0;
-	margin: 0;
-	padding: 0;
-}
-.leaflet-control-map-settings-expanded {
-	padding: 6px 10px 6px 6px;
-	color: #333;
-	background: #fff;
-}
+
 .leaflet-control-map-settings-scrollbar {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	padding-right: 5px;
+    overflow: hidden scroll;
+    padding-right: 5px;
 }
+
 .leaflet-control-map-settings-selector {
-	margin-top: 2px;
-	position: relative;
-	top: 1px;
+    margin-top: 2px;
+    position: relative;
+    top: 1px;
 }
+
 .leaflet-control-map-settings label {
-	display: block;
-	font-size: 13px;
-	font-size: 1.08333em;
+    display: block;
+    font-size: 13px;
+    font-size: 1.0833em;
 }
+
 .leaflet-control-map-settings-separator {
-	height: 0;
-	border-top: 1px solid var(--color-gold-two);
-	margin: 5px 5px 5px 5px;
+    height: 0;
+    border-top: 1px solid var(--color-gold-two);
+    margin: 5px 5px 5px 5px;
 }
+
 .leaflet-touch .leaflet-control-map-settings {
-	box-shadow: none;
+    box-shadow: none;
+    border: 2px solid rgb(0 0 0 / 0.2);
+    background-clip: padding-box;
 }
-.leaflet-touch .leaflet-control-map-settings{
-	border: 2px solid rgba(0,0,0,0.2);
-	background-clip: padding-box;
-}
+
 .leaflet-control-map-settings-setting-container {
     display: flex;
 }
+
 .leaflet-control-map-settings a {
     color: var(--color-gold-two);
 }
 
 .leaflet-control-map-settings-setting-container label {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .leaflet-control-map-settings-player-location-help {
-	background-image: url("../../public/maps/interactive/player-position.png");
+    background-image: url('../../public/maps/interactive/player-position.png');
     background-repeat: no-repeat;
     background-size: 24px 24px;
     padding-left: 27px;

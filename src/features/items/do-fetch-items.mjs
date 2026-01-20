@@ -1,16 +1,16 @@
-import APIQuery from '../../modules/api-query.mjs';
-import { localStorageWriteJson } from '../settings/settingsSlice.mjs';
+import APIQuery from "../../modules/api-query.mjs";
+import { localStorageWriteJson } from "../settings/settingsSlice.mjs";
 
 class ItemsQuery extends APIQuery {
     constructor() {
-        super('items');
+        super("items");
     }
 
     async query(options) {
         const { language, gameMode, prebuild } = options;
         const query = `
-            query TarkovDevItems {
-                items(lang: ${language}, gameMode: ${gameMode}) {
+            query TarkovDevItems($language: LanguageCode, $gameMode: GameMode, $limit: Int, $offset: Int) {
+                items(lang: $language, gameMode: $gameMode, limit: $limit, offset: $offset) {
                     id
                     bsgCategoryId
                     categories {
@@ -285,59 +285,6 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                 }
-                fleaMarket(lang: ${language}, gameMode: ${gameMode}) {
-                    name
-                    normalizedName
-                    enabled
-                    minPlayerLevel
-                    sellOfferFeeRate
-                    sellRequirementFeeRate
-                    foundInRaidRequired
-                }
-                armorMaterials(lang: ${language}) {
-                    id
-                    name
-                    destructibility
-                    minRepairDegradation
-                    maxRepairDegradation
-                    minRepairKitDegradation
-                    maxRepairKitDegradation
-                }
-                itemCategories(lang: ${language}) {
-                    id
-                    name
-                    normalizedName
-                    parent {
-                        id
-                    }
-                }
-                handbookCategories(lang: ${language}) {
-                    id
-                    name
-                    normalizedName
-                    parent {
-                        id
-                    }
-                    imageLink
-                }
-                playerLevels {
-                    level
-                    exp
-                    levelBadgeImageLink
-                }
-                skills(lang: ${language}) {
-                    id
-                    name
-                    imageLink
-                }
-                mastering {
-                    id
-                    weapons {
-                        id
-                    }
-                    level2
-                    level3
-                }
             }
             fragment GridFragment on ItemStorageGrid {
                 width
@@ -442,9 +389,112 @@ class ItemsQuery extends APIQuery {
                 skillName
             }
         `;
+        const allItemsPromise = new Promise(async (resolve, reject) => {
+            const totalResults = {
+                errors: [],
+                warnings: [],
+                data: {
+                    items: [],
+                },
+            };
+            const args = {
+                language,
+                gameMode,
+                limit: 2500,
+                offset: 0,
+            };
+            try {
+                while (true) {
+                    const results = await this.graphqlRequest(query, args);
+                    if (results.errors) {
+                        totalResults.errors.push(results.errors);
+                    }
+                    if (results.warnings) {
+                        totalResults.warnings.push(results.warnings);
+                    }
+                    if (results.data?.items) {
+                        totalResults.data.items.push(...results.data.items);
+                    }
+                    if (results.data.items.length !== args.limit) {
+                        break;
+                    }
+                    args.offset += args.limit;
+                }
+                if (totalResults.errors.length === 0) {
+                    delete totalResults.errors;
+                }
+                if (totalResults.warnings.length === 0) {
+                    delete totalResults.warnings;
+                }
+                resolve(totalResults);
+            } catch (error) {
+                reject(error);
+            }
+        });
         //console.time('items query');
-        const [itemData, itemGrids] = await Promise.all([
-            this.graphqlRequest(query),
+        const [itemData, otherData, itemGrids] = await Promise.all([
+            allItemsPromise,
+            this.graphqlRequest(
+                `query TarkovDevOtherInfo($language: LanguageCode, $gameMode: GameMode) {
+                    fleaMarket(lang: $language, gameMode: $gameMode) {
+                        name
+                        normalizedName
+                        enabled
+                        minPlayerLevel
+                        sellOfferFeeRate
+                        sellRequirementFeeRate
+                        foundInRaidRequired
+                    }
+                    armorMaterials(lang: $language) {
+                        id
+                        name
+                        destructibility
+                        minRepairDegradation
+                        maxRepairDegradation
+                        minRepairKitDegradation
+                        maxRepairKitDegradation
+                    }
+                    itemCategories(lang: $language) {
+                        id
+                        name
+                        normalizedName
+                        parent {
+                            id
+                        }
+                    }
+                    handbookCategories(lang: $language) {
+                        id
+                        name
+                        normalizedName
+                        parent {
+                            id
+                        }
+                        imageLink
+                    }
+                    playerLevels {
+                        level
+                        exp
+                        levelBadgeImageLink
+                    }
+                    skills(lang: $language) {
+                        id
+                        name
+                        imageLink
+                    }
+                    mastering {
+                        id
+                        weapons {
+                            id
+                        }
+                        level2
+                        level3
+                    }
+                }`,
+                {
+                    language,
+                    gameMode,
+                },
+            ),
             new Promise(async (resolve) => {
                 if (prebuild) {
                     return resolve({});
@@ -452,29 +502,27 @@ class ItemsQuery extends APIQuery {
                 try {
                     // if running in rstest, use the local item-grids.json which in public/data/ folder.
                     if (process.env.RSTEST) {
-                        const itemGrids = await import('#public/data/item-grids.min.json');
+                        const itemGrids = await import("#public/data/item-grids.min.json");
                         resolve(itemGrids);
                     } else {
-                        const response = await fetch(
-                            `${process.env.PUBLIC_URL}/data/item-grids.min.json`,
-                        );
+                        const response = await fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`);
                         const itemGrids = await response.json();
                         resolve(itemGrids);
                     }
                 } catch (error) {
-                    console.log('Error retrieving item grids', error);
+                    console.log("Error retrieving item grids", error);
                     return resolve({});
                 }
             }),
         ]);
         //console.timeEnd('items query');
-        if (itemData.errors) {
-            if (itemData.data) {
+        if (itemData.errors || otherData.errors) {
+            if (itemData.data && itemData.errors) {
                 for (const error of itemData.errors) {
                     let badItem = false;
                     if (error.path) {
                         let traverseLimit = 2;
-                        if (error.path[0] === 'fleaMarket') {
+                        if (error.path[0] === "fleaMarket") {
                             traverseLimit = 1;
                         }
                         badItem = itemData.data;
@@ -489,25 +537,27 @@ class ItemsQuery extends APIQuery {
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
+            if (prebuild || !itemData.data?.items?.length) {
+                return Promise.reject(new Error(itemData.errors[0].message));
+            }
             if (
                 prebuild ||
-                !itemData.data?.items?.length ||
-                !itemData.data?.fleaMarket ||
-                !itemData.data?.armorMaterials ||
-                !itemData.data?.itemCategories ||
-                !itemData.data?.handbookCategories ||
-                !itemData.data?.playerLevels ||
-                !itemData.data?.skills ||
-                !itemData.data?.mastering
+                !otherData.data?.fleaMarket ||
+                !otherData.data?.armorMaterials ||
+                !otherData.data?.itemCategories ||
+                !otherData.data?.handbookCategories ||
+                !otherData.data?.playerLevels ||
+                !otherData.data?.skills ||
+                !otherData.data?.mastering
             ) {
-                return Promise.reject(new Error(itemData.errors[0].message));
+                return Promise.reject(new Error(otherData.errors[0].message));
             }
         }
 
-        const flea = itemData.data.fleaMarket;
-        localStorageWriteJson('Ti', flea.sellOfferFeeRate);
-        localStorageWriteJson('Tr', flea.sellRequirementFeeRate);
-        localStorageWriteJson('fleaEnabled', flea.enabled);
+        const flea = otherData.data.fleaMarket;
+        localStorageWriteJson("Ti", flea.sellOfferFeeRate);
+        localStorageWriteJson("Tr", flea.sellRequirementFeeRate);
+        localStorageWriteJson("fleaEnabled", flea.enabled);
 
         const allItems = itemData.data.items.map((rawItem) => {
             // calculate grid
@@ -530,12 +580,8 @@ class ItemsQuery extends APIQuery {
                 }
 
                 if (gridPockets.length > 1) {
-                    grid.height = Math.max(
-                        ...gridPockets.map((pocket) => pocket.row + pocket.height),
-                    );
-                    grid.width = Math.max(
-                        ...gridPockets.map((pocket) => pocket.col + pocket.width),
-                    );
+                    grid.height = Math.max(...gridPockets.map((pocket) => pocket.row + pocket.height));
+                    grid.width = Math.max(...gridPockets.map((pocket) => pocket.col + pocket.width));
                 } else if (rawItem.properties.grids.length >= 1) {
                     grid.height = rawItem.properties.grids[0].height;
                     grid.width = rawItem.properties.grids[0].width;
@@ -554,13 +600,9 @@ class ItemsQuery extends APIQuery {
             const container = rawItem.properties?.slots || rawItem.properties?.grids;
             if (container) {
                 for (const slot of container) {
-                    slot.filters.allowedCategories = slot.filters.allowedCategories.map(
-                        (cat) => cat.id,
-                    );
+                    slot.filters.allowedCategories = slot.filters.allowedCategories.map((cat) => cat.id);
                     slot.filters.allowedItems = slot.filters.allowedItems.map((it) => it.id);
-                    slot.filters.excludedCategories = slot.filters.excludedCategories.map(
-                        (cat) => cat.id,
-                    );
+                    slot.filters.excludedCategories = slot.filters.excludedCategories.map((cat) => cat.id);
                     slot.filters.excludedItems = slot.filters.excludedItems.map((it) => it.id);
                 }
             }
@@ -571,13 +613,13 @@ class ItemsQuery extends APIQuery {
         return {
             items: allItems,
             handbook: {
-                fleaMarket: itemData.data.fleaMarket,
-                armorMaterials: itemData.data.armorMaterials,
-                itemCategories: itemData.data.itemCategories,
-                handbookCategories: itemData.data.handbookCategories,
-                playerLevels: itemData.data.playerLevels,
-                skills: itemData.data.skills,
-                mastering: itemData.data.mastering,
+                fleaMarket: otherData.data.fleaMarket,
+                armorMaterials: otherData.data.armorMaterials,
+                itemCategories: otherData.data.itemCategories,
+                handbookCategories: otherData.data.handbookCategories,
+                playerLevels: otherData.data.playerLevels,
+                skills: otherData.data.skills,
+                mastering: otherData.data.mastering,
             },
         };
     }

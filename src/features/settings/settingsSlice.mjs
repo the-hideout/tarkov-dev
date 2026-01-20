@@ -1,33 +1,37 @@
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
-    'settings/fetchTarkovTrackerProgress',
+    "settings/fetchTarkovTrackerProgress",
     async (apiKey, { getState }) => {
-        if (!apiKey || typeof apiKey !== 'string' || !apiKey.match(/^[a-zA-Z0-9]{22}$/)) {
+        if (!apiKey || typeof apiKey !== "string") {
             return false;
         }
 
         const returnData = {
             hasFlea: true,
             playerLevel: 72,
-            pmcFaction: 'NONE',
+            pmcFaction: "NONE",
             hideout: {},
             quests: [],
             questsFailed: [],
             objectives: [],
         };
 
-        const domain = localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io');
+        const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
+        const validators = {
+            "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
+            "tarkovtracker.org": /^(?:PVP_|PVE_).+$/i,
+        };
+        if (!apiKey.match(validators[domain])) {
+            return false;
+        }
 
-        const response = await fetch(
-            `https://${domain}/api/v2/progress`,
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                },
+        const response = await fetch(`https://${domain}/api/v2/progress`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
             },
-        ).then((resp) => resp.json());
+        }).then((resp) => resp.json());
 
         const progressData = response.data;
 
@@ -90,7 +94,7 @@ export const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);
 
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             return JSON.parse(value);
         }
     } catch (error) {
@@ -108,12 +112,12 @@ export const localStorageWriteJson = (key, value) => {
 };
 export const localStorageReadJsonGameMode = (key, defaultValue) => {
     try {
-        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const gameMode = JSON.parse(localStorage.getItem("gameMode") ?? '"regular"');
         const settingsString = localStorage.getItem(`${gameMode}Settings`);
 
-        if (typeof settingsString === 'string') {
+        if (typeof settingsString === "string") {
             const settings = JSON.parse(settingsString);
-            if (typeof settings[key] !== 'undefined') {
+            if (typeof settings[key] !== "undefined") {
                 return settings[key];
             }
         }
@@ -125,7 +129,7 @@ export const localStorageReadJsonGameMode = (key, defaultValue) => {
 };
 export const localStorageWriteJsonGameMode = (key, value) => {
     try {
-        const gameMode = JSON.parse(localStorage.getItem('gameMode') ?? '"regular"');
+        const gameMode = JSON.parse(localStorage.getItem("gameMode") ?? '"regular"');
         const gameModeSettings = JSON.parse(localStorage.getItem(`${gameMode}Settings`));
         gameModeSettings[key] = value;
         localStorage.setItem(`${gameMode}Settings`, JSON.stringify(gameModeSettings));
@@ -135,68 +139,65 @@ export const localStorageWriteJsonGameMode = (key, value) => {
 };
 
 const defaultSettings = {
-    hasFlea: localStorageReadJson('useFlea', true),
-    playerLevel: 72,
-    pmcFaction: localStorageReadJson('pmcFaction', 'NONE'),
-    useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
-    tarkovTrackerAPIKey: localStorageReadJson('tarkovTrackerAPIKey', ''),
-    completedQuests: [],
-    failedQuests: [],
-    tarkovTrackerModules: [],
-    objectivesCompleted: [],
-    objectivesCompletionProgress: {},
-    prapor: localStorageReadJson('prapor', 4),
-    therapist: localStorageReadJson('therapist', 4),
-    fence: localStorageReadJson('fence', 0),
-    skier: localStorageReadJson('skier', 4),
-    peacekeeper: localStorageReadJson('peacekeeper', 4),
-    mechanic: localStorageReadJson('mechanic', 4),
-    ragman: localStorageReadJson('ragman', 4),
-    jaeger: localStorageReadJson('jaeger', 4),
-    ref: localStorageReadJson('ref', 4),
-    'bitcoin-farm': localStorageReadJson('bitcoin-farm', 3),
-    'booze-generator': localStorageReadJson('booze-generator', 1),
-    'christmas-tree': localStorageReadJson('christmas-tree', 1),
-    'intelligence-center': localStorageReadJson('intelligence-center', 3),
-    'lavatory': localStorageReadJson('lavatory', 3),
-    'medstation': localStorageReadJson('medstation', 3),
-    'nutrition-unit': localStorageReadJson('nutrition-unit', 3),
-    'water-collector': localStorageReadJson('water-collector', 3),
-    'workbench': localStorageReadJson('workbench', 3),
-    'solar-power': localStorageReadJson('solar-power', 0),
-    'crafting': localStorageReadJson('crafting', 0),
-    'hideout-management': localStorageReadJson('hideout-management', 0),
-    'metabolism': localStorageReadJson('metabolism', 0),
-    minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
-    hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
+    "hasFlea": localStorageReadJson("useFlea", true),
+    "playerLevel": 72,
+    "pmcFaction": localStorageReadJson("pmcFaction", "NONE"),
+    "useTarkovTracker": localStorageReadJson("useTarkovTracker", false),
+    "tarkovTrackerAPIKey": localStorageReadJson("tarkovTrackerAPIKey", ""),
+    "completedQuests": [],
+    "failedQuests": [],
+    "tarkovTrackerModules": [],
+    "objectivesCompleted": [],
+    "objectivesCompletionProgress": {},
+    "prapor": localStorageReadJson("prapor", 4),
+    "therapist": localStorageReadJson("therapist", 4),
+    "fence": localStorageReadJson("fence", 0),
+    "skier": localStorageReadJson("skier", 4),
+    "peacekeeper": localStorageReadJson("peacekeeper", 4),
+    "mechanic": localStorageReadJson("mechanic", 4),
+    "ragman": localStorageReadJson("ragman", 4),
+    "jaeger": localStorageReadJson("jaeger", 4),
+    "ref": localStorageReadJson("ref", 4),
+    "bitcoin-farm": localStorageReadJson("bitcoin-farm", 3),
+    "booze-generator": localStorageReadJson("booze-generator", 1),
+    "christmas-tree": localStorageReadJson("christmas-tree", 1),
+    "intelligence-center": localStorageReadJson("intelligence-center", 3),
+    "lavatory": localStorageReadJson("lavatory", 3),
+    "medstation": localStorageReadJson("medstation", 3),
+    "nutrition-unit": localStorageReadJson("nutrition-unit", 3),
+    "water-collector": localStorageReadJson("water-collector", 3),
+    "workbench": localStorageReadJson("workbench", 3),
+    "solar-power": localStorageReadJson("solar-power", 0),
+    "crafting": localStorageReadJson("crafting", 0),
+    "hideout-management": localStorageReadJson("hideout-management", 0),
+    "metabolism": localStorageReadJson("metabolism", 0),
+    "minDogtagLevel": localStorageReadJson("minDogtagLevel", 1),
+    "hideDogtagBarters": localStorageReadJson("hideDogtagBarters", false),
 };
 
 const settingsSlice = createSlice({
-    name: 'settings',
+    name: "settings",
     initialState: {
-        progressStatus: 'idle',
-        regular: localStorageReadJson('regularSettings', {...defaultSettings}),
-        pve: localStorageReadJson('pveSettings', {
+        progressStatus: "idle",
+        regular: localStorageReadJson("regularSettings", { ...defaultSettings }),
+        pve: localStorageReadJson("pveSettings", {
             ...defaultSettings,
-            tarkovTrackerAPIKey: '',
+            tarkovTrackerAPIKey: "",
             useTarkovTracker: false,
         }),
-        hideRemoteControl: localStorageReadJson('hide-remote-control', false),
-        playerPosition: localStorageReadJson('playerPosition', null),
-        gameMode: localStorageReadJson('gameMode', 'regular'),
-        Ti: localStorageReadJson('Ti', 0.03),
-        Tr: localStorageReadJson('Tr', 0.03),
-        fleaEnabled: localStorageReadJson('fleaEnabled', true),
-        tarkovTrackerDomain: localStorageReadJson('tarkovTrackerDomain', 'tarkovtracker.io'),
-        loadingData: '',
+        hideRemoteControl: localStorageReadJson("hide-remote-control", false),
+        playerPosition: localStorageReadJson("playerPosition", null),
+        gameMode: localStorageReadJson("gameMode", "regular"),
+        Ti: localStorageReadJson("Ti", 0.03),
+        Tr: localStorageReadJson("Tr", 0.03),
+        fleaEnabled: localStorageReadJson("fleaEnabled", true),
+        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
+        loadingData: "",
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
             state[state.gameMode].tarkovTrackerAPIKey = action.payload;
-            localStorageWriteJson(
-                `${state.gameMode}Settings`,
-                state[state.gameMode],
-            );
+            localStorageWriteJson(`${state.gameMode}Settings`, state[state.gameMode]);
         },
         toggleFlea: (state, action) => {
             state[state.gameMode].hasFlea = action.payload;
@@ -220,25 +221,18 @@ const settingsSlice = createSlice({
         },
         toggleHideRemoteControl: (state, action) => {
             state.hideRemoteControl = !state.hideRemoteControl;
-            localStorageWriteJson(
-                'hide-remote-control',
-                state.hideRemoteControl,
-            );
+            localStorageWriteJson("hide-remote-control", state.hideRemoteControl);
         },
         setPlayerPosition: (state, action) => {
-            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position, rotation : action.payload.rotation} : null;
+            const newPosition = action.payload
+                ? { map: action.payload.map, position: action.payload.position, rotation: action.payload.rotation }
+                : null;
             state.playerPosition = newPosition;
-            localStorageWriteJson(
-                'playerPosition',
-                newPosition,
-            );
+            localStorageWriteJson("playerPosition", newPosition);
         },
         setGameMode: (state, action) => {
             state.gameMode = action.payload;
-            localStorageWriteJson(
-                'gameMode',
-                action.payload,
-            );
+            localStorageWriteJson("gameMode", action.payload);
         },
         getGameModeSettings: (state, action) => {
             return {
@@ -249,55 +243,52 @@ const settingsSlice = createSlice({
         setFleaMarketFactors: (state, action) => {
             state.Ti = action.payload.Ti;
             state.Tr = action.payload.Tr;
-            localStorageWriteJson('Ti', action.payload.Ti);
-            localStorageWriteJson('Tr', action.payload.Tr);
+            localStorageWriteJson("Ti", action.payload.Ti);
+            localStorageWriteJson("Tr", action.payload.Tr);
         },
         getTarkovTrackerDomain: (state, action) => {
-            return state.tarkovTrackerDomain || 'tarkovtracker.io';
+            return state.tarkovTrackerDomain || "tarkovtracker.org";
         },
         setTarkovTrackerDomain: (state, action) => {
             if (state.tarkovTrackerDomain === action.payload) {
                 return;
             }
             state.tarkovTrackerDomain = action.payload;
-            localStorageWriteJson(
-                'tarkovTrackerDomain',
-                action.payload,
-            );
-            state.regular.tarkovTrackerAPIKey = '';
-            localStorageWriteJson('regularSettings', state[state.regular]);
-            state.pve.tarkovTrackerAPIKey = '';
-            localStorageWriteJson('pveSettings', state[state.pve]);
+            localStorageWriteJson("tarkovTrackerDomain", action.payload);
+            state.regular.tarkovTrackerAPIKey = "";
+            localStorageWriteJson("regularSettings", state[state.regular]);
+            state.pve.tarkovTrackerAPIKey = "";
+            localStorageWriteJson("pveSettings", state[state.pve]);
         },
         setDataLoading: (state, action) => {
-            const loading = state.loadingData.split(',').filter(Boolean);
+            const loading = state.loadingData.split(",").filter(Boolean);
             if (loading.includes(action.payload)) {
                 return;
             }
             loading.push(action.payload);
-            state.loadingData = loading.join(',');
+            state.loadingData = loading.join(",");
         },
         setDataLoaded: (state, action) => {
-            const loading = state.loadingData.split(',');
+            const loading = state.loadingData.split(",");
             if (!loading.includes(action.payload)) {
                 return;
             }
-            state.loadingData = loading.filter(l => l !== action.payload).join(',');
-        }
+            state.loadingData = loading.filter((l) => l !== action.payload).join(",");
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
-            state.status = 'loading';
+            state.status = "loading";
         });
         builder.addCase(fetchTarkovTrackerProgress.fulfilled, (state, action) => {
-            state.progressStatus = 'succeeded';
+            state.progressStatus = "succeeded";
 
             if (action.payload) {
                 state[state.gameMode].completedQuests = action.payload.quests;
                 state[state.gameMode].failedQuests = action.payload.questsFailed;
                 state[state.gameMode].objectivesCompleted = action.payload.objectivesCompleted;
                 state[state.gameMode].objectivesCompletionProgress = action.payload.objectivesCompletionProgress;
-                const fleaEnabled = localStorageReadJson('fleaEnabled', true);
+                const fleaEnabled = localStorageReadJson("fleaEnabled", true);
                 state[state.gameMode].hasFlea = action.payload.hasFlea && fleaEnabled;
                 state[state.gameMode].playerLevel = action.payload.playerLevel;
                 state[state.gameMode].pmcFaction = action.payload.pmcFaction;
@@ -313,13 +304,13 @@ const settingsSlice = createSlice({
             }
         });
         builder.addCase(fetchTarkovTrackerProgress.rejected, (state, action) => {
-            state.progressStatus = 'failed';
+            state.progressStatus = "failed";
             state.error = action.payload;
         });
     },
 });
 
-const selectSettings = state => state.settings;
+const selectSettings = (state) => state.settings;
 
 export const selectAllTraders = createSelector([selectSettings], (settings) => {
     return {
@@ -337,24 +328,24 @@ export const selectAllTraders = createSelector([selectSettings], (settings) => {
 
 export const selectAllStations = createSelector([selectSettings], (settings) => {
     return {
-        'bitcoin-farm': settings[settings.gameMode]['bitcoin-farm'],
-        'booze-generator': settings[settings.gameMode]['booze-generator'],
-        'christmas-tree': settings[settings.gameMode]['christmas-tree'],
-        'intelligence-center': settings[settings.gameMode]['intelligence-center'],
-        lavatory: settings[settings.gameMode].lavatory,
-        medstation: settings[settings.gameMode].medstation,
-        'nutrition-unit': settings[settings.gameMode]['nutrition-unit'],
-        'water-collector': settings[settings.gameMode]['water-collector'],
-        workbench: settings[settings.gameMode].workbench,
-        'solar-power': settings[settings.gameMode]['solar-power'],
+        "bitcoin-farm": settings[settings.gameMode]["bitcoin-farm"],
+        "booze-generator": settings[settings.gameMode]["booze-generator"],
+        "christmas-tree": settings[settings.gameMode]["christmas-tree"],
+        "intelligence-center": settings[settings.gameMode]["intelligence-center"],
+        "lavatory": settings[settings.gameMode].lavatory,
+        "medstation": settings[settings.gameMode].medstation,
+        "nutrition-unit": settings[settings.gameMode]["nutrition-unit"],
+        "water-collector": settings[settings.gameMode]["water-collector"],
+        "workbench": settings[settings.gameMode].workbench,
+        "solar-power": settings[settings.gameMode]["solar-power"],
     };
 });
 
 export const selectAllSkills = createSelector([selectSettings], (settings) => {
     return {
-        crafting: settings[settings.gameMode].crafting,
-        'hideout-management': settings[settings.gameMode]['hideout-management'],
-        metabolism: settings[settings.gameMode].metabolism,
+        "crafting": settings[settings.gameMode].crafting,
+        "hideout-management": settings[settings.gameMode]["hideout-management"],
+        "metabolism": settings[settings.gameMode].metabolism,
     };
 });
 

@@ -2,20 +2,24 @@ import fs from "fs/promises";
 import sharp from "sharp";
 
 (async () => {
-    console.time('Generating thumbnails');
-    
+    console.time("Generating thumbnails");
+
     // Max height from css ".map-wrapper img"
     const maxHeight = 200;
-    const mapsPath = './public/maps/';
+    const mapsPath = "./public/maps/";
     const files = await fs.readdir(mapsPath);
     for (const fileName of files) {
-        if (!fileName.endsWith('.jpg'))
+        if (!fileName.endsWith(".jpg")) {
             continue;
-        if (fileName.endsWith('_thumb.jpg'))
+        }
+        if (fileName.endsWith("_thumb.jpg")) {
             continue;
-        const thumbName = fileName.replace('.jpg', '_thumb.jpg');
+        }
+        const thumbName = fileName.replace(".jpg", "_thumb.jpg");
         console.log(`Generating ${thumbName}`);
-        const image = sharp(mapsPath + fileName).resize(null, maxHeight).jpeg({ mozjpeg: true, quality: 90 });
+        const image = sharp(mapsPath + fileName)
+            .resize(null, maxHeight)
+            .jpeg({ mozjpeg: true, quality: 90 });
         await image.toFile(mapsPath + thumbName);
     }
     /*const mapGroups = JSON.parse(await fs.readFile('./src/data/maps.json'));
@@ -42,5 +46,5 @@ import sharp from "sharp";
             }
         }
     }*/
-    console.timeEnd('Generating thumbnails');
+    console.timeEnd("Generating thumbnails");
 })();

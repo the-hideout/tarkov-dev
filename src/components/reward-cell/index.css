@@ -41,7 +41,7 @@
     color: var(--color-red-light);
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .reward-info-wrapper div:first-child {
         white-space: initial;
     }

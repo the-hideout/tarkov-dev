@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class HideoutQuery extends APIQuery {
     constructor() {
-        super('hideout');
+        super("hideout");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevHideout {
             hideoutStations(lang: ${language}, gameMode: ${gameMode}) {
                 id
@@ -61,14 +61,16 @@ class HideoutQuery extends APIQuery {
                     }
                     console.log(`Error in hideoutStations API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
             if (
-                prebuild || !queryData.data || 
-                !queryData.data.hideoutStations || !queryData.data.hideoutStations.length
+                prebuild ||
+                !queryData.data ||
+                !queryData.data.hideoutStations ||
+                !queryData.data.hideoutStations.length
             ) {
                 return Promise.reject(new Error(queryData.errors[0].message));
             }

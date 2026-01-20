@@ -709,5 +709,9 @@
   "Get information about a in-game stim": "ゲーム内スティムの情報を取得",
   "Show the criteria for loot tiers": "ルートグレードの基準を表示",
   "Get the bot's uptime": "ボットの稼働時間を確認",
-  "stash-support": "<0>Stash は Tarkov.dev チームが運用しています。バグやアイデアは <1>GitHub</1> で issue を作成するか、<2>Tarkov.dev Discord</2> で開発者に連絡してください。Tarkov.dev とボットのデータを同期する場合はスクリーンショットと再現手順を添付してください。</0>"
+  "stash-support": "<0>Stash は Tarkov.dev チームが運用しています。バグやアイデアは <1>GitHub</1> で issue を作成するか、<2>Tarkov.dev Discord</2> で開発者に連絡してください。Tarkov.dev とボットのデータを同期する場合はスクリーンショットと再現手順を添付してください。</0>",
+  "Database": "Database",
+  "Calculators": "Calculators",
+  "Progression": "Progression",
+  "Community": "Community"
 }

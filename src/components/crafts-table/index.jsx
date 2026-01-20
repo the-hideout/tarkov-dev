@@ -1,41 +1,51 @@
-import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import DataTable from '../data-table/index.jsx';
-import fleaMarketFee from '../../modules/flea-market-fee.mjs';
-import useCraftsData from '../../features/crafts/index.js';
-import useBartersData from '../../features/barters/index.js';
-import useHideoutData from '../../features/hideout/index.js';
-import ValueCell from '../value-cell/index.jsx';
-import CostItemsCell from '../cost-items-cell/index.jsx';
-import formatCostItems from '../../modules/format-cost-items.js';
-import {
-    selectAllStations,
-    selectAllSkills,
-} from '../../features/settings/settingsSlice.mjs';
-import CenterCell from '../center-cell/index.jsx';
+import DataTable from "../data-table/index.jsx";
+import fleaMarketFee from "../../modules/flea-market-fee.mjs";
+import useCraftsData from "../../features/crafts/index.js";
+import useBartersData from "../../features/barters/index.js";
+import useHideoutData from "../../features/hideout/index.js";
+import ValueCell from "../value-cell/index.jsx";
+import CostItemsCell from "../cost-items-cell/index.jsx";
+import formatCostItems from "../../modules/format-cost-items.js";
+import { selectAllStations, selectAllSkills } from "../../features/settings/settingsSlice.mjs";
+import CenterCell from "../center-cell/index.jsx";
 
-import './index.css';
-import RewardCell from '../reward-cell/index.jsx';
-import { getDurationDisplay } from '../../modules/format-duration.js';
-import bestPrice from '../../modules/best-price.js';
-import { useHandbookData } from '../../features/items/index.js';
+import "./index.css";
+import RewardCell from "../reward-cell/index.jsx";
+import { getDurationDisplay } from "../../modules/format-duration.js";
+import bestPrice from "../../modules/best-price.js";
+import { useHandbookData } from "../../features/items/index.js";
 
-import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
+import FleaMarketLoadingIcon from "../FleaMarketLoadingIcon.jsx";
 
-function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
+function CraftTable({
+    selectedStation,
+    freeFuel,
+    nameFilter,
+    itemFilter,
+    showAll,
+    averagePrices,
+    useBarterIngredients,
+    useCraftIngredients,
+}) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
-        return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
+        return {
+            includeFlea: settings.hasFlea,
+            hasJaeger: settings.jaeger !== 0,
+            completedQuests: settings.completedQuests,
+        };
     }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     const [skippedBySettings, setSkippedBySettings] = useState(false);
 
-    const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
+    const [sortState, setSortState] = useState([{ id: "profit", desc: true }]);
 
     const { data: crafts } = useCraftsData();
 
@@ -43,7 +53,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const { data: handbook } = useHandbookData();
 
-    const { data: hideout} = useHideoutData();
+    const { data: hideout } = useHideoutData();
 
     const data = useMemo(() => {
         let addedStations = {};
@@ -52,7 +62,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         return crafts
             .filter((craftRow) => {
                 if (!craftRow.rewardItems[0]) {
-                    console.log('Invalid craft', craftRow);
+                    console.log("Invalid craft", craftRow);
                     return false;
                 }
                 return true;
@@ -83,31 +93,19 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 if (!nameFilter?.length) {
                     return true;
                 }
-                const findString = nameFilter
-                    .toLowerCase()
-                    .replace(/\s/g, '');
+                const findString = nameFilter.toLowerCase().replace(/\s/g, "");
                 for (const requiredItem of craftRow.requiredItems) {
                     if (requiredItem === null) {
                         continue;
                     }
 
-                    if (
-                        requiredItem.item.name
-                            .toLowerCase()
-                            .replace(/\s/g, '')
-                            .includes(findString)
-                    ) {
+                    if (requiredItem.item.name.toLowerCase().replace(/\s/g, "").includes(findString)) {
                         return true;
                     }
                 }
 
                 for (const rewardItem of craftRow.rewardItems) {
-                    if (
-                        rewardItem.item.name
-                            .toLowerCase()
-                            .replace(/\s/g, '')
-                            .includes(findString)
-                    ) {
+                    if (rewardItem.item.name.toLowerCase().replace(/\s/g, "").includes(findString)) {
                         return true;
                     }
                 }
@@ -117,20 +115,29 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             .map((craftRow) => {
                 let totalCost = 0;
 
-                const station = hideout.find(s => s.id === craftRow.station.id);
+                const station = hideout.find((s) => s.id === craftRow.station.id);
                 const stationNormalized = station.normalizedName;
                 const level = craftRow.level;
 
-                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
+                if (
+                    !nameFilter &&
+                    selectedStation &&
+                    selectedStation !== "top" &&
+                    selectedStation !== "banned" &&
+                    selectedStation !== stationNormalized
+                ) {
                     return false;
                 }
 
-                if ((selectedStation === 'top' || selectedStation === 'banned') && stationNormalized === 'bitcoin-farm') {
+                if (
+                    (selectedStation === "top" || selectedStation === "banned") &&
+                    stationNormalized === "bitcoin-farm"
+                ) {
                     return false;
                 }
 
-                if (selectedStation === 'banned') {
-                    if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                if (selectedStation === "banned") {
+                    if (!craftRow.rewardItems[0].item.types.includes("noFlea")) {
                         return false;
                     }
                 }
@@ -143,7 +150,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 }
 
                 if (!showAll && craftRow.taskUnlock && settings.useTarkovTracker) {
-                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                    if (!completedQuests.some((taskId) => taskId === craftRow.taskUnlock.id)) {
                         setSkippedBySettings(true);
                         return false;
                     }
@@ -163,17 +170,17 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
+                var costItemsWithoutTools = costItems.filter((costItem) => costItem.isTool === false);
                 costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.pricePerUnit * costItem.count));
 
                 const craftRewardItem = craftRow.rewardItems[0].item;
 
                 const bestSellTo = craftRewardItem.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
-                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                        if (currentSellFor.vendor.normalizedName === "flea-market") {
                             return previousSellFor;
                         }
-                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
+                        if (currentSellFor.vendor.normalizedName === "jaeger" && !hasJaeger) {
                             return previousSellFor;
                         }
                         if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
@@ -183,8 +190,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     },
                     {
                         vendor: {
-                            name: t('N/A'),
-                            normalizedName: 'unknown'
+                            name: t("N/A"),
+                            normalizedName: "unknown",
                         },
                         priceRUB: 0,
                     },
@@ -196,7 +203,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     craftTime: craftDuration,
                     reward: {
                         item: craftRewardItem,
-                        source: `${station.name} (${t('Level')} ${level})`,
+                        source: `${station.name} (${t("Level")} ${level})`,
                         count: craftRow.rewardItems[0].count,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
@@ -210,56 +217,62 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
                 let fleaFeeSingle = 0;
                 let fleaFeeTotal = 0;
-                let fleaPriceToUse = craftRewardItem[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
+                let fleaPriceToUse = craftRewardItem[averagePrices === true ? "avg24hPrice" : "lastLowPrice"];
                 if (fleaPriceToUse === 0) {
                     fleaPriceToUse = craftRewardItem.lastLowPrice;
                 }
 
-                if (!tradeData.cached && !craftRewardItem.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRewardItem, handbook?.fleaMarket?.sellOfferFeeRate, handbook?.fleaMarket?.sellRequirementFeeRate, fleaPriceToUse);
-                    if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
+                if (!tradeData.cached && !craftRewardItem.types.includes("noFlea") && (showAll || includeFlea)) {
+                    const bestFleaPrice = bestPrice(
+                        craftRewardItem,
+                        handbook?.fleaMarket?.sellOfferFeeRate,
+                        handbook?.fleaMarket?.sellRequirementFeeRate,
+                        fleaPriceToUse,
+                    );
+                    if (
+                        !craftRow.rewardItems[0].priceCustom &&
+                        (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)
+                    ) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
                         fleaFeeSingle = fleaMarketFee(craftRewardItem.basePrice, fleaPriceToUse);
                     }
-                    fleaFeeTotal = fleaMarketFee(craftRewardItem.basePrice, fleaPriceToUse,
-                        {
-                            count: craftRow.rewardItems[0].count,
-                        },
-                    );
+                    fleaFeeTotal = fleaMarketFee(craftRewardItem.basePrice, fleaPriceToUse, {
+                        count: craftRow.rewardItems[0].count,
+                    });
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;
-                    
-                        tradeData.reward.sellTo = t('Flea Market');
+
+                        tradeData.reward.sellTo = t("Flea Market");
                     } else {
                         fleaFeeSingle = 0;
                         fleaFeeTotal = 0;
                     }
-                } else if (craftRewardItem.types.includes('noFlea')) {
-                    tradeData.reward.sellNote = t('Flea banned');
+                } else if (craftRewardItem.types.includes("noFlea")) {
+                    tradeData.reward.sellNote = t("Flea banned");
                 }
 
                 if (craftRewardItem.priceCustom) {
                     tradeData.reward.sellValue = craftRewardItem.priceCustom;
-                    tradeData.reward.sellType = 'custom';
+                    tradeData.reward.sellType = "custom";
                 }
 
                 tradeData.profitParts = [
                     {
-                        name: t('Sell price'),
+                        name: t("Sell price"),
                         value: tradeData.reward.sellValue * craftRow.rewardItems[0].count,
                     },
                 ];
                 if (totalCost) {
                     tradeData.profitParts.push({
-                        name: t('Cost'),
+                        name: t("Cost"),
                         value: totalCost * -1,
                     });
                 }
                 if (fleaFeeTotal) {
                     tradeData.profitParts.push({
-                        name: t('Flea Market fee'),
+                        name: t("Flea Market fee"),
                         value: fleaFeeTotal * -1,
                     });
                 }
@@ -268,25 +281,24 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     (tradeData.reward.sellValue * craftRow.rewardItems[0].count) / (craftDuration / 3600),
                 );
 
-                tradeData.profit = tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost - fleaFeeTotal;
+                tradeData.profit =
+                    tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost - fleaFeeTotal;
 
                 if (tradeData.profit === Infinity) {
                     tradeData.profit = 0;
                 }
 
-                tradeData.profitPerHour = Math.floor(
-                    tradeData.profit / (craftDuration / 3600),
-                );
+                tradeData.profitPerHour = Math.floor(tradeData.profit / (craftDuration / 3600));
 
                 return tradeData;
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                let sortField = 'profit';
+                let sortField = "profit";
                 let desc = true;
                 const columnSwap = {
-                    costItems: 'cost',
-                    reward: 'profit',
+                    costItems: "cost",
+                    reward: "profit",
                 };
                 if (sortState.length > 0) {
                     sortField = sortState[0].id;
@@ -295,7 +307,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 if (columnSwap[sortField]) {
                     sortField = columnSwap[sortField];
                 }
-                if (sortField === 'craftTime' || sortField === 'cost') {
+                if (sortField === "craftTime" || sortField === "cost") {
                     desc = false;
                 }
                 if (!desc) {
@@ -305,7 +317,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             })
             .filter((craft) => {
                 // This is done after profit sorting
-                if (selectedStation !== 'top') {
+                if (selectedStation !== "top") {
                     return true;
                 }
                 if (!craft.cost && !craft.profit && !craft.profitPerHour) {
@@ -348,13 +360,13 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const columns = useMemo(
         () => [
             {
-                Header: t('Reward'),
-                id: 'reward',
-                accessor: 'reward',
+                Header: t("Reward"),
+                id: "reward",
+                accessor: "reward",
                 sortType: (a, b, columnId, desc) => {
                     const aName = a.values.reward.item.name;
                     const bName = b.values.reward.item.name;
-                    
+
                     return aName.localeCompare(bName);
                 },
                 Cell: ({ value }) => {
@@ -362,44 +374,52 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
             {
-                Header: t('Cost'),
-                id: 'costItems',
-                accessor: 'costItems',
+                Header: t("Cost"),
+                id: "costItems",
+                accessor: "costItems",
                 sortType: (a, b, columnId, desc) => {
                     let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    if (selectedStation === 'banned') {
-                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === "banned") {
+                        aCostItems =
+                            a.original.cost / a.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems =
+                            b.original.cost / b.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     }
-                    
+
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
-                    return <CostItemsCell 
-                        costItems={value} 
-                        allowAllSources={showAll} 
-                        barters={barters} 
-                        crafts={crafts} 
-                        useBarterIngredients={useBarterIngredients}
-                        useCraftIngredients={useCraftIngredients}
-                    />;
+                    return (
+                        <CostItemsCell
+                            costItems={value}
+                            allowAllSources={showAll}
+                            barters={barters}
+                            crafts={crafts}
+                            useBarterIngredients={useBarterIngredients}
+                            useCraftIngredients={useCraftIngredients}
+                        />
+                    );
                 },
             },
             {
-                Header: t('Duration') + '\n' + t('Finishes'),
-                id: 'craftTime',
-                accessor: 'craftTime',
-                sortType: 'basic',
+                Header: t("Duration") + "\n" + t("Finishes"),
+                id: "craftTime",
+                accessor: "craftTime",
+                sortType: "basic",
                 Cell: ({ value }) => {
                     return (
                         <CenterCell nowrap>
-                            <div className="duration-wrapper">
-                                {getDurationDisplay(value * 1000)}
-                            </div>
-                            <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
-                                e.target.innerText = getLocalFinishes(value, t);
-                            })}>
+                            <div className="duration-wrapper">{getDurationDisplay(value * 1000)}</div>
+                            <div
+                                className="finish-wrapper"
+                                title={t("Start now")}
+                                onClick={(e) => {
+                                    e.target.innerText = getLocalFinishes(value, t);
+                                }}
+                            >
                                 {getLocalFinishes(value, t)}
                             </div>
                         </CenterCell>
@@ -407,15 +427,19 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
             {
-                Header: t('Cost ₽'),
-                id: 'cost',
+                Header: t("Cost ₽"),
+                id: "cost",
                 accessor: (d) => Number(d.cost),
                 sortType: (a, b, columnId, desc) => {
                     let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    if (selectedStation === 'banned') {
-                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === "banned") {
+                        aCostItems =
+                            a.original.cost / a.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems =
+                            b.original.cost / b.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     }
                     return aCostItems - bCostItems;
                 },
@@ -423,59 +447,61 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
+                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count} />;
                 },
             },
             ...(includeFlea
                 ? [
-                    {
-                        Header: t('Flea throughput/h'),
-                        id: 'fleaThroughput',
-                        accessor: 'fleaThroughput',
-                        sortType: 'basic',
-                        Cell: (props) => {
-                            if (props.row.original.cached) {
-                                return (
-                                    <div className="center-content">
-                                        <FleaMarketLoadingIcon/>
-                                    </div>
-                                );
-                            }
-                            return <ValueCell value={props.value}/>;
-                        },
-                    },
+                      {
+                          Header: t("Flea throughput/h"),
+                          id: "fleaThroughput",
+                          accessor: "fleaThroughput",
+                          sortType: "basic",
+                          Cell: (props) => {
+                              if (props.row.original.cached) {
+                                  return (
+                                      <div className="center-content">
+                                          <FleaMarketLoadingIcon />
+                                      </div>
+                                  );
+                              }
+                              return <ValueCell value={props.value} />;
+                          },
+                      },
                   ]
                 : []),
             {
-                Header: t('Estimated profit'),
-                id: 'profit',
-                accessor: 'profit',
-                sortType: 'basic',
+                Header: t("Estimated profit"),
+                id: "profit",
+                accessor: "profit",
+                sortType: "basic",
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} valueDetails={props.row.original.profitParts} highlightProfit />;
+                    return (
+                        <ValueCell value={props.value} valueDetails={props.row.original.profitParts} highlightProfit />
+                    );
                 },
             },
             {
-                Header: t('Estimated profit/h'),
-                id: 'profitPerHour',
-                accessor: 'profitPerHour',
-                sortType: 'basic',
+                Header: t("Estimated profit/h"),
+                id: "profitPerHour",
+                accessor: "profitPerHour",
+                sortType: "basic",
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
@@ -489,13 +515,14 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     let extraRow = false;
 
     if (data.length <= 0) {
-        extraRow = t('No crafts available for selected filters');
+        extraRow = t("No crafts available for selected filters");
     }
 
     if (data.length <= 0 && skippedBySettings) {
         extraRow = (
             <>
-                {t('No crafts available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t("No crafts available for selected filters but some were hidden by ")}
+                <Link to="/settings/">{t("your settings")}</Link>
             </>
         );
     }
@@ -503,7 +530,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     if (data.length > 0 && skippedBySettings) {
         extraRow = (
             <>
-                {t('Some crafts hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t("Some crafts hidden by ")}
+                <Link to="/settings/">{t("your settings")}</Link>
             </>
         );
     }
@@ -514,10 +542,10 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             columns={columns}
             data={data}
             extraRow={extraRow}
-            sortBy={'profit'}
+            sortBy={"profit"}
             sortByDesc={true}
             autoResetSortBy={false}
-            onSort={newSortState => {
+            onSort={(newSortState) => {
                 setSortState(newSortState);
             }}
         />
@@ -525,11 +553,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 }
 
 function getLocalFinishes(time, t) {
-    const finishes = t('{{val, datetime}}', { val: Date.now() + time*1000,
+    const finishes = t("{{val, datetime}}", {
+        val: Date.now() + time * 1000,
         formatParams: {
-            val: { weekday: 'short', hour: 'numeric', minute: 'numeric', second: 'numeric' },
+            val: { weekday: "short", hour: "numeric", minute: "numeric", second: "numeric" },
         },
-    })
+    });
 
     return finishes;
 }

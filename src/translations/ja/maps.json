@@ -44,6 +44,8 @@
     "Misc": "Misc",
     "openworld-name": "オープンワールド",
     "openworld-description": "これはTarkovのフルマップのイメージを表したものです。このオープンワールドマップは、既存の地図にある鍵の場所をすべて組み合わせて、巨大な1つのマップにすることになるでしょう。",
+    "transits-name": "Transits",
+    "transits-description": "This is a transit overlay over the official map that shows all current locations and how to reach them via transit and one-way transit connections.",
     "Transit": "Transit",
     "Task, item or container...": "Task, item or container...",
     "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supports multisearch (e.g. 'labs, ledx, bitcoin')",

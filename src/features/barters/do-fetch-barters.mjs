@@ -1,12 +1,12 @@
-import APIQuery from '../../modules/api-query.mjs';
+import APIQuery from "../../modules/api-query.mjs";
 
 class BartersQuery extends APIQuery {
     constructor() {
-        super('barters');
+        super("barters");
     }
 
     async query(options) {
-        const { language, gameMode, prebuild} = options;
+        const { language, gameMode, prebuild } = options;
         const query = `query TarkovDevBarters {
             barters(lang: ${language}, gameMode: ${gameMode}) {
                 rewardItems {
@@ -39,9 +39,9 @@ class BartersQuery extends APIQuery {
                 }
             }
         }`;
-    
+
         const bartersData = await this.graphqlRequest(query);
-    
+
         if (bartersData.errors) {
             if (bartersData.data) {
                 for (const error of bartersData.errors) {
@@ -54,19 +54,16 @@ class BartersQuery extends APIQuery {
                     }
                     console.log(`Error in barters API query: ${error.message}`);
                     if (badItem) {
-                        console.log(badItem)
+                        console.log(badItem);
                     }
                 }
             }
             // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild || !bartersData.data || 
-                !bartersData.data.barters || !bartersData.data.barters.length
-            ) {
+            if (prebuild || !bartersData.data || !bartersData.data.barters || !bartersData.data.barters.length) {
                 return Promise.reject(new Error(bartersData.errors[0].message));
             }
         }
-    
+
         // validate to make sure barters all have valid requirements and rewards
         return bartersData.data.barters.reduce((barters, barter) => {
             barter.requiredItems = barter.requiredItems.filter(Boolean);

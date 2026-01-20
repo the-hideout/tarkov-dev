@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import useHideoutData from '../../features/hideout/index.js';
-import useItemsData from '../../features/items/index.js';
+import useHideoutData from "../../features/hideout/index.js";
+import useItemsData from "../../features/items/index.js";
 
-import './index.css';
+import "./index.css";
 
 function ItemsForHideout(props) {
     const { itemFilter, showAll } = props;
@@ -22,23 +22,23 @@ function ItemsForHideout(props) {
             curr.levels.map((level) => {
                 return acc.push(
                     ...level.itemRequirements
-                    .filter((c) => {
-                        if (!c) {
-                            return false;
-                        }
+                        .filter((c) => {
+                            if (!c) {
+                                return false;
+                            }
 
-                        return c.item.id === itemFilter;
-                    })
-                    .map((c) => {
-                        return {
-                            ...c,
-                            moduleName: curr.name,
-                            normalizedName: curr.normalizedName,
-                            imageLink: curr.imageLink,
-                            level: level.level,
-                        };
-                    }),
-                )
+                            return c.item.id === itemFilter;
+                        })
+                        .map((c) => {
+                            return {
+                                ...c,
+                                moduleName: curr.name,
+                                normalizedName: curr.normalizedName,
+                                imageLink: curr.imageLink,
+                                level: level.level,
+                            };
+                        }),
+                );
             });
 
             return acc;
@@ -54,17 +54,18 @@ function ItemsForHideout(props) {
     // }
 
     const unbuilt = useMemo(() => {
-        return data.filter(module => settings[module.normalizedName] < module.level);
+        return data.filter((module) => settings[module.normalizedName] < module.level);
     }, [data, settings]);
 
     let extraRow = false;
 
     if (data.length <= 0) {
-        extraRow = t('No hideout modules requires this item');
+        extraRow = t("No hideout modules requires this item");
     } else if (unbuilt.length !== data.length && !showAll) {
         extraRow = (
             <>
-                {t('No unbuilt hideout modules for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t("No unbuilt hideout modules for selected filters but some were hidden by ")}
+                <Link to="/settings/">{t("your settings")}</Link>
             </>
         );
     }
@@ -76,64 +77,59 @@ function ItemsForHideout(props) {
             <table className="hideout-item-list">
                 <thead>
                     <tr className="hideout-item-list-row">
-                        <th>{t('Hideout Module')}</th>
-                        <th>{t('Item')}</th>
+                        <th>{t("Hideout Module")}</th>
+                        <th>{t("Item")}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {extraRow && (
                         <tr className="hideout-item-list-row hideout-item-list-extra-row">
-                            <td
-                                colSpan={2}
-                                className="hideout-item-list-column"
-                            >
+                            <td colSpan={2} className="hideout-item-list-column">
                                 {extraRow}
                             </td>
                         </tr>
                     )}
-                    {displayList.map((hideoutModule, k) => {
-                        const item = items.find(i => i.id === hideoutModule.item.id);
-                        if (!item) {
-                            return false;
-                        }
-                        return (
-                            <tr key={k} className="hideout-item-list-row">
-                                <td className="hideout-item-list-column">
-                                    <div className="hideout-name-wrapper">
-                                        <img
-                                            alt={hideoutModule.moduleName}
-                                            className="quest-giver-image"
-                                            loading="lazy"
-                                            src={hideoutModule.imageLink}
-                                        />
-                                        <div>
-                                            {hideoutModule.moduleName}
-                                            <div>
-                                                {t('Level')} {hideoutModule.level}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="hideout-item-list-column">
-                                    <div className="hideout-item-wrapper">
-                                        <div className="hideout-item-image-wrapper">
+                    {displayList
+                        .map((hideoutModule, k) => {
+                            const item = items.find((i) => i.id === hideoutModule.item.id);
+                            if (!item) {
+                                return false;
+                            }
+                            return (
+                                <tr key={k} className="hideout-item-list-row">
+                                    <td className="hideout-item-list-column">
+                                        <div className="hideout-name-wrapper">
                                             <img
-                                                alt={item.name}
+                                                alt={hideoutModule.moduleName}
+                                                className="quest-giver-image"
                                                 loading="lazy"
-                                                src={item.iconLink}
+                                                src={hideoutModule.imageLink}
                                             />
-                                        </div>
-                                        <div className="hideout-item-text-wrapper">
-                                            {item.name}
-                                            <div className="amount-wrapper">
-                                                {t('Amount')}: {hideoutModule.quantity}
+                                            <div>
+                                                {hideoutModule.moduleName}
+                                                <div>
+                                                    {t("Level")} {hideoutModule.level}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        );
-                    }).filter(Boolean)}
+                                    </td>
+                                    <td className="hideout-item-list-column">
+                                        <div className="hideout-item-wrapper">
+                                            <div className="hideout-item-image-wrapper">
+                                                <img alt={item.name} loading="lazy" src={item.iconLink} />
+                                            </div>
+                                            <div className="hideout-item-text-wrapper">
+                                                {item.name}
+                                                <div className="amount-wrapper">
+                                                    {t("Amount")}: {hideoutModule.quantity}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })
+                        .filter(Boolean)}
                 </tbody>
             </table>
         </div>

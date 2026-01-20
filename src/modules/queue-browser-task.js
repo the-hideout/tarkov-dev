@@ -4,7 +4,7 @@ const task = (cb) => {
     const mc = new MessageChannel();
     mc.port1.postMessage(null);
     mc.port2.addEventListener(
-        'message',
+        "message",
         () => {
             cb();
         },

@@ -1,8 +1,8 @@
-import dayjs from 'dayjs';
-import dayjsUtc from 'dayjs/plugin/utc';
-import { useTranslation } from 'react-i18next';
+import dayjs from "dayjs";
+import dayjsUtc from "dayjs/plugin/utc";
+import { useTranslation } from "react-i18next";
 
-import useDate from '../hooks/useDate.jsx';
+import useDate from "../hooks/useDate.jsx";
 
 /*
 Huge thanks to Adam Burgess
@@ -32,9 +32,7 @@ export function realTimeToTarkovTime(time, left) {
     const russia = hrs(3);
 
     const offset = russia + (left ? 0 : hrs(12));
-    const tarkovTime = new Date(
-        (offset + time.getTime() * tarkovRatio) % oneDay,
-    );
+    const tarkovTime = new Date((offset + time.getTime() * tarkovRatio) % oneDay);
 
     return tarkovTime;
 }
@@ -55,7 +53,7 @@ export function timeUntilRelative(until, left, date) {
 export function formattedTarkovTime(left = true) {
     const time = new Date();
     const tarkovTime = realTimeToTarkovTime(time, left);
-    return dayjs.utc(tarkovTime).format('HH:mm:ss')
+    return dayjs.utc(tarkovTime).format("HH:mm:ss");
 }
 
 export function formatFuture(ms) {
@@ -63,16 +61,16 @@ export function formatFuture(ms) {
     const hour = time.hour();
     const min = time.minute();
     const sec = time.second();
-    let text = '';
+    let text = "";
 
     if (hour !== 0) {
-        text = hour + 'hr';
+        text = hour + "hr";
     }
 
-    text += min + 'min';
+    text += min + "min";
 
     if (hour === 0 && min === 0) {
-        text = sec + 's';
+        text = sec + "s";
     }
 
     return text;
@@ -83,18 +81,21 @@ function MapDetails(props) {
 
     const overlayItem = [
         <div key={`${props.currentMap}-duration`}>
-            {t('Duration')}: {props.duration}
+            {t("Duration")}: {props.duration}
         </div>,
         <div key={`${props.currentMap}-players`}>
-            {t('Players')}: {props.players}
+            {t("Players")}: {props.players}
         </div>,
     ];
 
     if (props.author) {
         overlayItem.push(
             <div key={`${props.currentMap}-attribution`}>
-                {t('By')}
-                <span>:</span> <a href={props.authorLink} target="_blank" rel="noopener noreferrer">{props.author}</a>
+                {t("By")}
+                <span>:</span>{" "}
+                <a href={props.authorLink} target="_blank" rel="noopener noreferrer">
+                    {props.author}
+                </a>
             </div>,
         );
     }
@@ -105,7 +106,7 @@ function MapDetails(props) {
 function Time(props) {
     const time = useDate(new Date(), 50);
 
-    if (props?.normalizedName === 'factory') {
+    if (props?.normalizedName === "factory") {
         return (
             <div className="time-wrapper">
                 <div>15:28:00</div>
@@ -115,7 +116,7 @@ function Time(props) {
         );
     }
 
-    if (props?.normalizedName === 'the-lab') {
+    if (props?.normalizedName === "the-lab") {
         return (
             <div className="time-wrapper">
                 <MapDetails {...props} />
@@ -128,8 +129,8 @@ function Time(props) {
 
     return (
         <div className="time-wrapper">
-            <div>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</div>
-            <div>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</div>
+            <div>{dayjs.utc(tarkovTime1).format("HH:mm:ss")}</div>
+            <div>{dayjs.utc(tarkovTime2).format("HH:mm:ss")}</div>
             <MapDetails {...props} />
         </div>
     );

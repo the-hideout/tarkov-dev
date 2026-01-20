@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from "react";
 import {
     VictoryChart,
     VictoryScatter,
@@ -11,11 +11,11 @@ import {
     // VictoryTooltip,
     // VictoryVoronoiContainer,
     VictoryContainer,
-} from 'victory';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+} from "victory";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import Symbol from './Symbol.jsx';
+import Symbol from "./Symbol.jsx";
 // import GraphLabel from './GraphLabel';
 
 const MAX_DAMAGE = 170;
@@ -24,7 +24,7 @@ const MAX_PENETRATION = 70;
 const styles = {
     classLabel: {
         fontSize: 3,
-        fill: '#ddd',
+        fill: "#ddd",
         strokeWidth: 1,
     },
     xaxis: {
@@ -32,26 +32,26 @@ const styles = {
             fontSize: 5,
         },
         grid: {
-            stroke: '#555',
+            stroke: "#555",
         },
         axisLabel: {
             fontSize: 4,
             padding: 5,
-            fill: '#ccc',
+            fill: "#ccc",
         },
     },
     yaxis: {
         tickLabels: {
-            fill: '#fff',
+            fill: "#fff",
             fontSize: 4,
         },
         grid: {
-            stroke: '#555',
+            stroke: "#555",
         },
         axisLabel: {
             fontSize: 4,
             padding: 5,
-            fill: '#ccc',
+            fill: "#ccc",
         },
         ticks: {
             size: 0,
@@ -60,35 +60,35 @@ const styles = {
     scatter: {
         labels: {
             fontSize: 2.5,
-            fill: '#ccc',
+            fill: "#ccc",
         },
     },
     legend: {
         border: {
-            stroke: 'black',
-            fill: '#2d2d2f',
+            stroke: "black",
+            fill: "#2d2d2f",
             width: 37,
         },
         labels: {
-            fill: '#ccc',
+            fill: "#ccc",
             fontSize: 3,
-            cursor: 'pointer',
+            cursor: "pointer",
         },
         title: {
-            fill: '#ccc',
+            fill: "#ccc",
             fontSize: 4,
             padding: 2,
         },
     },
     annotionLine: {
         data: {
-            stroke: '#888',
+            stroke: "#888",
             strokeWidth: 0.5,
             strokeDasharray: 1,
         },
         labels: {
             angle: -90,
-            fill: '#ccc',
+            fill: "#ccc",
             fontSize: 3,
         },
     },
@@ -102,8 +102,8 @@ const LegendLabel = (props) => {
         if (selectedDatumName.includes(datum.name)) {
             style = {
                 ...props.style,
-                textDecoration: 'underline',
-                fill: '#fff',
+                textDecoration: "underline",
+                fill: "#fff",
             };
         }
 
@@ -123,14 +123,7 @@ export const getMarkerLine = (xMax, xTarget, label) => {
             style={styles.annotionLine}
             labels={[label]}
             key={label}
-            labelComponent={
-                <VictoryLabel
-                    textAnchor="middle"
-                    verticalAnchor="middle"
-                    dx={xMax - 40}
-                    dy={-3}
-                />
-            }
+            labelComponent={<VictoryLabel textAnchor="middle" verticalAnchor="middle" dx={xMax - 40} dy={-3} />}
             x={() => xTarget}
         />
     );
@@ -155,8 +148,7 @@ export const getMarkerLine = (xMax, xTarget, label) => {
 // };
 
 const xTickValues = [
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
-    180, 190, 200, 210, 220, 230, 240,
+    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240,
 ];
 const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
@@ -182,12 +174,12 @@ const Graph = (props) => {
 
     const markerLines = useMemo(() => {
         return [
-            getMarkerLine(xMax, 85, t('PMC & Scav Thorax HP')),
-            getMarkerLine(xMax, 145, t('Reshala Thorax HP')),
-            getMarkerLine(xMax, 160, t('Raider Thorax HP')),
-            getMarkerLine(xMax, 180, t('Shturman Thorax HP')),
-            getMarkerLine(xMax, 200, t('Cultist Priest Thorax HP')),
-            getMarkerLine(xMax, 220, t('Cultist Warrior Thorax HP')),
+            getMarkerLine(xMax, 85, t("PMC & Scav Thorax HP")),
+            getMarkerLine(xMax, 145, t("Reshala Thorax HP")),
+            getMarkerLine(xMax, 160, t("Raider Thorax HP")),
+            getMarkerLine(xMax, 180, t("Shturman Thorax HP")),
+            getMarkerLine(xMax, 200, t("Cultist Priest Thorax HP")),
+            getMarkerLine(xMax, 220, t("Cultist Warrior Thorax HP")),
             // getArmorLabel(1, yMax, xMax),
             // getArmorLabel(2, yMax, xMax),
             // getArmorLabel(3, yMax, xMax),
@@ -214,29 +206,29 @@ const Graph = (props) => {
         <VictoryChart
             domainPadding={10}
             padding={chartPadding}
-            height={Math.max((props.legendData.length * 7) + 17, 180)}
+            height={Math.max(props.legendData.length * 7 + 17, 180)}
             theme={VictoryTheme.material}
             minDomain={chartMinDomain}
             maxDomain={chartMaxDomain}
             containerComponent={
                 <VictoryContainer
                     style={{
-                        touchAction: 'auto',
+                        touchAction: "auto",
                     }}
                 />
             }
         >
             <VictoryAxis
                 axisLabelComponent={<VictoryLabel x={177} />}
-                label={t('Damage')}
+                label={t("Damage")}
                 tickValues={xTickValues}
                 style={styles.xaxis}
             />
             <VictoryAxis
                 dependentAxis
-                tickFormat={(tick) => (tick === 70 ? '' : t('Class {{tier}}', { tier: tick / 10 }))}
+                tickFormat={(tick) => (tick === 70 ? "" : t("Class {{tier}}", { tier: tick / 10 }))}
                 tickLabelComponent={<VictoryLabel dx={24} dy={-4} />}
-                label={t('Penetration')}
+                label={t("Penetration")}
                 tickValues={yTickValues}
                 style={styles.yaxis}
             />
@@ -245,7 +237,7 @@ const Graph = (props) => {
                 _animate={chartAnimate}
                 events={[
                     {
-                        target: 'labels',
+                        target: "labels",
                         eventHandlers: {
                             onClick: handleLabelClick,
                         },
@@ -279,13 +271,11 @@ const Graph = (props) => {
             <VictoryLegend
                 data={props.legendData}
                 dataComponent={<Symbol link={false} />}
-                title={t('Filter by caliber')}
-                labelComponent={
-                    <LegendLabel selectedDatumName={props.selectedLegendName} />
-                }
+                title={t("Filter by caliber")}
+                labelComponent={<LegendLabel selectedDatumName={props.selectedLegendName} />}
                 events={[
                     {
-                        target: 'labels',
+                        target: "labels",
                         eventHandlers: {
                             onClick: props.handleLegendClick,
                         },

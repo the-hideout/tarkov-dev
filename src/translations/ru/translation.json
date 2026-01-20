@@ -709,5 +709,9 @@
   "Get information about a in-game stim": "Получить сведения об игровом стимуляторе",
   "Show the criteria for loot tiers": "Показать критерии уровней добычи",
   "Get the bot's uptime": "Посмотреть аптайм бота",
-  "stash-support": "<0>Stash поддерживается командой Tarkov.dev. Ошибки или идеи? Создайте issue на <1>GitHub</1> или пообщайтесь с разработчиками в <2>Discord Tarkov.dev</2>. Если синхронизируете Tarkov.dev и данные бота, прикладывайте скриншоты и шаги воспроизведения.</0>"
+  "stash-support": "<0>Stash поддерживается командой Tarkov.dev. Ошибки или идеи? Создайте issue на <1>GitHub</1> или пообщайтесь с разработчиками в <2>Discord Tarkov.dev</2>. Если синхронизируете Tarkov.dev и данные бота, прикладывайте скриншоты и шаги воспроизведения.</0>",
+  "Database": "Database",
+  "Calculators": "Calculators",
+  "Progression": "Progression",
+  "Community": "Community"
 }

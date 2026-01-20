@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import ItemTooltip from './ItemTooltip.jsx';
-import ItemIcon from './ItemIcon.jsx';
+import ItemTooltip from "./ItemTooltip.jsx";
+import ItemIcon from "./ItemIcon.jsx";
 
 // const sizesNotToRotate = [
 //     '3x2',
@@ -31,7 +31,7 @@ function Item(props) {
         <Link
             to={props.itemLink}
             className={`grid-item`}
-            style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`}}
+            style={{ gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}` }}
         >
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}
@@ -39,11 +39,7 @@ function Item(props) {
                 sellTo={props.sellTo}
                 name={props.name}
             />
-            <ItemIcon
-                sellTo={props.sellTo}
-                sellToNormalized={props.sellToNormalized}
-                count={props.count}
-            />
+            <ItemIcon sellTo={props.sellTo} sellToNormalized={props.sellToNormalized} count={props.count} />
 
             <img alt={props.name} loading="lazy" src={imgSrc} />
         </Link>

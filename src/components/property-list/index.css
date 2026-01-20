@@ -8,14 +8,13 @@
 
 .property-wrapper {
     display: flex;
-    align-items: center;
     align-items: flex-start;
+    flex: 1 auto;
     flex-direction: column;
-    background-color: var(--color-gunmetal-dark);
-    border: 1px solid var(--color-black-light);
     flex-basis: calc(50% - 2.5px);
     padding: 10px 20px;
-    flex: 1 auto;
+    background-color: var(--color-gunmetal-dark);
+    border: 1px solid var(--color-black-light);
 }
 
 .property-wrapper.large {
@@ -24,7 +23,7 @@
 }
 
 .property-wrapper.health {
-  max-width: 160px;
+    max-width: 160px;
 }
 
 .property-key-wrapper {
@@ -37,16 +36,16 @@
 }
 
 .property-wrapper .item {
-  white-space: normal;
+    white-space: normal;
 }
+
 .property-wrapper .item p {
     margin: 0;
 }
 
-
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
     .property-wrapper {
-/*        flex-basis: 10%; */
+        /*        flex-basis: 10%; */
         white-space: nowrap;
     }
 }

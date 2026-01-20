@@ -4,15 +4,15 @@
     width: 200px;
     height: 200px;
     opacity: 0.9;
-
-    -webkit-animation: shine 1s linear infinite;
-            animation: shine 1s linear infinite;
+    animation: shine 1s linear infinite;
 }
-@-webkit-keyframes shine {
+
+@keyframes shine {
     to {
         background-position: -200% center;
     }
 }
+
 @keyframes shine {
     to {
         background-position: -200% center;
@@ -30,7 +30,7 @@
 }
 
 .item-image-count {
-    background-color: rgb( from var(--color-black) r g b / 0.8);
+    background-color: rgb(from var(--color-black) r g b / 0.8);
     border-top-left-radius: 3px;
     color: var(--color-gold-one);
     font-size: 14px;

@@ -1,20 +1,18 @@
 .reset-button {
-    padding: .2rem;
+    padding: 0.2rem;
     border-radius: 4px;
     margin-top: 20px;
 }
 
 .currency-input {
     display: flex;
+    margin-right: 10px;
+    width: 264px;
+    margin-top: 10px;
 }
 
 .currency-input .icon-with-text {
     margin: 10px;
-}
-.currency-input {
-    margin-right: 10px;
-    width: 264px;
-    margin-top: 10px;
 }
 
 .error {

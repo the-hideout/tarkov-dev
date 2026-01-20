@@ -1,10 +1,10 @@
-import './index.css';
+import "./index.css";
 
 function loyaltyLevelIcon({ loyaltyLevel }) {
     let loyaltyLevelString = loyaltyLevel;
 
     if (loyaltyLevel < 4) {
-        loyaltyLevelString = new Array(loyaltyLevel).fill('I').join('');
+        loyaltyLevelString = new Array(loyaltyLevel).fill("I").join("");
     }
 
     return (
