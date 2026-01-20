@@ -17,7 +17,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             objectives: [],
         };
 
-        const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.io");
+        const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
         const validators = {
             "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
             "tarkovtracker.org": /^(?:PVP_|PVE_).+$/i,
@@ -191,7 +191,7 @@ const settingsSlice = createSlice({
         Ti: localStorageReadJson("Ti", 0.03),
         Tr: localStorageReadJson("Tr", 0.03),
         fleaEnabled: localStorageReadJson("fleaEnabled", true),
-        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.io"),
+        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
         loadingData: "",
     },
     reducers: {
@@ -247,7 +247,7 @@ const settingsSlice = createSlice({
             localStorageWriteJson("Tr", action.payload.Tr);
         },
         getTarkovTrackerDomain: (state, action) => {
-            return state.tarkovTrackerDomain || "tarkovtracker.io";
+            return state.tarkovTrackerDomain || "tarkovtracker.org";
         },
         setTarkovTrackerDomain: (state, action) => {
             if (state.tarkovTrackerDomain === action.payload) {

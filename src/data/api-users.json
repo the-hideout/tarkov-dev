@@ -5,12 +5,6 @@
         "text": "The Hideout's official Escape from Tarkov Discord bot"
     },
     {
-        "title": "Battle Buddy",
-        "link": "https://play.google.com/store/apps/details?id=com.veritas.battlebuddy",
-        "text": "The unofficial Escape from Tarkov companion app, brought to you by Veritas with help from his community, is just what every PMC needs by their side before, during, and after their raids!",
-        "imageType": "jpg"
-    },
-    {
         "title": "Database app for Tarkov",
         "link": "https://tarkov.page.link/link",
         "text": "Database app for Tarkov with feature: The Flea Market, Quest Tracker, Items to Keep for Quest/Hideout, Ballistics, Craft Profit Calculator, Barter Save Calculator, Map",
@@ -32,11 +26,6 @@
         "link": "https://ratscanner.com",
         "text": "Rat Scanner allows you to scan items and provides you with realtime data about them. Items can be scanned instantly at any time!",
         "imageType": "gif"
-    },
-    {
-        "title": "Tarkov Guru",
-        "link": "https://tarkov.guru",
-        "text": "Look up item prices, barter costs, and hideout craft profit. Set your hideout and trader progress to see only the barters and crafts that are available to you. Discord bot for quick lookup of item prices."
     },
     {
         "title": "Tarkov Roulette",

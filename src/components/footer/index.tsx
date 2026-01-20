@@ -113,8 +113,8 @@ function Footer() {
                 </p>
                 <h3>{t("External resources")}</h3>
                 <p>
-                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">
-                        TarkovTracker.io
+                    <a href="https://tarkovtracker.org/" target="_blank" rel="noopener noreferrer">
+                        TarkovTracker.org
                     </a>
                 </p>
                 <p>
