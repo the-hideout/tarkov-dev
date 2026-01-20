@@ -29,9 +29,10 @@ export default function TableHead({
                 "table-head--center": align === "center",
             })}
         >
-            <span>{children}</span>
+            <span key="column-name">{children}</span>
 
             <i
+                key="column-sort-icon"
                 className={clsx(
                     "header-sort-icon-container",
                     !isSorted && align !== "center" && "header-sort-icon-container--h-0",
