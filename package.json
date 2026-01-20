@@ -35,7 +35,7 @@
     "@rsbuild/plugin-svgr": "^1.2.2",
     "@rstest/core": "^0.7.8",
     "@types/react-table": "^7.7.20",
-    "eslint": "^8.57.1",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-react-app": "^7.0.1",
     "husky": "^9.1.7",
