@@ -400,7 +400,7 @@ class ItemsQuery extends APIQuery {
             const args = {
                 language,
                 gameMode,
-                limit: 2500,
+                limit: 3000,
                 offset: 0,
             };
             try {
