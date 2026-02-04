@@ -303,6 +303,7 @@ function Map() {
         showOnlyActiveTasks: false,
         expandMapLegend: false,
         expandSearch: false,
+        alwaysShowSnipers: true,
     });
 
     const mapSettingsRef = useRef(savedMapSettings);
@@ -525,6 +526,8 @@ function Map() {
                 expandSearchChecked: mapSettingsRef.current.expandSearch,
                 expandSearchLabel: tMaps("Don't collapse search control"),
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
+                alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
+                alwaysShowSnipersLabel: tMaps("Always show snipers"),
                 collapsed: true,
             })
             .addTo(map);
@@ -541,6 +544,13 @@ function Map() {
             }
             if (e.settingName === "expandSearch") {
                 map.searchControl.setCollapse(!e.settingValue);
+            }
+            if (e.settingName === "alwaysShowSnipers") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-snipers");
+                } else {
+                    map._container.classList.remove("always-show-snipers");
+                }
             }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
@@ -1175,6 +1185,7 @@ function Map() {
                 }
                 let spawnType = "";
                 let bosses = [];
+                let markerClass;
 
                 if (spawn.categories.includes("boss")) {
                     bosses = mapData.bosses.filter((boss) =>
@@ -1206,6 +1217,7 @@ function Map() {
                     }
                 } else if (spawn.categories.includes("sniper")) {
                     spawnType = "sniper_scav";
+                    markerClass = "sniper-spawn";
                 } else if (spawn.sides.includes("scav")) {
                     if (spawn.categories.includes("bot") || spawn.categories.includes("all")) {
                         spawnType = "scav";
@@ -1222,6 +1234,7 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
+                    className: markerClass,
                 });
 
                 if (spawnType === "pmc") {
@@ -2116,7 +2129,7 @@ function Map() {
             key="seo-wrapper"
         />,
         <div
-            className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? " only-active-quest-markers" : ""}`}
+            className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? " only-active-quest-markers" : ""}${savedMapSettings.alwaysShowSnipers ? " always-show-snipers" : ""}`}
             key="map-wrapper"
         >
             {mapData.projection !== "interactive" && [
