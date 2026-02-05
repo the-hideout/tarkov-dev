@@ -963,6 +963,7 @@ function Map() {
                             }
                         }
                         // if baseLayer._image is set, it's an svg map
+                        // since we're adding a height layer, we set base layer to off level
                         if (baseLayer._image && !layer.show) {
                             baseLayer._image.classList.add("off-level");
                         } else if (baseLayer._container && !layer.show) {
@@ -972,36 +973,48 @@ function Map() {
                             // remove the hidden-layer class from the added layer
                             // we wrap it in the svg loading promsise to make sure the svg file has finished loading
                             svgLoaded.finally(() => {
-                                const layerGroup = [...baseLayer._image.children[0]?.children].find(
-                                    (c) => c.id === layer.svgLayer,
-                                );
-                                layerGroup?.classList.remove("hidden-layer");
+                                if (!baseLayer._image.children[0]?.children) {
+                                    return;
+                                }
+                                for (const layerGroup of baseLayer._image.children[0].children) {
+                                    if (layerGroup.id !== layer.svgLayer) {
+                                        // hide all layers that weren't just added
+                                        layerGroup?.classList.add("hidden-layer");
+                                        continue;
+                                    }
+                                    // un-hide added layer
+                                    layerGroup?.classList.remove("hidden-layer");
+                                }
                             });
                         }
                         map.layerControl.updateBadge(tMaps(layer.name));
                     });
                     heightLayer.on("remove", () => {
-                        const heightLayer = Object.values(map._layers).findLast((l) => l.options?.extents);
-                        if (heightLayer) {
-                            for (const marker of Object.values(map._layers)) {
-                                checkMarkerForActiveLayers(marker);
-                            }
-                            const layers = Object.values(map._layers).filter((l) => l.options.type === "map-layer");
-                            if (layers.length !== 1) {
-                                return;
-                            }
-                            map.layerControl.updateBadge();
-                            if (baseLayer._image) {
-                                baseLayer._image.classList.remove("off-level");
-                            } else if (baseLayer._container) {
-                                baseLayer._container.classList.remove("off-level");
-                            }
-                            if (baseLayer._image?.children[0]) {
-                                // add the hidden-layer class to the removed layer
-                                const layerGroup = [...baseLayer._image.children[0].children].find(
-                                    (c) => c.id === layer.svgLayer,
-                                );
-                                layerGroup?.classList.add("hidden-layer");
+                        /*const heightLayer = Object.values(map._layers).findLast((l) => l.options?.extents);
+                        if (!heightLayer) {
+                            return;
+                        }*/
+                        for (const marker of Object.values(map._layers)) {
+                            checkMarkerForActiveLayers(marker);
+                        }
+                        const layers = Object.values(map._layers).filter((l) => l.options.type === "map-layer");
+                        if (layers.length !== 1) {
+                            return;
+                        }
+                        map.layerControl.updateBadge();
+                        if (baseLayer._image) {
+                            baseLayer._image.classList.remove("off-level");
+                        } else if (baseLayer._container) {
+                            baseLayer._container.classList.remove("off-level");
+                        }
+                        if (baseLayer._image?.children[0]) {
+                            // add the hidden-layer class to the removed layer
+                            for (const layerGroup of baseLayer._image.children[0].children) {
+                                if (layerGroup.id !== layer.svgLayer) {
+                                    continue;
+                                }
+                                layerGroup.classList.add("hidden-layer");
+                                break;
                             }
                         }
                     });
