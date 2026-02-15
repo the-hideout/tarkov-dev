@@ -6,6 +6,7 @@ L.Control.MapSettings = L.Control.extend({
         activeTasksLabel: "Only show markers for active tasks",
         expandMapLegendLabel: "Don't collapse layers control",
         expandMapLegendChecked: false,
+        alwaysShowSnipers: true,
     },
     onAdd: function (map) {
         const className = "leaflet-control-map-settings";
@@ -103,6 +104,24 @@ L.Control.MapSettings = L.Control.extend({
 
         const activeQuestMarkersLabelContent = L.DomUtil.create("span", undefined, activeQuestMarkersLabel);
         activeQuestMarkersLabelContent.textContent = this.options.activeTasksLabel;
+
+        // always show snipers setting
+        const alwaysShowSnipersDiv = L.DomUtil.create("div", `${className}-setting-container`, form);
+
+        const alwaysShowSnipersLabel = L.DomUtil.create("label", undefined, alwaysShowSnipersDiv);
+        alwaysShowSnipersLabel.setAttribute("for", "alwaysShowSnipers");
+
+        const alwaysShowSnipersCheckbox = L.DomUtil.create("input", undefined, alwaysShowSnipersLabel);
+        alwaysShowSnipersCheckbox.id = "alwaysShowSnipers";
+        alwaysShowSnipersCheckbox.setAttribute("type", "checkbox");
+        if (!!this.options.alwaysShowSnipers) {
+            alwaysShowSnipersCheckbox.setAttribute("checked", !!this.options.alwaysShowSnipers);
+            alwaysShowSnipersCheckbox.checked = true;
+        }
+        L.DomEvent.on(alwaysShowSnipersCheckbox, "click", this._onSettingChanged, this);
+
+        const alwaysShowSnipersLabelContent = L.DomUtil.create("span", undefined, alwaysShowSnipersLabel);
+        alwaysShowSnipersLabelContent.textContent = this.options.alwaysShowSnipersLabel;
 
         L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
 

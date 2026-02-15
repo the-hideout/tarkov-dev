@@ -7,6 +7,7 @@ const config = {
         "shorthand-property-no-redundant-values": null,
         "font-family-name-quotes": "always-unless-keyword",
         "selector-class-pattern": ".+",
+        "no-descending-specificity": null,
     },
 };
 

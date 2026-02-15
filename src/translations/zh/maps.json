@@ -55,5 +55,7 @@
     "Don't collapse search control": "Don't collapse search control",
     "Use TarkovMonitor to show your position": "使用 TarkovMonitor 来显示你的位置",
     "Required item": "所需物品",
-    "BTR Stop": "BTR 停车点"
+    "BTR Stop": "BTR 停车点",
+    "Player Position": "Player Position",
+    "Always show snipers": "Always show snipers"
 }

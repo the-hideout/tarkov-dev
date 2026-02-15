@@ -303,6 +303,7 @@ function Map() {
         showOnlyActiveTasks: false,
         expandMapLegend: false,
         expandSearch: false,
+        alwaysShowSnipers: true,
     });
 
     const mapSettingsRef = useRef(savedMapSettings);
@@ -525,6 +526,8 @@ function Map() {
                 expandSearchChecked: mapSettingsRef.current.expandSearch,
                 expandSearchLabel: tMaps("Don't collapse search control"),
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
+                alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
+                alwaysShowSnipersLabel: tMaps("Always show snipers"),
                 collapsed: true,
             })
             .addTo(map);
@@ -541,6 +544,13 @@ function Map() {
             }
             if (e.settingName === "expandSearch") {
                 map.searchControl.setCollapse(!e.settingValue);
+            }
+            if (e.settingName === "alwaysShowSnipers") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-snipers");
+                } else {
+                    map._container.classList.remove("always-show-snipers");
+                }
             }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
@@ -953,6 +963,7 @@ function Map() {
                             }
                         }
                         // if baseLayer._image is set, it's an svg map
+                        // since we're adding a height layer, we set base layer to off level
                         if (baseLayer._image && !layer.show) {
                             baseLayer._image.classList.add("off-level");
                         } else if (baseLayer._container && !layer.show) {
@@ -962,36 +973,48 @@ function Map() {
                             // remove the hidden-layer class from the added layer
                             // we wrap it in the svg loading promsise to make sure the svg file has finished loading
                             svgLoaded.finally(() => {
-                                const layerGroup = [...baseLayer._image.children[0]?.children].find(
-                                    (c) => c.id === layer.svgLayer,
-                                );
-                                layerGroup?.classList.remove("hidden-layer");
+                                if (!baseLayer._image.children[0]?.children) {
+                                    return;
+                                }
+                                for (const layerGroup of baseLayer._image.children[0].children) {
+                                    if (layerGroup.id !== layer.svgLayer) {
+                                        // hide all layers that weren't just added
+                                        layerGroup?.classList.add("hidden-layer");
+                                        continue;
+                                    }
+                                    // un-hide added layer
+                                    layerGroup?.classList.remove("hidden-layer");
+                                }
                             });
                         }
                         map.layerControl.updateBadge(tMaps(layer.name));
                     });
                     heightLayer.on("remove", () => {
-                        const heightLayer = Object.values(map._layers).findLast((l) => l.options?.extents);
-                        if (heightLayer) {
-                            for (const marker of Object.values(map._layers)) {
-                                checkMarkerForActiveLayers(marker);
-                            }
-                            const layers = Object.values(map._layers).filter((l) => l.options.type === "map-layer");
-                            if (layers.length !== 1) {
-                                return;
-                            }
-                            map.layerControl.updateBadge();
-                            if (baseLayer._image) {
-                                baseLayer._image.classList.remove("off-level");
-                            } else if (baseLayer._container) {
-                                baseLayer._container.classList.remove("off-level");
-                            }
-                            if (baseLayer._image?.children[0]) {
-                                // add the hidden-layer class to the removed layer
-                                const layerGroup = [...baseLayer._image.children[0].children].find(
-                                    (c) => c.id === layer.svgLayer,
-                                );
-                                layerGroup?.classList.add("hidden-layer");
+                        /*const heightLayer = Object.values(map._layers).findLast((l) => l.options?.extents);
+                        if (!heightLayer) {
+                            return;
+                        }*/
+                        for (const marker of Object.values(map._layers)) {
+                            checkMarkerForActiveLayers(marker);
+                        }
+                        const layers = Object.values(map._layers).filter((l) => l.options.type === "map-layer");
+                        if (layers.length !== 1) {
+                            return;
+                        }
+                        map.layerControl.updateBadge();
+                        if (baseLayer._image) {
+                            baseLayer._image.classList.remove("off-level");
+                        } else if (baseLayer._container) {
+                            baseLayer._container.classList.remove("off-level");
+                        }
+                        if (baseLayer._image?.children[0]) {
+                            // add the hidden-layer class to the removed layer
+                            for (const layerGroup of baseLayer._image.children[0].children) {
+                                if (layerGroup.id !== layer.svgLayer) {
+                                    continue;
+                                }
+                                layerGroup.classList.add("hidden-layer");
+                                break;
                             }
                         }
                     });
@@ -1175,6 +1198,7 @@ function Map() {
                 }
                 let spawnType = "";
                 let bosses = [];
+                let markerClass;
 
                 if (spawn.categories.includes("boss")) {
                     bosses = mapData.bosses.filter((boss) =>
@@ -1206,6 +1230,7 @@ function Map() {
                     }
                 } else if (spawn.categories.includes("sniper")) {
                     spawnType = "sniper_scav";
+                    markerClass = "sniper-spawn";
                 } else if (spawn.sides.includes("scav")) {
                     if (spawn.categories.includes("bot") || spawn.categories.includes("all")) {
                         spawnType = "scav";
@@ -1222,6 +1247,7 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
+                    className: markerClass,
                 });
 
                 if (spawnType === "pmc") {
@@ -2116,7 +2142,7 @@ function Map() {
             key="seo-wrapper"
         />,
         <div
-            className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? " only-active-quest-markers" : ""}`}
+            className={`display-wrapper map-page${savedMapSettings.showOnlyActiveTasks ? " only-active-quest-markers" : ""}${savedMapSettings.alwaysShowSnipers ? " always-show-snipers" : ""}`}
             key="map-wrapper"
         >
             {mapData.projection !== "interactive" && [
