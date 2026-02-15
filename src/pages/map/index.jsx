@@ -35,11 +35,11 @@ import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
 import "./index.css";
 import images from "./map-images.mjs";
 
-const showStaticMarkers = false;
-const showMarkersBounds = false;
-const showTestMarkers = false;
+const showStaticMarkers = true;
+const showMarkersBounds = true;
+const showTestPlayerMarker = false;
 const showElevation = false;
-const svgFromGit = false;
+const svgFromGit = true;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -1121,7 +1121,7 @@ function Map() {
             }
         }
 
-        if (showTestMarkers) {
+        if (showTestPlayerMarker) {
             const positionLayer = L.layerGroup();
             const rotation = 45;
             const image = "player-position.png";

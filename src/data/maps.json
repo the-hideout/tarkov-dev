@@ -2610,6 +2610,22 @@
         "normalizedName": "terminal",
         "maps": [
             {
+                "key": "terminal",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "_transform": [0.265, 150.6, 0.265, 134.6],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [500, -500],
+                    [-500, 500]
+                ],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Terminal.svg",
+                "svgLayer": "Ground_Level"
+            },
+            {
                 "key": "terminal-2d",
                 "projection": "2D",
                 "author": "Official",
