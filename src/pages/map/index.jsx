@@ -37,7 +37,7 @@ import images from "./map-images.mjs";
 
 const showStaticMarkers = false;
 const showMarkersBounds = false;
-const showTestMarkers = false;
+const showTestPlayerMarker = false;
 const showElevation = false;
 const svgFromGit = false;
 
@@ -1121,7 +1121,7 @@ function Map() {
             }
         }
 
-        if (showTestMarkers) {
+        if (showTestPlayerMarker) {
             const positionLayer = L.layerGroup();
             const rotation = 45;
             const image = "player-position.png";
@@ -1190,6 +1190,8 @@ function Map() {
                 "boss": L.layerGroup(),
                 "cultist-priest": L.layerGroup(),
                 "rogue": L.layerGroup(),
+                "black-div": L.layerGroup(),
+                "af": L.layerGroup(),
                 "bloodhound": L.layerGroup(),
             };
             for (const spawn of mapData.spawns) {
@@ -1204,6 +1206,12 @@ function Map() {
                     bosses = mapData.bosses.filter((boss) =>
                         boss.spawnLocations.some((sl) => sl.spawnKey === spawn.zoneName),
                     );
+                    bosses = bosses.reduce((unique, current) => {
+                        if (!unique.some((b) => b.normalizedName === current.normalizedName)) {
+                            unique.push(current);
+                        }
+                        return unique;
+                    }, []);
                     if (bosses.length === 0) {
                         if (spawn.categories.includes("bot") && spawn.sides.includes("scav")) {
                             spawnType = "scav";
@@ -1213,9 +1221,11 @@ function Map() {
                         }
                     } else if (
                         bosses.length === 1 &&
-                        (bosses[0].normalizedName === "bloodhound" ||
-                            bosses[0].normalizedName === "cultist-priest" ||
-                            bosses[0].normalizedName === "rogue")
+                        (bosses[0].normalizedName === "cultist-priest" ||
+                            bosses[0].normalizedName === "rogue" ||
+                            bosses[0].normalizedName === "black-div" ||
+                            bosses[0].normalizedName === "af" ||
+                            bosses[0].normalizedName === "bloodhound")
                     ) {
                         spawnType = bosses[0].normalizedName;
                     } else {
@@ -1257,17 +1267,11 @@ function Map() {
 
                 const popupContent = L.DomUtil.create("div");
                 if (spawn.categories.includes("boss") && bosses.length > 0) {
-                    bosses = bosses.reduce((unique, current) => {
-                        if (!unique.some((b) => b.normalizedName === current.normalizedName)) {
-                            unique.push(current);
-                            if (!categories[`spawn_${current.normalizedName}`]) {
-                                categories[`spawn_${current.normalizedName}`] = current.name;
-                            }
-                        }
-                        return unique;
-                    }, []);
                     const bossList = L.DomUtil.create("div", undefined, popupContent);
                     for (const boss of bosses) {
+                        if (!categories[`spawn_${boss.normalizedName}`]) {
+                            categories[`spawn_${boss.normalizedName}`] = boss.name;
+                        }
                         if (bossList.childNodes.length > 0) {
                             const comma = L.DomUtil.create("span", undefined, bossList);
                             comma.textContent = ", ";
@@ -1730,7 +1734,8 @@ function Map() {
             );
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], { color: "#ff000055", weight: 1 }).addTo(map);
-            const svgBounds = mapData.svgPath && mapData.svgBounds ? getBounds(mapData.svgBounds) : mapData.bounds;
+            const svgBounds =
+                mapData.svgPath && mapData.svgBounds ? getBounds(mapData.svgBounds) : getBounds(mapData.bounds);
             L.rectangle(svgBounds, { color: "#00ff0055", weight: 1 }).addTo(map);
         }
 

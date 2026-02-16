@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
-    "rootDir": "src",
+    "rootDir": "./",
     "outDir": "./dist"
   },
   "include": ["src", "scripts", "additional.d.ts"]
