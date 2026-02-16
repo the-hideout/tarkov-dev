@@ -11,8 +11,8 @@
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [323, -317],
-                    [-280, 554]
+                    [323, -295],
+                    [-280, 532]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -760,8 +760,8 @@
                 "transform": [1.629, 119.9, 1.629, 139.3],
                 "coordinateRotation": 90,
                 "bounds": [
-                    [79, -64.5],
-                    [-66.5, 67.4]
+                    [77, -64.5],
+                    [-65.5, 67.4]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -1014,8 +1014,8 @@
                 "transform": [0.265, 150.6, 0.265, 134.6],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [598, -482],
-                    [-433, 466]
+                    [598, -442],
+                    [-433, 426]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -2052,8 +2052,8 @@
                     [-303, 244]
                 ],
                 "svgBounds": [
-                    [289, -338],
-                    [-303, 336]
+                    [289, -274],
+                    [-303, 272]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -2416,8 +2416,8 @@
                 "transform": [0.16, 83.2, 0.16, 111.1],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [508, -415],
-                    [-1060, 618]
+                    [504, -415],
+                    [-1056, 618]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
@@ -2640,13 +2640,13 @@
             {
                 "key": "woods",
                 "projection": "interactive",
-                "minZoom": 1,
+                "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.1855, 113.1, 0.1855, 167.8],
+                "transform": [0.1855, 112.95, 0.1855, 167.85],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [650, -945],
-                    [-762, 470]
+                    [646, -914],
+                    [-761, 442]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
