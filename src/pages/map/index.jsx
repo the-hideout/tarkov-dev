@@ -39,7 +39,7 @@ const showStaticMarkers = false;
 const showMarkersBounds = false;
 const showTestPlayerMarker = false;
 const showElevation = false;
-const svgFromGit = true;
+const svgFromGit = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
