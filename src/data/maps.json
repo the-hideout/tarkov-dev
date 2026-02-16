@@ -2612,13 +2612,13 @@
             {
                 "key": "terminal",
                 "projection": "interactive",
-                "minZoom": 1,
+                "minZoom": 2,
                 "maxZoom": 6,
-                "_transform": [0.265, 150.6, 0.265, 134.6],
+                "transform": [0.20, 0, 0.20, 0],
                 "coordinateRotation": 180,
                 "bounds": [
-                    [500, -500],
-                    [-500, 500]
+                    [463, -580], 
+                    [-433, 475]
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
