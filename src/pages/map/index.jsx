@@ -1190,6 +1190,8 @@ function Map() {
                 "boss": L.layerGroup(),
                 "cultist-priest": L.layerGroup(),
                 "rogue": L.layerGroup(),
+                "black-div": L.layerGroup(),
+                "af": L.layerGroup(),
                 "bloodhound": L.layerGroup(),
             };
             for (const spawn of mapData.spawns) {
@@ -1213,9 +1215,11 @@ function Map() {
                         }
                     } else if (
                         bosses.length === 1 &&
-                        (bosses[0].normalizedName === "bloodhound" ||
-                            bosses[0].normalizedName === "cultist-priest" ||
-                            bosses[0].normalizedName === "rogue")
+                        (bosses[0].normalizedName === "cultist-priest" ||
+                            bosses[0].normalizedName === "rogue" ||
+                            bosses[0].normalizedName === "black-div" ||
+                            bosses[0].normalizedName === "af" ||
+                            bosses[0].normalizedName === "bloodhound")
                     ) {
                         spawnType = bosses[0].normalizedName;
                     } else {
@@ -1730,7 +1734,8 @@ function Map() {
             );
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], { color: "#ff000055", weight: 1 }).addTo(map);
-            const svgBounds = mapData.svgPath && mapData.svgBounds ? getBounds(mapData.svgBounds) : mapData.bounds;
+            const svgBounds =
+                mapData.svgPath && mapData.svgBounds ? getBounds(mapData.svgBounds) : getBounds(mapData.bounds);
             L.rectangle(svgBounds, { color: "#00ff0055", weight: 1 }).addTo(map);
         }
 
