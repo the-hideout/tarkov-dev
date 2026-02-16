@@ -35,8 +35,8 @@ import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
 import "./index.css";
 import images from "./map-images.mjs";
 
-const showStaticMarkers = true;
-const showMarkersBounds = true;
+const showStaticMarkers = false;
+const showMarkersBounds = false;
 const showTestPlayerMarker = false;
 const showElevation = false;
 const svgFromGit = true;
@@ -1206,6 +1206,12 @@ function Map() {
                     bosses = mapData.bosses.filter((boss) =>
                         boss.spawnLocations.some((sl) => sl.spawnKey === spawn.zoneName),
                     );
+                    bosses = bosses.reduce((unique, current) => {
+                        if (!unique.some((b) => b.normalizedName === current.normalizedName)) {
+                            unique.push(current);
+                        }
+                        return unique;
+                    }, []);
                     if (bosses.length === 0) {
                         if (spawn.categories.includes("bot") && spawn.sides.includes("scav")) {
                             spawnType = "scav";
@@ -1261,17 +1267,11 @@ function Map() {
 
                 const popupContent = L.DomUtil.create("div");
                 if (spawn.categories.includes("boss") && bosses.length > 0) {
-                    bosses = bosses.reduce((unique, current) => {
-                        if (!unique.some((b) => b.normalizedName === current.normalizedName)) {
-                            unique.push(current);
-                            if (!categories[`spawn_${current.normalizedName}`]) {
-                                categories[`spawn_${current.normalizedName}`] = current.name;
-                            }
-                        }
-                        return unique;
-                    }, []);
                     const bossList = L.DomUtil.create("div", undefined, popupContent);
                     for (const boss of bosses) {
+                        if (!categories[`spawn_${boss.normalizedName}`]) {
+                            categories[`spawn_${boss.normalizedName}`] = boss.name;
+                        }
                         if (bossList.childNodes.length > 0) {
                             const comma = L.DomUtil.create("span", undefined, bossList);
                             comma.textContent = ", ";
