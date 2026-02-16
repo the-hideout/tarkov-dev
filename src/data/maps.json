@@ -1925,6 +1925,7 @@
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg",
                 "svgLayer": "Ground_Level",
+                "layers": [],
                 "labels": [
                     {
                         "position": [-30, -882],
@@ -2623,7 +2624,9 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/the-hideout/tarkov-dev-svg-maps/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Terminal.svg",
-                "svgLayer": "Ground_Level"
+                "svgLayer": "Ground_Level",
+                "layers": [],
+                "labels": []
             },
             {
                 "key": "terminal-2d",
@@ -2653,6 +2656,7 @@
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
                 "svgLayer": "Ground_Level",
                 "tilePath": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",
+                "layers": [],
                 "labels": [
                     {
                         "position": [10, -3],
