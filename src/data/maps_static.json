@@ -1,28 +1,36 @@
 {
-    "customs": {
+    "terminal": {
         "spawn_sniper_scav": [
             {
-                "name": "Warehouse sniper Scav",
+                "name": "Top left",
                 "position": {
-                    "x": 475.0,
-                    "z": -71.0,
-                    "y": 10
+                    "x": 292.88,
+                    "y": -58.74,
+                    "z": -314.57
                 }
             },
             {
-                "name": "Chimney sniper Scav",
+                "name": "Top right",
                 "position": {
-                    "x": 254.0,
-                    "z": -26.0,
-                    "y": 15
+                    "x": 69.29,
+                    "y": -58.94,
+                    "z": -533.51
                 }
             },
             {
-                "name": "Warehouse sniper Scav",
+                "name": "Bottom left",
                 "position": {
-                    "x": 106.0,
-                    "z": -47.0,
-                    "y": 10
+                    "x": 193.40,
+                    "y": -58.66,
+                    "z": 272.25
+                }
+            },
+            {
+                "name": "Bottom right",
+                "position": {
+                    "x": -379.07,
+                    "y": -58.81,
+                    "z": 332.70
                 }
             }
         ]
