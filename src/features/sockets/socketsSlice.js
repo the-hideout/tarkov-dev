@@ -15,14 +15,18 @@ const socketsSlice = createSlice({
             state.controlId = action.payload;
         },
         setConnectionStatus: (state, action) => {
-            state.connected = action.payload;
+            state.status = action.payload;
+            state.connected = action.payload === "connected";
         },
         enableConnection: (state) => {
             state.enabled = true;
         },
+        disableConnection: (state) => {
+            state.enabled = false;
+        },
     },
 });
 
-export const { setControlId, setConnectionStatus, enableConnection } = socketsSlice.actions;
+export const { setControlId, setConnectionStatus, enableConnection, disableConnection } = socketsSlice.actions;
 
 export default socketsSlice.reducer;
