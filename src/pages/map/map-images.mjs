@@ -49,6 +49,8 @@ const images = {
     "spawn_pmc": "spawn_pmc",
     "spawn_rogue": "spawn_rogue",
     "spawn_scav": "spawn_scav",
+    "spawn_black-div": "spawn_black-div",
+    "spawn_af": "spawn_af",
     "stationarygun": "stationarygun",
     "switch": "switch",
     "btr-stop": "btr_stop",
