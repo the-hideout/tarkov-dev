@@ -891,6 +891,11 @@ function Map() {
         if (tileLayer && svgLayer) {
             layerControl.addBaseLayer(tileLayer, tMaps("Satellite"));
             layerControl.addBaseLayer(svgLayer, tMaps("Abstract"));
+            layerControl._baseLayersList?.classList.remove("not-shown");
+            layerControl._separator?.classList.remove("not-shown");
+        } else {
+            layerControl._baseLayersList?.classList.add("not-shown");
+            layerControl._separator?.classList.add("not-shown");
         }
 
         for (const baseLayer of baseLayers) {
