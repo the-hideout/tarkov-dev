@@ -900,6 +900,18 @@ function Map() {
 
         for (const baseLayer of baseLayers) {
             if (mapData.layers?.length === 0) {
+                // remove added height layers
+                // layerControl.addOverlay(heightLayer, tMaps(layer.name), { groupName: tMaps("Levels") });
+                const existingLayers = Object.values(layerControl._layers)
+                    .filter((l) => l.layer.options.type === "map-layer" && !baseLayers.includes(l.layer))
+                    .map((l) => l.layer);
+                for (const existingLayer of existingLayers) {
+                    layerControl.removeLayer(existingLayer);
+                    if (map.hasLayer(existingLayer)) {
+                        map.removeLayer(existingLayer);
+                        selectedLayer = existingLayer.options.name;
+                    }
+                }
                 break;
             }
 
