@@ -753,5 +753,11 @@
   "Database": "Database",
   "Calculators": "Calculators",
   "Progression": "Progression",
-  "Community": "Community"
+  "Community": "Community",
+  "Prestige":"Prestige",
+  "Gear":"Gear",
+  "Weaponry":"Weaponry",
+  "Equipment & Tools":"Equipment & Tools",
+  "Game mode":"Game mode",
+  "Connecting...": "Connecting..."
 }

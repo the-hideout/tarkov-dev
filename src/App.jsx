@@ -20,6 +20,7 @@ import { setConnectionStatus, enableConnection } from "./features/sockets/socket
 import useStateWithLocalStorage from "./hooks/useStateWithLocalStorage.jsx";
 import makeID from "./modules/make-id.js";
 import WindowFocusHandler from "./modules/window-focus-handler.mjs";
+import RemoteWebSocket from "./modules/remote-websocket.mjs";
 
 import Loading from "./components/loading/index.jsx";
 
@@ -91,10 +92,8 @@ const StashBotPage = React.lazy(() => import("./pages/stash-bot/index.js"));
 
 const APIDocs = React.lazy(() => import("./pages/api-docs/index.jsx"));
 
-const socketServer = "wss://socket.tarkov.dev";
-//const socketServer = 'ws://localhost:8080';
-
 let socket = false;
+let socketMonitorInterval = false;
 
 loadPolyfills();
 
@@ -246,73 +245,42 @@ function App() {
     }, [progressStatus, scheduleTarkovTrackerUpdate, updateTarkovTrackerData, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
-        const handleDisplayMessage = (rawMessage) => {
-            const message = JSON.parse(rawMessage.data);
-
-            if (message.type !== "command") {
-                return false;
-            }
-
-            if (message.data.type === "playerPosition") {
-                dispatch(setPlayerPosition(message.data));
-                return false;
-            }
-
-            navigate(`/${message.data.type}/${message.data.value}`);
-        };
-
         const connect = function connect() {
-            socket = new WebSocket(socketServer + `?sessionid=${encodeURIComponent(sessionID)}`);
-
-            const heartbeat = function heartbeat() {
-                clearTimeout(socket.pingTimeout);
-
-                // Use `WebSocket#terminate()`, which immediately destroys the connection,
-                // instead of `WebSocket#close()`, which waits for the close timer.
-                // Delay should be equal to the interval at which your server
-                // sends out pings plus a conservative assumption of the latency.
-                socket.pingTimeout = setTimeout(() => {
-                    if (socket && socket.terminate) {
-                        socket.terminate();
-                    }
-                    dispatch(setConnectionStatus(false));
-                }, 40000 + 1000);
-            };
+            dispatch(setConnectionStatus("connecting"));
+            clearInterval(socketMonitorInterval);
+            socket = new RemoteWebSocket(sessionID);
 
             socket.addEventListener("message", (rawMessage) => {
                 const message = JSON.parse(rawMessage.data);
 
-                if (message.type === "ping") {
-                    heartbeat();
-
-                    socket.send(JSON.stringify({ type: "pong" }));
-
-                    return true;
+                if (message.type !== "command") {
+                    return;
                 }
 
-                handleDisplayMessage(rawMessage);
+                if (message.data.type === "playerPosition") {
+                    dispatch(setPlayerPosition(message.data));
+                    return;
+                }
+
+                navigate(`/${message.data.type}/${message.data.value}`);
             });
 
             socket.addEventListener("open", () => {
                 console.log("Connected to socket server");
                 //console.log(socket);
 
-                heartbeat();
-
-                dispatch(setConnectionStatus(true));
+                dispatch(setConnectionStatus("connected"));
             });
 
             socket.addEventListener("close", () => {
                 console.log("Disconnected from socket server");
 
-                dispatch(setConnectionStatus(false));
-
-                clearTimeout(socket.pingTimeout);
+                dispatch(setConnectionStatus("idle"));
             });
 
-            setInterval(() => {
+            socketMonitorInterval = setInterval(() => {
                 if (socket.readyState === 3 && socketEnabled) {
-                    console.log("trying to re-connect");
+                    console.log("Trying to re-connect to socket server");
                     connect();
                 }
             }, 5000);
@@ -323,7 +291,8 @@ function App() {
         }
 
         return () => {
-            // socket.terminate();
+            // socket.close();
+            // clearInterval(socketMonitorInterval);
         };
     }, [socketEnabled, sessionID, navigate, dispatch]);
 

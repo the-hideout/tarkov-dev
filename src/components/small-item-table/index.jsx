@@ -1168,7 +1168,6 @@ function SmallItemTable(props) {
                     return (
                         <Tooltip
                             placement="bottom"
-                            interactive={true}
                             title={
                                 <BarterTooltip
                                     barter={props.row.original.cheapestBarter?.barter}

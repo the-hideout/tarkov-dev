@@ -1,6 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Badge } from "@mui/material";
+import { Badge, LinearProgress } from "@mui/material";
 
 import "./index.css";
 
@@ -13,11 +14,27 @@ function ID(props) {
     const [side, setSide] = useState(Sides.Left);
     const [copied, setCopied] = useState(false);
     const { t } = useTranslation();
+    const socketStatus = useSelector((state) => state.sockets.status);
 
-    const sessionText = props.socketEnabled ? props.sessionID : t("Click to connect");
+    const progressStyle = useMemo(() => {
+        if (socketStatus !== "connecting") {
+            return { display: "none" };
+        }
+        return {};
+    }, [socketStatus]);
 
-    const handleCopyClick = async () => {
-        if (!props.socketEnabled) {
+    const sessionText = useMemo(() => {
+        if (socketStatus === "idle") {
+            return t("Click to connect");
+        }
+        if (socketStatus === "connected") {
+            return props.sessionID;
+        }
+        return t("Connecting...");
+    }, [socketStatus, t]);
+
+    const handleCopyClick = useCallback(async () => {
+        if (socketStatus !== "connected") {
             return;
         }
 
@@ -28,7 +45,7 @@ function ID(props) {
         } catch (err) {
             console.error("Copy failed", err);
         }
-    };
+    }, [socketStatus]);
 
     let sideClass;
     let sideButtonContent;
@@ -81,6 +98,7 @@ function ID(props) {
                     </span>
                 </Badge>
             </div>
+            <LinearProgress style={progressStyle} />
         </div>
     );
 }
