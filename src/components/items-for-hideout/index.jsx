@@ -121,7 +121,7 @@ function ItemsForHideout(props) {
                                             <div className="hideout-item-text-wrapper">
                                                 {item.name}
                                                 <div className="amount-wrapper">
-                                                    {t("Amount")}: {hideoutModule.quantity}
+                                                    {t("Amount")}: {hideoutModule.count}
                                                 </div>
                                             </div>
                                         </div>
