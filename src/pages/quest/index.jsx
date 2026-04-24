@@ -115,6 +115,16 @@ function Quest() {
         );
     }, [currentQuest]);
 
+    const hasFinishRewards = useMemo(() => {
+        if (!currentQuest) {
+            return false;
+        }
+        return (
+            currentQuest.experience > 0 ||
+            Object.keys(currentQuest.finishRewards).some((rewardKey) => currentQuest.finishRewards[rewardKey]?.length)
+        );
+    }, [currentQuest]);
+
     const neededKeysPerMap = useMemo(() => {
         if (!currentQuest?.neededKeys) {
             return [];
@@ -630,14 +640,17 @@ function Quest() {
                     </div>
                 )}
 
-                {Object.keys(currentQuest.finishRewards).some((r) => currentQuest.finishRewards[r]?.length) && (
+                {hasFinishRewards && (
                     <div key="task-finish-rewards" className="information-section has-table">
                         <h2>
                             <Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t("Completion Rewards")}
                         </h2>
                         <div key="task-finish-rewards-content" className="information-content">
                             {TaskRewards({
-                                rewards: currentQuest.finishRewards,
+                                rewards: {
+                                    ...currentQuest.finishRewards,
+                                    experience: currentQuest.experience,
+                                },
                                 t,
                                 items,
                                 settings,

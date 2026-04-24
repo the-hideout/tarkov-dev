@@ -695,20 +695,70 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
 
 export function TaskRewards({ rewards, t, items, settings, traders, stations, achievements }) {
     const rewardElements = [];
-    if (rewards.items?.length > 0) {
+
+    const isMoneyReward = (rewardItem) => {
+        const rewardBaseItem = items.find((it) => it.id === rewardItem.item.id);
+        return rewardBaseItem?.categories?.some((cat) => cat.normalizedName === "money");
+    };
+
+    const moneyRewards = rewards.items?.filter(isMoneyReward) ?? [];
+    const itemRewards = rewards.items?.filter((rewardItem) => !isMoneyReward(rewardItem)) ?? [];
+
+    if (Number.isFinite(rewards?.experience) && rewards.experience !== 0) {
+        const experienceChange = `${rewards.experience > 0 ? "+" : ""}${rewards.experience.toLocaleString()}`;
         rewardElements.push(
-            <div key="finishRewards">
-                <h3>{t("Items")}</h3>
+            <div key="reward-experience">
+                <h3>XP</h3>
                 <ul className="quest-item-list">
-                    {rewards.items.map((rewardItem, index) => {
+                    <li>
+                        <div className="reward-square reward-square-xp">
+                            <div className="reward-square-value">{experienceChange}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>,
+        );
+    }
+
+    if (moneyRewards.length > 0) {
+        rewardElements.push(
+            <div key="reward-money">
+                <h3>{t("Money", "Money")}</h3>
+                <ul className="quest-item-list">
+                    {moneyRewards.map((rewardItem, index) => {
                         const item = items.find((it) => it.id === rewardItem.item.id);
                         if (!item) {
                             return null;
                         }
-                        let itemCount = rewardItem.count;
-                        if (item.categories.some((cat) => cat.normalizedName === "money")) {
-                            const multiplier = intelCashMultiplier[settings["intelligence-center"]];
-                            itemCount = Math.round(itemCount * multiplier);
+                        const multiplier = intelCashMultiplier[settings["intelligence-center"]];
+                        const itemCount = Math.round(rewardItem.count * multiplier);
+                        return (
+                            <li key={`reward-money-index-${rewardItem.item.id}-${index}`}>
+                                <ItemImage
+                                    key={`reward-money-index-${rewardItem.item.id}-${index}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    count={rewardItem.count > 1 ? itemCount : false}
+                                    isFIR={true}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>,
+        );
+    }
+
+    if (itemRewards.length > 0) {
+        rewardElements.push(
+            <div key="finishRewards">
+                <h3>{t("Items")}</h3>
+                <ul className="quest-item-list">
+                    {itemRewards.map((rewardItem, index) => {
+                        const item = items.find((it) => it.id === rewardItem.item.id);
+                        if (!item) {
+                            return null;
                         }
                         return (
                             <li key={`reward-index-${rewardItem.item.id}-${index}`}>
@@ -717,7 +767,7 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
                                     item={item}
                                     imageField="baseImageLink"
                                     linkToItem={true}
-                                    count={rewardItem.count > 1 ? itemCount : false}
+                                    count={rewardItem.count > 1 ? rewardItem.count : false}
                                     isFIR={true}
                                 />
                             </li>

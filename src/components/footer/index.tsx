@@ -95,7 +95,7 @@ function Footer() {
                     <Link to={"/api/"}>{t("Tarkov.dev API")}</Link>
                 </p>
                 <p>
-                    <a href="https://github.com/the-hideout/TarkovMonitor" target="_blank" rel="noopener noreferrer">
+                    <a href="https://tarkov.dev/tarkov-monitor" target="_blank" rel="noopener noreferrer">
                         Tarkov Monitor
                     </a>
                 </p>
