@@ -81,6 +81,7 @@ L.Control.MapSearch = L.Control.extend({
             debounce((e) => {
                 const inputValue = e.target.value.trim();
                 this._searchLink.dataset.badge = inputValue;
+                markers.allMarkers = collectSearchableMarkers(map);
 
                 // Split the input into multiple search terms and filter out empty strings
                 const searchTerms = inputValue
@@ -90,77 +91,44 @@ L.Control.MapSearch = L.Control.extend({
 
                 if (searchTerms.length === 0) {
                     // Reset markers if no valid search terms are provided
+                    const canvasRenderers = new Set();
                     markers.allMarkers.forEach((marker) => {
-                        if ("getElement" in marker && !("_bounds" in marker)) {
-                            const element = marker.getElement();
-                            if (!element) {
-                                return;
-                            }
-                            element.classList.remove("not-shown");
-                            element.classList.remove("pulse");
-                        }
+                        setMarkerSearchState(marker, { hidden: false, canvasRenderers });
                     });
+                    canvasRenderers.forEach((renderer) => renderer?._redraw?.());
                     return;
                 }
 
-                // Reassign all markers to prevent layer toggles leading to bugs while toggling layers after a search
-                markers.allMarkers = Object.values(map._targets);
-
-                // #region Quest Searching
-                const foundQuest = this.options.quests.filter((quest) =>
-                    searchTerms.some((term) => quest.name.toLowerCase().includes(term)),
+                const matchingQuestIds = new Set(
+                    this.options.quests
+                        .filter((quest) => searchTerms.some((term) => quest.name.toLowerCase().includes(term)))
+                        .map((quest) => quest.id),
                 );
 
-                const { objectiveMarkers, nonObjectiveMarkers } = markers.allMarkers.reduce(
-                    (acc, marker) => {
-                        if (foundQuest.some((quest) => quest.id === marker.options.questId)) {
-                            acc.objectiveMarkers.push(marker);
-                        } else if (marker.options.markerType !== "playerPosition") {
-                            acc.nonObjectiveMarkers.push(marker);
-                        }
-
-                        return acc;
-                    },
-                    { objectiveMarkers: [], nonObjectiveMarkers: [] },
-                );
-
-                markers.objectiveMarkers = objectiveMarkers;
-                markers.nonObjectiveMarkers = nonObjectiveMarkers;
-
-                markers.objectiveMarkers.forEach((marker) => {
-                    if ("getElement" in marker) {
-                        marker.getElement().classList.add("pulse");
-                        marker.getElement().classList.remove("not-shown");
+                const canvasRenderers = new Set();
+                markers.allMarkers.forEach((marker) => {
+                    const opts = marker.options ?? {};
+                    if (opts.markerType === "playerPosition") {
+                        setMarkerSearchState(marker, { hidden: false, canvasRenderers });
+                        return;
                     }
-                });
-
-                markers.nonObjectiveMarkers.forEach((marker) => {
-                    if ("getElement" in marker) {
-                        marker.getElement().classList.add("not-shown");
-                        marker.getElement().classList.remove("pulse");
+                    if (typeof opts._searchTitleLower !== "string") {
+                        opts._searchTitleLower = String(opts.title ?? "").toLowerCase();
                     }
-                });
-                // #endregion
-
-                // #region Item, Containers, and General Searching
-                markers.itemAndContainerMarkers = [
-                    ...markers.allMarkers.filter((marker) =>
-                        searchTerms.some((term) => marker.options.title?.toLowerCase().includes(term)),
-                    ),
-                    ...markers.allMarkers.filter((marker) =>
-                        searchTerms.some((term) =>
-                            marker.options?.items?.some((item) => item.toLowerCase().includes(term)),
-                        ),
-                    ),
-                ];
-
-                markers.itemAndContainerMarkers.forEach((marker) => {
-                    if ("getElement" in marker) {
-                        marker.getElement().classList.add("pulse");
-                        marker.getElement().classList.remove("not-shown");
+                    if (!Array.isArray(opts._searchItemsLower)) {
+                        opts._searchItemsLower = Array.isArray(opts.items)
+                            ? opts.items.map((item) => String(item).toLowerCase())
+                            : [];
                     }
+                    const questMatch = Boolean(opts.questId && matchingQuestIds.has(opts.questId));
+                    const titleMatch = searchTerms.some((term) => opts._searchTitleLower.includes(term));
+                    const itemsMatch = searchTerms.some((term) =>
+                        opts._searchItemsLower.some((item) => item.includes(term)),
+                    );
+                    const isMatch = questMatch || titleMatch || itemsMatch;
+                    setMarkerSearchState(marker, { hidden: !isMatch, canvasRenderers });
                 });
-                // #endregion
+                canvasRenderers.forEach((renderer) => renderer?._redraw?.());
             }, 300),
         );
 
@@ -354,11 +322,20 @@ L.Control.MapSearch = L.Control.extend({
     },
 
     toggleTask: function (taskId, showTask) {
-        for (const marker of Object.values(this._map._targets)) {
+        const canvasRenderers = new Set();
+        for (const marker of collectSearchableMarkers(this._map)) {
             if (!marker.options.questId) {
                 continue;
             }
             if (marker.options.questId !== taskId) {
+                continue;
+            }
+            if (marker.options.canvasIconImage) {
+                const nextHidden = !showTask;
+                if (marker.options.canvasTaskHidden !== nextHidden && marker._renderer) {
+                    marker.options.canvasTaskHidden = nextHidden;
+                    canvasRenderers.add(marker._renderer);
+                }
                 continue;
             }
             if (!marker.getElement) {
@@ -374,6 +351,7 @@ L.Control.MapSearch = L.Control.extend({
                 element.classList.add("hidden-task");
             }
         }
+        canvasRenderers.forEach((renderer) => renderer?._redraw?.());
     },
 
     on: function (eventType, listener, options) {
@@ -405,5 +383,54 @@ function debounce(func, delay) {
             func.apply(this, args);
         }, delay);
     };
+}
+
+function setMarkerSearchState(marker, { hidden, canvasRenderers }) {
+    if (marker.options?.canvasIconImage) {
+        let changed = false;
+        if (marker.options.canvasSearchHidden !== hidden) {
+            marker.options.canvasSearchHidden = hidden;
+            changed = true;
+        }
+        if (changed && marker._renderer) {
+            canvasRenderers?.add(marker._renderer);
+        }
+        return;
+    }
+    if ("getElement" in marker && !("_bounds" in marker)) {
+        const element = marker.getElement();
+        if (!element) {
+            return;
+        }
+        if (hidden) {
+            element.classList.add("not-shown");
+        } else {
+            element.classList.remove("not-shown");
+        }
+        return;
+    }
+}
+
+function collectSearchableMarkers(map) {
+    const byTargets = Object.values(map._targets ?? {});
+    const byLayers = Object.values(map._layers ?? {});
+    const all = [...byTargets, ...byLayers];
+    const unique = [];
+    const seen = new Set();
+    for (const marker of all) {
+        if (!marker?.options) {
+            continue;
+        }
+        if (seen.has(marker)) {
+            continue;
+        }
+        // Keep only marker-like objects we can search/filter
+        if (!("position" in marker.options) && !("questId" in marker.options) && !("title" in marker.options)) {
+            continue;
+        }
+        seen.add(marker);
+        unique.push(marker);
+    }
+    return unique;
 }
 // #endregion

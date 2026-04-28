@@ -7,6 +7,8 @@ L.Control.MapSettings = L.Control.extend({
         expandMapLegendLabel: "Don't collapse layers control",
         expandMapLegendChecked: false,
         alwaysShowSnipers: true,
+        canvasPerformanceModeChecked: false,
+        canvasPerformanceModeLabel: "Use Canvas performance mode",
     },
     onAdd: function (map) {
         const className = "leaflet-control-map-settings";
@@ -122,6 +124,24 @@ L.Control.MapSettings = L.Control.extend({
 
         const alwaysShowSnipersLabelContent = L.DomUtil.create("span", undefined, alwaysShowSnipersLabel);
         alwaysShowSnipersLabelContent.textContent = this.options.alwaysShowSnipersLabel;
+
+        // canvas performance mode setting
+        const canvasPerformanceModeDiv = L.DomUtil.create("div", `${className}-setting-container`, form);
+
+        const canvasPerformanceModeLabel = L.DomUtil.create("label", undefined, canvasPerformanceModeDiv);
+        canvasPerformanceModeLabel.setAttribute("for", "canvasPerformanceMode");
+
+        const canvasPerformanceModeCheckbox = L.DomUtil.create("input", undefined, canvasPerformanceModeLabel);
+        canvasPerformanceModeCheckbox.id = "canvasPerformanceMode";
+        canvasPerformanceModeCheckbox.setAttribute("type", "checkbox");
+        if (!!this.options.canvasPerformanceModeChecked) {
+            canvasPerformanceModeCheckbox.setAttribute("checked", !!this.options.canvasPerformanceModeChecked);
+            canvasPerformanceModeCheckbox.checked = true;
+        }
+        L.DomEvent.on(canvasPerformanceModeCheckbox, "click", this._onSettingChanged, this);
+
+        const canvasPerformanceModeLabelContent = L.DomUtil.create("span", undefined, canvasPerformanceModeLabel);
+        canvasPerformanceModeLabelContent.textContent = this.options.canvasPerformanceModeLabel;
 
         L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
 
