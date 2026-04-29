@@ -257,6 +257,8 @@ class ItemsQuery extends APIQuery {
                 "bluntThroughput",
                 "ricochetX",
                 "ricochetZ",
+                "coolingFactor",
+                "heatFactor",
             ];
             for (const propName of deleteProperties) {
                 delete rawItem.properties?.[propName];
