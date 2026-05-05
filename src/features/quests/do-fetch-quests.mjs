@@ -180,6 +180,9 @@ class QuestsQuery extends APIQuery {
             for (const obj of task.objectives) {
                 fixObjective(obj);
             }
+            for (const cond of task.failConditions) {
+                fixObjective(cond);
+            }
             fixRewards(task.startRewards);
             fixRewards(task.finishRewards);
             fixRewards(task.failureOutcome);

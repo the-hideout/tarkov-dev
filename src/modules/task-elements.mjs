@@ -601,6 +601,9 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "traderStanding") {
         const trader = traders.find((t) => t.id === objective.trader.id);
+        if (!trader) {
+            console.log(objective);
+        }
         taskDetails = (
             <>
                 <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
@@ -845,12 +848,15 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
         rewardElements.push(
             <div key="reward-trader">
                 <h3>{t("Trader Unlock")}</h3>
-                <ul>
+                <ul className="quest-item-list">
                     {rewards.traderUnlock.map((unlock) => {
                         const trader = traders.find((t) => t.id === unlock.id);
+                        if (!trader) {
+                            return <li key={unlock.id}></li>;
+                        }
                         return (
                             <li className="quest-list-item" key={unlock.id}>
-                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                                <TraderImage trader={trader} />
                             </li>
                         );
                     })}
