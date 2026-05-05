@@ -601,9 +601,6 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "traderStanding") {
         const trader = traders.find((t) => t.id === objective.trader.id);
-        if (!trader) {
-            console.log(objective);
-        }
         taskDetails = (
             <>
                 <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
