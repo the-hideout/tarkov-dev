@@ -71,7 +71,7 @@ class ItemsQuery extends APIQuery {
                             id: offer.trader,
                         },
                         minTraderLevel: offer.minTraderLevel,
-                        taskUnlock: offer.taskUnlock,
+                        taskUnlock: offer.taskUnlock ? { id: offer.taskUnlock } : null,
                     },
                     price: offer.price,
                     currency: offer.currency,

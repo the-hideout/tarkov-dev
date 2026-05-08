@@ -653,6 +653,9 @@ The max profitable price is impacted by the intel center and hideout management 
                                     const loyaltyLevel = buyForSource.requirements.find(
                                         (requirement) => requirement.type === "loyaltyLevel",
                                     )?.value;
+                                    const taskUnlock = buyForSource.vendor.taskUnlock
+                                        ? quests.find((q) => q.id === buyForSource.vendor.taskUnlock.id)
+                                        : undefined;
                                     return (
                                         <div
                                             className={`text-and-image-information-wrapper`}
@@ -662,17 +665,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                                 {buyForSource.vendor.normalizedName !== "flea-market" && (
                                                     <LoyaltyLevelIcon loyaltyLevel={loyaltyLevel} />
                                                 )}
-                                                {buyForSource.vendor.taskUnlock && (
+                                                {taskUnlock && (
                                                     <div>
                                                         <Tooltip
                                                             title={
-                                                                <Link
-                                                                    to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}
-                                                                >
+                                                                <Link to={`/task/${taskUnlock.normalizedName}`}>
                                                                     <div style={{ whiteSpace: "nowrap" }}>
                                                                         {t("Task: {{taskName}}", {
-                                                                            taskName:
-                                                                                buyForSource.vendor.taskUnlock.name,
+                                                                            taskName: taskUnlock.name,
                                                                         })}
                                                                     </div>
                                                                 </Link>

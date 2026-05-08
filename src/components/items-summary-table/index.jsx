@@ -27,6 +27,7 @@ import useBartersData from "../../features/barters/index.js";
 import useCraftsData from "../../features/crafts/index.js";
 import useTradersData from "../../features/traders/index.js";
 import useHideoutData from "../../features/hideout/index.js";
+import useQuestsData from "../../features/quests/index.js";
 
 import FleaMarketLoadingIcon from "../FleaMarketLoadingIcon.jsx";
 
@@ -46,6 +47,7 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
     const { data: traders } = useTradersData();
     const { data: stations } = useHideoutData();
     const { data: handbook } = useHandbookData();
+    const { data: quests } = useQuestsData();
 
     const data = useMemo(() => {
         const requiredItems = items
@@ -230,7 +232,10 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
                                 }
                                 priceSource = `${sellTo}${cheapestObtainInfo.vendor.name}${loyalty}`;
                             }
-                            if (cheapestObtainInfo.vendor?.taskUnlock) {
+                            const taskUnlock = cheapestObtainInfo.vendor.taskUnlock
+                                ? quests.find((q) => q.id === cheapestObtainInfo.vendor.taskUnlock.id)
+                                : undefined;
+                            if (taskUnlock) {
                                 taskIcon = (
                                     <Icon
                                         key="price-task-tooltip-icon"
@@ -241,9 +246,9 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
                                 );
                                 tipContent = (
                                     <div>
-                                        <Link to={`/task/${cheapestObtainInfo.vendor.taskUnlock.normalizedName}`}>
+                                        <Link to={`/task/${taskUnlock.normalizedName}`}>
                                             {t("Task: {{taskName}}", {
-                                                taskName: cheapestObtainInfo.vendor.taskUnlock.name,
+                                                taskName: taskUnlock.name,
                                             })}
                                         </Link>
                                     </div>
@@ -406,7 +411,7 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
         ];
 
         return useColumns;
-    }, [t, items, barters, crafts, stations, settings, handbook]);
+    }, [t, items, barters, crafts, stations, settings, handbook, quests]);
 
     const extraRow = (
         <>
