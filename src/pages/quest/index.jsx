@@ -225,6 +225,9 @@ function Quest() {
                     <span>
                         {levelReqs.map((traderReq) => {
                             const trader = traders.find((trad) => trad.id === traderReq.trader.id);
+                            if (!trader) {
+                                return <div key={`req-trader-${trader.id}`}></div>;
+                            }
                             return (
                                 <div key={`req-trader-${trader.id}`}>
                                     <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>

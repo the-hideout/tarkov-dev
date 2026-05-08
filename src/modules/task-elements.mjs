@@ -592,21 +592,25 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "traderLevel") {
         const trader = traders.find((t) => t.id === objective.trader.id);
-        taskDetails = (
-            <>
-                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                <span>{` ${t("LL{{level}}", { level: objective.level })}`}</span>
-            </>
-        );
+        if (trader) {
+            taskDetails = (
+                <>
+                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                    <span>{` ${t("LL{{level}}", { level: objective.level })}`}</span>
+                </>
+            );
+        }
     }
     if (objective.type === "traderStanding") {
         const trader = traders.find((t) => t.id === objective.trader.id);
-        taskDetails = (
-            <>
-                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                <span>{` ${t("{{compareMethod}} {{reputation}} reputation", { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
-            </>
-        );
+        if (trader) {
+            taskDetails = (
+                <>
+                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                    <span>{` ${t("{{compareMethod}} {{reputation}} reputation", { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
+                </>
+            );
+        }
     }
     if (objective.type === "useItem") {
         let zones = <></>;
@@ -845,12 +849,15 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
         rewardElements.push(
             <div key="reward-trader">
                 <h3>{t("Trader Unlock")}</h3>
-                <ul>
+                <ul className="quest-item-list">
                     {rewards.traderUnlock.map((unlock) => {
                         const trader = traders.find((t) => t.id === unlock.id);
+                        if (!trader) {
+                            return <li key={unlock.id}></li>;
+                        }
                         return (
                             <li className="quest-list-item" key={unlock.id}>
-                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                                <TraderImage trader={trader} />
                             </li>
                         );
                     })}
