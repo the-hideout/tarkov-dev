@@ -37,7 +37,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
+function ItemsSummaryTable({ includeItems, includeTraders, includeStations, includeSkills }) {
     const { t } = useTranslation();
 
     const settings = useSelector((state) => state.settings[state.settings.gameMode]);
@@ -120,8 +120,38 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
                 levelMet: settings[station.normalizedName] >= req.level,
             });
         }
+        for (const req of includeSkills) {
+            const skill = handbook.skills.find((s) => s.id === req.skill);
+            if (!skill) {
+                continue;
+            }
+            requiredItems.push({
+                ...skill,
+                quantity: req.level,
+                //itemLink: `#`,
+                iconLink: skill.imageLink,
+                types: [],
+                barters: [],
+                buyOnFleaPrice: 0,
+                cheapestPrice: 0,
+                requiredSkillLevel: req.level,
+                totalPrice: 0,
+                levelMet: true,
+            });
+        }
         return requiredItems;
-    }, [items, includeItems, includeTraders, includeStations, settings, barters, crafts, traders, stations]);
+    }, [
+        items,
+        includeItems,
+        includeTraders,
+        includeStations,
+        includeSkills,
+        settings,
+        barters,
+        crafts,
+        traders,
+        stations,
+    ]);
 
     let displayColumns = useMemo(() => {
         const useColumns = [
@@ -334,6 +364,8 @@ function ItemsSummaryTable({ includeItems, includeTraders, includeStations }) {
                     } else if (props.row.original.requiredTraderLevel) {
                         priceContent.push("-");
                     } else if (props.row.original.requiredStationLevel) {
+                        priceContent.push("-");
+                    } else if (props.row.original.requiredSkillLevel) {
                         priceContent.push("-");
                     } else if (props.row.original.foundInRaid) {
                         priceContent.push(t("Found In Raid"));

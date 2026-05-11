@@ -162,6 +162,7 @@ function Hideout() {
                                           )
                                         : []
                                 }
+                                includeSkills={showTraderStationReqs ? level.skillRequirements : []}
                             />
                         </div>
                     );
