@@ -243,6 +243,7 @@ function SmallItemTable(props) {
         attachesToItemFilter,
         showSlotValue,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         showGunDefaultPresetImages,
@@ -893,6 +894,39 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showCompatiblePlates) {
+            returnData.forEach((item) => {
+                item.subRows = items
+                    .filter((linkedItem) => {
+                        return item.properties?.armorSlots?.some((slot) =>
+                            slot.allowedPlates?.some((plate) => plate.id === linkedItem.id),
+                        );
+                    })
+                    .filter((plate) => {
+                        if (plateArmorFilter && (plateArmorFilter[0] !== 0 || plateArmorFilter[1] !== 6)) {
+                            return (
+                                plate.properties.class >= plateArmorFilter[0] &&
+                                plate.properties.class <= plateArmorFilter[1]
+                            );
+                        }
+                        return true;
+                    })
+                    .sort((a, b) => {
+                        return b.name.localeCompare(a.name);
+                    })
+                    .map((item) => formatItem(item))
+                    .filter((item) => {
+                        if (!maxPrice) {
+                            return true;
+                        }
+                        return item.cheapestObtainPrice <= maxPrice;
+                    });
+            });
+            returnData.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+        }
+
         if (attachmentMap) {
             returnData.forEach((item) => {
                 item.subRows = items
@@ -1012,6 +1046,7 @@ function SmallItemTable(props) {
         showAttachTo,
         attachesToItemFilter,
         showPresets,
+        showCompatiblePlates,
         attachmentMap,
         showGunDefaultPresetImages,
         useBarterIngredients,
@@ -1080,7 +1115,7 @@ function SmallItemTable(props) {
 
     const columns = useMemo(() => {
         const useColumns = [];
-        if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+        if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
             useColumns.push({
                 id: "expander",
                 Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
@@ -2033,7 +2068,7 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
-                if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+                if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
                     position++;
                 }
                 if (position < 1) {
@@ -2106,6 +2141,7 @@ function SmallItemTable(props) {
         showSlotValue,
         showAllSources,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         settings,
