@@ -89,7 +89,14 @@ function Quest() {
         zIndex: 20,
     };
 
+    const allDataLoaded = useMemo(() => {
+        return quests.length && traders.length && items.length && maps.length && stations.length;
+    }, [quests, traders, items, maps, stations]);
+
     let currentQuest = useMemo(() => {
+        if (!allDataLoaded) {
+            return;
+        }
         return quests.find((quest) => {
             if (quest.id === taskIdentifier) {
                 return true;
@@ -102,7 +109,7 @@ function Quest() {
             }
             return false;
         });
-    }, [quests, taskIdentifier]);
+    }, [quests, taskIdentifier, allDataLoaded]);
 
     const hasFailInfo = useMemo(() => {
         if (!currentQuest) {
@@ -225,6 +232,9 @@ function Quest() {
                     <span>
                         {levelReqs.map((traderReq) => {
                             const trader = traders.find((trad) => trad.id === traderReq.trader.id);
+                            if (!trader) {
+                                return <div key={`req-trader-${trader.id}`}></div>;
+                            }
                             return (
                                 <div key={`req-trader-${trader.id}`}>
                                     <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
@@ -421,11 +431,11 @@ function Quest() {
     }
 
     // checks for item data loaded
-    if (!currentQuest && (questsStatus === "idle" || questsStatus === "loading")) {
+    if (!currentQuest && (questsStatus === "idle" || questsStatus === "loading" || !allDataLoaded)) {
         currentQuest = loadingData;
     }
 
-    if (!currentQuest && (questsStatus === "succeeded" || questsStatus === "failed")) {
+    if (!currentQuest && allDataLoaded && (questsStatus === "succeeded" || questsStatus === "failed")) {
         return <ErrorPage />;
     }
 

@@ -125,6 +125,9 @@ class QuestsQuery extends APIQuery {
             for (const rew of rewards.skillLevelReward) {
                 rew.name = rew.skill; //itemsData.skills.find(skill => skill.id === rew.skill).name;
             }
+            for (const unlock of rewards.offerUnlock) {
+                unlock.trader = { id: unlock.trader };
+            }
             rewards.traderUnlock = rewards.traderUnlock.map((id) => {
                 return { id };
             });
@@ -179,6 +182,9 @@ class QuestsQuery extends APIQuery {
             }
             for (const obj of task.objectives) {
                 fixObjective(obj);
+            }
+            for (const cond of task.failConditions) {
+                fixObjective(cond);
             }
             fixRewards(task.startRewards);
             fixRewards(task.finishRewards);

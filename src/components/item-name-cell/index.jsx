@@ -15,21 +15,31 @@ function ItemNameCell(props) {
             <img alt="" className="item-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />
         );
     }
+    const itemImageElement = (
+        <span style={{ position: "relative" }}>
+            <img alt={item.name} className="table-image" loading="lazy" src={item.iconLink} />
+            {firImage}
+        </span>
+    );
+    let itemImageWrapper;
+    const itemNameElement = (
+        <span>
+            {item.name} {item.count > 1 ? ` x ${item.count}` : ""}
+        </span>
+    );
+    let itemNameWrapper;
+    if (item.itemLink) {
+        itemImageWrapper = <Link to={item.itemLink}>{itemImageElement}</Link>;
+        itemNameWrapper = <Link to={item.itemLink}>{itemNameElement}</Link>;
+    } else {
+        itemImageWrapper = itemImageElement;
+        itemNameWrapper = itemNameElement;
+    }
     return (
         <div className="small-item-table-description-wrapper">
-            <div className="small-item-table-image-wrapper">
-                <Link to={item.itemLink}>
-                    <span style={{ position: "relative" }}>
-                        <img alt={item.name} className="table-image" loading="lazy" src={item.iconLink} />
-                        {firImage}
-                    </span>
-                </Link>
-            </div>
+            <div className="small-item-table-image-wrapper">{itemImageWrapper}</div>
             <div className="small-item-table-name-wrapper">
-                <Link to={item.itemLink}>
-                    {item.name}
-                    {item.count > 1 ? ` x ${item.count}` : ""}
-                </Link>
+                {itemNameWrapper}
                 {showRestrictedType && (
                     <cite>
                         <ContainedItemsList item={item} showRestrictedType={showRestrictedType} />

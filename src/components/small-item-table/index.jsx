@@ -26,6 +26,7 @@ import useBartersData from "../../features/barters/index.js";
 import useCraftsData from "../../features/crafts/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import useHideoutData from "../../features/hideout/index.js";
+import useQuestsData from "../../features/quests/index.js";
 import { selectAllSkills } from "../../features/settings/settingsSlice.mjs";
 
 import CanvasGrid from "../canvas-grid/index.jsx";
@@ -304,6 +305,8 @@ function SmallItemTable(props) {
 
     const { data: hideout } = useHideoutData();
 
+    const { data: quests } = useQuestsData();
+
     const containedItems = useMemo(() => {
         if (!containedInFilter) {
             return {};
@@ -331,35 +334,52 @@ function SmallItemTable(props) {
                 instaProfit: 0,
                 itemLink: `/item/${itemData.normalizedName}`,
                 types: itemData.types,
-                buyFor: itemData.buyFor.filter((buyFor) => {
-                    if (
-                        !showAllSources &&
-                        buyFor.vendor.normalizedName === "flea-market" &&
-                        !availableOnFlea(itemData)
-                    ) {
-                        return false;
-                    }
-                    if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
-                        return false;
-                    }
-                    if (
-                        !showAllSources &&
-                        settings.useTarkovTracker &&
-                        buyFor.vendor.taskUnlock &&
-                        !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)
-                    ) {
-                        return false;
-                    }
-                    if (
-                        buyFor.vendor.normalizedName === "flea-market" &&
-                        traderValue &&
-                        traderBuyback &&
-                        (itemData.types.includes("preset") || itemData.lastOfferCount < 2)
-                    ) {
-                        return false;
-                    }
-                    return true;
-                }),
+                buyFor: itemData.buyFor
+                    .filter((buyFor) => {
+                        if (
+                            !showAllSources &&
+                            buyFor.vendor.normalizedName === "flea-market" &&
+                            !availableOnFlea(itemData)
+                        ) {
+                            return false;
+                        }
+                        if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
+                            return false;
+                        }
+                        if (
+                            !showAllSources &&
+                            settings.useTarkovTracker &&
+                            buyFor.vendor.taskUnlock &&
+                            !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)
+                        ) {
+                            return false;
+                        }
+                        if (
+                            buyFor.vendor.normalizedName === "flea-market" &&
+                            traderValue &&
+                            traderBuyback &&
+                            (itemData.types.includes("preset") || itemData.lastOfferCount < 2)
+                        ) {
+                            return false;
+                        }
+                        return true;
+                    })
+                    .map((buyFor) => {
+                        const newBuyFor = structuredClone(buyFor);
+                        if (newBuyFor.vendor.taskUnlock) {
+                            const taskUnlock = quests.find((q) => q.id === newBuyFor.vendor.taskUnlock.id);
+                            if (taskUnlock) {
+                                newBuyFor.vendor.taskUnlock = {
+                                    id: taskUnlock.id,
+                                    name: taskUnlock.name,
+                                    normalizedName: taskUnlock.normalizedName,
+                                };
+                            } else {
+                                newBuyFor.vendor.taskUnlock = null;
+                            }
+                        }
+                        return newBuyFor;
+                    }),
                 sellFor: itemData.sellFor,
                 buyOnFleaPrice: itemData.buyFor.find(
                     (buyPrice) =>
@@ -1013,6 +1033,7 @@ function SmallItemTable(props) {
         energyCost,
         provisionValue,
         skills,
+        quests,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -2092,6 +2113,7 @@ function SmallItemTable(props) {
         barters,
         crafts,
         hideout,
+        quests,
         useBarterIngredients,
         useCraftIngredients,
         distance,
