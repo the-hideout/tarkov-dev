@@ -324,6 +324,23 @@ function SmallItemTable(props) {
 
     const data = useMemo(() => {
         const formatItem = (itemData) => {
+            let maxDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += slot.durability;
+                    }
+                    return total;
+                }, 0) || itemData.properties.durability;
+            let effectiveDurability = Math.floor(
+                itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
+            );
+            effectiveDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += Math.floor(slot.durability / materialDestructibilityMap[slot?.armorMaterial]);
+                    }
+                    return total;
+                }, 0) || effectiveDurability;
             const formattedItem = {
                 id: itemData.id,
                 name: itemData.name,
@@ -397,12 +414,16 @@ function SmallItemTable(props) {
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
-                armorClass: itemData.properties.class,
+                armorClass:
+                    itemData.properties.armorSlots?.reduce((max, slot) => {
+                        if (slot.allowedPlates) {
+                            return max;
+                        }
+                        return Math.max(max, slot.class);
+                    }, 0) || itemData.properties.class,
                 armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
-                maxDurability: itemData.properties.durability,
-                effectiveDurability: Math.floor(
-                    itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
-                ),
+                maxDurability,
+                effectiveDurability,
                 repairability: materialRepairabilityMap[itemData.properties?.material?.id],
                 stats: `${Math.round((itemData.properties.speedPenalty || 0) * 100)}% / ${Math.round((itemData.properties.turnPenalty || 0) * 100)}% / ${itemData.properties.ergoPenalty || 0}`,
                 weight: itemData.weight,
@@ -1657,7 +1678,6 @@ function SmallItemTable(props) {
                 },
                 position: blindnessProtection,
                 sortType: (a, b) => {
-                    console.log(a);
                     return (a.values.blindnessProtection ?? 0) - (b.values.blindnessProtection ?? 0);
                 },
             });
