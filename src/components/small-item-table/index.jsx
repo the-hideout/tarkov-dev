@@ -243,6 +243,7 @@ function SmallItemTable(props) {
         attachesToItemFilter,
         showSlotValue,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         showGunDefaultPresetImages,
@@ -323,6 +324,23 @@ function SmallItemTable(props) {
 
     const data = useMemo(() => {
         const formatItem = (itemData) => {
+            let maxDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += slot.durability;
+                    }
+                    return total;
+                }, 0) || itemData.properties.durability;
+            let effectiveDurability = Math.floor(
+                itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
+            );
+            effectiveDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += Math.floor(slot.durability / materialDestructibilityMap[slot?.armorMaterial]);
+                    }
+                    return total;
+                }, 0) || effectiveDurability;
             const formattedItem = {
                 id: itemData.id,
                 name: itemData.name,
@@ -396,12 +414,16 @@ function SmallItemTable(props) {
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
-                armorClass: itemData.properties.class,
+                armorClass:
+                    itemData.properties.armorSlots?.reduce((max, slot) => {
+                        if (slot.allowedPlates) {
+                            return max;
+                        }
+                        return Math.max(max, slot.class);
+                    }, 0) || itemData.properties.class,
                 armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
-                maxDurability: itemData.properties.durability,
-                effectiveDurability: Math.floor(
-                    itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
-                ),
+                maxDurability,
+                effectiveDurability,
                 repairability: materialRepairabilityMap[itemData.properties?.material?.id],
                 stats: `${Math.round((itemData.properties.speedPenalty || 0) * 100)}% / ${Math.round((itemData.properties.turnPenalty || 0) * 100)}% / ${itemData.properties.ergoPenalty || 0}`,
                 weight: itemData.weight,
@@ -893,6 +915,39 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showCompatiblePlates) {
+            returnData.forEach((item) => {
+                item.subRows = items
+                    .filter((linkedItem) => {
+                        return item.properties?.armorSlots?.some((slot) =>
+                            slot.allowedPlates?.some((plate) => plate.id === linkedItem.id),
+                        );
+                    })
+                    .filter((plate) => {
+                        if (plateArmorFilter && (plateArmorFilter[0] !== 0 || plateArmorFilter[1] !== 6)) {
+                            return (
+                                plate.properties.class >= plateArmorFilter[0] &&
+                                plate.properties.class <= plateArmorFilter[1]
+                            );
+                        }
+                        return true;
+                    })
+                    .sort((a, b) => {
+                        return b.name.localeCompare(a.name);
+                    })
+                    .map((item) => formatItem(item))
+                    .filter((item) => {
+                        if (!maxPrice) {
+                            return true;
+                        }
+                        return item.cheapestObtainPrice <= maxPrice;
+                    });
+            });
+            returnData.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+        }
+
         if (attachmentMap) {
             returnData.forEach((item) => {
                 item.subRows = items
@@ -1012,6 +1067,7 @@ function SmallItemTable(props) {
         showAttachTo,
         attachesToItemFilter,
         showPresets,
+        showCompatiblePlates,
         attachmentMap,
         showGunDefaultPresetImages,
         useBarterIngredients,
@@ -1080,7 +1136,7 @@ function SmallItemTable(props) {
 
     const columns = useMemo(() => {
         const useColumns = [];
-        if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+        if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
             useColumns.push({
                 id: "expander",
                 Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
@@ -1622,7 +1678,6 @@ function SmallItemTable(props) {
                 },
                 position: blindnessProtection,
                 sortType: (a, b) => {
-                    console.log(a);
                     return (a.values.blindnessProtection ?? 0) - (b.values.blindnessProtection ?? 0);
                 },
             });
@@ -2033,7 +2088,7 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
-                if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+                if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
                     position++;
                 }
                 if (position < 1) {
@@ -2106,6 +2161,7 @@ function SmallItemTable(props) {
         showSlotValue,
         showAllSources,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         settings,
