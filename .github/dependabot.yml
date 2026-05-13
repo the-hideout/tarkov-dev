@@ -11,6 +11,8 @@ updates:
           - "*"
     schedule:
       interval: monthly
+    cooldown:
+      default-days: 45
   - package-ecosystem: npm
     directory: "/"
     groups:
@@ -20,7 +22,7 @@ updates:
     schedule:
       interval: monthly
     cooldown:
-      default-days: 90
+      default-days: 45
     ignore:
       - dependency-name: "i18next"
         update-types: ["version-update:semver-major"]
@@ -34,3 +36,9 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: "npm"
+    directory: "/workers-site"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 45
