@@ -542,6 +542,9 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "skill") {
         const skill = handbook.skills?.find((s) => s.id === objective.skillLevel.skill.id);
+        if (!skill) {
+            return null;
+        }
         taskDetails = (
             <>
                 {t("Obtain level {{level}} {{skillName}} skill", {
@@ -553,6 +556,9 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "hideoutStation") {
         const station = stations.find((s) => s.id === objective.hideoutStation.id);
+        if (!station) {
+            return null;
+        }
         taskDetails = (
             <>
                 {t("Construct level {{level}} {{stationName}}", {
