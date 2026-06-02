@@ -1,11 +1,19 @@
 import { useMemo, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import ImageViewer from "react-simple-image-viewer";
 
 import { Icon } from "@mdi/react";
-import { mdiFormatListCheckbox, mdiGift, mdiRedo, mdiArrowLeftBold, mdiArrowRightBold } from "@mdi/js";
+import {
+    mdiFormatListCheckbox,
+    mdiGift,
+    mdiRedo,
+    mdiArrowLeftBold,
+    mdiArrowRightBold,
+    mdiTrophyAward,
+    mdiTrendingUp,
+} from "@mdi/js";
 
 import SEO from "../../components/SEO.jsx";
 import ErrorPage from "../error-page/index.jsx";
@@ -257,6 +265,53 @@ function Prestige() {
             </>
         );
     }, [currentPrestige, items, t, handbook]);
+
+    if (gameMode === "pve") {
+        return [
+            <SEO
+                title={`${t("Prestige")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
+                description={t(
+                    "tasks-page-description",
+                    "Find out everything you need to know about prestige in Escape from Tarkov. Learn complete them and the rewards you can earn.",
+                )}
+                key="seo-wrapper"
+            />,
+            <div className={"page-wrapper"} key="quests-page-wrapper">
+                <div className="quests-headline-wrapper" key="quests-headline">
+                    <h1 className="quests-page-title">
+                        <Icon path={mdiTrophyAward} size={1.5} className="icon-with-text" />
+                        {t("Prestige")}
+                    </h1>
+                </div>
+                <div className="information-section prestige-block">
+                    <h2>
+                        <span className="icon">
+                            <Icon path={mdiTrendingUp} size={1} className="icon-with-text" />
+                        </span>
+                        {t("N/A")}
+                    </h2>
+                    <div className="page-wrapper prestige-page-wrapper"></div>
+                    <div className="prestiges-wrapper">
+                        <div>
+                            <p>
+                                {t("Prestige is not available in {{gameMode}} mode.", {
+                                    gameMode: t(`game_mode_${gameMode}`),
+                                })}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {/* prettier-ignore */}
+                    <Trans i18nKey={'prestige-page-p'}>
+                        <p>
+                            Prestige in Escape from Tarkov provides access to a number of unique cosmetic items.
+                        </p>
+                    </Trans>
+                </div>
+            </div>,
+        ];
+    }
 
     if (!currentPrestige && (prestigesStatus === "succeeded" || prestigesStatus === "failed")) {
         return <ErrorPage />;

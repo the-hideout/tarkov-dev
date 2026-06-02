@@ -93,8 +93,19 @@ const Menu = () => {
     const { visibleCount } = useMenuOverflow(desktopMenuRef, measuringRef, menuData);
 
     const visibleItems = useMemo(() => {
+        // remove Prestige menu item in pve mode
+        for (const menuTab of menuData) {
+            if (gameMode !== "pve") {
+                break;
+            }
+            if (menuTab.id !== "progression") {
+                continue;
+            }
+            menuTab.items = menuTab.items.filter((menuItem) => menuItem.to !== "/prestige");
+            break;
+        }
         return menuData.slice(0, visibleCount);
-    }, [menuData, visibleCount]);
+    }, [menuData, visibleCount, gameMode]);
 
     const overflowItems = useMemo(() => {
         return menuData.slice(visibleCount);
