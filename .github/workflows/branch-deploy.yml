@@ -25,8 +25,7 @@ jobs:
       - uses: github/branch-deploy@fded0351b6b79f854b335c11b3d93063461dd288 # pin@v11.1.2
         id: branch-deploy
         with:
-          admins: the-hideout/core-contributors
-          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
+          admins: GrantBirki,Razzmatazzz
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
           sticky_locks: "true"
