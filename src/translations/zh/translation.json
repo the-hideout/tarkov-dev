@@ -738,5 +738,6 @@
   "K:D": "K:D",
   "PMC Kills": "PMC Kills",
   "PMC K:D": "PMC K:D",
-  "No hideout stations match filter settings.": "No hideout stations match filter settings."
+  "No hideout stations match filter settings.": "No hideout stations match filter settings.",
+  "Prestige is not available in {{gameMode}} mode.": "Prestige is not available in {{gameMode}} mode."
 }
