@@ -388,7 +388,15 @@ function Map() {
     let allMaps = useMapImages();
 
     const mapData = useMemo(() => {
-        return allMaps[currentMap];
+        if (allMaps[currentMap]) {
+            return allMaps[currentMap];
+        }
+        // fallback to map-2d if interactive map not available
+        for (const key in allMaps) {
+            if (key.startsWith(currentMap)) {
+                return allMaps[key];
+            }
+        }
     }, [allMaps, currentMap]);
 
     // create the leaflet map on first page render
@@ -923,6 +931,7 @@ function Map() {
         }
 
         for (const baseLayer of baseLayers) {
+            let selectedLayer = "";
             if (mapData.layers?.length === 0) {
                 // remove added height layers
                 // layerControl.addOverlay(heightLayer, tMaps(layer.name), { groupName: tMaps("Levels") });
@@ -939,7 +948,6 @@ function Map() {
                 break;
             }
 
-            let selectedLayer = "";
             baseLayer.on("add", () => {
                 const svgParent = baseLayer._url.nodeName === "svg";
                 if (tileLayer && svgLayer) {
