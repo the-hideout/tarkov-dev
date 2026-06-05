@@ -304,6 +304,7 @@ function Map() {
         expandMapLegend: false,
         expandSearch: false,
         alwaysShowSnipers: true,
+        alwaysShowExtracts: false,
         hiddenTasks: [],
     });
 
@@ -529,6 +530,8 @@ function Map() {
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
                 alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
+                alwaysShowExtracts: !!mapSettingsRef.current.alwaysShowExtracts,
+                alwaysShowExtractsLabel: tMaps("Always show extracts"),
                 collapsed: true,
             })
             .addTo(map);
@@ -551,6 +554,13 @@ function Map() {
                     map._container.classList.add("always-show-snipers");
                 } else {
                     map._container.classList.remove("always-show-snipers");
+                }
+            }
+            if (e.settingName === "alwaysShowExtracts") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-extracts");
+                } else {
+                    map._container.classList.remove("always-show-extracts");
                 }
             }
             mapSettingsRef.current[e.settingName] = e.settingValue;
