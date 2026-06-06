@@ -34,12 +34,168 @@ import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
 
 import "./index.css";
 import images from "./map-images.mjs";
+import { buildHazardMarkers } from "./map-markers/hazards.js";
+import { buildLockAndLooseLootMarkers } from "./map-markers/loot.js";
+import { buildSpawnMarkers } from "./map-markers/spawns.js";
+import { buildTaskMarkers } from "./map-markers/tasks.js";
 
 const showStaticMarkers = false;
 const showMarkersBounds = false;
 const showTestPlayerMarker = false;
 const showElevation = false;
 const svgFromGit = false;
+// Shared cache for decoded icon images used by all canvas markers.
+const canvasIconCache = Object.create(null);
+let canvasIconPatchApplied = false;
+
+function getCanvasIconImage(url) {
+    if (!url) {
+        return null;
+    }
+    if (canvasIconCache[url]) {
+        return canvasIconCache[url];
+    }
+    const image = new Image();
+    image.src = url;
+    canvasIconCache[url] = image;
+    return image;
+}
+
+function ensureCanvasIconPatch() {
+    if (canvasIconPatchApplied || !L.Canvas?.prototype?._updateCircle) {
+        return;
+    }
+    // Leaflet canvas does not support arbitrary marker icons out of the box.
+    // We patch circle rendering once and draw cached images directly into canvas.
+    const originalUpdateCircle = L.Canvas.prototype._updateCircle;
+    L.Canvas.prototype._updateCircle = function (layer) {
+        const iconImage = layer.options?.canvasIconImage;
+        if (!iconImage) {
+            return originalUpdateCircle.call(this, layer);
+        }
+        // Always run native Leaflet path update so canvas layers stay interactive.
+        originalUpdateCircle.call(this, layer);
+        if (!this._drawing || layer._empty()) {
+            return;
+        }
+        if (!iconImage.complete) {
+            iconImage.addEventListener(
+                "load",
+                () => {
+                    this._requestRedraw(layer);
+                },
+                { once: true },
+            );
+            return;
+        }
+        const point = layer._point;
+        const iconSize = layer.options.iconSize ?? [24, 24];
+        const [width, height] = iconSize;
+        const searchVisibility = layer.options.canvasSearchHidden ? 0 : 1;
+        const taskVisibility = layer.options.canvasTaskHidden ? 0 : 1;
+        const combinedAlpha = (layer.options.canvasIconOpacity ?? 1) * searchVisibility * taskVisibility;
+        if (combinedAlpha <= 0) {
+            return;
+        }
+        this._ctx.save();
+        this._ctx.globalAlpha = combinedAlpha;
+        const rotation = layer.options.iconRotate ?? 0;
+        if (rotation) {
+            this._ctx.translate(point.x, point.y);
+            this._ctx.rotate((rotation * Math.PI) / 180);
+            this._ctx.drawImage(iconImage, -width / 2, -height / 2, width, height);
+        } else {
+            this._ctx.drawImage(iconImage, point.x - width / 2, point.y - height / 2, width, height);
+        }
+        const floorBadge =
+            layer.options.canvasFloorBadge ??
+            ((layer.options.canvasIconOpacity ?? 1) < 1 ? getMarkerFloorBadge(layer) : null);
+        if (floorBadge) {
+            const badgeRadius = 6;
+            const badgeX = point.x + width / 2 - 2;
+            const badgeY = point.y - height / 2 + 2;
+            this._ctx.beginPath();
+            this._ctx.arc(badgeX, badgeY, badgeRadius, 0, Math.PI * 2);
+            this._ctx.fillStyle = "#111827";
+            this._ctx.fill();
+            this._ctx.lineWidth = 1;
+            this._ctx.strokeStyle = "#f3f4f6";
+            this._ctx.stroke();
+            this._ctx.fillStyle = "#f9fafb";
+            this._ctx.font = "bold 9px sans-serif";
+            this._ctx.textAlign = "center";
+            this._ctx.textBaseline = "middle";
+            this._ctx.fillText(String(floorBadge), badgeX, badgeY + 0.5);
+        }
+        const labelText = layer.options.canvasLabelText;
+        if (labelText) {
+            const labelX = point.x + width / 2 + 4;
+            const labelY = point.y + 0.5;
+            this._ctx.font = "700 18px Arial, Helvetica, sans-serif";
+            this._ctx.textAlign = "left";
+            this._ctx.textBaseline = "middle";
+            this._ctx.lineWidth = 1.25;
+            this._ctx.strokeStyle = "rgba(0, 0, 0, 0.9)";
+            this._ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
+            this._ctx.shadowBlur = 2;
+            this._ctx.strokeText(labelText, labelX, labelY);
+            this._ctx.shadowBlur = 0;
+            this._ctx.fillStyle = layer.options.canvasLabelColor ?? "#ffffff";
+            this._ctx.fillText(labelText, labelX, labelY);
+        }
+        this._ctx.restore();
+    };
+    canvasIconPatchApplied = true;
+}
+
+function createCanvasIconMarker(latlng, options = {}) {
+    const {
+        iconUrl,
+        iconSize = [24, 24],
+        hitRadius = 8,
+        rotation = 0,
+        renderer,
+        labelText,
+        labelColor,
+        ...markerOptions
+    } = options;
+    const iconHitRadius = Math.ceil(Math.max(iconSize[0] ?? 24, iconSize[1] ?? 24) / 2);
+    const marker = L.circleMarker(latlng, {
+        ...markerOptions,
+        renderer,
+        // Keep a transparent circle as hit target; visual icon is rendered in ensureCanvasIconPatch().
+        radius: Math.max(hitRadius, iconHitRadius),
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0,
+        canvasIconImage: getCanvasIconImage(iconUrl),
+        iconSize,
+        iconRotate: rotation,
+        canvasLabelText: labelText,
+        canvasLabelColor: labelColor,
+    });
+    marker.on("mouseover", () => {
+        marker._map?._container?.style?.setProperty("cursor", "pointer");
+    });
+    marker.on("mouseout", () => {
+        marker._map?._container?.style?.removeProperty("cursor");
+    });
+    marker.on("remove", () => {
+        marker._map?._container?.style?.removeProperty("cursor");
+    });
+    marker.on("popupopen", () => {
+        const popup = marker.getPopup?.();
+        const map = marker._map;
+        if (!popup || !map) {
+            return;
+        }
+        // Keep popup anchored to marker, but slightly above icon for better readability.
+        const markerPoint = map.project(marker.getLatLng(), map.getZoom());
+        const popupPoint = markerPoint.subtract([0, 12]);
+        popup.setLatLng(map.unproject(popupPoint, map.getZoom()));
+    });
+    return marker;
+}
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -197,17 +353,62 @@ function markerIsOnActiveLayer(marker) {
     return false;
 }
 
+function getMarkerFloorBadge(marker) {
+    if (!marker?.options?.position || !marker?._map?.layerControl?._layers) {
+        return null;
+    }
+    const heightLayers = marker._map.layerControl._layers
+        .filter((l) => l.layer.options?.extents && l.layer.options?.overlay)
+        .map((l) => l.layer);
+    for (const layer of heightLayers) {
+        if (!markerIsOnLayer(marker, layer)) {
+            continue;
+        }
+        const controlLayer = marker._map.layerControl._layers.find((entry) => entry.layer === layer);
+        // Use layer name from UI control (localized), not internal ids.
+        const rawLayerName = controlLayer?.name ?? layer.options?.name ?? "";
+        const layerName = String(rawLayerName)
+            .replace(/<[^>]*>/g, "")
+            .trim();
+        if (!layerName) {
+            return null;
+        }
+        return layerName[0].toUpperCase();
+    }
+    return null;
+}
+
 function checkMarkerForActiveLayers(event) {
     const marker = event.target || event;
     const outline = marker.options.outline;
     const onLevel = markerIsOnActiveLayer(marker);
+    const isCanvasIconMarker = Boolean(marker.options?.canvasIconImage);
     if (onLevel) {
         marker._icon?.classList.remove("off-level");
+        if (isCanvasIconMarker) {
+            marker.options.canvasFloorBadge = null;
+        }
+        if (isCanvasIconMarker && marker.options.canvasIconOpacity !== 1) {
+            marker.options.canvasIconOpacity = 1;
+            marker.redraw?.();
+        } else if (isCanvasIconMarker) {
+            marker.redraw?.();
+        }
         if (outline) {
             outline._path?.classList.remove("off-level");
         }
     } else {
         marker._icon?.classList.add("off-level");
+        if (isCanvasIconMarker) {
+            marker.options.canvasFloorBadge = getMarkerFloorBadge(marker);
+        }
+        // Off-level canvas markers stay visible but dimmed, with level badge in top-right corner.
+        if (isCanvasIconMarker && marker.options.canvasIconOpacity !== 0.2) {
+            marker.options.canvasIconOpacity = 0.2;
+            marker.redraw?.();
+        } else if (isCanvasIconMarker) {
+            marker.redraw?.();
+        }
         if (outline) {
             outline._path?.classList.add("off-level");
         }
@@ -237,6 +438,71 @@ function toggleForceOutline(event) {
         outline._path.classList.remove("not-shown");
     }
     activateMarkerLayer(event);
+}
+
+function bindDynamicOutline(marker, map, outlinePoints, outlineColor) {
+    let outline = null;
+    let outlineForceShow = false;
+    const ensureOutline = () => {
+        if (outline || !outlinePoints?.length) {
+            return;
+        }
+        outline = L.polygon(outlinePoints, {
+            color: outlineColor,
+            weight: 1,
+            interactive: false,
+        });
+    };
+    marker.on("mouseover", () => {
+        ensureOutline();
+        if (outline && !map.hasLayer(outline)) {
+            outline.addTo(map);
+        }
+    });
+    marker.on("mouseout", () => {
+        if (outline && !outlineForceShow && map.hasLayer(outline)) {
+            outline.removeFrom(map);
+        }
+    });
+    marker.on("click", (event) => {
+        if (event?.originalEvent) {
+            L.DomEvent.stop(event.originalEvent);
+        }
+        temporarilySuspendDoubleClickZoom(map);
+        outlineForceShow = !outlineForceShow;
+        ensureOutline();
+        if (!outline) {
+            return;
+        }
+        if (outlineForceShow) {
+            if (!map.hasLayer(outline)) {
+                outline.addTo(map);
+            }
+        } else if (map.hasLayer(outline)) {
+            outline.removeFrom(map);
+        }
+    });
+    marker.on("dblclick", (event) => {
+        if (event?.originalEvent) {
+            L.DomEvent.stop(event.originalEvent);
+        }
+    });
+    marker.on("remove", () => {
+        outline?.remove();
+        outline = null;
+        outlineForceShow = false;
+    });
+}
+
+function temporarilySuspendDoubleClickZoom(map, timeoutMs = 300) {
+    if (!map?.doubleClickZoom) {
+        return;
+    }
+    map.doubleClickZoom.disable();
+    clearTimeout(map._outlineDblClickZoomTimer);
+    map._outlineDblClickZoomTimer = setTimeout(() => {
+        map.doubleClickZoom.enable();
+    }, timeoutMs);
 }
 
 function activateMarkerLayer(event) {
@@ -278,6 +544,48 @@ function addElevation(item, popup) {
     }
 }
 
+function finalizeMarker(marker, { popupContent, bindLevelActivation = true }) {
+    if (popupContent) {
+        marker.bindPopup(L.popup().setContent(popupContent));
+    }
+    marker.on("add", checkMarkerForActiveLayers);
+    if (bindLevelActivation) {
+        marker.on("click", activateMarkerLayer);
+    }
+    return marker;
+}
+
+function appendItemNameIfSingle(linkElement, itemName, itemsCount) {
+    if (itemsCount === 1) {
+        linkElement.append(itemName);
+    }
+}
+
+function createMapMarker({
+    useCanvas,
+    position,
+    markerOptions = {},
+    canvasOptions = {},
+    domIconOptions = {},
+    domMarkerOptions = {},
+}) {
+    if (useCanvas) {
+        return createCanvasIconMarker(pos(position), {
+            ...markerOptions,
+            position,
+            ...canvasOptions,
+        });
+    }
+    const icon = L.icon(domIconOptions);
+    return L.marker(pos(position), {
+        ...markerOptions,
+        ...domMarkerOptions,
+        icon,
+        position,
+        riseOnHover: true,
+    });
+}
+
 function Map() {
     let { currentMap } = useParams();
     const [searchParams] = useSearchParams();
@@ -304,8 +612,10 @@ function Map() {
         expandMapLegend: false,
         expandSearch: false,
         alwaysShowSnipers: true,
+        canvasPerformanceMode: false,
         hiddenTasks: [],
     });
+    const useCanvasMassRenderer = Boolean(savedMapSettings.canvasPerformanceMode);
 
     const mapSettingsRef = useRef(savedMapSettings);
     const updateSavedMapSettings = useCallback(() => {
@@ -342,6 +652,7 @@ function Map() {
 
     const ref = useRef();
     const mapRef = useRef(null);
+    const canvasRendererRef = useRef(null);
 
     const [mapHeight, setMapHeight] = useState(500); // stores the maximum size of the map canvas
 
@@ -383,19 +694,40 @@ function Map() {
     const { data: items } = useItemsData();
     const { data: quests } = useQuestsData();
     const { data: handbook } = useHandbookData();
+    const itemsById = useMemo(() => {
+        const index = Object.create(null);
+        for (const item of items ?? []) {
+            index[item.id] = item;
+        }
+        return index;
+    }, [items]);
+    const handbookCategoryById = useMemo(() => {
+        const index = Object.create(null);
+        for (const category of handbook?.handbookCategories ?? []) {
+            index[category.id] = category;
+        }
+        return index;
+    }, [handbook]);
 
     let allMaps = useMapImages();
 
     const mapData = useMemo(() => {
         return allMaps[currentMap];
     }, [allMaps, currentMap]);
+    useMemo(() => {
+        ensureCanvasIconPatch();
+    }, []);
 
     // create the leaflet map on first page render
     useEffect(() => {
         if (mapRef.current) {
             return;
         }
-        const map = L.map("leaflet-map", {
+        const mapRootElement = document.getElementById("leaflet-map");
+        if (!mapRootElement) {
+            return;
+        }
+        const map = L.map(mapRootElement, {
             zoomSnap: 0.1,
             scrollWheelZoom: true,
             wheelPxPerZoomLevel: 120,
@@ -408,6 +740,7 @@ function Map() {
             minZoom: 1,
             maxZoom: 1,
         });
+        canvasRendererRef.current = L.canvas({ padding: 0.5 });
         if (playerPositionUsedRef.current) {
             map._container.classList.add("player-position-shown");
         }
@@ -529,6 +862,8 @@ function Map() {
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
                 alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
+                canvasPerformanceModeChecked: mapSettingsRef.current.canvasPerformanceMode,
+                canvasPerformanceModeLabel: tMaps("Use canvas performance mode"),
                 collapsed: true,
             })
             .addTo(map);
@@ -652,7 +987,7 @@ function Map() {
             },
             { capture: true },
         );
-    }, [t, tMaps, updateSavedMapSettings]);
+    }, [t, tMaps, updateSavedMapSettings, mapData]);
 
     useEffect(() => {
         if (!mapRef.current?.searchControl) {
@@ -783,6 +1118,10 @@ function Map() {
         if (!searchBar) {
             return;
         }
+        // Avoid full marker scan on map init when search is empty.
+        if (!searchBar.value?.trim()) {
+            return;
+        }
         searchBar.dispatchEvent(new Event("input"));
     };
 
@@ -810,7 +1149,6 @@ function Map() {
         const map = mapRef.current;
         map.options.baseData = mapData;
         const layerControl = map.layerControl;
-
         map.options.maxBounds = getScaledBounds(mapData.bounds, 1.5);
         map.setMaxBounds(map.options.maxBounds);
         map.options.minZoom = mapData.minZoom;
@@ -913,6 +1251,7 @@ function Map() {
         }
 
         for (const baseLayer of baseLayers) {
+            let selectedLayer = "";
             if (mapData.layers?.length === 0) {
                 // remove added height layers
                 // layerControl.addOverlay(heightLayer, tMaps(layer.name), { groupName: tMaps("Levels") });
@@ -929,7 +1268,6 @@ function Map() {
                 break;
             }
 
-            let selectedLayer = "";
             baseLayer.on("add", () => {
                 const svgParent = baseLayer._url.nodeName === "svg";
                 if (tileLayer && svgLayer) {
@@ -1182,7 +1520,7 @@ function Map() {
         //map.fitWorld({maxZoom: 0, animate: false});
         //map.setView(L.latLngBounds(bounds).getCenter(), 2, {animate: false});
         map.fitBounds(L.latLngBounds(bounds));
-    }, [currentMap, tMaps, updateSavedMapSettings, addLayer]);
+    }, [currentMap, tMaps, updateSavedMapSettings, addLayer, useCanvasMassRenderer]);
 
     // load markers from API maps data
     useEffect(() => {
@@ -1193,8 +1531,6 @@ function Map() {
         if (!map.options.baseData) {
             return;
         }
-        //console.log('loading api map data', mapData.normalizedName);
-
         map.raidInfoControl.options.map = mapData;
         map.raidInfoControl.refreshMapData();
 
@@ -1212,137 +1548,22 @@ function Map() {
             map.layerControl.removeLayerFromMap(layerId);
         }
 
-        // Add spawns
-        if (mapData.spawns.length > 0) {
-            const spawnLayers = {
-                "pmc": L.layerGroup(),
-                "scav": L.layerGroup(),
-                "sniper_scav": L.layerGroup(),
-                "boss": L.layerGroup(),
-                "cultist-priest": L.layerGroup(),
-                "rogue": L.layerGroup(),
-                "black-div": L.layerGroup(),
-                "af": L.layerGroup(),
-                "bloodhound": L.layerGroup(),
-            };
-            for (const spawn of mapData.spawns) {
-                if (!positionIsInBounds(spawn.position)) {
-                    continue;
-                }
-                let spawnType = "";
-                let bosses = [];
-                let markerClass;
+        // Builders own marker creation details; index.jsx orchestrates layer lifecycle only.
+        buildSpawnMarkers({
+            mapData,
+            categories,
+            useCanvasMassRenderer,
+            canvasRenderer: canvasRendererRef.current,
+            positionIsInBounds,
+            createMapMarker,
+            getReactLink,
+            addElevation,
+            finalizeMarker,
+            checkMarkerBounds: (position) => checkMarkerBounds(position, markerBounds),
+            addLayer,
+        });
 
-                if (spawn.categories.includes("boss")) {
-                    bosses = mapData.bosses.filter((boss) =>
-                        boss.spawnLocations.some((sl) => sl.spawnKey === spawn.zoneName),
-                    );
-                    bosses = bosses.reduce((unique, current) => {
-                        if (!unique.some((b) => b.normalizedName === current.normalizedName)) {
-                            unique.push(current);
-                        }
-                        return unique;
-                    }, []);
-                    if (bosses.length === 0) {
-                        if (spawn.categories.includes("bot") && spawn.sides.includes("scav")) {
-                            spawnType = "scav";
-                        } else {
-                            //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
-                            continue;
-                        }
-                    } else if (
-                        bosses.length === 1 &&
-                        (bosses[0].normalizedName === "cultist-priest" ||
-                            bosses[0].normalizedName === "rogue" ||
-                            bosses[0].normalizedName === "black-div" ||
-                            bosses[0].normalizedName === "af" ||
-                            bosses[0].normalizedName === "bloodhound")
-                    ) {
-                        spawnType = bosses[0].normalizedName;
-                    } else {
-                        spawnType = "boss";
-                    }
-                } else if (spawn.categories.includes("player")) {
-                    if (spawn.sides.includes("pmc") || spawn.sides.includes("all")) {
-                        spawnType = "pmc";
-                    } else {
-                        //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
-                        continue;
-                    }
-                } else if (spawn.categories.includes("sniper")) {
-                    spawnType = "sniper_scav";
-                    markerClass = "sniper-spawn";
-                } else if (spawn.sides.includes("scav")) {
-                    if (spawn.categories.includes("bot") || spawn.categories.includes("all")) {
-                        spawnType = "scav";
-                    } else {
-                        //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
-                        continue;
-                    }
-                } else {
-                    //console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
-                    continue;
-                }
-
-                const spawnIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                    className: markerClass,
-                });
-
-                if (spawnType === "pmc") {
-                    spawnIcon.iconAnchor = [12, 24];
-                    spawnIcon.popupAnchor = [0, -24];
-                }
-
-                const popupContent = L.DomUtil.create("div");
-                if (spawn.categories.includes("boss") && bosses.length > 0) {
-                    const bossList = L.DomUtil.create("div", undefined, popupContent);
-                    for (const boss of bosses) {
-                        if (!categories[`spawn_${boss.normalizedName}`]) {
-                            categories[`spawn_${boss.normalizedName}`] = boss.name;
-                        }
-                        if (bossList.childNodes.length > 0) {
-                            const comma = L.DomUtil.create("span", undefined, bossList);
-                            comma.textContent = ", ";
-                        }
-                        bossList.append(
-                            getReactLink(
-                                `/boss/${boss.normalizedName}`,
-                                `${boss.name} (${Math.round(boss.spawnChance * 100)}%)`,
-                            ),
-                        );
-                    }
-                } else {
-                    const spawnDiv = L.DomUtil.create("div", undefined, popupContent);
-                    spawnDiv.textContent = categories[`spawn_${spawnType}`];
-                }
-                addElevation(spawn, popupContent);
-
-                const marker = L.marker(pos(spawn.position), {
-                    icon: spawnIcon,
-                    position: spawn.position,
-                    riseOnHover: true,
-                });
-                if (popupContent.childNodes.length > 0) {
-                    marker.bindPopup(L.popup().setContent(popupContent));
-                }
-                marker.position = spawn.position;
-                marker.on("add", checkMarkerForActiveLayers);
-                marker.on("click", activateMarkerLayer);
-                marker.addTo(spawnLayers[spawnType]);
-
-                checkMarkerBounds(spawn.position, markerBounds);
-            }
-            for (const key in spawnLayers) {
-                if (Object.keys(spawnLayers[key]._layers).length > 0) {
-                    addLayer(spawnLayers[key], `spawn_${key}`, "Spawns");
-                }
-            }
-        }
-
-        //add extracts
+        // Add extracts/transits as DOM markers for stable interactivity and predictable z-order.
         if (mapData.extracts.length > 0) {
             const extractLayers = {
                 pmc: L.layerGroup(),
@@ -1354,40 +1575,52 @@ function Map() {
                 shared: 125,
                 scav: 100,
             };
-            for (const extract of mapData.extracts) {
-                const faction = extract.faction ?? "shared";
-                if (!positionIsInBounds(extract.position)) {
-                    //continue;
-                }
-                const colorMap = {
-                    scav: "#ff7800",
-                    pmc: "#00e599",
-                    shared: "#00e4e5",
-                };
-                const rect = L.polygon(outlineToPoly(extract.outline), {
-                    color: colorMap[faction],
+            const colorMap = {
+                scav: "#ff7800",
+                pmc: "#28b43e",
+                shared: "#00e4e5",
+            };
+            const createExtractLikeMarker = ({ position, title, iconName, zIndexOffset, color, outline, markerId }) => {
+                const rect = L.polygon(outlineToPoly(outline), {
+                    color,
                     weight: 1,
                     className: "not-shown",
                 });
-                const extractIcon = L.divIcon({
+                const icon = L.divIcon({
                     className: "extract-icon",
-                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${faction}.png"/><span class="extract-name ${faction}">${extract.name}</span>`,
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${iconName}"/><span class="extract-name ${title.className}">${title.text}</span>`,
                     iconAnchor: [12, 12],
                 });
-                const extractMarker = L.marker(pos(extract.position), {
-                    icon: extractIcon,
-                    title: extract.name,
-                    zIndexOffset: zIndexOffsets[faction],
-                    position: extract.position,
-                    top: extract.top,
-                    bottom: extract.bottom,
+                const marker = L.marker(pos(position), {
+                    icon,
+                    title: title.text,
+                    zIndexOffset,
+                    position,
+                    top: title.top,
+                    bottom: title.bottom,
                     outline: rect,
-                    id: extract.id,
+                    id: markerId,
                     riseOnHover: true,
                 });
-                extractMarker.on("mouseover", mouseHoverOutline);
-                extractMarker.on("mouseout", mouseHoverOutline);
-                extractMarker.on("click", toggleForceOutline);
+                marker.on("mouseover", mouseHoverOutline);
+                marker.on("mouseout", mouseHoverOutline);
+                marker.on("click", toggleForceOutline);
+                marker.on("add", checkMarkerForActiveLayers);
+                return { marker, rect };
+            };
+
+            for (const extract of mapData.extracts) {
+                const faction = extract.faction ?? "shared";
+                const { marker: extractMarker, rect } = createExtractLikeMarker({
+                    position: extract.position,
+                    title: { text: extract.name, className: faction, top: extract.top, bottom: extract.bottom },
+                    iconName: `extract_${faction}.png`,
+                    zIndexOffset: zIndexOffsets[faction],
+                    color: colorMap[faction],
+                    outline: extract.outline,
+                    markerId: extract.id,
+                });
+
                 let popup;
                 if (extract.switches?.length > 0) {
                     popup ??= L.DomUtil.create("div");
@@ -1418,59 +1651,44 @@ function Map() {
                     itemLink.append(itemName);
                     popup.append(itemLink);
                 }
-
-                if (popup || showElevation) {
-                    popup ??= L.DomUtil.create("div");
-                    addElevation(extract, popup);
-                    extractMarker.bindPopup(L.popup().setContent(popup));
+                const extractPopup = popup || showElevation ? (popup ?? L.DomUtil.create("div")) : null;
+                if (extractPopup) {
+                    addElevation(extract, extractPopup);
                 }
-                extractMarker.on("add", checkMarkerForActiveLayers);
-                L.layerGroup([rect, extractMarker]).addTo(extractLayers[faction]);
+                finalizeMarker(extractMarker, { popupContent: extractPopup, bindLevelActivation: false });
 
+                L.layerGroup([rect, extractMarker]).addTo(extractLayers[faction]);
                 checkMarkerBounds(extract.position, markerBounds);
             }
+
             if (mapData.transits.length > 0) {
                 extractLayers.transit = L.layerGroup();
-
                 for (const transit of mapData.transits) {
-                    if (!positionIsInBounds(transit.position)) {
-                        //continue;
-                    }
-                    const rect = L.polygon(outlineToPoly(transit.outline), {
-                        color: "#e53500",
-                        weight: 1,
-                        className: "not-shown",
-                    });
-                    const transitIcon = L.divIcon({
-                        className: "extract-icon",
-                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_transit.png"/><span class="extract-name transit">${transit.description}</span>`,
-                        iconAnchor: [12, 12],
-                    });
-                    const transitMarker = L.marker(pos(transit.position), {
-                        icon: transitIcon,
-                        title: transit.description,
-                        zIndexOffset: zIndexOffsets.pmc,
+                    const { marker: transitMarker, rect } = createExtractLikeMarker({
                         position: transit.position,
-                        top: transit.top,
-                        bottom: transit.bottom,
-                        outline: rect,
-                        id: transit.id,
-                        riseOnHover: true,
+                        title: {
+                            text: transit.description,
+                            className: "transit",
+                            top: transit.top,
+                            bottom: transit.bottom,
+                        },
+                        iconName: "extract_transit.png",
+                        zIndexOffset: zIndexOffsets.pmc,
+                        color: "#e53500",
+                        outline: transit.outline,
+                        markerId: transit.id,
                     });
-                    transitMarker.on("mouseover", mouseHoverOutline);
-                    transitMarker.on("mouseout", mouseHoverOutline);
-                    transitMarker.on("click", toggleForceOutline);
-                    if (showElevation) {
-                        const popup = L.DomUtil.create("div");
-                        addElevation(transit, popup);
-                        transitMarker.bindPopup(L.popup().setContent(popup));
-                    }
-                    transitMarker.on("add", checkMarkerForActiveLayers);
-                    L.layerGroup([rect, transitMarker]).addTo(extractLayers.transit);
 
+                    const transitPopup = showElevation ? L.DomUtil.create("div") : null;
+                    if (transitPopup) {
+                        addElevation(transit, transitPopup);
+                    }
+                    finalizeMarker(transitMarker, { popupContent: transitPopup, bindLevelActivation: false });
+                    L.layerGroup([rect, transitMarker]).addTo(extractLayers.transit);
                     checkMarkerBounds(transit.position, markerBounds);
                 }
             }
+
             for (const key in extractLayers) {
                 if (Object.keys(extractLayers[key]._layers).length > 0) {
                     addLayer(extractLayers[key], `extract_${key}`, "Extracts");
@@ -1482,21 +1700,29 @@ function Map() {
         if (mapData.lootContainers.length > 0) {
             const containerLayers = {};
             const containerNames = {};
+            const useCanvasForContainers = useCanvasMassRenderer;
             for (const containerPosition of mapData.lootContainers) {
                 if (!positionIsInBounds(containerPosition.position)) {
                     continue;
                 }
-                const containerIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                });
-
-                const containerMarker = L.marker(pos(containerPosition.position), {
-                    icon: containerIcon,
-                    title: containerPosition.lootContainer.name,
+                const containerIconUrl = `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`;
+                const containerMarker = createMapMarker({
+                    useCanvas: useCanvasForContainers,
                     position: containerPosition.position,
-                    riseOnHover: true,
+                    markerOptions: {
+                        title: containerPosition.lootContainer.name,
+                    },
+                    canvasOptions: {
+                        renderer: canvasRendererRef.current,
+                        iconUrl: containerIconUrl,
+                        iconSize: [24, 24],
+                        hitRadius: 8,
+                    },
+                    domIconOptions: {
+                        iconUrl: containerIconUrl,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                    },
                 });
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
@@ -1506,10 +1732,7 @@ function Map() {
                 const popupDiv = L.DomUtil.create("div", undefined, popup);
                 popupDiv.textContent = containerPosition.lootContainer.name;
                 addElevation(containerPosition, popup);
-                containerMarker.bindPopup(L.popup().setContent(popup));
-
-                containerMarker.on("add", checkMarkerForActiveLayers);
-                containerMarker.on("click", activateMarkerLayer);
+                finalizeMarker(containerMarker, { popupContent: popup });
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
                 containerNames[containerPosition.lootContainer.normalizedName] = containerPosition.lootContainer.name;
             }
@@ -1523,29 +1746,27 @@ function Map() {
         //add switches
         if (mapData.switches.length > 0) {
             const switches = L.layerGroup();
+            const useCanvasForUsable = useCanvasMassRenderer;
             for (const sw of mapData.switches) {
                 if (!positionIsInBounds(sw.position)) {
                     continue;
                 }
-                const switchIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                });
-                const switchMarker = L.marker(pos(sw.position), {
-                    icon: switchIcon,
+                const switchMarker = createMapMarker({
+                    useCanvas: useCanvasForUsable,
                     position: sw.position,
-                    id: sw.id,
-                    riseOnHover: true,
+                    markerOptions: { id: sw.id },
+                    canvasOptions: {
+                        renderer: canvasRendererRef.current,
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
+                        iconSize: [24, 24],
+                        hitRadius: 8,
+                    },
+                    domIconOptions: {
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                    },
                 });
-                /*const popupLines = [t(sw.id)];
-                if (sw.previousSwitch) {
-                    popupLines.push(`Activated by ${sw.previousSwitch.id}`);
-                }
-                for (const nextSwitch of sw.nextSwitches) {
-                    popupLines.push(`${nextSwitch.operation} ${nextSwitch.switch.id}`);
-                }
-                switchMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));*/
                 const popup = L.DomUtil.create("div");
                 const switchNameElement = L.DomUtil.create("div");
                 switchNameElement.innerHTML = `<strong>${sw.name}</strong>`;
@@ -1587,11 +1808,8 @@ function Map() {
                     }
                 }
                 addElevation(sw, popup);
-                if (popup.childNodes.length > 0) {
-                    switchMarker.bindPopup(L.popup().setContent(popup));
-                }
-                switchMarker.on("add", checkMarkerForActiveLayers);
-                switchMarker.on("click", activateMarkerLayer);
+                const switchPopupContent = popup.childNodes.length > 0 ? popup : null;
+                finalizeMarker(switchMarker, { popupContent: switchPopupContent });
                 switchMarker.addTo(switches);
 
                 checkMarkerBounds(sw.position, markerBoundsRef.current);
@@ -1604,154 +1822,93 @@ function Map() {
         // add stationary weapons
         if (mapData.stationaryWeapons.length > 0) {
             const stationaryWeapons = L.layerGroup();
+            const useCanvasForUsable = useCanvasMassRenderer;
             for (const weaponPosition of mapData.stationaryWeapons) {
                 if (!positionIsInBounds(weaponPosition.position)) {
                     continue;
                 }
-                const weaponIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                });
-
-                const weaponMarker = L.marker(pos(weaponPosition.position), {
-                    icon: weaponIcon,
-                    title: weaponPosition.stationaryWeapon.name,
+                const weaponMarker = createMapMarker({
+                    useCanvas: useCanvasForUsable,
                     position: weaponPosition.position,
-                    riseOnHover: true,
+                    markerOptions: {
+                        title: weaponPosition.stationaryWeapon.name,
+                    },
+                    canvasOptions: {
+                        renderer: canvasRendererRef.current,
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
+                        iconSize: [24, 24],
+                        hitRadius: 8,
+                    },
+                    domIconOptions: {
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                    },
                 });
-                if (showElevation) {
-                    const popup = L.DomUtil.create("div");
-                    addElevation(weaponPosition, popup);
-                    weaponMarker.bindPopup(L.popup().setContent(popup));
+                const weaponPopup = showElevation ? L.DomUtil.create("div") : null;
+                if (weaponPopup) {
+                    addElevation(weaponPosition, weaponPopup);
                 }
-                weaponMarker.on("add", checkMarkerForActiveLayers);
-                weaponMarker.on("click", activateMarkerLayer);
+                finalizeMarker(weaponMarker, { popupContent: weaponPopup });
                 weaponMarker.addTo(stationaryWeapons);
             }
             addLayer(stationaryWeapons, "stationarygun", "Usable");
         }
 
-        //add hazards
-        if (mapData.hazards.length > 0 || mapData.artillery?.zones?.length) {
-            const hazardLayers = {};
-            const hazardNames = {};
-            for (const hazard of mapData.hazards) {
-                if (!positionIsInBounds(hazard.position)) {
-                    continue;
-                }
-                const rect = L.polygon(outlineToPoly(hazard.outline), {
-                    color: "#ff0000",
-                    weight: 1,
-                    className: "not-shown",
-                });
-                const hazardIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                });
-
-                const hazardMarker = L.marker(pos(hazard.position), {
-                    icon: hazardIcon,
-                    title: hazard.name,
-                    zIndexOffset: -100,
-                    position: hazard.position,
-                    top: hazard.top,
-                    bottom: hazard.bottom,
-                    outline: rect,
-                    riseOnHover: true,
-                });
-                const popup = L.DomUtil.create("div");
-                const hazardText = L.DomUtil.create("div", undefined, popup);
-                hazardText.textContent = hazard.name;
-                addElevation(hazard, popup);
-                hazardMarker.bindPopup(L.popup().setContent(popup));
-
-                hazardMarker.on("mouseover", mouseHoverOutline);
-                hazardMarker.on("mouseout", mouseHoverOutline);
-                hazardMarker.on("click", toggleForceOutline);
-                hazardMarker.on("add", checkMarkerForActiveLayers);
-                if (!hazardLayers[hazard.hazardType]) {
-                    hazardLayers[hazard.hazardType] = L.layerGroup();
-                    hazardNames[hazard.hazardType] = hazard.name;
-                }
-                L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.hazardType]);
-
-                checkMarkerBounds(hazard.position, markerBounds);
-            }
-
-            if (mapData.artillery?.zones?.length > 0) {
-                for (const hazard of mapData.artillery.zones) {
-                    if (!positionIsInBounds(hazard.position)) {
-                        continue;
-                    }
-                    const rect = L.polygon(outlineToPoly(hazard.outline), {
-                        color: "#ff0000",
-                        weight: 1,
-                        className: "not-shown",
-                    });
-                    const hazardIcon = L.icon({
-                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard_mortar.png`,
-                        iconSize: [24, 24],
-                        popupAnchor: [0, -12],
-                    });
-
-                    const artyName = t("Mortar");
-
-                    const hazardMarker = L.marker(pos(hazard.position), {
-                        icon: hazardIcon,
-                        title: artyName,
-                        //zIndexOffset: -100,
-                        position: hazard.position,
-                        top: hazard.top,
-                        bottom: hazard.bottom,
-                        outline: rect,
-                        riseOnHover: true,
-                    });
-                    const popup = L.DomUtil.create("div");
-                    const hazardText = L.DomUtil.create("div", undefined, popup);
-                    hazardText.textContent = t("Mortar");
-                    addElevation(hazard, popup);
-                    hazardMarker.bindPopup(L.popup().setContent(popup));
-
-                    hazardMarker.on("mouseover", mouseHoverOutline);
-                    hazardMarker.on("mouseout", mouseHoverOutline);
-                    hazardMarker.on("click", toggleForceOutline);
-                    hazardMarker.on("add", checkMarkerForActiveLayers);
-                    if (!hazardLayers.mortar) {
-                        hazardLayers.mortar = L.layerGroup();
-                        hazardNames.mortar = artyName;
-                    }
-                    L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.mortar);
-
-                    checkMarkerBounds(hazard.position, markerBounds);
-                }
-            }
-            for (const key in hazardLayers) {
-                if (Object.keys(hazardLayers[key]._layers).length > 0) {
-                    addLayer(hazardLayers[key], `hazard_${key}`, "Hazards", hazardNames[key]);
-                }
-            }
-        }
+        buildHazardMarkers({
+            mapData,
+            useCanvasMassRenderer,
+            canvasRenderer: canvasRendererRef.current,
+            map,
+            t,
+            positionIsInBounds,
+            outlineToPoly,
+            createMapMarker,
+            bindDynamicOutline,
+            mouseHoverOutline,
+            toggleForceOutline,
+            addElevation,
+            finalizeMarker,
+            checkMarkerBounds: (position) => checkMarkerBounds(position, markerBounds),
+            addLayer,
+        });
 
         // Add btr stops
         if (mapData.btrStops?.length > 0) {
             const stopsGroup = L.layerGroup();
+            const useCanvasForLandmarks = useCanvasMassRenderer;
             for (const btrStop of mapData.btrStops) {
-                const stopIcon = L.divIcon({
-                    className: "btr-stop",
-                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/btr_stop.png"/><span class="btr-stop-name">${btrStop.name}</span>`,
-                    iconAnchor: [8, 8],
-                });
-                const stopMarker = L.marker(pos(btrStop), {
-                    icon: stopIcon,
-                    title: `${tMaps("BTR Stop")}: ${btrStop.name}`,
-                    //zIndexOffset: zIndexOffsets[faction],
-                    position: btrStop,
-                    top: btrStop.y,
-                    bottom: btrStop.y,
-                    riseOnHover: true,
-                });
+                let stopMarker;
+                if (useCanvasForLandmarks) {
+                    stopMarker = createCanvasIconMarker(pos(btrStop), {
+                        renderer: canvasRendererRef.current,
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/btr_stop.png`,
+                        iconSize: [16, 16],
+                        hitRadius: 8,
+                        title: `${tMaps("BTR Stop")}: ${btrStop.name}`,
+                        position: btrStop,
+                        top: btrStop.y,
+                        bottom: btrStop.y,
+                    });
+                    const popup = L.DomUtil.create("div");
+                    popup.textContent = `${tMaps("BTR Stop")}: ${btrStop.name}`;
+                    stopMarker.bindPopup(L.popup().setContent(popup));
+                } else {
+                    const stopIcon = L.divIcon({
+                        className: "btr-stop",
+                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/btr_stop.png"/><span class="btr-stop-name">${btrStop.name}</span>`,
+                        iconAnchor: [8, 8],
+                    });
+                    stopMarker = L.marker(pos(btrStop), {
+                        icon: stopIcon,
+                        title: `${tMaps("BTR Stop")}: ${btrStop.name}`,
+                        //zIndexOffset: zIndexOffsets[faction],
+                        position: btrStop,
+                        top: btrStop.y,
+                        bottom: btrStop.y,
+                        riseOnHover: true,
+                    });
+                }
                 stopMarker.on("add", checkMarkerForActiveLayers);
                 stopMarker.addTo(stopsGroup);
                 checkMarkerBounds(btrStop, markerBoundsRef.current);
@@ -1779,7 +1936,7 @@ function Map() {
         // maxBounds are bigger than the map and the map center is not in 0,0 so we need to move the view to real center
         // console.log("Center:", L.latLngBounds(bounds).getCenter(true));
         //map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
-    }, [mapData, t, updateSavedMapSettings, addLayer, categories, tMaps, getPoiLinkElement]);
+    }, [mapData, t, updateSavedMapSettings, addLayer, categories, tMaps, getPoiLinkElement, useCanvasMassRenderer]);
 
     // for markers requiring quests
     useEffect(() => {
@@ -1790,132 +1947,30 @@ function Map() {
         if (!map.options.baseData) {
             return;
         }
-        //console.log('loading quest markers');
         // remove old markers
         const groupIds = ["Tasks"];
         for (const groupId of groupIds) {
             map.layerControl.removeGroupFromMap(groupId);
         }
-        //add quest markers
-        const questItems = L.layerGroup();
-        const questObjectives = L.layerGroup();
-        const questSet = new Set();
-        const hiddenTasks = mapSettingsRef.current.hiddenTasks ?? [];
-        const getMarkerClass = (quest, objective) => {
-            const classes = [];
-            if (quest.active && !objective.complete) {
-                classes.push("active-quest-marker");
-            } else {
-                classes.push("inactive-quest-marker");
-            }
-            if (hiddenTasks.includes(quest.id)) {
-                classes.push("hidden-task");
-            }
-            return classes.join(" ");
-        };
-        for (const quest of quests) {
-            for (const obj of quest.objectives) {
-                if (obj.possibleLocations) {
-                    for (const loc of obj.possibleLocations) {
-                        if (!loc.map?.id) {
-                            continue;
-                        }
-                        if (loc.map.id !== mapData.id) {
-                            continue;
-                        }
-                        for (const position of loc.positions) {
-                            if (!positionIsInBounds(position)) {
-                                continue;
-                            }
-                            questSet.add(quest);
-                            const questItemIcon = L.icon({
-                                iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
-                                iconSize: [24, 24],
-                                popupAnchor: [0, -12],
-                                className: getMarkerClass(quest, obj),
-                            });
-                            const questItemMarker = L.marker(pos(position), {
-                                icon: questItemIcon,
-                                position: position,
-                                title: obj.questItem.name,
-                                id: obj.questItem.id,
-                                questId: quest.id,
-                                riseOnHover: true,
-                            });
-                            const popupContent = L.DomUtil.create("div");
-                            const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
-                            popupContent.append(questLink);
-                            const questItem = L.DomUtil.create("div", "popup-item", popupContent);
-                            const questItemImage = L.DomUtil.create("img", "popup-item", questItem);
-                            questItemImage.setAttribute("src", `${obj.questItem.baseImageLink}`);
-                            questItem.append(`${obj.questItem.name}`);
-                            addElevation({ position }, popupContent);
-                            questItemMarker.bindPopup(L.popup().setContent(popupContent));
-                            questItemMarker.on("add", checkMarkerForActiveLayers);
-                            questItemMarker.on("click", activateMarkerLayer);
-                            questItemMarker.addTo(questItems);
-
-                            checkMarkerBounds(position, markerBoundsRef.current);
-                        }
-                    }
-                }
-                if (obj.zones) {
-                    for (const zone of obj.zones) {
-                        if (!zone.map?.id || zone.map.id !== mapData.id) {
-                            continue;
-                        }
-                        if (!positionIsInBounds(zone.position)) {
-                            continue;
-                        }
-                        questSet.add(quest);
-                        const rect = L.polygon(outlineToPoly(zone.outline), {
-                            color: "#e5e200",
-                            weight: 1,
-                            className: "not-shown",
-                        });
-                        const zoneIcon = L.icon({
-                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
-                            iconSize: [24, 24],
-                            popupAnchor: [0, -12],
-                            className: getMarkerClass(quest, obj),
-                        });
-
-                        const zoneMarker = L.marker(pos(zone.position), {
-                            icon: zoneIcon,
-                            title: obj.description,
-                            position: zone.position,
-                            top: zone.top,
-                            bottom: zone.bottom,
-                            outline: rect,
-                            id: zone.id,
-                            questId: quest.id,
-                            riseOnHover: true,
-                        });
-                        /*zoneMarker.on('click', (e) => {
-                            rect._path.classList.toggle('not-shown');
-                        });*/
-                        zoneMarker.on("mouseover", mouseHoverOutline);
-                        zoneMarker.on("mouseout", mouseHoverOutline);
-                        zoneMarker.on("click", toggleForceOutline);
-                        const popupContent = L.DomUtil.create("div");
-                        const questLink = L.DomUtil.create("div", undefined, popupContent);
-                        questLink.append(getReactLink(`/task/${quest.normalizedName}`, quest.name));
-                        const objectiveText = L.DomUtil.create("div", undefined, popupContent);
-                        objectiveText.textContent = `- ${obj.description}`;
-                        addElevation(zone, popupContent);
-                        zoneMarker.bindPopup(L.popup().setContent(popupContent));
-                        zoneMarker.on("add", checkMarkerForActiveLayers);
-                        L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
-                    }
-                }
-            }
-        }
-        if (Object.keys(questItems._layers).length > 0) {
-            addLayer(questItems, "quest_item", "Tasks");
-        }
-        if (Object.keys(questObjectives._layers).length > 0) {
-            addLayer(questObjectives, "quest_objective", "Tasks");
-        }
+        const questSet = buildTaskMarkers({
+            mapData,
+            map,
+            quests,
+            useCanvasMassRenderer,
+            hiddenTasks: mapSettingsRef.current.hiddenTasks ?? [],
+            canvasRenderer: canvasRendererRef.current,
+            positionIsInBounds,
+            createMapMarker,
+            bindDynamicOutline,
+            outlineToPoly,
+            mouseHoverOutline,
+            toggleForceOutline,
+            getReactLink,
+            addElevation,
+            finalizeMarker,
+            checkMarkerBounds: (position) => checkMarkerBounds(position, markerBoundsRef.current),
+            addLayer,
+        });
 
         for (const id of focusItem.current) {
             if (focusOnPoi(id)) {
@@ -1925,7 +1980,7 @@ function Map() {
         }
         refreshMapSearch();
         mapRef.current?.searchControl?.setTasks([...questSet].sort((a, b) => a.name.localeCompare(b.name)));
-    }, [mapData, quests, addLayer]);
+    }, [mapData, quests, addLayer, useCanvasMassRenderer]);
 
     // for markers requiring game items
     useEffect(() => {
@@ -1946,176 +2001,24 @@ function Map() {
             map.layerControl.removeLayerFromMap(layerId);
         }
 
-        //add locks
-        if (mapData.locks.length > 0) {
-            const locks = L.layerGroup();
-            for (const lock of mapData.locks) {
-                const key = items.find((i) => i.id === lock.key.id);
-                if (!key) {
-                    continue;
-                }
-
-                if (!positionIsInBounds(lock.position)) {
-                    continue;
-                }
-
-                checkMarkerBounds(lock.position, markerBoundsRef.current);
-                const lockIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lock.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                });
-                var lockTypeText;
-                if (lock.lockType === "door") {
-                    lockTypeText = tMaps("Door");
-                } else if (lock.lockType === "container") {
-                    lockTypeText = tMaps("Container");
-                } else if (lock.lockType === "trunk") {
-                    lockTypeText = tMaps("Car Door or Trunk");
-                } else {
-                    lockTypeText = tMaps("Lock");
-                }
-
-                const lockMarker = L.marker(pos(lock.position), {
-                    icon: lockIcon,
-                    position: lock.position,
-                    title: `${tMaps("Lock")}: ${key.name}`,
-                    id: key.id,
-                    riseOnHover: true,
-                });
-
-                const popupContent = L.DomUtil.create("div");
-                const lockTypeNode = L.DomUtil.create("div", undefined, popupContent);
-                lockTypeNode.innerHTML = `<strong>${lockTypeText}</strong>`;
-                if (lock.needsPower) {
-                    const powerNode = L.DomUtil.create("div", undefined, popupContent);
-                    powerNode.innerHTML = `<em>${tMaps("Needs power")}</em>`;
-                }
-                const lockImage = L.DomUtil.create("img", "popup-item");
-                lockImage.setAttribute("src", `${key.baseImageLink}`);
-                const lockLink = getReactLink(`/item/${key.normalizedName}`, lockImage);
-                lockLink.append(`${key.name}`);
-                popupContent.append(lockLink);
-                addElevation(lock, popupContent);
-
-                lockMarker.bindPopup(L.popup().setContent(popupContent));
-                lockMarker.on("add", checkMarkerForActiveLayers);
-                lockMarker.on("click", activateMarkerLayer);
-                lockMarker.addTo(locks);
-            }
-            if (Object.keys(locks._layers).length > 0) {
-                addLayer(locks, "lock", "Usable");
-            }
-        }
-
-        //add loose loot
-        if (mapData.lootLoose.length > 0) {
-            const looseLootLayers = {};
-            for (const looseLoot of mapData.lootLoose) {
-                if (!positionIsInBounds(looseLoot.position)) {
-                    continue;
-                }
-                const lootItems = items.filter((item) => looseLoot.items.some((lootItem) => item.id === lootItem.id));
-                if (lootItems.length === 0) {
-                    continue;
-                }
-                let iconSize = [24, 24];
-                let iconUrl = `${process.env.PUBLIC_URL}/maps/interactive/${images.loose_loot}.png`;
-                let markerTitle = t("Loose Loot");
-                let className = "";
-                const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = handbook.handbookCategories.find((c) => c.id === item.handbookCategories[0]?.id);
-                    if (category) {
-                        markerCategories.add(category);
-                    }
-                    return markerCategories;
-                }, new Set());
-                if (lootItems.length === 1) {
-                    const item = lootItems[0];
-                    iconUrl = item.baseImageLink;
-                    markerTitle = item.name;
-                    className = "loot-outline";
-                    const pixelWidth = item.width * 63 + 1;
-                    const pixelHeight = item.height * 63 + 1;
-                    if (item.width > item.height) {
-                        const scale = 24 / pixelWidth;
-                        iconSize = [24, pixelHeight * scale];
-                    } else {
-                        const scale = 24 / pixelHeight;
-                        iconSize = [pixelWidth * scale, 24];
-                    }
-                } else if (markerCategories.size === 1) {
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === markerCategories.values().next().value.id,
-                    );
-                    iconUrl = category.imageLink;
-                    markerTitle = category.name;
-                    //className = 'loot-outline';
-                }
-                const lootIcon = new L.Icon({
-                    iconUrl,
-                    iconSize,
-                    popupAnchor: [0, -12],
-                    className,
-                });
-
-                const lootMarker = L.marker(pos(looseLoot.position), {
-                    icon: lootIcon,
-                    title: markerTitle,
-                    position: looseLoot.position,
-                    items: lootItems.map((item) => item.name),
-                    riseOnHover: true,
-                    categories: [...markerCategories].map((cat) => cat.normalizedName),
-                });
-
-                const popup = L.DomUtil.create("div");
-                const popupContent = L.DomUtil.create("div", undefined, popup);
-                //L.DomUtil.create('div', undefined, popupContent).textContent = JSON.stringify(looseLoot.position);
-                for (const lootItem of lootItems) {
-                    //const lootContent = L.DomUtil.create('div', undefined, popupContent);
-                    const lootImage = L.DomUtil.create("img", "popup-item");
-                    lootImage.setAttribute("src", `${lootItem.baseImageLink}`);
-                    const lootLink = getReactLink(`/item/${lootItem.normalizedName}`, lootImage);
-                    lootLink.setAttribute("title", lootItem.name);
-                    if (className) {
-                        lootLink.append(`${lootItem.name}`);
-                    }
-                    popupContent.append(lootLink);
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === lootItem.handbookCategories[0]?.id,
-                    );
-                    if (!category) {
-                        continue;
-                    }
-                    markerCategories.add(category.id);
-                    if (!looseLootLayers[category.normalizedName]) {
-                        looseLootLayers[category.normalizedName] = {
-                            layer: L.layerGroup({ category: category.normalizedName }),
-                            label: category.name,
-                            image: category.imageLink,
-                        };
-                    }
-                    lootMarker.addTo(looseLootLayers[category.normalizedName].layer);
-                }
-
-                addElevation(looseLoot, popup);
-                lootMarker.bindPopup(L.popup().setContent(popup));
-
-                lootMarker.on("add", checkMarkerForActiveLayers);
-                lootMarker.on("click", activateMarkerLayer);
-                //lootMarker.addTo(looseLootLayers[layerKey].layer);
-            }
-            for (const layerKey in looseLootLayers) {
-                addLayer(
-                    looseLootLayers[layerKey].layer,
-                    layerKey,
-                    "Loose Loot",
-                    looseLootLayers[layerKey].label,
-                    looseLootLayers[layerKey].image,
-                );
-            }
-        }
-
+        buildLockAndLooseLootMarkers({
+            mapData,
+            itemsById,
+            handbookCategoryById,
+            images,
+            useCanvasMassRenderer,
+            canvasRenderer: canvasRendererRef.current,
+            t,
+            tMaps,
+            positionIsInBounds,
+            createMapMarker,
+            appendItemNameIfSingle,
+            getReactLink,
+            addElevation,
+            finalizeMarker,
+            checkMarkerBounds: (position) => checkMarkerBounds(position, markerBoundsRef.current),
+            addLayer,
+        });
         for (const id of focusItem.current) {
             if (focusOnPoi(id)) {
                 focusItem.current = [];
@@ -2123,7 +2026,7 @@ function Map() {
             }
         }
         refreshMapSearch();
-    }, [mapData, items, handbook, addLayer, t, tMaps, getPoiLinkElement]);
+    }, [mapData, itemsById, handbookCategoryById, addLayer, t, tMaps, getPoiLinkElement, useCanvasMassRenderer]);
 
     useEffect(() => {
         if (!mapData || mapData.projection !== "interactive") {
@@ -2133,8 +2036,6 @@ function Map() {
         if (!map?.options.baseData) {
             return;
         }
-        //console.log('loading player position marker');
-
         map.layerControl.removeLayerFromMap("player-position");
 
         // Add player position
@@ -2146,24 +2047,39 @@ function Map() {
                 addRotation += 180;
             }
             const rotation = (playerPosition.rotation ?? 0) + addRotation;
-            const image =
-                playerPosition.rotation !== undefined ? "player-position.png" : "player-position-no-rotation.png";
-            const playerIcon = L.divIcon({
-                //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
-                className: "marker",
-                html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
-                popupAnchor: [0, -12],
-                //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
-            });
-
-            const positionMarker = L.marker(pos(playerPosition.position), {
-                icon: playerIcon,
-                zIndexOffset: 1000,
-                position: playerPosition.position,
-                markerType: "playerPosition",
-            }).addTo(positionLayer);
+            const useCanvasForPlayerPosition = useCanvasMassRenderer;
+            let positionMarker;
+            if (useCanvasForPlayerPosition) {
+                const image =
+                    playerPosition.rotation !== undefined ? "player-position.png" : "player-position-no-rotation.png";
+                positionMarker = createCanvasIconMarker(pos(playerPosition.position), {
+                    renderer: canvasRendererRef.current,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${image}`,
+                    iconSize: [24, 24],
+                    hitRadius: 10,
+                    position: playerPosition.position,
+                    markerType: "playerPosition",
+                    rotation,
+                }).addTo(positionLayer);
+            } else {
+                const image =
+                    playerPosition.rotation !== undefined ? "player-position.png" : "player-position-no-rotation.png";
+                const playerIcon = L.divIcon({
+                    //iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/player-position.png`,
+                    className: "marker",
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/${image}" style="width: 24px; height: 24px; rotate: ${rotation}deg;"/>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12],
+                    popupAnchor: [0, -12],
+                    //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
+                });
+                positionMarker = L.marker(pos(playerPosition.position), {
+                    icon: playerIcon,
+                    zIndexOffset: 1000,
+                    position: playerPosition.position,
+                    markerType: "playerPosition",
+                }).addTo(positionLayer);
+            }
             const closeButton = L.DomUtil.create("a");
             closeButton.innerHTML = tMaps("Clear");
             closeButton.addEventListener("click", () => {
@@ -2179,7 +2095,7 @@ function Map() {
             mapRef.current.panTo(pos(playerPosition.position), { animate: true });
             refreshMapSearch();
         }
-    }, [mapData, playerPosition, addLayer, dispatch, tMaps]);
+    }, [mapData, playerPosition, addLayer, dispatch, tMaps, useCanvasMassRenderer]);
 
     if (!mapData) {
         return <ErrorPage />;
