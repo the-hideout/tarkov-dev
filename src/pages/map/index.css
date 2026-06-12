@@ -141,7 +141,8 @@ div.leaflet-pane.leaflet-marker-pane > .off-level {
     z-index: -9999 !important;
 }
 
-.leaflet-container.always-show-snipers div.leaflet-pane.leaflet-marker-pane > .off-level.sniper-spawn {
+.leaflet-container.always-show-snipers div.leaflet-pane.leaflet-marker-pane > .off-level.sniper-spawn,
+.leaflet-container.always-show-extracts div.leaflet-pane.leaflet-marker-pane > .off-level.extract-icon {
     opacity: 1;
     z-index: initial !important;
 }
