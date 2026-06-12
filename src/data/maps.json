@@ -1002,6 +1002,18 @@
         ]
     },
     {
+        "normalizedName": "icebreaker",
+        "primaryPath": "/map/icebreaker-2d",
+        "maps": [
+            {
+                "key": "icebreaker-2d",
+                "projection": "2D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
         "normalizedName": "interchange",
         "primaryPath": "/map/interchange-2d",
         "maps": [
@@ -1900,7 +1912,7 @@
             },
             {
                 "key": "labyrinth-2d",
-                "projection": "3D",
+                "projection": "2D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
             }
