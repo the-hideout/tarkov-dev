@@ -43,16 +43,16 @@
     "sharp": "^0.34.5",
     "stylelint": "^17.8.0",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
     "@marsidev/react-turnstile": "^1.5.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "@mui/lab": "^7.0.0-beta.17",
+    "@mui/lab": "^9.0.0-beta.5",
     "@mui/material": "^9.0.0",
-    "@mui/x-tree-view": "^9.0.2",
+    "@mui/x-tree-view": "^9.4.0",
     "@reduxjs/toolkit": "^2.11.0",
     "@tanstack/react-query": "^5.99.0",
     "@testing-library/jest-dom": "^6.9.1",
