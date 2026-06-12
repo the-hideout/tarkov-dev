@@ -91,6 +91,7 @@ const TarkovMonitorPage = React.lazy(() => import("./pages/tarkov-monitor/index.
 const StashBotPage = React.lazy(() => import("./pages/stash-bot/index.js"));
 
 const APIDocs = React.lazy(() => import("./pages/api-docs/index.jsx"));
+const APIGraphQL = React.lazy(() => import("./pages/api-graphql/index.jsx"));
 
 let socket = false;
 let socketMonitorInterval = false;
@@ -765,6 +766,16 @@ function App() {
                             element={[
                                 <Suspense fallback={<Loading />} key="suspense-api-docs-wrapper">
                                     <APIDocs key="api-docs-wrapper" />
+                                </Suspense>,
+                                remoteControlSessionElement,
+                            ]}
+                        />
+                        <Route
+                            path={"/api-graphql/"}
+                            key="api-graphql-route"
+                            element={[
+                                <Suspense fallback={<Loading />} key="suspense-api-docs-wrapper">
+                                    <APIGraphQL key="api-docs-wrapper" />
                                 </Suspense>,
                                 remoteControlSessionElement,
                             ]}
