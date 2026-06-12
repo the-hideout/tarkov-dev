@@ -17,6 +17,7 @@ import {
     mdiTunnelOutline,
     mdiFerry,
     mdiTransitConnectionVariant,
+    mdiPierCrane,
 } from "@mdi/js";
 
 import doFetchMaps from "./do-fetch-maps.mjs";
@@ -264,13 +265,14 @@ export const mapIcons = {
     "streets-of-tarkov": mdiCity,
     "customs": mdiWarehouse,
     "factory": mdiFactory,
+    "icebreaker": mdiFerry,
     "interchange": mdiStore24Hour,
     "the-lab": mdiNeedle,
     "the-labyrinth": mdiTunnelOutline,
     "lighthouse": mdiLighthouse,
     "reserve": mdiTank,
     "shoreline": mdiBeach,
-    "terminal": mdiFerry,
+    "terminal": mdiPierCrane,
     "woods": mdiPineTree,
     "transits": mdiTransitConnectionVariant,
     "openworld": mdiEarthBox,

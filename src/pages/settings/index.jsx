@@ -94,7 +94,7 @@ function Settings() {
     const { data: allTraders } = useTradersData();
 
     const traders = useMemo(() => {
-        const skipTraders = ["lightkeeper", "btr-driver", "radio-station", "taran", "mr-kerman", "voevoda"];
+        const skipTraders = ["lightkeeper", "btr-driver", "radio-station", "taran", "mr-kerman", "voevoda", "survivor"];
         return allTraders.filter((t) => !skipTraders.includes(t.normalizedName));
     }, [allTraders]);
 

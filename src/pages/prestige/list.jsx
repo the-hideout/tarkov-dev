@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Icon } from "@mdi/react";
@@ -13,6 +15,20 @@ import "./index.css";
 function Prestiges() {
     const { data: prestiges } = usePrestigeData();
     const { t } = useTranslation();
+
+    const gameMode = useSelector((state) => state.settings.gameMode);
+
+    const noPrestigesWarning = useMemo(() => {
+        if (gameMode === "pve") {
+            return (
+                <div>
+                    <p>
+                        {t("Prestige is not available in {{gameMode}} mode.", { gameMode: t(`game_mode_${gameMode}`) })}
+                    </p>
+                </div>
+            );
+        }
+    }, [gameMode]);
 
     return [
         <SEO
@@ -38,6 +54,7 @@ function Prestiges() {
                     {t("Levels")}
                 </h2>
                 <div className="page-wrapper prestige-page-wrapper"></div>
+                {noPrestigesWarning}
                 <div className="prestiges-wrapper">
                     {prestiges.map((prestige) => {
                         return (

@@ -304,6 +304,7 @@ function Map() {
         expandMapLegend: false,
         expandSearch: false,
         alwaysShowSnipers: true,
+        alwaysShowExtracts: false,
         hiddenTasks: [],
     });
 
@@ -387,7 +388,15 @@ function Map() {
     let allMaps = useMapImages();
 
     const mapData = useMemo(() => {
-        return allMaps[currentMap];
+        if (allMaps[currentMap]) {
+            return allMaps[currentMap];
+        }
+        // fallback to map-2d if interactive map not available
+        for (const key in allMaps) {
+            if (key.startsWith(currentMap)) {
+                return allMaps[key];
+            }
+        }
     }, [allMaps, currentMap]);
 
     // create the leaflet map on first page render
@@ -529,6 +538,8 @@ function Map() {
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
                 alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
+                alwaysShowExtracts: !!mapSettingsRef.current.alwaysShowExtracts,
+                alwaysShowExtractsLabel: tMaps("Always show extracts"),
                 collapsed: true,
             })
             .addTo(map);
@@ -551,6 +562,13 @@ function Map() {
                     map._container.classList.add("always-show-snipers");
                 } else {
                     map._container.classList.remove("always-show-snipers");
+                }
+            }
+            if (e.settingName === "alwaysShowExtracts") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-extracts");
+                } else {
+                    map._container.classList.remove("always-show-extracts");
                 }
             }
             mapSettingsRef.current[e.settingName] = e.settingValue;
@@ -913,6 +931,7 @@ function Map() {
         }
 
         for (const baseLayer of baseLayers) {
+            let selectedLayer = "";
             if (mapData.layers?.length === 0) {
                 // remove added height layers
                 // layerControl.addOverlay(heightLayer, tMaps(layer.name), { groupName: tMaps("Levels") });
@@ -929,7 +948,6 @@ function Map() {
                 break;
             }
 
-            let selectedLayer = "";
             baseLayer.on("add", () => {
                 const svgParent = baseLayer._url.nodeName === "svg";
                 if (tileLayer && svgLayer) {
