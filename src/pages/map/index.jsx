@@ -577,6 +577,9 @@ function Map() {
         if (mapSettingsRef.current.alwaysShowSnipers ?? true) {
             map._container.classList.add("always-show-snipers");
         }
+        if (mapSettingsRef.current.alwaysShowExtracts ?? false) {
+            map._container.classList.add("always-show-extracts");
+        }
 
         map.raidInfoControl = L.control
             .raidInfo({
