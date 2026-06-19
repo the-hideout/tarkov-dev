@@ -14,7 +14,9 @@ updates:
     cooldown:
       default-days: 45
   - package-ecosystem: npm
-    directory: "/"
+    directories:
+      - "/"
+      - "/workers-site"
     groups:
       npm-dependencies:
         patterns:
@@ -36,9 +38,3 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
-  - package-ecosystem: "npm"
-    directory: "/workers-site"
-    schedule:
-      interval: "weekly"
-    cooldown:
-      default-days: 45

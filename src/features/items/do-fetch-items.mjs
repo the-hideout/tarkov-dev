@@ -324,6 +324,7 @@ class ItemsQuery extends APIQuery {
                 playerLevels: itemData.playerLevels,
                 skills: itemData.skills,
                 mastering: itemData.mastering,
+                settings: itemData.settings,
             },
         };
     }
