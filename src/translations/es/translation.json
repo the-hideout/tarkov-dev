@@ -738,5 +738,16 @@
   "PMC Kills": "PMC Kills",
   "PMC K:D": "PMC K:D",
   "No hideout stations match filter settings.": "No hideout stations match filter settings.",
-  "Prestige is not available in {{gameMode}} mode.": "Prestige is not available in {{gameMode}} mode."
+  "Prestige is not available in {{gameMode}} mode.": "Prestige is not available in {{gameMode}} mode.",
+  "Tarkov.dev GraphQL Legacy API": "Tarkov.dev GraphQL Legacy API",
+  "api-graphql-maintenance": "<0>The GraphQL API is now considered in maintenance mode. While it will continue to function in its current state, schema changes will not be made.</1>",
+  "api-graphql-json-api": "<0>You ought to use the new <1>JSON API</1> going forward.</0>",
+  "api-json-about-p": "<0>The API serves JSON responses to simple GET requests.</0><1>A list of available endpoints can be found at: <1>https://json.tarkov.dev/endpoints</1>.</1>",
+  "api-json-faq-open-source-p": "The source code for the API can be found here: <1>github.com/the-hideout/tarkov-data-manager</1>.",
+  "api-json-faq-caching-p": "Data is cached until new data is available.",
+  "Localization": "Localization",
+  "Localizations (translations) are available for the languages listed in the languages property of the endpoint response. To request localization strings for a particular request, take the base request url and append an underscore and the language code. For example, for English, append \"_en\".": "Localizations (translations) are available for the languages listed in the languages property of the endpoint response. To request localization strings for a particular request, take the base request url and append an underscore and the language code. For example, for English, append \"_en\".",
+  "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.": "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.",
+  "Examples of using and localizing responses can be found in our code repositories:": "Examples of using and localizing responses can be found in our code repositories:",
+  "This website": "This website"
 }

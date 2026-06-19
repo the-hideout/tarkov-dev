@@ -23,22 +23,12 @@ function APIDocs() {
             <h1>{t("Tarkov.dev API")}</h1>
             <h2>{t("About")}</h2>
             {/* prettier-ignore */}
-            <Trans i18nKey={'api-about-p'}>
+            <Trans i18nKey={'api-json-about-p'}>
                 <div className="section-text-wrapper">
-                    The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes. 
-                    To learn about what queries you can make and how the schema is structured, visit the playground and read the documentation by clicking the book icon in the upper left corner. 
-                    Once you're ready to try some queries, you can also test them out in the playground. To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.
-                    <ul>
-                        <li>
-                            <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">Tarkov.dev GraphQL playground</a>
-                        </li>
-                        <li>
-                            <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">GraphQL Foundation resources</a>
-                        </li>
-                    </ul>
+                    The API serves JSON responses to simple GET requests.
                 </div>
                 <div className="section-text-wrapper">
-                    Once you're ready to send API queries from outside the playground, the endpoint is: <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">https://api.tarkov.dev/graphql</a>.
+                    A list of available endpoints can be found at: <a href="https://json.tarkov.dev/endpoints" target="_blank" rel="noopener noreferrer">https://json.tarkov.dev/endpoints</a>.
                 </div>
             </Trans>
             <h2>{t("FAQ")}</h2>
@@ -49,25 +39,19 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t("Is it open source?")}</h3>
                 {/* prettier-ignore */}
-                <Trans i18nKey={'api-faq-open-source-p'}>
-                    Of course! Source code for the API can be found in its GitHub repo: <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-api</a>.
+                <Trans i18nKey={'api-json-faq-open-source-p'}>
+                    The source code for the API can be found here: <a href="https://github.com/the-hideout/tarkov-data-manager" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-data-manager</a>.
                 </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t("Is there a rate limit?")}</h3>
-                {/* prettier-ignore */}
-                <Trans i18nKey={'api-faq-rate-limit-p'}>
-                    We occasionally get hit with a lot of traffic from bad actors that require implementing rate limits.
-                    Price data is updated every 5 minutes, so there's really no need to query faster than that.
-                    Use common sense, and you should be fine.
-                </Trans>
+                {t("No")}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t("What about caching?")}</h3>
                 {/* prettier-ignore */}
-                <Trans i18nKey={'api-faq-caching-p'}>
-                    Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.
-                    This helps to greatly reduce the load on our servers while making your requests speedy quick!
+                <Trans i18nKey={'api-json-faq-caching-p'}>
+                    Data is cached until new data is available.
                 </Trans>
             </div>
             <div className="section-text-wrapper">
@@ -100,305 +84,50 @@ function APIDocs() {
                     <li>{t("Our network of scanners")}</li>
                 </ul>
             </div>
-            <h2>{t("Examples")}</h2>
+            <h2>{t("Localization")}</h2>
+            <div className="section-text-wrapper">
+                <p>
+                    {t(
+                        'Localizations (translations) are available for the languages listed in the languages property of the endpoint response. To request localization strings for a particular request, take the base request url and append an underscore and the language code. For example, for English, append "_en".',
+                    )}
+                </p>
+                <p>
+                    {t(
+                        "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.",
+                    )}
+                </p>
+            </div>
+            <h3>{t("Examples")}</h3>
+            <p>{t("Examples of using and localizing responses can be found in our code repositories:")}</p>
             <ul>
                 <li>
-                    <HashLink to="#browser-js">Browser JS</HashLink>
+                    <a
+                        href="https://github.com/the-hideout/stash/blob/main/modules/json-api.mjs"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {t("Stash Discord Bot")}
+                    </a>
                 </li>
                 <li>
-                    <HashLink to="#node-js">Node JS</HashLink>
+                    <a
+                        href="https://github.com/the-hideout/tarkov-dev/blob/main/src/modules/api-request.mjs"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {t("This website")}
+                    </a>
                 </li>
                 <li>
-                    <HashLink to="#python">Python</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#ruby">Ruby</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#cli">CLI</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#php">PHP</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#java-11">Java 11</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#csharp">C#</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#go">Golang</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#luvit">Lua (Luvit)</HashLink>
+                    <a
+                        href="https://github.com/the-hideout/TarkovMonitor/blob/27ee738da2ef59410795791a9911ef985cefa67b/TarkovMonitor/TarkovDev.cs#L71"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {t("TarkovMonitor")}
+                    </a>
                 </li>
             </ul>
-            <div className="example-wrapper">
-                <h3 id="browser-js">Browser JS {t("example")}</h3>
-                <SyntaxHighlighter language="javascript" style={atomOneDark}>
-                    {`fetch('https://api.tarkov.dev/graphql', {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-  },
-  body: JSON.stringify({query: \`{
-    items {
-        id
-        name
-        shortName
-    }
-}\`})
-})
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="node-js">Node JS {t("example")}</h3>
-                <SyntaxHighlighter language="javascript" style={atomOneDark}>
-                    {`import { request, gql } from 'graphql-request'
-
-const query = gql\`
-{
-    items {
-        id
-        name
-        shortName
-    }
-}
-\`
-
-request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data))`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="python">Python {t("example")}</h3>
-                <SyntaxHighlighter language="python" style={atomOneDark}>
-                    {`import requests
-
-def run_query(query):
-    headers = {"Content-Type": "application/json"}
-    response = requests.post('https://api.tarkov.dev/graphql', headers=headers, json={'query': query})
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, query))
-
-
-new_query = """
-{
-    items {
-        id
-        name
-        shortName
-    }
-}
-"""
-
-result = run_query(new_query)
-print(result)`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="ruby">Ruby {t("example")}</h3>
-                <cite>
-                    <span>{t("Contributed by")} </span>
-                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">
-                        GrantBirki
-                    </a>
-                </cite>
-                <SyntaxHighlighter language="ruby" style={atomOneDark}>
-                    {`# frozen_string_literal: true
-
-require 'net/http'
-require 'uri'
-require 'json'
-
-uri = URI.parse("https://api.tarkov.dev/graphql")
-
-header = { "Content-Type": "application/json" }
-query = { "query": "{ items {id name shortName } }" }
-
-# Create the HTTP object
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
-request = Net::HTTP::Post.new(uri.request_uri, header)
-request.body = query.to_json
-
-# Send the request
-response = http.request(request)
-
-# Display request results
-puts response.code
-puts response.message
-puts response.body`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="cli">CLI {t("example")}</h3>
-                <SyntaxHighlighter language="bash" style={atomOneDark}>
-                    {`curl -X POST \
--H "Content-Type: application/json" \
--d '{"query": "{ items {id name shortName } }"}' \
-https://api.tarkov.dev/graphql`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="php">PHP {t("example")}</h3>
-                <SyntaxHighlighter language="php" style={atomOneDark}>
-                    {`$headers = ['Content-Type: application/json'];
-
-$query = '{
-  items {
-    id
-    name
-    shortName
-  }
-}';
-$data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-  'http' => [
-    'method' => 'POST',
-    'header' => $headers,
-    'content' => json_encode(['query' => $query]),
-  ]
-]));
-return json_decode($data, true);`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="java-11">
-                    <span>Java 11's HttpClient {t("example")}</span>
-                    <cite>
-                        <span>{t("Contributed by")} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">
-                            HeyBanditoz
-                        </a>
-                    </cite>
-                </h3>
-                <SyntaxHighlighter language="java" style={atomOneDark}>
-                    {`import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-class Scratch {
-    public static void main(String[] args) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newBuilder().build();
-        String query = "{\\"query\\": \\"{ items {id name shortName } }\\"}";
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tarkov.dev/graphql"))
-                .header("Content-Type", "application/json")
-                .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(query))
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String jsonString = response.body();
-        System.out.println(jsonString);
-    }
-}
-`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="csharp">
-                    <span>C# {t("example")}</span>
-                    <cite>{t("Contributed by")} BambusBo</cite>
-                </h3>
-                <SyntaxHighlighter language="csharp" style={atomOneDark}>
-                    {`var data = new Dictionary<string, string>()
-{
-    {"query", "{items { id name shortName }}"}
-};
-
-using (var httpClient = new HttpClient())
-{
-
-    //Http response message
-    var httpResponse = await httpClient.PostAsJsonAsync("https://api.tarkov.dev/graphql", data);
-
-    //Response content
-    var responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-    //Print response
-    Debug.WriteLine(responseContent);
-
-}`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="go">
-                    <span>Go {t("example")}</span>
-                    <cite>
-                        <span>{t("Contributed by")} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">
-                            HeyBanditoz
-                        </a>
-                    </cite>
-                </h3>
-                <SyntaxHighlighter language="go" style={atomOneDark}>
-                    {`package main
-
-import (
-    "fmt"
-    "io"
-    "log"
-    "net/http"
-    "strings"
-)
-
-func main() {
-    body := strings.NewReader(\`{"query": "{ items {id name shortName } }"}\`)
-    req, err := http.NewRequest("POST", "https://api.tarkov.dev/graphql", body)
-    if err != nil {
-        log.Fatalln(err)
-    }
-    req.Header.Set("Content-Type", "application/json")
-    req.Header.Set("Accept", "application/json")
-
-    resp, err := http.DefaultClient.Do(req)
-    if err != nil {
-        log.Fatalln(err)
-    }
-    bodyBytes, err := io.ReadAll(resp.Body)
-    if err != nil {
-        log.Fatalln(err)
-    }
-    bodyString := string(bodyBytes)
-    fmt.Println(bodyString)
-
-    defer resp.Body.Close()
-}`}
-                </SyntaxHighlighter>
-            </div>
-            <div className="example-wrapper">
-                <h3 id="luvit">
-                    <span>Lua (Luvit) {t("example")}</span>
-                    <cite>
-                        <span>{t("Contributed by")} </span>
-                        <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">
-                            AntwanR942
-                        </a>
-                    </cite>
-                </h3>
-                <SyntaxHighlighter language="lua" style={atomOneDark}>
-                    {`local http = require "coro-http"
-
-coroutine.wrap(function()
-    local query = [[{"query": "{ items {id name shortName } }"}]]
-    local headers = {
-        { "Content-Type", "application/json" },
-        { "Accept", "application/json" }
-    }
-    local res, body = http.request("POST", "https://api.tarkov.dev/graphql", headers, query)
-    if res.code ~= 200 then
-        error(res.message)
-    end
-
-    print(body)
-end)()`}
-                </SyntaxHighlighter>
-            </div>
         </div>,
     ];
 }
