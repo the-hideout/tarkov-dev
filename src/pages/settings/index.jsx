@@ -121,7 +121,6 @@ function Settings() {
                 });
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [useTarkovTracker, allStations]);
 
     const hideRemoteControlValue = useSelector((state) => state.settings.hideRemoteControl);
