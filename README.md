@@ -29,15 +29,15 @@ To build and test the site locally just follow the steps below:
    npm install
    ```
 
-1. Copy .env.example to .env (no values need to be changed)
+2. Copy .env.example to .env (no values need to be changed)
 
-1. Start development server:
+3. Start development server:
 
    ```bash
    npm start
    ```
 
-1. Access the site: [localhost:3000](http://localhost:3000/) 🎉
+4. Access the site: [localhost:3000](http://localhost:3000/) 🎉
 
 > Note: You can update data with: `npm run prebuild`
 
@@ -72,11 +72,11 @@ We love pull requests and contributors looking to improve this project! Anything
 Deploying your changes to production is easy! Just do the following:
 
 1. Open a pull request with your changes
-1. Make sure CI is passing (a core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run CI for you)
-1. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy to development` to deploy your changes to the development environment for final validation
-1. A review will be recieved from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers) if all looks good
-1. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy` on your pull request to branch deploy your changes to production
-1. If everything goes okay, your PR will be merged and your changes will be auto-deployed to production! ✨
+2. Make sure CI is passing (a core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run CI for you)
+3. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy to development` to deploy your changes to the development environment for final validation
+4. A review will be recieved from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers) if all looks good
+5. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy` on your pull request to branch deploy your changes to production
+6. If everything goes okay, your PR will be merged and your changes will be auto-deployed to production! ✨
 
 ## Updating Languages 🌐
 
