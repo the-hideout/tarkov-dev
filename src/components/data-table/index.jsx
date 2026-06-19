@@ -89,14 +89,12 @@ function DataTable({
         if (nameFilter && (sortByState[0]?.id === "name" || sortByState[0]?.id === undefined)) {
             setSortBy([]);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nameFilter]);
 
     useEffect(() => {
         if (autoScroll && inView && data.length > state.pageSize) {
             setPageSize(state.pageSize + 50);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView, autoScroll]);
 
     const getRows = () => {
