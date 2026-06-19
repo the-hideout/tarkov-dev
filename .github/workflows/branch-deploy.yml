@@ -40,11 +40,15 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: enable corepack
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        run: corepack enable
 
       - name: install dependencies
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: env setup
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
@@ -56,7 +60,7 @@ jobs:
 
       - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm run build
+        run: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
