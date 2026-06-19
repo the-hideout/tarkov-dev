@@ -18,3 +18,24 @@
 .error {
     color: var(--color-red);
 }
+
+.gp-coin {
+    font-weight: bold;
+    margin: 10px;
+    width: 22px;
+    height: 22px;
+    background-color: var(--color-gold-one);
+
+    /* 8-sided octagon shape */
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+
+    /* Center the text perfectly */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Typography */
+    color: #111;
+    font-size: small;
+    cursor: default;
+}

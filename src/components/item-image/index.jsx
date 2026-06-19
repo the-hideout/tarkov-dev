@@ -155,12 +155,18 @@ function ItemImage({
     const imageUrl = useMemo(() => {
         if (!imageLink || customImageLoadFailed || !customImageLoaded) {
             let url = item[imageField];
-            if (!autoDowngrade || (!url.includes("unknown-item") && imageField !== "baseImageLink")) {
+            if (
+                !autoDowngrade ||
+                (item.id !== "loading" && !url.includes("unknown-item") && imageField !== "baseImageLink")
+            ) {
                 return url;
             }
             const imageSizes = ["image8xLink", "image512pxLink", "baseImageLink"];
             for (let i = 0; i < imageSizes.length; i++) {
                 const newUrl = item[imageSizes[i]];
+                if (!newUrl) {
+                    continue;
+                }
                 if (newUrl.includes("unknown-item")) {
                     continue;
                 }
