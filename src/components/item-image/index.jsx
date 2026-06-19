@@ -161,6 +161,9 @@ function ItemImage({
             const imageSizes = ["image8xLink", "image512pxLink", "baseImageLink"];
             for (let i = 0; i < imageSizes.length; i++) {
                 const newUrl = item[imageSizes[i]];
+                if (!newUrl) {
+                    continue;
+                }
                 if (newUrl.includes("unknown-item")) {
                     continue;
                 }
