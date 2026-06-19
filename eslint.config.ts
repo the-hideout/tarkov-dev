@@ -1,4 +1,3 @@
-import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
@@ -16,12 +15,11 @@ export default defineConfig([
             "rsbuild.config.ts",
             "rstest.config.ts",
             "rstest.setup.ts",
-            "i18next-parser.config.mjs",
         ],
     },
     {
         files: ["src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}", "scripts/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-        plugins: { js },
+        plugins: { eslintJs },
         extends: [
             eslintJs.configs.recommended,
             tseslint.configs.recommended,
