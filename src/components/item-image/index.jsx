@@ -39,6 +39,7 @@ function ItemImage({
     className,
     style,
     imageLink,
+    autoDowngrade = false,
 }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -153,7 +154,20 @@ function ItemImage({
 
     const imageUrl = useMemo(() => {
         if (!imageLink || customImageLoadFailed || !customImageLoaded) {
-            return item[imageField];
+            let url = item[imageField];
+            if (!autoDowngrade || (!url.includes("unknown-item") && imageField !== "baseImageLink")) {
+                return url;
+            }
+            const imageSizes = ["image8xLink", "image512pxLink", "baseImageLink"];
+            for (let i = 0; i < imageSizes.length; i++) {
+                const newUrl = item[imageSizes[i]];
+                if (newUrl.includes("unknown-item")) {
+                    continue;
+                }
+                url = newUrl;
+                break;
+            }
+            return url;
         }
         return imageLink;
     }, [item, imageField, imageLink, customImageLoadFailed, customImageLoaded]);
