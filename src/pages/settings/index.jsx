@@ -131,6 +131,7 @@ function Settings() {
         i18n.changeLanguage(lang);
     };
 
+    // cheeki breeki
     const [isShown, setIsShown] = useState(false);
 
     let audio = new Audio("/audio/killa.mp3");
@@ -143,6 +144,8 @@ function Settings() {
     audio.addEventListener("ended", () => {
         setIsShown((current) => !current);
     });
+
+    // end cheeki breeki
 
     const wipeLength = getWipeData()[0].lengthDays;
     const estimatedAvgPlayerLevel = Math.round(30 * Math.atan(wipeLength / 38));
@@ -334,12 +337,14 @@ function Settings() {
                         checked={hideRemoteControlValue}
                     />
                 </div>
+                {/* cheeki breeki */}
                 <div>
                     <button className="cheeki-breeki-button" onClick={handleClick}>
                         cheeki breeki
                     </button>
                     {isShown && <CheekiBreekiEffect />}
                 </div>
+                {/* end cheeki breeki */}
             </div>
         </>
     );
