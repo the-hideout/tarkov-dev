@@ -1,10 +1,9 @@
-/* eslint-disable no-restricted-globals */
-import React, { useEffect, useCallback, useRef, Suspense } from "react";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Suspense, useCallback, useEffect, useRef } from "react";
 import CookieConsent from "react-cookie-consent";
 import { ErrorBoundary } from "react-error-boundary";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 
 import "./App.css";
@@ -16,18 +15,18 @@ import loadPolyfills from "./modules/polyfills.js";
 import RemoteControlId from "./components/remote-control-id/index.jsx";
 import { fetchTarkovTrackerProgress, setPlayerPosition } from "./features/settings/settingsSlice.mjs";
 
-import { setConnectionStatus, enableConnection } from "./features/sockets/socketsSlice.js";
+import { enableConnection, setConnectionStatus } from "./features/sockets/socketsSlice.js";
 import useStateWithLocalStorage from "./hooks/useStateWithLocalStorage.jsx";
 import makeID from "./modules/make-id.js";
-import WindowFocusHandler from "./modules/window-focus-handler.mjs";
 import RemoteWebSocket from "./modules/remote-websocket.mjs";
+import WindowFocusHandler from "./modules/window-focus-handler.mjs";
 
 import Loading from "./components/loading/index.jsx";
 
 import supportedLanguages from "./data/supported-languages.json";
 
-import Menu from "./components/menu/index.jsx";
 import Footer from "./components/footer/index.tsx";
+import Menu from "./components/menu/index.jsx";
 
 const Map = React.lazy(() => import("./pages/map/index.jsx"));
 const ErrorPage = React.lazy(() => import("./pages/error-page/index.jsx"));
@@ -106,7 +105,7 @@ function Fallback({ error, resetErrorBoundary }) {
                 <button
                     style={{ padding: ".2rem", borderRadius: "4px" }}
                     onClick={() => {
-                        location.reload(true);
+                        window.location.reload();
                     }}
                 >
                     reloading the page
