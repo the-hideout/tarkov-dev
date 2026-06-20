@@ -1,4 +1,4 @@
-FROM node:24
+FROM node:24.14.1
 EXPOSE 3000
 
 ENV APP_ROOT /tarkov-dev

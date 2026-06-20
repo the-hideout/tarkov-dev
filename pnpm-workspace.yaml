@@ -2,7 +2,7 @@
 # Because we recently installed new dependencies, the 45-day period will prevent dependencies from being installed, and after that, this restriction will be gradually relaxed.
 minimumReleaseAge: 11520
 allowBuilds:
-  core-js: set this to true or false
-  puppeteer: set this to true or false
-  sharp: set this to true or false
+  core-js: false
+  puppeteer: false
+  sharp: true
 
