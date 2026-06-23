@@ -13,15 +13,15 @@
     },
     "scripts": {
         "analyze": "source-map-explorer 'build/static/js/*.js'",
-        "prestart": "npm run prebuild",
+        "prestart": "pnpm run prebuild",
         "start": "rsbuild start --open",
         "build": "rsbuild build",
         "test": "rstest",
         "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx,json,css,scss,md}\"",
         "prebuild": "node scripts/update-props.mjs && node scripts/get-supported-languages.mjs && node scripts/get-contributors.mjs && node scripts/build-sitemap.mjs && node scripts/generate-thumbnails.mjs",
         "postbuild": "node scripts/build-redirects.mjs && node scripts/critical.mjs",
-        "stage": "npx rimraf build && npm run build && npm run preview",
-        "preview": "npx serve build -l 3001 -s",
+        "stage": "pnpm dlx rimraf build && pnpm run build && pnpm run preview",
+        "preview": "pnpm dlx serve build -l 3001 -s",
         "critical": "node scripts/critical.mjs",
         "lint": "eslint src",
         "prepare": "husky"

@@ -3,6 +3,6 @@
 minimumReleaseAge: 11520
 allowBuilds:
   core-js: false
-  puppeteer: false
+  puppeteer: true
   sharp: true
 
