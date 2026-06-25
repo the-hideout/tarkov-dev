@@ -16,17 +16,18 @@ View Escape from Tarkov information about items, barters, trades, flea market pr
 
 To build and test the site locally just follow the steps below:
 
-0. Install Node.js
+0. Install Node.js and enable pnpm
 
    ```bash
    # use nvm to install the correct version of Node.js
    nvm use
+   corepack enable
    ```
 
 1. Install dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Copy .env.example to .env (no values need to be changed)
@@ -34,12 +35,12 @@ To build and test the site locally just follow the steps below:
 3. Start development server:
 
    ```bash
-   npm start
+   pnpm start
    ```
 
 4. Access the site: [localhost:3000](http://localhost:3000/) 🎉
 
-> Note: You can update data with: `npm run prebuild`
+> Note: You can update data with: `pnpm run prebuild`
 
 ## VS Code Dev Container
 
@@ -55,7 +56,7 @@ To build and test the site locally just follow the steps below:
    ```
 3. Select local path to tarkov-dev repo
 
-4. After the container builds and starts it will auto run `npm install && npm start`
+4. After the container builds and starts it will auto run `pnpm install && pnpm start`
 
 5. Access the site: [localhost:3000](http://localhost:3000/) 🎉
 

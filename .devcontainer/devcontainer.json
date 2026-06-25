@@ -9,8 +9,8 @@
         "version": "latest"
       },
       "ghcr.io/devcontainers/features/node:1": {
-        "version": "24.11.1", // Defaults to 'lts' 
-        "nvmVersion": "latest", // Default value
+        "version": "24.14.1",
+        "nvmVersion": "latest",
         "installYarnUsingApt": false
       },
       "common": {
