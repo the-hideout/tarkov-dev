@@ -73,7 +73,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          wranglerVersion: '2.13.0'
+          wranglerVersion: '4.105.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=preview
 
       # fetch the dev url from stdout and save add it to the deploy message
@@ -99,5 +99,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          wranglerVersion: '2.13.0'
+          wranglerVersion: '4.105.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main
