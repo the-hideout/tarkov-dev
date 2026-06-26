@@ -20,11 +20,16 @@ const playerStats = {
                 if (response.status === 401) {
                     return Promise.reject(new Error("Turnstile authentication failed"));
                 }
+                if (response.status >= 500) {
+                    return Promise.reject(new Error("Upstream server error. Try again later."));
+                }
                 let errorMessage = await response.text();
                 try {
                     const json = JSON.parse(errorMessage);
                     errorMessage = json.errmsg;
-                } catch {}
+                } catch {
+                    // continue regardless of error
+                }
                 return Promise.reject(new Error(errorMessage));
             }
             const json = await response.json();
