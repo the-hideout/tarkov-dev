@@ -10,7 +10,6 @@ import "./App.css";
 import theme from "./modules/mui-theme.mjs";
 
 import i18n from "./i18n.js";
-import loadPolyfills from "./modules/polyfills.js";
 
 import RemoteControlId from "./components/remote-control-id/index.jsx";
 import { fetchTarkovTrackerProgress, setPlayerPosition } from "./features/settings/settingsSlice.mjs";
@@ -94,8 +93,6 @@ const APIGraphQL = React.lazy(() => import("./pages/api-graphql/index.jsx"));
 
 let socket = false;
 let socketMonitorInterval = false;
-
-loadPolyfills();
 
 function Fallback({ error, resetErrorBoundary }) {
     let loadingChunkErrorMessage = "";
