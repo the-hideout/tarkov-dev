@@ -6,4 +6,5 @@ allowBuilds:
   puppeteer: true
   sharp: true
   esbuild: true
+  workerd: true
 
