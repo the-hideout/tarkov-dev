@@ -77,9 +77,7 @@ function StreamElements() {
                 <li>{t("Command: !p or anything you like")}</li>
                 <li>
                     {t("Message:")}
-                    <pre>
-                        {"${urlfetch https://streamer.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}"}
-                    </pre>
+                    <pre>{"${urlfetch https://api.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}"}</pre>
                 </li>
                 <li>{t('Press "Activate Command"')}</li>
             </ul>
