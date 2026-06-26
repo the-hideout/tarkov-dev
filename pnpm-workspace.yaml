@@ -5,4 +5,5 @@ allowBuilds:
   core-js: false
   puppeteer: true
   sharp: true
+  esbuild: true
 
