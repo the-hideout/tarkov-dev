@@ -550,6 +550,7 @@ function Map() {
                 } else {
                     map._container.classList.remove("only-active-quest-markers");
                 }
+                map.searchControl?.setOnlyActiveTasks(e.settingValue);
             }
             if (e.settingName === "expandMapLegend") {
                 layerControl.setCollapse(!e.settingValue);
@@ -601,6 +602,7 @@ function Map() {
                 hideAllButtonText: tMaps("None"),
                 collapsed: !mapSettingsRef.current.expandSearch,
                 hiddenTasks: mapSettingsRef.current.hiddenTasks,
+                onlyActiveTasks: mapSettingsRef.current.showOnlyActiveTasks,
             })
             .addTo(map);
 
