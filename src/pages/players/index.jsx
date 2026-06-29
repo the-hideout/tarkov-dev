@@ -22,7 +22,6 @@ import "./index.css";
 function Players() {
     const [searchParams, setSearchParams] = useSearchParams();
     const turnstileRef = useRef();
-    const turnstileToken = useRef(false);
 
     const { t } = useTranslation();
 
@@ -33,16 +32,14 @@ function Players() {
         return searchParams.get("gameMode") ?? gameModeSetting;
     }, [searchParams, gameModeSetting]);
     const [gameMode, setGameMode] = useState(defaultGameMode);
-    const lastSearch = useRef({ name: "", gameMode });
+    const lastSearchRef = useRef({ name: "", gameMode });
 
     const [nameFilter, setNameFilter] = useState("");
     const [nameResults, setNameResults] = useState([]);
     const [nameResultsError, setNameResultsError] = useState(false);
 
-    const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
     const [searching, setSearching] = useState(false);
-    const [tokenState, setTokenState] = useState(false);
 
     const searchTextValid = useMemo(() => {
         const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
@@ -54,26 +51,11 @@ function Players() {
         return charactersValid && lengthValid;
     }, [nameFilter, setNameResultsError]);
 
-    useEffect(() => {
-        turnstileToken.current = tokenState;
-    }, [tokenState]);
-
-    useEffect(() => {
-        setButtonDisabled(!tokenState || !searchTextValid);
-    }, [tokenState, searchTextValid, setButtonDisabled]);
-
     const searchForName = useCallback(async () => {
         if (!searchTextValid) {
             return;
         }
-        if (!turnstileToken.current) {
-            setNameResultsError("Turnstile challenge not solved");
-            if (turnstileRef.current?.reset) {
-                turnstileRef.current.reset();
-            }
-            return;
-        }
-        if (lastSearch.current.name === nameFilter && lastSearch.current.gameMode === gameMode) {
+        if (lastSearchRef.current.name === nameFilter && lastSearchRef.current.gameMode === gameMode) {
             // already searched this game mode for this name
             return;
         }
@@ -81,26 +63,23 @@ function Players() {
             setSearching(true);
             setNameResultsError(false);
             setNameResults(
-                (await playerStats.searchPlayers(nameFilter, gameMode, turnstileToken.current)).sort((a, b) =>
-                    a.name.localeCompare(b.name),
+                (await playerStats.searchPlayers(nameFilter, gameMode, turnstileRef.current?.getResponse())).sort(
+                    (a, b) => a.name.localeCompare(b.name),
                 ),
             );
             setSearched(true);
-            lastSearch.current.name = nameFilter;
-            lastSearch.current.gameMode = gameMode;
+            lastSearchRef.current.name = nameFilter;
+            lastSearchRef.current.gameMode = gameMode;
         } catch (error) {
             setSearched(false);
-            lastSearch.current.name = "";
+            lastSearchRef.current.name = "";
             setNameResults([]);
             setNameResultsError(error.message);
         } finally {
             setSearching(false);
         }
-        setTokenState(false);
-        if (turnstileRef.current?.reset) {
-            turnstileRef.current.reset();
-        }
-    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileToken, turnstileRef, gameMode]);
+        turnstileRef.current?.reset();
+    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileRef, gameMode]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
@@ -175,9 +154,6 @@ function Players() {
                     classNamePrefix="select"
                     onChange={(event) => {
                         setSearchParams({ gameMode: event.value });
-                        if (searchTextValid && gameMode !== event.value && !!turnstileToken.current) {
-                            setButtonDisabled(false);
-                        }
                         setGameMode(event.value);
                     }}
                 />
@@ -194,7 +170,7 @@ function Players() {
                     }}
                     className="player-name-search"
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>
+                <button className="search-button" onClick={searchForName} disabled={!searchTextValid}>
                     {searching ? <LoadingSmall /> : t("Search")}
                 </button>
             </div>
@@ -207,9 +183,6 @@ function Players() {
                 ref={turnstileRef}
                 className="turnstile-widget"
                 siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
-                onSuccess={(token) => {
-                    setTokenState(token);
-                }}
                 onError={(errorCode) => {
                     // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
                     if (errorCode === "110200") {

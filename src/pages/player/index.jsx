@@ -34,6 +34,8 @@ import { wipeDetails } from "../../modules/wipe-length.js";
 
 import "./index.css";
 
+/* eslint-disable @eslint-react/set-state-in-effect, @eslint-react/no-nested-component-definitions */
+
 function getHMS(seconds) {
     // calculate (and subtract) whole hours
     const secondsPerHour = 60 * 60;
@@ -153,14 +155,15 @@ const defaultProfileImageLink = "https://assets.tarkov.dev/profile-loading.webp"
 
 function Player() {
     const turnstileRef = useRef();
-    const inputFile = useRef();
+    const inputFileRef = useRef();
     const { t } = useTranslation();
     const params = useParams();
     const navigate = useNavigate();
 
     const gameMode = params.gameMode;
+    const accountId = params.accountId;
 
-    const [accountId, setAccountId] = useState(params.accountId);
+    const [turnstileWidgetLoaded, setTurnstileWidgetLoaded] = useState(false);
     const [currentGameMode, setCurrentGameMode] = useState(params.gameMode);
 
     const handleSwitchGameMode = useCallback(
@@ -193,11 +196,7 @@ function Player() {
     }, [t]);
 
     const loadingProfileRef = useRef(loadingProfile);
-
-    useEffect(() => {
-        setAccountId(params.accountId);
-        setPlayerData(loadingProfileRef.current);
-    }, [params, setAccountId]);
+    const playerDataRef = useRef(loadingProfile);
 
     const [playerData, setPlayerData] = useState(loadingProfile);
     const [profileError, setProfileError] = useState(false);
@@ -206,61 +205,85 @@ function Player() {
     const { data: handbook } = useHandbookData();
     const { data: achievements } = useAchievementsData();
     const { data: prestigeData } = usePrestigeData();
-    const [turnstileToken, setTurnstileToken] = useState();
     const [playerBanned, setPlayerBanned] = useState();
     const profileImageRef = useRef();
     const [profileImageLoaded, setProfileImageLoaded] = useState(false);
     const [profileImageLoading, setProfileImageLoading] = useState(false);
 
-    const fetchProfile = useCallback(async () => {
-        //const token = turnstileRef?.current?.getResponse();
-        if (!turnstileToken) {
-            return;
-        }
-        if (!accountId) {
-            return;
-        }
-        if (isNaN(accountId)) {
+    const updatePlayerData = useCallback(
+        (data) => {
+            playerDataRef.current = data;
+            setPlayerData(data);
+        },
+        [setPlayerData],
+    );
+
+    const fetchProfile = useCallback(
+        async (aid, gm) => {
             try {
-                const searchResponse = await playerStats.searchPlayers(accountId, gameMode, turnstileToken);
-                if (turnstileRef.current?.reset) {
-                    turnstileRef.current.reset();
+                if (!aid) {
+                    throw new Error("No account id");
                 }
-                for (const result of searchResponse) {
-                    if (result.name.toLowerCase() === accountId.toLowerCase()) {
-                        navigate(`/players/${gameMode}/${result.aid}`);
-                        return;
+                if (!turnstileRef.current) {
+                    return;
+                }
+                const token = turnstileRef?.current?.getResponse();
+                if (!token) {
+                    throw new Error("Turnstile token expired");
+                }
+                if (isNaN(aid)) {
+                    try {
+                        const searchResponse = await playerStats.searchPlayers(aid, gm, token);
+                        for (const result of searchResponse) {
+                            if (result.name.toLowerCase() === aid.toLowerCase()) {
+                                navigate(`/players/${gm}/${result.aid}`);
+                                return;
+                            }
+                        }
+                        setProfileError(`Account ${aid} not found`);
+                    } catch (error) {
+                        setProfileError(`Error searching for profile ${aid}: ${error.message}`);
+                    } finally {
+                        turnstileRef.current?.reset();
                     }
+                    return;
                 }
-                setProfileError(`Account ${accountId} not found`);
+                updatePlayerData(await playerStats.getProfile(aid, gm, token));
+                setProfileError(false);
             } catch (error) {
-                setProfileError(`Error searching for profile ${accountId}: ${error.message}`);
+                console.log("profile error", error);
+                setProfileError(error.message);
             }
+            turnstileRef.current?.reset();
+        },
+        [updatePlayerData, setProfileError, navigate, turnstileRef],
+    );
+
+    useEffect(() => {
+        console.log(gameMode, accountId, turnstileWidgetLoaded);
+        updatePlayerData(loadingProfileRef.current);
+        if (!turnstileWidgetLoaded) {
             return;
         }
-        try {
-            setPlayerData(await playerStats.getProfile(accountId, gameMode, turnstileToken));
-            if (turnstileRef.current?.reset) {
-                turnstileRef.current.reset();
-            }
-        } catch (error) {
-            setProfileError(error.message);
+        if (playerDataRef.current.saved) {
+            return;
         }
-    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef, gameMode]);
+        if (playerDataRef.current.aid === 0 && String(playerDataRef.current?.aid) === accountId) {
+            return;
+        }
+        fetchProfile(accountId, gameMode);
+    }, [gameMode, accountId, turnstileWidgetLoaded, fetchProfile, updatePlayerData]);
 
     const checkBanned = useCallback(async () => {
-        const token = turnstileRef?.current?.getResponse();
-        if (!token) {
-            return;
-        }
-        if (!playerData?.info?.nickname) {
-            return;
-        }
         try {
-            const searchResponse = await playerStats.searchPlayers(playerData.info.nickname, gameMode, turnstileToken);
-            if (turnstileRef.current?.reset) {
-                turnstileRef.current.reset();
+            const token = turnstileRef?.current?.getResponse();
+            if (!token) {
+                throw new Error("Turnstile token expired");
             }
+            if (!playerData?.info?.nickname) {
+                return;
+            }
+            const searchResponse = await playerStats.searchPlayers(playerData.info.nickname, gameMode, token);
             for (const result of searchResponse) {
                 if (result.name === playerData.info.nickname || result.aid === playerData.aid) {
                     setPlayerBanned(false);
@@ -270,9 +293,11 @@ function Player() {
             setPlayerBanned(true);
         } catch (error) {
             console.log(`Error checking banned status for ${playerData.info.nickname}: ${error.message}`);
+        } finally {
+            turnstileRef.current?.reset();
         }
         return false;
-    }, [playerData, setPlayerBanned, turnstileToken, turnstileRef, gameMode]);
+    }, [playerData, setPlayerBanned, turnstileRef, gameMode]);
 
     const downloadProfile = useCallback(() => {
         if (!playerData.aid) {
@@ -298,6 +323,7 @@ function Player() {
                     setPlayerData(data);
                     window.history.replaceState(null, null, `/players/${gameMode}/${data.aid}`);
                 } catch (error) {
+                    console.log("Error reading profile", error);
                     setProfileError("Error reading profile");
                 }
             };
@@ -791,7 +817,7 @@ function Player() {
             const modeLabel = statModes[modeKey];
             const stats = playerData.stat?.arenaOverAllCounters?.[modeKey]?.Counters;
             if (!stats) {
-                console.log(modeKey, Object.keys(playerData.stat?.arenaOverAllCounters));
+                //console.log(modeKey, Object.keys(playerData.stat?.arenaOverAllCounters));
                 continue;
             }
             const currentData = getStats(modeLabel);
@@ -868,7 +894,7 @@ function Player() {
         () => [
             {
                 id: "expander",
-                Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
+                Header: (/*{ getToggleAllRowsExpandedProps, isAllRowsExpanded }*/) =>
                     // <span {...getToggleAllRowsExpandedProps()}>
                     //     {isAllRowsExpanded ? 'v' : '>'}
                     // </span>
@@ -1235,19 +1261,6 @@ function Player() {
         ];
     }, [playerData, getItemDisplay, getLoadoutContents, t]);
 
-    useEffect(() => {
-        if (!turnstileToken) {
-            return;
-        }
-        if (String(playerData.aid) === accountId) {
-            return;
-        }
-        if (playerData.saved) {
-            return;
-        }
-        fetchProfile();
-    }, [playerData, accountId, gameMode, turnstileToken, fetchProfile]);
-
     const customProfileImageLink = useMemo(() => {
         if (playerData.aid === 0 || !playerData.customization) {
             return;
@@ -1286,12 +1299,6 @@ function Player() {
         profileImageRef.current.src = customProfileImageLink;
     }, [customProfileImageLink]);
 
-    useEffect(() => {
-        if (playerData.aid === 0) {
-            return;
-        }
-    }, [playerData]);
-
     const profileImageLink = useMemo(() => {
         if (!profileImageLoaded || !customProfileImageLink) {
             return defaultProfileImageLink;
@@ -1301,75 +1308,73 @@ function Player() {
 
     const playerSearchDiv = (
         <div>
-            <p>
-                <Link to={`/players?gameMode=${gameMode}`}>
-                    <Icon path={mdiAccountSearch} size={1} className="icon-with-text" />
-                    {t("Search different player")}
-                </Link>
-                <input
-                    type="file"
-                    id="file"
-                    ref={inputFile}
-                    style={{ display: "none" }}
-                    onChange={loadProfile}
-                    accept="application/json,.json"
-                />
-                <Tooltip title={t("Load profile from file")} placement="bottom" arrow>
-                    <button
-                        className="profile-button open"
-                        onClick={() => {
-                            inputFile.current?.click();
-                        }}
-                    >
-                        <Icon path={mdiFolderOpen} size={1} className="icon-with-text" />
-                    </button>
-                </Tooltip>
-                <ToggleButtonGroup
-                    size="small"
-                    value={currentGameMode}
-                    onChange={handleSwitchGameMode}
-                    className="profile-button"
-                >
-                    <Tooltip
-                        title={t("Switch to {{gameMode}} profile", { gameMode: "regular" })}
-                        placement="bottom"
-                        arrow
-                    >
-                        <ToggleButton value="regular" key="gamemode-regular">
-                            {t("game_mode_regular")}
-                        </ToggleButton>
-                    </Tooltip>
-                    <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "pve" })} placement="bottom" arrow>
-                        <ToggleButton value="pve" key="gamemode-pve">
-                            {t("game_mode_pve")}
-                        </ToggleButton>
-                    </Tooltip>
-                    <Tooltip
-                        title={t("Switch to {{gameMode}} profile", { gameMode: "arena" })}
-                        placement="bottom"
-                        arrow
-                    >
-                        <ToggleButton value="arena" key="gamemode-arena">
-                            {t("game_mode_arena")}
-                        </ToggleButton>
-                    </Tooltip>
-                </ToggleButtonGroup>
-                <Turnstile
-                    ref={turnstileRef}
-                    className="turnstile-widget"
-                    siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
-                    onSuccess={setTurnstileToken}
-                    onError={(errorCode) => {
-                        // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
-                        if (errorCode === "110200") {
-                            setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
-                        } else {
-                            setProfileError(`Turnstile error code ${errorCode}`);
-                        }
+            <Link to={`/players?gameMode=${gameMode}`}>
+                <Icon path={mdiAccountSearch} size={1} className="icon-with-text" />
+                {t("Search different player")}
+            </Link>
+            <input
+                type="file"
+                id="file"
+                ref={inputFileRef}
+                style={{ display: "none" }}
+                onChange={loadProfile}
+                accept="application/json,.json"
+            />
+            <Tooltip title={t("Load profile from file")} placement="bottom" arrow>
+                <button
+                    className="profile-button open"
+                    onClick={() => {
+                        inputFileRef.current?.click();
                     }}
-                    options={{ appearance: "interaction-only" }}
-                />
-            </p>
+                >
+                    <Icon path={mdiFolderOpen} size={1} className="icon-with-text" />
+                </button>
+            </Tooltip>
+            <ToggleButtonGroup
+                size="small"
+                value={currentGameMode}
+                onChange={handleSwitchGameMode}
+                className="profile-button"
+            >
+                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "regular" })} placement="bottom" arrow>
+                    <ToggleButton value="regular" key="gamemode-regular">
+                        {t("game_mode_regular")}
+                    </ToggleButton>
+                </Tooltip>
+                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "pve" })} placement="bottom" arrow>
+                    <ToggleButton value="pve" key="gamemode-pve">
+                        {t("game_mode_pve")}
+                    </ToggleButton>
+                </Tooltip>
+                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "arena" })} placement="bottom" arrow>
+                    <ToggleButton value="arena" key="gamemode-arena">
+                        {t("game_mode_arena")}
+                    </ToggleButton>
+                </Tooltip>
+            </ToggleButtonGroup>
+            <Turnstile
+                ref={turnstileRef}
+                className="turnstile-widget"
+                siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
+                onWidgetLoad={() => {
+                    turnstileRef.current?.reset();
+                }}
+                onSuccess={() => {
+                    if (turnstileWidgetLoaded) {
+                        return;
+                    }
+                    setTurnstileWidgetLoaded(true);
+                }}
+                onError={(errorCode) => {
+                    // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
+                    if (errorCode === "110200") {
+                        setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                    } else {
+                        setProfileError(`Turnstile error code ${errorCode}`);
+                    }
+                }}
+                options={{ appearance: "interaction-only" }}
+            />
         </div>
     );
 
@@ -1403,7 +1408,7 @@ function Player() {
                         height={1}
                         ref={profileImageRef}
                         alt=""
-                        onLoad={(e) => {
+                        onLoad={() => {
                             setProfileImageLoaded(true);
                             setProfileImageLoading(false);
                         }}
@@ -1417,7 +1422,7 @@ function Player() {
                         <span className="wiki-link-wrapper">
                             {playerData.aid !== 0 && !playerData.saved && (
                                 <span>
-                                    {typeof playerBanned === "undefined" && turnstileToken && (
+                                    {typeof playerBanned === "undefined" && (
                                         <Tooltip title={t("Check if player appears to be banned")} arrow>
                                             <button
                                                 className="profile-button banned-btn"
