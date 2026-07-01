@@ -31,7 +31,7 @@ jobs:
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: GrantBirki/json-yaml-validate@9bbaa8474e3af4e91f25eda8ac194fdc30564d96 # pin@v4.0.0
+        uses: GrantBirki/json-yaml-validate@3ff75979f3b21171f2e8a44705f0ff4bed30bbc0 # pin@v5.0.0
         with:
           exclude_file: .github/exclude.txt
 
@@ -69,7 +69,7 @@ jobs:
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # pin@v3.15.0
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # pin@v4.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
