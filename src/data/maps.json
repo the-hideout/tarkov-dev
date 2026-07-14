@@ -1620,6 +1620,7 @@
         "maps": [
             {
                 "key": "the-lab",
+                "altMaps": ["the-lab-dark"],
                 "projection": "interactive",
                 "tileSize": 175,
                 "minZoom": 2,
