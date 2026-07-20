@@ -194,6 +194,18 @@ h2 div.historical-price-days {
     color: #fff;
 }
 
+.item-content-wrapper {
+    background: rgb(29 31 33);
+    padding: 1em;
+    margin: 0.5em 0px;
+    border-radius: 0.3em;
+}
+
+.item-content-wrapper > p > div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media screen and (width >= 800px) {
     .item-page-wrapper {
         padding-top: 20px;

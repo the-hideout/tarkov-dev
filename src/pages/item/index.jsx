@@ -892,6 +892,18 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+                {!!currentItemData?.properties?.content && (
+                    <div>
+                        <div className="item-content-headline-wrapper">
+                            <h2>{t("Content")}</h2>
+                        </div>
+                        <div className="item-content-wrapper">
+                            {currentItemData.properties.content.map((subtitle, index) => {
+                                return <p key={`subtitle-${index}`} dangerouslySetInnerHTML={{ __html: subtitle }}></p>;
+                            })}
+                        </div>
+                    </div>
+                )}
                 {hasBarters && (
                     <div>
                         <div className="item-barters-headline-wrapper">
