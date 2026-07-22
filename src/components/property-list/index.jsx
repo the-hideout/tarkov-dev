@@ -5,7 +5,7 @@ import { Tooltip } from "@mui/material";
 
 import "./index.css";
 
-const skipProps = ["grid", "ConflictingItems", "__typename", "slots", "presets", "armorSlots"];
+const skipProps = ["grid", "ConflictingItems", "__typename", "slots", "presets", "armorSlots", "content"];
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;

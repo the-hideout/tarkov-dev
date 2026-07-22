@@ -21,16 +21,6 @@
                 "heightRange": [-6, 10],
                 "layers": [
                     {
-                        "name": "Underground",
-                        "svgLayer": "Underground_Level",
-                        "show": false,
-                        "extents": [
-                            {
-                                "height": [-10000, -6]
-                            }
-                        ]
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgLayer": "Second_Floor",
                         "show": false,
@@ -67,6 +57,16 @@
                         "extents": [
                             {
                                 "height": [25, 10000]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Underground",
+                        "svgLayer": "Underground_Level",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -6]
                             }
                         ]
                     }
@@ -366,21 +366,6 @@
                 "heightRange": [-1000, 28],
                 "layers": [
                     {
-                        "name": "Garage",
-                        "svgLayer": "Underground_Level",
-                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
-                        "show": false,
-                        "extents": [
-                            {
-                                "height": [-1000, 21],
-                                "bounds": [
-                                    [[117, -100], [43, 190], "garage"],
-                                    [[143, 49], [117, 80], "underpass"]
-                                ]
-                            }
-                        ]
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgLayer": "Second_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/2nd/{z}/{x}/{y}.png",
@@ -403,6 +388,21 @@
                         "extents": [
                             {
                                 "height": [32.3, 1000]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Garage",
+                        "svgLayer": "Underground_Level",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, 21],
+                                "bounds": [
+                                    [[117, -100], [43, 190], "garage"],
+                                    [[143, 49], [117, 80], "underpass"]
+                                ]
                             }
                         ]
                     }
@@ -512,25 +512,6 @@
                 "heightRange": [-1000, 1000],
                 "layers": [
                     {
-                        "name": "Underground",
-                        "svgLayer": "Underground_Level",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/underground/{z}/{x}/{y}.png",
-                        "show": false,
-                        "extents": [
-                            {
-                                "height": [-1000, 0.5],
-                                "bounds": [
-                                    [[635, -137], [620, -125], "zb-1011"],
-                                    [[473, -122], [458, -110], "zb-1012"],
-                                    [[314, -173], [308, -184], "old gas"],
-                                    [[349, -88], [323, -32], "switch basement"],
-                                    [[219, -158], [193, -137], "zb-013"],
-                                    [[122, -61], [88, -40], "boiler room"]
-                                ]
-                            }
-                        ]
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgLayer": "Second_Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/2nd/{z}/{x}/{y}.png",
@@ -609,6 +590,25 @@
                             {
                                 "height": [11.2, 54.7],
                                 "bounds": [[[279, -79], [246, -1.4], "oilrig & panda"]]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Underground",
+                        "svgLayer": "Underground_Level",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/underground/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, 0.5],
+                                "bounds": [
+                                    [[635, -137], [620, -125], "zb-1011"],
+                                    [[473, -122], [458, -110], "zb-1012"],
+                                    [[314, -173], [308, -184], "old gas"],
+                                    [[349, -88], [323, -32], "switch basement"],
+                                    [[219, -158], [193, -137], "zb-013"],
+                                    [[122, -61], [88, -40], "boiler room"]
+                                ]
                             }
                         ]
                     }
@@ -1003,8 +1003,188 @@
     },
     {
         "normalizedName": "icebreaker",
-        "primaryPath": "/map/icebreaker-2d",
+        "primaryPath": "/map/icebreaker",
         "maps": [
+            {
+                "key": "icebreaker",
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 1,
+                "maxZoom": 5,
+                "transform": [2.0, 125.0, 3.5, 91.0],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [77, -64.5],
+                    [-65.5, 67.4]
+                ],
+                "author": "TarkovBOT.eu",
+                "authorLink": "https://tarkovbot.eu/",
+                "tilePath": "https://assets.tarkov.dev/maps/icebreaker/06_infirmary/{z}/{x}/{y}.png",
+                "heightRange": [18.92, 19.56],
+                "layers": [
+                    {
+                        "name": "Infirmary",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/06_infirmary/{z}/{x}/{y}.png",
+                        "show": true,
+                        "extents": [
+                            {
+                                "height": [18.92, 19.56]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Helipad",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/07_helipad/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [19.57, 22.1]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Gym/Canteen",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/08_gym-canteen/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [22.2, 25.2]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Accommodation (lower)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/09_accommodation_lower/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [25.3, 28.2]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Accommodation (mid)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/10_accommodation_mid/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [28.3, 31.3]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Accommodation (upper)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/11_accommodation_upper/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [31.4, 34.4]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Officers' Deck",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/12_officers_deck/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [34.5, 37.5]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Stairs (blocked)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/13_stairs_blocked/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [37.6, 40.6]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bridge",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/14_bridge/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [40.7, 43.7]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bridge Roof",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/15_bridge_roof/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [43.8, 10000]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Control Room",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/00_control_room/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, 3.5]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Engine Room",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/01_engine_room/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [3.6, 5.6]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Engine Room (upper)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/02_engine_room_upper/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [5.7, 8.7]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Fuel Pumps (lower)",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/03_fuel_pumps_lower/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [8.8, 11.8]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Fuel Pumps",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/04_fuel_pumps/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [11.9, 14.9]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Storage/Security",
+                        "tilePath": "https://assets.tarkov.dev/maps/icebreaker/05_storage_ecurity/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [15, 18.93]
+                            }
+                        ]
+                    }
+                ],
+                "labels": []
+            },
             {
                 "key": "icebreaker-2d",
                 "projection": "2D",
@@ -2077,40 +2257,6 @@
                 "heightRange": [-7, 10000],
                 "layers": [
                     {
-                        "name": "Bunkers",
-                        "tilePath": "https://assets.tarkov.dev/maps/reserve/bunkers/{z}/{x}/{y}.png",
-                        "svgLayer": "Bunkers",
-                        "show": false,
-                        "extents": [
-                            {
-                                "height": [-10000, -7.27],
-                                "bounds": [
-                                    [[128, -208], [18, -33], "storage bunker"],
-                                    [[-46, -42], [-176, 127], "command bunkers"]
-                                ]
-                            },
-                            {
-                                "height": [-10000, -12],
-                                "bounds": [[[-40, 124], [-124, 189], "D2"]]
-                            },
-                            {
-                                "height": [-10000, 18],
-                                "bounds": [[[23, 173], [-65, 189], "dome tunnels"]]
-                            },
-                            {
-                                "height": [-7.27, -3.2],
-                                "bounds": [[[74, -196], [19, -149], "bunker hermetic door bunkers"]]
-                            },
-                            {
-                                "height": [-11, -4.6],
-                                "bounds": [
-                                    [[-246, -79], [-274, -53], "E1 bunkers"],
-                                    [[238, -26], [126, 45], "bunkers"]
-                                ]
-                            }
-                        ]
-                    },
-                    {
                         "name": "2nd Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/reserve/2nd/{z}/{x}/{y}.png",
                         "show": false,
@@ -2224,6 +2370,40 @@
                             {
                                 "height": [5, 9.5],
                                 "bounds": [[[-77, 26], [-177, 106], "pawns"]]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bunkers",
+                        "tilePath": "https://assets.tarkov.dev/maps/reserve/bunkers/{z}/{x}/{y}.png",
+                        "svgLayer": "Bunkers",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -7.27],
+                                "bounds": [
+                                    [[128, -208], [18, -33], "storage bunker"],
+                                    [[-46, -42], [-176, 127], "command bunkers"]
+                                ]
+                            },
+                            {
+                                "height": [-10000, -12],
+                                "bounds": [[[-40, 124], [-124, 189], "D2"]]
+                            },
+                            {
+                                "height": [-10000, 18],
+                                "bounds": [[[23, 173], [-65, 189], "dome tunnels"]]
+                            },
+                            {
+                                "height": [-7.27, -3.2],
+                                "bounds": [[[74, -196], [19, -149], "bunker hermetic door bunkers"]]
+                            },
+                            {
+                                "height": [-11, -4.6],
+                                "bounds": [
+                                    [[-246, -79], [-274, -53], "E1 bunkers"],
+                                    [[238, -26], [126, 45], "bunkers"]
+                                ]
                             }
                         ]
                     }
@@ -2441,20 +2621,6 @@
                 "heightRange": [-1000, -1],
                 "layers": [
                     {
-                        "name": "Underground",
-                        "svgLayer": "Underground_Level",
-                        "show": false,
-                        "extents": [
-                            {
-                                "height": [-1000, -5],
-                                "bounds": [
-                                    [[-137, -68], [-237, -104], "west wing"],
-                                    [[-234, -134], [-268, -163], "admin"]
-                                ]
-                            }
-                        ]
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgLayer": "Second_Floor",
                         "show": false,
@@ -2471,6 +2637,20 @@
                         "extents": [
                             {
                                 "height": [2, 1000]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Underground",
+                        "svgLayer": "Underground_Level",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, -5],
+                                "bounds": [
+                                    [[-137, -68], [-237, -104], "west wing"],
+                                    [[-234, -134], [-268, -163], "admin"]
+                                ]
                             }
                         ]
                     }
