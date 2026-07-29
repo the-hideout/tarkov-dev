@@ -1,6 +1,8 @@
 # minimumReleaseAge: 64800
 # Because we recently installed new dependencies, the 45-day period will prevent dependencies from being installed, and after that, this restriction will be gradually relaxed.
-minimumReleaseAge: 11520
+# High minimumReleaseAge values prevent installation of updates to address security vulnerability PRs opened by Dependabot
+# Better to set it to something lower
+minimumReleaseAge: 2880
 allowBuilds:
   core-js: false
   puppeteer: true
