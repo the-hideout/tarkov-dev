@@ -1,5 +1,3 @@
-import jp from "jsonpath";
-
 import APIQuery from "../../modules/api-query.mjs";
 import { localStorageWriteJson } from "../settings/settingsSlice.mjs";
 
@@ -14,25 +12,7 @@ class ItemsQuery extends APIQuery {
         const [itemData, traders, itemGrids] = await Promise.all([
             this.apiRequest(`${gameMode}/items`, { lang: language }),
             this.apiRequest(`${gameMode}/traders`, { lang: language }),
-            new Promise(async (resolve) => {
-                if (prebuild) {
-                    return resolve({});
-                }
-                try {
-                    // if running in rstest, use the local item-grids.json which in public/data/ folder.
-                    if (process.env.RSTEST) {
-                        const itemGrids = await import("#public/data/item-grids.min.json");
-                        resolve(itemGrids);
-                    } else {
-                        const response = await fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`);
-                        const itemGrids = await response.json();
-                        resolve(itemGrids);
-                    }
-                } catch (error) {
-                    console.log("Error retrieving item grids", error);
-                    return resolve({});
-                }
-            }),
+            this.getItemGrids(prebuild),
         ]);
 
         const flea = itemData.fleaMarket;
@@ -327,6 +307,26 @@ class ItemsQuery extends APIQuery {
                 settings: itemData.settings,
             },
         };
+    }
+
+    async getItemGrids(prebuild) {
+        if (prebuild) {
+            return {};
+        }
+        try {
+            // if running in rstest, use the local item-grids.json which in public/data/ folder.
+            if (process.env.RSTEST) {
+                const itemGrids = await import("#public/data/item-grids.min.json");
+                return itemGrids;
+            } else {
+                const response = await fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`);
+                const itemGrids = await response.json();
+                return itemGrids;
+            }
+        } catch (error) {
+            console.log("Error retrieving item grids", error);
+            return {};
+        }
     }
 }
 
