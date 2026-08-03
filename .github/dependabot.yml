@@ -31,7 +31,7 @@ updates:
       - dependency-name: "react"
         update-types: ["version-update:semver-major"]
       - dependency-name: "react-dom"
-        update-types: ["version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "react-i18next"
         update-types: ["version-update:semver-major"]
       - dependency-name: "react-router"
