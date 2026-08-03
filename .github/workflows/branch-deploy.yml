@@ -29,6 +29,7 @@ jobs:
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
           sticky_locks: "true"
+          allow_forks: "true"
 
       - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
