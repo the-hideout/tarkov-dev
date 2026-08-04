@@ -616,6 +616,7 @@
   "game_mode_regular": "PVP",
   "game_mode_pve": "PVE",
   "game_mode_arena": "Arena",
+  "game_mode_pvp-season": "Season",
   "Most recent reports:": "Most recent reports:",
   "Switch to {{gameMode}} profile": "Switch to {{gameMode}} profile",
   "cookie-consent": "tarkov.dev utilise des cookies pour améliorer votre expérience. En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies. Ils servent à mémoriser vos paramètres et les fonctionnalités que vous activez.",

@@ -614,6 +614,7 @@
   "game_mode_regular": "PVP",
   "game_mode_pve": "PVE",
   "game_mode_arena": "竞技场",
+  "game_mode_pvp-season": "Season",
   "Most recent reports:": "最新报告：",
   "Switch to {{gameMode}} profile": "切换至 {{gameMode}} 配置文件",
   "control-info-p": "<0>此页面允许你使用另一个浏览器控制 Tarkov.dev 网站。典型的使用场景是：在第二个显示器的浏览器中打开 Tarkov.dev 网站，同时在你的手机或其他设备上打开此页面，这样就可以在 Tarkov.dev 网站上导航到不同页面，而无需从游戏中切换出来（Alt+Tab）。你只需要在要显示 Tarkov.dev 网站的浏览器中打开它，单击左下角的“点击连接”按钮*，然后在控制设备上使用此页面上显示的 ID 并单击连接。连接后，你可以使用此控制页面在受控浏览器中打开特定的地图或弹药页面。</0><1>*它默认出现在左下角，但可以切换到屏幕的右下角。也可以通过设置页面上的“隐藏远程控制”选项来隐藏。</1>",

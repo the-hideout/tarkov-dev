@@ -22,6 +22,8 @@ import CategoryMenu from "./CategoryMenu.jsx";
 import { getMenuData } from "./menu-data.js";
 import useMenuOverflow from "./useMenuOverflow.js";
 
+import gameModes from "../../data/game-modes.json";
+
 import "./index.css";
 
 const alertColor = alertConfig.alertColors[alertConfig.alertLevel];
@@ -40,7 +42,15 @@ const Menu = () => {
     const loadingData = useSelector((state) => state.settings.loadingData);
 
     const otherGameMode = useMemo(() => {
-        return gameMode === "regular" ? "pve" : "regular";
+        let modeIndex = gameModes.indexOf(gameMode);
+        if (modeIndex === -1) {
+            modeIndex = 0;
+        }
+        modeIndex++;
+        if (modeIndex >= gameModes.length) {
+            modeIndex = 0;
+        }
+        return gameModes[modeIndex];
     }, [gameMode]);
 
     const gameModeTranslated = useMemo(() => {
