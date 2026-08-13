@@ -175,21 +175,22 @@ const defaultSettings = {
 const settingsSlice = createSlice({
     name: "settings",
     initialState: {
-        progressStatus: "idle",
-        regular: localStorageReadJson("regularSettings", { ...defaultSettings }),
-        pve: localStorageReadJson("pveSettings", {
-            ...defaultSettings,
+        "progressStatus": "idle",
+        "regular": localStorageReadJson("regularSettings", structuredClone(defaultSettings)),
+        "pve": localStorageReadJson("pveSettings", {
+            ...structuredClone(defaultSettings),
             tarkovTrackerAPIKey: "",
             useTarkovTracker: false,
         }),
-        hideRemoteControl: localStorageReadJson("hide-remote-control", false),
-        playerPosition: localStorageReadJson("playerPosition", null),
-        gameMode: localStorageReadJson("gameMode", "regular"),
-        Ti: localStorageReadJson("Ti", 0.03),
-        Tr: localStorageReadJson("Tr", 0.03),
-        fleaEnabled: localStorageReadJson("fleaEnabled", true),
-        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
-        loadingData: "",
+        "pvp-season": localStorageReadJson("pvp-seasonSettings", structuredClone(defaultSettings)),
+        "hideRemoteControl": localStorageReadJson("hide-remote-control", false),
+        "playerPosition": localStorageReadJson("playerPosition", null),
+        "gameMode": localStorageReadJson("gameMode", "regular"),
+        "Ti": localStorageReadJson("Ti", 0.03),
+        "Tr": localStorageReadJson("Tr", 0.03),
+        "fleaEnabled": localStorageReadJson("fleaEnabled", true),
+        "tarkovTrackerDomain": localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
+        "loadingData": "",
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {

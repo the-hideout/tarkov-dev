@@ -1336,17 +1336,38 @@ function Player() {
                 onChange={handleSwitchGameMode}
                 className="profile-button"
             >
-                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "regular" })} placement="bottom" arrow>
+                <Tooltip
+                    title={t("Switch to {{gameMode}} profile", { gameMode: t("game_mode_regular") })}
+                    placement="bottom"
+                    arrow
+                >
                     <ToggleButton value="regular" key="gamemode-regular">
                         {t("game_mode_regular")}
                     </ToggleButton>
                 </Tooltip>
-                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "pve" })} placement="bottom" arrow>
+                <Tooltip
+                    title={t("Switch to {{gameMode}} profile", { gameMode: t("game_mode_pve") })}
+                    placement="bottom"
+                    arrow
+                >
                     <ToggleButton value="pve" key="gamemode-pve">
                         {t("game_mode_pve")}
                     </ToggleButton>
                 </Tooltip>
-                <Tooltip title={t("Switch to {{gameMode}} profile", { gameMode: "arena" })} placement="bottom" arrow>
+                <Tooltip
+                    title={t("Switch to {{gameMode}} profile", { gameMode: t("game_mode_pvp-season") })}
+                    placement="bottom"
+                    arrow
+                >
+                    <ToggleButton value="pvp-season" key="gamemode-pvp-season">
+                        {t("game_mode_pvp-season")}
+                    </ToggleButton>
+                </Tooltip>
+                <Tooltip
+                    title={t("Switch to {{gameMode}} profile", { gameMode: t("game_mode_arena") })}
+                    placement="bottom"
+                    arrow
+                >
                     <ToggleButton value="arena" key="gamemode-arena">
                         {t("game_mode_arena")}
                     </ToggleButton>
