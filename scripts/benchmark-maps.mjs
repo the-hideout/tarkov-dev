@@ -144,9 +144,63 @@ function replayHeaders(headers) {
     return Object.fromEntries(Object.entries(headers).filter(([name]) => !excluded.has(name.toLowerCase())));
 }
 
+const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+function createConcurrencyLimiter(limit) {
+    const waiting = [];
+    let active = 0;
+
+    const release = () => {
+        active -= 1;
+        waiting.shift()?.();
+    };
+    return async (operation) => {
+        if (active >= limit) {
+            await new Promise((resolve) => waiting.push(resolve));
+        }
+        active += 1;
+        try {
+            return await operation();
+        } finally {
+            release();
+        }
+    };
+}
+
+async function fetchExternalResponse(route) {
+    const request = route.request();
+    const attempts = request.resourceType() === "fetch" || request.resourceType() === "xhr" ? 3 : 1;
+    let response;
+    for (let attempt = 1; attempt <= attempts; attempt += 1) {
+        try {
+            response = await route.fetch({ timeout: 60_000 });
+        } catch (error) {
+            console.error(
+                `External request error (${attempt}/${attempts}): ${request.method()} ${request.url()} (${error.message})`,
+            );
+            if (attempt === attempts) {
+                throw error;
+            }
+            await delay(attempt * 5_000);
+            continue;
+        }
+        if (response.status() < 400) {
+            return response;
+        }
+        console.error(
+            `External request failed (${attempt}/${attempts}): ${response.status()} ${request.method()} ${request.url()}`,
+        );
+        if (attempt < attempts) {
+            await delay(attempt * 5_000);
+        }
+    }
+    return response;
+}
+
 async function installNetworkReplay(context, localOrigins) {
     const responses = new Map();
     const stats = { recorded: 0, replayed: 0 };
+    const limitApiRequests = createConcurrencyLimiter(4);
     let replayOnly = false;
 
     await context.route("**/*", async (route) => {
@@ -167,14 +221,20 @@ async function installNetworkReplay(context, localOrigins) {
             throw new Error(`Unexpected external request during measured run: ${request.method()} ${request.url()}`);
         }
 
-        const response = await route.fetch();
+        const fetchResponse = () => fetchExternalResponse(route);
+        const response =
+            new URL(request.url()).hostname === "json.tarkov.dev"
+                ? await limitApiRequests(fetchResponse)
+                : await fetchResponse();
         const body = await response.body();
         const cachedResponse = {
             body,
             headers: replayHeaders(response.headers()),
             status: response.status(),
         };
-        responses.set(key, cachedResponse);
+        if (response.status() < 400) {
+            responses.set(key, cachedResponse);
+        }
         stats.recorded += 1;
         await route.fulfill(cachedResponse);
     });
@@ -275,6 +335,24 @@ async function measureLoad(page, url, options) {
     return waitForMapReady(page, options);
 }
 
+async function measureInitialLoad(page, url, options, label) {
+    const attempts = 3;
+    for (let attempt = 1; attempt <= attempts; attempt += 1) {
+        try {
+            return await measureLoad(page, url, {
+                ...options,
+                timeoutMs: Math.min(options.timeoutMs, 45_000),
+            });
+        } catch (error) {
+            console.error(`Initial ${label} load failed (${attempt}/${attempts}): ${error.message}`);
+            if (attempt === attempts) {
+                throw error;
+            }
+            await delay(attempt * 5_000);
+        }
+    }
+}
+
 async function measureLayerToggle(page, group) {
     await page.bringToFront();
     return page.evaluate(async (groupKey) => {
@@ -322,6 +400,17 @@ function alternatingOrder(index) {
 
 async function createMeasuredPage(context, cpuThrottle) {
     const page = await context.newPage();
+    page.on("console", (message) => {
+        if (message.type() === "error") {
+            console.error(`Browser console: ${message.text()}`);
+        }
+    });
+    page.on("pageerror", (error) => {
+        console.error(`Browser page error: ${error.stack ?? error.message}`);
+    });
+    page.on("requestfailed", (request) => {
+        console.error(`Browser request failed: ${request.method()} ${request.url()} (${request.failure()?.errorText})`);
+    });
     await installBrowserObservers(page);
     if (cpuThrottle > 1) {
         const session = await context.newCDPSession(page);
@@ -359,7 +448,7 @@ async function main() {
 
         const diagnosticFirstLoads = {};
         for (const version of ["base", "head"]) {
-            diagnosticFirstLoads[version] = await measureLoad(page, versions[version].url, options);
+            diagnosticFirstLoads[version] = await measureInitialLoad(page, versions[version].url, options, version);
         }
         for (let index = 1; index < options.warmups; index += 1) {
             for (const version of alternatingOrder(index)) {
