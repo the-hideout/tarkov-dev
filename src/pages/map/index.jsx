@@ -278,7 +278,7 @@ function addElevation(item, popup) {
     }
 }
 
-function Map() {
+function TarkovMap() {
     let { currentMap } = useParams();
     const [searchParams] = useSearchParams();
 
@@ -384,6 +384,14 @@ function Map() {
     const { data: items } = useItemsData();
     const { data: quests } = useQuestsData();
     const { data: handbook } = useHandbookData();
+    const indexedItemsById = useMemo(
+        () => new Map(items.map((item, order) => [item.id, { item, order }])),
+        [items],
+    );
+    const handbookCategoriesById = useMemo(
+        () => new Map(handbook.handbookCategories.map((category) => [category.id, category])),
+        [handbook.handbookCategories],
+    );
 
     let allMaps = useMapImages();
 
@@ -1971,7 +1979,7 @@ function Map() {
         if (mapData.locks.length > 0) {
             const locks = L.layerGroup();
             for (const lock of mapData.locks) {
-                const key = items.find((i) => i.id === lock.key.id);
+                const key = indexedItemsById.get(lock.key.id)?.item;
                 if (!key) {
                     continue;
                 }
@@ -2036,7 +2044,11 @@ function Map() {
                 if (!positionIsInBounds(looseLoot.position)) {
                     continue;
                 }
-                const lootItems = items.filter((item) => looseLoot.items.some((lootItem) => item.id === lootItem.id));
+                const lootItems = [...new Set(looseLoot.items.map((lootItem) => lootItem.id))]
+                    .map((itemId) => indexedItemsById.get(itemId))
+                    .filter(Boolean)
+                    .sort((left, right) => left.order - right.order)
+                    .map(({ item }) => item);
                 if (lootItems.length === 0) {
                     continue;
                 }
@@ -2045,7 +2057,7 @@ function Map() {
                 let markerTitle = t("Loose Loot");
                 let className = "";
                 const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = handbook.handbookCategories.find((c) => c.id === item.handbookCategories[0]?.id);
+                    const category = handbookCategoriesById.get(item.handbookCategories[0]?.id);
                     if (category) {
                         markerCategories.add(category);
                     }
@@ -2066,9 +2078,7 @@ function Map() {
                         iconSize = [pixelWidth * scale, 24];
                     }
                 } else if (markerCategories.size === 1) {
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === markerCategories.values().next().value.id,
-                    );
+                    const category = handbookCategoriesById.get(markerCategories.values().next().value.id);
                     iconUrl = category.imageLink;
                     markerTitle = category.name;
                     //className = 'loot-outline';
@@ -2102,9 +2112,7 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === lootItem.handbookCategories[0]?.id,
-                    );
+                    const category = handbookCategoriesById.get(lootItem.handbookCategories[0]?.id);
                     if (!category) {
                         continue;
                     }
@@ -2144,7 +2152,7 @@ function Map() {
             }
         }
         refreshMapSearch();
-    }, [mapData, items, handbook, addLayer, t, tMaps, getPoiLinkElement]);
+    }, [mapData, indexedItemsById, handbookCategoriesById, addLayer, t, tMaps, getPoiLinkElement]);
 
     useEffect(() => {
         if (!mapData || mapData.projection !== "interactive") {
@@ -2259,4 +2267,4 @@ function Map() {
         </div>,
     ];
 }
-export default Map;
+export default TarkovMap;

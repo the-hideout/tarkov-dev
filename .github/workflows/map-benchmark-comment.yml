@@ -1,0 +1,63 @@
+name: Map benchmark PR comment
+
+on:
+    workflow_run:
+        workflows: [Map performance benchmark]
+        types: [completed]
+
+permissions:
+    actions: read
+    contents: read
+    pull-requests: write
+
+jobs:
+    comment:
+        if: >-
+            github.event.workflow_run.conclusion == 'success' &&
+            github.event.workflow_run.event == 'pull_request' &&
+            github.event.workflow_run.pull_requests[0]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download benchmark results
+              uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # pin@v5
+              with:
+                  github-token: ${{ github.token }}
+                  run-id: ${{ github.event.workflow_run.id }}
+                  pattern: map-benchmark-results-*
+                  merge-multiple: true
+                  path: benchmark-results
+
+            - name: Update pull request comment
+              uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # pin@v8
+              env:
+                  PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+              with:
+                  script: |
+                      const fs = require('node:fs');
+                      const marker = '<!-- map-performance-benchmark -->';
+                      const body = fs.readFileSync('benchmark-results/map-benchmark-comment.md', 'utf8');
+                      const issue_number = Number(process.env.PR_NUMBER);
+                      const comments = await github.paginate(github.rest.issues.listComments, {
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number,
+                        per_page: 100,
+                      });
+                      const existing = comments.find((comment) =>
+                        comment.user.type === 'Bot' && comment.body.includes(marker)
+                      );
+                      if (existing) {
+                        await github.rest.issues.updateComment({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          comment_id: existing.id,
+                          body,
+                        });
+                      } else {
+                        await github.rest.issues.createComment({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          issue_number,
+                          body,
+                        });
+                      }
