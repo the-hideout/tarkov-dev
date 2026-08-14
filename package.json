@@ -13,6 +13,7 @@
     },
     "scripts": {
         "analyze": "source-map-explorer 'build/static/js/*.js'",
+        "benchmark:maps": "node scripts/benchmark-maps.mjs",
         "prestart": "pnpm run prebuild",
         "start": "rsbuild dev --open",
         "build": "rsbuild build",
@@ -48,6 +49,7 @@
         "globals": "^17.6.0",
         "husky": "^9.1.7",
         "lint-staged": "^17.0.7",
+        "playwright": "1.62.1",
         "prettier": "^3.8.4",
         "sharp": "^0.35.2",
         "source-map-explorer": "^2.5.3",
