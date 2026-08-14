@@ -55,12 +55,6 @@ jobs:
                   pnpm --dir "$BASE_DIR" run prebuild
                   pnpm --dir "$BASE_DIR" exec rsbuild build
 
-            - name: Benchmark base
-              run: >-
-                  pnpm benchmark:maps --
-                  --build-dir "$BASE_DIR/build"
-                  --output "$RUNNER_TEMP/map-benchmark-base.json"
-
             - name: Build pull request
               env:
                   GITHUB_TOKEN: ${{ github.token }}
@@ -69,17 +63,17 @@ jobs:
                   pnpm run prebuild
                   pnpm exec rsbuild build
 
-            - name: Benchmark pull request
+            - name: Benchmark base and pull request
               run: >-
                   pnpm benchmark:maps --
-                  --build-dir build
-                  --output "$RUNNER_TEMP/map-benchmark-head.json"
+                  --base-build-dir "$BASE_DIR/build"
+                  --head-build-dir build
+                  --output "$RUNNER_TEMP/map-benchmark.json"
 
-            - name: Compare results
+            - name: Format results
               run: |
                   node scripts/compare-map-benchmarks.mjs \
-                    --base "$RUNNER_TEMP/map-benchmark-base.json" \
-                    --head "$RUNNER_TEMP/map-benchmark-head.json" \
+                    --input "$RUNNER_TEMP/map-benchmark.json" \
                     --output "$RUNNER_TEMP/map-benchmark-comment.md"
                   cat "$RUNNER_TEMP/map-benchmark-comment.md" >> "$GITHUB_STEP_SUMMARY"
 
@@ -88,7 +82,6 @@ jobs:
               with:
                   name: map-benchmark-results-${{ github.event.pull_request.number }}
                   path: |
-                      ${{ runner.temp }}/map-benchmark-base.json
-                      ${{ runner.temp }}/map-benchmark-head.json
+                      ${{ runner.temp }}/map-benchmark.json
                       ${{ runner.temp }}/map-benchmark-comment.md
                   retention-days: 7
