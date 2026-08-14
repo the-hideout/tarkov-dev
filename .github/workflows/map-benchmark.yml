@@ -4,17 +4,45 @@ on:
     pull_request:
         branches: [main]
         types: [opened, reopened, synchronize, ready_for_review]
+        paths:
+            - .github/workflows/map-benchmark*.yml
+            - package.json
+            - pnpm-lock.yaml
+            - rsbuild.config.ts
+            - scripts/benchmark-maps.mjs
+            - scripts/compare-map-benchmarks.mjs
+            - src/App.jsx
+            - src/store.js
+            - src/data/maps*.json
+            - src/features/items/**
+            - src/features/maps/**
+            - src/features/quests/**
+            - src/features/settings/**
+            - src/modules/api-*.mjs
+            - src/modules/leaflet-*
+            - src/pages/map/**
+            - src/styles/map*.css
+    workflow_dispatch:
+        inputs:
+            base-ref:
+                description: Git ref to use as the benchmark base
+                default: main
+                required: true
+            head-ref:
+                description: Git ref to benchmark against the base
+                default: main
+                required: true
 
 permissions:
     contents: read
 
 concurrency:
-    group: map-benchmark-${{ github.event.pull_request.number }}
+    group: map-benchmark-${{ github.event.pull_request.number || github.run_id }}
     cancel-in-progress: true
 
 jobs:
     benchmark:
-        if: github.event.pull_request.draft == false
+        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.draft == false
         runs-on: ubuntu-latest
         timeout-minutes: 45
 
@@ -23,6 +51,7 @@ jobs:
               uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # pin@v6
               with:
                   fetch-depth: 0
+                  ref: ${{ inputs.head-ref || github.event.pull_request.head.sha }}
 
             - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # pin@v6.0.9
 
@@ -39,9 +68,10 @@ jobs:
 
             - name: Create base worktree
               env:
-                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+                  BASE_SHA: ${{ inputs.base-ref || github.event.pull_request.base.sha }}
               run: |
-                  git worktree add "$RUNNER_TEMP/map-benchmark-base" "$BASE_SHA"
+                  git fetch origin "$BASE_SHA"
+                  git worktree add "$RUNNER_TEMP/map-benchmark-base" FETCH_HEAD
                   echo "BASE_DIR=$RUNNER_TEMP/map-benchmark-base" >> "$GITHUB_ENV"
 
             - name: Install base dependencies
@@ -80,7 +110,7 @@ jobs:
             - name: Upload benchmark results
               uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # pin@v4
               with:
-                  name: map-benchmark-results-${{ github.event.pull_request.number }}
+                  name: map-benchmark-results-${{ github.event.pull_request.number || github.run_id }}
                   path: |
                       ${{ runner.temp }}/map-benchmark.json
                       ${{ runner.temp }}/map-benchmark-comment.md
