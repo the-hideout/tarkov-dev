@@ -19,7 +19,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
         const validators = {
             "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
-            "tarkovtracker.org": /^(?:PVP_|PVE_).+$/i,
+            "tarkovtracker.org": /^(?:PVP_|PVE_|SZN_).+$/i,
         };
         if (!apiKey.match(validators[domain])) {
             return false;
@@ -257,6 +257,8 @@ const settingsSlice = createSlice({
             localStorageWriteJson("regularSettings", state[state.regular]);
             state.pve.tarkovTrackerAPIKey = "";
             localStorageWriteJson("pveSettings", state[state.pve]);
+            state["pvp-season"].tarkovTrackerAPIKey = "";
+            localStorageWriteJson("pvp-seasonSettings", state[state["pvp-season"]]);
         },
         setDataLoading: (state, action) => {
             const loading = state.loadingData.split(",").filter(Boolean);

@@ -32,7 +32,7 @@ import { getWipeData } from "#src/pages/wipe-length/index.jsx";
 
 import "./index.css";
 
-const trackerDomains = ["tarkovtracker.org", "tarkovtracker.io"];
+const trackerDomains = ["tarkovtracker.org"];
 
 const langOptions = supportedLanguages.map((lang) => {
     return { value: lang, label: lang };
@@ -217,7 +217,7 @@ function Settings() {
                         parentRef={trackerTokenRef}
                         label={
                             <a
-                                href={`https://${selectedTrackerDomain}/settings`}
+                                href={`https://${selectedTrackerDomain}/settings#api`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
