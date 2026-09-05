@@ -236,6 +236,7 @@ function Settings() {
                     <label className={"single-filter-wrapper"}>
                         <span className={"single-filter-label"}>{t("Tracker Service")}</span>
                         <Select
+                            isDisabled={true}
                             label={t("Tracker Service")}
                             value={selectedTrackerDomain}
                             defaultValue={trackerDomain}
