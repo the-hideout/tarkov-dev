@@ -15,7 +15,7 @@ const images = {
     "container_ground-cache": "container_ground-cache",
     "container_jacket": "container_jacket",
     "container_lab-technician-body": "container_dead-scav",
-    "container_medbag-smu06": "container_medbag-smu06",
+    "container_medbag": "container_medbag",
     "container_medcase": "container_medcase",
     "container_medical-supply-crate": "container_crate",
     "container_pc-block": "container_pc-block",
