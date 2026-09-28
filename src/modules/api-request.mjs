@@ -31,7 +31,7 @@ export default async function apiRequest(path, options = {}) {
         }),
         new Promise((resolve, reject) => {
             if (!options.lang || options.lang === langFallback) {
-                return resolve({});
+                return resolve({ data: {} });
             }
             apiFetch(`${path}_${langFallback}`).then(resolve).catch(reject);
         }),
