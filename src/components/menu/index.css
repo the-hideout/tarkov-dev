@@ -140,6 +140,8 @@
     border-radius: 6px;
     box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
     min-width: 220px;
+    width: max-content;
+    max-width: 380px;
     max-height: calc(100vh - var(--nav-height) - 20px);
     overflow-y: auto;
     padding: 10px 0;
@@ -164,6 +166,8 @@
 
 .category-dropdown.mega-menu {
     min-width: 320px;
+    width: 320px;
+    max-width: 320px;
     display: flex;
     flex-direction: column;
     gap: 0;

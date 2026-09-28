@@ -217,10 +217,10 @@ const Menu = () => {
                     </div>
 
                     <div className="nav-right">
-                        <Link aria-label="Settings" to="/settings/" className="nav-icon-link">
+                        <Link aria-label={t("Settings")} to="/settings/" className="nav-icon-link">
                             <Icon path={mdiCogOutline} size={1} />
                         </Link>
-                        <Link aria-label="Remote control" to="/control/" className="nav-icon-link">
+                        <Link aria-label={t("Remote control")} to="/control/" className="nav-icon-link">
                             <Icon path={mdiRemote} size={1} />
                         </Link>
                         <IconButton
