@@ -758,5 +758,7 @@
   "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.": "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.",
   "Examples of using and localizing responses can be found in our code repositories:": "Examples of using and localizing responses can be found in our code repositories:",
   "This website": "This website",
-  "Content": "Content"
+  "Content": "Content",
+  "season-description": "Get the latest information on the current season in Escape from Tarkov.",
+  "Time Remaining:": "Time Remaining:"
 }

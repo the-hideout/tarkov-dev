@@ -12,7 +12,6 @@ import CenterCell from "../../components/center-cell/index.jsx";
 import { getDurationDisplay } from "../../modules/format-duration.js";
 import useHideoutData from "../../features/hideout/index.js";
 import { selectAllStations } from "../../features/settings/settingsSlice.mjs";
-import { averageWipeLength, currentWipeLength } from "../../modules/wipe-length.js";
 import { getCheapestPrice } from "../../modules/format-cost-items.js";
 // import ProfitableGraph from './profitable-graph';
 
@@ -27,7 +26,7 @@ const ProfitInfo = ({
     showDays = 100,
     fuelPricePerDay,
     useBuildCosts,
-    wipeDaysRemaining,
+    seasonDaysRemaining,
     gameMode,
     duration,
 }) => {
@@ -123,11 +122,11 @@ const ProfitInfo = ({
     }, [hideout, items, barters, crafts, settings]);
 
     const daysLeft = useMemo(() => {
-        if (wipeDaysRemaining) {
-            return wipeDaysRemaining;
+        if (seasonDaysRemaining) {
+            return seasonDaysRemaining;
         }
-        return averageWipeLength() - currentWipeLength();
-    }, [wipeDaysRemaining]);
+        return seasonDaysRemaining; // end of season should always be known
+    }, [seasonDaysRemaining]);
 
     const data = useMemo(() => {
         if (!bitcoinItem || !graphicCardItem) {
@@ -280,7 +279,7 @@ const ProfitInfo = ({
             Cell: CenterCell,
         });
     }
-    if (gameMode !== "pve") {
+    if (gameMode === "pvp-season") {
         columns.push({
             Header: t("Remaining profit"),
             accessor: ({ remainingProfit }) => formatPrice(remainingProfit),
