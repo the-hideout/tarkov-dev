@@ -76,7 +76,7 @@ const ProfitInfo = ({
     const solarCost = useMemo(() => {
         const solar = hideout.find((station) => station.normalizedName === "solar-power");
         let buildCost = 0;
-        for (const req of solar.levels[0].itemRequirements) {
+        for (const req of solar?.levels[0].itemRequirements ?? []) {
             const item = items.find((i) => i.id === req.item.id);
             if (!item) {
                 continue;
