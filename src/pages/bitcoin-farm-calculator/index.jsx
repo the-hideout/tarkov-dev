@@ -117,7 +117,11 @@ const BitcoinFarmCalculator = () => {
                         max={MaxNumGraphicsCards}
                     />
                     <StationSkillTraderSetting stateKey={"hideout-management"} type="skill" />
-                    <StationSkillTraderSetting stateKey={solar.normalizedName} type="station" image={solar.imageLink} />
+                    <StationSkillTraderSetting
+                        stateKey={solar?.normalizedName}
+                        type="station"
+                        image={solar?.imageLink}
+                    />
                     <ToggleFilter
                         label={t("Use fuel cost: {{price}}/day", {
                             price: formatPrice(fuelPricePerDay),
