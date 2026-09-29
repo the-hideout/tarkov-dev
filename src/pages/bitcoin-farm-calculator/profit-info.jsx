@@ -99,7 +99,7 @@ const ProfitInfo = ({
     const farmCosts = useMemo(() => {
         const farmData = hideout.find((station) => station.normalizedName === "bitcoin-farm");
         const farmCosts = {};
-        for (const level of farmData.levels) {
+        for (const level of farmData?.levels ?? []) {
             farmCosts[level.level] = 0;
             for (const req of level.itemRequirements) {
                 const item = items.find((i) => i.id === req.item.id);
