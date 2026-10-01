@@ -752,5 +752,7 @@
   "Each API response includes a `translations` property containing a list of JSON path strings that can be used with a translation file to localize the base response into a given language.": "每个API响应都包含一个 `translations` 属性，其中包含 JSON 路径字符串列表，可与翻译文件配合使用，将基础响应本地化为特定语言。",
   "Examples of using and localizing responses can be found in our code repositories:": "使用和本地化响应的示例可在我们的代码仓库中找到：",
   "This website": "本网站",
-  "Content": "内容"
+  "Content": "内容",
+  "season-description": "Get the latest information on the current season in Escape from Tarkov.",
+  "Time Remaining:": "Time Remaining:"
 }
