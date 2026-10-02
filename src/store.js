@@ -7,6 +7,7 @@ import { hideoutReducer } from "./features/hideout/index.js";
 import { questsReducer } from "./features/quests/index.js";
 import { tradersReducer } from "./features/traders/index.js";
 import { mapsReducer } from "./features/maps/index.js";
+import { seasonReducer } from "./features/season/index.js";
 import { statusReducer } from "./features/status/index.mjs";
 import socketsReducer from "./features/sockets/socketsSlice.js";
 import settingsReducer from "./features/settings/settingsSlice.mjs";
@@ -23,6 +24,7 @@ export default configureStore({
         sockets: socketsReducer,
         settings: settingsReducer,
         status: statusReducer,
+        season: seasonReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

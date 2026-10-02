@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import Countdown from "react-countdown";
 
 import SEO from "../../components/SEO.jsx";
+import SeasonPerks from "../../components/season-perks/index.jsx";
 import { getCurrentSeason } from "../../modules/season-details.mjs";
 
 import i18n from "../../i18n.js";
@@ -31,7 +32,7 @@ const Season = () => {
                 </h2>
             </div>
             <div className="center-title">
-                <p>Eventually, this page can include information on the perks available for the current season.</p>
+                <SeasonPerks />
             </div>
         </div>,
     ];
