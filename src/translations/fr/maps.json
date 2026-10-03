@@ -48,7 +48,7 @@
     "transits-description": "Ceci est un overlay des transit par dessus la carte officielle montrant les transits de toutes les maps, et lesquels sont à sens unique.",
     "Transit": "Transit",
     "Task, item or container...": "Tâche, objet ou container...",
-    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supporte la recherche multiple (e.g. 'labs, ledx, bitcoin')",
+    "Supports multisearch (e.g. 'labs, ledx, bitcoin')": "Supporte la recherche multiple (ex. 'labs, ledx, bitcoin')",
     "Only show markers for active tasks": "Afficher uniquement les marqueurs pour les quêtes actives",
     "Don't collapse layers control": "Ne pas réduire le contrôle des calques",
     "Don't collapse search control": "Ne pas réduire le contrôle de recherche",
