@@ -54,12 +54,12 @@
     "Don't collapse search control": "Ne pas réduire le contrôle de recherche",
     "Use TarkovMonitor to show your position": "Utilisez TarkovMonitor pour afficher votre position",
     "Required item": "Article requis",
-    "BTR Stop": "BTR Stop",
+    "BTR Stop": "Arrêt du BTR",
     "Player Position": "Position du joueur",
-    "Always show snipers": "Always show snipers",
-    "Task Filter": "Task Filter",
-    "Task name": "Task name",
-    "All": "All",
-    "None": "None",
-    "Search": "Search"
+    "Always show snipers": "Toujours montrer les sniper",
+    "Task Filter": "Filtre de quête",
+    "Task name": "Nom de la quête",
+    "All": "Tous",
+    "None": "Aucun",
+    "Search": "Cherchez"
 }
