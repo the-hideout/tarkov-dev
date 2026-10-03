@@ -69,7 +69,7 @@ function Nightbot() {
                 <li>{t("Command: !p or anything you like")}</li>
                 <li>
                     {t("Message:")}
-                    <pre>$(urlfetch https://streamer.tarkov.dev/webhook/nightbot?q=$(querystring))</pre>
+                    <pre>$(urlfetch https://api.tarkov.dev/webhook/nightbot?q=$(querystring))</pre>
                 </li>
                 <li>{t('Press "Submit"')}</li>
             </ul>

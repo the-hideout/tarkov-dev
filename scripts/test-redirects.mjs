@@ -7,7 +7,7 @@ import redirects from "../workers-site/redirects.json";
 (async () => {
     let liveNames = [];
     try {
-        const response = await fetch("https://api.tarkov.dev/graphql", {
+        const response = await fetch("https://json.tarkov.dev/regular/items", {
             method: "POST",
             cache: "no-store",
             headers: {
@@ -23,7 +23,7 @@ import redirects from "../workers-site/redirects.json";
             }),
         }).then((response) => response.json());
 
-        liveNames = response.data.itemsByType.map((item) => item.normalizedName);
+        liveNames = Object.values(response.data.items).map((item) => item.normalizedName);
     } catch (loadError) {
         console.error(loadError);
 

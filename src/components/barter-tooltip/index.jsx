@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Icon } from "@mdi/react";
 import { mdiCached, mdiProgressWrench } from "@mdi/js";
 

@@ -12,7 +12,7 @@ import {
     // VictoryVoronoiContainer,
     VictoryContainer,
 } from "victory";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import Symbol from "./Symbol.jsx";

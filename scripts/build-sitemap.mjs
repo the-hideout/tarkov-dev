@@ -10,6 +10,7 @@ import maps from "../src/data/maps.json" with { type: "json" };
 import categoryPages from "../src/data/category-pages.json" with { type: "json" };
 
 import { caliberArrayWithSplit } from "../src/modules/format-ammo.mjs";
+//import apiRequest from "../src/modules/api-request.mjs";
 
 const standardPaths = [
     "",
@@ -88,18 +89,18 @@ const addPath = (sitemap, url, change = "hourly") => {
     return sitemap;
 };
 
-const graphqlRequest = (queryString) => {
-    return fetch("https://api.tarkov.dev/graphql", {
-        method: "POST",
-        cache: "no-store",
+const apiRequest = (path) => {
+    return fetch(`https://json.tarkov.dev/${path}`, {
+        cache: "no-cache",
         headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
         },
-        body: JSON.stringify({
-            query: queryString,
-        }),
-    }).then((response) => response.json());
+    }).then((response) => {
+        if (!response.ok) {
+            return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+        }
+        return response.json().then((json) => json.data);
+    });
 };
 
 async function build_sitemap() {
@@ -120,13 +121,15 @@ async function build_sitemap() {
         }
     }
 
-    const itemCategories = await graphqlRequest("{itemCategories{normalizedName}}");
-    for (const itemCategory of itemCategories.data.itemCategories) {
+    const itemResponse = await apiRequest("regular/items");
+
+    const itemCategories = Object.values(itemResponse.itemCategories);
+    for (const itemCategory of itemCategories) {
         sitemap = addPath(sitemap, `/items/${itemCategory.normalizedName}`);
     }
 
-    const itemHandbookCategories = await graphqlRequest("{handbookCategories{normalizedName}}");
-    for (const itemCategory of itemHandbookCategories.data.handbookCategories) {
+    const itemHandbookCategories = Object.values(itemResponse.handbookCategories);
+    for (const itemCategory of itemHandbookCategories) {
         sitemap = addPath(sitemap, `/items/handbook/${itemCategory.normalizedName}`);
     }
 
@@ -134,13 +137,17 @@ async function build_sitemap() {
         sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
     }
 
-    const allBosses = await graphqlRequest("{bosses{normalizedName}}");
-    for (const boss of allBosses.data.bosses) {
+    const mapsResponse = await apiRequest("regular/maps");
+
+    const allBosses = Object.values(mapsResponse.mobs);
+    for (const boss of allBosses) {
         sitemap = addPath(sitemap, `/boss/${boss.normalizedName}`);
     }
 
-    const allTasks = await graphqlRequest("{tasks{normalizedName}}");
-    for (const task of allTasks.data.tasks) {
+    const tasksResponse = await apiRequest("regular/tasks");
+
+    const allTasks = Object.values(tasksResponse.tasks);
+    for (const task of allTasks) {
         sitemap = addPath(sitemap, `/task/${task.normalizedName}`, "weekly");
     }
 
@@ -160,8 +167,9 @@ async function build_sitemap_items() {
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`;
 
-    const allItems = await graphqlRequest("{items{normalizedName}}");
-    for (const item of allItems.data.items) {
+    const itemsResponse = await apiRequest("regular/items");
+    const allItems = Object.values(itemsResponse.items);
+    for (const item of allItems) {
         sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
     }
 

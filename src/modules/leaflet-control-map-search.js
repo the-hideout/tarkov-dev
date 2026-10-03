@@ -5,6 +5,7 @@ L.Control.MapSearch = L.Control.extend({
         quests: null,
         placeholderText: null,
         descriptionText: null,
+        onlyActiveTasks: false,
     },
     onAdd: function (map) {
         const className = "leaflet-control-icon-search";
@@ -324,9 +325,18 @@ L.Control.MapSearch = L.Control.extend({
         }
     },
 
+    setOnlyActiveTasks: function (onlyActive) {
+        this.options.onlyActiveTasks = onlyActive;
+        this.setTasks(this.options.tasks);
+    },
+
     setTasks: function (tasks) {
+        this.options.tasks = tasks;
         this.taskListDiv.replaceChildren();
         for (const task of tasks) {
+            if (this.options.onlyActiveTasks && !task.active) {
+                continue;
+            }
             const taskLabel = L.DomUtil.create("label", "maps-search-wrapper-task-label", this.taskListDiv);
             const taskCheck = L.DomUtil.create("input", "maps-search-task-selector", taskLabel);
             taskCheck.type = "checkbox";

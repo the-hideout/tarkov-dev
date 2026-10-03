@@ -6,72 +6,35 @@ class CraftsQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, gameMode, prebuild } = options;
-        const query = `query TarkovDevCrafts {
-            crafts(lang: ${language}, gameMode: ${gameMode}) {
-                station {
-                    id
-                    normalizedName
-                }
-                level
-                duration
-                rewardItems {
-                    item {
-                        id
-                    }
-                    count
-                }
-                requiredItems {
-                    item {
-                        id
-                    }
-                    count
-                    attributes {
-                        type
-                        name
-                        value
-                    }
-                }
-                taskUnlock {
-                    id
-                }
-            }
-        }`;
+        const { gameMode } = options;
 
-        const craftsData = await this.graphqlRequest(query);
+        const [craftsData] = await Promise.all([this.apiRequest(`${gameMode}/crafts`)]);
 
-        if (craftsData.errors) {
-            if (craftsData.data) {
-                for (const error of craftsData.errors) {
-                    let badItem = false;
-                    if (error.path) {
-                        badItem = craftsData.data;
-                        for (let i = 0; i < 2; i++) {
-                            badItem = badItem[error.path[i]];
-                        }
-                    }
-                    console.log(`Error in crafts API query: ${error.message}`);
-                    if (badItem) {
-                        console.log(badItem);
-                    }
-                }
-            }
-            // only throw error if this is for prebuild or data wasn't returned
-            if (prebuild || !craftsData.data || !craftsData.data.crafts || !craftsData.data.crafts.length) {
-                return Promise.reject(new Error(craftsData.errors[0].message));
-            }
-        }
-
-        // validate to make sure crafts all have valid requirements and rewards
-        return craftsData.data.crafts.reduce((crafts, craft) => {
-            const originalRequirementCount = craft.requiredItems.length;
-            craft.requiredItems = craft.requiredItems.filter(Boolean);
-            craft.rewardItems = craft.rewardItems.filter(Boolean);
-            if ((craft.requiredItems.length > 0 || originalRequirementCount === 0) && craft.rewardItems.length > 0) {
-                crafts.push(craft);
-            }
-            return crafts;
-        }, []);
+        // convert to previous format
+        return craftsData.map((craft) => {
+            craft.station = {
+                id: craft.station,
+                //normalizedName: hideoutData[craft.station].normalizedName,
+            };
+            craft.requiredItems = craft.requiredItems.map((req) => {
+                req.item = { id: req.item };
+                req.attributes = Object.keys(req.attributes).map((attName) => {
+                    return {
+                        name: attName,
+                        type: attName,
+                        value: req.attributes[attName],
+                    };
+                });
+                return req;
+            });
+            craft.rewardItems ??= [craft.productItem];
+            craft.rewardItems = craft.rewardItems.map((req) => {
+                req.item = { id: req.item };
+                return req;
+            });
+            craft.taskUnlock = craft.taskUnlock ? { id: craft.taskUnlock } : null;
+            return craft;
+        });
     }
 }
 

@@ -57,6 +57,13 @@ function Hideout() {
             });
     }, [hideout, settings, showBuilt, showLocked]);
 
+    const noStationsMessage = useMemo(() => {
+        if (stations.length > 0) {
+            return "";
+        }
+        return <p className="no-hideout-modules-visible">{t("No hideout stations match filter settings.")}</p>;
+    }, [stations, t]);
+
     return [
         <SEO
             title={`${t("Hideout")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
@@ -155,11 +162,13 @@ function Hideout() {
                                           )
                                         : []
                                 }
+                                includeSkills={showTraderStationReqs ? level.skillRequirements : []}
                             />
                         </div>
                     );
                 });
             })}
+            {noStationsMessage}
         </div>,
     ];
 }

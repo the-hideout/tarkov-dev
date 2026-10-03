@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 

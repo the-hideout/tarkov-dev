@@ -7,6 +7,7 @@ L.Control.MapSettings = L.Control.extend({
         expandMapLegendLabel: "Don't collapse layers control",
         expandMapLegendChecked: false,
         alwaysShowSnipers: true,
+        alwaysShowExtracts: false,
     },
     onAdd: function (map) {
         const className = "leaflet-control-map-settings";
@@ -60,7 +61,7 @@ L.Control.MapSettings = L.Control.extend({
         const expandMapLegendCheckbox = L.DomUtil.create("input", undefined, expandMapLegendLabel);
         expandMapLegendCheckbox.id = "expandMapLegend";
         expandMapLegendCheckbox.setAttribute("type", "checkbox");
-        if (!!this.options.expandMapLegendChecked) {
+        if (this.options.expandMapLegendChecked) {
             expandMapLegendCheckbox.setAttribute("checked", !!this.options.expandMapLegendChecked);
             expandMapLegendCheckbox.checked = true;
         }
@@ -78,7 +79,7 @@ L.Control.MapSettings = L.Control.extend({
         const expandSearchCheckbox = L.DomUtil.create("input", undefined, expandSearchLabel);
         expandSearchCheckbox.id = "expandSearch";
         expandSearchCheckbox.setAttribute("type", "checkbox");
-        if (!!this.options.expandSearchChecked) {
+        if (this.options.expandSearchChecked) {
             expandSearchCheckbox.setAttribute("checked", !!this.options.expandSearchChecked);
             expandSearchCheckbox.checked = true;
         }
@@ -96,7 +97,7 @@ L.Control.MapSettings = L.Control.extend({
         const activeQuestMarkersCheckbox = L.DomUtil.create("input", undefined, activeQuestMarkersLabel);
         activeQuestMarkersCheckbox.id = "showOnlyActiveTasks";
         activeQuestMarkersCheckbox.setAttribute("type", "checkbox");
-        if (!!this.options.activeTasksChecked) {
+        if (this.options.activeTasksChecked) {
             activeQuestMarkersCheckbox.setAttribute("checked", !!this.options.activeTasksChecked);
             activeQuestMarkersCheckbox.checked = true;
         }
@@ -114,7 +115,7 @@ L.Control.MapSettings = L.Control.extend({
         const alwaysShowSnipersCheckbox = L.DomUtil.create("input", undefined, alwaysShowSnipersLabel);
         alwaysShowSnipersCheckbox.id = "alwaysShowSnipers";
         alwaysShowSnipersCheckbox.setAttribute("type", "checkbox");
-        if (!!this.options.alwaysShowSnipers) {
+        if (this.options.alwaysShowSnipers) {
             alwaysShowSnipersCheckbox.setAttribute("checked", !!this.options.alwaysShowSnipers);
             alwaysShowSnipersCheckbox.checked = true;
         }
@@ -122,6 +123,26 @@ L.Control.MapSettings = L.Control.extend({
 
         const alwaysShowSnipersLabelContent = L.DomUtil.create("span", undefined, alwaysShowSnipersLabel);
         alwaysShowSnipersLabelContent.textContent = this.options.alwaysShowSnipersLabel;
+
+        L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
+
+        // always show extracts setting
+        const alwaysShowExtractsDiv = L.DomUtil.create("div", `${className}-setting-container`, form);
+
+        const alwaysShowExtractsLabel = L.DomUtil.create("label", undefined, alwaysShowExtractsDiv);
+        alwaysShowExtractsLabel.setAttribute("for", "alwaysShowExtracts");
+
+        const alwaysShowExtractsCheckbox = L.DomUtil.create("input", undefined, alwaysShowExtractsLabel);
+        alwaysShowExtractsCheckbox.id = "alwaysShowExtracts";
+        alwaysShowExtractsCheckbox.setAttribute("type", "checkbox");
+        if (this.options.alwaysShowExtracts) {
+            alwaysShowExtractsCheckbox.setAttribute("checked", !!this.options.alwaysShowExtracts);
+            alwaysShowExtractsCheckbox.checked = true;
+        }
+        L.DomEvent.on(alwaysShowExtractsCheckbox, "click", this._onSettingChanged, this);
+
+        const alwaysShowExtractsLabelContent = L.DomUtil.create("span", undefined, alwaysShowExtractsLabel);
+        alwaysShowExtractsLabelContent.textContent = this.options.alwaysShowExtractsLabel;
 
         L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
 

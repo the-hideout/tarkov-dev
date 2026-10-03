@@ -1,7 +1,8 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import { useMemo, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import DataTable from "../data-table/index.jsx";
 import fleaMarketFee from "../../modules/flea-market-fee.mjs";
@@ -128,6 +129,9 @@ function CraftTable({
                 let totalCost = 0;
 
                 const station = hideout.find((s) => s.id === craftRow.station.id);
+                if (!station) {
+                    return false;
+                }
                 const stationNormalized = station.normalizedName;
                 const level = craftRow.level;
 

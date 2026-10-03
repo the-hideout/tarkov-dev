@@ -1,6 +1,6 @@
 import { useEffect, useRef, useMemo, useCallback, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ResizeObserver from "resize-observer-polyfill";
@@ -304,6 +304,7 @@ function Map() {
         expandMapLegend: false,
         expandSearch: false,
         alwaysShowSnipers: true,
+        alwaysShowExtracts: false,
         hiddenTasks: [],
     });
 
@@ -387,7 +388,15 @@ function Map() {
     let allMaps = useMapImages();
 
     const mapData = useMemo(() => {
-        return allMaps[currentMap];
+        if (allMaps[currentMap]) {
+            return allMaps[currentMap];
+        }
+        // fallback to map-2d if interactive map not available
+        for (const key in allMaps) {
+            if (key.startsWith(currentMap)) {
+                return allMaps[key];
+            }
+        }
     }, [allMaps, currentMap]);
 
     // create the leaflet map on first page render
@@ -419,6 +428,7 @@ function Map() {
                 groupCheckboxes: true,
                 groupsCollapsable: true,
                 exclusiveOptionalGroups: [tMaps("Levels")],
+                sortLayers: false,
             })
             .addTo(map);
         layerControl.on("layerToggle", (e) => {
@@ -529,6 +539,8 @@ function Map() {
                 playerLocationLabel: tMaps("Use TarkovMonitor to show your position"),
                 alwaysShowSnipers: mapSettingsRef.current.alwaysShowSnipers ?? true,
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
+                alwaysShowExtracts: !!mapSettingsRef.current.alwaysShowExtracts,
+                alwaysShowExtractsLabel: tMaps("Always show extracts"),
                 collapsed: true,
             })
             .addTo(map);
@@ -539,6 +551,7 @@ function Map() {
                 } else {
                     map._container.classList.remove("only-active-quest-markers");
                 }
+                map.searchControl?.setOnlyActiveTasks(e.settingValue);
             }
             if (e.settingName === "expandMapLegend") {
                 layerControl.setCollapse(!e.settingValue);
@@ -553,11 +566,21 @@ function Map() {
                     map._container.classList.remove("always-show-snipers");
                 }
             }
+            if (e.settingName === "alwaysShowExtracts") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-extracts");
+                } else {
+                    map._container.classList.remove("always-show-extracts");
+                }
+            }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
         });
         if (mapSettingsRef.current.alwaysShowSnipers ?? true) {
             map._container.classList.add("always-show-snipers");
+        }
+        if (mapSettingsRef.current.alwaysShowExtracts ?? false) {
+            map._container.classList.add("always-show-extracts");
         }
 
         map.raidInfoControl = L.control
@@ -580,6 +603,7 @@ function Map() {
                 hideAllButtonText: tMaps("None"),
                 collapsed: !mapSettingsRef.current.expandSearch,
                 hiddenTasks: mapSettingsRef.current.hiddenTasks,
+                onlyActiveTasks: mapSettingsRef.current.showOnlyActiveTasks,
             })
             .addTo(map);
 
@@ -846,14 +870,11 @@ function Map() {
         const baseLayers = [];
         const tileSize = mapData.tileSize || 256;
         if (mapData.tilePath) {
-            tileLayer = L.tileLayer(
-                mapData.tilePath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`,
-                {
-                    tileSize,
-                    bounds,
-                    ...layerOptions,
-                },
-            );
+            tileLayer = L.tileLayer(mapData.tilePath, {
+                tileSize,
+                bounds,
+                ...layerOptions,
+            });
             baseLayers.push(tileLayer);
         }
 
@@ -913,6 +934,7 @@ function Map() {
         }
 
         for (const baseLayer of baseLayers) {
+            let selectedLayer = "";
             if (mapData.layers?.length === 0) {
                 // remove added height layers
                 // layerControl.addOverlay(heightLayer, tMaps(layer.name), { groupName: tMaps("Levels") });
@@ -929,7 +951,6 @@ function Map() {
                 break;
             }
 
-            let selectedLayer = "";
             baseLayer.on("add", () => {
                 const svgParent = baseLayer._url.nodeName === "svg";
                 if (tileLayer && svgLayer) {
@@ -983,6 +1004,8 @@ function Map() {
                         heightLayer = L.tileLayer(layer.tilePath, {
                             tileSize,
                             bounds,
+                            maxZoom,
+                            maxNativeZoom: mapData.maxZoom,
                             ...layerOptions,
                         });
                     }

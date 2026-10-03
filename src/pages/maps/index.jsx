@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Icon } from "@mdi/react";
@@ -9,7 +9,6 @@ import SEO from "../../components/SEO.jsx";
 import { mapIcons, useMapImagesSortedArray } from "../../features/maps/index.js";
 
 import "./index.css";
-import { HashLink } from "react-router-hash-link";
 
 function Maps() {
     const { t } = useTranslation();
@@ -51,12 +50,12 @@ function Maps() {
                 <nav className="nav-maps">
                     {uniqueMaps.map((map) => (
                         <div className="item" key={`map-link-${map.normalizedName}`}>
-                            <HashLink to={`/maps#${map.normalizedName}`}>
+                            <Link to={`/maps#${map.normalizedName}`}>
                                 <span className="icon">
                                     <Icon path={mapIcons[map.normalizedName]} size={1} className="icon-with-text" />
                                 </span>
                                 {map.name}
-                            </HashLink>
+                            </Link>
                         </div>
                     ))}
                 </nav>

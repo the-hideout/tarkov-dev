@@ -1,6 +1,7 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import { useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@mdi/react";
 import { mdiCloseOctagon, mdiHelpRhombus, mdiCached, mdiClipboardList, mdiTimerSand } from "@mdi/js";
@@ -26,6 +27,7 @@ import useBartersData from "../../features/barters/index.js";
 import useCraftsData from "../../features/crafts/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import useHideoutData from "../../features/hideout/index.js";
+import useQuestsData from "../../features/quests/index.js";
 import { selectAllSkills } from "../../features/settings/settingsSlice.mjs";
 
 import CanvasGrid from "../canvas-grid/index.jsx";
@@ -242,6 +244,7 @@ function SmallItemTable(props) {
         attachesToItemFilter,
         showSlotValue,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         showGunDefaultPresetImages,
@@ -304,6 +307,8 @@ function SmallItemTable(props) {
 
     const { data: hideout } = useHideoutData();
 
+    const { data: quests } = useQuestsData();
+
     const containedItems = useMemo(() => {
         if (!containedInFilter) {
             return {};
@@ -320,6 +325,23 @@ function SmallItemTable(props) {
 
     const data = useMemo(() => {
         const formatItem = (itemData) => {
+            let maxDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += slot.durability;
+                    }
+                    return total;
+                }, 0) || itemData.properties.durability;
+            let effectiveDurability = Math.floor(
+                itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
+            );
+            effectiveDurability =
+                itemData.properties.armorSlots?.reduce((total, slot) => {
+                    if (!slot.allowedPlates) {
+                        total += Math.floor(slot.durability / materialDestructibilityMap[slot?.armorMaterial]);
+                    }
+                    return total;
+                }, 0) || effectiveDurability;
             const formattedItem = {
                 id: itemData.id,
                 name: itemData.name,
@@ -331,35 +353,52 @@ function SmallItemTable(props) {
                 instaProfit: 0,
                 itemLink: `/item/${itemData.normalizedName}`,
                 types: itemData.types,
-                buyFor: itemData.buyFor.filter((buyFor) => {
-                    if (
-                        !showAllSources &&
-                        buyFor.vendor.normalizedName === "flea-market" &&
-                        !availableOnFlea(itemData)
-                    ) {
-                        return false;
-                    }
-                    if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
-                        return false;
-                    }
-                    if (
-                        !showAllSources &&
-                        settings.useTarkovTracker &&
-                        buyFor.vendor.taskUnlock &&
-                        !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)
-                    ) {
-                        return false;
-                    }
-                    if (
-                        buyFor.vendor.normalizedName === "flea-market" &&
-                        traderValue &&
-                        traderBuyback &&
-                        (itemData.types.includes("preset") || itemData.lastOfferCount < 2)
-                    ) {
-                        return false;
-                    }
-                    return true;
-                }),
+                buyFor: itemData.buyFor
+                    .filter((buyFor) => {
+                        if (
+                            !showAllSources &&
+                            buyFor.vendor.normalizedName === "flea-market" &&
+                            !availableOnFlea(itemData)
+                        ) {
+                            return false;
+                        }
+                        if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
+                            return false;
+                        }
+                        if (
+                            !showAllSources &&
+                            settings.useTarkovTracker &&
+                            buyFor.vendor.taskUnlock &&
+                            !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)
+                        ) {
+                            return false;
+                        }
+                        if (
+                            buyFor.vendor.normalizedName === "flea-market" &&
+                            traderValue &&
+                            traderBuyback &&
+                            (itemData.types.includes("preset") || itemData.lastOfferCount < 2)
+                        ) {
+                            return false;
+                        }
+                        return true;
+                    })
+                    .map((buyFor) => {
+                        const newBuyFor = structuredClone(buyFor);
+                        if (newBuyFor.vendor.taskUnlock) {
+                            const taskUnlock = quests.find((q) => q.id === newBuyFor.vendor.taskUnlock.id);
+                            if (taskUnlock) {
+                                newBuyFor.vendor.taskUnlock = {
+                                    id: taskUnlock.id,
+                                    name: taskUnlock.name,
+                                    normalizedName: taskUnlock.normalizedName,
+                                };
+                            } else {
+                                newBuyFor.vendor.taskUnlock = null;
+                            }
+                        }
+                        return newBuyFor;
+                    }),
                 sellFor: itemData.sellFor,
                 buyOnFleaPrice: itemData.buyFor.find(
                     (buyPrice) =>
@@ -376,12 +415,16 @@ function SmallItemTable(props) {
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
-                armorClass: itemData.properties.class,
+                armorClass:
+                    itemData.properties.armorSlots?.reduce((max, slot) => {
+                        if (slot.allowedPlates) {
+                            return max;
+                        }
+                        return Math.max(max, slot.class);
+                    }, 0) || itemData.properties.class,
                 armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
-                maxDurability: itemData.properties.durability,
-                effectiveDurability: Math.floor(
-                    itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id],
-                ),
+                maxDurability,
+                effectiveDurability,
                 repairability: materialRepairabilityMap[itemData.properties?.material?.id],
                 stats: `${Math.round((itemData.properties.speedPenalty || 0) * 100)}% / ${Math.round((itemData.properties.turnPenalty || 0) * 100)}% / ${itemData.properties.ergoPenalty || 0}`,
                 weight: itemData.weight,
@@ -873,6 +916,39 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showCompatiblePlates) {
+            returnData.forEach((item) => {
+                item.subRows = items
+                    .filter((linkedItem) => {
+                        return item.properties?.armorSlots?.some((slot) =>
+                            slot.allowedPlates?.some((plate) => plate.id === linkedItem.id),
+                        );
+                    })
+                    .filter((plate) => {
+                        if (plateArmorFilter && (plateArmorFilter[0] !== 0 || plateArmorFilter[1] !== 6)) {
+                            return (
+                                plate.properties.class >= plateArmorFilter[0] &&
+                                plate.properties.class <= plateArmorFilter[1]
+                            );
+                        }
+                        return true;
+                    })
+                    .sort((a, b) => {
+                        return b.name.localeCompare(a.name);
+                    })
+                    .map((item) => formatItem(item))
+                    .filter((item) => {
+                        if (!maxPrice) {
+                            return true;
+                        }
+                        return item.cheapestObtainPrice <= maxPrice;
+                    });
+            });
+            returnData.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+        }
+
         if (attachmentMap) {
             returnData.forEach((item) => {
                 item.subRows = items
@@ -992,6 +1068,7 @@ function SmallItemTable(props) {
         showAttachTo,
         attachesToItemFilter,
         showPresets,
+        showCompatiblePlates,
         attachmentMap,
         showGunDefaultPresetImages,
         useBarterIngredients,
@@ -1013,6 +1090,7 @@ function SmallItemTable(props) {
         energyCost,
         provisionValue,
         skills,
+        quests,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -1059,7 +1137,7 @@ function SmallItemTable(props) {
 
     const columns = useMemo(() => {
         const useColumns = [];
-        if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+        if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
             useColumns.push({
                 id: "expander",
                 Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
@@ -1601,7 +1679,6 @@ function SmallItemTable(props) {
                 },
                 position: blindnessProtection,
                 sortType: (a, b) => {
-                    console.log(a);
                     return (a.values.blindnessProtection ?? 0) - (b.values.blindnessProtection ?? 0);
                 },
             });
@@ -2012,7 +2089,7 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
-                if (showAttachments || showAttachTo || showPresets || attachmentMap) {
+                if (showAttachments || showAttachTo || showPresets || showCompatiblePlates || attachmentMap) {
                     position++;
                 }
                 if (position < 1) {
@@ -2085,6 +2162,7 @@ function SmallItemTable(props) {
         showSlotValue,
         showAllSources,
         showPresets,
+        showCompatiblePlates,
         showRestrictedType,
         attachmentMap,
         settings,
@@ -2092,6 +2170,7 @@ function SmallItemTable(props) {
         barters,
         crafts,
         hideout,
+        quests,
         useBarterIngredients,
         useCraftIngredients,
         distance,

@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ImageViewer from "react-simple-image-viewer";
@@ -36,7 +36,7 @@ import useTradersData from "../../features/traders/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import useMapsData from "../../features/maps/index.js";
 import useHideoutData from "../../features/hideout/index.js";
-import useBossesData from "../../features/bosses/index.js";
+import { useBossesData } from "../../features/maps/index.js";
 
 import { TaskObjective, TaskRewards } from "../../modules/task-elements.mjs";
 
@@ -89,7 +89,14 @@ function Quest() {
         zIndex: 20,
     };
 
+    const allDataLoaded = useMemo(() => {
+        return quests.length && traders.length && items.length && maps.length && stations.length;
+    }, [quests, traders, items, maps, stations]);
+
     let currentQuest = useMemo(() => {
+        if (!allDataLoaded) {
+            return;
+        }
         return quests.find((quest) => {
             if (quest.id === taskIdentifier) {
                 return true;
@@ -102,7 +109,7 @@ function Quest() {
             }
             return false;
         });
-    }, [quests, taskIdentifier]);
+    }, [quests, taskIdentifier, allDataLoaded]);
 
     const hasFailInfo = useMemo(() => {
         if (!currentQuest) {
@@ -112,6 +119,16 @@ function Quest() {
         return (
             Object.keys(failureOutcome).some((r) => failureOutcome[r]?.length > 0) ||
             currentQuest.failConditions?.length > 0
+        );
+    }, [currentQuest]);
+
+    const hasFinishRewards = useMemo(() => {
+        if (!currentQuest) {
+            return false;
+        }
+        return (
+            currentQuest.experience > 0 ||
+            Object.keys(currentQuest.finishRewards).some((rewardKey) => currentQuest.finishRewards[rewardKey]?.length)
         );
     }, [currentQuest]);
 
@@ -215,6 +232,9 @@ function Quest() {
                     <span>
                         {levelReqs.map((traderReq) => {
                             const trader = traders.find((trad) => trad.id === traderReq.trader.id);
+                            if (!trader) {
+                                return <div key={`req-trader-${trader.id}`}></div>;
+                            }
                             return (
                                 <div key={`req-trader-${trader.id}`}>
                                     <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
@@ -235,6 +255,9 @@ function Quest() {
                     <span>
                         {repReqs.map((traderRep) => {
                             const trader = traders.find((trad) => trad.id === traderRep.trader.id);
+                            if (!trader) {
+                                return <div key={`req-trader-${trader.id}`}></div>;
+                            }
                             return (
                                 <div key={`req-trader-${trader.id}`}>
                                     <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
@@ -249,14 +272,17 @@ function Quest() {
             };
         }
         if (currentQuest?.map) {
-            props.map = {
-                value: <Link to={`/map/${currentQuest.map.normalizedName}`}>{currentQuest.map.name}</Link>,
-                label: t("Map"),
-                order: 4,
-            };
+            const map = maps.find((m) => m.id === currentQuest.map.id);
+            if (map) {
+                props.map = {
+                    value: <Link to={`/map/${map.normalizedName}`}>{map.name}</Link>,
+                    label: t("Map"),
+                    order: 4,
+                };
+            }
         }
         return props;
-    }, [currentQuest, traders, t]);
+    }, [currentQuest, traders, maps, t]);
 
     const getTaskStatusIcon = useCallback(
         (status, options = {}) => {
@@ -405,11 +431,11 @@ function Quest() {
     }
 
     // checks for item data loaded
-    if (!currentQuest && (questsStatus === "idle" || questsStatus === "loading")) {
+    if (!currentQuest && (questsStatus === "idle" || questsStatus === "loading" || !allDataLoaded)) {
         currentQuest = loadingData;
     }
 
-    if (!currentQuest && (questsStatus === "succeeded" || questsStatus === "failed")) {
+    if (!currentQuest && allDataLoaded && (questsStatus === "succeeded" || questsStatus === "failed")) {
         return <ErrorPage />;
     }
 
@@ -624,14 +650,17 @@ function Quest() {
                     </div>
                 )}
 
-                {Object.keys(currentQuest.finishRewards).some((r) => currentQuest.finishRewards[r]?.length) && (
+                {hasFinishRewards && (
                     <div key="task-finish-rewards" className="information-section has-table">
                         <h2>
                             <Icon path={mdiGift} size={1.5} className="icon-with-text" /> {t("Completion Rewards")}
                         </h2>
                         <div key="task-finish-rewards-content" className="information-content">
                             {TaskRewards({
-                                rewards: currentQuest.finishRewards,
+                                rewards: {
+                                    ...currentQuest.finishRewards,
+                                    experience: currentQuest.experience,
+                                },
                                 t,
                                 items,
                                 settings,

@@ -1,7 +1,8 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import DataTable from "../data-table/index.jsx";
 

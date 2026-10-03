@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import ItemTooltip from "./ItemTooltip.jsx";
 import ItemIcon from "./ItemIcon.jsx";

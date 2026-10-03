@@ -21,8 +21,8 @@ export default function TableHead({
 }) {
     return (
         <th
-            {...headProps}
             key={itemKey}
+            {...headProps}
             className={clsx(headProps.className, {
                 "table-head--left": align === "left",
                 "table-head--right": align === "right",

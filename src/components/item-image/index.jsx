@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import ImageViewer from "react-simple-image-viewer";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
@@ -39,6 +39,7 @@ function ItemImage({
     className,
     style,
     imageLink,
+    autoDowngrade = false,
 }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -153,7 +154,26 @@ function ItemImage({
 
     const imageUrl = useMemo(() => {
         if (!imageLink || customImageLoadFailed || !customImageLoaded) {
-            return item[imageField];
+            let url = item[imageField];
+            if (
+                !autoDowngrade ||
+                (item.id !== "loading" && !url.includes("unknown-item") && imageField !== "baseImageLink")
+            ) {
+                return url;
+            }
+            const imageSizes = ["image8xLink", "image512pxLink", "baseImageLink"];
+            for (let i = 0; i < imageSizes.length; i++) {
+                const newUrl = item[imageSizes[i]];
+                if (!newUrl) {
+                    continue;
+                }
+                if (newUrl.includes("unknown-item")) {
+                    continue;
+                }
+                url = newUrl;
+                break;
+            }
+            return url;
         }
         return imageLink;
     }, [item, imageField, imageLink, customImageLoadFailed, customImageLoaded]);

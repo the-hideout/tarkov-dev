@@ -2,3 +2,7 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.no-hideout-modules-visible {
+    text-align: center;
+}

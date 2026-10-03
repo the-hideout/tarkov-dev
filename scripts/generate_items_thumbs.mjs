@@ -3,6 +3,8 @@ import path from "path";
 import sharp from "sharp";
 import { exit } from "process";
 
+//import apiRequest from "../src/modules/api-request.mjs";
+
 import categoryPages from "../src/data/category-pages.json" with { type: "json" };
 
 const ignoredCategories = [
@@ -23,18 +25,18 @@ const ignoredCategories = [
     "provisions",
 ];
 
-const graphqlRequest = (queryString) => {
-    return fetch("https://api.tarkov.dev/graphql", {
-        method: "POST",
-        cache: "no-store",
+const apiRequest = (path) => {
+    return fetch(`https://json.tarkov.dev/${path}`, {
+        cache: "no-cache",
         headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
         },
-        body: JSON.stringify({
-            query: queryString,
-        }),
-    }).then((response) => response.json());
+    }).then((response) => {
+        if (!response.ok) {
+            return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+        }
+        return response.json().then((json) => json.data);
+    });
 };
 
 function shuffle(array) {
@@ -62,6 +64,8 @@ function shuffle(array) {
         const maxHeight = 144;
         const mapsPath = "./public/images/items/";
 
+        const allItems = await apiRequest("regular/items");
+
         for (const categoryPage of categoryPages) {
             if (ignoredCategories.includes(categoryPage.key)) {
                 continue;
@@ -84,15 +88,8 @@ function shuffle(array) {
             //     }
             // }).png();
 
-            let type = categoryPage.type;
-            const query = `{
-                items(type: ${type}, limit:420) {
-                    image512pxLink
-                }
-            }`;
-            const itemsOfType = await graphqlRequest(query);
+            const items = Object.values(allItems.items).filter((i) => i.types.includes(categoryPage.type));
 
-            const items = itemsOfType.data.items;
             shuffle(items);
 
             const itemResize = {

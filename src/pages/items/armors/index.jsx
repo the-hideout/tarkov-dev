@@ -120,6 +120,7 @@ function Armors(props) {
                 plateArmorFilter={[minArmorClassPlate, maxArmorClassPlate]}
                 maxPrice={maxPrice}
                 useClassEffectiveDurability={useClassEffectiveDurability}
+                showCompatiblePlates
                 armorClass
                 armorZones
                 cheapestPrice={1}

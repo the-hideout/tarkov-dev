@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import SEO from "../../components/SEO.jsx";
 import { InputFilter } from "../../components/filter/index.jsx";
 
-import useItemsData from "../../features/items/index.js";
+import useItemsData, { useHandbookData } from "../../features/items/index.js";
 
 import itemSearch from "../../modules/item-search.js";
 
@@ -20,9 +20,12 @@ function Converter() {
     const [RUBFilter, setRUBFilter] = useState();
     const [USDFilter, setUSDFilter] = useState();
     const [EURFilter, setEURFilter] = useState();
+    const [GPCFilter, setGPCFilter] = useState();
     const [USDRate, setUSDRate] = useState(143);
     const [EURRate, setEURRate] = useState(159);
+    const [GPCRate, setGPCRate] = useState(7500);
     const { data: items } = useItemsData();
+    const { data: handbook } = useHandbookData();
 
     const enterPress = useKeyPress("Enter");
 
@@ -45,6 +48,13 @@ function Converter() {
     }, [items, setEURRate, setUSDRate]);
 
     useEffect(() => {
+        if (!handbook.settings) {
+            return;
+        }
+        setGPCRate(handbook.settings.gpCoinValue);
+    }, [handbook, setGPCRate]);
+
+    useEffect(() => {
         if (enterPress) {
             resetInput();
         }
@@ -52,9 +62,10 @@ function Converter() {
 
     function exchangeRate() {
         const exchangeRates = {
-            RUB: { USD: 1 / USDRate, EUR: 1 / EURRate },
-            USD: { EUR: USDRate / EURRate, RUB: USDRate },
-            EUR: { USD: EURRate / USDRate, RUB: EURRate },
+            RUB: { USD: 1 / USDRate, EUR: 1 / EURRate, GPC: 1 / GPCRate },
+            USD: { EUR: USDRate / EURRate, RUB: USDRate, GPC: USDRate / GPCRate },
+            EUR: { USD: EURRate / USDRate, RUB: EURRate, GPC: EURRate / GPCRate },
+            GPC: { RUB: GPCRate, USD: GPCRate / USDRate, EUR: GPCRate / EURRate },
         };
         return exchangeRates;
     }
@@ -69,6 +80,9 @@ function Converter() {
         } else if (fromCurrency === "EUR") {
             setEURFilter(amount);
             convertCurrency(fromCurrency, amount);
+        } else if (fromCurrency === "GPC") {
+            setGPCFilter(amount);
+            convertCurrency(fromCurrency, amount);
         }
     }
 
@@ -78,16 +92,29 @@ function Converter() {
             setUSDFilter(convertedAmount);
             convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["EUR"]);
             setEURFilter(convertedAmount);
+            convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["GPC"]);
+            setGPCFilter(convertedAmount);
         } else if (fromCurrency === "USD") {
             let convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["EUR"]);
             setEURFilter(convertedAmount);
             convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["RUB"]);
             setRUBFilter(convertedAmount);
+            convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["GPC"]);
+            setGPCFilter(convertedAmount);
         } else if (fromCurrency === "EUR") {
             let convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["USD"]);
             setUSDFilter(convertedAmount);
             convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["RUB"]);
             setRUBFilter(convertedAmount);
+            convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["GPC"]);
+            setGPCFilter(convertedAmount);
+        } else if (fromCurrency === "GPC") {
+            let convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["USD"]);
+            setUSDFilter(convertedAmount);
+            convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["RUB"]);
+            setRUBFilter(convertedAmount);
+            convertedAmount = Math.floor(amount * exchangeRate()[fromCurrency]["EUR"]);
+            setEURFilter(convertedAmount);
         }
     }
 
@@ -95,6 +122,7 @@ function Converter() {
         setRUBFilter("");
         setUSDFilter("");
         setEURFilter("");
+        setGPCFilter("");
     }
 
     return [
@@ -151,6 +179,18 @@ function Converter() {
                     }}
                 />
                 <Icon path={mdiCurrencyEur} size={1.5} className="icon-with-text" />
+            </div>
+            <div className="currency-input">
+                <InputFilter
+                    value={GPCFilter}
+                    placeholder={"0"}
+                    type="number"
+                    min={0}
+                    onChange={(event) => {
+                        inputFilter("GPC", event.target.value);
+                    }}
+                />
+                <span className={"gp-coin"}>GP</span>
             </div>
             <button className="reset-button" onClick={resetInput}>
                 {t("Reset")}

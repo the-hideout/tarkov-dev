@@ -11,24 +11,17 @@ updates:
           - "*"
     schedule:
       interval: monthly
+    cooldown:
+      default-days: 45
   - package-ecosystem: npm
-    directory: "/"
+    directories:
+      - "/"
+      - "/workers-site"
     groups:
       npm-dependencies:
         patterns:
           - "*"
     schedule:
       interval: monthly
-    ignore:
-      - dependency-name: "i18next"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react-i18next"
-        update-types: ["version-update:semver-minor"]
-      - dependency-name: "react-router"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react-router-dom"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
+    cooldown:
+      default-days: 45

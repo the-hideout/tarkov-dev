@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip, Badge } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -192,6 +192,9 @@ function Item() {
                 extraProps.usedOnMaps = maps
                     .filter((map) => map.locks.some((l) => l.key.id === item.id))
                     .sort((a, b) => a.name.localeCompare(b.name));
+            }
+            if (item.properties.defaultPreset) {
+                extraProps.defaultPreset = items.find((i) => i.id === item.properties.defaultPreset.id);
             }
             return {
                 ...item,
@@ -546,6 +549,7 @@ The max profitable price is impacted by the intel center and hideout management 
                             imageField={"image512pxLink"}
                             imageViewer={true}
                             nonFunctionalOverlay={true}
+                            autoDowngrade={true}
                         />
                     </div>
                 </div>
@@ -650,6 +654,9 @@ The max profitable price is impacted by the intel center and hideout management 
                                     const loyaltyLevel = buyForSource.requirements.find(
                                         (requirement) => requirement.type === "loyaltyLevel",
                                     )?.value;
+                                    const taskUnlock = buyForSource.vendor.taskUnlock
+                                        ? quests.find((q) => q.id === buyForSource.vendor.taskUnlock.id)
+                                        : undefined;
                                     return (
                                         <div
                                             className={`text-and-image-information-wrapper`}
@@ -659,17 +666,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                                 {buyForSource.vendor.normalizedName !== "flea-market" && (
                                                     <LoyaltyLevelIcon loyaltyLevel={loyaltyLevel} />
                                                 )}
-                                                {buyForSource.vendor.taskUnlock && (
+                                                {taskUnlock && (
                                                     <div>
                                                         <Tooltip
                                                             title={
-                                                                <Link
-                                                                    to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}
-                                                                >
+                                                                <Link to={`/task/${taskUnlock.normalizedName}`}>
                                                                     <div style={{ whiteSpace: "nowrap" }}>
                                                                         {t("Task: {{taskName}}", {
-                                                                            taskName:
-                                                                                buyForSource.vendor.taskUnlock.name,
+                                                                            taskName: taskUnlock.name,
                                                                         })}
                                                                     </div>
                                                                 </Link>
@@ -886,6 +890,18 @@ The max profitable price is impacted by the intel center and hideout management 
                             sumColumns
                             showAllSources={showAllContainedItemSources}
                         />
+                    </div>
+                )}
+                {!!currentItemData?.properties?.content && (
+                    <div>
+                        <div className="item-content-headline-wrapper">
+                            <h2>{t("Content")}</h2>
+                        </div>
+                        <div className="item-content-wrapper">
+                            {currentItemData.properties.content.map((subtitle, index) => {
+                                return <p key={`subtitle-${index}`} dangerouslySetInnerHTML={{ __html: subtitle }}></p>;
+                            })}
+                        </div>
                     </div>
                 )}
                 {hasBarters && (

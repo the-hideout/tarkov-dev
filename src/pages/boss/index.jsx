@@ -1,6 +1,7 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import ImageViewer from "react-simple-image-viewer";
 
 import { Icon } from "@mdi/react";
@@ -25,7 +26,7 @@ import { getRelativeTimeAndUnit } from "../../modules/format-duration.js";
 
 import capitalize from "../../modules/capitalize-first.js";
 
-import useBossesData from "../../features/bosses/index.js";
+import { useBossesData } from "../../features/maps/index.js";
 import useItemsData from "../../features/items/index.js";
 import useMapsData, { useMapImages } from "../../features/maps/index.js";
 
@@ -431,7 +432,7 @@ function BossPage(params) {
                 </h2>
                 <ul>
                     {bossData.reports.map((report, index) => {
-                        const reportedMap = Object.values(allMaps).find((m) => m.id === report.map.id);
+                        const reportedMap = Object.values(allMaps).find((m) => m.id === report.map);
                         let relativeTime = getRelativeTimeAndUnit(new Date(parseInt(report.timestamp)).getTime());
                         return (
                             <li key={`report-${index}`}>

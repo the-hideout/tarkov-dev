@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useDispatch } from "react-redux";
 
 import ItemCost from "../item-cost/index.jsx";

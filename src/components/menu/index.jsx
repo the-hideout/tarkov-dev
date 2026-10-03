@@ -1,7 +1,7 @@
 import { useMemo, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@mdi/react";
 import { mdiCogOutline, mdiRemote, mdiClose, mdiMenu } from "@mdi/js";
@@ -11,7 +11,7 @@ import { Box, Alert, IconButton, Collapse, LinearProgress } from "@mui/material"
 
 import { caliberArrayWithSplit } from "../../modules/format-ammo.mjs";
 import categoryPages from "../../data/category-pages.json";
-import useBossesData from "../../features/bosses/index.js";
+import { useBossesData } from "../../features/maps/index.js";
 
 import { mapIcons, useMapImagesSortedArray } from "../../features/maps/index.js";
 import { setGameMode } from "../../features/settings/settingsSlice.mjs";
@@ -21,6 +21,8 @@ import useTradersData from "../../features/traders/index.js";
 import CategoryMenu from "./CategoryMenu.jsx";
 import { getMenuData } from "./menu-data.js";
 import useMenuOverflow from "./useMenuOverflow.js";
+
+import gameModes from "../../data/game-modes.json";
 
 import "./index.css";
 
@@ -40,7 +42,15 @@ const Menu = () => {
     const loadingData = useSelector((state) => state.settings.loadingData);
 
     const otherGameMode = useMemo(() => {
-        return gameMode === "regular" ? "pve" : "regular";
+        let modeIndex = gameModes.indexOf(gameMode);
+        if (modeIndex === -1) {
+            modeIndex = 0;
+        }
+        modeIndex++;
+        if (modeIndex >= gameModes.length) {
+            modeIndex = 0;
+        }
+        return gameModes[modeIndex];
     }, [gameMode]);
 
     const gameModeTranslated = useMemo(() => {
@@ -93,8 +103,19 @@ const Menu = () => {
     const { visibleCount } = useMenuOverflow(desktopMenuRef, measuringRef, menuData);
 
     const visibleItems = useMemo(() => {
+        // remove Prestige menu item in pve mode
+        for (const menuTab of menuData) {
+            if (gameMode !== "pve") {
+                break;
+            }
+            if (menuTab.id !== "progression") {
+                continue;
+            }
+            menuTab.items = menuTab.items.filter((menuItem) => menuItem.to !== "/prestige");
+            break;
+        }
         return menuData.slice(0, visibleCount);
-    }, [menuData, visibleCount]);
+    }, [menuData, visibleCount, gameMode]);
 
     const overflowItems = useMemo(() => {
         return menuData.slice(visibleCount);

@@ -4,7 +4,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 
 import doFetchItems from "./do-fetch-items.mjs";
-import { placeholderItems } from "../../modules/placeholder-data.js";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
@@ -14,8 +13,6 @@ function processFetchedItems(allData) {
 
     for (const item of allItems) {
         item.slots = item.width * item.height;
-
-        item.categoryIds = item.categories.map((cat) => cat.id);
 
         if (item.properties) {
             item.properties.weight = item.weight;
@@ -66,7 +63,17 @@ function processFetchedItems(allData) {
 }
 
 const initialState = {
-    data: processFetchedItems(placeholderItems(langCode())),
+    data: {
+        items: [],
+        handbook: {
+            fleaMarket: {},
+            armorMaterials: [],
+            itemCategories: [],
+            handbookCategories: [],
+            playerLevels: [],
+            skills: [],
+        },
+    },
     status: "idle",
     error: null,
 };

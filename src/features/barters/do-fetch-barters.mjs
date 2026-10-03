@@ -6,73 +6,34 @@ class BartersQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, gameMode, prebuild } = options;
-        const query = `query TarkovDevBarters {
-            barters(lang: ${language}, gameMode: ${gameMode}) {
-                rewardItems {
-                    item {
-                        id
-                    }
-                    count
-                }
-                requiredItems {
-                    item {
-                        id
-                    }
-                    count
-                    attributes {
-                        name
-                        value
-                    }
-                }
-                trader {
-                    id
-                    name
-                    normalizedName
-                }
-                level
-                taskUnlock {
-                    id
-                    tarkovDataId
-                    name
-                    normalizedName
-                }
-            }
-        }`;
+        const { language, gameMode } = options;
 
-        const bartersData = await this.graphqlRequest(query);
+        const [bartersData] = await Promise.all([this.apiRequest(`${gameMode}/barters`)]);
 
-        if (bartersData.errors) {
-            if (bartersData.data) {
-                for (const error of bartersData.errors) {
-                    let badItem = false;
-                    if (error.path) {
-                        badItem = bartersData.data;
-                        for (let i = 0; i < 2; i++) {
-                            badItem = badItem[error.path[i]];
-                        }
-                    }
-                    console.log(`Error in barters API query: ${error.message}`);
-                    if (badItem) {
-                        console.log(badItem);
-                    }
-                }
-            }
-            // only throw error if this is for prebuild or data wasn't returned
-            if (prebuild || !bartersData.data || !bartersData.data.barters || !bartersData.data.barters.length) {
-                return Promise.reject(new Error(bartersData.errors[0].message));
-            }
-        }
-
-        // validate to make sure barters all have valid requirements and rewards
-        return bartersData.data.barters.reduce((barters, barter) => {
-            barter.requiredItems = barter.requiredItems.filter(Boolean);
-            barter.rewardItems = barter.rewardItems.filter(Boolean);
-            if (barter.requiredItems.length > 0 && barter.rewardItems.length > 0) {
-                barters.push(barter);
-            }
-            return barters;
-        }, []);
+        // convert to previous format
+        return bartersData.map((barter) => {
+            barter.trader = {
+                id: barter.trader,
+            };
+            barter.level = barter.minTraderLevel;
+            barter.requiredItems = barter.requiredItems.map((req) => {
+                req.item = { id: req.item };
+                req.attributes = Object.keys(req.attributes).map((attName) => {
+                    return {
+                        name: attName,
+                        value: req.attributes[attName],
+                    };
+                });
+                return req;
+            });
+            barter.rewardItems ??= [barter.offeredItem];
+            barter.rewardItems = barter.rewardItems.map((req) => {
+                req.item = { id: req.item };
+                return req;
+            });
+            barter.taskUnlock = barter.taskUnlock ? { id: barter.taskUnlock } : null;
+            return barter;
+        });
     }
 }
 

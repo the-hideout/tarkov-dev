@@ -10,10 +10,8 @@ import useQuestsData from "../quests/index.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
 
-import { placeholderCrafts } from "../../modules/placeholder-data.js";
-
 const initialState = {
-    data: placeholderCrafts(langCode()),
+    data: [],
     status: "idle",
     error: null,
 };

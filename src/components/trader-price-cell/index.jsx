@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Tooltip } from "@mui/material";
 import { Icon } from "@mdi/react";
 import { mdiClipboardList } from "@mdi/js";

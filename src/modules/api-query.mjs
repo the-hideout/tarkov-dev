@@ -1,6 +1,7 @@
 import LZString from "lz-string";
 
 import graphqlRequest from "./graphql-request.mjs";
+import apiRequest from "./api-request.mjs";
 
 const defaultOptions = {
     language: "en",
@@ -13,6 +14,10 @@ class APIQuery {
         this.name = queryName;
         this.cacheTtl = cacheMinutes * 60 * 1000;
         this.pendingQuery = {};
+    }
+
+    apiRequest(path, options) {
+        return apiRequest(path, options);
     }
 
     graphqlRequest(queryString, variables) {
@@ -34,11 +39,6 @@ class APIQuery {
             keyparts.push(options[variable]);
         }
         const storageKey = keyparts.join("-");
-        const cached = this.checkCachedQuery(storageKey);
-        if (cached) {
-            //console.log('returning cached value', this.name);
-            return cached;
-        }
         //console.log('querying new value', this.name);
         if (this.pendingQuery[storageKey]) {
             return this.pendingQuery[storageKey];
@@ -46,21 +46,9 @@ class APIQuery {
         // remove previous local storage versions (probably other languages, gamemodes)
         this.removeCachedQueries(keyprefix);
 
-        this.pendingQuery[storageKey] = this.query(options)
-            .then((results) => {
-                try {
-                    //console.time(`query-save-${storageKey}`);
-                    //localStorage.setItem(storageKey, LZString.compress(JSON.stringify({updated: new Date().getTime(), data: results})));
-                    localStorage.setItem(storageKey, JSON.stringify({ updated: new Date().getTime(), data: results }));
-                    //console.timeEnd(`query-save-${storageKey}`);
-                } catch (error) {
-                    /* noop */
-                }
-                return results;
-            })
-            .finally(() => {
-                this.pendingQuery[storageKey] = undefined;
-            });
+        this.pendingQuery[storageKey] = this.query(options).finally(() => {
+            this.pendingQuery[storageKey] = undefined;
+        });
         return this.pendingQuery[storageKey];
     }
 
@@ -97,7 +85,7 @@ class APIQuery {
         if (!this.checkLocalStorage()) {
             return;
         }
-        for (let i = 0; i < localStorage.length ?? -1; i++) {
+        for (let i = 0; i < localStorage.length; i++) {
             const localStorageKey = localStorage.key(i);
             if (!localStorageKey.startsWith(cacheKeyPrefix)) {
                 continue;

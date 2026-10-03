@@ -19,13 +19,13 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
         const validators = {
             "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
-            "tarkovtracker.org": /^(?:PVP_|PVE_).+$/i,
+            "tarkovtracker.org": /^(?:[A-Z]{3}_).+$/i,
         };
         if (!apiKey.match(validators[domain])) {
             return false;
         }
 
-        const response = await fetch(`https://${domain}/api/v2/progress`, {
+        const response = await fetch(`https://api.${domain}/progress`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${apiKey}`,
@@ -175,21 +175,22 @@ const defaultSettings = {
 const settingsSlice = createSlice({
     name: "settings",
     initialState: {
-        progressStatus: "idle",
-        regular: localStorageReadJson("regularSettings", { ...defaultSettings }),
-        pve: localStorageReadJson("pveSettings", {
-            ...defaultSettings,
+        "progressStatus": "idle",
+        "regular": localStorageReadJson("regularSettings", structuredClone(defaultSettings)),
+        "pve": localStorageReadJson("pveSettings", {
+            ...structuredClone(defaultSettings),
             tarkovTrackerAPIKey: "",
             useTarkovTracker: false,
         }),
-        hideRemoteControl: localStorageReadJson("hide-remote-control", false),
-        playerPosition: localStorageReadJson("playerPosition", null),
-        gameMode: localStorageReadJson("gameMode", "regular"),
-        Ti: localStorageReadJson("Ti", 0.03),
-        Tr: localStorageReadJson("Tr", 0.03),
-        fleaEnabled: localStorageReadJson("fleaEnabled", true),
-        tarkovTrackerDomain: localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
-        loadingData: "",
+        "pvp-season": localStorageReadJson("pvp-seasonSettings", structuredClone(defaultSettings)),
+        "hideRemoteControl": localStorageReadJson("hide-remote-control", false),
+        "playerPosition": localStorageReadJson("playerPosition", null),
+        "gameMode": localStorageReadJson("gameMode", "regular"),
+        "Ti": localStorageReadJson("Ti", 0.03),
+        "Tr": localStorageReadJson("Tr", 0.03),
+        "fleaEnabled": localStorageReadJson("fleaEnabled", true),
+        "tarkovTrackerDomain": localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org"),
+        "loadingData": "",
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -256,6 +257,8 @@ const settingsSlice = createSlice({
             localStorageWriteJson("regularSettings", state[state.regular]);
             state.pve.tarkovTrackerAPIKey = "";
             localStorageWriteJson("pveSettings", state[state.pve]);
+            state["pvp-season"].tarkovTrackerAPIKey = "";
+            localStorageWriteJson("pvp-seasonSettings", state[state["pvp-season"]]);
         },
         setDataLoading: (state, action) => {
             const loading = state.loadingData.split(",").filter(Boolean);

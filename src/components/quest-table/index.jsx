@@ -1,6 +1,7 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useSelector } from "react-redux";
 import { Icon } from "@mdi/react";
 import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from "@mdi/js";

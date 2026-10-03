@@ -14,36 +14,41 @@ permissions:
 
 jobs:
   deploy:
-    environment: secrets
+    environment:
+      name: production
+      deployment: false
     if: ${{ github.event.issue.pull_request }} # only run on pull request comments
     runs-on: ubuntu-latest
 
     steps:
 
-      - uses: github/branch-deploy@v11
+      - uses: github/branch-deploy@f0984057ffe1aa340aa017b6eafb894310aed88e # pin@v12.0.0
         id: branch-deploy
         with:
-          admins: the-hideout/core-contributors
-          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
+          admins: GrantBirki,Razzmatazzz
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
           sticky_locks: "true"
+          allow_forks: "true"
 
       - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # pin@v6
         with:
           ref: ${{ steps.branch-deploy.outputs.sha }}
 
-      - uses: actions/setup-node@v6.3.0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # pin@v6.0.10
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # pin@v7.0.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: install dependencies
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: env setup
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
@@ -55,7 +60,7 @@ jobs:
 
       - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm run build
+        run: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
@@ -65,11 +70,11 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # pin@v3.14.1
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # pin@v4.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          wranglerVersion: '2.13.0'
+          wranglerVersion: '4.101.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=preview
 
       # fetch the dev url from stdout and save add it to the deploy message
@@ -91,9 +96,9 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'production' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # pin@v3.14.1
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # pin@v4.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          wranglerVersion: '2.13.0'
+          wranglerVersion: '4.101.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Icon } from "@mdi/react";
@@ -15,7 +15,7 @@ import i18n from "../../i18n.js";
 
 import "./index.css";
 
-function Traders(props) {
+function Traders() {
     const { t } = useTranslation();
     const { data: allTraders } = useTradersData();
 

@@ -1,7 +1,7 @@
 import { mdiEarthBox } from "@mdi/js";
 import { Icon } from "@mdi/react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useMatch } from "react-router-dom";
+import { Link, useNavigate, useMatch } from "react-router";
 
 function MenuItem(props) {
     const routeMatch = useMatch("/ammo/:currentAmmo");

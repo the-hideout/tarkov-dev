@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import SEO from "../../../components/SEO.jsx";
 import ErrorPage from "../../error-page/index.jsx";

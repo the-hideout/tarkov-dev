@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v11
+        uses: github/branch-deploy@f0984057ffe1aa340aa017b6eafb894310aed88e # pin@v12.0.0
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
@@ -24,24 +24,29 @@ jobs:
 
       - name: checkout
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # pin@v6
         with:
           ref: ${{ steps.deployment-check.outputs.sha }}
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: GrantBirki/json-yaml-validate@v4.0.0
+        uses: GrantBirki/json-yaml-validate@3ff75979f3b21171f2e8a44705f0ff4bed30bbc0 # pin@v5.0.0
+        with:
+          exclude_file: .github/exclude.txt
 
-      - uses: actions/setup-node@v6.3.0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # pin@v6.0.10
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # pin@v7.0.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: install dependencies
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: env setup
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
@@ -53,34 +58,23 @@ jobs:
 
       - name: build
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        run: npm run build
+        run: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
           PUBLIC_URL: ''
 
       - name: test
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        run: npm run test
+        run: pnpm run test
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # pin@v3.14.1
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # pin@v4.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          wranglerVersion: '2.13.0'
+          wranglerVersion: '4.101.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main
-
-      # Uncomment to enable Sentry releases via CI
-      # - name: Create Sentry release
-      #   uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1.1.6
-      #   env:
-      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      #     SENTRY_ORG: tarkov-dev
-      #     SENTRY_PROJECT: tarkovdev
-      #   with:
-      #     environment: production
-      #     sourcemaps: ./build/static/
 
       # Always run this step on push to main
       - name: CDN Purge

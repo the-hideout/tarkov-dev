@@ -5,12 +5,17 @@ import equal from "fast-deep-equal";
 
 import doFetchQuests from "./do-fetch-quests.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
-import { placeholderTasks } from "../../modules/placeholder-data.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import useTradersData from "../traders/index.js";
+import useItemsData from "../items/index.js";
 
 const initialState = {
-    data: placeholderTasks(langCode()),
+    data: {
+        achievements: [],
+        prestige: [],
+        tasks: [],
+    },
     status: "idle",
     error: null,
 };
@@ -48,11 +53,12 @@ export const questsReducer = questsSlice.reducer;
 const selectQuests = (state) => state.quests.data.tasks;
 //const selectPrestige = state => state.quests.data.prestige;
 const selectTraders = (state) => state.traders.data;
+const selectItems = (state) => state.items.data;
 const selectSettings = (state) => state.settings;
 
 export const selectQuestsWithActive = createSelector(
-    [selectQuests, selectTraders, selectSettings],
-    (quests, traders, settings) => {
+    [selectQuests, selectTraders, selectItems, selectSettings],
+    (quests, traders, items, settings) => {
         const questStatus = {
             complete: (id) => {
                 return settings[settings.gameMode].completedQuests.includes(id);
@@ -105,6 +111,9 @@ export const selectQuestsWithActive = createSelector(
                 }
                 for (const req of quest.traderRequirements.filter((req) => req.requirementType === "level")) {
                     const trader = traders.find((t) => t.id === req.trader.id);
+                    if (!trader) {
+                        return false;
+                    }
                     if (settings[settings.gameMode][trader.normalizedName] < req.value) {
                         //return false;
                     }
@@ -112,22 +121,43 @@ export const selectQuestsWithActive = createSelector(
                 return true;
             },
         };
-        return quests.map((quest) => {
-            return {
-                ...quest,
-                objectives: quest.objectives
-                    .map((obj) => {
-                        if (!obj) {
-                            return false;
-                        }
-                        return {
-                            ...obj,
-                            complete: settings[settings.gameMode].objectivesCompleted?.includes(obj.id) || false,
-                        };
-                    })
-                    .filter(Boolean),
-                active: questStatus.active(quest.id),
+
+        return quests.map((q) => {
+            const quest = { ...q };
+            quest.trader = {
+                id: quest.trader.id,
+                name: traders.find((t) => t.id === quest.trader.id)?.name,
+                normalizedName: traders.find((t) => t.id === quest.trader.id)?.normalizedName,
             };
+            quest.objectives = quest.objectives
+                .map((o) => {
+                    if (!o) {
+                        return false;
+                    }
+                    const obj = { ...o };
+                    obj.complete = settings[settings.gameMode].objectivesCompleted?.includes(obj.id) || false;
+                    if (obj.containsCategory) {
+                        obj.containsCategory = obj.containsCategory.map((c) => {
+                            const cat = { ...c };
+                            cat.name = items.handbook.itemCategories?.[cat.id]?.name;
+                            cat.normalizedName = items.handbook.itemCategories?.[cat.id]?.normalizedName;
+                            return cat;
+                        });
+                    }
+                    return obj;
+                })
+                .filter(Boolean);
+            quest.active = questStatus.active(quest.id);
+            const rewardKeys = ["startRewards", "finishRewards", "failureOutcome"];
+            for (const rewardKey of rewardKeys) {
+                quest[rewardKey] = { ...quest[rewardKey] };
+                quest[rewardKey].skillLevelReward = quest[rewardKey].skillLevelReward.map((r) => {
+                    const rew = { ...r };
+                    rew.name = items.handbook.skills?.find((skill) => skill.id === rew.skill)?.name ?? rew.skill;
+                    return rew;
+                });
+            }
+            return quest;
         });
     },
 );

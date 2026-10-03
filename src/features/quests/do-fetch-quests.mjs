@@ -6,501 +6,223 @@ class QuestsQuery extends APIQuery {
     }
 
     async query(options) {
-        const { language, gameMode, prebuild } = options;
-        const query = `query TarkovDevTasks {
-            tasks(lang: ${language}, gameMode: ${gameMode}) {
-                id
-                tarkovDataId
-                name
-                normalizedName
-                trader {
-                    id
-                    name
-                    normalizedName
-                }
-                map {
-                    id
-                    name
-                    normalizedName
-                }
-                experience
-                wikiLink
-                minPlayerLevel
-                taskRequirements {
-                    task {
-                        id
-                    }
-                    status
-                }
-                traderRequirements {
-                    trader {
-                        id
-                        name
-                    }
-                    requirementType
-                    compareMethod
-                    value
-                }
-                restartable
-                objectives {
-                    ...TaskObjectiveInfo
-                }
-                failConditions {
-                    ...TaskObjectiveInfo
-                }
-                startRewards {
-                    ...taskRewardFragment
-                }
-                finishRewards {
-                    ...taskRewardFragment
-                }
-                failureOutcome {
-                    ...taskRewardFragment
-                }
-                factionName
-                neededKeys {
-                    keys {
-                        id
-                    }
-                    map {
-                        id
-                    }
-                }
-                kappaRequired
-                lightkeeperRequired
-                taskImageLink
-            }
-            achievements(lang: ${language}) {
-                id
-                name
-                description
-                hidden
-                playersCompletedPercent
-                adjustedPlayersCompletedPercent
-                normalizedRarity
-                rarity
-                imageLink
-            }
-            prestige(lang: ${language}, gameMode: regular) {
-                id
-                name
-                prestigeLevel
-                imageLink
-                iconLink
-                conditions {
-                    ...TaskObjectiveInfo
-                }
-                rewards {
-                    ...taskRewardFragment
-                }
-                transferSettings {
-                    ...on PrestigeTransferSettingsSkill {
-                        name
-                        skillType
-                        transferRate
-                    }
-                    ...on PrestigeTransferSettingsStash {
-                        gridWidth
-                        gridHeight
-                        itemFilters {
-                            allowedCategories {
-                                id
-                            }
-                            allowedItems {
-                                id
-                            }
-                            excludedCategories {
-                                id
-                            }
-                            excludedItems {
-                                id
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        fragment TaskObjectiveInfo on TaskObjective {
-            __typename
-            id
-            type
-            description
-            maps {
-                id
-                name
-            }
-            optional
-            ...on TaskObjectiveBasic {
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-            }
-            ...on TaskObjectiveBuildItem {
-                item {
-                    id
-                }
-                containsAll {
-                    id
-                }
-                containsCategory {
-                    id
-                    name
-                    normalizedName
-                }
-                attributes {
-                    name
-                    requirement {
-                        compareMethod
-                        value
-                    }
-                }
-            }
-            ...on TaskObjectiveExperience {
-                healthEffect {
-                    bodyParts
-                    effects
-                    time {
-                        compareMethod
-                        value
-                    }
-                }
-            }
-            ...on TaskObjectiveExtract {
-                exitStatus
-                exitName
-                count
-            }
-            ...on TaskObjectiveHideoutStation {
-                hideoutStation {
-                    id
-                }
-                stationLevel
-            }
-            ...on TaskObjectiveItem {
-                items {
-                    id
-                }
-                count
-                foundInRaid
-                dogTagLevel
-                maxDurability
-                minDurability
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-            }
-            ...on TaskObjectiveMark {
-                markerItem {
-                    id
-                }
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-            }
-            ...on TaskObjectivePlayerLevel {
-                playerLevel
-            }
-            ...on TaskObjectiveQuestItem {
-                questItem {
-                    id
-                    name
-                    shortName
-                    width
-                    height
-                    iconLink
-                    image512pxLink
-                    baseImageLink
-                    image8xLink
-                }
-                possibleLocations {
-                    map {
-                        id
-                    }
-                    positions {
-                        x
-                        y
-                        z
-                    }
-                }
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-                count
-            }
-            ...on TaskObjectiveShoot {
-                targetNames
-                count
-                shotType
-                zoneNames
-                bodyParts
-                timeFromHour
-                timeUntilHour
-                usingWeapon {
-                    id
-                }
-                usingWeaponMods {
-                    id
-                }
-                wearing {
-                    id
-                }
-                notWearing {
-                    id
-                }
-                distance {
-                    compareMethod
-                    value
-                }
-                playerHealthEffect {
-                    bodyParts
-                    effects
-                    time {
-                        compareMethod
-                        value
-                    }
-                }
-                enemyHealthEffect {
-                    bodyParts
-                    effects
-                    time {
-                        compareMethod
-                        value
-                    }
-                }
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-            }
-            ...on TaskObjectiveSkill {
-                skillLevel {
-                    level
-                    skill {
-                        id
-                    }
-                }
-            }
-            ...on TaskObjectiveTaskStatus {
-                task {
-                    id
-                }
-                status
-            }
-            ...on TaskObjectiveTraderLevel {
-                trader {
-                    id
-                }
-                level
-            }
-            ...on TaskObjectiveTraderStanding {
-                trader {
-                    id
-                }
-                compareMethod
-                value
-            }
-            ...on TaskObjectiveUseItem {
-                useAny {
-                    id
-                }
-                compareMethod
-                count
-                zoneNames
-                zones {
-                    id
-                    map {
-                        id
-                    }
-                    position {
-                        x
-                        y
-                        z
-                    }
-                    outline {
-                        x
-                        y
-                        z
-                    }
-                    top
-                    bottom
-                }
-            }
-        }
-        fragment cutomizationRewardFragment on CustomizationItem {
-            id
-            name
-            customizationType
-            customizationTypeName
-            imageLink
-            ...on CustomizationItems {
-                items {
-                    id
-                }
-            }
-        }
-        fragment taskRewardFragment on TaskRewards {
-            traderStanding {
-                trader {
-                    id
-                }
-                standing
-            }
-            items {
-                item {
-                    id
-                    containsItems {
-                        item {
-                            id
-                        }
-                        count
-                    }
-                }
-                count
-                attributes {
-                    name
-                    value
-                }
-            }
-            offerUnlock {
-                trader {
-                    id
-                }
-                level
-                item {
-                    id
-                }
-            }
-            craftUnlock {
-                id
-                station {
-                    id
-                }
-                level
-                rewardItems {
-                    item {
-                        id
-                    }
-                    count
-                }
-            }
-            skillLevelReward {
-                name
-                level
-            }
-            traderUnlock {
-                id
-            }
-            achievement {
-                id
-            }
-            customization {
-                ...cutomizationRewardFragment
-            }
-        }`;
+        const { language, gameMode } = options;
 
-        const questsData = await this.graphqlRequest(query);
+        const [questsData] = await Promise.all([this.apiRequest(`${gameMode}/tasks`, { lang: language })]);
 
-        if (questsData.errors) {
-            if (questsData.data) {
-                for (const error of questsData.errors) {
-                    let badItem = false;
-                    if (error.path) {
-                        badItem = questsData.data;
-                        for (let i = 0; i < 2; i++) {
-                            badItem = badItem[error.path[i]];
-                        }
-                    }
-                    console.log(`Error in tasks API query: ${error.message}`);
-                    if (badItem) {
-                        console.log(badItem);
-                    }
+        const fixObjective = (obj) => {
+            obj.maps =
+                obj.maps?.map((id) => {
+                    return {
+                        id,
+                    };
+                }) ?? [];
+            for (const zone of obj.zones ?? []) {
+                zone.map = { id: zone.map };
+            }
+            if (obj.item) {
+                obj.item = { id: obj.item };
+            }
+            if (obj.items) {
+                obj.items = obj.items.map((id) => {
+                    return { id };
+                });
+            }
+            if (obj.containsAll) {
+                obj.containsAll = obj.containsAll.map((id) => {
+                    return { id };
+                });
+            }
+            if (obj.containsCategory) {
+                obj.containsCategory = obj.containsCategory.map((id) => {
+                    return {
+                        id,
+                        //name: itemsData.itemCategories[id].name,
+                        //normalizedName: itemsData.itemCategories[id].normalizedName,
+                    };
+                });
+            }
+            if (obj.type === "hideoutStation") {
+                obj.hideoutStation = { id: obj.station };
+            }
+            if (obj.markerItem) {
+                obj.markerItem = { id: obj.markerItem };
+            }
+            for (const loc of obj.possibleLocations ?? []) {
+                loc.map = { id: loc.map };
+            }
+            if (obj.zones) {
+                obj.zoneNames = obj.zones
+                    .map((zone) => {
+                        return zone.name;
+                    })
+                    .filter(Boolean);
+            }
+            if (obj.usingWeapon) {
+                obj.usingWeapon = obj.usingWeapon.map((id) => {
+                    return { id };
+                });
+            }
+            if (obj.usingWeaponMods) {
+                obj.usingWeaponMods = obj.usingWeaponMods.map((modGroup) => {
+                    return modGroup.map((id) => {
+                        return { id };
+                    });
+                });
+            }
+            if (obj.buildAttributes) {
+                obj.attributes = [];
+                for (const attName in obj.buildAttributes) {
+                    obj.attributes.push({
+                        name: attName,
+                        requirement: obj.buildAttributes[attName],
+                    });
+                }
+                delete obj.buildAttributes;
+            }
+            if (obj.questItem) {
+                const qItem = questsData.questItems[obj.questItem];
+                obj.questItem = {
+                    id: qItem.id,
+                    name: qItem.name,
+                    shortName: qItem.shortName,
+                    width: qItem.width,
+                    height: qItem.height,
+                    iconLink: qItem.iconLink,
+                    image512pxLink: qItem.image512pxLink,
+                    baseImageLink: qItem.baseImageLink,
+                    image8xLink: qItem.image8xLink,
+                };
+            }
+            if (obj.skill) {
+                obj.skillLevel = {
+                    skill: {
+                        id: obj.skill,
+                    },
+                    level: obj.level,
+                };
+            }
+            if (obj.trader) {
+                obj.trader = { id: obj.trader };
+            }
+            if (obj.task) {
+                obj.task = { id: obj.task };
+            }
+        };
+
+        const fixRewards = (rewards) => {
+            for (const rew of rewards.traderStanding) {
+                rew.trader = { id: rew.trader };
+            }
+            for (const rew of rewards.items) {
+                rew.item = { id: rew.item, containsItems: [] };
+            }
+            for (const rew of rewards.offerUnlock) {
+                rew.item = {
+                    id: rew.item,
+                };
+            }
+            for (const rew of rewards.skillLevelReward) {
+                rew.name = rew.skill; //itemsData.skills.find(skill => skill.id === rew.skill).name;
+            }
+            for (const unlock of rewards.offerUnlock) {
+                unlock.trader = { id: unlock.trader };
+            }
+            rewards.traderUnlock = rewards.traderUnlock.map((id) => {
+                return { id };
+            });
+            for (const rew of rewards.craftUnlock) {
+                rew.station = { id: rew.station };
+                rew.rewardItems = [
+                    {
+                        item: { id: rew.item },
+                        count: rew.count,
+                    },
+                ];
+            }
+            rewards.achievement = rewards.achievement.map((id) => {
+                return { id };
+            });
+            for (const rew of rewards.customization) {
+                if (rew.customizationType && rew.items) {
+                    rew.items = rew.items.map((id) => {
+                        return { id };
+                    });
                 }
             }
-            // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild ||
-                !questsData.data?.tasks?.length ||
-                !questsData.data?.achievements?.length ||
-                !questsData.data?.prestige?.length
-            ) {
-                return Promise.reject(new Error(questsData.errors[0].message));
+        };
+
+        questsData.tasks = Object.values(questsData.tasks);
+        for (const task of questsData.tasks) {
+            task.trader = {
+                id: task.trader,
+            };
+            if (task.map) {
+                task.map = {
+                    id: task.map,
+                    //name: mapsData.maps[task.location].name,
+                    //normalizedName: mapsData.maps[task.location].normalizedName,
+                };
+            }
+            for (const req of task.taskRequirements) {
+                req.task = {
+                    id: req.task,
+                };
+            }
+            for (const req of task.traderRequirements) {
+                req.trader = {
+                    id: req.trader,
+                };
+            }
+            for (const nk of task.neededKeys ?? []) {
+                nk.map = { id: nk.map };
+                nk.keys = nk.keys.map((id) => {
+                    return { id };
+                });
+            }
+            for (const obj of task.objectives) {
+                fixObjective(obj);
+            }
+            for (const cond of task.failConditions) {
+                fixObjective(cond);
+            }
+            fixRewards(task.startRewards);
+            fixRewards(task.finishRewards);
+            fixRewards(task.failureOutcome);
+        }
+
+        for (const prestige of questsData.prestige) {
+            for (const obj of prestige.conditions) {
+                fixObjective(obj);
+            }
+            fixRewards(prestige.rewards);
+            for (const transferSettings of prestige.transferSettings) {
+                if (!transferSettings.itemFilters) {
+                    continue;
+                }
+                transferSettings.itemFilters.allowedCategories = transferSettings.itemFilters.allowedCategories.map(
+                    (id) => {
+                        return { id };
+                    },
+                );
+                transferSettings.itemFilters.allowedItems = transferSettings.itemFilters.allowedItems.map((id) => {
+                    return { id };
+                });
+                transferSettings.itemFilters.excludedCategories = transferSettings.itemFilters.excludedCategories.map(
+                    (id) => {
+                        return { id };
+                    },
+                );
+                transferSettings.itemFilters.excludedItems = transferSettings.itemFilters.excludedItems.map((id) => {
+                    return { id };
+                });
             }
         }
-        return questsData.data;
+
+        questsData.questItems = Object.values(questsData.questItems);
+        questsData.achievements = Object.values(questsData.achievements);
+
+        return questsData;
     }
 }
 

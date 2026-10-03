@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-react/no-nested-component-definitions */
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
@@ -14,7 +15,7 @@ const lengthDaysAverage = averageWipeLength();
 
 const data = wipeDetails();
 
-const WipeLength = (props) => {
+const WipeLength = () => {
     const { t } = useTranslation();
 
     const columns = useMemo(() => {
@@ -93,7 +94,7 @@ const WipeLength = (props) => {
             )}
             key="seo-wrapper"
         />,
-        <div className={"page-wrapper"}>
+        <div className={"page-wrapper"} key="page-wrapper">
             <h1 className="center-title">
                 {t("Escape from Tarkov")} - {t("Wipe Length")}
             </h1>

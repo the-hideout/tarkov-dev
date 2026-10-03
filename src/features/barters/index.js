@@ -10,10 +10,8 @@ import useQuestsData from "../quests/index.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
 
-import { placeholderBarters } from "../../modules/placeholder-data.js";
-
 const initialState = {
-    data: placeholderBarters(langCode()),
+    data: [],
     status: "idle",
     error: null,
 };
@@ -107,44 +105,58 @@ export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
 export const bartersReducer = bartersSlice.reducer;
 
-const selectBarters = (state) => state.barters.data;
+export const selectBarters = (state) => state.barters.data;
 const selectQuests = (state) => state.quests.data.tasks;
 const selectItems = (state) => state.items.data.items;
+const selectTraders = (state) => state.traders.data;
 
-export const selectAllBarters = createSelector([selectBarters, selectQuests, selectItems], (barters, quests, items) => {
-    return barters
-        .map((barter) => {
-            let taskUnlock = barter.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = quests.find((t) => t.id === taskUnlock.id);
-            }
-            return {
-                ...barter,
-                requiredItems: barter.requiredItems.reduce((requirements, req) => {
-                    let matchedItem = items?.find((it) => it.id === req.item.id);
-                    if (matchedItem) {
-                        requirements.push({
-                            ...req,
-                            item: matchedItem,
-                        });
-                    }
-                    return requirements;
-                }, []),
-                rewardItems: barter.rewardItems.reduce((requirements, req) => {
-                    const matchedItem = items?.find((it) => it.id === req.item.id);
-                    if (matchedItem) {
-                        requirements.push({
-                            ...req,
-                            item: matchedItem,
-                        });
-                    }
-                    return requirements;
-                }, []),
-                taskUnlock: taskUnlock,
-            };
-        })
-        .filter((barter) => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-});
+export const selectAllBarters = createSelector(
+    [selectBarters, selectTraders, selectQuests, selectItems],
+    (barters, traders, quests, items) => {
+        return barters
+            .map((barter) => {
+                let taskUnlock = barter.taskUnlock;
+                if (taskUnlock) {
+                    taskUnlock = quests.find((t) => t.id === taskUnlock.id);
+                }
+                const trader = traders.find((t) => t.id === barter.trader.id);
+                if (!trader) {
+                    return;
+                }
+                return {
+                    ...barter,
+                    trader: {
+                        id: trader.id,
+                        name: trader.name,
+                        normalizedName: trader.normalizedName,
+                    },
+                    requiredItems: barter.requiredItems.reduce((requirements, req) => {
+                        let matchedItem = items?.find((it) => it.id === req.item.id);
+                        if (matchedItem) {
+                            requirements.push({
+                                ...req,
+                                item: matchedItem,
+                            });
+                        }
+                        return requirements;
+                    }, []),
+                    rewardItems: barter.rewardItems.reduce((requirements, req) => {
+                        const matchedItem = items?.find((it) => it.id === req.item.id);
+                        if (matchedItem) {
+                            requirements.push({
+                                ...req,
+                                item: matchedItem,
+                            });
+                        }
+                        return requirements;
+                    }, []),
+                    taskUnlock: taskUnlock,
+                };
+            })
+            .filter(Boolean)
+            .filter((barter) => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+    },
+);
 
 let fetchedGameMode = false;
 let refreshInterval = false;

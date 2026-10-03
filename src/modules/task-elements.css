@@ -30,3 +30,32 @@
     padding: 4px;
     font-size: 12px;
 }
+
+.reward-square {
+    width: 64px;
+    height: 64px;
+    outline: rgb(73 81 84) solid 1px;
+    background-color: rgb(from var(--color-black) r g b / 0.35);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reward-square-xp {
+    background: linear-gradient(180deg, rgb(195 165 73 / 0.25) 0%, rgb(0 0 0 / 0.35) 100%);
+}
+
+.reward-square-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-gold-two);
+    line-height: 1;
+}
+
+.reward-square-label {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}

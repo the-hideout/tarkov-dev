@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import useItemsData from "../../features/items/index.js";
 
@@ -14,7 +14,6 @@ import RewardCell from "../../components/reward-cell/index.jsx";
 import StationSkillTraderSetting from "../../components/station-skill-trader-setting/index.jsx";
 
 import formatPrice from "../../modules/format-price.js";
-import { averageWipeLength, currentWipeLength } from "../../modules/wipe-length.js";
 import useHideoutData from "../../features/hideout/index.js";
 
 import {
@@ -28,6 +27,8 @@ import {
 } from "./data.js";
 // import BtcGraph from './graph';
 import ProfitInfo from "./profit-info.jsx";
+
+import { getSeasonDaysRemaining } from "../../modules/season-details.mjs";
 
 import "./index.css";
 
@@ -52,7 +53,7 @@ const BitcoinFarmCalculator = () => {
         false,
     );
 
-    const [wipeDaysRemaining, setWipeDaysRemaining] = useState(Math.max(averageWipeLength() - currentWipeLength(), 0));
+    const [seasonDaysRemaining, setSeasonDaysRemaining] = useState(getSeasonDaysRemaining());
 
     const { data: items } = useItemsData();
 
@@ -117,7 +118,11 @@ const BitcoinFarmCalculator = () => {
                         max={MaxNumGraphicsCards}
                     />
                     <StationSkillTraderSetting stateKey={"hideout-management"} type="skill" />
-                    <StationSkillTraderSetting stateKey={solar.normalizedName} type="station" image={solar.imageLink} />
+                    <StationSkillTraderSetting
+                        stateKey={solar?.normalizedName}
+                        type="station"
+                        image={solar?.imageLink}
+                    />
                     <ToggleFilter
                         label={t("Use fuel cost: {{price}}/day", {
                             price: formatPrice(fuelPricePerDay),
@@ -137,7 +142,7 @@ const BitcoinFarmCalculator = () => {
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
                 useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
-                wipeDaysRemaining={wipeDaysRemaining}
+                seasonDaysRemaining={seasonDaysRemaining}
                 gameMode={gameMode}
                 key="btc-profit-table"
             />
@@ -162,24 +167,24 @@ const BitcoinFarmCalculator = () => {
                     />
                 )}
             </div>
-            {gameMode !== "pve" && (
+            {gameMode === "pvp-season" && (
                 <div className="included-items-wrapper">
                     <label className={"single-filter-wrapper"}>
-                        <Link to="/wipe-length">
+                        <Link to="/season">
                             <span className={"single-filter-label"}>
                                 {t("Remaining days in wipe:", {
-                                    remainingWipeDays: averageWipeLength() - currentWipeLength(),
+                                    remainingSeasonDays: seasonDaysRemaining,
                                 })}
                             </span>
                         </Link>
                         <input
                             className={"filter-input wipe-days"}
-                            defaultValue={wipeDaysRemaining?.toString() ?? ""}
+                            defaultValue={seasonDaysRemaining?.toString() ?? ""}
                             type={"number"}
                             onChange={(event) => {
                                 const parsed = parseInt(event.target.value, 10);
                                 if (Number.isFinite(parsed)) {
-                                    setWipeDaysRemaining(parsed);
+                                    setSeasonDaysRemaining(parsed);
                                 }
                             }}
                             min={0}

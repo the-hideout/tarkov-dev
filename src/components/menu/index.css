@@ -422,9 +422,9 @@
 }
 
 .game-mode-toggle.regular {
-    background: rgb(46 125 50 / 0.2);
-    color: #81c784;
-    border-color: rgb(46 125 50 / 0.3);
+    background: rgb(125 88 46 / 0.2);
+    color: #c7a981;
+    border-color: rgb(125 93 46 / 0.3);
 }
 
 .game-mode-toggle.regular:hover {
@@ -441,6 +441,17 @@
 .game-mode-toggle.pve:hover {
     background: rgb(2 136 209 / 0.3);
     border-color: #4fc3f7;
+}
+
+.game-mode-toggle.pvp-season {
+    background: rgb(46 125 50 / 0.2);
+    color: #81c784;
+    border-color: rgb(46 125 50 / 0.3);
+}
+
+.game-mode-toggle.pvp-season:hover {
+    background: rgb(46 125 50 / 0.3);
+    border-color: #81c784;
 }
 
 @media (width >= 641px) {

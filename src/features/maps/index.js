@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 import {
     mdiImageFilterCenterFocusStrong,
@@ -17,19 +17,23 @@ import {
     mdiTunnelOutline,
     mdiFerry,
     mdiTransitConnectionVariant,
+    mdiPierCrane,
 } from "@mdi/js";
 
 import doFetchMaps from "./do-fetch-maps.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
-import { placeholderMaps } from "../../modules/placeholder-data.js";
 import i18n from "../../i18n.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import rawBossData from "../../data/bosses.json";
 
 import rawMapData from "../../data/maps.json";
 
 const initialState = {
-    data: placeholderMaps(langCode()),
+    data: {
+        maps: [],
+        mobs: [],
+    },
     status: "idle",
     error: null,
 };
@@ -65,6 +69,49 @@ const mapsSlice = createSlice({
 export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
+
+export const selectAllBosses = createSelector([selectMaps], (mapData) => {
+    const bosses = mapData.mobs.map((bossReadOnly) => {
+        const boss = { ...bossReadOnly };
+        boss.maps = [];
+        boss.spawnChanceOverride = [];
+        const bossJson = rawBossData.find((json) => json.normalizedName === boss.normalizedName);
+        if (bossJson) {
+            boss.details = bossJson.details;
+            boss.wikiLink = bossJson.wikiLink;
+            boss.behavior = bossJson.behavior;
+            if (bossJson.spawnChanceOverride) {
+                boss.spawnChanceOverride = bossJson.spawnChanceOverride;
+            }
+        }
+        return boss;
+    });
+    for (const map of mapData.maps) {
+        // Loop through each boss for each map
+        for (const bossSpawn of map.bosses) {
+            const boss = bosses.find((boss) => boss.normalizedName === bossSpawn.normalizedName);
+            if (!boss) {
+                continue;
+            }
+            let bossMap = boss.maps.find((savedMap) => savedMap.id === map.id);
+            if (!bossMap) {
+                bossMap = {
+                    name: map.name,
+                    normalizedName: map.normalizedName,
+                    id: map.id,
+                    escorts: bossSpawn.escorts,
+                    spawns: [],
+                };
+                boss.maps.push(bossMap);
+            }
+            bossMap.spawns.push({
+                spawnChance: bossSpawn.spawnChance,
+                locations: bossSpawn.spawnLocations,
+            });
+        }
+    }
+    return bosses;
+});
 
 let fetchedLang = false;
 let fetchedGameMode = false;
@@ -112,7 +159,7 @@ export default function useMapsData() {
         };
     }, [dispatch, lang, gameMode]);
 
-    return { data, status, error };
+    return { data: data.maps, status, error };
 }
 
 export const useMapImages = () => {
@@ -218,14 +265,57 @@ export const mapIcons = {
     "streets-of-tarkov": mdiCity,
     "customs": mdiWarehouse,
     "factory": mdiFactory,
+    "icebreaker": mdiFerry,
     "interchange": mdiStore24Hour,
     "the-lab": mdiNeedle,
     "the-labyrinth": mdiTunnelOutline,
     "lighthouse": mdiLighthouse,
     "reserve": mdiTank,
     "shoreline": mdiBeach,
-    "terminal": mdiFerry,
+    "terminal": mdiPierCrane,
     "woods": mdiPineTree,
     "transits": mdiTransitConnectionVariant,
     "openworld": mdiEarthBox,
 };
+
+export function useBossesData() {
+    const dispatch = useDispatch();
+    const { status, error } = useSelector((state) => state.maps);
+    const data = useSelector(selectAllBosses);
+    useMapsData();
+    const lang = useLangCode();
+    const gameMode = useSelector((state) => state.settings.gameMode);
+
+    useEffect(() => {
+        const dataName = "maps";
+        if (status === "idle") {
+            return;
+        } else if (status === "loading") {
+            dispatch(setDataLoading(dataName));
+        } else {
+            dispatch(setDataLoaded(dataName));
+        }
+    }, [status, dispatch]);
+
+    useEffect(() => {
+        if (fetchedLang !== lang || fetchedGameMode !== gameMode) {
+            fetchedLang = lang;
+            fetchedGameMode = gameMode;
+            dispatch(fetchMaps());
+            clearRefreshInterval();
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                if (!windowHasFocus) {
+                    return;
+                }
+                dispatch(fetchMaps());
+            }, 600000);
+        }
+        return () => {
+            clearRefreshInterval();
+        };
+    }, [dispatch, lang, gameMode]);
+
+    return { data: data, status, error };
+}

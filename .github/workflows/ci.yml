@@ -17,22 +17,24 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # pin@v6
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
-        uses: GrantBirki/json-yaml-validate@v4.0.0
+        uses: GrantBirki/json-yaml-validate@3ff75979f3b21171f2e8a44705f0ff4bed30bbc0 # pin@v5.0.0
         with:
           comment: "true"
           exclude_file: .github/exclude.txt
 
-      - uses: actions/setup-node@v6.3.0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # pin@v6.0.10
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # pin@v7.0.0
         with:
           node-version-file: .node-version
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: env setup
         env:
@@ -42,9 +44,9 @@ jobs:
           echo PUBLIC_URL=$PUBLIC_URL >> .env
 
       - name: Get files needed
-        run: npm run prebuild
+        run: pnpm run prebuild
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
       - name: test
-        run: npm run test
+        run: pnpm run test

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Icon } from "@mdi/react";
 import {
     mdiClipboardCheck,
@@ -21,19 +21,19 @@ const intelCashMultiplier = {
     3: 1.15,
 };
 
-export function CustomizationReward(reward, items, settings) {
+export function CustomizationReward(reward, items) {
     if (reward.items) {
         return (
             <ul className="quest-item-list">
-                {reward.items.map((rewardItem, index) => {
+                {reward.items.map((rewardItem) => {
                     const item = items.find((it) => it.id === rewardItem.id);
                     if (!item) {
                         return null;
                     }
                     return (
-                        <li key={`reward-index-${rewardItem.id}-${index}`}>
+                        <li key={`reward-index-${rewardItem.id}-${rewardItem.count}`}>
                             <ItemImage
-                                key={`reward-index-${rewardItem.id}-${index}`}
+                                key={`reward-index-${rewardItem.id}-${rewardItem.count}`}
                                 item={item}
                                 imageField="baseImageLink"
                                 linkToItem={true}
@@ -135,13 +135,19 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                     <>
                         <h4>{t("Contains Item in Category")}</h4>
                         <ul>
-                            {objective.containsCategory.map((cat) => {
-                                return (
-                                    <li key={cat.id} className={"quest-list-item-category"}>
-                                        <Link to={`/items/${cat.normalizedName}`}>{cat.name}</Link>
-                                    </li>
-                                );
-                            })}
+                            {objective.containsCategory
+                                .map((c) => {
+                                    const category = handbook.itemCategories.find((cat) => cat.id === c.id);
+                                    if (!category) {
+                                        return;
+                                    }
+                                    return (
+                                        <li key={category.id} className={"quest-list-item-category"}>
+                                            <Link to={`/items/${category.normalizedName}`}>{category.name}</Link>
+                                        </li>
+                                    );
+                                })
+                                .filter(Boolean)}
                         </ul>
                     </>
                 )}
@@ -211,14 +217,16 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                     };
                 }
                 itemElements.push(
-                    <ItemImage
-                        key={item.id}
-                        item={item}
-                        imageField="baseImageLink"
-                        linkToItem={true}
-                        count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
-                        isFIR={objective.foundInRaid}
-                    />,
+                    <li key={`objective-item-${item.id}`} className={"quest-list-item"}>
+                        <ItemImage
+                            key={item.id}
+                            item={item}
+                            imageField="baseImageLink"
+                            linkToItem={true}
+                            count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
+                            isFIR={objective.foundInRaid}
+                        />
+                    </li>,
                 );
             }
             if (itemElements.length < 1) {
@@ -253,13 +261,7 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
             <>
                 <>
                     {countElement}
-                    <ul className="quest-item-list">
-                        {itemElements.map((el, i) => (
-                            <li key={`objective-item-${i}`} className={"quest-list-item"}>
-                                {el}
-                            </li>
-                        ))}
-                    </ul>
+                    <ul className="quest-item-list">{itemElements}</ul>
                 </>
                 {attributes.length > 0 && (
                     <ul>
@@ -309,13 +311,13 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                 <div>
                     {t("Use any of:")}{" "}
                     <ul className="quest-item-list">
-                        {objective.items.map((useItem, index) => {
+                        {objective.items.map((useItem) => {
                             const item = items.find((i) => i.id === useItem.id);
                             if (!item) {
                                 return null;
                             }
                             return (
-                                <li key={`item-${index}-${item.id}`}>
+                                <li key={`item-${item.id}`}>
                                     <ItemImage item={item} imageField="baseImageLink" linkToItem={true} />
                                 </li>
                             );
@@ -348,9 +350,9 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                     </Link>
                 );
             })
-            .reduce((allTargets, current, index) => {
+            .reduce((allTargets, current) => {
                 if (allTargets.length > 0) {
-                    allTargets.push(<span key={`comma-${index}`}>, </span>);
+                    allTargets.push(<span key={`comma-${current}`}>, </span>);
                 }
                 allTargets.push(current);
                 return allTargets;
@@ -426,9 +428,12 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                     <div>
                         {t("Using weapon mods:")}{" "}
                         <ul className="quest-item-list">
-                            {objective.usingWeaponMods.map((modSet, index) => {
+                            {objective.usingWeaponMods.map((modSet) => {
                                 return (
-                                    <li key={`mod-set-${index}`} className={"quest-list-item"}>
+                                    <li
+                                        key={`mod-set-${modSet.map((mod) => mod.id).join("-")}`}
+                                        className={"quest-list-item"}
+                                    >
                                         {modSet.map((mod) => {
                                             const item = items.find((i) => i.id === mod.id);
                                             if (!item) {
@@ -452,9 +457,9 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                 {objective.wearing?.length > 0 && (
                     <div>
                         {t("While wearing:")}{" "}
-                        {objective.wearing.map((outfit, index) => {
+                        {objective.wearing.map((outfit) => {
                             return (
-                                <ul key={`outfit-${index}`} className="quest-item-list">
+                                <ul key={`outfit-${outfit.map((i) => i.id).join("-")}`} className="quest-item-list">
                                     {outfit.map((accessory) => {
                                         const item = items.find((i) => i.id === accessory.id);
                                         if (!item) {
@@ -535,18 +540,24 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
         );
     }
     if (objective.type === "skill") {
-        const skill = handbook.skills.find((s) => s.id === objective.skillLevel.skill.id);
+        const skill = handbook.skills?.find((s) => s.id === objective.skillLevel.skill.id);
+        if (!skill) {
+            return null;
+        }
         taskDetails = (
             <>
                 {t("Obtain level {{level}} {{skillName}} skill", {
                     level: objective.skillLevel.level,
-                    skillName: skill.name,
+                    skillName: skill?.name ?? objective.skillLevel.skill.id,
                 })}
             </>
         );
     }
     if (objective.type === "hideoutStation") {
         const station = stations.find((s) => s.id === objective.hideoutStation.id);
+        if (!station) {
+            return null;
+        }
         taskDetails = (
             <>
                 {t("Construct level {{level}} {{stationName}}", {
@@ -586,21 +597,25 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
     }
     if (objective.type === "traderLevel") {
         const trader = traders.find((t) => t.id === objective.trader.id);
-        taskDetails = (
-            <>
-                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                <span>{` ${t("LL{{level}}", { level: objective.level })}`}</span>
-            </>
-        );
+        if (trader) {
+            taskDetails = (
+                <>
+                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                    <span>{` ${t("LL{{level}}", { level: objective.level })}`}</span>
+                </>
+            );
+        }
     }
     if (objective.type === "traderStanding") {
         const trader = traders.find((t) => t.id === objective.trader.id);
-        taskDetails = (
-            <>
-                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                <span>{` ${t("{{compareMethod}} {{reputation}} reputation", { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
-            </>
-        );
+        if (trader) {
+            taskDetails = (
+                <>
+                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                    <span>{` ${t("{{compareMethod}} {{reputation}} reputation", { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
+                </>
+            );
+        }
     }
     if (objective.type === "useItem") {
         let zones = <></>;
@@ -613,13 +628,13 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
             <div>
                 {t("Use any of:")}{" "}
                 <ul className="quest-item-list">
-                    {objective.useAny.map((useItem, index) => {
+                    {objective.useAny.map((useItem) => {
                         const item = items.find((i) => i.id === useItem.id);
                         if (!item) {
                             return null;
                         }
                         return (
-                            <li key={`item-${index}-${item.id}`}>
+                            <li key={`item-${item.id}`}>
                                 <ItemImage item={item} imageField="baseImageLink" linkToItem={true} />
                             </li>
                         );
@@ -675,8 +690,11 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
                         <span>{`${t("Maps")}: `}</span>
                         {objective.maps.map((m, i) => [
                             i > 0 && ", ",
-                            <Link key={i} to={`/map/${maps.find((map) => map.id === m.id)?.normalizedName}${mapQuery}`}>
-                                {m.name}
+                            <Link
+                                key={m.id}
+                                to={`/map/${maps.find((map) => map.id === m.id)?.normalizedName}${mapQuery}`}
+                            >
+                                {maps.find((map) => map.id === m.id)?.name}
                             </Link>,
                         ])}
                     </div>
@@ -689,29 +707,79 @@ export function TaskObjective({ objective, items, bosses, quests, traders, maps,
 
 export function TaskRewards({ rewards, t, items, settings, traders, stations, achievements }) {
     const rewardElements = [];
-    if (rewards.items?.length > 0) {
+
+    const isMoneyReward = (rewardItem) => {
+        const rewardBaseItem = items.find((it) => it.id === rewardItem.item.id);
+        return rewardBaseItem?.categories?.some((cat) => cat.normalizedName === "money");
+    };
+
+    const moneyRewards = rewards.items?.filter(isMoneyReward) ?? [];
+    const itemRewards = rewards.items?.filter((rewardItem) => !isMoneyReward(rewardItem)) ?? [];
+
+    if (Number.isFinite(rewards?.experience) && rewards.experience !== 0) {
+        const experienceChange = `${rewards.experience > 0 ? "+" : ""}${rewards.experience.toLocaleString()}`;
         rewardElements.push(
-            <div key="finishRewards">
-                <h3>{t("Items")}</h3>
+            <div key="reward-experience">
+                <h3>XP</h3>
                 <ul className="quest-item-list">
-                    {rewards.items.map((rewardItem, index) => {
+                    <li>
+                        <div className="reward-square reward-square-xp">
+                            <div className="reward-square-value">{experienceChange}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>,
+        );
+    }
+
+    if (moneyRewards.length > 0) {
+        rewardElements.push(
+            <div key="reward-money">
+                <h3>{t("Money", "Money")}</h3>
+                <ul className="quest-item-list">
+                    {moneyRewards.map((rewardItem) => {
                         const item = items.find((it) => it.id === rewardItem.item.id);
                         if (!item) {
                             return null;
                         }
-                        let itemCount = rewardItem.count;
-                        if (item.categories.some((cat) => cat.normalizedName === "money")) {
-                            const multiplier = intelCashMultiplier[settings["intelligence-center"]];
-                            itemCount = Math.round(itemCount * multiplier);
-                        }
+                        const multiplier = intelCashMultiplier[settings["intelligence-center"]];
+                        const itemCount = Math.round(rewardItem.count * multiplier);
                         return (
-                            <li key={`reward-index-${rewardItem.item.id}-${index}`}>
+                            <li key={`reward-money-index-${rewardItem.item.id}-${rewardItem.count}`}>
                                 <ItemImage
-                                    key={`reward-index-${rewardItem.item.id}-${index}`}
+                                    key={`reward-money-index-${rewardItem.item.id}-${rewardItem.count}`}
                                     item={item}
                                     imageField="baseImageLink"
                                     linkToItem={true}
                                     count={rewardItem.count > 1 ? itemCount : false}
+                                    isFIR={true}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>,
+        );
+    }
+
+    if (itemRewards.length > 0) {
+        rewardElements.push(
+            <div key="finishRewards">
+                <h3>{t("Items")}</h3>
+                <ul className="quest-item-list">
+                    {itemRewards.map((rewardItem) => {
+                        const item = items.find((it) => it.id === rewardItem.item.id);
+                        if (!item) {
+                            return null;
+                        }
+                        return (
+                            <li key={`reward-index-${rewardItem.item.id}-${rewardItem.count}`}>
+                                <ItemImage
+                                    key={`reward-index-${rewardItem.item.id}-${rewardItem.count}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    count={rewardItem.count > 1 ? rewardItem.count : false}
                                     isFIR={true}
                                 />
                             </li>
@@ -728,6 +796,9 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
                 <ul className="quest-item-list">
                     {rewards.traderStanding.map((standing) => {
                         const trader = traders.find((t) => t.id === standing.trader.id);
+                        if (!trader) {
+                            return <li key={standing.trader.id}></li>;
+                        }
                         return (
                             <li className="quest-list-item" key={standing.trader.id}>
                                 <TraderImage trader={trader} reputationChange={standing.standing} />
@@ -759,16 +830,16 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
             <div key="reward-offer">
                 <h3>{t("Trader Offer Unlock")}</h3>
                 <ul className="quest-item-list">
-                    {rewards.offerUnlock.map((unlock, index) => {
+                    {rewards.offerUnlock.map((unlock) => {
                         const trader = traders.find((t) => t.id === unlock.trader.id);
                         const item = items.find((i) => i.id === unlock.item.id);
                         if (!item) {
                             return null;
                         }
                         return (
-                            <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
+                            <li className="quest-list-item" key={`${unlock.item.id}-${trader?.id}`}>
                                 <ItemImage
-                                    key={`reward-index-${item.id}-${index}`}
+                                    key={`reward-index-${item.id}-${trader?.id}`}
                                     item={item}
                                     imageField="baseImageLink"
                                     linkToItem={true}
@@ -786,12 +857,15 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
         rewardElements.push(
             <div key="reward-trader">
                 <h3>{t("Trader Unlock")}</h3>
-                <ul>
+                <ul className="quest-item-list">
                     {rewards.traderUnlock.map((unlock) => {
                         const trader = traders.find((t) => t.id === unlock.id);
+                        if (!trader) {
+                            return <li key={unlock.id}></li>;
+                        }
                         return (
                             <li className="quest-list-item" key={unlock.id}>
-                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
+                                <TraderImage trader={trader} />
                             </li>
                         );
                     })}
@@ -804,16 +878,16 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
             <div key="reward-craft">
                 <h3>{t("Craft Unlock")}</h3>
                 <ul className="quest-item-list">
-                    {rewards.craftUnlock.map((unlock, index) => {
+                    {rewards.craftUnlock.map((unlock) => {
                         const station = stations.find((s) => s.id === unlock.station.id);
                         const item = items.find((i) => i.id === unlock.rewardItems[0].item.id);
-                        if (!item) {
+                        if (!item || !station) {
                             return null;
                         }
                         return (
-                            <li className="quest-list-item" key={`${unlock.rewardItems[0].item.id}-${index}`}>
+                            <li className="quest-list-item" key={`${unlock.rewardItems[0].item.id}-${station.id}`}>
                                 <ItemImage
-                                    key={`reward-index-${item.id}-${index}`}
+                                    key={`reward-index-${item.id}-${station.id}`}
                                     item={item}
                                     imageField="baseImageLink"
                                     linkToItem={true}
@@ -833,14 +907,14 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
                 <h3>{t("Achievement")}</h3>
                 <ul className="quest-item-list">
                     {rewards.achievement
-                        .map((reward, index) => {
+                        .map((reward) => {
                             const achievement = achievements.find((a) => a.id === reward.id);
                             if (!achievement) {
                                 return false;
                             }
                             console.log(achievement);
                             return (
-                                <li className="quest-list-item" key={`${achievement.id}-${index}`}>
+                                <li className="quest-list-item" key={`${achievement.id}`}>
                                     <div className="achievement-image">
                                         <img src={achievement.imageLink} alt="" />
                                         <div className="achievement-name">{achievement.name}</div>
@@ -858,9 +932,9 @@ export function TaskRewards({ rewards, t, items, settings, traders, stations, ac
             <div key="reward-customization">
                 <h3>{t("Customization")}</h3>
                 <ul className="quest-item-list">
-                    {rewards.customization.map((reward, index) => {
+                    {rewards.customization.map((reward) => {
                         return (
-                            <li className="quest-list-item" key={`${reward.id}-${index}`}>
+                            <li className="quest-list-item" key={`${reward.id}`}>
                                 {CustomizationReward(reward, items, settings)}
                             </li>
                         );

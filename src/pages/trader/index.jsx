@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import ImageViewer from "react-simple-image-viewer";
 import { Icon } from "@mdi/react";
@@ -195,7 +195,7 @@ function Trader() {
             card="summary_large_image"
             key="seo-wrapper"
         />,
-        <div className="display-wrapper">
+        <div className="display-wrapper" key="trader-page-wrapper">
             <div className={"entity-page-wrapper"} key={"trader-page-display-wrapper"}>
                 <div className="entity-information-wrapper">
                     <div className="entity-top-content">

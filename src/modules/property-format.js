@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { isValidElement } from "react";
 
 import { formatCaliber } from "./format-ammo.mjs";
@@ -145,17 +145,13 @@ const formatter = (key, value, id) => {
             })
             .filter(Boolean);
         if (value.length > 0) {
-            value = value.reduce((prev, curr, currentIndex) => [
-                prev,
-                <span key={`spacer-${currentIndex}`}>, </span>,
-                curr,
-            ]);
+            value = value.reduce((prev, curr) => [prev, <span key={`spacer-${prev.id}-${curr.id}`}>, </span>, curr]);
         }
     }
 
     if (key === "stimEffects") {
         value = value
-            ?.map((effect, effectIndex) => {
+            ?.map((effect) => {
                 const displayName = effect.skillName || effect.type;
                 let displayValue = `${effect.value > 0 ? "+" : ""}${effect.value}${effect.percent ? "%" : ""}`;
                 if (effect.value === 0) {
@@ -164,7 +160,7 @@ const formatter = (key, value, id) => {
                 const chance = effect.chance === 1 ? "" : ` ${effect.chance * 100}%`;
                 const formattedValue =
                     displayValue || chance ? `${displayName}: ${displayValue}${chance}` : displayName;
-                return <div key={`effect-${effectIndex}`}>{formattedValue}</div>;
+                return <div key={`effect-${displayName}-${displayValue}`}>{formattedValue}</div>;
             })
             .filter(Boolean); //.reduce((prev, curr) => [prev, (<br/>), curr])];
     }
@@ -188,7 +184,7 @@ const formatter = (key, value, id) => {
                     </Link>
                 );
             })
-            .reduce((prev, curr, currentIndex) => [prev, <span key={`spacer-${currentIndex}`}>, </span>, curr]);
+            .reduce((prev, curr) => [prev, <span key={`spacer-${prev.id}-${curr.id}`}>, </span>, curr]);
     }
 
     if (key === "bodyPartsHealth" && value.length > 0) {
@@ -201,7 +197,7 @@ const formatter = (key, value, id) => {
                     </span>
                 );
             })
-            .reduce((prev, curr, currentIndex) => [prev, <span key={`spacer-${currentIndex}`}>, </span>, curr]);
+            .reduce((prev, curr) => [prev, <span key={`spacer-${prev.bodyPart}-${curr.bodyPart}`}>, </span>, curr]);
     }
 
     if (Array.isArray(value)) {

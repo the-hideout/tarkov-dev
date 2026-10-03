@@ -7,76 +7,38 @@ class HideoutQuery extends APIQuery {
 
     async query(options) {
         const { language, gameMode, prebuild } = options;
-        const query = `query TarkovDevHideout {
-            hideoutStations(lang: ${language}, gameMode: ${gameMode}) {
-                id
-                name
-                normalizedName
-                imageLink
-                levels {
-                    id
-                    level
-                    itemRequirements {
-                        quantity
-                        item {
-                            id
-                        }
-                        attributes {
-                            name
-                            value
-                        }
-                    } 
-                    stationLevelRequirements {
-                        station {
-                            id
-                            normalizedName
-                        }
-                        level
-                    }
-                    traderRequirements {
-                        trader {
-                            id
-                            normalizedName
-                        }
-                        level
-                    }
+
+        const [hideoutData] = await Promise.all([this.apiRequest(`${gameMode}/hideout`, { lang: language })]);
+
+        const hideout = Object.values(hideoutData).map((station) => {
+            for (const level of station.levels) {
+                for (const req of level.itemRequirements) {
+                    req.item = { id: req.item };
+                    req.quantity = req.count;
+                    req.attributes = Object.keys(req.attributes ?? []).map((attName) => {
+                        return {
+                            name: attName,
+                            value: req.attributes[attName],
+                        };
+                    });
                 }
-                crafts {
-                    id
+                for (const req of level.stationLevelRequirements) {
+                    req.station = {
+                        id: req.station,
+                        normalizedName: hideoutData[req.station].normalizedName,
+                    };
+                }
+                for (const req of level.traderRequirements) {
+                    req.trader = {
+                        id: req.trader,
+                    };
+                    req.level = req.value;
                 }
             }
-        }`;
+            return station;
+        });
 
-        const queryData = await this.graphqlRequest(query);
-
-        if (queryData.errors) {
-            if (queryData.data) {
-                for (const error of queryData.errors) {
-                    let badItem = false;
-                    if (error.path) {
-                        badItem = queryData.data;
-                        for (let i = 0; i < 2; i++) {
-                            badItem = badItem[error.path[i]];
-                        }
-                    }
-                    console.log(`Error in hideoutStations API query: ${error.message}`);
-                    if (badItem) {
-                        console.log(badItem);
-                    }
-                }
-            }
-            // only throw error if this is for prebuild or data wasn't returned
-            if (
-                prebuild ||
-                !queryData.data ||
-                !queryData.data.hideoutStations ||
-                !queryData.data.hideoutStations.length
-            ) {
-                return Promise.reject(new Error(queryData.errors[0].message));
-            }
-        }
-
-        return queryData.data.hideoutStations;
+        return hideout;
     }
 }
 

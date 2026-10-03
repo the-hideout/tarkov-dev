@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Slider } from "@mui/material";
 
 import formatPrice from "../../modules/format-price.js";
-import graphqlRequest from "../../modules/graphql-request.mjs";
+import apiRequest from "../..//modules/api-request.mjs";
 // import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import "./index.css";
@@ -38,41 +38,26 @@ function PriceGraph({ item, itemId, days }) {
 
     useEffect(() => {
         if (loadedItemId.current !== itemId) {
-            setPriceData({ data: { itemPrices: [] } });
+            setPriceData([]);
         }
-        graphqlRequest(
-            `query TarkovDevPrices($itemId: ID!, $gameMode: GameMode) {
-                itemPrices(id: $itemId, gameMode: $gameMode) {
-                    price
-                    priceMin
-                    timestamp
-                }
-            }`,
-            { itemId, gameMode },
-        )
+        apiRequest(`${gameMode}/prices/${itemId}`)
             .then((priceData) => {
-                if (!priceData?.data?.itemPrices) {
-                    if (priceData?.errors?.length) {
-                        console.log(`Error retrieving historical prices`, priceData.errors);
-                    }
-                } else {
-                    loadedItemId.current = itemId;
-                }
+                loadedItemId.current = itemId;
                 setPriceData(priceData);
                 return priceData;
             })
             .catch((error) => {
-                console.log(`Error retrieving historical prices`, error);
-                setPriceData({ data: { itemPrices: [] } });
+                console.log(`Error retrieving item prices`, error);
+                setPriceData([]);
             });
     }, [itemId, gameMode]);
 
     const daysData = useMemo(() => {
-        if (!data?.data?.itemPrices) {
+        if (!data) {
             return [];
         }
         const cutoffTimestamp = new Date().setDate(new Date().getDate() - days);
-        return data.data.itemPrices.filter((scan) => scan.timestamp >= cutoffTimestamp);
+        return data.filter((scan) => scan.timestamp >= cutoffTimestamp);
     }, [data, days]);
 
     const { dayTicks, tickLabels } = useMemo(() => {
@@ -157,7 +142,7 @@ function PriceGraph({ item, itemId, days }) {
         height = 1280;
     }
 
-    if (!data?.data?.itemPrices) {
+    if (!data) {
         return null;
     }
 
@@ -248,12 +233,9 @@ function PriceGraph({ item, itemId, days }) {
                 }}
             >
                 <Slider
-                    defaultValue={[
-                        dayTicks[0],
-                        parseInt(data.data.itemPrices[data.data.itemPrices.length - 1].timestamp),
-                    ]}
+                    defaultValue={[dayTicks[0], parseInt(data[data.length - 1].timestamp)]}
                     min={dayTicks[0]}
-                    max={parseInt(data.data.itemPrices[data.data.itemPrices.length - 1].timestamp)}
+                    max={parseInt(data[data.length - 1].timestamp)}
                     marks={dayTicks.reduce((allMarks, current) => {
                         allMarks.push({ label: "", value: current });
                         return allMarks;

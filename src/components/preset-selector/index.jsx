@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import useItemsData from "../../features/items/index.js";
 import { SelectItemFilter } from "../filter/index.jsx";

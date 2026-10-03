@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, lazy, Suspense, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { HashLink } from "react-router-hash-link";
+import { useSearchParams } from "react-router";
+import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import QueueBrowserTask from "../../modules/queue-browser-task.js";
 
@@ -63,10 +62,6 @@ function Start() {
         return allTraders.filter((t) => t.barters?.length > 0);
     }, [allTraders]);
 
-    useEffect(() => {
-        setNameFilter(searchParams.get("search") || "");
-    }, [searchParams]);
-
     const handleNameFilterChange = useCallback(
         (value) => {
             if (typeof window !== "undefined") {
@@ -76,12 +71,13 @@ function Start() {
                     setSearchParams({ search: value });
                 });
             }
+            setNameFilter(value);
         },
-        [setSearchParams],
+        [setSearchParams, setNameFilter],
     );
 
     const [loadMoreState, setLoadMoreState] = useState(false);
-    const loadMore = (event) => {
+    const loadMore = () => {
         setLoadMoreState((current) => !current);
     };
 
@@ -201,10 +197,10 @@ function Start() {
                 <ul key="maps-list">
                     {uniqueMaps.map((map) => (
                         <li key={`map-link-${map.normalizedName}`}>
-                            <HashLink to={`/maps#${map.normalizedName}`}>
+                            <Link to={`/maps#${map.normalizedName}`}>
                                 <Icon path={mapIcons[map.normalizedName]} size={1} className="icon-with-text" />
                                 {map.name}
-                            </HashLink>
+                            </Link>
                         </li>
                     ))}
                 </ul>
