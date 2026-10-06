@@ -103,9 +103,9 @@ const Menu = () => {
     const { visibleCount } = useMenuOverflow(desktopMenuRef, measuringRef, menuData);
 
     const visibleItems = useMemo(() => {
-        // remove Prestige menu item in pve mode
+        // remove Prestige menu item in seasonal mode
         for (const menuTab of menuData) {
-            if (gameMode !== "pve") {
+            if (gameMode !== "pvp-season") {
                 break;
             }
             if (menuTab.id !== "progression") {

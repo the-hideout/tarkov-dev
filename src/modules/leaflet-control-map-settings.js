@@ -124,8 +124,6 @@ L.Control.MapSettings = L.Control.extend({
         const alwaysShowSnipersLabelContent = L.DomUtil.create("span", undefined, alwaysShowSnipersLabel);
         alwaysShowSnipersLabelContent.textContent = this.options.alwaysShowSnipersLabel;
 
-        L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
-
         // always show extracts setting
         const alwaysShowExtractsDiv = L.DomUtil.create("div", `${className}-setting-container`, form);
 
