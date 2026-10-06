@@ -148,6 +148,36 @@ const theme = createTheme({
                         backgroundColor: "var(--color-gold-one)",
                         color: "rgb(0, 0, 0)",
                     },
+                    "&.PerkButton": {
+                        //backgroundColor: "#111",
+                        color: "var(--color-gold-one)",
+                        height: "auto",
+                        margin: "3px",
+                    },
+                    "&.PerkButton.positive": {
+                        background: "linear-gradient(to right, #142e14 0px, #0d1b0c 25%)",
+                    },
+                    "&.PerkButton.negative": {
+                        background: "linear-gradient(to right, #3b1818 0px, #1d0b0b 25%)",
+                    },
+                    "&.PerkButton.Mui-selected": {
+                        color: "var(--color-gold-one)",
+                    },
+                    "&.PerkButton.Mui-selected.positive": {
+                        background: "linear-gradient(to right, #265324 0px, #0d1b0c 75%)",
+                    },
+                    "&.PerkButton.Mui-selected.negative": {
+                        background: "linear-gradient(to right, #6b2b2b 0px, #1d0b0b 75%)",
+                    },
+                    "&.PerkButton.Mui-disabled": {
+                        color: "var(--color-gray)",
+                    },
+                    "&.PerkButton.Mui-disabled.positive": {
+                        background: "linear-gradient(to right, #202e20 0px, #0d1b0c 25%)",
+                    },
+                    "&.PerkButton.Mui-disabled.negative": {
+                        background: "linear-gradient(to right, #3f2a2a 0px, #1d0b0b 25%)",
+                    },
                 },
             },
         },

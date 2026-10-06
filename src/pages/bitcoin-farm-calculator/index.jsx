@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -15,6 +15,7 @@ import StationSkillTraderSetting from "../../components/station-skill-trader-set
 
 import formatPrice from "../../modules/format-price.js";
 import useHideoutData from "../../features/hideout/index.js";
+import useSeasonData from "../../features/season/index.js";
 
 import {
     BitcoinItemId,
@@ -39,6 +40,10 @@ const BitcoinFarmCalculator = () => {
     const { data: hideout } = useHideoutData();
     const solar = hideout.find((station) => station.normalizedName === "solar-power");
 
+    const remainingDaysInputRef = useRef();
+    const customDaysRemainingRef = useRef(false);
+    const { data: season } = useSeasonData();
+
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
         "num-graphic-cards",
         MaxNumGraphicsCards,
@@ -53,7 +58,17 @@ const BitcoinFarmCalculator = () => {
         false,
     );
 
-    const [seasonDaysRemaining, setSeasonDaysRemaining] = useState(getSeasonDaysRemaining());
+    const [seasonDaysRemaining, setSeasonDaysRemaining] = useState(0);
+
+    useEffect(() => {
+        if (season?.end && !customDaysRemainingRef.current) {
+            const remainingDays = getSeasonDaysRemaining(season);
+            if (remainingDaysInputRef.current) {
+                remainingDaysInputRef.current.value = remainingDays;
+            }
+            setSeasonDaysRemaining(remainingDays);
+        }
+    }, [season, setSeasonDaysRemaining]);
 
     const { data: items } = useItemsData();
 
@@ -178,12 +193,14 @@ const BitcoinFarmCalculator = () => {
                             </span>
                         </Link>
                         <input
+                            ref={remainingDaysInputRef}
                             className={"filter-input wipe-days"}
                             defaultValue={seasonDaysRemaining?.toString() ?? ""}
                             type={"number"}
                             onChange={(event) => {
                                 const parsed = parseInt(event.target.value, 10);
                                 if (Number.isFinite(parsed)) {
+                                    customDaysRemainingRef.current = true;
                                     setSeasonDaysRemaining(parsed);
                                 }
                             }}
