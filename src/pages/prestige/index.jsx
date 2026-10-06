@@ -143,7 +143,7 @@ function Prestige() {
     }, [currentPrestige, prestiges, t]);
 
     const gameModeWarning = useMemo(() => {
-        if (gameMode === "regular") {
+        if (gameMode !== "pvp-season") {
             return "";
         }
         return (
@@ -266,7 +266,7 @@ function Prestige() {
         );
     }, [currentPrestige, items, t, handbook]);
 
-    if (gameMode === "pve") {
+    if (gameMode === "pvp-season") {
         return [
             <SEO
                 title={`${t("Prestige")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
