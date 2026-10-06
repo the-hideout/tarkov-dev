@@ -7,7 +7,7 @@ import translationEN from "./translations/en/translation.json";
 import translationDE from "./translations/de/translation.json";
 import translationRU from "./translations/ru/translation.json";
 import translationIT from "./translations/it/translation.json";
-// import translationES from './translations/es/translation.json';
+import translationES from "./translations/es/translation.json";
 import translationFR from "./translations/fr/translation.json";
 import translationJA from "./translations/ja/translation.json";
 import translationPL from "./translations/pl/translation.json";
@@ -102,7 +102,7 @@ i18n
                 maps: mapsIT,
             },
             es: {
-                //     translation: translationES,
+                translation: translationES,
                 properties: propertiesES,
                 bosses: bossesES,
                 maps: mapsES,

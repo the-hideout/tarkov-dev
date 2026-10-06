@@ -6,6 +6,23 @@ export const CATEGORIES = {
     COMMUNITY: "Community",
 };
 
+// Faction troops (not named bosses from https://escapefromtarkov.fandom.com/wiki/Category:Bosses),
+// ordered by faction as in https://escapefromtarkov.fandom.com/wiki/Factions.
+// bear/usec only spawn as boss-type mobs in PVE, black-div-season only in PVP Season.
+const FACTION_NORMALIZED_NAMES = [
+    "bear",
+    "usec",
+    "raider",
+    "rogue",
+    "exusecfree",
+    "cultist-priest",
+    "af",
+    "black-div",
+    "black-div-boss",
+    "black-div-raider",
+    "black-div-season",
+];
+
 export const getMenuData = (t, { traders, bosses, uniqueMaps, categoryPages }) => [
     {
         id: "maps",
@@ -68,13 +85,32 @@ export const getMenuData = (t, { traders, bosses, uniqueMaps, categoryPages }) =
         id: "bosses",
         text: t("Bosses"),
         to: "/bosses/",
-        items: bosses
-            .filter((boss) => boss.maps.length > 0)
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((boss) => ({
-                text: boss.name,
-                to: `/boss/${boss.normalizedName}`,
-            })),
+        items: [
+            {
+                text: t("Main Bosses"),
+                items: bosses
+                    .filter((boss) => boss.maps.length > 0 && !FACTION_NORMALIZED_NAMES.includes(boss.normalizedName))
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((boss) => ({
+                        text: boss.name,
+                        to: `/boss/${boss.normalizedName}`,
+                    })),
+            },
+            {
+                text: t("Factions"),
+                items: bosses
+                    .filter((boss) => boss.maps.length > 0 && FACTION_NORMALIZED_NAMES.includes(boss.normalizedName))
+                    .sort(
+                        (a, b) =>
+                            FACTION_NORMALIZED_NAMES.indexOf(a.normalizedName) -
+                            FACTION_NORMALIZED_NAMES.indexOf(b.normalizedName),
+                    )
+                    .map((boss) => ({
+                        text: boss.name,
+                        to: `/boss/${boss.normalizedName}`,
+                    })),
+            },
+        ],
     },
     {
         id: "calculators",
