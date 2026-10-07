@@ -142,6 +142,24 @@ L.Control.MapSettings = L.Control.extend({
         const alwaysShowExtractsLabelContent = L.DomUtil.create("span", undefined, alwaysShowExtractsLabel);
         alwaysShowExtractsLabelContent.textContent = this.options.alwaysShowExtractsLabel;
 
+        // always show hazard bounds setting
+        const alwaysShowHazardBoundsDiv = L.DomUtil.create("div", `${className}-setting-container`, form);
+
+        const alwaysShowHazardBoundsLabel = L.DomUtil.create("label", undefined, alwaysShowHazardBoundsDiv);
+        alwaysShowHazardBoundsLabel.setAttribute("for", "alwaysShowHazardBounds");
+
+        const alwaysShowHazardBoundsCheckbox = L.DomUtil.create("input", undefined, alwaysShowHazardBoundsLabel);
+        alwaysShowHazardBoundsCheckbox.id = "alwaysShowHazardBounds";
+        alwaysShowHazardBoundsCheckbox.setAttribute("type", "checkbox");
+        if (this.options.alwaysShowHazardBounds) {
+            alwaysShowHazardBoundsCheckbox.setAttribute("checked", !!this.options.alwaysShowHazardBounds);
+            alwaysShowHazardBoundsCheckbox.checked = true;
+        }
+        L.DomEvent.on(alwaysShowHazardBoundsCheckbox, "click", this._onSettingChanged, this);
+
+        const alwaysShowHazardBoundsLabelContent = L.DomUtil.create("span", undefined, alwaysShowHazardBoundsLabel);
+        alwaysShowHazardBoundsLabelContent.textContent = this.options.alwaysShowHazardBoundsLabel;
+
         L.DomUtil.create("div", `${className}-separator player-location-help-separator`, form);
 
         // show location labels setting

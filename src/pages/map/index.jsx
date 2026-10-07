@@ -305,6 +305,7 @@ function Map() {
         expandSearch: false,
         alwaysShowSnipers: true,
         alwaysShowExtracts: false,
+        alwaysShowHazardBounds: false,
         hiddenTasks: [],
     });
 
@@ -541,6 +542,8 @@ function Map() {
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
                 alwaysShowExtracts: !!mapSettingsRef.current.alwaysShowExtracts,
                 alwaysShowExtractsLabel: tMaps("Always show extracts"),
+                alwaysShowHazardBounds: mapSettingsRef.current.alwaysShowHazardBounds ?? false,
+                alwaysShowHazardBoundsLabel: tMaps("Always show hazard outlines"),
                 collapsed: true,
             })
             .addTo(map);
@@ -573,6 +576,13 @@ function Map() {
                     map._container.classList.remove("always-show-extracts");
                 }
             }
+            if (e.settingName === "alwaysShowHazardBounds") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-hazard-bounds");
+                } else {
+                    map._container.classList.remove("always-show-hazard-bounds");
+                }
+            }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
         });
@@ -581,6 +591,9 @@ function Map() {
         }
         if (mapSettingsRef.current.alwaysShowExtracts ?? false) {
             map._container.classList.add("always-show-extracts");
+        }
+        if (mapSettingsRef.current.alwaysShowHazardBounds ?? false) {
+            map._container.classList.add("always-show-hazard-bounds");
         }
 
         map.raidInfoControl = L.control
@@ -1666,7 +1679,7 @@ function Map() {
                 const rect = L.polygon(outlineToPoly(hazard.outline), {
                     color: "#ff0000",
                     weight: 1,
-                    className: "not-shown",
+                    className: "hazard-outline not-shown",
                 });
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
