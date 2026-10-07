@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useStateWithLocalStorage from "../../hooks/useStateWithLocalStorage.jsx";
 import { Link } from "react-router";
@@ -7,7 +7,17 @@ import { Icon } from "@mdi/react";
 import { mdiCogOutline, mdiRemote, mdiClose, mdiMenu } from "@mdi/js";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Box, Alert, IconButton, Collapse, LinearProgress } from "@mui/material";
+import {
+    Box,
+    Alert,
+    IconButton,
+    Collapse,
+    LinearProgress,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+} from "@mui/material";
 
 import { caliberArrayWithSplit } from "../../modules/format-ammo.mjs";
 import categoryPages from "../../data/category-pages.json";
@@ -37,21 +47,10 @@ const Menu = () => {
     const [alertStateOpen, setAlertStateOpen] = useState(
         alertConfig.alwaysShow || !alertsClosed.includes(alertConfig.bannerKey),
     );
+    const [gameModeDialogOpen, setGameModeDialogOpen] = useState(false);
 
     const gameMode = useSelector((state) => state.settings.gameMode);
     const loadingData = useSelector((state) => state.settings.loadingData);
-
-    const otherGameMode = useMemo(() => {
-        let modeIndex = gameModes.indexOf(gameMode);
-        if (modeIndex === -1) {
-            modeIndex = 0;
-        }
-        modeIndex++;
-        if (modeIndex >= gameModes.length) {
-            modeIndex = 0;
-        }
-        return gameModes[modeIndex];
-    }, [gameMode]);
 
     const gameModeTranslated = useMemo(() => {
         return t(`game_mode_${gameMode}`);
@@ -120,6 +119,18 @@ const Menu = () => {
     const overflowItems = useMemo(() => {
         return menuData.slice(visibleCount);
     }, [menuData, visibleCount]);
+
+    const handleDialogClose = () => {
+        setGameModeDialogOpen(false);
+    };
+
+    const handleGameModeChange = useCallback(
+        (event) => {
+            dispatch(setGameMode(event.target.value));
+            setGameModeDialogOpen(false);
+        },
+        [setGameMode, setGameModeDialogOpen, dispatch],
+    );
 
     return (
         <>
@@ -194,11 +205,34 @@ const Menu = () => {
                             </Link>
                             <div
                                 className={`game-mode-toggle ${gameMode}`}
-                                onClick={() => dispatch(setGameMode(otherGameMode))}
+                                onClick={() => setGameModeDialogOpen(true)}
                                 title={t("Click to switch game mode")}
                             >
-                                {loadingData ? <LinearProgress sx={{ width: 20, height: 2 }} /> : gameModeTranslated}
+                                <span>{gameModeTranslated}</span>
+                                {loadingData ? (
+                                    <LinearProgress
+                                        sx={{ width: "auto", height: 2, margin: "0px auto" }}
+                                        className={gameMode}
+                                    />
+                                ) : null}
                             </div>
+                            <Dialog open={gameModeDialogOpen} onClose={handleDialogClose} className="game-mode-dialog">
+                                <DialogTitle>{t("Game mode")}</DialogTitle>
+                                <DialogActions>
+                                    {gameModes.map((gm) => {
+                                        return (
+                                            <Button
+                                                onClick={handleGameModeChange}
+                                                value={gm}
+                                                className={`game-mode-button ${gm}${gm === gameMode ? " active" : ""}`}
+                                                key={gm}
+                                            >
+                                                {t(`game_mode_${gm}`)}
+                                            </Button>
+                                        );
+                                    })}
+                                </DialogActions>
+                            </Dialog>
                         </div>
 
                         <ul className="desktop-menu" ref={desktopMenuRef}>
