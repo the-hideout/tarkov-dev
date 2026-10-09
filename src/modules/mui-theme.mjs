@@ -26,6 +26,13 @@ const theme = createTheme({
                 },
             },
         },
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: "var(--color-gunmetal-dark)",
+                },
+            },
+        },
         MuiSlider: {
             styleOverrides: {
                 root: {
