@@ -19,7 +19,7 @@ function Prestiges() {
     const gameMode = useSelector((state) => state.settings.gameMode);
 
     const noPrestigesWarning = useMemo(() => {
-        if (gameMode === "pve") {
+        if (gameMode === "pvp-season") {
             return (
                 <div>
                     <p>

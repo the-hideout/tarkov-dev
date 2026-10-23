@@ -63,5 +63,6 @@
     "All": "全部",
     "None": "无",
     "Search": "搜索",
-    "Always show extracts": "总是显示撤离点"
+    "Always show extracts": "总是显示撤离点",
+    "Always show hazard outlines": "Always show hazard outlines"
 }

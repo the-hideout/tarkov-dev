@@ -1,0 +1,41 @@
+.season-perks-selector .MuiButtonBase-root {
+    max-width: 300px;
+}
+
+.perk-image {
+    max-height: 75px;
+}
+
+.Mui-disabled .perk-image {
+    opacity: 0.5;
+}
+
+.perk-title {
+    text-align: left;
+    font-weight: bold;
+}
+
+.perk-description {
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.season-perks-common {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.common-perk {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, #2c2c2c 0px, #1b1b1b 25%);
+    border: #000 1px solid;
+}
+
+.points-total {
+    padding-left: 1em;
+    font-weight: bold;
+}

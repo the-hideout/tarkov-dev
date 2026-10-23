@@ -87,7 +87,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     let selector;
     let options;
     let imageLink = image;
-    const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, " ")));
+    const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey)?.replace(/-/g, " ")));
     if (type === "station") {
         selector = selectAllStations;
         options = getOptionsForStation(t, stateKey);

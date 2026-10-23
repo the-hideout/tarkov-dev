@@ -305,6 +305,7 @@ function Map() {
         expandSearch: false,
         alwaysShowSnipers: true,
         alwaysShowExtracts: false,
+        alwaysShowHazardBounds: false,
         hiddenTasks: [],
     });
 
@@ -541,6 +542,8 @@ function Map() {
                 alwaysShowSnipersLabel: tMaps("Always show snipers"),
                 alwaysShowExtracts: !!mapSettingsRef.current.alwaysShowExtracts,
                 alwaysShowExtractsLabel: tMaps("Always show extracts"),
+                alwaysShowHazardBounds: mapSettingsRef.current.alwaysShowHazardBounds ?? false,
+                alwaysShowHazardBoundsLabel: tMaps("Always show hazard outlines"),
                 collapsed: true,
             })
             .addTo(map);
@@ -573,6 +576,13 @@ function Map() {
                     map._container.classList.remove("always-show-extracts");
                 }
             }
+            if (e.settingName === "alwaysShowHazardBounds") {
+                if (e.settingValue) {
+                    map._container.classList.add("always-show-hazard-bounds");
+                } else {
+                    map._container.classList.remove("always-show-hazard-bounds");
+                }
+            }
             mapSettingsRef.current[e.settingName] = e.settingValue;
             updateSavedMapSettings();
         });
@@ -581,6 +591,9 @@ function Map() {
         }
         if (mapSettingsRef.current.alwaysShowExtracts ?? false) {
             map._container.classList.add("always-show-extracts");
+        }
+        if (mapSettingsRef.current.alwaysShowHazardBounds ?? false) {
+            map._container.classList.add("always-show-hazard-bounds");
         }
 
         map.raidInfoControl = L.control
@@ -1221,14 +1234,10 @@ function Map() {
         map.raidInfoControl.options.map = mapData;
         map.raidInfoControl.refreshMapData();
 
-        const layerControl = map.layerControl;
-
-        const markerBounds = markerBoundsRef.current;
-
         // remove old markers
         const groupIds = ["Extracts", "Hazards", "Lootable Items", "Spawns"];
         for (const groupId of groupIds) {
-            layerControl.removeGroupFromMap(groupId);
+            map.layerControl.removeGroupFromMap(groupId);
         }
         const layerIds = ["stationarygun", "switch", "btr-stop"];
         for (const layerId of layerIds) {
@@ -1356,147 +1365,11 @@ function Map() {
                 marker.on("click", activateMarkerLayer);
                 marker.addTo(spawnLayers[spawnType]);
 
-                checkMarkerBounds(spawn.position, markerBounds);
+                checkMarkerBounds(spawn.position, markerBoundsRef.current);
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
                     addLayer(spawnLayers[key], `spawn_${key}`, "Spawns");
-                }
-            }
-        }
-
-        //add extracts
-        if (mapData.extracts.length > 0) {
-            const extractLayers = {
-                pmc: L.layerGroup(),
-                scav: L.layerGroup(),
-                shared: L.layerGroup(),
-            };
-            const zIndexOffsets = {
-                pmc: 150,
-                shared: 125,
-                scav: 100,
-            };
-            for (const extract of mapData.extracts) {
-                const faction = extract.faction ?? "shared";
-                if (!positionIsInBounds(extract.position)) {
-                    //continue;
-                }
-                const colorMap = {
-                    scav: "#ff7800",
-                    pmc: "#00e599",
-                    shared: "#00e4e5",
-                };
-                const rect = L.polygon(outlineToPoly(extract.outline), {
-                    color: colorMap[faction],
-                    weight: 1,
-                    className: "not-shown",
-                });
-                const extractIcon = L.divIcon({
-                    className: "extract-icon",
-                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${faction}.png"/><span class="extract-name ${faction}">${extract.name}</span>`,
-                    iconAnchor: [12, 12],
-                });
-                const extractMarker = L.marker(pos(extract.position), {
-                    icon: extractIcon,
-                    title: extract.name,
-                    zIndexOffset: zIndexOffsets[faction],
-                    position: extract.position,
-                    top: extract.top,
-                    bottom: extract.bottom,
-                    outline: rect,
-                    id: extract.id,
-                    riseOnHover: true,
-                });
-                extractMarker.on("mouseover", mouseHoverOutline);
-                extractMarker.on("mouseout", mouseHoverOutline);
-                extractMarker.on("click", toggleForceOutline);
-                let popup;
-                if (extract.switches?.length > 0) {
-                    popup ??= L.DomUtil.create("div");
-                    const textElement = L.DomUtil.create("div");
-                    textElement.textContent = `${tMaps("Activated by")}:`;
-                    popup.appendChild(textElement);
-                    for (const sw of extract.switches) {
-                        const linkElement = getPoiLinkElement(sw.id, "switch");
-                        const nameElement = L.DomUtil.create("span");
-                        nameElement.innerHTML = `<strong>${sw.name}</strong>`;
-                        linkElement.append(nameElement);
-                        popup.appendChild(linkElement);
-                    }
-                }
-                if (extract.transferItem) {
-                    popup ??= L.DomUtil.create("div");
-                    let itemCount = "";
-                    if (extract.transferItem.count > 1) {
-                        itemCount = ` x ${extract.transferItem.count.toLocaleString()}`;
-                    }
-                    const transferText = L.DomUtil.create("div", undefined, popup);
-                    transferText.innerText = `${tMaps("Required item")}:`;
-                    const itemName = `${extract.transferItem.item.name}${itemCount}`;
-                    const itemImage = L.DomUtil.create("img", "popup-item");
-                    itemImage.setAttribute("src", `${extract.transferItem.item.baseImageLink}`);
-                    const itemLink = getReactLink(`/item/${extract.transferItem.item.normalizedName}`, itemImage);
-                    itemLink.setAttribute("title", itemName);
-                    itemLink.append(itemName);
-                    popup.append(itemLink);
-                }
-
-                if (popup || showElevation) {
-                    popup ??= L.DomUtil.create("div");
-                    addElevation(extract, popup);
-                    extractMarker.bindPopup(L.popup().setContent(popup));
-                }
-                extractMarker.on("add", checkMarkerForActiveLayers);
-                L.layerGroup([rect, extractMarker]).addTo(extractLayers[faction]);
-
-                checkMarkerBounds(extract.position, markerBounds);
-            }
-            if (mapData.transits.length > 0) {
-                extractLayers.transit = L.layerGroup();
-
-                for (const transit of mapData.transits) {
-                    if (!positionIsInBounds(transit.position)) {
-                        //continue;
-                    }
-                    const rect = L.polygon(outlineToPoly(transit.outline), {
-                        color: "#e53500",
-                        weight: 1,
-                        className: "not-shown",
-                    });
-                    const transitIcon = L.divIcon({
-                        className: "extract-icon",
-                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_transit.png"/><span class="extract-name transit">${transit.description}</span>`,
-                        iconAnchor: [12, 12],
-                    });
-                    const transitMarker = L.marker(pos(transit.position), {
-                        icon: transitIcon,
-                        title: transit.description,
-                        zIndexOffset: zIndexOffsets.pmc,
-                        position: transit.position,
-                        top: transit.top,
-                        bottom: transit.bottom,
-                        outline: rect,
-                        id: transit.id,
-                        riseOnHover: true,
-                    });
-                    transitMarker.on("mouseover", mouseHoverOutline);
-                    transitMarker.on("mouseout", mouseHoverOutline);
-                    transitMarker.on("click", toggleForceOutline);
-                    if (showElevation) {
-                        const popup = L.DomUtil.create("div");
-                        addElevation(transit, popup);
-                        transitMarker.bindPopup(L.popup().setContent(popup));
-                    }
-                    transitMarker.on("add", checkMarkerForActiveLayers);
-                    L.layerGroup([rect, transitMarker]).addTo(extractLayers.transit);
-
-                    checkMarkerBounds(transit.position, markerBounds);
-                }
-            }
-            for (const key in extractLayers) {
-                if (Object.keys(extractLayers[key]._layers).length > 0) {
-                    addLayer(extractLayers[key], `extract_${key}`, "Extracts");
                 }
             }
         }
@@ -1666,7 +1539,7 @@ function Map() {
                 const rect = L.polygon(outlineToPoly(hazard.outline), {
                     color: "#ff0000",
                     weight: 1,
-                    className: "not-shown",
+                    className: "hazard-outline not-shown",
                 });
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
@@ -1700,7 +1573,7 @@ function Map() {
                 }
                 L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.hazardType]);
 
-                checkMarkerBounds(hazard.position, markerBounds);
+                checkMarkerBounds(hazard.position, markerBoundsRef.current);
             }
 
             if (mapData.artillery?.zones?.length > 0) {
@@ -1747,7 +1620,7 @@ function Map() {
                     }
                     L.layerGroup([rect, hazardMarker]).addTo(hazardLayers.mortar);
 
-                    checkMarkerBounds(hazard.position, markerBounds);
+                    checkMarkerBounds(hazard.position, markerBoundsRef.current);
                 }
             }
             for (const key in hazardLayers) {
@@ -1783,6 +1656,7 @@ function Map() {
         }
 
         if (showMarkersBounds) {
+            const markerBounds = markerBoundsRef.current;
             console.log(
                 `Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`,
             );
@@ -1960,13 +1834,150 @@ function Map() {
             return;
         }
         // remove old markers
-        const groupIds = ["Loose Loot"];
+        const groupIds = ["Loose Loot", "Extracts"];
         for (const groupId of groupIds) {
             map.layerControl.removeGroupFromMap(groupId);
         }
         const layerIds = ["lock"];
         for (const layerId of layerIds) {
             map.layerControl.removeLayerFromMap(layerId);
+        }
+
+        //add extracts
+        if (mapData.extracts.length > 0) {
+            const extractLayers = {
+                pmc: L.layerGroup(),
+                scav: L.layerGroup(),
+                shared: L.layerGroup(),
+            };
+            const zIndexOffsets = {
+                pmc: 150,
+                shared: 125,
+                scav: 100,
+            };
+            for (const extract of mapData.extracts) {
+                const faction = extract.faction ?? "shared";
+                if (!positionIsInBounds(extract.position)) {
+                    //continue;
+                }
+                const colorMap = {
+                    scav: "#ff7800",
+                    pmc: "#00e599",
+                    shared: "#00e4e5",
+                };
+                const rect = L.polygon(outlineToPoly(extract.outline), {
+                    color: colorMap[faction],
+                    weight: 1,
+                    className: "not-shown",
+                });
+                const extractIcon = L.divIcon({
+                    className: "extract-icon",
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${faction}.png"/><span class="extract-name ${faction}">${extract.name}</span>`,
+                    iconAnchor: [12, 12],
+                });
+                const extractMarker = L.marker(pos(extract.position), {
+                    icon: extractIcon,
+                    title: extract.name,
+                    zIndexOffset: zIndexOffsets[faction],
+                    position: extract.position,
+                    top: extract.top,
+                    bottom: extract.bottom,
+                    outline: rect,
+                    id: extract.id,
+                    riseOnHover: true,
+                });
+                extractMarker.on("mouseover", mouseHoverOutline);
+                extractMarker.on("mouseout", mouseHoverOutline);
+                extractMarker.on("click", toggleForceOutline);
+                let popup;
+                if (extract.switches?.length > 0) {
+                    popup ??= L.DomUtil.create("div");
+                    const textElement = L.DomUtil.create("div");
+                    textElement.textContent = `${tMaps("Activated by")}:`;
+                    popup.appendChild(textElement);
+                    for (const sw of extract.switches) {
+                        const linkElement = getPoiLinkElement(sw.id, "switch");
+                        const nameElement = L.DomUtil.create("span");
+                        nameElement.innerHTML = `<strong>${sw.name}</strong>`;
+                        linkElement.append(nameElement);
+                        popup.appendChild(linkElement);
+                    }
+                }
+                if (extract.transferItem) {
+                    popup ??= L.DomUtil.create("div");
+                    let itemCount = "";
+                    if (extract.transferItem.count > 1) {
+                        itemCount = ` x ${extract.transferItem.count.toLocaleString()}`;
+                    }
+                    const transferItem = items.find((i) => i.id === extract.transferItem.item.id);
+                    const transferText = L.DomUtil.create("div", undefined, popup);
+                    transferText.innerText = `${tMaps("Required item")}:`;
+                    const itemName = `${transferItem?.name ?? "???"}${itemCount}`;
+                    const itemImage = L.DomUtil.create("img", "popup-item");
+                    itemImage.setAttribute("src", `${transferItem?.baseImageLink ?? "#"}`);
+                    const itemLink = getReactLink(`/item/${transferItem?.normalizedName ?? ""}`, itemImage);
+                    itemLink.setAttribute("title", itemName);
+                    itemLink.append(itemName);
+                    popup.append(itemLink);
+                }
+
+                if (popup || showElevation) {
+                    popup ??= L.DomUtil.create("div");
+                    addElevation(extract, popup);
+                    extractMarker.bindPopup(L.popup().setContent(popup));
+                }
+                extractMarker.on("add", checkMarkerForActiveLayers);
+                L.layerGroup([rect, extractMarker]).addTo(extractLayers[faction]);
+
+                checkMarkerBounds(extract.position, markerBoundsRef.current);
+            }
+            if (mapData.transits.length > 0) {
+                extractLayers.transit = L.layerGroup();
+
+                for (const transit of mapData.transits) {
+                    if (!positionIsInBounds(transit.position)) {
+                        //continue;
+                    }
+                    const rect = L.polygon(outlineToPoly(transit.outline), {
+                        color: "#e53500",
+                        weight: 1,
+                        className: "not-shown",
+                    });
+                    const transitIcon = L.divIcon({
+                        className: "extract-icon",
+                        html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_transit.png"/><span class="extract-name transit">${transit.description}</span>`,
+                        iconAnchor: [12, 12],
+                    });
+                    const transitMarker = L.marker(pos(transit.position), {
+                        icon: transitIcon,
+                        title: transit.description,
+                        zIndexOffset: zIndexOffsets.pmc,
+                        position: transit.position,
+                        top: transit.top,
+                        bottom: transit.bottom,
+                        outline: rect,
+                        id: transit.id,
+                        riseOnHover: true,
+                    });
+                    transitMarker.on("mouseover", mouseHoverOutline);
+                    transitMarker.on("mouseout", mouseHoverOutline);
+                    transitMarker.on("click", toggleForceOutline);
+                    if (showElevation) {
+                        const popup = L.DomUtil.create("div");
+                        addElevation(transit, popup);
+                        transitMarker.bindPopup(L.popup().setContent(popup));
+                    }
+                    transitMarker.on("add", checkMarkerForActiveLayers);
+                    L.layerGroup([rect, transitMarker]).addTo(extractLayers.transit);
+
+                    checkMarkerBounds(transit.position, markerBoundsRef.current);
+                }
+            }
+            for (const key in extractLayers) {
+                if (Object.keys(extractLayers[key]._layers).length > 0) {
+                    addLayer(extractLayers[key], `extract_${key}`, "Extracts");
+                }
+            }
         }
 
         //add locks

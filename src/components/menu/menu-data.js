@@ -93,6 +93,7 @@ export const getMenuData = (t, { traders, bosses, uniqueMaps, categoryPages }) =
         items: [
             { text: t("Tasks"), to: "/tasks" },
             { text: t("Loot tiers"), to: "/loot-tier/" },
+            { text: t("game_mode_pvp-season"), to: "/season" },
             { text: t("Wipe length"), to: "/wipe-length" },
             { text: t("Achievements"), to: "/achievements" },
             { text: t("Prestige"), to: "/prestige" },

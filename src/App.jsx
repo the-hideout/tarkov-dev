@@ -79,6 +79,7 @@ const Trader = React.lazy(() => import("./pages/trader/index.jsx"));
 const ItemTracker = React.lazy(() => import("./pages/item-tracker/index.jsx"));
 const Hideout = React.lazy(() => import("./pages/hideout/index.jsx"));
 const WipeLength = React.lazy(() => import("./pages/wipe-length/index.jsx"));
+const Season = React.lazy(() => import("./pages/season/index.jsx"));
 const Achievements = React.lazy(() => import("./pages/achievements/index.jsx"));
 const Players = React.lazy(() => import("./pages/players/index.jsx"));
 const Player = React.lazy(() => import("./pages/player/index.jsx"));
@@ -870,6 +871,16 @@ function App() {
                             element={[
                                 <Suspense fallback={<Loading />} key="suspense-wipe-length-wrapper">
                                     <WipeLength key="wipe-length-wrapper" />
+                                </Suspense>,
+                                remoteControlSessionElement,
+                            ]}
+                        />
+                        <Route
+                            path={"/season"}
+                            key="season-route"
+                            element={[
+                                <Suspense fallback={<Loading />} key="suspense-season-wrapper">
+                                    <Season key="season-wrapper" />
                                 </Suspense>,
                                 remoteControlSessionElement,
                             ]}

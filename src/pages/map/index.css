@@ -152,6 +152,10 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     fill-opacity: 0.02;
 }
 
+.leaflet-container.always-show-hazard-bounds .hazard-outline.not-shown {
+    display: block;
+}
+
 .not-shown {
     display: none;
 }

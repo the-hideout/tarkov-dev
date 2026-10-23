@@ -454,6 +454,35 @@
     border-color: #81c784;
 }
 
+.game-mode-button.regular {
+    color: #c7a981;
+}
+
+.game-mode-button.regular:hover {
+    background-color: #332b21;
+}
+
+.game-mode-button.pve {
+    color: #4fc3f7;
+}
+
+.game-mode-button.pve:hover {
+    background-color: #122c38;
+}
+
+.game-mode-button.pvp-season {
+    color: #81c784;
+}
+
+.game-mode-button.pvp-season:hover {
+    background-color: #223523;
+}
+
+.game-mode-button.active {
+    font-weight: 800;
+    border-bottom: 2px solid currentcolor;
+}
+
 @media (width >= 641px) {
     .mobile-menu-drawer {
         display: none !important;
