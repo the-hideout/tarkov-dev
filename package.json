@@ -92,7 +92,6 @@
         "react-spinners": "^0.17.0",
         "react-syntax-highlighter": "^16.1.1",
         "react-zoom-pan-pinch": "^4.0.3",
-        "resize-observer-polyfill": "^1.5.1",
         "victory": "^37.3.6"
     },
     "browserslist": {
