@@ -1,4 +1,3 @@
-import graphqlRequest from "./graphql-request.mjs";
 import apiRequest from "./api-request.mjs";
 
 const defaultOptions = {
@@ -16,10 +15,6 @@ class APIQuery {
 
     apiRequest(path, options) {
         return apiRequest(path, options);
-    }
-
-    graphqlRequest(queryString, variables) {
-        return graphqlRequest(queryString, variables);
     }
 
     async query() {
