@@ -274,9 +274,6 @@ importers:
       react-syntax-highlighter:
         specifier: ^16.1.1
         version: 16.1.1(react@19.3.0)
-      react-table:
-        specifier: ^7.8.0
-        version: 7.8.0(react@19.3.0)
       react-zoom-pan-pinch:
         specifier: ^4.0.3
         version: 4.0.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -320,9 +317,6 @@ importers:
       '@testing-library/react':
         specifier: ^16.3.2
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react@19.2.7)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@types/react-table':
-        specifier: ^7.7.20
-        version: 7.7.20
       confusing-browser-globals:
         specifier: ^1.0.11
         version: 1.0.11
@@ -1641,9 +1635,6 @@ packages:
 
   '@types/prop-types@15.7.15':
     resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
-
-  '@types/react-table@7.7.20':
-    resolution: {integrity: sha512-ahMp4pmjVlnExxNwxyaDrFgmKxSbPwU23sGQw2gJK4EhCvnvmib2s/O/+y1dfV57dXOwpr2plfyBol+vEHbi2w==}
 
   '@types/react-transition-group@4.4.12':
     resolution: {integrity: sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==}
@@ -3689,11 +3680,6 @@ packages:
     engines: {node: '>= 16.20.2'}
     peerDependencies:
       react: '>= 0.14.0'
-
-  react-table@7.8.0:
-    resolution: {integrity: sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==}
-    peerDependencies:
-      react: ^16.8.3 || ^17.0.0-0 || ^18.0.0
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
@@ -5882,10 +5868,6 @@ snapshots:
 
   '@types/prop-types@15.7.15': {}
 
-  '@types/react-table@7.7.20':
-    dependencies:
-      '@types/react': 19.2.7
-
   '@types/react-transition-group@4.4.12(@types/react@19.2.7)':
     dependencies:
       '@types/react': 19.2.7
@@ -8032,10 +8014,6 @@ snapshots:
       prismjs: 1.30.0
       react: 19.3.0
       refractor: 5.0.0
-
-  react-table@7.8.0(react@19.3.0):
-    dependencies:
-      react: 19.3.0
 
   react-transition-group@4.4.5(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
