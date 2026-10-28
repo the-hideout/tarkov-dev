@@ -226,9 +226,6 @@ importers:
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
-      lz-string:
-        specifier: ^1.5.0
-        version: 1.5.0
       react:
         specifier: ^19.2.8
         version: 19.3.0
