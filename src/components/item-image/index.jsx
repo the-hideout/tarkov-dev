@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import ImageViewer from "react-simple-image-viewer";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
-import ResizeObserver from "resize-observer-polyfill";
+//import ResizeObserver from "resize-observer-polyfill";
 
 import "./index.css";
 

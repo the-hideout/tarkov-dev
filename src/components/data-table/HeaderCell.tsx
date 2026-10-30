@@ -1,28 +1,28 @@
 import clsx from "clsx";
-import { TableHeaderProps } from "react-table";
+import { TableCell, type TableCellProps } from "@mui/material";
 
 import "./index.css";
 import ArrowIcon from "#src/components/data-table/Arrow.jsx";
+import cellResetSx from "#src/components/data-table/cellResetSx.js";
 
-export default function TableHead({
-    itemKey,
+export default function HeaderCell({
     headProps,
     children,
     align = "center",
     isSorted,
     isSortedDesc,
 }: {
-    itemKey: string;
     children: React.ReactNode;
     align: "left" | "center" | "right";
     isSorted?: boolean;
     isSortedDesc?: boolean;
-    headProps: TableHeaderProps;
+    headProps: Pick<TableCellProps, "onClick" | "style" | "title" | "className">;
 }) {
     return (
-        <th
-            key={itemKey}
+        <TableCell
             {...headProps}
+            sx={cellResetSx}
+            sortDirection={isSorted ? (isSortedDesc ? "desc" : "asc") : false}
             className={clsx(headProps.className, {
                 "table-head--left": align === "left",
                 "table-head--right": align === "right",
@@ -47,6 +47,6 @@ export default function TableHead({
                     direction={isSortedDesc ? "down" : "up"}
                 />
             </i>
-        </th>
+        </TableCell>
     );
 }

@@ -51,7 +51,7 @@ td.data-cell:last-child {
     border-right: 4px solid var(--color-black-light);
 }
 
-.data-cell,
+.data-table .data-cell,
 .data-table tfoot th {
     padding: 5px 15px;
     border-top: 4px solid var(--color-black-light);
@@ -147,7 +147,7 @@ div.no-data-info {
     padding: 5px 0;
 }
 
-.table-extra-row {
+.data-table .table-extra-row {
     text-align: center;
 }
 
