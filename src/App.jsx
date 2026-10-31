@@ -15,7 +15,7 @@ import { useScrollToHash } from "./components/useScrollToHash.jsx";
 import RemoteControlId from "./components/remote-control-id/index.jsx";
 import { fetchTarkovTrackerProgress, setPlayerPosition } from "./features/settings/settingsSlice.mjs";
 
-import { enableConnection, setConnectionStatus } from "./features/sockets/socketsSlice.js";
+import { enableConnection, setConnectionStatus } from "#src/features/sockets/socketsSlice";
 import useStateWithLocalStorage from "./hooks/useStateWithLocalStorage.jsx";
 import makeID from "./modules/make-id.js";
 import RemoteWebSocket from "./modules/remote-websocket.mjs";

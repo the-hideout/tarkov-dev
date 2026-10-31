@@ -3,6 +3,11 @@
     "target": "ES2020",
     "lib": ["DOM", "ES2020"],
     "module": "ESNext",
+    "paths": {
+      "#src/*": ["./src/*"],
+      "#scripts/*": ["./scripts/*"],
+      "#public/*": ["./public/*"]
+    },
     "jsx": "react-jsx",
     "allowJs": true,
     "strict": true,
