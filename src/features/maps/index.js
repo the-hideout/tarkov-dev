@@ -167,13 +167,17 @@ export const useMapImages = () => {
     let allMaps = useMemo(() => {
         const mapImages = {};
         const apiImageDataMerge = (mapGroup, imageData, apiData) => {
+            const nameTranslationKey = `${apiData?.normalizedName ?? mapGroup.normalizedName}-name`;
+            const localizedMapName = i18n.exists(nameTranslationKey, { ns: "maps" })
+                ? i18n.t(nameTranslationKey, { ns: "maps" })
+                : apiData?.name || i18n.t(nameTranslationKey, { ns: "maps" });
             mapImages[imageData.key] = {
                 id: apiData?.id || mapGroup.id,
                 ...imageData,
-                name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: "maps" }),
+                name: localizedMapName,
                 normalizedName: mapGroup.normalizedName,
                 primaryPath: mapGroup.primaryPath,
-                displayText: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: "maps" }),
+                displayText: localizedMapName,
                 description: apiData?.description || i18n.t(`${mapGroup.normalizedName}-description`, { ns: "maps" }),
                 duration: apiData?.raidDuration ? apiData?.raidDuration + " min" : undefined,
                 players: apiData?.players || mapGroup.players,
