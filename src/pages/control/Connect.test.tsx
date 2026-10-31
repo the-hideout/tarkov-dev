@@ -6,7 +6,7 @@ import { MemoryRouter, useLocation } from "react-router";
 
 import "#src/i18n.js";
 import socketsReducer from "#src/features/sockets/socketsSlice";
-import Connect from "./Connect.jsx";
+import Connect from "./Connect";
 
 function Location() {
     const location = useLocation();
@@ -46,7 +46,7 @@ describe("remote control connection", () => {
         expect(screen.getByTestId("location").textContent).toBe("/connect");
     });
 
-    it("normalizes the control ID and enables the connection before navigating", () => {
+    it("normalizes the control ID, enables the connection and navigates to control", () => {
         const store = renderConnect();
         fireEvent.change(screen.getByRole("textbox"), { target: { value: " abcd5 " } });
         expect(store.getState().sockets.controlId).toBe("ABCD");

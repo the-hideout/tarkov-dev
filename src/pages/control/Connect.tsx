@@ -1,5 +1,4 @@
-// @ts-check
-import { useState, useRef } from "react";
+import { useState, useRef, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "#src/hooks/redux";
 import { enableConnection, setControlId } from "#src/features/sockets/socketsSlice";
@@ -10,12 +9,11 @@ function Connect() {
 
     const [connectionText, setConnectionText] = useState(t("Connect"));
     const controlId = useAppSelector((state) => state.sockets.controlId);
-    let navigate = useNavigate();
-    const inputRef = useRef(/** @type {HTMLInputElement | null} */ (null));
+    const navigate = useNavigate();
+    const inputRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
 
-    /** @param {import("react").ChangeEvent<HTMLInputElement>} event */
-    const handleIDChange = (event) => {
+    const handleIDChange = (event: ChangeEvent<HTMLInputElement>) => {
         const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
         dispatch(setControlId(tempConnectID));
     };
