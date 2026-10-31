@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { enableConnection, setControlId } from "../../features/sockets/socketsSlice.js";
+import { enableConnection, setControlId } from "#src/features/sockets/socketsSlice";
 import { useTranslation } from "react-i18next";
 
 function Connect() {
