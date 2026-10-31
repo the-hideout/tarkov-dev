@@ -12,7 +12,7 @@ import { statusReducer } from "./features/status/index.mjs";
 import socketsReducer from "#src/features/sockets/socketsSlice";
 import settingsReducer from "./features/settings/settingsSlice.mjs";
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         items: itemsReducer,
         crafts: craftsReducer,
@@ -32,3 +32,9 @@ export default configureStore({
             serializableCheck: false,
         }),
 });
+
+export type AppStore = typeof store;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+
+export default store;
