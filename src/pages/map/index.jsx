@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import ResizeObserver from "resize-observer-polyfill";
+//import ResizeObserver from "resize-observer-polyfill";
 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";

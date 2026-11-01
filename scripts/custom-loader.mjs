@@ -22,7 +22,6 @@ export async function load(url, context, defaultLoad) {
         "do-fetch-bosses.mjs",
         "flea-market-fee.mjs",
         "camelcase-to-dashes.mjs",
-        "graphql-request.mjs",
         "api-query.mjs",
     ];
 

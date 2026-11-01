@@ -4,7 +4,6 @@ import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
 import SEO from "../../components/SEO.jsx";
-//import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 
 import "./index.css";
 

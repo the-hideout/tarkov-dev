@@ -752,7 +752,7 @@
         "maps": [
             {
                 "key": "factory",
-                "altMaps": ["night-factory"],
+                "altMaps": ["night-factory", "infected-factory"],
                 "projection": "interactive",
                 "tileSize": 256,
                 "minZoom": 1,
@@ -1800,7 +1800,7 @@
         "maps": [
             {
                 "key": "the-lab",
-                "altMaps": ["the-lab-dark"],
+                "altMaps": ["the-lab-dark", "infected-lab"],
                 "projection": "interactive",
                 "tileSize": 175,
                 "minZoom": 2,

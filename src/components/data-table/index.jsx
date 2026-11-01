@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useTable, useSortBy, useExpanded, usePagination } from "react-table/index.js";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 import useStateWithLocalStorage from "#src/hooks/useStateWithLocalStorage.jsx";
 import formatPrice from "#src/modules/format-price.js";
-import TableHead from "#src/components/data-table/TableHead.tsx";
+import HeaderCell from "#src/components/data-table/HeaderCell.tsx";
+import useDataTable, { flexRender } from "#src/components/data-table/useDataTable.jsx";
+import cellResetSx from "#src/components/data-table/cellResetSx.js";
 
 import "./index.css";
 
@@ -23,9 +25,6 @@ function DataTable({
     onSort,
     headConfig = {},
 }) {
-    // Use the state and functions returned from useTable to build your UI
-    // const [data, setData] = React.useState([])
-
     const storageKey = columns
         .map(({ Header, id }) => {
             if (typeof id === "string") {
@@ -51,32 +50,22 @@ function DataTable({
         threshold: 0,
     });
 
+    const table = useDataTable({
+        columns,
+        data,
+        initialSortBy,
+        initialPageSize: maxItems || 10,
+        autoResetSortBy,
+        disableSortBy,
+    });
     const {
-        setSortBy,
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        page,
+        columns: tableColumns,
         rows,
-        prepareRow,
+        page,
+        setSortBy,
         setPageSize,
-        state: { sortBy: sortByState } = {},
-        state,
-    } = useTable(
-        {
-            columns,
-            data,
-            initialState: {
-                pageSize: maxItems || 10,
-                sortBy: initialSortBy,
-            },
-            autoResetSortBy: autoResetSortBy,
-            disableSortBy,
-        },
-        useSortBy,
-        useExpanded,
-        usePagination,
-    );
+        state: { sortBy: sortByState, pageSize },
+    } = table;
 
     useEffect(() => {
         storageSetSortBy(sortByState);
@@ -92,8 +81,8 @@ function DataTable({
     }, [nameFilter]);
 
     useEffect(() => {
-        if (autoScroll && inView && data.length > state.pageSize) {
-            setPageSize(state.pageSize + 50);
+        if (autoScroll && inView && data.length > pageSize) {
+            setPageSize(pageSize + 50);
         }
     }, [inView, autoScroll]);
 
@@ -104,82 +93,55 @@ function DataTable({
             rowContainer = page;
         }
 
-        return rowContainer.map((row, i) => {
-            prepareRow(row);
-            const tableProps = { ...row.getRowProps() };
-
-            tableProps.className = `${row.depth >= 1 ? "expanded" : ""}`;
-            delete tableProps.key;
-            return (
-                <tr key={`data-table-row-${i}`} {...tableProps}>
-                    {row.cells.map((cell, i) => {
-                        const cellProps = { ...cell.getCellProps() };
-                        const cellKey = cellProps.key;
-                        delete cellProps.key;
-                        return (
-                            <td key={cellKey} className={"data-cell"} {...cellProps}>
-                                {cell.render("Cell")}
-                            </td>
-                        );
-                    })}
-                </tr>
-            );
-        });
+        return rowContainer.map((row, i) => (
+            <TableRow key={`data-table-row-${i}`} className={row.depth >= 1 ? "expanded" : ""}>
+                {row.cells.map((cell) => (
+                    <TableCell key={`cell_${row.id}_${cell.column.id}`} className="data-cell" sx={cellResetSx}>
+                        {flexRender(cell.column.Cell, { ...table, column: cell.column, row, cell, value: cell.value })}
+                    </TableCell>
+                ))}
+            </TableRow>
+        ));
     };
 
-    // Render the UI for your table
     return (
         <div className="table-wrapper">
-            <table className={`data-table ${className ?? ""}`} {...getTableProps()}>
-                <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr
-                            key={headerGroup.getHeaderGroupProps().key}
-                            {...Object.keys(headerGroup.getHeaderGroupProps()).reduce((props, propName) => {
-                                if (propName !== "key") {
-                                    props[propName] = headerGroup.getHeaderGroupProps()[propName];
-                                }
-                                return props;
-                            }, {})}
-                        >
-                            {headerGroup.headers.map((column) => {
-                                const { key, ...restProps } = column.getHeaderProps(
-                                    column.getSortByToggleProps({ title: undefined }),
-                                );
-                                const headAlign = headConfig?.align?.find((h) => h.id === column.id)?.align || "center";
+            <Table className={`data-table ${className ?? ""}`}>
+                <TableHead>
+                    <TableRow>
+                        {tableColumns.map((column, index) => {
+                            const headAlign = headConfig?.align?.find((h) => h.id === column.id)?.align || "center";
 
-                                return (
-                                    <TableHead
-                                        key={key}
-                                        itemKey={key}
-                                        headProps={restProps}
-                                        align={headAlign}
-                                        isSorted={column.isSorted}
-                                        isSortedDesc={column.isSortedDesc}
-                                    >
-                                        {column.render("Header")}
-                                    </TableHead>
-                                );
-                            })}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
+                            return (
+                                <HeaderCell
+                                    key={`header_${column.id}_${index}`}
+                                    headProps={column.getSortByToggleProps({ title: undefined })}
+                                    align={headAlign}
+                                    isSorted={column.isSorted}
+                                    isSortedDesc={column.isSortedDesc}
+                                >
+                                    {flexRender(column.Header, { ...table, column })}
+                                </HeaderCell>
+                            );
+                        })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {getRows()}
                     {extraRow && (
-                        <tr key="extra">
-                            <td className="data-cell table-extra-row" colSpan={999}>
+                        <TableRow key="extra">
+                            <TableCell className="data-cell table-extra-row" colSpan={999} sx={cellResetSx}>
                                 {extraRow}
-                            </td>
-                        </tr>
+                            </TableCell>
+                        </TableRow>
                     )}
-                    <tr key="last-row" className="last-row" ref={ref} />
-                </tbody>
+                    <TableRow key="last-row" className="last-row" ref={ref} />
+                </TableBody>
                 {sumColumns && rows.length > 1 && (
-                    <tfoot>
-                        <tr>
+                    <TableFooter>
+                        <TableRow>
                             {columns.map((col, colIndex) => (
-                                <th key={`col-sum-${colIndex}`}>
+                                <TableCell component="th" key={`col-sum-${colIndex}`} sx={cellResetSx}>
                                     {col.summable
                                         ? formatPrice(
                                               rows
@@ -198,12 +160,12 @@ function DataTable({
                                                   ),
                                           )
                                         : ""}
-                                </th>
+                                </TableCell>
                             ))}
-                        </tr>
-                    </tfoot>
+                        </TableRow>
+                    </TableFooter>
                 )}
-            </table>
+            </Table>
         </div>
     );
 }

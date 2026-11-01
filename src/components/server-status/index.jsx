@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-// import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 import { Tooltip } from "@mui/material";
 
 import useStatusData from "../../features/status/index.mjs";
