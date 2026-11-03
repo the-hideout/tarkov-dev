@@ -84,9 +84,15 @@ function Ammo() {
         "includeCraftIngredients",
         false,
     );
-    const [minPen, setMinPen] = useState(searchParams.get("minp") ?? 0);
-    const [minDam, setMinDam] = useState(searchParams.get("mind") ?? 0);
-    const [maxPrice, setMaxPrice] = useState(searchParams.get("maxpr") ?? MAX_PRICE_CEILING);
+    // Search params are strings, but the sliders and filters need numbers
+    const getNumberParam = (name, fallback) => {
+        const value = searchParams.get(name);
+        const number = Number(value);
+        return value === null || Number.isNaN(number) ? fallback : number;
+    };
+    const [minPen, setMinPen] = useState(() => getNumberParam("minp", 0));
+    const [minDam, setMinDam] = useState(() => getNumberParam("mind", 0));
+    const [maxPrice, setMaxPrice] = useState(() => getNumberParam("maxpr", MAX_PRICE_CEILING));
     const shiftPress = useKeyPress("Shift");
     const { data: items } = useItemsData();
     const { t } = useTranslation();
