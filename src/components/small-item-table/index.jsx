@@ -1989,8 +1989,11 @@ function SmallItemTable(props) {
                             );
                         } else if (cheapestObtainInfo.craft) {
                             const craft = cheapestObtainInfo.craft;
+                            // Hideout data can finish loading after the craft data
                             const station = hideout.find((s) => s.id === craft.station.id);
-                            priceSource = `${station.name} ${craft.level}`;
+                            if (station) {
+                                priceSource = `${station.name} ${craft.level}`;
+                            }
                             let barterTipTitle = "";
                             if (craft.taskUnlock) {
                                 taskIcon = (
