@@ -6,6 +6,8 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 //import ResizeObserver from "resize-observer-polyfill";
 
 import L from "leaflet";
+// Imported before leaflet.css so Leaflet's rules take precedence, as they did when this was in App.css
+import "../../styles/mapSearch.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
 import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
