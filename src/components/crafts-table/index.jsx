@@ -532,29 +532,32 @@ function CraftTable({
         [t, fleaUnlocked, selectedStation, showAll, crafts, barters, useCraftIngredients, useBarterIngredients],
     );
 
-    let extraRow = false;
+    // Memoized so DataTable can skip re-rendering when nothing it shows has changed
+    const extraRow = useMemo(() => {
+        if (data.length <= 0 && skippedBySettings) {
+            return (
+                <>
+                    {t("No crafts available for selected filters but some were hidden by ")}
+                    <Link to="/settings/">{t("your settings")}</Link>
+                </>
+            );
+        }
 
-    if (data.length <= 0) {
-        extraRow = t("No crafts available for selected filters");
-    }
+        if (data.length > 0 && skippedBySettings) {
+            return (
+                <>
+                    {t("Some crafts hidden by ")}
+                    <Link to="/settings/">{t("your settings")}</Link>
+                </>
+            );
+        }
 
-    if (data.length <= 0 && skippedBySettings) {
-        extraRow = (
-            <>
-                {t("No crafts available for selected filters but some were hidden by ")}
-                <Link to="/settings/">{t("your settings")}</Link>
-            </>
-        );
-    }
+        if (data.length <= 0) {
+            return t("No crafts available for selected filters");
+        }
 
-    if (data.length > 0 && skippedBySettings) {
-        extraRow = (
-            <>
-                {t("Some crafts hidden by ")}
-                <Link to="/settings/">{t("your settings")}</Link>
-            </>
-        );
-    }
+        return false;
+    }, [data.length, skippedBySettings, t]);
 
     return (
         <DataTable
@@ -565,9 +568,7 @@ function CraftTable({
             sortBy={"profit"}
             sortByDesc={true}
             autoResetSortBy={false}
-            onSort={(newSortState) => {
-                setSortState(newSortState);
-            }}
+            onSort={setSortState}
         />
     );
 }

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 
+import { isUnchangedResult } from "../../modules/api-query.mjs";
+
 import doFetchSeason from "./do-fetch-season.mjs";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
 
@@ -26,7 +28,7 @@ const seasonSlice = createSlice({
         builder.addCase(fetchSeason.fulfilled, (state, action) => {
             state.status = "succeeded";
 
-            if (!equal(state.data, action.payload)) {
+            if (!isUnchangedResult(action.payload) && !equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });

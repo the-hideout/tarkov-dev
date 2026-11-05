@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 
+import { isUnchangedResult } from "../../modules/api-query.mjs";
+
 import doFetchQuests from "./do-fetch-quests.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
@@ -36,7 +38,7 @@ const questsSlice = createSlice({
         builder.addCase(fetchQuests.fulfilled, (state, action) => {
             state.status = "succeeded";
 
-            if (!equal(state.data, action.payload)) {
+            if (!isUnchangedResult(action.payload) && !equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
@@ -54,11 +56,15 @@ const selectQuests = (state) => state.quests.data.tasks;
 //const selectPrestige = state => state.quests.data.prestige;
 const selectTraders = (state) => state.traders.data;
 const selectItems = (state) => state.items.data;
-const selectSettings = (state) => state.settings;
+// Only the current game mode's settings, so changes elsewhere in settings (like loadingData,
+// which changes on every data refresh) don't rebuild every quest
+const selectGameModeSettings = (state) => state.settings[state.settings.gameMode];
+const selectGameMode = (state) => state.settings.gameMode;
 
 export const selectQuestsWithActive = createSelector(
-    [selectQuests, selectTraders, selectItems, selectSettings],
-    (quests, traders, items, settings) => {
+    [selectQuests, selectTraders, selectItems, selectGameModeSettings, selectGameMode],
+    (quests, traders, items, gameModeSettings, gameMode) => {
+        const settings = { gameMode, [gameMode]: gameModeSettings };
         const questStatus = {
             complete: (id) => {
                 return settings[settings.gameMode].completedQuests.includes(id);

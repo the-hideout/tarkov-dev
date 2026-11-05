@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 
+import { isUnchangedResult } from "../../modules/api-query.mjs";
+
 import doFetchHideout from "./do-fetch-hideout.mjs";
 
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
@@ -33,7 +35,7 @@ const hideoutSlice = createSlice({
         builder.addCase(fetchHideout.fulfilled, (state, action) => {
             state.status = "succeeded";
 
-            if (!equal(state.hideout, action.payload)) {
+            if (!isUnchangedResult(action.payload) && !equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });

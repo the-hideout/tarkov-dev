@@ -2,6 +2,8 @@ import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
+
+import { isUnchangedResult } from "../../modules/api-query.mjs";
 import {
     mdiImageFilterCenterFocusStrong,
     mdiCity,
@@ -54,7 +56,7 @@ const mapsSlice = createSlice({
         builder.addCase(fetchMaps.fulfilled, (state, action) => {
             state.status = "succeeded";
 
-            if (!equal(state.data, action.payload)) {
+            if (!isUnchangedResult(action.payload) && !equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
