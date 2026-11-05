@@ -1,5 +1,4 @@
 @import url("./styles/singleEntity.css");
-@import url("./styles/mapSearch.css");
 
 /* Variables start */
 :root {
@@ -299,10 +298,6 @@ cite {
 }
 
 @media screen and (width >= 800px) {
-    .control-wrapper {
-        display: none;
-    }
-
     .page-headline-wrapper h1 {
         flex-grow: 1;
         text-align: left;

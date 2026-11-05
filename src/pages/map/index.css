@@ -382,6 +382,14 @@ img.popup-item {
     line-height: normal;
 }
 
+/* Keep Leaflet's control positioning over the header clock's .time-wrapper rules, whatever order the stylesheets load in */
+.leaflet-control.leaflet-control-raid-info {
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: 800;
+}
+
 .leaflet-control-raid-info a {
     /* stylelint-disable-line no-descending-specificity */
     color: var(--color-gold-one);
