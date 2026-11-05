@@ -62,12 +62,11 @@ function ItemImage({
         width: 0,
         height: 0,
     });
-    const [imageNaturalDimensons, setNaturalImageDimensions] = useState({
-        width: 1,
-        height: 1,
-    });
-    const [customImageLoaded, setCustomImageLoaded] = useState(false);
-    const [customImageLoadFailed, setCustomImageLoadFailed] = useState(false);
+    // The custom image's load status and size, stored with the link they belong to so that a new
+    // imageLink shows the placeholder again until its own image loads
+    const [customImage, setCustomImage] = useState({});
+    const customImageLoaded = !!imageLink && customImage.link === imageLink && customImage.status === "loaded";
+    const customImageLoadFailed = !!imageLink && customImage.link === imageLink && customImage.status === "failed";
     useEffect(() => {
         if (!refImage.current) {
             return;
@@ -76,10 +75,6 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
-            setNaturalImageDimensions({
-                width: refImage.current.naturalWidth,
-                height: refImage.current.naturalHeight,
-            });
             if (
                 refImage.current.width === imageDimensions.width &&
                 refImage.current.height === imageDimensions.height
@@ -116,22 +111,18 @@ function ItemImage({
             size.width = item.width;
             size.height = item.height;
         }
-        if (!imageLink) {
-            return size;
-        }
-        if (imageNaturalDimensons.width === 0) {
-            return size;
-        }
-        if (customImageLoadFailed) {
+        // Until the custom image loads, the placeholder is shown at the item's own size
+        if (!customImageLoaded) {
             return size;
         }
 
-        const w = imageNaturalDimensons.width / 8;
-        const h = imageNaturalDimensons.height / 8;
+        // Custom images are 8x resolution
+        const w = customImage.width / 8;
+        const h = customImage.height / 8;
         size.width = (w - 1) / 63;
         size.height = (h - 1) / 63;
         return size;
-    }, [item, imageLink, customImageLoadFailed, imageNaturalDimensons]);
+    }, [item, customImageLoaded, customImage]);
 
     const testImageElement = useMemo(() => {
         if (!imageLink) {
@@ -142,11 +133,16 @@ function ItemImage({
                 src={imageLink}
                 style={{ display: "none" }}
                 alt=""
-                onLoad={() => {
-                    setCustomImageLoaded(true);
+                onLoad={(event) => {
+                    setCustomImage({
+                        link: imageLink,
+                        status: "loaded",
+                        width: event.currentTarget.naturalWidth,
+                        height: event.currentTarget.naturalHeight,
+                    });
                 }}
-                onError={(error) => {
-                    setCustomImageLoadFailed(true);
+                onError={() => {
+                    setCustomImage({ link: imageLink, status: "failed" });
                 }}
             />
         );
