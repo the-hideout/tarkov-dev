@@ -10,18 +10,19 @@ import { mdiAccountSearch } from "@mdi/js";
 import LoadingSmall from "../../components/loading-small/index.jsx";
 
 import useKeyPress from "../../hooks/useKeyPress.jsx";
+import useTurnstileToken from "../../hooks/useTurnstileToken.jsx";
 
 import SEO from "../../components/SEO.jsx";
 import { InputFilter } from "../../components/filter/index.jsx";
 
-import playerStats from "../../modules/player-stats.mjs";
+import playerStats, { getTurnstileErrorMessage } from "../../modules/player-stats.mjs";
 import gameModes from "../../data/game-modes.json";
 
 import "./index.css";
 
 function Players() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const turnstileRef = useRef();
+    const { turnstileRef, onSuccess: onTurnstileSuccess, getToken } = useTurnstileToken();
 
     const { t } = useTranslation();
 
@@ -63,8 +64,8 @@ function Players() {
             setSearching(true);
             setNameResultsError(false);
             setNameResults(
-                (await playerStats.searchPlayers(nameFilter, gameMode, turnstileRef.current?.getResponse())).sort(
-                    (a, b) => a.name.localeCompare(b.name),
+                (await playerStats.searchPlayers(nameFilter, gameMode, await getToken())).sort((a, b) =>
+                    a.name.localeCompare(b.name),
                 ),
             );
             setSearched(true);
@@ -78,8 +79,7 @@ function Players() {
         } finally {
             setSearching(false);
         }
-        turnstileRef.current?.reset();
-    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileRef, gameMode]);
+    }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, getToken, gameMode]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
@@ -183,15 +183,9 @@ function Players() {
                 ref={turnstileRef}
                 className="turnstile-widget"
                 siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
+                onSuccess={onTurnstileSuccess}
                 onError={(errorCode) => {
-                    // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
-                    if (errorCode === "110200") {
-                        setNameResultsError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
-                    } else if (errorCode.startsWith("600")) {
-                        setNameResultsError("Turnstile challenge failed");
-                    } else {
-                        setNameResultsError(`Turnstile error code ${errorCode}`);
-                    }
+                    setNameResultsError(getTurnstileErrorMessage(errorCode));
                 }}
                 options={{ appearance: "interaction-only" }}
             />
