@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 
+import { isUnchangedResult } from "../../modules/api-query.mjs";
+
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import doFetchTraders from "./do-fetch-traders.mjs";
 import useBartersData from "../barters/index.js";
@@ -29,7 +31,7 @@ const tradersSlice = createSlice({
         builder.addCase(fetchTraders.fulfilled, (state, action) => {
             state.status = "succeeded";
 
-            if (!equal(state.data, action.payload)) {
+            if (!isUnchangedResult(action.payload) && !equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });

@@ -1,4 +1,4 @@
-import apiRequest from "./api-request.mjs";
+import apiRequest, { RequestContext } from "./api-request.mjs";
 
 const defaultOptions = {
     language: "en",
@@ -6,11 +6,20 @@ const defaultOptions = {
     //prebuild: false,
 };
 
+// Results handed back again by a refresh whose source data hadn't changed
+const unchangedResults = new WeakSet();
+
+// Reducers use this to skip storing (and reprocessing) a result they already have
+export const isUnchangedResult = (result) => {
+    return typeof result === "object" && result !== null && unchangedResults.has(result);
+};
+
 class APIQuery {
     constructor(queryName, cacheMinutes = 5) {
         this.name = queryName;
         this.cacheTtl = cacheMinutes * 60 * 1000;
         this.pendingQuery = {};
+        this.lastResult = undefined;
     }
 
     apiRequest(path, options) {
@@ -39,10 +48,34 @@ class APIQuery {
         // remove previous local storage versions (probably other languages, gamemodes)
         this.removeCachedQueries(keyprefix);
 
-        this.pendingQuery[storageKey] = this.query(options).finally(() => {
+        this.pendingQuery[storageKey] = this.runQuery(storageKey, options).finally(() => {
             this.pendingQuery[storageKey] = undefined;
         });
         return this.pendingQuery[storageKey];
+    }
+
+    async runQuery(storageKey, options) {
+        const requestContext = new RequestContext();
+        const previous = this.lastResult?.storageKey === storageKey ? this.lastResult : undefined;
+        if (previous && (await requestContext.unchangedSince(previous.sources))) {
+            requestContext.discardPrefetched();
+            unchangedResults.add(previous.data);
+            return previous.data;
+        }
+
+        // Subclasses call this.apiRequest without a request context, so give this run its own apiRequest
+        const scopedQuery = Object.create(this, {
+            apiRequest: {
+                value: (path, requestOptions) => apiRequest(path, { ...requestOptions, requestContext }),
+            },
+        });
+        try {
+            const data = await this.query.call(scopedQuery, options);
+            this.lastResult = { storageKey, data, sources: requestContext.sources };
+            return data;
+        } finally {
+            requestContext.discardPrefetched();
+        }
     }
 
     checkLocalStorage = () => {

@@ -308,47 +308,49 @@ const settingsSlice = createSlice({
     },
 });
 
-const selectSettings = (state) => state.settings;
+// Only the current game mode's settings, so changes elsewhere in settings (like loadingData,
+// which changes on every data refresh) don't give these selectors new results
+const selectGameModeSettings = (state) => state.settings[state.settings.gameMode];
 
-export const selectAllTraders = createSelector([selectSettings], (settings) => {
+export const selectAllTraders = createSelector([selectGameModeSettings], (settings) => {
     return {
-        prapor: settings[settings.gameMode].prapor,
-        therapist: settings[settings.gameMode].therapist,
-        fence: settings[settings.gameMode].fence,
-        skier: settings[settings.gameMode].skier,
-        peacekeeper: settings[settings.gameMode].peacekeeper,
-        mechanic: settings[settings.gameMode].mechanic,
-        ragman: settings[settings.gameMode].ragman,
-        jaeger: settings[settings.gameMode].jaeger,
-        ref: settings[settings.gameMode].ref,
+        prapor: settings.prapor,
+        therapist: settings.therapist,
+        fence: settings.fence,
+        skier: settings.skier,
+        peacekeeper: settings.peacekeeper,
+        mechanic: settings.mechanic,
+        ragman: settings.ragman,
+        jaeger: settings.jaeger,
+        ref: settings.ref,
     };
 });
 
-export const selectAllStations = createSelector([selectSettings], (settings) => {
+export const selectAllStations = createSelector([selectGameModeSettings], (settings) => {
     return {
-        "bitcoin-farm": settings[settings.gameMode]["bitcoin-farm"],
-        "booze-generator": settings[settings.gameMode]["booze-generator"],
-        "christmas-tree": settings[settings.gameMode]["christmas-tree"],
-        "intelligence-center": settings[settings.gameMode]["intelligence-center"],
-        "lavatory": settings[settings.gameMode].lavatory,
-        "medstation": settings[settings.gameMode].medstation,
-        "nutrition-unit": settings[settings.gameMode]["nutrition-unit"],
-        "water-collector": settings[settings.gameMode]["water-collector"],
-        "workbench": settings[settings.gameMode].workbench,
-        "solar-power": settings[settings.gameMode]["solar-power"],
+        "bitcoin-farm": settings["bitcoin-farm"],
+        "booze-generator": settings["booze-generator"],
+        "christmas-tree": settings["christmas-tree"],
+        "intelligence-center": settings["intelligence-center"],
+        "lavatory": settings.lavatory,
+        "medstation": settings.medstation,
+        "nutrition-unit": settings["nutrition-unit"],
+        "water-collector": settings["water-collector"],
+        "workbench": settings.workbench,
+        "solar-power": settings["solar-power"],
     };
 });
 
-export const selectAllSkills = createSelector([selectSettings], (settings) => {
+export const selectAllSkills = createSelector([selectGameModeSettings], (settings) => {
     return {
-        "crafting": settings[settings.gameMode].crafting,
-        "hideout-management": settings[settings.gameMode]["hideout-management"],
-        "metabolism": settings[settings.gameMode].metabolism,
+        "crafting": settings.crafting,
+        "hideout-management": settings["hideout-management"],
+        "metabolism": settings.metabolism,
     };
 });
 
-export const selectCompletedQuests = createSelector([selectSettings], (settings) => {
-    return settings[settings.gameMode].completedQuests;
+export const selectCompletedQuests = createSelector([selectGameModeSettings], (settings) => {
+    return settings.completedQuests;
 });
 
 export const {

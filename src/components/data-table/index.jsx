@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 import useStateWithLocalStorage from "#src/hooks/useStateWithLocalStorage.jsx";
@@ -170,4 +170,6 @@ function DataTable({
     );
 }
 
-export default DataTable;
+// Skip re-rendering every row when the parent re-renders with the same props,
+// e.g. when a background data refresh only changes a loading status
+export default memo(DataTable);

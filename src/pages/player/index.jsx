@@ -29,7 +29,9 @@ import ItemNameCell from "../../components/item-name-cell/index.jsx";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import { usePrestigeData, useAchievementsData } from "../../features/quests/index.js";
 
-import playerStats from "../../modules/player-stats.mjs";
+import useTurnstileToken from "../../hooks/useTurnstileToken.jsx";
+
+import playerStats, { getTurnstileErrorMessage } from "../../modules/player-stats.mjs";
 import { wipeDetails } from "../../modules/wipe-length.js";
 
 import "./index.css";
@@ -154,7 +156,7 @@ const masteringTableHeadConfig = {
 const defaultProfileImageLink = "https://assets.tarkov.dev/profile-loading.webp";
 
 function Player() {
-    const turnstileRef = useRef();
+    const { turnstileRef, onSuccess: onTurnstileSuccess, getToken } = useTurnstileToken();
     const inputFileRef = useRef();
     const { t } = useTranslation();
     const params = useParams();
@@ -163,13 +165,12 @@ function Player() {
     const gameMode = params.gameMode;
     const accountId = params.accountId;
 
-    const [turnstileWidgetLoaded, setTurnstileWidgetLoaded] = useState(false);
     const [currentGameMode, setCurrentGameMode] = useState(params.gameMode);
 
     const handleSwitchGameMode = useCallback(
         (event) => {
             setCurrentGameMode(event.target.value);
-            navigate(`/players/${event.target.value}/${accountId}`);
+            navigate(`/players/${event.target.value}/${encodeURIComponent(accountId)}`);
         },
         [navigate, accountId],
     );
@@ -218,22 +219,21 @@ function Player() {
         [setPlayerData],
     );
 
+    // signal is aborted when the page moves to another profile, so a request that was still waiting
+    // (for example for a Turnstile token) can't overwrite the newer profile
     const fetchProfile = useCallback(
-        async (aid, gm) => {
+        async (aid, gm, signal) => {
             try {
                 if (!aid) {
                     throw new Error("No account id");
                 }
-                if (!turnstileRef.current) {
-                    return;
-                }
-                const token = turnstileRef?.current?.getResponse();
-                if (!token) {
-                    throw new Error("Turnstile token expired");
-                }
+                const token = await getToken(signal);
                 if (isNaN(aid)) {
                     try {
                         const searchResponse = await playerStats.searchPlayers(aid, gm, token);
+                        if (signal.aborted) {
+                            return;
+                        }
                         for (const result of searchResponse) {
                             if (result.name.toLowerCase() === aid.toLowerCase()) {
                                 navigate(`/players/${gm}/${result.aid}`);
@@ -242,47 +242,52 @@ function Player() {
                         }
                         setProfileError(`Account ${aid} not found`);
                     } catch (error) {
-                        setProfileError(`Error searching for profile ${aid}: ${error.message}`);
-                    } finally {
-                        turnstileRef.current?.reset();
+                        if (!signal.aborted) {
+                            setProfileError(`Error searching for profile ${aid}: ${error.message}`);
+                        }
                     }
                     return;
                 }
-                updatePlayerData(await playerStats.getProfile(aid, gm, token));
+                const profile = await playerStats.getProfile(aid, gm, token);
+                if (signal.aborted) {
+                    return;
+                }
+                updatePlayerData(profile);
                 setProfileError(false);
             } catch (error) {
+                if (signal.aborted) {
+                    return;
+                }
                 console.log("profile error", error);
                 setProfileError(error.message);
             }
-            turnstileRef.current?.reset();
         },
-        [updatePlayerData, setProfileError, navigate, turnstileRef],
+        [updatePlayerData, setProfileError, navigate, getToken],
     );
 
     useEffect(() => {
-        console.log(gameMode, accountId, turnstileWidgetLoaded);
         updatePlayerData(loadingProfileRef.current);
-        if (!turnstileWidgetLoaded) {
-            return;
-        }
+        // Don't keep showing the previous profile's error while the new one loads
+        setProfileError(false);
         if (playerDataRef.current.saved) {
             return;
         }
         if (playerDataRef.current.aid === 0 && String(playerDataRef.current?.aid) === accountId) {
             return;
         }
-        fetchProfile(accountId, gameMode);
-    }, [gameMode, accountId, turnstileWidgetLoaded, fetchProfile, updatePlayerData]);
+        const controller = new AbortController();
+        fetchProfile(accountId, gameMode, controller.signal);
+        return () => {
+            controller.abort();
+        };
+    }, [gameMode, accountId, fetchProfile, updatePlayerData]);
 
     const checkBanned = useCallback(async () => {
         try {
-            const token = turnstileRef?.current?.getResponse();
-            if (!token) {
-                throw new Error("Turnstile token expired");
-            }
             if (!playerData?.info?.nickname) {
                 return;
             }
+            const token = await getToken();
             const searchResponse = await playerStats.searchPlayers(playerData.info.nickname, gameMode, token);
             for (const result of searchResponse) {
                 if (result.name === playerData.info.nickname || result.aid === playerData.aid) {
@@ -293,11 +298,9 @@ function Player() {
             setPlayerBanned(true);
         } catch (error) {
             console.log(`Error checking banned status for ${playerData.info.nickname}: ${error.message}`);
-        } finally {
-            turnstileRef.current?.reset();
         }
         return false;
-    }, [playerData, setPlayerBanned, turnstileRef, gameMode]);
+    }, [playerData, setPlayerBanned, getToken, gameMode]);
 
     const downloadProfile = useCallback(() => {
         if (!playerData.aid) {
@@ -1306,8 +1309,10 @@ function Player() {
         return customProfileImageLink;
     }, [profileImageLoaded, customProfileImageLink]);
 
+    // Keyed, and both views below share the same outer structure, so React keeps this
+    // (and its Turnstile widget) mounted when switching between the error and profile views
     const playerSearchDiv = (
-        <div>
+        <div key="player-search">
             <Link to={`/players?gameMode=${gameMode}`}>
                 <Icon path={mdiAccountSearch} size={1} className="icon-with-text" />
                 {t("Search different player")}
@@ -1377,43 +1382,35 @@ function Player() {
                 ref={turnstileRef}
                 className="turnstile-widget"
                 siteKey="0x4AAAAAAAVVIHGZCr2PPwrR"
-                onWidgetLoad={() => {
-                    turnstileRef.current?.reset();
-                }}
-                onSuccess={() => {
-                    if (turnstileWidgetLoaded) {
-                        return;
-                    }
-                    setTurnstileWidgetLoaded(true);
-                }}
+                onSuccess={onTurnstileSuccess}
                 onError={(errorCode) => {
-                    // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
-                    if (errorCode === "110200") {
-                        setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
-                    } else {
-                        setProfileError(`Turnstile error code ${errorCode}`);
-                    }
+                    setProfileError(getTurnstileErrorMessage(errorCode));
                 }}
                 options={{ appearance: "interaction-only" }}
             />
         </div>
     );
 
-    if (profileError) {
-        return (
-            <div className={"page-wrapper"} key="player-page-wrapper">
-                <h2>{profileError}</h2>
-                {playerSearchDiv}
-            </div>
-        );
-    }
-
-    return [
+    const seo = (
         <SEO
             title={`${t("Player Profile")} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
             description={t("player-page-description", "View player profile.")}
             key="seo-wrapper"
-        />,
+        />
+    );
+
+    if (profileError) {
+        return [
+            seo,
+            <div className={"page-wrapper"} key="player-page-wrapper">
+                <h2 key="profile-error">{profileError}</h2>
+                {playerSearchDiv}
+            </div>,
+        ];
+    }
+
+    return [
+        seo,
         <div className={"page-wrapper"} key="player-page-wrapper">
             {playerSearchDiv}
             <div className="entity-information-wrapper">
