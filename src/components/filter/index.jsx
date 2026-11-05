@@ -320,9 +320,8 @@ function SelectItemFilter({
 
     if (selectedItem && showImage) {
         elements.push(
-            <Tooltip title={t("Clear selection")} arrow>
+            <Tooltip key={"select-item-filter-selected-icon"} title={t("Clear selection")} arrow>
                 <img
-                    key={"select-item-filter-selected-icon"}
                     alt={`${selectedItem.name}-icon`}
                     onClick={() => {
                         selectInputRef.current?.clearValue();
