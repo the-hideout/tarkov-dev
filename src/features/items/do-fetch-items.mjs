@@ -175,21 +175,6 @@ class ItemsQuery extends APIQuery {
                 rawItem.properties.material = { id: rawItem.properties.material };
             }
 
-            for (const grid of rawItem.properties?.grids ?? []) {
-                grid.filters.allowedCategories = grid.filters.allowedCategories.map((id) => {
-                    return { id };
-                });
-                grid.filters.allowedItems = grid.filters.allowedItems.map((id) => {
-                    return { id };
-                });
-                grid.filters.excludedCategories = grid.filters.excludedCategories.map((id) => {
-                    return { id };
-                });
-                grid.filters.excludedItems = grid.filters.excludedItems.map((id) => {
-                    return { id };
-                });
-            }
-
             if (rawItem.containsItems?.length) {
                 for (const ci of rawItem.containsItems) {
                     ci.item = { id: ci.item };
@@ -280,16 +265,6 @@ class ItemsQuery extends APIQuery {
             rawItem.properties = {
                 ...rawItem.properties,
             };
-
-            const container = rawItem.properties?.slots || rawItem.properties?.grids;
-            if (container) {
-                for (const slot of container) {
-                    slot.filters.allowedCategories = slot.filters.allowedCategories.map((cat) => cat.id);
-                    slot.filters.allowedItems = slot.filters.allowedItems.map((it) => it.id);
-                    slot.filters.excludedCategories = slot.filters.excludedCategories.map((cat) => cat.id);
-                    slot.filters.excludedItems = slot.filters.excludedItems.map((it) => it.id);
-                }
-            }
 
             return rawItem;
         });
