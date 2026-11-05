@@ -2047,11 +2047,21 @@ function Map() {
         //add loose loot
         if (mapData.lootLoose.length > 0) {
             const looseLootLayers = {};
+            // Look items and categories up by id; searching the full lists for every loot point is slow.
+            // (Plain objects because this component's name shadows the built-in Map.)
+            const itemIndexes = Object.fromEntries(items.map((item, index) => [item.id, index]));
+            const handbookCategories = Object.fromEntries(
+                handbook.handbookCategories.map((category) => [category.id, category]),
+            );
             for (const looseLoot of mapData.lootLoose) {
                 if (!positionIsInBounds(looseLoot.position)) {
                     continue;
                 }
-                const lootItems = items.filter((item) => looseLoot.items.some((lootItem) => item.id === lootItem.id));
+                // Unique items in the same order as the items list
+                const lootItems = [...new Set(looseLoot.items.map((lootItem) => itemIndexes[lootItem.id]))]
+                    .filter((index) => index !== undefined)
+                    .sort((a, b) => a - b)
+                    .map((index) => items[index]);
                 if (lootItems.length === 0) {
                     continue;
                 }
@@ -2060,7 +2070,7 @@ function Map() {
                 let markerTitle = t("Loose Loot");
                 let className = "";
                 const markerCategories = lootItems.reduce((markerCategories, item) => {
-                    const category = handbook.handbookCategories.find((c) => c.id === item.handbookCategories[0]?.id);
+                    const category = handbookCategories[item.handbookCategories[0]?.id];
                     if (category) {
                         markerCategories.add(category);
                     }
@@ -2081,9 +2091,7 @@ function Map() {
                         iconSize = [pixelWidth * scale, 24];
                     }
                 } else if (markerCategories.size === 1) {
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === markerCategories.values().next().value.id,
-                    );
+                    const category = handbookCategories[markerCategories.values().next().value.id];
                     iconUrl = category.imageLink;
                     markerTitle = category.name;
                     //className = 'loot-outline';
@@ -2117,9 +2125,7 @@ function Map() {
                         lootLink.append(`${lootItem.name}`);
                     }
                     popupContent.append(lootLink);
-                    const category = handbook.handbookCategories.find(
-                        (c) => c.id === lootItem.handbookCategories[0]?.id,
-                    );
+                    const category = handbookCategories[lootItem.handbookCategories[0]?.id];
                     if (!category) {
                         continue;
                     }
