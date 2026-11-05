@@ -21,7 +21,6 @@ import formatPrice from "../../modules/format-price.js";
 import itemSearch from "../../modules/item-search.js";
 import { getCheapestBarter, getCheapestCraft, getBarterCost } from "../../modules/format-cost-items.js";
 import { formatCaliber } from "../../modules/format-ammo.mjs";
-import itemCanContain from "../../modules/item-can-contain.js";
 
 import useBartersData from "../../features/barters/index.js";
 import useCraftsData from "../../features/crafts/index.js";
@@ -127,35 +126,100 @@ const getArmorZoneString = (armorZones) => {
         .join(" · ");
 };
 
-const getGuns = (items, targetItem) => {
-    let parentItems = [];
-    const currentParentItems = items.filter((item) => itemCanContain(item, targetItem, "slots"));
+// Scanning every item's slots for each lookup is too slow, so index the slot relationships
+// once per items array: which items each item fits into, and which guns it ends up on
+const slotIndexCache = new WeakMap();
 
-    for (const parentItem of currentParentItems) {
+const getSlotIndex = (items) => {
+    let index = slotIndexCache.get(items);
+    if (index) {
+        return index;
+    }
+
+    const itemsById = new Map();
+    const itemsByCategory = new Map();
+    for (const item of items) {
+        itemsById.set(item.id, item);
+        for (const categoryId of item.categoryIds) {
+            if (!itemsByCategory.has(categoryId)) {
+                itemsByCategory.set(categoryId, []);
+            }
+            itemsByCategory.get(categoryId).push(item);
+        }
+    }
+
+    // Same rules as itemCanContain: allowed by item or category, and not excluded by either
+    const parents = new Map();
+    for (const parentItem of items) {
+        for (const slot of parentItem.properties?.slots ?? []) {
+            const { allowedItems, allowedCategories, excludedItems, excludedCategories } = slot.filters;
+            const candidates = new Set(allowedItems.map((id) => itemsById.get(id)).filter(Boolean));
+            for (const categoryId of allowedCategories) {
+                for (const item of itemsByCategory.get(categoryId) ?? []) {
+                    candidates.add(item);
+                }
+            }
+            for (const item of candidates) {
+                if (
+                    excludedItems.includes(item.id) ||
+                    item.categoryIds.some((categoryId) => excludedCategories.includes(categoryId))
+                ) {
+                    continue;
+                }
+                if (!parents.has(item.id)) {
+                    parents.set(item.id, []);
+                }
+                const itemParents = parents.get(item.id);
+                // An item can fit several slots on the same parent
+                if (itemParents.at(-1) !== parentItem) {
+                    itemParents.push(parentItem);
+                }
+            }
+        }
+    }
+
+    index = { parents, guns: new Map() };
+    slotIndexCache.set(items, index);
+    return index;
+};
+
+const getGuns = (items, targetItem) => {
+    const index = getSlotIndex(items);
+    const cached = index.guns.get(targetItem.id);
+    if (cached) {
+        return cached;
+    }
+    // Guard against slot cycles while this item's guns are being worked out
+    index.guns.set(targetItem.id, []);
+
+    const guns = new Map();
+    for (const parentItem of index.parents.get(targetItem.id) ?? []) {
         if (parentItem.types.includes("gun")) {
-            parentItems.push(parentItem);
+            if (!guns.has(parentItem.id)) {
+                guns.set(parentItem.id, parentItem);
+            }
             continue;
         }
 
-        parentItems = parentItems.concat(getGuns(items, parentItem));
-    }
-    return parentItems.reduce((parents, current) => {
-        if (!parents.some((item) => item.id === current.id)) {
-            parents.push(current);
+        for (const gun of getGuns(items, parentItem)) {
+            if (!guns.has(gun.id)) {
+                guns.set(gun.id, gun);
+            }
         }
-        return parents;
-    }, []);
+    }
+
+    const result = [...guns.values()];
+    index.guns.set(targetItem.id, result);
+    return result;
 };
 
 const getAttachmentPoints = (items, targetItem) => {
-    return items
-        .filter((parentItem) => itemCanContain(parentItem, targetItem, "slots"))
-        .map((item) => {
-            return {
-                ...item,
-                fitsTo: getGuns(items, item),
-            };
-        });
+    return (getSlotIndex(items).parents.get(targetItem.id) ?? []).map((item) => {
+        return {
+            ...item,
+            fitsTo: getGuns(items, item),
+        };
+    });
 };
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
