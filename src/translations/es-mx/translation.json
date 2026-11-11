@@ -35,5 +35,16 @@
   "Progress command mirrors the hideout and trader upgrades you have saved on TarkovTracker.": "El comando progress refleja las mejoras del refugio y de comerciantes que guardaste en TarkovTracker.",
   "card-stash-desc": "Comandos slash para consultar precios, misiones, progreso del refugio y temporizadores de reabastecimiento basados directamente en Tarkov.dev.",
   "Manage your customized hideout and trader progress": "Gestionar tu progreso personalizado del refugio y de comerciantes",
-  "No hideout stations match filter settings.": "Ninguna estación del refugio coincide con los filtros."
+  "No hideout stations match filter settings.": "Ninguna estación del refugio coincide con los filtros.",
+  "Failed": "Fallida",
+  "failed": "fallida",
+  "Hideout modules needing {{itemName}}": "Módulos del refugio que necesitan {{itemName}}",
+  "The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.\nHowever, due to how fees are calculated, you're better off selling for {{bestPrice}}.": "El último precio bajo observado para este objeto en el Tianguis fue {{lastSeenPrice}}.\nSin embargo, por cómo se calculan las comisiones, te conviene más vender por {{bestPrice}}.",
+  "This item has not been observed on the Flea Market.\nThe maximum profitable price is {{bestPrice}}, but the item may not sell at that price.\nThe max profitable price is impacted by the intel center and hideout management skill levels in your settings.": "Este objeto no se ha observado en el Tianguis.\nEl precio máximo rentable es {{bestPrice}}, pero puede que el objeto no se venda a ese precio.\nEl precio máximo rentable depende de los niveles del centro de inteligencia y de la habilidad de gestión del refugio que tengas en tu configuración.",
+  "barter-items-page-p": "<0>Esta tabla de objetos de trueque de Escape from Tarkov te permitirá saber fácilmente cuánto vale cada uno. Con más de 150 objetos de trueque en el juego y precios del Tianguis que pueden variar de golpe, puede ser difícil decidir cuáles merece la pena llevarse. Esta tabla interactiva te ayuda a optimizar tu botín.</0>",
+  "pistol-grips-page-p": "<0>En Escape from Tarkov, las empuñaduras de pistola y las culatas son piezas vitales de un arma.</0><1>En esta página puedes ordenarlas por mejora de ergonomía o por su costo y ver en qué arma se pueden montar.</1>",
+  "provisions-page-description": "Esta página incluye una tabla ordenable con información sobre los distintos tipos de provisiones disponibles en el juego, incluidos su hidratación, energía, precio más bajo y el valor en comerciantes o en el Tianguis.",
+  "Total energy cost": "Costo total de energía",
+  "Include the cost of lost hydration in the cost of energy": "Incluir el costo de la hidratación perdida en el costo de la energía",
+  "suppressors-page-p": "<0>En Escape from Tarkov, un supresor es un dispositivo de boca (una modificación funcional) que se puede instalar en un arma para amortiguar el sonido de los disparos.</0><1>En esta página puedes ordenarlos por penalización de ergonomía, mejora del retroceso o su costo y ver en qué arma se pueden montar directamente.</1>"
 }
