@@ -8,6 +8,7 @@ import translationDE from "./translations/de/translation.json";
 import translationRU from "./translations/ru/translation.json";
 import translationIT from "./translations/it/translation.json";
 import translationES from "./translations/es/translation.json";
+import translationESMX from "./translations/es-mx/translation.json";
 import translationFR from "./translations/fr/translation.json";
 import translationJA from "./translations/ja/translation.json";
 import translationPL from "./translations/pl/translation.json";
@@ -141,11 +142,15 @@ i18n
 
         // lng: "en", // if you're using a language detector, do not define the lng option
         fallbackLng: "en",
-        load: "languageOnly",
+        // load the region variant (e.g. es-MX) and its base language (es) so variants can fall back to it
+        load: "all",
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },
     });
+
+// Spanish (Mexico) only overrides the strings that differ from es; everything else falls back to es
+i18n.addResourceBundle("es-MX", "translation", translationESMX);
 
 export default i18n;
