@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 // import * as serviceWorker from './serviceWorker';
 import App from "./App.jsx";
-import store from "./store.js";
+import store from "#src/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router";
 
