@@ -1,77 +1,166 @@
-.item-page-wrapper {
-    margin: 0 auto 100px auto;
-    max-width: 1200px;
-    padding-top: 10px;
+/* Shared entity layout: see ./styles/singleEntity.css */
+
+.item-page-wrapper .entity-information-wrapper {
+    margin-top: 20px;
+}
+
+/* Hero: short name / preset selector */
+.item-page-wrapper .item-short-name-row {
+    margin-bottom: 10px;
+}
+
+.item-page-wrapper .item-short-name-wrapper {
+    font-size: x-large;
+    color: var(--color-gray-light);
+}
+
+.item-page-wrapper .item-contained-list {
+    margin-bottom: 10px;
+}
+
+/* Hero: large item image panel */
+.item-icon-cont {
+    padding: 20px;
+}
+
+.item-image-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    max-width: 100%;
+}
+
+.item-image-display img {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+/* Hero: image shown in place of the side panel on small screens */
+.entity-top-content .item-mobile-image img {
+    max-width: 100%;
+    max-height: 124px;
+}
+
+/* Section headers with controls */
+.item-section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgb(from var(--color-black) r g b / 0.3);
+    border-bottom: 1px solid rgb(from var(--color-white) r g b / 0.1);
+}
+
+.information-section .item-section-header h2 {
+    flex: 1 1 auto;
+    background: none;
+    border-bottom: none;
+}
+
+.item-section-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px 20px;
+}
+
+.item-section-controls .button-group-wrapper {
+    width: auto;
+}
+
+.item-section-controls .filter-slider-wrapper {
+    min-width: 200px;
+}
+
+.item-page-wrapper .information-section .information-content {
+    padding-bottom: 20px;
+}
+
+/* Sell for / Buy for */
+.item-trade-grid {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 30px;
+}
+
+.item-trade-grid > .information-section {
+    flex: 1 1 400px;
+    min-width: 0;
+}
+
+.item-price-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item-price-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 76px;
+    padding: 8px;
+    background-color: var(--color-gunmetal-dark);
+    border: 1px solid var(--color-black-light);
+}
+
+.item-price-card.best-profit {
+    border-color: var(--color-gold-two);
+}
+
+.item-price-source {
     position: relative;
+    line-height: 0;
 }
 
-.item-page-wrapper h2 {
-    margin-top: 40px;
-    font-size: 24px;
-}
-
-.item-font {
-    font-size: 36px;
-    font-weight: bold;
-}
-
-.item-icon {
+.item-price-source img {
     width: 64px;
     height: 64px;
 }
 
-.icon-and-link-wrapper {
-    align-items: flex-start;
-    display: none;
-    justify-content: flex-end;
-    flex-grow: 1;
-    right: 0;
-    top: 0;
+.item-price-quest-icon {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    line-height: normal;
 }
 
-.icon-and-link-wrapper canvas {
-    margin-right: 10px;
+.item-price-quest-icon .icon-with-text {
+    margin: 0;
 }
 
-.icon-and-link-wrapper a {
-    display: block;
-    text-align: right;
+.item-price-value {
+    text-align: center;
+    white-space: nowrap;
 }
 
-.information-grid {
-    display: flex;
-    flex-flow: wrap;
-    gap: 10px;
+.item-price-card.best-profit .item-price-value {
+    color: var(--color-gold-one);
 }
 
-.information-grid h2 {
-    width: 100%;
+.item-price-value.locked,
+.item-price-card.best-profit .item-price-value.locked {
+    color: var(--color-gold-two);
 }
 
-.item-short-name-wrapper {
-    font-size: x-large;
+.item-price-value .warning-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: text-bottom;
+    position: relative;
+    bottom: 2px;
+    margin-right: 5px;
 }
 
-.filter-content-wrapper.compact {
-    padding-top: 0px;
-    padding-bottom: 0px;
+.item-price-value .icon-with-text {
+    margin-left: 0;
 }
 
-.main-information-grid h1 {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-.main-information-grid h1 cite {
-    width: 100%;
-}
-
-.main-information-grid h1,
-.icon-and-link-wrapper {
-    margin: 0 0 10px 0;
-}
-
+/* Flea market fee tooltip */
 .tooltip-calculation {
     display: flex;
 }
@@ -82,106 +171,24 @@
     padding-left: 5px;
 }
 
-.text-information-wrapper {
-    margin-left: auto;
-}
-
-.text-and-image-information-wrapper {
-    align-items: center;
+/* Flea price history */
+.item-price-stats {
     display: flex;
-    gap: 10px;
-}
-
-.text-and-image-information-wrapper:first-child {
-    margin-left: 0;
-    flex-basis: 0%;
-}
-
-.text-and-image-information-wrapper img {
-    width: 32px;
-    height: 32px;
-}
-
-.text-and-image-information-wrapper .warning-icon {
-    width: 14px;
-    height: 14px;
-    vertical-align: text-bottom;
-    position: relative;
-    bottom: 2px;
-    margin-right: 5px;
-}
-
-.text-and-image-information-wrapper .price-wrapper {
-    width: 100%;
-}
-
-.text-and-image-information-wrapper.best-profit .price-wrapper,
-.best-profit {
-    color: var(--color-gold-one);
-}
-
-.best-profit img {
-    outline: var(--color-gold-two) solid 1px;
-    outline-offset: -1px;
-}
-
-.price-wrapper-bright {
-    color: var(--color-gold-one);
-}
-
-.price-wrapper.locked,
-.best-profit .price-wrapper.locked {
-    color: var(--color-gold-two);
-}
-
-.text-and-image-information-wrapper.price-info-wrapper {
-    align-items: center;
-    display: flex;
-    text-align: left;
-    flex: 1 0 65%;
-}
-
-.source-wrapper {
-    position: relative;
-}
-
-.quest-icon-wrapper {
-    position: absolute;
-    top: -13px;
-    right: -13px;
-}
-
-.quest-icon-wrapper .icon-with-text {
-    margin: 0;
-}
-
-.trader-wrapper {
-    justify-content: space-between;
-}
-
-.item-crafts-headline-wrapper,
-.item-barters-headline-wrapper,
-.item-contents-headline-wrapper,
-.item-hideout-headline-wrapper,
-.item-quest-headline-wrapper,
-.item-headline-wrapper-with-controls {
+    flex-wrap: wrap;
+    gap: 5px;
     margin-top: 20px;
-    margin-bottom: 20px;
-    align-items: center;
 }
 
-.item-crafts-headline-wrapper h2,
-.item-barters-headline-wrapper h2,
-.item-contents-headline-wrapper h2,
-.item-hideout-headline-wrapper h2,
-.item-quest-headline-wrapper h2,
-.item-headline-wrapper-with-controls h2 {
-    flex-grow: 1;
-    margin: 0;
+.item-price-stat {
+    flex: 1 1 calc(50% - 2.5px);
+    padding: 10px 20px;
+    color: var(--color-gold-one);
+    background-color: var(--color-gunmetal-dark);
+    border: 1px solid var(--color-black-light);
 }
 
-h2 div.historical-price-days {
-    float: inline-end;
+.historical-price-days {
+    min-width: 160px;
 }
 
 .historical-price-days .select__control {
@@ -194,80 +201,30 @@ h2 div.historical-price-days {
     color: #fff;
 }
 
-.item-content-wrapper {
-    background: rgb(29 31 33);
-    padding: 1em;
-    margin: 0.5em 0px;
-    border-radius: 0.3em;
-}
-
+/* Content (e.g. tapes, notes) */
 .item-content-wrapper > p > div {
     margin-left: auto;
     margin-right: auto;
 }
 
 @media screen and (width >= 800px) {
-    .item-page-wrapper {
-        padding-top: 20px;
-    }
-
-    .item-crafts-headline-wrapper,
-    .item-barters-headline-wrapper,
-    .item-contents-headline-wrapper,
-    .item-hideout-headline-wrapper,
-    .item-quest-headline-wrapper,
-    .item-headline-wrapper-with-controls {
-        display: flex;
-    }
-
-    .icon-and-link-wrapper {
-        display: flex;
-    }
-
-    .text-and-image-information-wrapper {
-        display: block;
-    }
-
-    .text-and-image-information-wrapper.price-info-wrapper {
-        flex-basis: auto;
-        flex-grow: 1;
-    }
-
-    .text-and-image-information-wrapper img {
-        height: 86px;
+    .item-price-source img {
         width: 86px;
+        height: 86px;
     }
 
-    .text-and-image-information-wrapper .price-wrapper {
-        text-align: center;
+    .item-price-card {
+        min-width: 98px;
     }
 
-    .single-line-grid.sell {
+    .item-price-stat {
+        flex-basis: calc(25% - 4px);
+    }
+}
+
+@media screen and (width <= 600px) {
+    .item-section-controls {
         justify-content: flex-start;
-    }
-
-    .single-line-grid.buy {
-        justify-content: flex-end;
-    }
-
-    .icon-and-link-wrapper img {
-        max-height: 200px;
-    }
-
-    .main-information-grid {
-        display: flex;
-    }
-
-    .main-information-grid h1 img {
-        display: none;
-    }
-
-    .main-information-grid h1,
-    .icon-and-link-wrapper {
-        margin: 0 0;
-    }
-
-    .trader-wrapper {
-        display: flex;
+        padding-top: 0;
     }
 }

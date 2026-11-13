@@ -6,7 +6,22 @@ import { useTranslation } from "react-i18next";
 import Select from "react-select";
 
 import { Icon } from "@mdi/react";
-import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from "@mdi/js";
+import {
+    mdiCached,
+    mdiCart,
+    mdiCashMultiple,
+    mdiChartLine,
+    mdiClipboardList,
+    mdiGift,
+    mdiHome,
+    mdiPackageVariant,
+    mdiProgressWrench,
+    mdiShield,
+    mdiShieldHalfFull,
+    mdiStarCircle,
+    mdiTextBoxOutline,
+    mdiTimerSand,
+} from "@mdi/js";
 
 import SEO from "../../components/SEO.jsx";
 import SmallItemTable from "../../components/small-item-table/index.jsx";
@@ -484,6 +499,40 @@ The max profitable price is impacted by the intel center and hideout management 
     let date = new Date(dateParsed);
     let relativeTime = getRelativeTimeAndUnit(dateParsed);
 
+    const isLoading = currentItemData.types.includes("loading");
+    const itemTypeLabel = currentItemData.categories?.[0]?.name ?? t("Item");
+    const fleaMinLevel = currentItemData.minLevelForFlea || handbook.fleaMarket.minPlayerLevel;
+
+    const sectionHeader = (iconPath, title, controls) => (
+        <div className="item-section-header">
+            <h2>
+                <Icon path={iconPath} size={1.5} className="icon-with-text" />
+                {title}
+            </h2>
+            {controls && <div className="item-section-controls">{controls}</div>}
+        </div>
+    );
+
+    const sourceSettingsButtons = (
+        <ButtonGroupFilter>
+            <ButtonGroupFilterButton
+                tooltipContent={<>{t("Use barters for item sources")}</>}
+                selected={includeBarterIngredients}
+                content={<Icon path={mdiCached} size={1} className="icon-with-text" />}
+                onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+            />
+            <ButtonGroupFilterButton
+                tooltipContent={<>{t("Use crafts for item sources")}</>}
+                selected={includeCraftIngredients}
+                content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text" />}
+                onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+            />
+        </ButtonGroupFilter>
+    );
+
+    const hasSellFor = currentItemData.sellFor && currentItemData.sellFor.length > 0;
+    const hasBuyFor = currentItemData.buyFor && currentItemData.buyFor.length > 0;
+
     return [
         <SEO
             title={`${currentItemData.name} - ${t("Escape from Tarkov")} - ${t("Tarkov.dev")}`}
@@ -498,176 +547,194 @@ The max profitable price is impacted by the intel center and hideout management 
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={"display-wrapper"}>
-            <div className={"item-page-wrapper"}>
+            <div className={"entity-page-wrapper item-page-wrapper"} key={"item-page-display-wrapper"}>
                 <ItemSearch showDropdown />
-                <div className="main-information-grid">
-                    <div className="item-information-wrapper">
-                        <h1>
-                            <div className={"item-font"}>
-                                {!currentItemData.types.includes("loading") ? currentItemData.name : <LoadingSmall />}
-                            </div>
-                            <img
-                                alt={currentItemData.name}
-                                className={"item-icon"}
-                                loading="lazy"
-                                src={currentItemData.iconLink}
+                <div className="entity-information-wrapper">
+                    <div className="entity-top-content">
+                        <div className="entity-information-images item-mobile-image">
+                            <ItemImage
+                                item={currentItemData}
+                                imageField={"baseImageLink"}
+                                imageViewer={true}
+                                nonFunctionalOverlay={true}
+                                autoDowngrade={true}
                             />
-                        </h1>
-                        <PresetSelector
-                            item={currentItemData}
-                            alt={<cite className="item-short-name-wrapper">{currentItemData.shortName}</cite>}
-                        />
-                        {currentItemData.wikiLink && (
-                            <span className="wiki-link-wrapper">
-                                <a href={currentItemData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                    {t("Wiki")}
-                                </a>
-                            </span>
-                        )}
-                        {showRestrictedType && (
-                            <div>
-                                <ContainedItemsList item={currentItemData} showRestrictedType={showRestrictedType} />
+                        </div>
+                        <div className="title-bar">
+                            <span className="type">{itemTypeLabel}</span>
+                            <h1>{!isLoading ? currentItemData.name : <LoadingSmall />}</h1>
+                            {currentItemData.wikiLink && (
+                                <span className="wiki-link-wrapper">
+                                    <a href={currentItemData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                        {t("Wiki")}
+                                    </a>
+                                </span>
+                            )}
+                        </div>
+                        <div className="main-content">
+                            <div className="item-short-name-row">
+                                <PresetSelector
+                                    item={currentItemData}
+                                    alt={<cite className="item-short-name-wrapper">{currentItemData.shortName}</cite>}
+                                />
                             </div>
-                        )}
-                        {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
-                            <div>
-                                <ContainedItemsList item={currentItemData} />
-                            </div>
-                        )}
+                            {showRestrictedType && (
+                                <div className="item-contained-list">
+                                    <ContainedItemsList
+                                        item={currentItemData}
+                                        showRestrictedType={showRestrictedType}
+                                    />
+                                </div>
+                            )}
+                            {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
+                                <div className="item-contained-list">
+                                    <ContainedItemsList item={currentItemData} />
+                                </div>
+                            )}
+                        </div>
+                        <div className="entity-properties">
+                            {hasProperties ? (
+                                <PropertyList
+                                    properties={{
+                                        ...currentItemData.properties,
+                                        categories: currentItemData.handbookCategories,
+                                    }}
+                                    id={currentItemData.id}
+                                />
+                            ) : (
+                                <LoadingSmall />
+                            )}
+                        </div>
                     </div>
-                    <div className="icon-and-link-wrapper">
-                        {currentItemData.grid && (
-                            <CanvasGrid
-                                width={currentItemData.grid.width}
-                                height={currentItemData.grid.height}
-                                grid={currentItemData.grid.pockets}
+                    <div className="entity-icon-cont item-icon-cont">
+                        <div className="item-image-display">
+                            <ItemImage
+                                item={currentItemData}
+                                backgroundScale={2}
+                                imageField={"image512pxLink"}
+                                imageViewer={true}
+                                nonFunctionalOverlay={true}
+                                autoDowngrade={true}
                             />
-                        )}
-                        <ItemImage
-                            item={currentItemData}
-                            backgroundScale={2}
-                            imageField={"image512pxLink"}
-                            imageViewer={true}
-                            nonFunctionalOverlay={true}
-                            autoDowngrade={true}
-                        />
+                            {currentItemData.grid && (
+                                <CanvasGrid
+                                    width={currentItemData.grid.width}
+                                    height={currentItemData.grid.height}
+                                    grid={currentItemData.grid.pockets}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
 
-                {/* Divider between sections */}
-                <hr className="hr-muted"></hr>
-
-                <div className="trader-wrapper">
-                    {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
-                        <div>
-                            <h2>{t("Sell for")}</h2>
-                            <div className={"information-grid single-line-grid sell"}>
-                                {!currentItemData.types.includes("noFlea") && (
-                                    <Tooltip placement="bottom" title={fleaTooltip} arrow>
-                                        <div
-                                            className={`text-and-image-information-wrapper ${sellForTradersIsTheBest ? "" : "best-profit"}`}
-                                            key={`${currentItemData.id}-flea-market-price-sell`}
-                                        >
-                                            <Badge
-                                                badgeContent={
-                                                    currentItemData.minLevelForFlea ||
-                                                    handbook.fleaMarket.minPlayerLevel
-                                                }
-                                                color={
-                                                    settings.playerLevel >= currentItemData.minLevelForFlea
-                                                        ? "success"
-                                                        : "warning"
-                                                }
-                                                title={t("Player level: {{playerLevel}}", {
-                                                    playerLevel:
-                                                        currentItemData.minLevelForFlea ||
-                                                        handbook.fleaMarket.minPlayerLevel,
-                                                })}
-                                            >
-                                                <img
-                                                    alt="Flea market"
-                                                    height="86"
-                                                    width="86"
-                                                    src={`${process.env.PUBLIC_URL}/images/traders/flea-market-portrait.png`}
-                                                    loading="lazy"
-                                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                />
-                                            </Badge>
-                                            <div className="price-wrapper">
-                                                {fleaSellIcon}
-                                                {fleaSellPriceDisplay}
-                                            </div>
-                                        </div>
-                                    </Tooltip>
-                                )}
-                                {sellForTraders &&
-                                    sellForTraders.map((sellForTrader) => {
-                                        const traderNormalizedName = sellForTrader.vendor.normalizedName;
-                                        const traderIsBest =
-                                            sellForTradersIsTheBest &&
-                                            traderNormalizedName ===
-                                                currentItemData.sellForTradersBest.vendor.normalizedName;
-
-                                        return (
+                {(hasSellFor || hasBuyFor) && (
+                    <div className="item-trade-grid">
+                        {hasSellFor && (
+                            <div className="information-section has-table">
+                                {sectionHeader(mdiCashMultiple, t("Sell for"))}
+                                <div className="information-content item-price-cards">
+                                    {!currentItemData.types.includes("noFlea") && (
+                                        <Tooltip placement="bottom" title={fleaTooltip} arrow>
                                             <div
-                                                className={`text-and-image-information-wrapper ${traderIsBest ? "best-profit" : ""}`}
-                                                key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}
+                                                className={`item-price-card${sellForTradersIsTheBest ? "" : " best-profit"}`}
+                                                key={`${currentItemData.id}-flea-market-price-sell`}
                                             >
-                                                <Link to={`/trader/${traderNormalizedName}`}>
-                                                    <img
-                                                        alt={sellForTrader.vendor.name}
-                                                        height="86"
-                                                        width="86"
-                                                        loading="lazy"
-                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderNormalizedName}-portrait.png`}
-                                                    />
-                                                </Link>
-                                                <div
-                                                    className={`price-wrapper${traderNormalizedName === "fence" || settings[traderNormalizedName] ? "" : " locked"}`}
-                                                >
-                                                    <ConditionalWrapper
-                                                        condition={sellForTrader.currency !== "RUB"}
-                                                        wrapper={(children) => (
-                                                            <Tooltip
-                                                                title={formatPrice(sellForTrader.priceRUB)}
-                                                                placement="bottom"
-                                                                arrow
-                                                            >
-                                                                <div>{children}</div>
-                                                            </Tooltip>
-                                                        )}
+                                                <div className="item-price-source">
+                                                    <Badge
+                                                        badgeContent={fleaMinLevel}
+                                                        color={
+                                                            settings.playerLevel >= currentItemData.minLevelForFlea
+                                                                ? "success"
+                                                                : "warning"
+                                                        }
+                                                        title={t("Player level: {{playerLevel}}", {
+                                                            playerLevel: fleaMinLevel,
+                                                        })}
                                                     >
-                                                        {formatPrice(sellForTrader.price, sellForTrader.currency)}
-                                                    </ConditionalWrapper>
+                                                        <img
+                                                            alt="Flea market"
+                                                            height="86"
+                                                            width="86"
+                                                            src={`${process.env.PUBLIC_URL}/images/traders/flea-market-portrait.png`}
+                                                            loading="lazy"
+                                                        />
+                                                    </Badge>
+                                                </div>
+                                                <div className="item-price-value">
+                                                    {fleaSellIcon}
+                                                    {fleaSellPriceDisplay}
                                                 </div>
                                             </div>
-                                        );
-                                    })}
+                                        </Tooltip>
+                                    )}
+                                    {sellForTraders &&
+                                        sellForTraders.map((sellForTrader) => {
+                                            const traderNormalizedName = sellForTrader.vendor.normalizedName;
+                                            const traderIsBest =
+                                                sellForTradersIsTheBest &&
+                                                traderNormalizedName ===
+                                                    currentItemData.sellForTradersBest.vendor.normalizedName;
+
+                                            return (
+                                                <div
+                                                    className={`item-price-card${traderIsBest ? " best-profit" : ""}`}
+                                                    key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}
+                                                >
+                                                    <div className="item-price-source">
+                                                        <Link to={`/trader/${traderNormalizedName}`}>
+                                                            <img
+                                                                alt={sellForTrader.vendor.name}
+                                                                height="86"
+                                                                width="86"
+                                                                loading="lazy"
+                                                                src={`${process.env.PUBLIC_URL}/images/traders/${traderNormalizedName}-portrait.png`}
+                                                            />
+                                                        </Link>
+                                                    </div>
+                                                    <div
+                                                        className={`item-price-value${traderNormalizedName === "fence" || settings[traderNormalizedName] ? "" : " locked"}`}
+                                                    >
+                                                        <ConditionalWrapper
+                                                            condition={sellForTrader.currency !== "RUB"}
+                                                            wrapper={(children) => (
+                                                                <Tooltip
+                                                                    title={formatPrice(sellForTrader.priceRUB)}
+                                                                    placement="bottom"
+                                                                    arrow
+                                                                >
+                                                                    <div>{children}</div>
+                                                                </Tooltip>
+                                                            )}
+                                                        >
+                                                            {formatPrice(sellForTrader.price, sellForTrader.currency)}
+                                                        </ConditionalWrapper>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
-                        <div>
-                            <h2>{t("Buy for")}</h2>
-                            <div className="information-grid single-line-grid buy">
-                                {currentItemData.buyFor.map((buyForSource, index) => {
-                                    const loyaltyLevel = buyForSource.requirements.find(
-                                        (requirement) => requirement.type === "loyaltyLevel",
-                                    )?.value;
-                                    const taskUnlock = buyForSource.vendor.taskUnlock
-                                        ? quests.find((q) => q.id === buyForSource.vendor.taskUnlock.id)
-                                        : undefined;
-                                    return (
-                                        <div
-                                            className={`text-and-image-information-wrapper`}
-                                            key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}-${index}`}
-                                        >
-                                            <div className="source-wrapper">
-                                                {buyForSource.vendor.normalizedName !== "flea-market" && (
-                                                    <LoyaltyLevelIcon loyaltyLevel={loyaltyLevel} />
-                                                )}
-                                                {taskUnlock && (
-                                                    <div>
+                        )}
+                        {hasBuyFor && (
+                            <div className="information-section has-table">
+                                {sectionHeader(mdiCart, t("Buy for"))}
+                                <div className="information-content item-price-cards">
+                                    {currentItemData.buyFor.map((buyForSource, index) => {
+                                        const isFlea = buyForSource.vendor.normalizedName === "flea-market";
+                                        const loyaltyLevel = buyForSource.requirements.find(
+                                            (requirement) => requirement.type === "loyaltyLevel",
+                                        )?.value;
+                                        const taskUnlock = buyForSource.vendor.taskUnlock
+                                            ? quests.find((q) => q.id === buyForSource.vendor.taskUnlock.id)
+                                            : undefined;
+                                        return (
+                                            <div
+                                                className={`item-price-card${index === 0 ? " best-profit" : ""}`}
+                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}-${index}`}
+                                            >
+                                                <div className="item-price-source">
+                                                    {!isFlea && <LoyaltyLevelIcon loyaltyLevel={loyaltyLevel} />}
+                                                    {taskUnlock && (
                                                         <Tooltip
                                                             title={
                                                                 <Link to={`/task/${taskUnlock.normalizedName}`}>
@@ -680,7 +747,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                                             }
                                                             arrow
                                                         >
-                                                            <div className="quest-icon-wrapper">
+                                                            <div className="item-price-quest-icon">
                                                                 <Icon
                                                                     path={mdiClipboardList}
                                                                     size={1}
@@ -688,138 +755,114 @@ The max profitable price is impacted by the intel center and hideout management 
                                                                 />
                                                             </div>
                                                         </Tooltip>
-                                                    </div>
-                                                )}
-                                                <ConditionalWrapper
-                                                    condition={buyForSource.vendor.normalizedName !== "flea-market"}
-                                                    wrapper={(children) => (
-                                                        <Link to={`/trader/${buyForSource.vendor.normalizedName}`}>
-                                                            {children}
-                                                        </Link>
                                                     )}
-                                                >
                                                     <ConditionalWrapper
-                                                        condition={buyForSource.vendor.normalizedName === "flea-market"}
+                                                        condition={!isFlea}
                                                         wrapper={(children) => (
-                                                            <Badge
-                                                                badgeContent={
-                                                                    buyForSource.vendor.normalizedName === "flea-market"
-                                                                        ? currentItemData.minLevelForFlea ||
-                                                                          handbook.fleaMarket.minPlayerLevel
-                                                                        : null
-                                                                }
-                                                                color={
-                                                                    settings.playerLevel >=
-                                                                    currentItemData.minLevelForFlea
-                                                                        ? "success"
-                                                                        : "warning"
-                                                                }
-                                                                title={t("Player level: {{playerLevel}}", {
-                                                                    playerLevel:
-                                                                        currentItemData.minLevelForFlea ||
-                                                                        handbook.fleaMarket.minPlayerLevel,
-                                                                })}
-                                                            >
+                                                            <Link to={`/trader/${buyForSource.vendor.normalizedName}`}>
                                                                 {children}
-                                                            </Badge>
+                                                            </Link>
                                                         )}
                                                     >
-                                                        <img
-                                                            alt={buyForSource.vendor.name}
-                                                            height="86"
-                                                            width="86"
-                                                            loading="lazy"
-                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
-                                                        />
+                                                        <ConditionalWrapper
+                                                            condition={isFlea}
+                                                            wrapper={(children) => (
+                                                                <Badge
+                                                                    badgeContent={fleaMinLevel}
+                                                                    color={
+                                                                        settings.playerLevel >=
+                                                                        currentItemData.minLevelForFlea
+                                                                            ? "success"
+                                                                            : "warning"
+                                                                    }
+                                                                    title={t("Player level: {{playerLevel}}", {
+                                                                        playerLevel: fleaMinLevel,
+                                                                    })}
+                                                                >
+                                                                    {children}
+                                                                </Badge>
+                                                            )}
+                                                        >
+                                                            <img
+                                                                alt={buyForSource.vendor.name}
+                                                                height="86"
+                                                                width="86"
+                                                                loading="lazy"
+                                                                src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
+                                                            />
+                                                        </ConditionalWrapper>
                                                     </ConditionalWrapper>
-                                                </ConditionalWrapper>
+                                                </div>
+                                                <div
+                                                    className={`item-price-value${priceIsLocked(currentItemData, buyForSource)}`}
+                                                >
+                                                    <TraderPrice
+                                                        currency={buyForSource.currency}
+                                                        price={buyForSource.price}
+                                                        priceRUB={buyForSource.priceRUB}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div
-                                                className={`price-wrapper ${index === 0 ? "best-profit" : ""}${priceIsLocked(currentItemData, buyForSource, settings)}`}
-                                            >
-                                                <TraderPrice
-                                                    currency={buyForSource.currency}
-                                                    price={buyForSource.price}
-                                                    priceRUB={buyForSource.priceRUB}
-                                                />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </div>
-                {currentItemData.id &&
-                    currentItemData.id !== "loading" &&
-                    !currentItemData.types.includes("noFlea") && (
-                        <div>
-                            <h2>
-                                {t("Flea price history")}{" "}
-                                <Select
-                                    placeholder={
-                                        priceDaysLabels.find((l) => l.value === priceDays)?.label ??
-                                        t("{{count}} days_other", { count: priceDays })
-                                    }
-                                    defaultValue={priceDays}
-                                    options={priceDaysLabels}
-                                    className="basic-multi-select historical-price-days"
-                                    classNamePrefix="select"
-                                    onChange={(event) => {
-                                        setPriceDays(event.value);
-                                    }}
-                                    styles={{ display: "inline" }}
-                                ></Select>
-                            </h2>
+                        )}
+                    </div>
+                )}
+
+                {currentItemData.id && !isLoading && !currentItemData.types.includes("noFlea") && (
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiChartLine,
+                            t("Flea price history"),
+                            <Select
+                                placeholder={
+                                    priceDaysLabels.find((l) => l.value === priceDays)?.label ??
+                                    t("{{count}} days_other", { count: priceDays })
+                                }
+                                defaultValue={priceDays}
+                                options={priceDaysLabels}
+                                className="basic-multi-select historical-price-days"
+                                classNamePrefix="select"
+                                onChange={(event) => {
+                                    setPriceDays(event.value);
+                                }}
+                            />,
+                        )}
+                        <div className="information-content">
                             <PriceGraph item={currentItemData} days={priceDays} />
-                            <br />
-                            <div className={`text-and-image-information-wrapper price-info-wrapper`}>
-                                <div className="price-wrapper price-wrapper-bright">
-                                    <div>
-                                        {t("Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %", {
-                                            changeLast48h: currentItemData.changeLast48h,
-                                            changeLast48Percent: currentItemData.changeLast48hPercent,
-                                        })}
-                                    </div>
-                                    <div>
-                                        {t("Lowest scanned price last 24h: {{low24hPrice}}", {
-                                            low24hPrice: formatPrice(currentItemData.low24hPrice),
-                                        })}
-                                    </div>
-                                    <div>
-                                        {t("Highest scanned price last 24h: {{high24hPrice}}", {
-                                            high24hPrice: formatPrice(currentItemData.high24hPrice),
-                                        })}
-                                    </div>
-                                    <div title={date.toLocaleString(i18n.language)}>
-                                        {t("Updated: {{val, relativetime}}", {
-                                            val: relativeTime[0],
-                                            range: relativeTime[1],
-                                        })}
-                                    </div>
+                            <div className="item-price-stats">
+                                <div className="item-price-stat">
+                                    {t("Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %", {
+                                        changeLast48h: currentItemData.changeLast48h,
+                                        changeLast48Percent: currentItemData.changeLast48hPercent,
+                                    })}
+                                </div>
+                                <div className="item-price-stat">
+                                    {t("Lowest scanned price last 24h: {{low24hPrice}}", {
+                                        low24hPrice: formatPrice(currentItemData.low24hPrice),
+                                    })}
+                                </div>
+                                <div className="item-price-stat">
+                                    {t("Highest scanned price last 24h: {{high24hPrice}}", {
+                                        high24hPrice: formatPrice(currentItemData.high24hPrice),
+                                    })}
+                                </div>
+                                <div className="item-price-stat" title={date.toLocaleString(i18n.language)}>
+                                    {t("Updated: {{val, relativetime}}", {
+                                        val: relativeTime[0],
+                                        range: relativeTime[1],
+                                    })}
                                 </div>
                             </div>
                         </div>
-                    )}
-                <div>
-                    <h2>{t("Stats")}</h2>
-                    {hasProperties ? (
-                        <PropertyList
-                            properties={{
-                                ...currentItemData.properties,
-                                categories: currentItemData.handbookCategories,
-                            }}
-                            id={currentItemData.id}
-                        />
-                    ) : (
-                        <LoadingSmall />
-                    )}
-                </div>
+                    </div>
+                )}
+
                 {softArmorSlots.data.length > 0 && (
-                    <div>
-                        <div className="soft-armor-slots-headline-wrapper">
-                            <h2>{t("Soft Armor Slots")}</h2>
-                        </div>
+                    <div className="information-section has-table">
+                        {sectionHeader(mdiShieldHalfFull, t("Soft Armor Slots"))}
                         <DataTable
                             className={`small-data-table`}
                             key="soft-armor-table"
@@ -828,11 +871,13 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {plateArmorSlots.length > 0 && (
-                    <div>
-                        <div className="item-headline-wrapper-with-controls">
-                            <h2>{t("Compatible Armor Plates")}</h2>
-                            <span>
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiShield,
+                            t("Compatible Armor Plates"),
+                            <>
                                 <ToggleFilter
                                     checked={showAllCompatiblePlateSources}
                                     label={t("Ignore settings")}
@@ -849,8 +894,8 @@ The max profitable price is impacted by the intel center and hideout management 
                                         handleArmorClassChange(value);
                                     }}
                                 />
-                            </span>
-                        </div>
+                            </>,
+                        )}
                         <SmallItemTable
                             armorSlotFilter={plateArmorSlots}
                             minPropertyFilter={{
@@ -869,17 +914,19 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {containsItems && (
-                    <div>
-                        <div className="item-contents-headline-wrapper">
-                            <h2>{t("Items contained in {{itemName}}", { itemName: currentItemData.name })}</h2>
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiPackageVariant,
+                            t("Items contained in {{itemName}}", { itemName: currentItemData.name }),
                             <ToggleFilter
                                 checked={showAllContainedItemSources}
                                 label={t("Ignore settings")}
                                 onChange={(e) => setShowAllContainedItemSources(!showAllContainedItemSources)}
                                 tooltipContent={<>{t("Shows all sources of items regardless of your settings")}</>}
-                            />
-                        </div>
+                            />,
+                        )}
                         <SmallItemTable
                             containedInFilter={currentItemData.containsItems}
                             fleaPrice
@@ -892,23 +939,24 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {!!currentItemData?.properties?.content && (
-                    <div>
-                        <div className="item-content-headline-wrapper">
-                            <h2>{t("Content")}</h2>
-                        </div>
-                        <div className="item-content-wrapper">
+                    <div className="information-section has-table">
+                        {sectionHeader(mdiTextBoxOutline, t("Content"))}
+                        <div className="information-content item-content-wrapper">
                             {currentItemData.properties.content.map((subtitle, index) => {
                                 return <p key={`subtitle-${index}`} dangerouslySetInnerHTML={{ __html: subtitle }}></p>;
                             })}
                         </div>
                     </div>
                 )}
+
                 {hasBarters && (
-                    <div>
-                        <div className="item-barters-headline-wrapper">
-                            <h2>{t("Barters with {{itemName}}", { itemName: currentItemData.name })}</h2>
-                            <div className="filter-content-wrapper compact">
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiCached,
+                            t("Barters with {{itemName}}", { itemName: currentItemData.name }),
+                            <>
                                 <ToggleFilter
                                     checked={showAllBarters}
                                     label={t("Ignore settings")}
@@ -916,22 +964,9 @@ The max profitable price is impacted by the intel center and hideout management 
                                     tooltipContent={<>{t("Shows all barters regardless of your settings")}</>}
                                 />
                                 {dogtagToggle}
-                                <ButtonGroupFilter>
-                                    <ButtonGroupFilterButton
-                                        tooltipContent={<>{t("Use barters for item sources")}</>}
-                                        selected={includeBarterIngredients}
-                                        content={<Icon path={mdiCached} size={1} className="icon-with-text" />}
-                                        onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
-                                    />
-                                    <ButtonGroupFilterButton
-                                        tooltipContent={<>{t("Use crafts for item sources")}</>}
-                                        selected={includeCraftIngredients}
-                                        content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text" />}
-                                        onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
-                                    />
-                                </ButtonGroupFilter>
-                            </div>
-                        </div>
+                                {sourceSettingsButtons}
+                            </>,
+                        )}
                         <BartersTable
                             itemFilter={currentItemData.id}
                             showAll={showAllBarters}
@@ -940,31 +975,22 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {hasCrafts && (
-                    <div>
-                        <div className="item-crafts-headline-wrapper">
-                            <h2>{t("Crafts with {{itemName}}", { itemName: currentItemData.name })}</h2>
-                            <ToggleFilter
-                                checked={showAllCrafts}
-                                label={t("Ignore settings")}
-                                onChange={(e) => setShowAllCrafts(!showAllCrafts)}
-                                tooltipContent={<>{t("Shows all crafts regardless of your settings")}</>}
-                            />
-                            <ButtonGroupFilter>
-                                <ButtonGroupFilterButton
-                                    tooltipContent={<>{t("Use barters for item sources")}</>}
-                                    selected={includeBarterIngredients}
-                                    content={<Icon path={mdiCached} size={1} className="icon-with-text" />}
-                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiProgressWrench,
+                            t("Crafts with {{itemName}}", { itemName: currentItemData.name }),
+                            <>
+                                <ToggleFilter
+                                    checked={showAllCrafts}
+                                    label={t("Ignore settings")}
+                                    onChange={(e) => setShowAllCrafts(!showAllCrafts)}
+                                    tooltipContent={<>{t("Shows all crafts regardless of your settings")}</>}
                                 />
-                                <ButtonGroupFilterButton
-                                    tooltipContent={<>{t("Use crafts for item sources")}</>}
-                                    selected={includeCraftIngredients}
-                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text" />}
-                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
-                                />
-                            </ButtonGroupFilter>
-                        </div>
+                                {sourceSettingsButtons}
+                            </>,
+                        )}
                         <CraftsTable
                             itemFilter={currentItemData.id}
                             showAll={showAllCrafts}
@@ -973,26 +999,30 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {usedInHideout && (
-                    <div>
-                        <div className="item-crafts-headline-wrapper">
-                            <h2>{t("Hideout modules needing {{itemName}}", { itemName: currentItemData.name })}</h2>
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiHome,
+                            t("Hideout modules needing {{itemName}}", { itemName: currentItemData.name }),
                             <ToggleFilter
                                 checked={showAllHideoutStations}
                                 label={t("Show built")}
                                 onChange={(e) => setShowAllHideoutStations(!showAllHideoutStations)}
                                 tooltipContent={<>{t("Shows all modules regardless of your settings")}</>}
-                            />
-                        </div>
+                            />,
+                        )}
                         <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                     </div>
                 )}
+
                 {questsRequiringCount > 0 && (
-                    <div>
-                        <div className="item-crafts-headline-wrapper">
-                            <h2>{t("Quests requiring {{itemName}}", { itemName: currentItemData.name })}</h2>
-                            {questsToggle}
-                        </div>
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiClipboardList,
+                            t("Quests requiring {{itemName}}", { itemName: currentItemData.name }),
+                            questsToggle,
+                        )}
                         <QuestTable
                             hideCompleted={hideCompletedQuests}
                             requiredItemFilter={currentItemData.id}
@@ -1000,12 +1030,14 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {questsProvidingCount > 0 && (
-                    <div>
-                        <div className="item-crafts-headline-wrapper">
-                            <h2>{t("Quests rewarding {{itemName}}", { itemName: currentItemData.name })}</h2>
-                            {questsToggle}
-                        </div>
+                    <div className="information-section has-table">
+                        {sectionHeader(
+                            mdiGift,
+                            t("Quests rewarding {{itemName}}", { itemName: currentItemData.name }),
+                            questsToggle,
+                        )}
                         <QuestTable
                             hideCompleted={hideCompletedQuests}
                             rewardItemFilter={currentItemData.id}
@@ -1013,12 +1045,11 @@ The max profitable price is impacted by the intel center and hideout management 
                         />
                     </div>
                 )}
+
                 {!!prestigeAwarding && (
-                    <div>
-                        <div className="item-crafts-headline-wrapper">
-                            <h2>{t("Prestige Reward")}</h2>
-                        </div>
-                        <div>
+                    <div className="information-section has-table">
+                        {sectionHeader(mdiStarCircle, t("Prestige Reward"))}
+                        <div className="information-content">
                             <Link to={`/prestige/${prestigeAwarding.prestigeLevel}`}>
                                 <img
                                     src={prestigeAwarding.iconLink}
