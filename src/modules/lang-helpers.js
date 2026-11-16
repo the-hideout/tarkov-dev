@@ -5,8 +5,14 @@ import i18n from "../i18n.js";
 import languages from "../data/supported-languages.json";
 
 function validateLangCode(lng) {
-    // Convert to two character language code
-    const langFmt = lng.replace(/-[a-zA-Z]{2}/, "");
+    // Use the regional variant if the API supports it (e.g. es-mx)
+    const regionalLang = lng.toLowerCase();
+    if (languages.includes(regionalLang)) {
+        return regionalLang;
+    }
+
+    // Otherwise convert to two character language code
+    const langFmt = regionalLang.replace(/-[a-z]{2}/, "");
 
     // Check if the language is supported
     if (languages.includes(langFmt)) {
@@ -23,16 +29,7 @@ export function langCode() {
         return "en";
     }
 
-    // Convert to two digit language code
-    const langFmt = i18n.language.replace(/-[a-zA-Z]{2}/, "");
-
-    // Check if the language is supported
-    if (languages.includes(langFmt)) {
-        return langFmt;
-    } else {
-        // If the language is not supported, fall back to en
-        return "en";
-    }
+    return validateLangCode(i18n.language);
 }
 
 export const on = i18n.on;

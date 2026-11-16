@@ -27,6 +27,10 @@
                         "extents": [
                             {
                                 "height": [10, 15]
+                            },
+                            {
+                                "height": [5, 10],
+                                "bounds": [[[-190, 222], [-162, 237.5], "accountant building"]]
                             }
                         ]
                     },
@@ -67,6 +71,14 @@
                         "extents": [
                             {
                                 "height": [-10000, -6]
+                            },
+                            {
+                                "height": [-10000, 0],
+                                "bounds": [[[-13, -16], [28, 33], "center parking"]]
+                            },
+                            {
+                                "height": [-10000, 2],
+                                "bounds": [[[151, 344], [275, 418], "concordia"]]
                             }
                         ]
                     }
