@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit"
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     "settings/fetchTarkovTrackerProgress",
-    async (apiKey, { getState }) => {
+    async (apiKey, { getState, signal, fulfillWithValue }) => {
         if (!apiKey || typeof apiKey !== "string") {
             return false;
         }
@@ -30,9 +30,10 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             headers: {
                 Authorization: `Bearer ${apiKey}`,
             },
-        }).then((resp) => resp.json());
+            signal,
+        });
 
-        const progressData = response.data;
+        const progressData = (await response.json()).data;
 
         returnData.quests = progressData.tasksProgress.reduce((completedTasks, current) => {
             if (current.complete) {
@@ -84,7 +85,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
         }
 
-        return returnData;
+        return fulfillWithValue(returnData, { etag: response.headers.get("etag") });
     },
 );
 
