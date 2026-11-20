@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit"
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     "settings/fetchTarkovTrackerProgress",
-    async (apiKey, { getState }) => {
+    async ({ apiKey, domain }, { getState, signal, fulfillWithValue }) => {
         if (!apiKey || typeof apiKey !== "string") {
             return false;
         }
@@ -16,12 +16,11 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             objectives: [],
         };
 
-        const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
         const validators = {
             "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
             "tarkovtracker.org": /^(?:[A-Z]{3}_).+$/i,
         };
-        if (!apiKey.match(validators[domain])) {
+        if (!Object.hasOwn(validators, domain) || !validators[domain].test(apiKey)) {
             return false;
         }
 
@@ -30,9 +29,13 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             headers: {
                 Authorization: `Bearer ${apiKey}`,
             },
-        }).then((resp) => resp.json());
+            signal,
+        });
+        if (!response.ok) {
+            throw new Error(`Tarkov Tracker progress request failed (${response.status})`);
+        }
 
-        const progressData = response.data;
+        const { data: progressData } = await response.json();
 
         returnData.quests = progressData.tasksProgress.reduce((completedTasks, current) => {
             if (current.complete) {
@@ -84,7 +87,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
         }
 
-        return returnData;
+        return fulfillWithValue(returnData, { etag: response.headers.get("etag") });
     },
 );
 
@@ -171,6 +174,19 @@ const defaultSettings = {
     "minDogtagLevel": localStorageReadJson("minDogtagLevel", 1),
     "hideDogtagBarters": localStorageReadJson("hideDogtagBarters", false),
 };
+
+const isCurrentProgressRequest = (
+    state,
+    {
+        meta: {
+            arg: { apiKey, domain, gameMode },
+        },
+    },
+) =>
+    state.gameMode === gameMode &&
+    (state.tarkovTrackerDomain || "tarkovtracker.org") === domain &&
+    state[gameMode].useTarkovTracker &&
+    state[gameMode].tarkovTrackerAPIKey === apiKey;
 
 const settingsSlice = createSlice({
     name: "settings",
@@ -277,10 +293,8 @@ const settingsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
-            state.status = "loading";
-        });
         builder.addCase(fetchTarkovTrackerProgress.fulfilled, (state, action) => {
+            if (!isCurrentProgressRequest(state, action)) return;
             state.progressStatus = "succeeded";
 
             if (action.payload) {
@@ -302,6 +316,7 @@ const settingsSlice = createSlice({
             }
         });
         builder.addCase(fetchTarkovTrackerProgress.rejected, (state, action) => {
+            if (action.meta.aborted || !isCurrentProgressRequest(state, action)) return;
             state.progressStatus = "failed";
             state.error = action.payload;
         });
