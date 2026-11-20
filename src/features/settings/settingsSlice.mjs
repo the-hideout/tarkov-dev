@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit"
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     "settings/fetchTarkovTrackerProgress",
-    async ({ apiKey, domain }, { getState, signal, fulfillWithValue }) => {
+    async (apiKey, { getState, signal, fulfillWithValue }) => {
         if (!apiKey || typeof apiKey !== "string") {
             return false;
         }
@@ -16,11 +16,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             objectives: [],
         };
 
+        const domain = localStorageReadJson("tarkovTrackerDomain", "tarkovtracker.org");
         const validators = {
             "tarkovtracker.io": /^[a-zA-Z0-9]{22}$/,
             "tarkovtracker.org": /^(?:[A-Z]{3}_).+$/i,
         };
-        if (!Object.hasOwn(validators, domain) || !validators[domain].test(apiKey)) {
+        if (!apiKey.match(validators[domain])) {
             return false;
         }
 
@@ -31,11 +32,8 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             },
             signal,
         });
-        if (!response.ok) {
-            throw new Error(`Tarkov Tracker progress request failed (${response.status})`);
-        }
 
-        const { data: progressData } = await response.json();
+        const progressData = (await response.json()).data;
 
         returnData.quests = progressData.tasksProgress.reduce((completedTasks, current) => {
             if (current.complete) {
@@ -175,19 +173,6 @@ const defaultSettings = {
     "hideDogtagBarters": localStorageReadJson("hideDogtagBarters", false),
 };
 
-const isCurrentProgressRequest = (
-    state,
-    {
-        meta: {
-            arg: { apiKey, domain, gameMode },
-        },
-    },
-) =>
-    state.gameMode === gameMode &&
-    (state.tarkovTrackerDomain || "tarkovtracker.org") === domain &&
-    state[gameMode].useTarkovTracker &&
-    state[gameMode].tarkovTrackerAPIKey === apiKey;
-
 const settingsSlice = createSlice({
     name: "settings",
     initialState: {
@@ -293,8 +278,10 @@ const settingsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
+            state.status = "loading";
+        });
         builder.addCase(fetchTarkovTrackerProgress.fulfilled, (state, action) => {
-            if (!isCurrentProgressRequest(state, action)) return;
             state.progressStatus = "succeeded";
 
             if (action.payload) {
@@ -316,7 +303,6 @@ const settingsSlice = createSlice({
             }
         });
         builder.addCase(fetchTarkovTrackerProgress.rejected, (state, action) => {
-            if (action.meta.aborted || !isCurrentProgressRequest(state, action)) return;
             state.progressStatus = "failed";
             state.error = action.payload;
         });

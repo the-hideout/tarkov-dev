@@ -166,15 +166,11 @@ function App() {
     const useTarkovTracker = useSelector((state) => state.settings[state.settings.gameMode].useTarkovTracker);
 
     const tarkovTrackerAPIKey = useSelector((state) => state.settings[state.settings.gameMode].tarkovTrackerAPIKey);
-    const trackerDomain = useSelector((state) => state.settings.tarkovTrackerDomain || "tarkovtracker.org");
-    const gameMode = useSelector((state) => state.settings.gameMode);
 
     useEffect(() => {
         if (!useTarkovTracker || !tarkovTrackerAPIKey) return;
-        return startProgressPolling(() =>
-            dispatch(fetchTarkovTrackerProgress({ apiKey: tarkovTrackerAPIKey, domain: trackerDomain, gameMode })),
-        );
-    }, [dispatch, gameMode, tarkovTrackerAPIKey, trackerDomain, useTarkovTracker]);
+        return startProgressPolling(() => dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey)));
+    }, [dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         const handleMessage = (rawMessage) => {

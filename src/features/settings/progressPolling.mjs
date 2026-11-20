@@ -21,7 +21,7 @@ export function startProgressPolling(refresh) {
             return;
         }
 
-        // Returning from a long absence should refresh at the original cadence.
+        // Progress may have been edited while the tab was inactive, so return to the base cadence.
         if (wasInactive) delay = MIN_DELAY_MS;
         wasInactive = false;
         if (request) return;
@@ -33,7 +33,7 @@ export function startProgressPolling(refresh) {
         }
 
         request = refresh();
-        requestTimeout = setTimeout(request.abort, REQUEST_TIMEOUT_MS);
+        requestTimeout = setTimeout(() => request.abort(), REQUEST_TIMEOUT_MS);
         request.then(({ meta }) => {
             if (stopped) return;
             clearTimeout(requestTimeout);

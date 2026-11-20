@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { afterEach, beforeEach, expect, it, rstest } from "@rstest/core";
 import { startProgressPolling } from "./progressPolling.mjs";
-import settings, { fetchTarkovTrackerProgress, setTarkovTrackerAPIKey } from "./settingsSlice.mjs";
+import settings, { fetchTarkovTrackerProgress } from "./settingsSlice.mjs";
 
 const minute = 60_000;
-const config = { apiKey: "PVP_example", domain: "tarkovtracker.org", gameMode: "regular" };
+const apiKey = "PVP_example";
 let stop;
 let focused;
 
@@ -46,12 +46,11 @@ function testStore() {
         preloadedState: {
             settings: {
                 ...initial,
-                gameMode: config.gameMode,
-                tarkovTrackerDomain: config.domain,
-                [config.gameMode]: {
-                    ...initial[config.gameMode],
+                gameMode: "regular",
+                regular: {
+                    ...initial.regular,
                     useTarkovTracker: true,
-                    tarkovTrackerAPIKey: config.apiKey,
+                    tarkovTrackerAPIKey: apiKey,
                 },
             },
         },
@@ -66,7 +65,7 @@ it("makes five requests in the first focused hour of unchanged progress", async 
     });
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
 
     await rstest.advanceTimersByTimeAsync(60 * minute - 1);
 
@@ -83,7 +82,7 @@ it("applies new progress and returns to five-minute polling", async () => {
         .mockImplementation(async () => progressResponse('W/"changed"', 13));
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
 
     await rstest.advanceTimersByTimeAsync(15 * minute);
     expect(fetchProgress).toHaveBeenCalledTimes(3);
@@ -96,7 +95,7 @@ it("pauses while unfocused and refreshes once when the tab returns", async () =>
     const fetchProgress = rstest.fn(async () => progressResponse('W/"unchanged"', 12));
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
     await rstest.advanceTimersByTimeAsync(5 * minute);
     expect(fetchProgress).toHaveBeenCalledTimes(2);
 
@@ -115,7 +114,7 @@ it("keeps the normal cadence when the backend does not expose an ETag", async ()
     const fetchProgress = rstest.fn(async () => progressResponse(null, 12));
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
 
     await rstest.advanceTimersByTimeAsync(15 * minute);
     expect(fetchProgress).toHaveBeenCalledTimes(4);
@@ -130,7 +129,7 @@ it("allows only one in-flight request and aborts it when polling stops", async (
     );
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
     const { signal } = fetchProgress.mock.calls[0][1];
 
     await rstest.advanceTimersByTimeAsync(10_000);
@@ -142,7 +141,6 @@ it("allows only one in-flight request and aborts it when polling stops", async (
     await rstest.advanceTimersByTimeAsync(20 * minute);
     expect(signal.aborted).toBe(true);
     expect(fetchProgress).toHaveBeenCalledTimes(1);
-    expect(store.getState().settings.progressStatus).toBe("idle");
 });
 
 it("aborts a stalled read and retries at the normal cadence", async () => {
@@ -157,7 +155,7 @@ it("aborts a stalled read and retries at the normal cadence", async () => {
         .mockImplementation(async () => progressResponse('W/"recovered"', 14));
     rstest.stubGlobal("fetch", fetchProgress);
     const store = testStore();
-    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(config)));
+    stop = startProgressPolling(() => store.dispatch(fetchTarkovTrackerProgress(apiKey)));
     const { signal } = fetchProgress.mock.calls[0][1];
 
     await rstest.advanceTimersByTimeAsync(30_000);
@@ -165,25 +163,4 @@ it("aborts a stalled read and retries at the normal cadence", async () => {
     await rstest.advanceTimersByTimeAsync(5 * minute);
     expect(fetchProgress).toHaveBeenCalledTimes(2);
     expect(store.getState().settings.regular.playerLevel).toBe(14);
-});
-
-it("ignores a response for an integration key that has been replaced", async () => {
-    let respond;
-    rstest.stubGlobal(
-        "fetch",
-        rstest.fn(
-            () =>
-                new Promise((resolve) => {
-                    respond = resolve;
-                }),
-        ),
-    );
-    const store = testStore();
-    const request = store.dispatch(fetchTarkovTrackerProgress(config));
-    store.dispatch(setTarkovTrackerAPIKey("PVP_replacement"));
-    respond(progressResponse('W/"old"', 89));
-
-    await request;
-
-    expect(store.getState().settings.regular.playerLevel).not.toBe(89);
 });
