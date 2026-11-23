@@ -10,7 +10,7 @@ import { caliberArrayWithSplit } from "../../modules/format-ammo.mjs";
 import useItemsData from "../../features/items/index.js";
 import { useMapImagesSortedArray } from "../../features/maps/index.js";
 
-import Connect from "./Connect.jsx";
+import Connect from "./Connect";
 
 import "./index.css";
 
