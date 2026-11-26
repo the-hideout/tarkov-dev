@@ -1,4 +1,6 @@
-import { localStorageReadJson, localStorageReadJsonGameMode } from "../features/settings/settingsSlice.mjs";
+import { z } from "zod";
+import { localStorageReadJson } from "#src/utils/local-storage";
+import { localStorageReadJsonGameMode } from "#src/features/settings/settingsSlice";
 
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
 
@@ -6,8 +8,8 @@ export default function fleaMarketFee(basePrice, sellPrice, options = {}) {
     const count = options.count ?? 1;
     const intelligenceCenter = options.intelligenceCenter ?? localStorageReadJsonGameMode("intelligence-center", 3);
     const hideoutManagement = options.hideoutManagement ?? localStorageReadJsonGameMode("hideout-management", 0);
-    const Ti = options.Ti ?? localStorageReadJson("Ti", 0.03);
-    const Tr = options.Tr ?? localStorageReadJson("Tr", 0.03);
+    const Ti = options.Ti ?? localStorageReadJson("Ti", 0.03, z.number().nonnegative());
+    const Tr = options.Tr ?? localStorageReadJson("Tr", 0.03, z.number().nonnegative());
     let V0 = basePrice;
     let VR = sellPrice;
     //let Ti = 0.05;

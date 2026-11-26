@@ -27,7 +27,7 @@ import useCraftsData from "../../features/crafts/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import useHideoutData from "../../features/hideout/index.js";
 import useQuestsData from "../../features/quests/index.js";
-import { selectAllSkills } from "../../features/settings/settingsSlice.mjs";
+import { selectAllSkills } from "#src/features/settings/settingsSlice";
 
 import CanvasGrid from "../canvas-grid/index.jsx";
 

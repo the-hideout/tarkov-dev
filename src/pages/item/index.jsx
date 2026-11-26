@@ -56,7 +56,7 @@ import useCraftsData from "../../features/crafts/index.js";
 import useQuestsData, { usePrestigeData } from "../../features/quests/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
 import useMapsData from "../../features/maps/index.js";
-import { toggleHideDogtagBarters } from "../../features/settings/settingsSlice.mjs";
+import { toggleHideDogtagBarters } from "#src/features/settings/settingsSlice";
 
 import formatPrice from "../../modules/format-price.js";
 import bestPrice from "../../modules/best-price.js";

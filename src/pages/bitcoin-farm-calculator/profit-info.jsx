@@ -11,7 +11,7 @@ import formatPrice from "../../modules/format-price.js";
 import CenterCell from "../../components/center-cell/index.jsx";
 import { getDurationDisplay } from "../../modules/format-duration.js";
 import useHideoutData from "../../features/hideout/index.js";
-import { selectAllStations } from "../../features/settings/settingsSlice.mjs";
+import { selectAllStations } from "#src/features/settings/settingsSlice";
 import { getCheapestPrice } from "../../modules/format-cost-items.js";
 // import ProfitableGraph from './profitable-graph';
 

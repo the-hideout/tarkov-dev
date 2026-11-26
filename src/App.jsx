@@ -13,7 +13,7 @@ import i18n from "./i18n.js";
 
 import { useScrollToHash } from "./components/useScrollToHash.jsx";
 import RemoteControlId from "./components/remote-control-id/index.jsx";
-import { fetchTarkovTrackerProgress, setPlayerPosition } from "./features/settings/settingsSlice.mjs";
+import { fetchTarkovTrackerProgress, setPlayerPosition } from "#src/features/settings/settingsSlice";
 import { startProgressPolling } from "./features/settings/progressPolling.mjs";
 
 import { enableConnection, setConnectionStatus } from "#src/features/sockets/socketsSlice";

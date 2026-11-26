@@ -90,7 +90,8 @@
         "react-spinners": "^0.17.1",
         "react-syntax-highlighter": "^16.1.1",
         "react-zoom-pan-pinch": "^4.2.0",
-        "victory": "^37.3.6"
+        "victory": "^37.3.6",
+        "zod": "^4.6.7"
     },
     "browserslist": {
         "production": [

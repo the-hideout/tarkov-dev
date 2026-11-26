@@ -21,7 +21,7 @@ import {
     toggleHideDogtagBarters,
     setGameMode,
     setTarkovTrackerDomain,
-} from "#src/features/settings/settingsSlice.mjs";
+} from "#src/features/settings/settingsSlice";
 import useHideoutData from "#src/features/hideout/index.js";
 import useTradersData from "#src/features/traders/index.js";
 

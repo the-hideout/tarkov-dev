@@ -8,7 +8,7 @@ import { isUnchangedResult } from "../../modules/api-query.mjs";
 import doFetchQuests from "./do-fetch-quests.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
-import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import { setDataLoading, setDataLoaded } from "#src/features/settings/settingsSlice";
 import useTradersData from "../traders/index.js";
 import useItemsData from "../items/index.js";
 

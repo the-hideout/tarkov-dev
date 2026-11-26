@@ -24,7 +24,7 @@ import { formatCaliber } from "../../modules/format-ammo.mjs";
 
 import "./index.css";
 import { useSelector } from "react-redux";
-import { selectAllTraders } from "../../features/settings/settingsSlice.mjs";
+import { selectAllTraders } from "#src/features/settings/settingsSlice";
 
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;

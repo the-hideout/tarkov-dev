@@ -1,5 +1,5 @@
 import APIQuery from "../../modules/api-query.mjs";
-import { localStorageWriteJson } from "../settings/settingsSlice.mjs";
+import { localStorageWriteJson } from "#src/utils/local-storage";
 
 class ItemsQuery extends APIQuery {
     constructor() {

@@ -9,7 +9,7 @@ import doFetchHideout from "./do-fetch-hideout.mjs";
 
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
-import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import { setDataLoading, setDataLoaded } from "#src/features/settings/settingsSlice";
 import useCraftsData, { selectAllCrafts } from "../crafts/index.js";
 
 const initialState = {

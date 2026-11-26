@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { afterEach, beforeEach, expect, it, rstest } from "@rstest/core";
 import { startProgressPolling } from "./progressPolling.mjs";
-import settings, { fetchTarkovTrackerProgress } from "./settingsSlice.mjs";
+import settings, { fetchTarkovTrackerProgress } from "#src/features/settings/settingsSlice";
 
 const minute = 60_000;
 const apiKey = "PVP_example";
