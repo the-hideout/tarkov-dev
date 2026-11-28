@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useRef } from "react";
+import React, { Suspense, useCallback, useEffect } from "react";
 import CookieConsent from "react-cookie-consent";
 import { ErrorBoundary } from "react-error-boundary";
 import { Helmet } from "react-helmet";
@@ -14,6 +14,7 @@ import i18n from "./i18n.js";
 import { useScrollToHash } from "./components/useScrollToHash.jsx";
 import RemoteControlId from "./components/remote-control-id/index.jsx";
 import { fetchTarkovTrackerProgress, setPlayerPosition } from "./features/settings/settingsSlice.mjs";
+import { startProgressPolling } from "./features/settings/progressPolling.mjs";
 
 import { enableConnection, setConnectionStatus } from "#src/features/sockets/socketsSlice";
 import useStateWithLocalStorage from "./hooks/useStateWithLocalStorage.jsx";
@@ -154,10 +155,6 @@ function App() {
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const retrievedTarkovTrackerTokenRef = useRef(false);
-    const tarkovTrackerProgressIntervalRef = useRef(false);
-    const tarkovTrackerUpdatePendingRef = useRef(false);
-    const tabHasFocusRef = useRef(true);
 
     useEffect(() => {
         if (connectToId) {
@@ -168,81 +165,12 @@ function App() {
 
     const useTarkovTracker = useSelector((state) => state.settings[state.settings.gameMode].useTarkovTracker);
 
-    const progressStatus = useSelector((state) => {
-        return state.settings.progressStatus;
-    });
-
     const tarkovTrackerAPIKey = useSelector((state) => state.settings[state.settings.gameMode].tarkovTrackerAPIKey);
 
-    const updateTarkovTrackerData = useCallback(() => {
-        tarkovTrackerUpdatePendingRef.current = false;
-        retrievedTarkovTrackerTokenRef.current = tarkovTrackerAPIKey;
-        dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-    }, [dispatch, tarkovTrackerAPIKey]);
-
-    const scheduleTarkovTrackerUpdate = useCallback(() => {
-        clearInterval(tarkovTrackerProgressIntervalRef.current);
-        tarkovTrackerProgressIntervalRef.current = setInterval(
-            () => {
-                if (!tabHasFocusRef.current) {
-                    // window doesn't have focus, so postpone the update until it does
-                    tarkovTrackerUpdatePendingRef.current = true;
-                    return;
-                }
-                updateTarkovTrackerData();
-            },
-            1000 * 60 * 5,
-        );
-    }, [updateTarkovTrackerData]);
-
-    // monitor window focus for Tarkov Tracker updates
     useEffect(() => {
-        const handleFocus = () => {
-            tabHasFocusRef.current = true;
-            if (!tarkovTrackerUpdatePendingRef.current) {
-                return;
-            }
-            scheduleTarkovTrackerUpdate();
-            updateTarkovTrackerData();
-        };
-
-        const handleBlur = () => {
-            tabHasFocusRef.current = false;
-        };
-
-        window.addEventListener("focus", handleFocus);
-        window.addEventListener("blur", handleBlur);
-
-        // Clean up
-        return () => {
-            window.removeEventListener("focus", handleFocus);
-            window.removeEventListener("blur", handleBlur);
-        };
-    }, [scheduleTarkovTrackerUpdate, updateTarkovTrackerData]);
-
-    useEffect(() => {
-        if (!tarkovTrackerProgressIntervalRef.current && useTarkovTracker) {
-            scheduleTarkovTrackerUpdate();
-        }
-
-        if (
-            useTarkovTracker &&
-            progressStatus !== "loading" &&
-            retrievedTarkovTrackerTokenRef.current !== tarkovTrackerAPIKey
-        ) {
-            updateTarkovTrackerData();
-        }
-
-        if (tarkovTrackerProgressIntervalRef.current && !useTarkovTracker) {
-            clearInterval(tarkovTrackerProgressIntervalRef.current);
-            tarkovTrackerProgressIntervalRef.current = false;
-        }
-
-        return () => {
-            clearInterval(tarkovTrackerProgressIntervalRef.current);
-            tarkovTrackerProgressIntervalRef.current = false;
-        };
-    }, [progressStatus, scheduleTarkovTrackerUpdate, updateTarkovTrackerData, tarkovTrackerAPIKey, useTarkovTracker]);
+        if (!useTarkovTracker || !tarkovTrackerAPIKey) return;
+        return startProgressPolling(() => dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey)));
+    }, [dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         const handleMessage = (rawMessage) => {
