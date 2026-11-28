@@ -12,7 +12,7 @@ import useHideoutData from "../../features/hideout/index.js";
 import ValueCell from "../value-cell/index.jsx";
 import CostItemsCell from "../cost-items-cell/index.jsx";
 import formatCostItems from "../../modules/format-cost-items.js";
-import { selectAllStations, selectAllSkills } from "../../features/settings/settingsSlice.mjs";
+import { selectAllStations, selectAllSkills } from "#src/features/settings/settingsSlice";
 import CenterCell from "../center-cell/index.jsx";
 
 import "./index.css";

@@ -9,7 +9,7 @@ import DataTable from "../data-table/index.jsx";
 import useBartersData from "../../features/barters/index.js";
 import useCraftsData from "../../features/crafts/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
-import { selectAllTraders } from "../../features/settings/settingsSlice.mjs";
+import { selectAllTraders } from "#src/features/settings/settingsSlice";
 
 import ValueCell from "../value-cell/index.jsx";
 import CostItemsCell from "../cost-items-cell/index.jsx";

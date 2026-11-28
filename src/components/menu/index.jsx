@@ -24,7 +24,7 @@ import categoryPages from "../../data/category-pages.json";
 import { useBossesData } from "../../features/maps/index.js";
 
 import { mapIcons, useMapImagesSortedArray } from "../../features/maps/index.js";
-import { setGameMode } from "../../features/settings/settingsSlice.mjs";
+import { setGameMode } from "#src/features/settings/settingsSlice";
 
 import alertConfig from "./alert-config.js";
 import useTradersData from "../../features/traders/index.js";

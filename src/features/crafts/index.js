@@ -10,7 +10,7 @@ import { langCode } from "../../modules/lang-helpers.js";
 import useItemsData from "../items/index.js";
 import useQuestsData from "../quests/index.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
-import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import { setDataLoading, setDataLoaded } from "#src/features/settings/settingsSlice";
 
 const initialState = {
     data: [],

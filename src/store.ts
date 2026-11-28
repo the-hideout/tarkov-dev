@@ -10,7 +10,7 @@ import { mapsReducer } from "./features/maps/index.js";
 import { seasonReducer } from "./features/season/index.js";
 import { statusReducer } from "./features/status/index.mjs";
 import socketsReducer from "#src/features/sockets/socketsSlice";
-import settingsReducer from "./features/settings/settingsSlice.mjs";
+import settingsReducer from "#src/features/settings/settingsSlice";
 
 const store = configureStore({
     reducer: {

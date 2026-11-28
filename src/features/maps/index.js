@@ -26,7 +26,7 @@ import doFetchMaps from "./do-fetch-maps.mjs";
 import { langCode, useLangCode } from "../../modules/lang-helpers.js";
 import i18n from "../../i18n.js";
 import { windowHasFocus } from "../../modules/window-focus-handler.mjs";
-import { setDataLoading, setDataLoaded } from "../settings/settingsSlice.mjs";
+import { setDataLoading, setDataLoaded } from "#src/features/settings/settingsSlice";
 import rawBossData from "../../data/bosses.json";
 
 import rawMapData from "../../data/maps.json";

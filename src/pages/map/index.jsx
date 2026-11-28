@@ -18,7 +18,7 @@ import "../../modules/leaflet-control-map-search.js";
 import "../../modules/leaflet-control-map-settings.js";
 import "../../styles/mapSettings.css";
 
-import { setPlayerPosition } from "../../features/settings/settingsSlice.mjs";
+import { setPlayerPosition } from "#src/features/settings/settingsSlice";
 
 import { useMapImages } from "../../features/maps/index.js";
 import useItemsData, { useHandbookData } from "../../features/items/index.js";
